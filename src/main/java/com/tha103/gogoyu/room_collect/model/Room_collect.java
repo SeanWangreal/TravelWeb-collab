@@ -2,46 +2,112 @@ package com.tha103.gogoyu.room_collect.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Objects;
 
-public class Room_collect implements Serializable{
-	private Integer cus_id;
-	private Integer room_id;
-	private Timestamp collect_time;
-	public Room_collect(Integer cus_id, Integer room_id, Timestamp collect_time) {
-		super();
-		this.cus_id = cus_id;
-		this.room_id = room_id;
-		this.collect_time = collect_time;
-	}
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
+
+import com.tha103.gogoyu.room_collect.model.Room_collect.DoublePk;
+
+@Entity
+@Table(name = "room_collect")
+@IdClass(DoublePk.class)
+public class Room_collect implements Serializable {
+	@Id
+	@Column(name = "cus_id")
+	private Integer cusId;
+
+	@Id
+	@Column(name = "room_id")
+	private Integer roomId;
+	@Column(name = "collect_time")
+	private Timestamp collectTime;
 
 	public Room_collect() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	
-	
-	public Integer getCus_id() {
-		return cus_id;
+	public Room_collect(Integer cusId, Integer roomId, Timestamp collectTime) {
+		super();
+		this.cusId = cusId;
+		this.roomId = roomId;
+		this.collectTime = collectTime;
+	}
+	public Integer getCusId() {
+		return cusId;
 	}
 	
-	public void setCus_id(Integer room_id) {
-		this.room_id = room_id;
+	public void setCusId(Integer cusId) {
+		this.cusId = cusId;
 	}
 	
-	public Integer getRoom_id() {
-		return room_id;
+	public Integer getRoomId() {
+		return roomId;
 	}
 	
-	public void setRoom_id(Integer room_id) {
-		this.room_id = room_id;
+	public void setRoomId(Integer roomId) {
+		this.roomId = roomId;
+	}
+	
+	public Timestamp getCollectTime() {
+		return collectTime;
+	}
+	
+	public void setCollectTime(Timestamp collectTime) {
+		this.collectTime = collectTime;
 	}
 
-	public Timestamp getCollect_time() {
-		return collect_time;
+	static class DoublePk implements Serializable {
+		private static final long serialVersionUID = 1L;
+		private Integer cusId;
+		private Integer roomId;
+
+		public DoublePk() {
+			super();
+		}
+
+		public Integer getCusId() {
+			return cusId;
+		}
+
+		public void setCusId(Integer cusId) {
+			this.cusId = cusId;
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(cusId, roomId);
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			DoublePk other = (DoublePk) obj;
+			return Objects.equals(cusId, other.cusId) && Objects.equals(roomId, other.roomId);
+		}
+
+		public Integer getRoomId() {
+			return roomId;
+		}
+
+		public void setRoomId(Integer roomId) {
+			this.roomId = roomId;
+		}
+
+		public DoublePk(Integer cusId, Integer roomId) {
+			super();
+			this.cusId = cusId;
+			this.roomId = roomId;
+		}
+
 	}
 
-	public void setCollect_time(Timestamp collect_time) {
-		this.collect_time = collect_time;
-	}
 }
