@@ -25,15 +25,15 @@ public class Trip_thumbupJDBCDAO {
 	private static final String DELETE = "delete from thumbup_trip where cus_id = ? and trip_ord_id = ?";
 	private static final String UPDATE = "update thumbup_trip set thumbup_time = ? where cus_id = ? and trip_ord_id = ?";
 
-	public void insert(Trip_thumbup trip_thumbup) {
+	public void insert(Trip_thumbup tripThumbup) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(INSERT_STMT);
-			pstmt.setInt(1, trip_thumbup.getCus_id());
-			pstmt.setInt(2, trip_thumbup.getTrip_ord_id());
-			pstmt.setTimestamp(3, trip_thumbup.getThumbup_time());
+			pstmt.setInt(1, tripThumbup.getCusId());
+			pstmt.setInt(2, tripThumbup.getTripOrdId());
+			pstmt.setTimestamp(3, tripThumbup.getThumbupTime());
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			se.getStackTrace();
@@ -42,15 +42,15 @@ public class Trip_thumbupJDBCDAO {
 		}
 	};
 
-	public void update(Trip_thumbup trip_thumbup) {
+	public void update(Trip_thumbup tripThumbup) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
-			pstmt.setTimestamp(1, trip_thumbup.getThumbup_time());
-			pstmt.setInt(2, trip_thumbup.getCus_id());
-			pstmt.setInt(3, trip_thumbup.getTrip_ord_id());
+			pstmt.setTimestamp(1, tripThumbup.getThumbupTime());
+			pstmt.setInt(2, tripThumbup.getCusId());
+			pstmt.setInt(3, tripThumbup.getTripOrdId());
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			se.getStackTrace();
@@ -59,14 +59,14 @@ public class Trip_thumbupJDBCDAO {
 		}
 	};
 
-	public void delete(Integer cus_id, Integer trip_ord_id) {
+	public void delete(Integer cusId, Integer tripOrdId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(DELETE);
-			pstmt.setInt(1, cus_id);
-			pstmt.setInt(2, trip_ord_id);
+			pstmt.setInt(1, cusId);
+			pstmt.setInt(2, tripOrdId);
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			se.getStackTrace();
@@ -75,7 +75,7 @@ public class Trip_thumbupJDBCDAO {
 		}
 	};
 
-	public Trip_thumbup findByPrimaryKey(Integer cus_id, Integer trip_ord_id) {
+	public Trip_thumbup findByPrimaryKey(Integer cusId, Integer tripOrdId) {
 		Trip_thumbup trip_thumbup = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -83,14 +83,14 @@ public class Trip_thumbupJDBCDAO {
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
-			pstmt.setInt(1, cus_id);
-			pstmt.setInt(2, trip_ord_id);
+			pstmt.setInt(1, cusId);
+			pstmt.setInt(2, tripOrdId);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				trip_thumbup = new Trip_thumbup();
-				trip_thumbup.setCus_id(rs.getInt(1));
-				trip_thumbup.setTrip_ord_id(rs.getInt(2));
-				trip_thumbup.setThumbup_time(rs.getTimestamp(3));
+				trip_thumbup.setCusId(rs.getInt(1));
+				trip_thumbup.setTripOrdId(rs.getInt(2));
+				trip_thumbup.setThumbupTime(rs.getTimestamp(3));
 			}
 		} catch (SQLException se) {
 			se.getStackTrace();
@@ -112,9 +112,9 @@ public class Trip_thumbupJDBCDAO {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				trip_thumbup = new Trip_thumbup();
-				trip_thumbup.setCus_id(rs.getInt("cus_id"));
-				trip_thumbup.setTrip_ord_id(rs.getInt("trip_ord_id"));
-				trip_thumbup.setThumbup_time(rs.getTimestamp("thumbup_time"));
+				trip_thumbup.setCusId(rs.getInt("cus_id"));
+				trip_thumbup.setTripOrdId(rs.getInt("trip_ord_id"));
+				trip_thumbup.setThumbupTime(rs.getTimestamp("thumbup_time"));
 				list.add(trip_thumbup);
 			}
 		} catch (SQLException se) {
@@ -139,9 +139,9 @@ public class Trip_thumbupJDBCDAO {
 //		dao.delete(121, 201);
 		// 查詢一個
 //		Thumbup_trip select = dao.findByPrimaryKey(121, 201);
-//		System.out.println(select.getCus_id());
-//		System.out.println(select.getTrip_ord_id());
-//		System.out.println(select.getThumbup_time());
+//		System.out.println(select.getCusId());
+//		System.out.println(select.getTripOrdId());
+//		System.out.println(select.getThumbupTime());
 		// 查詢全部
 //		List<Thumbup_trip> all = dao.getAll();
 //		for(Thumbup_trip item : all) {

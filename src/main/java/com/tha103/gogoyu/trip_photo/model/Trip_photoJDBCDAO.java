@@ -36,9 +36,9 @@ public class Trip_photoJDBCDAO implements Trip_photoDAO_interface {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			String[] cols = {"trip_photo_id"};
 			pstmt = con.prepareStatement(INSERT_STMT, cols);
-			pstmt.setInt(1, trip_photo.getTrip_id());
+			pstmt.setInt(1, trip_photo.getTripId());
 			pstmt.setBytes(2, trip_photo.getPhoto());
-			pstmt.setTimestamp(3, trip_photo.getUpload_time());
+			pstmt.setTimestamp(3, trip_photo.getUploadTime());
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -54,10 +54,10 @@ public class Trip_photoJDBCDAO implements Trip_photoDAO_interface {
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
-			pstmt.setInt(1, trip_photo.getTrip_id());
+			pstmt.setInt(1, trip_photo.getTripId());
 			pstmt.setBytes(2, trip_photo.getPhoto());
-			pstmt.setTimestamp(3, trip_photo.getUpload_time());
-			pstmt.setInt(4, trip_photo.getTrip_photo_id());
+			pstmt.setTimestamp(3, trip_photo.getUploadTime());
+			pstmt.setInt(4, trip_photo.getTripPhotoId());
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -95,10 +95,10 @@ public class Trip_photoJDBCDAO implements Trip_photoDAO_interface {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				trip_photo = new Trip_photo();
-				trip_photo.setTrip_photo_id(rs.getInt("Trip_photo_id"));
-				trip_photo.setTrip_id(rs.getInt("Trip_id"));
+				trip_photo.setTripPhotoId(rs.getInt("trip_photo_id"));
+				trip_photo.setTripId(rs.getInt("trip_id"));
 				trip_photo.setPhoto(rs.getBytes("photo"));
-				trip_photo.setUpload_time(rs.getTimestamp("upload_time"));
+				trip_photo.setUploadTime(rs.getTimestamp("upload_time"));
 			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -121,10 +121,10 @@ public class Trip_photoJDBCDAO implements Trip_photoDAO_interface {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				trip_photo = new Trip_photo();
-				trip_photo.setTrip_photo_id(rs.getInt("Trip_photo_id"));
-				trip_photo.setTrip_id(rs.getInt("Trip_id"));
+				trip_photo.setTripPhotoId(rs.getInt("trip_photo_id"));
+				trip_photo.setTripId(rs.getInt("trip_id"));
 				trip_photo.setPhoto(rs.getBytes("photo"));
-				trip_photo.setUpload_time(rs.getTimestamp("upload_time"));
+				trip_photo.setUploadTime(rs.getTimestamp("upload_time"));
 				list.add(trip_photo);
 			}
 		} catch (SQLException se) {
@@ -147,27 +147,27 @@ public class Trip_photoJDBCDAO implements Trip_photoDAO_interface {
 
 //		// 新增
 //		Trip_photo trip_photo01 = new Trip_photo();
-//		trip_photo01.setTrip_id(2);
+//		trip_photo01.setTripId(2);
 //		try {
 //			byte[] pic = getPictureByteArray("C:\\Users\\Tibame_T14\\Pictures\\20230322_171359.jpg");
 //			trip_photo01.setPhoto(pic);
 //		} catch(IOException ie){
 //			System.out.println(ie);
 //		}
-//		trip_photo01.setUpload_time(java.sql.Timestamp.valueOf("2023-09-11 10:36:33"));
+//		trip_photo01.setUploadTime(java.sql.Timestamp.valueOf("2023-09-11 10:36:33"));
 //		dao.insert(trip_photo01);
 
 //		// 修改
 //		Trip_photo trip_photo02 = new Trip_photo();
-//		trip_photo02.setTrip_photo_id(1);
-//		trip_photo02.setTrip_id(1);
+//		trip_photo02.setTripPhotoId(1);
+//		trip_photo02.setTripId(1);
 //		try {
 //			byte[] pic = getPictureByteArray("C:\\Users\\Tibame_T14\\Pictures\\20230322_171359.jpg");
 //			trip_photo02.setPhoto(pic);
 //		} catch(IOException ie) {
 //			System.out.println(ie);
 //		}
-//		trip_photo02.setUpload_time(java.sql.Timestamp.valueOf("2023-09-11 12:00:00"));
+//		trip_photo02.setUploadTime(java.sql.Timestamp.valueOf("2023-09-11 12:00:00"));
 //		dao.update(trip_photo02);
 
 //		// 刪除
@@ -175,19 +175,19 @@ public class Trip_photoJDBCDAO implements Trip_photoDAO_interface {
 
 //		// 查詢單筆
 //		Trip_photo trip_photo03 = dao.findByPrimaryKey(2);
-//		System.out.print(trip_photo03.getTrip_photo_id() + ",");
-//		System.out.print(trip_photo03.getTrip_id() + ",");
+//		System.out.print(trip_photo03.getTripPhotoId() + ",");
+//		System.out.print(trip_photo03.getTripId() + ",");
 //		System.out.print(trip_photo03.getPhoto() + ",");
-//		System.out.println(trip_photo03.getUpload_time());
+//		System.out.println(trip_photo03.getUploadTime());
 //		System.out.println("---------------------");
 
 //		// 查詢全部
 //		List<Trip_photo> list = dao.getAll();
 //		for(Trip_photo aPhoto : list) {
-//			System.out.print(aPhoto.getTrip_photo_id() + ",");
-//			System.out.print(aPhoto.getTrip_id() + ",");
+//			System.out.print(aPhoto.getTripPhotoId() + ",");
+//			System.out.print(aPhoto.getTripId() + ",");
 //			System.out.print(aPhoto.getPhoto() + ",");
-//			System.out.print(aPhoto.getUpload_time());
+//			System.out.print(aPhoto.getUploadTime());
 //			System.out.println();
 //		}
 	}
