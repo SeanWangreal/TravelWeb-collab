@@ -1,7 +1,7 @@
 package com.tha103.gogoyu.room_ord.model;
 
 import java.util.*;
-
+ 
 
 public interface Room_ordDAO_interface {
 	public void insert(Room_ord roomOrd);
