@@ -3,10 +3,17 @@ package com.tha103.gogoyu.trip_ord.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="trip_ord")
 public class Trip_ord implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private Integer trip_ord_id;	
+	@Id
+	private Integer trip_ord_id;
 	private Integer trip_id;
 	private Integer plan_id;
 	private Integer cus_id;
