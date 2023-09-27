@@ -6,6 +6,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class HibernateUtil {
+<<<<<<< HEAD
 	private static StandardServiceRegistry registry;
 	private static final SessionFactory sessionFactory = createSessionFactory();
 	
@@ -38,4 +39,36 @@ public class HibernateUtil {
 			StandardServiceRegistryBuilder.destroy(registry);
 	}
 	
+=======
+
+	private static StandardServiceRegistry registry;
+	private static final SessionFactory sessionFactory = createSessionFactory();
+	
+	public static SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+
+	private static SessionFactory createSessionFactory() {
+		try {
+
+			registry = new StandardServiceRegistryBuilder()
+					.configure()
+					.build();
+
+			SessionFactory sessionFactory = new MetadataSources(registry)
+					.buildMetadata()
+					.buildSessionFactory();
+
+			return sessionFactory;
+		} catch (Exception exc) {
+			exc.printStackTrace();
+			throw new ExceptionInInitializerError(exc);
+		}
+	}
+	
+	public static void shutdown() {
+		if (registry != null)
+			StandardServiceRegistryBuilder.destroy(registry);
+	}
+>>>>>>> refs/heads/HolloWu
 }
