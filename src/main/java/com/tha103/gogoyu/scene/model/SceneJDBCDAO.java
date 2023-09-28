@@ -160,7 +160,7 @@ public class SceneJDBCDAO implements SceneDAO_interface {
 
 	public static void main(String[] args) throws IOException {
 		SceneJDBCDAO dao = new SceneJDBCDAO();
-		File scene_data = new File("./src/main/java/scene/model/景點.csv");
+		File scene_data = new File("./src/main/java/com/tha103/gogoyu/scene/model/景點.csv");
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(scene_data));
 			String line;
