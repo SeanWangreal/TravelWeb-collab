@@ -3,38 +3,53 @@ package com.tha103.gogoyu.trip_photo.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "trip_photo")
 public class Trip_photo implements Serializable {
-	private Integer trip_photo_id;
-	private Integer trip_id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "trip_photo_id")
+	private Integer tripPhotoId;
+	@Column(name = "trip_id")
+	private Integer tripId;
+	@Column(name = "photo", columnDefinition = "longblob")
 	private byte[] photo;
-	private Timestamp upload_time;
+	@Column(name = "upload_time")
+	private Timestamp uploadTime;
 
 	public Trip_photo() {
 		super();
 	}
 
-	public Trip_photo(Integer trip_photo_id, Integer trip_id, byte[] photo, Timestamp upload_time) {
+	public Trip_photo(Integer tripPhotoId, Integer tripId, byte[] photo, Timestamp uploadTime) {
 		super();
-		this.trip_photo_id = trip_photo_id;
-		this.trip_id = trip_id;
+		this.tripPhotoId = tripPhotoId;
+		this.tripId = tripId;
 		this.photo = photo;
-		this.upload_time = upload_time;
+		this.uploadTime = uploadTime;
 	}
 
-	public Integer getTrip_photo_id() {
-		return trip_photo_id;
+	public Integer getTripPhotoId() {
+		return tripPhotoId;
 	}
 
-	public void setTrip_photo_id(Integer trip_photo_id) {
-		this.trip_photo_id = trip_photo_id;
+	public void setTripPhotoId(Integer tripPhotoId) {
+		this.tripPhotoId = tripPhotoId;
 	}
 
-	public Integer getTrip_id() {
-		return trip_id;
+	public Integer getTripId() {
+		return tripId;
 	}
 
-	public void setTrip_id(Integer trip_id) {
-		this.trip_id = trip_id;
+	public void setTripId(Integer tripId) {
+		this.tripId = tripId;
 	}
 
 	public byte[] getPhoto() {
@@ -45,11 +60,11 @@ public class Trip_photo implements Serializable {
 		this.photo = photo;
 	}
 
-	public Timestamp getUpload_time() {
-		return upload_time;
+	public Timestamp getUploadTime() {
+		return uploadTime;
 	}
 
-	public void setUpload_time(Timestamp upload_time) {
-		this.upload_time = upload_time;
+	public void setUploadTime(Timestamp uploadTime) {
+		this.uploadTime = uploadTime;
 	}
 }

@@ -24,11 +24,11 @@ public class Room_photoJDBCDAO implements Room_photoDAO_interface {
 		}
 	}
 	
-	private static final String INSERT_STMT = "INSERT INTO room_photo (room_id,photo,upload_time) VALUES (?, ? ,?)";
-	private static final String GET_ALL_STMT = "SELECT room_photo_id ,room_id,photo,upload_time FROM room_photo";
-	private static final String GET_ONE_STMT = "SELECT room_photo_id,room_id,photo,upload_time FROM room_photo where room_photo_id = ?";
-	private static final String DELETE_ROOM_PHOTO = "DELETE FROM room_photo where room_photo_id = ?";	
-	private static final String UPDATE = "UPDATE room_photo set room_id = ?,photo = ?,upload_time = ? where room_photo_id = ?";
+	private static final String INSERT_STMT = "INSERT INTO roomPhoto (room_id,photo,upload_time) VALUES (?, ? ,?)";
+	private static final String GET_ALL_STMT = "SELECT room_photo_id ,room_id,photo,upload_time FROM roomPhoto";
+	private static final String GET_ONE_STMT = "SELECT room_photo_id,room_id,photo,upload_time FROM roomPhoto where room_photo_id = ?";
+	private static final String DELETE_ROOM_PHOTO = "DELETE FROM roomPhoto where room_photo_id = ?";	
+	private static final String UPDATE = "UPDATE roomPhoto set room_id = ?,photo = ?,upload_time = ? where room_photo_id = ?";
 	
 	@Override
 	public void insert(Room_photo roomPhoto) {
@@ -73,6 +73,7 @@ public class Room_photoJDBCDAO implements Room_photoDAO_interface {
 			pstmt.setBytes(2, roomPhoto.getPhoto());
 			pstmt.setTimestamp(3, roomPhoto.getUploadTime());			
 			pstmt.setInt(4, roomPhoto.getRoomPhotoId());
+			pstmt.setInt(4, roomPhoto.getRoomId());
 			pstmt.executeUpdate();
 
 		} catch (SQLException se) {
@@ -208,6 +209,7 @@ public class Room_photoJDBCDAO implements Room_photoDAO_interface {
 //		System.out.print(photo003.getRoomId() +",");
 //		System.out.print(photo003.getPhoto() +",");
 //		System.out.print(photo003.getUploadTime()+" ");
+
 		
 //		List<Room_photo> list =dao.getAll();
 //		for(Room_photo sPhoto: list) {
@@ -215,6 +217,12 @@ public class Room_photoJDBCDAO implements Room_photoDAO_interface {
 //			System.out.print(sPhoto.getPhoto()+",");
 //			System.out.print(sPhoto.getUploadTime()+",");
 //		}
+		List<Room_photo> list =dao.getAll();
+		for(Room_photo sPhoto: list) {
+			System.out.print(sPhoto.getRoomId()+",");
+			System.out.print(sPhoto.getPhoto()+",");
+			System.out.print(sPhoto.getUploadTime()+",");
+		}
 	}
 	}
 

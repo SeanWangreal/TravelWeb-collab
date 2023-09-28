@@ -24,15 +24,15 @@ public class Room_thumbupJDBCDAO {
 	private static final String DELETE = "delete from thumbup_room where cus_id = ? and room_ord_id = ?";
 	private static final String UPDATE = "update thumbup_room set thumbup_time = ? where cus_id = ? and room_ord_id = ?";
 
-	public void insert(Room_thumbup room_thumbup) {
+	public void insert(Room_thumbup roomThumbup) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(INSERT_STMT);
-			pstmt.setInt(1, room_thumbup.getCus_id());
-			pstmt.setInt(2, room_thumbup.getRoom_ord_id());
-			pstmt.setTimestamp(3, room_thumbup.getThumbup_time());
+			pstmt.setInt(1, roomThumbup.getCusId());
+			pstmt.setInt(2, roomThumbup.getRoomOrdId());
+			pstmt.setTimestamp(3, roomThumbup.getThumbupTime());
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			se.getStackTrace();
@@ -41,15 +41,15 @@ public class Room_thumbupJDBCDAO {
 		}
 	};
 
-	public void update(Room_thumbup room_thumbup) {
+	public void update(Room_thumbup roomThumbup) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
-			pstmt.setTimestamp(1, room_thumbup.getThumbup_time());
-			pstmt.setInt(2, room_thumbup.getCus_id());
-			pstmt.setInt(3, room_thumbup.getRoom_ord_id());
+			pstmt.setTimestamp(1, roomThumbup.getThumbupTime());
+			pstmt.setInt(2, roomThumbup.getCusId());
+			pstmt.setInt(3, roomThumbup.getRoomOrdId());
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			se.getStackTrace();
@@ -58,14 +58,14 @@ public class Room_thumbupJDBCDAO {
 		}
 	};
 
-	public void delete(Integer cus_id, Integer room_ord_id) {
+	public void delete(Integer cusId, Integer roomOrdId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(DELETE);
-			pstmt.setInt(1, cus_id);
-			pstmt.setInt(2, room_ord_id);
+			pstmt.setInt(1, cusId);
+			pstmt.setInt(2, roomOrdId);
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			se.getStackTrace();
@@ -74,34 +74,34 @@ public class Room_thumbupJDBCDAO {
 		}
 	};
 
-	public Room_thumbup findByPrimaryKey(Integer cus_id, Integer room_ord_id) {
-		Room_thumbup room_thumbup = null;
+	public Room_thumbup findByPrimaryKey(Integer cusId, Integer roomOrdId) {
+		Room_thumbup roomThumbup = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
-			pstmt.setInt(1, cus_id);
-			pstmt.setInt(2, room_ord_id);
+			pstmt.setInt(1, cusId);
+			pstmt.setInt(2, roomOrdId);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				room_thumbup = new Room_thumbup();
-				room_thumbup.setCus_id(rs.getInt(1));
-				room_thumbup.setRoom_ord_id(rs.getInt(2));
-				room_thumbup.setThumbup_time(rs.getTimestamp(3));
+				roomThumbup = new Room_thumbup();
+				roomThumbup.setCusId(rs.getInt(1));
+				roomThumbup.setRoomOrdId(rs.getInt(2));
+				roomThumbup.setThumbupTime(rs.getTimestamp(3));
 			}
 		} catch (SQLException se) {
 			se.getStackTrace();
 		} finally {
 			Util.closeResources(con, pstmt, rs);
 		}
-		return room_thumbup;
+		return roomThumbup;
 	};
 
 	public List<Room_thumbup> getAll() {
 		List<Room_thumbup> list = new ArrayList<Room_thumbup>();
-		Room_thumbup room_thumbup = null;
+		Room_thumbup roomThumbup = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -110,11 +110,11 @@ public class Room_thumbupJDBCDAO {
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				room_thumbup = new Room_thumbup();
-				room_thumbup.setCus_id(rs.getInt("cus_id"));
-				room_thumbup.setRoom_ord_id(rs.getInt("room_ord_id"));
-				room_thumbup.setThumbup_time(rs.getTimestamp("thumbup_time"));
-				list.add(room_thumbup);
+				roomThumbup = new Room_thumbup();
+				roomThumbup.setCusId(rs.getInt("cus_id"));
+				roomThumbup.setRoomOrdId(rs.getInt("room_ord_id"));
+				roomThumbup.setThumbupTime(rs.getTimestamp("thumbup_time"));
+				list.add(roomThumbup);
 			}
 		} catch (SQLException se) {
 			se.getStackTrace();
@@ -138,9 +138,9 @@ public class Room_thumbupJDBCDAO {
 //		dao.delete(121, 201);
 		// 查詢一個
 //		Thumbup_room select = dao.findByPrimaryKey(121, 201);
-//		System.out.println(select.getCus_id());
-//		System.out.println(select.getRoom_ord_id());
-//		System.out.println(select.getThumbup_time());
+//		System.out.println(select.getCusId());
+//		System.out.println(select.getRoomOrdId());
+//		System.out.println(select.getThumbupTime());
 		// 查詢全部
 //		List<Thumbup_room> all = dao.getAll();
 //		for(Thumbup_room item : all) {

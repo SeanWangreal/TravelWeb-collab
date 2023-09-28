@@ -22,16 +22,18 @@ public class Room_photo implements Serializable {
 	@Column(name="room_id")
 	private Integer roomId;
 	
-	@Column(name="photo",columnDefinition = "longblob")
+	@Column(name = "photo", columnDefinition = "longblob")
 	private byte[] photo;
 	
 	@Column(name="upload_time", insertable = false, updatable = false)
 	private Timestamp uploadTime;
-	
+
+
 	public Room_photo() {
 		super();
 	}
-	
+
+
 	public Room_photo(Integer roomPhotoId, Integer roomId, byte[] photo, Timestamp uploadTime) {
 		super();
 		this.roomPhotoId = roomPhotoId;
@@ -72,12 +74,5 @@ public class Room_photo implements Serializable {
 		this.uploadTime = uploadTime;
 	}
 
-	
 
-	
-
-	
-	
-	
-	
 }

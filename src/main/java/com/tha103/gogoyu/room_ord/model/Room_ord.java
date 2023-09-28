@@ -1,8 +1,8 @@
 package com.tha103.gogoyu.room_ord.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,9 +27,9 @@ public class Room_ord implements Serializable {
 	@Column(name = "amount")
 	private Integer amount;
 	@Column(name = "total_price")
-	private Double totalPrice;
+	private BigDecimal totalPrice;
 	@Column(name = "commision")
-	private Double commission;
+	private BigDecimal commission;
 	@Column(name = "people")
 	private Integer people;
 	@Column(name = "check_in_time", insertable = false, updatable = false)
@@ -51,9 +51,10 @@ public class Room_ord implements Serializable {
 	public Room_ord() {
 		super();	
 		}
-	public Room_ord(Integer roomOrdId, Integer planId, Integer roomId, Integer cusId, Integer amount, Double totalPrice,
-			Double commission, Integer people, Timestamp checkInTime, Timestamp checkOutTime, Integer ordStatus,
-			Timestamp ordTime, String remark, Integer score, String comments, Timestamp commentsTime) {
+	public Room_ord(Integer roomOrdId, Integer planId, Integer roomId, Integer cusId, Integer amount,
+			BigDecimal totalPrice, BigDecimal commission, Integer people, Timestamp checkInTime, Timestamp checkOutTime,
+			Integer ordStatus, Timestamp ordTime, String remark, Integer score, String comments,
+			Timestamp commentsTime) {
 		super();
 		this.roomOrdId = roomOrdId;
 		this.planId = planId;
@@ -102,16 +103,16 @@ public class Room_ord implements Serializable {
 	public void setAmount(Integer amount) {
 		this.amount = amount;
 	}
-	public Double getTotalPrice() {
+	public BigDecimal getTotalPrice() {
 		return totalPrice;
 	}
-	public void setTotalPrice(Double totalPrice) {
+	public void setTotalPrice(BigDecimal totalPrice) {
 		this.totalPrice = totalPrice;
 	}
-	public Double getCommission() {
+	public BigDecimal getCommission() {
 		return commission;
 	}
-	public void setCommission(Double commission) {
+	public void setCommission(BigDecimal commission) {
 		this.commission = commission;
 	}
 	public Integer getPeople() {
@@ -168,6 +169,7 @@ public class Room_ord implements Serializable {
 	public void setCommentsTime(Timestamp commentsTime) {
 		this.commentsTime = commentsTime;
 	}
+	
 	
 	
 }

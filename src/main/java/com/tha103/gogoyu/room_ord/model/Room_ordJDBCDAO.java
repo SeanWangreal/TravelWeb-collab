@@ -42,8 +42,8 @@ public class Room_ordJDBCDAO implements Room_ordDAO_interface {
 			pstmt.setInt(2, roomOrd.getRoomId());
 			pstmt.setInt(3, roomOrd.getCusId());
 			pstmt.setInt(4, roomOrd.getAmount());
-			pstmt.setDouble(5, roomOrd.getTotalPrice());
-			pstmt.setDouble(6, roomOrd.getCommission());
+			pstmt.setBigDecimal(5, roomOrd.getTotalPrice());
+			pstmt.setBigDecimal(6, roomOrd.getCommission());
 			pstmt.setInt(7, roomOrd.getPeople());
 			pstmt.setTimestamp(8, roomOrd.getCheckInTime());
 			pstmt.setTimestamp(9, roomOrd.getCheckOutTime());
@@ -76,8 +76,8 @@ public class Room_ordJDBCDAO implements Room_ordDAO_interface {
 			pstmt.setInt(2, roomOrd.getRoomId());
 			pstmt.setInt(3, roomOrd.getCusId());
 			pstmt.setInt(4, roomOrd.getAmount());
-			pstmt.setDouble(5, roomOrd.getTotalPrice());
-			pstmt.setDouble(6, roomOrd.getCommission());
+			pstmt.setBigDecimal(5, roomOrd.getTotalPrice());
+			pstmt.setBigDecimal(6, roomOrd.getCommission());
 			pstmt.setInt(7, roomOrd.getPeople());
 			pstmt.setTimestamp(8, roomOrd.getCheckInTime());
 			pstmt.setTimestamp(9, roomOrd.getCheckOutTime());
@@ -147,8 +147,8 @@ public class Room_ordJDBCDAO implements Room_ordDAO_interface {
 				roomOrd.setRoomId(rs.getInt("room_id"));
 				roomOrd.setCusId(rs.getInt("cus_id"));
 				roomOrd.setAmount(rs.getInt("amount"));
-				roomOrd.setTotalPrice(rs.getDouble("total_price"));
-				roomOrd.setCommission(rs.getDouble("commission"));
+				roomOrd.setTotalPrice(rs.getBigDecimal("total_price"));
+				roomOrd.setCommission(rs.getBigDecimal("commission"));
 				roomOrd.setPeople(rs.getInt("people"));
 				roomOrd.setCheckInTime(rs.getTimestamp("check_in_time"));
 				roomOrd.setCheckOutTime(rs.getTimestamp("check_out_time"));
@@ -190,8 +190,8 @@ public class Room_ordJDBCDAO implements Room_ordDAO_interface {
 				roomOrd.setRoomId(rs.getInt("room_id"));
 				roomOrd.setCusId(rs.getInt("cus_id"));
 				roomOrd.setAmount(rs.getInt("amount"));
-				roomOrd.setTotalPrice(rs.getDouble("total_price"));
-				roomOrd.setCommission(rs.getDouble("commission"));
+				roomOrd.setTotalPrice(rs.getBigDecimal("total_price"));
+				roomOrd.setCommission(rs.getBigDecimal("commission"));
 				roomOrd.setPeople(rs.getInt("people"));
 				roomOrd.setCheckInTime(rs.getTimestamp("check_in_time"));
 				roomOrd.setCheckInTime(rs.getTimestamp("check_out_time"));
@@ -216,23 +216,23 @@ public class Room_ordJDBCDAO implements Room_ordDAO_interface {
 
 		Room_ordJDBCDAO dao = new Room_ordJDBCDAO();
 //	// 新增
-		Room_ord room_ord001 = new Room_ord();
-		room_ord001.setPlanId(3);
-		room_ord001.setRoomId(1);
-		room_ord001.setCusId(1);
-		room_ord001.setAmount(1);
-		room_ord001.setTotalPrice(1.0);
-		room_ord001.setCommission(1.0);
-		room_ord001.setPeople(1);
-		room_ord001.setCheckInTime(Timestamp.valueOf("2023-09-11 17:55:55"));
-		room_ord001.setCheckOutTime(Timestamp.valueOf("2023-09-12 17:55:55"));
-		room_ord001.setOrdStatus(1);
-		room_ord001.setOrdTime(Timestamp.valueOf("2023-09-14 17:55:55"));
-		room_ord001.setRemark("測");
-		room_ord001.setScore(1);
-		room_ord001.setComments("測");
-		room_ord001.setCommentsTime(Timestamp.valueOf("2023-09-15 17:55:55"));
-		dao.insert(room_ord001);
+		Room_ord ord001 = new Room_ord();
+		ord001.setPlanId(3);
+		ord001.setRoomId(1);
+		ord001.setCusId(1);
+		ord001.setAmount(1);
+//		ord001.setTotalPrice(10);
+//		ord001.setCommission(10.1);
+		ord001.setPeople(1);
+		ord001.setCheckInTime(Timestamp.valueOf("2023-09-11 17:55:55"));
+		ord001.setCheckOutTime(Timestamp.valueOf("2023-09-12 17:55:55"));
+		ord001.setOrdStatus(1);
+		ord001.setOrdTime(Timestamp.valueOf("2023-09-14 17:55:55"));
+		ord001.setRemark("測");
+		ord001.setScore(1);
+		ord001.setComments("測");
+		ord001.setCommentsTime(Timestamp.valueOf("2023-09-15 17:55:55"));
+		dao.insert(ord001);
 //修改
 //		Room_ord room_ord002 = new Room_ord();
 //		room_ord002.setRoomOrdId(3);
