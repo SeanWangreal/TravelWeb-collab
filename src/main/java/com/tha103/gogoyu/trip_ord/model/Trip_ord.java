@@ -1,6 +1,7 @@
 package com.tha103.gogoyu.trip_ord.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -25,10 +26,10 @@ public class Trip_ord implements Serializable{
 	@Column(name="amount")
 	private Integer amount;
 	@Column(name="total_price")
-    private Double totalPrice;
+    private BigDecimal totalPrice;
 	@Column(name="commission")
-    private Double commission;
-	@Column(name="order_status")
+    private BigDecimal commission;
+	@Column(name="ord_status")
     private Integer orderStatus;
 	@Column(name="ord_time")
     private Timestamp ordTime;
@@ -36,7 +37,7 @@ public class Trip_ord implements Serializable{
     private String remark;
 	@Column(name="score")
     private Integer score;
-	@Column(name="comments")
+	@Column(name="comments", columnDefinition="longtext")
     private String comments;
 	@Column(name="comments_time")
     private Timestamp commentsTime;
@@ -46,7 +47,7 @@ public class Trip_ord implements Serializable{
 	}
 
 	public Trip_ord(Integer tripOrdId, Integer tripId, Integer planId, Integer cusId, Integer amount,
-			double totalPrice, Double commission, Integer orderStatus, Timestamp ordTime, String remark, Integer score,
+			BigDecimal totalPrice, BigDecimal commission, Integer orderStatus, Timestamp ordTime, String remark, Integer score,
 			String comments, Timestamp commentsTime) {
 		super();
 		this.tripOrdId = tripOrdId;
@@ -104,19 +105,19 @@ public class Trip_ord implements Serializable{
 		this.amount = amount;
 	}
 
-	public Double getTotalPrice() {
+	public BigDecimal getTotalPrice() {
 		return totalPrice;
 	}
 
-	public void setTotalPrice(Double totalPrice) {
+	public void setTotalPrice(BigDecimal totalPrice) {
 		this.totalPrice = totalPrice;
 	}
 
-	public Double getCommission() {
+	public BigDecimal getCommission() {
 		return commission;
 	}
 
-	public void setCommission(Double commission) {
+	public void setCommission(BigDecimal commission) {
 		this.commission = commission;
 	}
 
