@@ -42,7 +42,7 @@ CREATE TABLE planning (
 	plan_id     	INT AUTO_INCREMENT NOT NULL,
 	cus_id    		int,
 	plan_name       varchar(10),
-	CONSTRAINT planning_cus_id_FK FOREIGN KEY (cus_id) REFERENCES consumer (cus_id),
+-- 	CONSTRAINT planning_cus_id_FK FOREIGN KEY (cus_id) REFERENCES consumer (cus_id),
 	CONSTRAINT planning_plan_id_PK PRIMARY KEY (plan_id)
 );
 
@@ -84,8 +84,9 @@ CREATE TABLE `company` (
   `comp_password` 	varchar(35) ,
   `comp_mail` 		varchar(35) ,
   `comp_photo` 		longblob,
-  `check_status` 	int ,
-  constraint comp_hotel_info_id foreign key (hotel_info_id) references hotel_info(hotel_info_id)
+  `check_status` 	int 
+ --  ,
+--   constraint comp_hotel_info_id foreign key (hotel_info_id) references hotel_info(hotel_info_id)
 ) ;
 
 CREATE TABLE room (
@@ -108,8 +109,8 @@ CREATE TABLE room (
     bathrobe 		boolean,
     spatub 			boolean,
     electric_kettle boolean,
-	constraint room_primary_key primary key (room_id),
-    constraint room_comp_id_FK foreign key (comp_id) references company (comp_id)
+--     constraint room_comp_id_FK foreign key (comp_id) references company (comp_id),
+	constraint room_primary_key primary key (room_id)
 );
 
 CREATE TABLE room_stock (
@@ -117,8 +118,7 @@ CREATE TABLE room_stock (
 	room_id 	  	int,
 	stock_date 		date,
     stock 			int,
-	
-	constraint room_stock_room_id_FK foreign key (room_id) references room (room_id),
+-- 	constraint room_stock_room_id_FK foreign key (room_id) references room (room_id),
 	constraint room_stock_PRIMARY_KEY primary key (room_stock_id)
 );
 
@@ -127,7 +127,7 @@ create table room_photo (
     room_id 		int,
     photo 			longblob,
     upload_time 	timestamp,
-	constraint room_photo_room_id_FK foreign key (room_id) references room (room_id),
+-- 	constraint room_photo_room_id_FK foreign key (room_id) references room (room_id),
 	constraint room_photo_PRIMARY_KEY primary key (room_photo_id)
 );
 create table room_ord(
@@ -207,7 +207,7 @@ CREATE TABLE trip_photo (
 	trip_id     		int,
 	photo       		longblob,
     upload_time     	timestamp,
-	CONSTRAINT trip_photo_trip_id_FK FOREIGN KEY (trip_id) REFERENCES trip (trip_id),
+-- 	CONSTRAINT trip_photo_trip_id_FK FOREIGN KEY (trip_id) REFERENCES trip (trip_id),
 	CONSTRAINT trip_photo_trip_photo_id_PK PRIMARY KEY (trip_photo_id)
 );
 
@@ -215,9 +215,10 @@ create table `itinerary`(
 	itinerary_id int not null auto_increment primary key,
 	trip_id int ,
 	scene_id int,
-	begin_time datetime,
-    constraint itinerary_trip_id foreign key (trip_id) references trip(trip_id),
-	constraint itinerary_scene_id foreign key (scene_id) references scene(scene_id)
+	begin_time datetime
+  --   ,
+--     constraint itinerary_trip_id foreign key (trip_id) references trip(trip_id),
+-- 	constraint itinerary_scene_id foreign key (scene_id) references scene(scene_id)
 );
 CREATE TABLE trip_ord (
 	trip_ord_id		int auto_increment not null,
@@ -233,21 +234,21 @@ CREATE TABLE trip_ord (
     score			int,
     comments		longtext,
     comments_time	datetime,
-	CONSTRAINT TRIP_ORD_TRIP_ID_FK FOREIGN KEY (trip_id) REFERENCES trip (trip_id),
-	CONSTRAINT TRIP_ORD_PLAN_ID_FK FOREIGN KEY (plan_id) REFERENCES planning (plan_id),
-	CONSTRAINT TRIP_ORD_CUS_ID_FK FOREIGN KEY (cus_id) REFERENCES consumer (cus_id),
+-- 	CONSTRAINT TRIP_ORD_TRIP_ID_FK FOREIGN KEY (trip_id) REFERENCES trip (trip_id),
+-- 	CONSTRAINT TRIP_ORD_PLAN_ID_FK FOREIGN KEY (plan_id) REFERENCES planning (plan_id),
+-- 	CONSTRAINT TRIP_ORD_CUS_ID_FK FOREIGN KEY (cus_id) REFERENCES consumer (cus_id),
     CONSTRAINT TRIP_ORD_PRIMARY_KEY PRIMARY KEY (trip_ord_id)
 ) ;
 insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission, ord_status, ord_time, remark, score, comments, comments_time)
- 			VALUES (null, null, null, 5, 60000.011, 6000.012, 0, now(), "remark_1", 9, "comments_1", null);
+ 			VALUES (null, null, null, 5, 60000.011, 6000.012, 0, now(), "remark_7001", 9, "comments_7001", adddate(now(),interval 1 day));
 insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission, ord_status, ord_time, remark, score, comments, comments_time)
- 			VALUES (null, null, null, 4, 40000.021, 4000.022, 1, now(), "remark_2", 4, "comments_2", null);
+ 			VALUES (null, null, null, 4, 40000.021, 4000.022, 1, now(), "remark_7002", 4, "comments_7002", adddate(now(),interval 2 day));
 insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission, ord_status, ord_time, remark, score, comments, comments_time)
- 			VALUES (null, null, null, 3, 50000.031, 5000.032, 2, now(), "remark_3", 1, "comments_3", null);
+ 			VALUES (null, null, null, 3, 50000.031, 5000.032, 2, now(), "remark_7003", 1, "comments_7003", adddate(now(),interval 3 day));
 insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission, ord_status, ord_time, remark, score, comments, comments_time)
- 			VALUES (null, null, null, 2, 10000.041, 1000.042, 0, now(), "remark_4", 6, "comments_4", null);
+ 			VALUES (null, null, null, 2, 10000.041, 1000.042, 0, now(), "remark_7004", 6, "comments_7004", adddate(now(),interval 4 day));
 insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission, ord_status, ord_time, remark, score, comments, comments_time)
- 			VALUES (null, null, null, 1, 90000.051, 9000.052, 1, now(), "remark_5", 8, "comments_5", null);
+ 			VALUES (null, null, null, 1, 90000.051, 9000.052, 1, now(), "remark_7005", 8, "comments_7005", adddate(now(),interval 5 day));
 
 -- 	insert into trip_ord (trip_id,plan_id,cus_id,amount,total_price,commission,order_status,ord_time, remark,score,chat_msg,comment_time)
 -- 			VALUES (122, 414, 325, 5553, 48719.0, 21321, 0, now(), "hiihui", 10, ?, ?);
@@ -260,18 +261,18 @@ CREATE TABLE notify (
     contents     	varchar(50),
     state     		boolean,
 	notify_time     timestamp,
-	CONSTRAINT cus_id_FK FOREIGN KEY (cus_id) REFERENCES consumer (cus_id),
-	CONSTRAINT comp_id_FK FOREIGN KEY (comp_id) REFERENCES company (comp_id),
-	CONSTRAINT room_ord_id_FK FOREIGN KEY (room_ord_id) REFERENCES room_ord (room_ord_id),
-	CONSTRAINT trip_ord_id_FK FOREIGN KEY (trip_ord_id) REFERENCES trip_ord (trip_ord_id),
+-- 	CONSTRAINT cus_id_FK FOREIGN KEY (cus_id) REFERENCES consumer (cus_id),
+-- 	CONSTRAINT comp_id_FK FOREIGN KEY (comp_id) REFERENCES company (comp_id),
+-- 	CONSTRAINT room_ord_id_FK FOREIGN KEY (room_ord_id) REFERENCES room_ord (room_ord_id),
+-- 	CONSTRAINT trip_ord_id_FK FOREIGN KEY (trip_ord_id) REFERENCES trip_ord (trip_ord_id),
     CONSTRAINT notify_id_PRIMARY_KEY PRIMARY KEY (notify_id)
 );
 create table room_collect(
 	cus_id 			int,
     room_id 		int,
     collect_time 	datetime,
-    constraint room_collect_cus_id foreign key (cus_id) REFERENCES consumer(cus_id),
-    constraint room_collect_room_id foreign key (room_id) REFERENCES room(room_id),
+   --  constraint room_collect_cus_id foreign key (cus_id) REFERENCES consumer(cus_id),
+--     constraint room_collect_room_id foreign key (room_id) REFERENCES room(room_id),
     constraint room_collect_pk primary key (cus_id, room_id)
 );
 
@@ -280,8 +281,8 @@ create table trip_collect(
 	cus_id 			int,
     trip_id 		int,
     collect_time 	datetime,
-	constraint trip_collect_cus_id foreign key (cus_id) REFERENCES consumer(cus_id),
-    constraint trip_collect_room_id foreign key (trip_id) REFERENCES trip(trip_id),
+-- 	constraint trip_collect_cus_id foreign key (cus_id) REFERENCES consumer(cus_id),
+--     constraint trip_collect_room_id foreign key (trip_id) REFERENCES trip(trip_id),
     constraint trip_collect_pk primary key (cus_id, trip_id)
 );
 
@@ -289,8 +290,8 @@ create table room_thumbup(
 	room_ord_id 	int not null,
     cus_id 			int not null,
     thumbup_time	datetime,
-    constraint thumbup_room_ord_id foreign key (room_ord_id) REFERENCES room_ord(room_ord_id),
-    constraint thumbup_room_cus_id foreign key (cus_id) REFERENCES consumer(cus_id),
+   --  constraint thumbup_room_ord_id foreign key (room_ord_id) REFERENCES room_ord(room_ord_id),
+--     constraint thumbup_room_cus_id foreign key (cus_id) REFERENCES consumer(cus_id),
     constraint thumbup_room_pk primary key (room_ord_id, cus_id)
 );
 
@@ -298,7 +299,7 @@ create table trip_thumbup(
 	trip_ord_id 	int not null,
 	cus_id 			int not null,
     thumbup_time 	datetime,
-    constraint thumbup_trip_ord_id foreign key (trip_ord_id) references trip_ord(trip_ord_id),
-    constraint thumbup_trip_cus_id foreign key (cus_id) references consumer(cus_id),
+ --    constraint thumbup_trip_ord_id foreign key (trip_ord_id) references trip_ord(trip_ord_id),
+--     constraint thumbup_trip_cus_id foreign key (cus_id) references consumer(cus_id),
     constraint thumbup_trip_pk primary key (trip_ord_id, cus_id)
 );
