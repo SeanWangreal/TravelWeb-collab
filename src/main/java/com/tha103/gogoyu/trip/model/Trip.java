@@ -1,44 +1,116 @@
 package com.tha103.gogoyu.trip.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Trip")
 public class Trip implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private Integer trip_id;
-	private Integer comp_id;
-	private String trip_name;
-	private Integer amount;
-	private Integer price;
-	private Integer people;
-	private Timestamp start_time;
-	private Timestamp end_time;
-	private String content; // CLOB
-	private Integer state;
-	private byte taipei_city;
-	private byte newtaipei_city;
-	private byte taoyuan_city;
-	private byte taichung_city;
-	private byte tainan_city;
-	private byte kaohsiung_city;
-	private byte hsinchu_county;
-	private byte miaoli_county;
-	private byte changhua_county;
-	private byte nantou_county;
-	private byte yunlin_county;
-	private byte chiayi_county;
-	private byte pingtung_county;
-	private byte yilan_city;
-	private byte hualien_city;
-	private byte taitung_county;
-	private byte kinmen_county;
-	private byte lienchiang_county;
-	private byte keelung_city;
-	private byte hsinchu_city;
-	private byte chiayi_city;
-	private byte penghu_county;
+	@Id
+	@Column(name = "trip_id", updatable = false)
+	private Integer tripId;
 
-	public Trip(Integer trip_id, Integer comp_id, String trip_name, Integer amount, Integer price, Integer people,
+	@Column(name = "comp_id")
+	private Integer compId;
+
+	@Column(name = "trip_name")
+	private String tripName;
+
+	@Column(name = "amount")
+	private Integer amount;
+
+	@Column(name = "price")
+	private BigDecimal price;
+
+	@Column(name = "people")
+	private Integer people;
+
+	@Column(name = "start_time")
+	private Timestamp startTime;
+
+	@Column(name = "end_time")
+	private Timestamp endTime;
+
+	@Column(name = "content", columnDefinition = "longtext")
+	private String content; // CLOB
+
+	@Column(name = "state")
+	private Integer state;
+
+	@Column(name = "taipei_city")
+	private byte taipeiCity;
+
+	@Column(name = "newtaipei_city")
+	private byte newtaipeiCity;
+
+	@Column(name = "taoyuan_city")
+	private byte taoyuanCity;
+
+	@Column(name = "taichung_city")
+	private byte taichungCity;
+
+	@Column(name = " tainan_city")
+	private byte tainanCity;
+
+	@Column(name = "kaohsiung_city")
+	private byte kaohsiungCity;
+
+	@Column(name = "hsinchu_county")
+	private byte hsinchuCounty;
+
+	@Column(name = "miaoli_county")
+	private byte miaoliCounty;
+
+	@Column(name = "changhua_county")
+	private byte changhuaCounty;
+
+	@Column(name = "nantou_county")
+	private byte nantouCounty;
+
+	@Column(name = "yunlin_county")
+	private byte yunlinCounty;
+
+	@Column(name = "chiayi_county")
+	private byte chiayiCounty;
+
+	@Column(name = "pingtung_county")
+	private byte pingtungCounty;
+
+	@Column(name = "yilan_city")
+	private byte yilanCity;
+
+	@Column(name = "hualien_city")
+	private byte hualienCity;
+
+	@Column(name = "taitung_county")
+	private byte taitungCounty;
+
+	@Column(name = "kinmen_county")
+	private byte kinmenCounty;
+
+	@Column(name = "lienchiang_county")
+	private byte lienchiangCounty;
+
+	@Column(name = "keelung_city")
+	private byte keelungCity;
+
+	@Column(name = "hsinchu_city")
+	private byte hsinchuCity;
+
+	@Column(name = "chiayi_city")
+	private byte chiayiCity;
+
+	@Column(name = "penghu_county")
+	private byte penghuCounty;
+
+	public Trip(Integer trip_id, Integer comp_id, String trip_name, Integer amount, BigDecimal price, Integer people,
 			Timestamp start_time, Timestamp end_time, String content, Integer state, byte taipei_city,
 			byte newtaipei_city, byte taoyuan_city, byte taichung_city, byte tainan_city, byte kaohsiung_city,
 			byte hsinchu_county, byte miaoli_county, byte changhua_county, byte nantou_county, byte yunlin_county,
@@ -46,66 +118,66 @@ public class Trip implements Serializable {
 			byte kinmen_county, byte lienchiang_county, byte keelung_city, byte hsinchu_city, byte chiayi_city,
 			byte penghu_county) {
 		super();
-		this.trip_id = trip_id;
-		this.comp_id = comp_id;
-		this.trip_name = trip_name;
+		this.tripId = trip_id;
+		this.compId = comp_id;
+		this.tripName = trip_name;
 		this.amount = amount;
 		this.price = price;
 		this.people = people;
-		this.start_time = start_time;
-		this.end_time = end_time;
+		this.startTime = start_time;
+		this.endTime = end_time;
 		this.content = content;
 		this.state = state;
-		this.taipei_city = taipei_city;
-		this.newtaipei_city = newtaipei_city;
-		this.taoyuan_city = taoyuan_city;
-		this.taichung_city = taichung_city;
-		this.tainan_city = tainan_city;
-		this.kaohsiung_city = kaohsiung_city;
-		this.hsinchu_county = hsinchu_county;
-		this.miaoli_county = miaoli_county;
-		this.changhua_county = changhua_county;
-		this.nantou_county = nantou_county;
-		this.yunlin_county = yunlin_county;
-		this.chiayi_county = chiayi_county;
-		this.pingtung_county = pingtung_county;
-		this.yilan_city = yilan_city;
-		this.hualien_city = hualien_city;
-		this.taitung_county = taitung_county;
-		this.kinmen_county = kinmen_county;
-		this.lienchiang_county = lienchiang_county;
-		this.keelung_city = keelung_city;
-		this.hsinchu_city = hsinchu_city;
-		this.chiayi_city = chiayi_city;
-		this.penghu_county = penghu_county;
+		this.taipeiCity = taipei_city;
+		this.newtaipeiCity = newtaipei_city;
+		this.taoyuanCity = taoyuan_city;
+		this.taichungCity = taichung_city;
+		this.tainanCity = tainan_city;
+		this.kaohsiungCity = kaohsiung_city;
+		this.hsinchuCounty = hsinchu_county;
+		this.miaoliCounty = miaoli_county;
+		this.changhuaCounty = changhua_county;
+		this.nantouCounty = nantou_county;
+		this.yunlinCounty = yunlin_county;
+		this.chiayiCounty = chiayi_county;
+		this.pingtungCounty = pingtung_county;
+		this.yilanCity = yilan_city;
+		this.hualienCity = hualien_city;
+		this.taitungCounty = taitung_county;
+		this.kinmenCounty = kinmen_county;
+		this.lienchiangCounty = lienchiang_county;
+		this.keelungCity = keelung_city;
+		this.hsinchuCity = hsinchu_city;
+		this.chiayiCity = chiayi_city;
+		this.penghuCounty = penghu_county;
 	}
 
 	public Trip() {
 		super();
 	}
 
-	public Integer getTrip_id() {
-		return trip_id;
+	public Integer getTripId() {
+		return tripId;
 	}
 
-	public void setTrip_id(Integer trip_id) {
-		this.trip_id = trip_id;
+	public void setTripId(Integer tripId) {
+		this.tripId = tripId;
 	}
 
-	public Integer getComp_id() {
-		return comp_id;
+	public Integer getCompId() {
+		return compId;
 	}
 
-	public void setComp_id(Integer comp_id) {
-		this.comp_id = comp_id;
+	public void setCompId(Integer compId) {
+		this.compId = compId;
 	}
 
-	public String getTrip_name() {
-		return trip_name;
+	public String getTripName() {
+		return tripName;
 	}
 
-	public void setTrip_name(String trip_name) {
-		this.trip_name = trip_name;
+	public void setTripName(String tripName) {
+		this.tripName = tripName;
 	}
 
 	public Integer getAmount() {
@@ -116,11 +188,11 @@ public class Trip implements Serializable {
 		this.amount = amount;
 	}
 
-	public Integer getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(Integer price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
@@ -132,20 +204,20 @@ public class Trip implements Serializable {
 		this.people = people;
 	}
 
-	public Timestamp getStart_time() {
-		return start_time;
+	public Timestamp getStartTime() {
+		return startTime;
 	}
 
-	public void setStart_time(Timestamp start_time) {
-		this.start_time = start_time;
+	public void setStartTime(Timestamp startTime) {
+		this.startTime = startTime;
 	}
 
-	public Timestamp getEnd_time() {
-		return end_time;
+	public Timestamp getEndTime() {
+		return endTime;
 	}
 
-	public void setEnd_time(Timestamp end_time) {
-		this.end_time = end_time;
+	public void setEndTime(Timestamp endTime) {
+		this.endTime = endTime;
 	}
 
 	public String getContent() {
@@ -164,180 +236,180 @@ public class Trip implements Serializable {
 		this.state = state;
 	}
 
-	public byte getTaipei_city() {
-		return taipei_city;
+	public byte getTaipeiCity() {
+		return taipeiCity;
 	}
 
-	public void setTaipei_city(byte taipei_city) {
-		this.taipei_city = taipei_city;
+	public void setTaipeiCity(byte taipeiCity) {
+		this.taipeiCity = taipeiCity;
 	}
 
-	public byte getNewTaipei_city() {
-		return newtaipei_city;
+	public byte getNewtaipeiCity() {
+		return newtaipeiCity;
 	}
 
-	public void setNewTaipei_city(byte newtaipei_city) {
-		this.newtaipei_city = newtaipei_city;
+	public void setNewtaipeiCity(byte newtaipeiCity) {
+		this.newtaipeiCity = newtaipeiCity;
 	}
 
-	public byte getTaoyuan_city() {
-		return taoyuan_city;
+	public byte getTaoyuanCity() {
+		return taoyuanCity;
 	}
 
-	public void setTaoyuan_city(byte taoyuan_city) {
-		this.taoyuan_city = taoyuan_city;
+	public void setTaoyuanCity(byte taoyuanCity) {
+		this.taoyuanCity = taoyuanCity;
 	}
 
-	public byte getTaichung_city() {
-		return taichung_city;
+	public byte getTaichungCity() {
+		return taichungCity;
 	}
 
-	public void setTaichung_city(byte taichung_city) {
-		this.taichung_city = taichung_city;
+	public void setTaichungCity(byte taichungCity) {
+		this.taichungCity = taichungCity;
 	}
 
-	public byte getTainan_city() {
-		return tainan_city;
+	public byte getTainanCity() {
+		return tainanCity;
 	}
 
-	public void setTainan_city(byte tainan_city) {
-		this.tainan_city = tainan_city;
+	public void setTainanCity(byte tainanCity) {
+		this.tainanCity = tainanCity;
 	}
 
-	public byte getKaohsiung_city() {
-		return kaohsiung_city;
+	public byte getKaohsiungCity() {
+		return kaohsiungCity;
 	}
 
-	public void setKaohsiung_city(byte kaohsiung_city) {
-		this.kaohsiung_city = kaohsiung_city;
+	public void setKaohsiungCity(byte kaohsiungCity) {
+		this.kaohsiungCity = kaohsiungCity;
 	}
 
-	public byte getHsinchu_county() {
-		return hsinchu_county;
+	public byte getHsinchuCounty() {
+		return hsinchuCounty;
 	}
 
-	public void setHsinchu_county(byte hsinchu_county) {
-		this.hsinchu_county = hsinchu_county;
+	public void setHsinchuCounty(byte hsinchuCounty) {
+		this.hsinchuCounty = hsinchuCounty;
 	}
 
-	public byte getMiaoli_county() {
-		return miaoli_county;
+	public byte getMiaoliCounty() {
+		return miaoliCounty;
 	}
 
-	public void setMiaoli_county(byte miaoli_county) {
-		this.miaoli_county = miaoli_county;
+	public void setMiaoliCounty(byte miaoliCounty) {
+		this.miaoliCounty = miaoliCounty;
 	}
 
-	public byte getChanghua_county() {
-		return changhua_county;
+	public byte getChanghuaCounty() {
+		return changhuaCounty;
 	}
 
-	public void setChanghua_county(byte changhua_county) {
-		this.changhua_county = changhua_county;
+	public void setChanghuaCounty(byte changhuaCounty) {
+		this.changhuaCounty = changhuaCounty;
 	}
 
-	public byte getNantou_county() {
-		return nantou_county;
+	public byte getNantouCounty() {
+		return nantouCounty;
 	}
 
-	public void setNantou_county(byte nantou_county) {
-		this.nantou_county = nantou_county;
+	public void setNantouCounty(byte nantouCounty) {
+		this.nantouCounty = nantouCounty;
 	}
 
-	public byte getYunlin_county() {
-		return yunlin_county;
+	public byte getYunlinCounty() {
+		return yunlinCounty;
 	}
 
-	public void setYunlin_county(byte yunlin_county) {
-		this.yunlin_county = yunlin_county;
+	public void setYunlinCounty(byte yunlinCounty) {
+		this.yunlinCounty = yunlinCounty;
 	}
 
-	public byte getChiayi_county() {
-		return chiayi_county;
+	public byte getChiayiCounty() {
+		return chiayiCounty;
 	}
 
-	public void setChiayi_county(byte chiayi_county) {
-		this.chiayi_county = chiayi_county;
+	public void setChiayiCounty(byte chiayiCounty) {
+		this.chiayiCounty = chiayiCounty;
 	}
 
-	public byte getPingtung_county() {
-		return pingtung_county;
+	public byte getPingtungCounty() {
+		return pingtungCounty;
 	}
 
-	public void setPingtung_county(byte pingtung_county) {
-		this.pingtung_county = pingtung_county;
+	public void setPingtungCounty(byte pingtungCounty) {
+		this.pingtungCounty = pingtungCounty;
 	}
 
-	public byte getYilan_city() {
-		return yilan_city;
+	public byte getYilanCity() {
+		return yilanCity;
 	}
 
-	public void setYilan_city(byte yilan_city) {
-		this.yilan_city = yilan_city;
+	public void setYilanCity(byte yilanCity) {
+		this.yilanCity = yilanCity;
 	}
 
-	public byte getHualien_city() {
-		return hualien_city;
+	public byte getHualienCity() {
+		return hualienCity;
 	}
 
-	public void setHualien_city(byte hualien_city) {
-		this.hualien_city = hualien_city;
+	public void setHualienCity(byte hualienCity) {
+		this.hualienCity = hualienCity;
 	}
 
-	public byte getTaitung_county() {
-		return taitung_county;
+	public byte getTaitungCounty() {
+		return taitungCounty;
 	}
 
-	public void setTaitung_county(byte taitung_county) {
-		this.taitung_county = taitung_county;
+	public void setTaitungCounty(byte taitungCounty) {
+		this.taitungCounty = taitungCounty;
 	}
 
-	public byte getKinmen_county() {
-		return kinmen_county;
+	public byte getKinmenCounty() {
+		return kinmenCounty;
 	}
 
-	public void setKinmen_county(byte kinmen_county) {
-		this.kinmen_county = kinmen_county;
+	public void setKinmenCounty(byte kinmenCounty) {
+		this.kinmenCounty = kinmenCounty;
 	}
 
-	public byte getLienchiang_county() {
-		return lienchiang_county;
+	public byte getLienchiangCounty() {
+		return lienchiangCounty;
 	}
 
-	public void setLienchiang_county(byte lienchiang_county) {
-		this.lienchiang_county = lienchiang_county;
+	public void setLienchiangCounty(byte lienchiangCounty) {
+		this.lienchiangCounty = lienchiangCounty;
 	}
 
-	public byte getKeelung_city() {
-		return keelung_city;
+	public byte getKeelungCity() {
+		return keelungCity;
 	}
 
-	public void setKeelung_city(byte keelung_city) {
-		this.keelung_city = keelung_city;
+	public void setKeelungCity(byte keelungCity) {
+		this.keelungCity = keelungCity;
 	}
 
-	public byte getHsinchu_city() {
-		return hsinchu_city;
+	public byte getHsinchuCity() {
+		return hsinchuCity;
 	}
 
-	public void setHsinchu_city(byte hsinchu_city) {
-		this.hsinchu_city = hsinchu_city;
+	public void setHsinchuCity(byte hsinchuCity) {
+		this.hsinchuCity = hsinchuCity;
 	}
 
-	public byte getChiayi_city() {
-		return chiayi_city;
+	public byte getChiayiCity() {
+		return chiayiCity;
 	}
 
-	public void setChiayi_city(byte chiayi_city) {
-		this.chiayi_city = chiayi_city;
+	public void setChiayiCity(byte chiayiCity) {
+		this.chiayiCity = chiayiCity;
 	}
 
-	public byte getPenghu_county() {
-		return penghu_county;
+	public byte getPenghuCounty() {
+		return penghuCounty;
 	}
 
-	public void setPenghu_county(byte penghu_county) {
-		this.penghu_county = penghu_county;
+	public void setPenghuCounty(byte penghuCounty) {
+		this.penghuCounty = penghuCounty;
 	}
 
 }

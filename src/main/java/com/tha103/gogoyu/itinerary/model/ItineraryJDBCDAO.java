@@ -34,9 +34,9 @@ public class ItineraryJDBCDAO implements ItineraryDAO_interface {
 			String[] cols = { "itinerary_id" };
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, Itinerary.getTrip_id());
-			pstmt.setInt(2, Itinerary.getScene_id());
-			pstmt.setTimestamp(3, Itinerary.getBegin_time());
+			pstmt.setInt(1, Itinerary.getTripId());
+			pstmt.setInt(2, Itinerary.getSceneId());
+			pstmt.setTimestamp(3, Itinerary.getBeginTime());
 
 			pstmt.executeUpdate();
 
@@ -57,11 +57,11 @@ public class ItineraryJDBCDAO implements ItineraryDAO_interface {
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
-			pstmt.setInt(1, Itinerary.getItinerary_id());
-			pstmt.setInt(2, Itinerary.getTrip_id());
-			pstmt.setInt(3, Itinerary.getScene_id());
-			pstmt.setTimestamp(4, Itinerary.getBegin_time());
-			pstmt.setInt(5, Itinerary.getItinerary_id());
+			pstmt.setInt(1, Itinerary.getItineraryId());
+			pstmt.setInt(2, Itinerary.getTripId());
+			pstmt.setInt(3, Itinerary.getSceneId());
+			pstmt.setTimestamp(4, Itinerary.getBeginTime());
+			pstmt.setInt(5, Itinerary.getItineraryId());
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -105,10 +105,10 @@ public class ItineraryJDBCDAO implements ItineraryDAO_interface {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Itinerary = new Itinerary();
-				Itinerary.setItinerary_id(rs.getInt("itinerary_id"));
-				Itinerary.setTrip_id(rs.getInt("trip_id"));
-				Itinerary.setScene_id(rs.getInt("scene_id"));
-				Itinerary.setBegin_time(rs.getTimestamp("begin_time"));
+				Itinerary.setItineraryId(rs.getInt("itinerary_id"));
+				Itinerary.setTripId(rs.getInt("trip_id"));
+				Itinerary.setSceneId(rs.getInt("scene_id"));
+				Itinerary.setBeginTime(rs.getTimestamp("begin_time"));
 			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -131,10 +131,10 @@ public class ItineraryJDBCDAO implements ItineraryDAO_interface {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				itinVO = new Itinerary();
-				itinVO.setItinerary_id(rs.getInt("itinerary_id"));
-				itinVO.setTrip_id(rs.getInt("trip_id"));
-				itinVO.setScene_id(rs.getInt("scene_id"));
-				itinVO.setBegin_time(rs.getTimestamp("begin_time"));
+				itinVO.setItineraryId(rs.getInt("itinerary_id"));
+				itinVO.setTripId(rs.getInt("trip_id"));
+				itinVO.setSceneId(rs.getInt("scene_id"));
+				itinVO.setBeginTime(rs.getTimestamp("begin_time"));
 				list.add(itinVO);
 			}
 		} catch (SQLException se) {
@@ -152,36 +152,36 @@ public class ItineraryJDBCDAO implements ItineraryDAO_interface {
 		// 新增
 //		Itinerary itinerary1= new Itinerary();
 //
-//		itinerary1.setTrip_id(1);
-//		itinerary1.setScene_id(1);
-//		itinerary1.setBegin_time(java.sql.Timestamp.valueOf("2005-01-01 10:10:49"));
-//		dao.insert(Itinerary1);
+//		itinerary1.setTripId(5);
+//		itinerary1.setSceneId(1);
+//		itinerary1.setBeginTime(java.sql.Timestamp.valueOf("2005-01-01 10:10:49"));
+//		dao.insert(itinerary1);
 
 		// 修改
-//	    itinerary Itinerary2= new Itinerary();
-//	    itinerary2.setItinerary_id(2);
-//		itinerary2.setTrip_id(1);
-//		itinerary2.setScene_id(2);
-//		itinerary2.setBegin_time(java.sql.Timestamp.valueOf("2005-01-01 10:10:49"));
+//	    Itinerary Itinerary2= new Itinerary();
+//	    Itinerary2.setItineraryId(2);
+//		Itinerary2.setTripId(1);
+//		Itinerary2.setSceneId(2);
+//		Itinerary2.setBeginTime(java.sql.Timestamp.valueOf("2005-01-01 10:10:49"));
 //		dao.update(Itinerary2);
 
 		// 刪除
 //		dao.delete(2);
 
 //		 查詢
-//		itinerary Itinerary3 = dao.findByPrimaryKey(1);
-//		System.out.print(itinerary3.getItinerary_id()+ ",");
-//		System.out.print(itinerary3.getTrip_id()+ ",");
-//		System.out.print(itinerary3.getScene_id()+ ",");
-//		System.out.print(itinerary3.getBegin_time()  );
+		Itinerary Itinerary3 = dao.findByPrimaryKey(3);
+		System.out.print(Itinerary3.getItineraryId()+ ",");
+		System.out.print(Itinerary3.getTripId()+ ",");
+		System.out.print(Itinerary3.getSceneId()+ ",");
+		System.out.print(Itinerary3.getBeginTime()  );
 
 		// 查詢
-//		List<Itinerary> list = dao.getAll();
-//		for (Itinerary aItinerary : list) {
-//			System.out.print(aItinerary.getItinerary_id() + ",");
-//			System.out.print(aItinerary.getTrip_id() + ",");
-//			System.out.print(aItinerary.getScene_id() + ",");
-//			System.out.print(aItinerary.getBegin_time());
-//		}
+		List<Itinerary> list = dao.getAll();
+		for (Itinerary aItinerary : list) {
+			System.out.print(aItinerary.getItineraryId() + ",");
+			System.out.print(aItinerary.getTripId() + ",");
+			System.out.print(aItinerary.getSceneId() + ",");
+			System.out.print(aItinerary.getBeginTime());
+		}
 	}
 }

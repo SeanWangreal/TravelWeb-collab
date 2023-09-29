@@ -32,10 +32,10 @@ public class SceneJDBCDAO implements SceneDAO_interface {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			String[] cols = { "scene_id" };
 			pstmt = con.prepareStatement(INSERT_STMT, cols);
-			pstmt.setString(1, Scene.getScene_name());
-			pstmt.setString(2, Scene.getOpen_time());
-			pstmt.setString(3, Scene.getTicket_price());
-			pstmt.setString(4, Scene.getTrans_info());
+			pstmt.setString(1, Scene.getSceneName());
+			pstmt.setString(2, Scene.getOpenTime());
+			pstmt.setString(3, Scene.getTicketPrice());
+			pstmt.setString(4, Scene.getTransInfo());
 			pstmt.setString(5, Scene.getParking());
 			pstmt.setString(6, Scene.getAddress());
 			pstmt.setBigDecimal(7, Scene.getLon());
@@ -57,17 +57,17 @@ public class SceneJDBCDAO implements SceneDAO_interface {
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
-			pstmt.setString(1, Scene.getScene_name());
-			pstmt.setString(2, Scene.getOpen_time());
-			pstmt.setString(3, Scene.getTicket_price());
-			pstmt.setString(4, Scene.getTrans_info());
+			pstmt.setString(1, Scene.getSceneName());
+			pstmt.setString(2, Scene.getOpenTime());
+			pstmt.setString(3, Scene.getTicketPrice());
+			pstmt.setString(4, Scene.getTransInfo());
 			pstmt.setString(5, Scene.getParking());
 			pstmt.setString(6, Scene.getAddress());
 			pstmt.setBigDecimal(7, Scene.getLon());
 			pstmt.setBigDecimal(8, Scene.getLat());
 			pstmt.setString(9, Scene.getFeature());
 			pstmt.setString(10, Scene.getPicture());
-			pstmt.setInt(11, Scene.getScene_id());
+			pstmt.setInt(11, Scene.getSceneId());
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -105,11 +105,11 @@ public class SceneJDBCDAO implements SceneDAO_interface {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				scVO = new Scene();
-				scVO.setScene_name(rs.getString("scene_name"));
-				scVO.setScene_id(rs.getInt("scene_id"));
-				scVO.setOpen_time(rs.getString("open_time"));
-				scVO.setTicket_price(rs.getString("ticket_price"));
-				scVO.setTrans_info(rs.getString("trans_info"));
+				scVO.setSceneName(rs.getString("scene_name"));
+				scVO.setSceneId(rs.getInt("scene_id"));
+				scVO.setOpenTime(rs.getString("open_time"));
+				scVO.setTicketPrice(rs.getString("ticket_price"));
+				scVO.setTransInfo(rs.getString("trans_info"));
 				scVO.setParking(rs.getString("parking"));
 				scVO.setAddress(rs.getString("address"));
 				scVO.setLon(rs.getBigDecimal("lon"));
@@ -137,11 +137,11 @@ public class SceneJDBCDAO implements SceneDAO_interface {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				scVO = new Scene();
-				scVO.setScene_name(rs.getString("scene_name"));
-				scVO.setScene_id(rs.getInt("scene_id"));
-				scVO.setOpen_time(rs.getString("open_time"));
-				scVO.setTicket_price(rs.getString("ticket_price"));
-				scVO.setTrans_info(rs.getString("trans_info"));
+				scVO.setSceneName(rs.getString("scene_name"));
+				scVO.setSceneId(rs.getInt("scene_id"));
+				scVO.setOpenTime(rs.getString("open_time"));
+				scVO.setTicketPrice(rs.getString("ticket_price"));
+				scVO.setTransInfo(rs.getString("trans_info"));
 				scVO.setParking(rs.getString("parking"));
 				scVO.setAddress(rs.getString("address"));
 				scVO.setLon(rs.getBigDecimal("lon"));
@@ -160,62 +160,62 @@ public class SceneJDBCDAO implements SceneDAO_interface {
 
 	public static void main(String[] args) throws IOException {
 		SceneJDBCDAO dao = new SceneJDBCDAO();
-		File scene_data = new File("./src/main/java/com/tha103/gogoyu/scene/model/景點.csv");
-		
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(scene_data));
-			String line;
-			int count = 0;
-			while ((line = br.readLine()) != null) {
-				if (count == 0) {
-					count++;
-				} else {
-					String[] data_row = line.split(",");
-					Scene sc = new Scene();
-					sc.setScene_name(data_row[1]);
-					sc.setOpen_time(data_row[9]);
-					sc.setTrans_info(data_row[8]);
-					sc.setAddress(data_row[6]);
-					sc.setLon(new BigDecimal(data_row[17]));
-					sc.setLat(new BigDecimal(data_row[18]));
-					sc.setFeature(data_row[3]);
-					sc.setPicture(data_row[10]);
-					if (data_row.length == 33) {
-						sc.setParking(data_row[25]);
-						sc.setTicket_price(data_row[28]);
-					} 
-					dao.insert(sc);
-					count++;
-				}
-			}
-			br.close();
-			System.out.println("Success rows :"+--count);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+//		File scene_data = new File("./src/main/java/com/tha103/gogoyu/scene/model/景點.csv");
+//		
+//		try {
+//			BufferedReader br = new BufferedReader(new FileReader(scene_data));
+//			String line;
+//			int count = 0;
+//			while ((line = br.readLine()) != null) {
+//				if (count == 0) {
+//					count++;
+//				} else {
+//					String[] data_row = line.split(",");
+//					Scene sc = new Scene();
+//					sc.setSceneName(data_row[1]);
+//					sc.setOpenTime(data_row[9]);
+//					sc.setTransInfo(data_row[8]);
+//					sc.setAddress(data_row[6]);
+//					sc.setLon(new BigDecimal(data_row[17]));
+//					sc.setLat(new BigDecimal(data_row[18]));
+//					sc.setFeature(data_row[3]);
+//					sc.setPicture(data_row[10]);
+//					if (data_row.length == 33) {
+//						sc.setParking(data_row[25]);
+//						sc.setTicketPrice(data_row[28]);
+//					} 
+//					dao.insert(sc);
+//					count++;
+//				}
+//			}
+//			br.close();
+//			System.out.println("Success rows :"+--count);
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
 //		Date date = new Date();
 //		String time_s = new String(date.getTime());
 //		// 新增
 //		Scene scene1 = new Scene();
 //
-//		scene1.setOpen_time(java.lang.String.valueOf("2005-01-01 10:10:49"));
+//		scene1.setOpenTime(java.lang.String.valueOf("2005-01-01 10:10:49"));
 //		scene1.setAddress("1");
-//		scene1.setTicket_price("1");
-//		scene1.setTrans_info("1");
+//		scene1.setTicketPrice("1");
+//		scene1.setTransInfo("1");
 //		scene1.setParking("1");
 //		scene1.setFeature("1");
-//		scene1.setLon(1.341421);
-//		scene1.setLat(1.12321321);
+//		scene1.setLon(new BigDecimal(1.341421));
+//		scene1.setLat(new BigDecimal(1.341421));
 //		dao.insert(scene1);
 
 		// 修改
 //		Scene scene2=new Scene();
-//		scene2.setScene_id(1);
-//		scene2.setOpen_time(java.lang.String.valueOf("2225-01-01 10:10:49"));
-//		scene2.setLon(1.21312321321321321321);
-//		scene2.setLat(1.213213213);
-//		scene2.setTicket_price("1232");
-//		scene2.setTrans_info("1232");
+//		scene2.setSceneId(1);
+//		scene2.setOpenTime(java.lang.String.valueOf("2225-01-01 10:10:49"));
+//		scene2.setLon(new BigDecimal(1.21312321321321321321));
+//		scene2.setLat(new BigDecimal(1.21312321321321321321));
+//		scene2.setTicketPrice("1232");
+//		scene2.setTransInfo("1232");
 //		scene2.setParking("123");
 //		scene2.setAddress("211111111111111111");
 //		scene2.setFeature("1");
@@ -226,14 +226,14 @@ public class SceneJDBCDAO implements SceneDAO_interface {
 
 		// 查詢
 //		Scene scene3 = dao.findByPrimaryKey(1);
-//		System.out.print(scene3.getScene_id() + ",");
-//		System.out.print(scene3.getOpen_time() + ",");
+//		System.out.print(scene3.getSceneId() + ",");
+//		System.out.print(scene3.getOpenTime() + ",");
 //		System.out.print(scene3.getAddress() + ",");
 //		System.out.print(scene3.getLon() + ",");
 //		System.out.print(scene3.getLat() + ",");
-//		System.out.print(scene3.getTicket_price() + ",");
+//		System.out.print(scene3.getTicketPrice() + ",");
 //		System.out.print(scene3.getParking() + ",");
-//		System.out.print(scene3.getTrans_info() + ",");
+//		System.out.print(scene3.getTransInfo() + ",");
 //		System.out.print(scene3.getFeature() + ",");
 //		System.out.print(scene3.getPicture() + ",");
 //		System.out.println("---------------------");
@@ -241,15 +241,15 @@ public class SceneJDBCDAO implements SceneDAO_interface {
 		// 查詢
 //		List<Scene> list = dao.getAll();
 //		for (Scene ascene : list) {
-//			System.out.print(ascene.getScene_id() + ",");
-//			System.out.print(ascene.getOpen_time() + ",");
+//			System.out.print(ascene.getSceneId() + ",");
+//			System.out.print(ascene.getOpenTime() + ",");
 //			System.out.print(ascene.getAddress() + ",");
 //			System.out.print(ascene.getFeature() + ",");
 //			System.out.print(ascene.getLon() + ",");
 //			System.out.print(ascene.getLat() + ",");
-//			System.out.print(ascene.getTicket_price() + ",");
+//			System.out.print(ascene.getTicketPrice() + ",");
 //			System.out.print(ascene.getParking() + ",");
-//			System.out.print(ascene.getTrans_info() + ",");
+//			System.out.print(ascene.getTransInfo() + ",");
 //			System.out.print(ascene.getPicture() + ",");
 //			System.out.println();
 //		}

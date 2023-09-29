@@ -1,34 +1,61 @@
 package com.tha103.gogoyu.scene.model;
 
-
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Scene")
 public class Scene implements java.io.Serializable {
-	private Integer scene_id;
-	private String scene_name;
-	private String open_time;
-	private String ticket_price;
-	private String trans_info;
+	@Id
+	@Column(name = "scene_id", updatable = false)
+	private Integer sceneId;
+
+	@Column(name = "scene_name")
+	private String sceneName;
+
+	@Column(name = "open_time", columnDefinition = "longtext")
+	private String openTime;
+
+	@Column(name = "ticket_price", columnDefinition = "longtext")
+	private String ticketPrice;
+
+	@Column(name = "trans_info", columnDefinition = "longtext")
+	private String transInfo;
+
+	@Column(name = "parking")
 	private String parking;
+
+	@Column(name = "address", columnDefinition = "longtext")
 	private String address;
+
+	@Column(name = "lon")
 	private BigDecimal lon;
+
+	@Column(name = "lat")
 	private BigDecimal lat;
+
+	@Column(name = "feature", columnDefinition = "longtext")
 	private String feature;
+
+	@Column(name = "picture")
 	private String picture;
 
 	public Scene() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Scene(Integer scene_id, String scene_name, String open_time, String ticket_price, String trans_info,
-			String parking, String address, BigDecimal lon,BigDecimal lat, String feature, String picture) {
+			String parking, String address, BigDecimal lon, BigDecimal lat, String feature, String picture) {
 		super();
-		this.scene_id = scene_id;
-		this.scene_name = scene_name;
-		this.open_time = open_time;
-		this.ticket_price = ticket_price;
-		this.trans_info = trans_info;
+		this.sceneId = scene_id;
+		this.sceneName = scene_name;
+		this.openTime = open_time;
+		this.ticketPrice = ticket_price;
+		this.transInfo = trans_info;
 		this.parking = parking;
 		this.address = address;
 		this.lon = lon;
@@ -37,44 +64,44 @@ public class Scene implements java.io.Serializable {
 		this.picture = picture;
 	}
 
-	public String getScene_name() {
-		return scene_name;
+	public Integer getSceneId() {
+		return sceneId;
 	}
 
-	public void setScene_name(String scene_name) {
-		this.scene_name = scene_name;
+	public void setSceneId(Integer sceneId) {
+		this.sceneId = sceneId;
 	}
 
-	public Integer getScene_id() {
-		return scene_id;
+	public String getSceneName() {
+		return sceneName;
 	}
 
-	public void setScene_id(Integer scene_id) {
-		this.scene_id = scene_id;
+	public void setSceneName(String sceneName) {
+		this.sceneName = sceneName;
 	}
 
-	public String getOpen_time() {
-		return open_time;
+	public String getOpenTime() {
+		return openTime;
 	}
 
-	public void setOpen_time(String open_time) {
-		this.open_time = open_time;
+	public void setOpenTime(String openTime) {
+		this.openTime = openTime;
 	}
 
-	public String getTicket_price() {
-		return ticket_price;
+	public String getTicketPrice() {
+		return ticketPrice;
 	}
 
-	public void setTicket_price(String ticket_price) {
-		this.ticket_price = ticket_price;
+	public void setTicketPrice(String ticketPrice) {
+		this.ticketPrice = ticketPrice;
 	}
 
-	public String getTrans_info() {
-		return trans_info;
+	public String getTransInfo() {
+		return transInfo;
 	}
 
-	public void setTrans_info(String trans_info) {
-		this.trans_info = trans_info;
+	public void setTransInfo(String transInfo) {
+		this.transInfo = transInfo;
 	}
 
 	public String getParking() {
@@ -93,10 +120,6 @@ public class Scene implements java.io.Serializable {
 		this.address = address;
 	}
 
-	public String getFeature() {
-		return feature;
-	}
-
 	public BigDecimal getLon() {
 		return lon;
 	}
@@ -113,6 +136,10 @@ public class Scene implements java.io.Serializable {
 		this.lat = lat;
 	}
 
+	public String getFeature() {
+		return feature;
+	}
+
 	public void setFeature(String feature) {
 		this.feature = feature;
 	}
@@ -124,4 +151,5 @@ public class Scene implements java.io.Serializable {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
+
 }
