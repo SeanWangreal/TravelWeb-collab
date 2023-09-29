@@ -1,15 +1,28 @@
 package com.tha103.gogoyu.chat_msg.model;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "Message")
 public class Message implements Serializable {
-	private Integer msg_id;
-	private Integer chat_room_id;
-	private Integer mem_id;
-	private String msg_log;
-	private Timestamp msg_time;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer msgId;
+	@Column(name = "chart_room_id", updatable = false)
+	private Integer chatRoomId;
+	@Column(name = "mem_id")
+	private Integer memId;
+	@Column(name = "msg_log")
+	private String msgLog;
+	@Column(name = "msg_time")
+	private Timestamp msgTime;
 
 	public Message() {
 		super();
@@ -17,51 +30,55 @@ public class Message implements Serializable {
 
 	public Message(Integer msg_id, Integer chat_room_id, String msg_log, Timestamp msg_time, Integer mem_id) {
 		super();
-		this.msg_id = msg_id;
-		this.chat_room_id = chat_room_id;
-		this.msg_log = msg_log;
-		this.msg_time = msg_time;
-		this.mem_id = mem_id;
+		this.msgId = msg_id;
+		this.chatRoomId = chat_room_id;
+		this.msgLog = msg_log;
+		this.msgTime = msg_time;
+		this.memId = mem_id;
 	}
-
-	public Integer getMsg_id() {
-		return msg_id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "msg_id")
+	public Integer getMsgId() {
+		return msgId;
 	}
-
-	public void setMsg_id(Integer msg_id) {
-		this.msg_id = msg_id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "msg_id")
+	public void setMsgId(Integer msg_id) {
+		this.msgId = msg_id;
 	}
-
-	public Integer getChat_room_id() {
-		return chat_room_id;
+	@Column(name = "chat_room_id")
+	public Integer getChatRoomId() {
+		return chatRoomId;
 	}
-
-	public void setChat_room_id(Integer chat_room_id) {
-		this.chat_room_id = chat_room_id;
+	@Column(name = "chat_room_id")
+	public void setChatRoomId(Integer chat_room_id) {
+		this.chatRoomId = chat_room_id;
 	}
-
-	public String getMsg_log() {
-		return msg_log;
+	@Column(name = "msg_log")
+	public String getMsgLog() {
+		return msgLog;
 	}
-
-	public void setMsg_log(String msg_log) {
-		this.msg_log = msg_log;
+	@Column(name = "msg_log")
+	public void setMsgLog(String msg_log) {
+		this.msgLog = msg_log;
 	}
-
-	public Timestamp getMsg_time() {
-		return msg_time;
+	@Column(name = "msg_time")
+	public Timestamp getMsgTime() {
+		return msgTime;
 	}
-
-	public void setMsg_time(Timestamp msg_time) {
-		this.msg_time = msg_time;
+	@Column(name = "msg_time")
+	public void setMsgTime(Timestamp msg_time) {
+		this.msgTime = msg_time;
 	}
-
-	public Integer getMem_id() {
-		return mem_id;
+	@Column(name = "mem_id")
+	public Integer getMemId() {
+		return memId;
 	}
-
-	public void setMem_id(Integer mem_id) {
-		this.mem_id = mem_id;
+	@Column(name = "mem_id")
+	public void setMemId(Integer mem_id) {
+		this.memId = mem_id;
 	}
 
 }

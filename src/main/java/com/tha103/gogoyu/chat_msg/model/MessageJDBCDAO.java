@@ -26,10 +26,10 @@ public class MessageJDBCDAO implements MessageDAO_interface {
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(INSERT_STMT);
-			pstmt.setInt(1, Message.getChat_room_id());
-			pstmt.setInt(2, Message.getMem_id());
-			pstmt.setString(3, Message.getMsg_log());
-			pstmt.setTimestamp(4, Message.getMsg_time());
+			pstmt.setInt(1, Message.getChatRoomId());
+			pstmt.setInt(2, Message.getMemId());
+			pstmt.setString(3, Message.getMsgLog());
+			pstmt.setTimestamp(4, Message.getMsgTime());
 			pstmt.executeUpdate();
 			System.out.println("success");
 		} catch (SQLException se) {
@@ -46,11 +46,11 @@ public class MessageJDBCDAO implements MessageDAO_interface {
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
-			pstmt.setInt(1, Message.getChat_room_id());
-			pstmt.setInt(2, Message.getMem_id());
-			pstmt.setString(3, Message.getMsg_log());
-			pstmt.setTimestamp(4, Message.getMsg_time());
-			pstmt.setInt(5, Message.getMsg_id());
+			pstmt.setInt(1, Message.getChatRoomId());
+			pstmt.setInt(2, Message.getMemId());
+			pstmt.setString(3, Message.getMsgLog());
+			pstmt.setTimestamp(4, Message.getMsgTime());
+			pstmt.setInt(5, Message.getMsgId());
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -88,11 +88,11 @@ public class MessageJDBCDAO implements MessageDAO_interface {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Message = new Message();
-				Message.setMsg_id(rs.getInt("Msg_id"));
-				Message.setChat_room_id(rs.getInt("Chat_room_id"));
-				Message.setMem_id(rs.getInt("mem_id"));
-				Message.setMsg_log(rs.getString("Msg_log"));
-				Message.setMsg_time(rs.getTimestamp("Msg_time"));
+				Message.setMsgId(rs.getInt("Msg_id"));
+				Message.setChatRoomId(rs.getInt("Chat_room_id"));
+				Message.setMemId(rs.getInt("mem_id"));
+				Message.setMsgLog(rs.getString("Msg_log"));
+				Message.setMsgTime(rs.getTimestamp("Msg_time"));
 			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -115,11 +115,11 @@ public class MessageJDBCDAO implements MessageDAO_interface {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Message = new Message();
-				Message.setMsg_id(rs.getInt("Msg_id"));
-				Message.setChat_room_id(rs.getInt("Chat_room_id"));
-				Message.setMem_id(rs.getInt("mem_id"));
-				Message.setMsg_log(rs.getString("Msg_log"));
-				Message.setMsg_time(rs.getTimestamp("Msg_time"));
+				Message.setMsgId(rs.getInt("Msg_id"));
+				Message.setChatRoomId(rs.getInt("Chat_room_id"));
+				Message.setMemId(rs.getInt("mem_id"));
+				Message.setMsgLog(rs.getString("Msg_log"));
+				Message.setMsgTime(rs.getTimestamp("Msg_time"));
 				list.add(Message);
 			}
 		} catch (SQLException se) {
@@ -166,11 +166,11 @@ public class MessageJDBCDAO implements MessageDAO_interface {
 		// 查詢
 		List<Message> list = dao.getAll();
 		for (Message aMsg : list) {
-			System.out.print(aMsg.getMsg_id() + ",");
-			System.out.print(aMsg.getChat_room_id() + ",");
-			System.out.print(aMsg.getMem_id() + ",");
-			System.out.print(aMsg.getMsg_log() + ",");
-			System.out.print(aMsg.getMsg_time() + ",");
+			System.out.print(aMsg.getMsgId() + ",");
+			System.out.print(aMsg.getChatRoomId() + ",");
+			System.out.print(aMsg.getMemId() + ",");
+			System.out.print(aMsg.getMsgLog() + ",");
+			System.out.print(aMsg.getMsgTime() + ",");
 			System.out.println();
 		}
 	}
