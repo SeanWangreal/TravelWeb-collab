@@ -2,40 +2,60 @@ package com.tha103.gogoyu.room_photo.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
- 
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "room_photo")
 public class Room_photo implements Serializable {
-	private Integer room_photo_id;
-	private Integer room_id;
-	private byte[] photo;
-	private Timestamp upload_time;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "room_photo_id", updatable = false)
+	private Integer roomPhotoId;
 	
+	@Column(name="room_id")
+	private Integer roomId;
+	
+	@Column(name = "photo", columnDefinition = "longblob")
+	private byte[] photo;
+	
+	@Column(name="upload_time", insertable = false, updatable = false)
+	private Timestamp uploadTime;
+
+
 	public Room_photo() {
 		super();
 	}
 
-	
-	public Room_photo(Integer room_photo_id, Integer room_id, byte[] photo, Timestamp upload_time) {
+
+	public Room_photo(Integer roomPhotoId, Integer roomId, byte[] photo, Timestamp uploadTime) {
 		super();
-		this.room_photo_id = room_photo_id;
-		this.room_id = room_id;
+		this.roomPhotoId = roomPhotoId;
+		this.roomId = roomId;
 		this.photo = photo;
-		this.upload_time = upload_time;
-	}
-	
-	public Integer getRoom_photo_id() {
-		return room_photo_id;
+		this.uploadTime = uploadTime;
 	}
 
-	public void setRoom_photo_id(Integer room_photo_id) {
-		this.room_photo_id = room_photo_id;
+	public Integer getRoomPhotoId() {
+		return roomPhotoId;
 	}
 
-	public Integer getRoom_id() {
-		return room_id;
+	public void setRoomPhotoId(Integer roomPhotoId) {
+		this.roomPhotoId = roomPhotoId;
 	}
 
-	public void setRoom_id(Integer room_id) {
-		this.room_id = room_id;
+	public Integer getRoomId() {
+		return roomId;
+	}
+
+	public void setRoomId(Integer roomId) {
+		this.roomId = roomId;
 	}
 
 	public byte[] getPhoto() {
@@ -46,16 +66,13 @@ public class Room_photo implements Serializable {
 		this.photo = photo;
 	}
 
-	public Timestamp getUpload_time() {
-		return upload_time;
+	public Timestamp getUploadTime() {
+		return uploadTime;
 	}
 
-	public void setUpload_time(Timestamp upload_time) {
-		this.upload_time = upload_time;
+	public void setUploadTime(Timestamp uploadTime) {
+		this.uploadTime = uploadTime;
 	}
 
-	
-	
-	
-	
+
 }

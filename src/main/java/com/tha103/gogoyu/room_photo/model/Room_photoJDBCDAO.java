@@ -24,14 +24,14 @@ public class Room_photoJDBCDAO implements Room_photoDAO_interface {
 		}
 	}
 	
-	private static final String INSERT_STMT = "INSERT INTO room_photo (room_id,photo,upload_time) VALUES (?, ? ,?)";
-	private static final String GET_ALL_STMT = "SELECT room_photo_id ,room_id,photo,upload_time FROM room_photo";
-	private static final String GET_ONE_STMT = "SELECT room_photo_id,room_id,photo,upload_time FROM room_photo where room_photo_id = ?";
-	private static final String DELETE_ROOM_PHOTO = "DELETE FROM room_photo where room_photo_id = ?";	
-	private static final String UPDATE = "UPDATE room_photo set room_id = ?,photo = ?,upload_time = ? where room_photo_id = ?";
+	private static final String INSERT_STMT = "INSERT INTO roomPhoto (room_id,photo,upload_time) VALUES (?, ? ,?)";
+	private static final String GET_ALL_STMT = "SELECT room_photo_id ,room_id,photo,upload_time FROM roomPhoto";
+	private static final String GET_ONE_STMT = "SELECT room_photo_id,room_id,photo,upload_time FROM roomPhoto where room_photo_id = ?";
+	private static final String DELETE_ROOM_PHOTO = "DELETE FROM roomPhoto where room_photo_id = ?";	
+	private static final String UPDATE = "UPDATE roomPhoto set room_id = ?,photo = ?,upload_time = ? where room_photo_id = ?";
 	
 	@Override
-	public void insert(Room_photo room_photo) {
+	public void insert(Room_photo roomPhoto) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -39,9 +39,9 @@ public class Room_photoJDBCDAO implements Room_photoDAO_interface {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			String[] cols = {"room_photo_id"};
 			pstmt = con.prepareStatement(INSERT_STMT,cols);
-			pstmt.setInt(1, room_photo.getRoom_id());
-			pstmt.setBytes(2, room_photo.getPhoto());
-			pstmt.setTimestamp(3, room_photo.getUpload_time());			
+			pstmt.setInt(1, roomPhoto.getRoomId());
+			pstmt.setBytes(2, roomPhoto.getPhoto());
+			pstmt.setTimestamp(3, roomPhoto.getUploadTime());			
 			pstmt.executeUpdate();
 
 		}catch (SQLException se) {
@@ -61,7 +61,7 @@ public class Room_photoJDBCDAO implements Room_photoDAO_interface {
 	}
 
 	@Override
-	public void update(Room_photo room_photo) {
+	public void update(Room_photo roomPhoto) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -69,10 +69,11 @@ public class Room_photoJDBCDAO implements Room_photoDAO_interface {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setInt(1, room_photo.getRoom_id());
-			pstmt.setBytes(2, room_photo.getPhoto());
-			pstmt.setTimestamp(3, room_photo.getUpload_time());			
-			pstmt.setInt(4, room_photo.getRoom_photo_id());
+			pstmt.setInt(1, roomPhoto.getRoomId());
+			pstmt.setBytes(2, roomPhoto.getPhoto());
+			pstmt.setTimestamp(3, roomPhoto.getUploadTime());			
+			pstmt.setInt(4, roomPhoto.getRoomPhotoId());
+			pstmt.setInt(4, roomPhoto.getRoomId());
 			pstmt.executeUpdate();
 
 		} catch (SQLException se) {
@@ -84,14 +85,14 @@ public class Room_photoJDBCDAO implements Room_photoDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer room_photo_id) {
+	public void delete(Integer roomPhotoId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(DELETE_ROOM_PHOTO);
-			pstmt.setInt(1, room_photo_id);
+			pstmt.setInt(1, roomPhotoId);
 			pstmt.executeUpdate();
 
 		} catch (SQLException se) {
@@ -110,8 +111,8 @@ public class Room_photoJDBCDAO implements Room_photoDAO_interface {
 	}
 
 	@Override
-	public Room_photo findByPrimaryKey(Integer room_photo_id) {
-		Room_photo room_photo = null;
+	public Room_photo findByPrimaryKey(Integer roomPhotoId) {
+		Room_photo roomPhoto = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -120,16 +121,16 @@ public class Room_photoJDBCDAO implements Room_photoDAO_interface {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, room_photo_id);
+			pstmt.setInt(1, roomPhotoId);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				room_photo = new Room_photo();
-				room_photo.setRoom_photo_id(rs.getInt("room_photo_id"));
-				room_photo.setRoom_id(rs.getInt("room_id"));
-				room_photo.setPhoto(rs.getBytes("photo"));
-				room_photo.setUpload_time(rs.getTimestamp("upload_time"));
+				roomPhoto = new Room_photo();
+				roomPhoto.setRoomPhotoId(rs.getInt("room_photo_id"));
+				roomPhoto.setRoomId(rs.getInt("room_id"));
+				roomPhoto.setPhoto(rs.getBytes("photo"));
+				roomPhoto.setUploadTime(rs.getTimestamp("upload_time"));
 				
 			
 			}
@@ -140,14 +141,14 @@ public class Room_photoJDBCDAO implements Room_photoDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, rs);
 		}
-		return room_photo;
+		return roomPhoto;
 		
 	}
 
 	@Override
 	public List<Room_photo> getAll() {
 		List<Room_photo> list = new ArrayList<Room_photo>();
-		Room_photo room_photo = null;
+		Room_photo roomPhoto = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -159,13 +160,13 @@ public class Room_photoJDBCDAO implements Room_photoDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				room_photo = new Room_photo();
-				room_photo.setRoom_photo_id(rs.getInt("room_photo_id"));
-				room_photo.setRoom_id(rs.getInt("room_id"));
-				room_photo.setPhoto(rs.getBytes("photo"));
-				room_photo.setUpload_time(rs.getTimestamp("upload_time"));
+				roomPhoto = new Room_photo();
+				roomPhoto.setRoomPhotoId(rs.getInt("room_photo_id"));
+				roomPhoto.setRoomId(rs.getInt("room_id"));
+				roomPhoto.setPhoto(rs.getBytes("photo"));
+				roomPhoto.setUploadTime(rs.getTimestamp("upload_time"));
 				
-				list.add(room_photo);
+				list.add(roomPhoto);
 			}
 
 		} catch (SQLException se) {
@@ -185,36 +186,42 @@ public class Room_photoJDBCDAO implements Room_photoDAO_interface {
 
 	// 新增
 //		Room_photo photo001 = new Room_photo();
-		
-//		photo001.setRoom_id(4);
+//		photo001.setRoomId(4);
 //		try {
 //			byte[] pic = getPictureByteArray("C:\\Users\\Tibame_T14\\Pictures\\1693974131115.jpg");
 //			photo001.setPhoto(pic);
 //		} catch(IOException ie){
 //			System.out.println(ie);
-//		}		photo001.setUpload_time(Timestamp.valueOf("2023-09-11 17:55:55"));
+//		}		photo001.setUploadTime(Timestamp.valueOf("2023-09-11 17:55:55"));
 //		dao.insert(photo001);
-//
+
 		//修改
 //		Room_photo photo002 = new Room_photo();
-//		photo002.setRoom_photo_id(1004);
-//		photo002.setRoom_id(9);
-//		photo002.setUpload_time(Timestamp.valueOf("2023-09-12 17:55:55"));
+//		photo002.setRoomPhotoId(1004);
+//		photo002.setRoomId(9);
+//		photo002.setUploadTime(Timestamp.valueOf("2023-09-12 17:55:55"));
 		
 		//刪除
 //		dao.delete(1004);
 		
 		//查詢
-		Room_photo photo003 =dao.findByPrimaryKey(1005);
-		System.out.print(photo003.getRoom_id() +",");
-		System.out.print(photo003.getPhoto() +",");
-		System.out.print(photo003.getUpload_time()+" ");
+//		Room_photo photo003 =dao.findByPrimaryKey(1005);
+//		System.out.print(photo003.getRoomId() +",");
+//		System.out.print(photo003.getPhoto() +",");
+//		System.out.print(photo003.getUploadTime()+" ");
+
 		
+//		List<Room_photo> list =dao.getAll();
+//		for(Room_photo sPhoto: list) {
+//			System.out.print(sPhoto.getRoomId()+",");
+//			System.out.print(sPhoto.getPhoto()+",");
+//			System.out.print(sPhoto.getUploadTime()+",");
+//		}
 		List<Room_photo> list =dao.getAll();
 		for(Room_photo sPhoto: list) {
-			System.out.print(sPhoto.getRoom_id()+",");
+			System.out.print(sPhoto.getRoomId()+",");
 			System.out.print(sPhoto.getPhoto()+",");
-			System.out.print(sPhoto.getUpload_time()+",");
+			System.out.print(sPhoto.getUploadTime()+",");
 		}
 	}
 	}

@@ -25,13 +25,13 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			String[] cols = { "room_id" };
 			pstmt = con.prepareStatement(INSERT_STMT, cols);
-			pstmt.setInt(1, room.getComp_id());
-			pstmt.setInt(2, room.getRoom_type());
-			pstmt.setString(3, room.getRoom_name());
+			pstmt.setInt(1, room.getCompId());
+			pstmt.setInt(2, room.getRoomType());
+			pstmt.setString(3, room.getRoomName());
 			pstmt.setInt(4, room.getBeds());
 			pstmt.setDouble(5, room.getPrice());
 			pstmt.setString(6, room.getIntro());
-			pstmt.setInt(7, room.getRoom_status());
+			pstmt.setInt(7, room.getRoomStatus());
 			pstmt.setByte(8, room.getTissue());
 			pstmt.setByte(9, room.getShower());
 			pstmt.setByte(10, room.getBathroom());
@@ -42,7 +42,7 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 			pstmt.setByte(15, room.getSlippers());
 			pstmt.setByte(16, room.getBathrobe());
 			pstmt.setByte(17, room.getSpatub());
-			pstmt.setByte(18, room.getElectric_kettle());
+			pstmt.setByte(18, room.getElectricKettle());
 			pstmt.executeUpdate();
 
 		} catch (SQLException se) {
@@ -62,13 +62,13 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setInt(1, room.getComp_id());
-			pstmt.setInt(2, room.getRoom_type());
-			pstmt.setString(3, room.getRoom_name());
+			pstmt.setInt(1, room.getCompId());
+			pstmt.setInt(2, room.getRoomType());
+			pstmt.setString(3, room.getRoomName());
 			pstmt.setInt(4, room.getBeds());
 			pstmt.setDouble(5, room.getPrice());
 			pstmt.setString(6, room.getIntro());
-			pstmt.setInt(7, room.getRoom_status());
+			pstmt.setInt(7, room.getRoomStatus());
 			pstmt.setByte(8, room.getTissue());
 			pstmt.setByte(9, room.getShower());
 			pstmt.setByte(10, room.getBathroom());
@@ -79,8 +79,8 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 			pstmt.setByte(15, room.getSlippers());
 			pstmt.setByte(16, room.getBathrobe());
 			pstmt.setByte(17, room.getSpatub());
-			pstmt.setByte(18, room.getElectric_kettle());
-			pstmt.setInt(19, room.getRoom_id());
+			pstmt.setByte(18, room.getElectricKettle());
+			pstmt.setInt(19, room.getRoomId());
 			pstmt.executeUpdate();
 
 		} catch (SQLException se) {
@@ -118,7 +118,7 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 	}
 
 	@Override
-	public Room findByPrimaryKey(Integer room_id) {
+	public Room findByPrimaryKey(Integer roomId) {
 		Room room = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -128,20 +128,20 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, room_id);
+			pstmt.setInt(1, roomId);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				room = new Room();
-				room.setRoom_id(rs.getInt("room_id"));
-				room.setComp_id(rs.getInt("comp_id"));
-				room.setRoom_type(rs.getInt("room_type"));
-				room.setRoom_name(rs.getString("room_name"));
+				room.setRoomId(rs.getInt("room_id"));
+				room.setCompId(rs.getInt("comp_id"));
+				room.setRoomType(rs.getInt("room_type"));
+				room.setRoomName(rs.getString("room_name"));
 				room.setBeds(rs.getInt("beds"));
 				room.setPrice(rs.getDouble("price"));
 				room.setIntro(rs.getString("intro"));
-				room.setRoom_status(rs.getInt("room_status"));
+				room.setRoomStatus(rs.getInt("room_status"));
 				room.setTissue(rs.getByte("tissue"));
 				room.setShower(rs.getByte("shower"));
 				room.setBathroom(rs.getByte("bathroom"));
@@ -151,7 +151,7 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 				room.setFlushseat(rs.getByte("flushseat"));
 				room.setSlippers(rs.getByte("slippers"));
 				room.setSpatub(rs.getByte("spatub"));
-				room.setElectric_kettle(rs.getByte("electric_kettle"));
+				room.setElectricKettle(rs.getByte("electric_kettle"));
 
 			}
 
@@ -180,14 +180,14 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 
 			while (rs.next()) {
 				room = new Room();
-				room.setRoom_id(rs.getInt("room_id"));
-				room.setComp_id(rs.getInt("comp_id"));
-				room.setRoom_type(rs.getInt("room_type"));
-				room.setRoom_name(rs.getString("room_name"));
+				room.setRoomId(rs.getInt("room_id"));
+				room.setCompId(rs.getInt("comp_id"));
+				room.setRoomType(rs.getInt("room_type"));
+				room.setRoomName(rs.getString("room_name"));
 				room.setBeds(rs.getInt("beds"));
 				room.setPrice(rs.getDouble("price"));
 				room.setIntro(rs.getString("intro"));
-				room.setRoom_status(rs.getInt("room_status"));
+				room.setRoomStatus(rs.getInt("room_status"));
 				room.setTissue(rs.getByte("tissue"));
 				room.setShower(rs.getByte("shower"));
 				room.setBathroom(rs.getByte("bathroom"));
@@ -197,7 +197,7 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 				room.setFlushseat(rs.getByte("flushseat"));
 				room.setSlippers(rs.getByte("slippers"));
 				room.setSpatub(rs.getByte("spatub"));
-				room.setElectric_kettle(rs.getByte("electric_kettle"));
+				room.setElectricKettle(rs.getByte("electric_kettle"));
 
 				list.add(room);
 			}
@@ -216,13 +216,13 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 
 		// 新增
 //		Room ro1= new Room(); 
-//		ro1.setComp_id(1001);
-//		ro1.setRoom_type(3);
-//		ro1.setRoom_name("北邊");
+//		ro1.setCompId(1001);
+//		ro1.setRoomType(3);
+//		ro1.setRoomName("北邊");
 //		ro1.setBeds(3);
 //		ro1.setPrice(10000.0);
 //		ro1.setIntro("沒什麼");
-//		ro1.setRoom_status(1);
+//		ro1.setRoomStatus(1);
 //		ro1.setTissue((byte)0);
 //		ro1.setShower((byte)1);
 //		ro1.setBathroom((byte)1);
@@ -233,19 +233,19 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 //		ro1.setSlippers((byte)1);
 //		ro1.setBathrobe((byte)1);
 //		ro1.setSpatub((byte)1);
-//		ro1.setElectric_kettle((byte)1);
+//		ro1.setElectricKettle((byte)1);
 //		dao.insert(ro1);
 
 		// 修改
 //		Room r2 = new Room();
-//		r2.setRoom_id(10001);
-//		r2.setComp_id(1001);
-//		r2.setRoom_type(3);
-//		r2.setRoom_name("北邊");
+//		r2.setRoomId(10001);
+//		r2.setCompId(1001);
+//		r2.setRoomType(3);
+//		r2.setRoomName("北邊");
 //		r2.setBeds(3);
 //		r2.setPrice(10000.0);
 //		r2.setIntro("沒什麼");
-//		r2.setRoom_status(1);
+//		r2.setRoomStatus(1);
 //		r2.setTissue((byte) 0);
 //		r2.setShower((byte) 1);
 //		r2.setBathroom((byte) 1);
@@ -256,7 +256,7 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 //		r2.setSlippers((byte) 1);
 //		r2.setBathrobe((byte) 1);
 //		r2.setSpatub((byte) 1);
-//		r2.setElectric_kettle((byte) 1);
+//		r2.setElectricKettle((byte) 1);
 //		dao.update(r2);
 
 		// 刪除
@@ -264,14 +264,14 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 
 		// 查詢
 		Room r4 =dao.findByPrimaryKey(10000);
-		System.out.print(r4.getRoom_id() +",");
-		System.out.print(r4.getComp_id()+",");
-		System.out.print(r4.getRoom_type()+",");
-		System.out.print(r4.getRoom_name()+",");
+		System.out.print(r4.getRoomId() +",");
+		System.out.print(r4.getCompId()+",");
+		System.out.print(r4.getRoomType()+",");
+		System.out.print(r4.getRoomName()+",");
 		System.out.print(r4.getBeds()+",");
 		System.out.print(r4.getPrice()+",");
 		System.out.print(r4.getIntro()+",");
-		System.out.print(r4.getRoom_status()+",");
+		System.out.print(r4.getRoomStatus()+",");
 		System.out.print(r4.getTissue()+",");
 		System.out.print(r4.getShower()+",");
 		System.out.print(r4.getBathroom()+",");
@@ -281,19 +281,19 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 		System.out.print(r4.getFlushseat()+",");
 		System.out.print(r4.getSlippers()+",");
 		System.out.print(r4.getSpatub()+",");
-		System.out.print(r4.getElectric_kettle()+",");
+		System.out.print(r4.getElectricKettle()+",");
 		
 		List<Room> list =dao.getAll();
 		for(Room sRo :list) {
 			
-			System.out.print(sRo.getRoom_id() +",");
-			System.out.print(sRo.getComp_id()+",");
-			System.out.print(sRo.getRoom_type()+",");
-			System.out.print(sRo.getRoom_name()+",");
+			System.out.print(sRo.getRoomId() +",");
+			System.out.print(sRo.getCompId()+",");
+			System.out.print(sRo.getRoomType()+",");
+			System.out.print(sRo.getRoomName()+",");
 			System.out.print(sRo.getBeds()+",");
 			System.out.print(sRo.getPrice()+",");
 			System.out.print(sRo.getIntro()+",");
-			System.out.print(r4.getRoom_status()+",");
+			System.out.print(r4.getRoomStatus()+",");
 			System.out.print(sRo.getTissue()+",");
 			System.out.print(sRo.getShower()+",");
 			System.out.print(sRo.getBathroom()+",");
@@ -303,7 +303,7 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 			System.out.print(sRo.getFlushseat()+",");
 			System.out.print(sRo.getSlippers()+",");
 			System.out.print(sRo.getSpatub()+",");
-			System.out.print(sRo.getElectric_kettle()+",");
+			System.out.print(sRo.getElectricKettle()+",");
 		}
 			
 	}

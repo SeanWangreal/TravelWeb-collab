@@ -1,41 +1,73 @@
 package com.tha103.gogoyu.room.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "room")
 public class Room implements java.io.Serializable {
 	
-
-	private Integer room_id;
-	
-	private Integer comp_id;
-	private Integer room_type;
-	private String room_name;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "room_id", updatable = false)
+	private Integer roomId;
+	@Column(name = "comp_id")
+	private Integer compId;
+	@Column(name = "room_type")
+	private Integer roomType;
+	@Column(name = "room_name")
+	private String roomName;
+	@Column(name = "beds")
 	private Integer beds;
+	@Column(name = "price")
 	private Double price;
+	@Column(name = "intro", columnDefinition = "longtext")
 	private String intro;
-	private Integer room_status;
+	@Column(name = "room_status")
+	private Integer roomStatus;
+	@Column(name = "tissue")
 	private byte tissue;
+	@Column(name = "shower")
 	private byte shower;
+	@Column(name = "bathroom")
 	private byte bathroom;
+	@Column(name = "dryer")
 	private byte dryer;
+	@Column(name = "tub")
 	private byte tub;
+	@Column(name = "freetoiletries")
 	private byte freetoiletries;
+	@Column(name = "flushseat")
 	private byte flushseat;
+	@Column(name = "slippers")
 	private byte slippers;
+	@Column(name = "bathrobe")
 	private byte bathrobe;
+	@Column(name = "spatub")
 	private byte spatub;
-	private byte electric_kettle;
+	@Column(name = "electricKettle")
+	private byte electricKettle;
 	
-	public Room(Integer room_id, Integer comp_id, Integer room_type, String room_name, Integer beds, Double price,
-			String intro, Integer room_status, byte tissue, byte shower, byte bathroom, byte dryer, byte tub,
-			byte freetoiletries, byte flushseat, byte slippers, byte bathrobe, byte spatub, byte electric_kettle) {
+	public Room() {
 		super();
-		this.room_id = room_id;
-		this.comp_id = comp_id;
-		this.room_type = room_type;
-		this.room_name = room_name;
+	}
+
+	public Room(Integer roomId, Integer compId, Integer roomType, String roomName, Integer beds, Double price,
+			String intro, Integer roomStatus, byte tissue, byte shower, byte bathroom, byte dryer, byte tub,
+			byte freetoiletries, byte flushseat, byte slippers, byte bathrobe, byte spatub, byte electricKettle) {
+		super();
+		this.roomId = roomId;
+		this.compId = compId;
+		this.roomType = roomType;
+		this.roomName = roomName;
 		this.beds = beds;
 		this.price = price;
 		this.intro = intro;
-		this.room_status = room_status;
+		this.roomStatus = roomStatus;
 		this.tissue = tissue;
 		this.shower = shower;
 		this.bathroom = bathroom;
@@ -46,44 +78,39 @@ public class Room implements java.io.Serializable {
 		this.slippers = slippers;
 		this.bathrobe = bathrobe;
 		this.spatub = spatub;
-		this.electric_kettle = electric_kettle;
+		this.electricKettle = electricKettle;
 	}
 
-	public Room() {
-		super();
-		// TODO Auto-generated constructor stub
+	public Integer getRoomId() {
+		return roomId;
 	}
 
-	public Integer getRoom_id() {
-		return room_id;
+	public void setRoomId(Integer roomId) {
+		this.roomId = roomId;
 	}
 
-	public void setRoom_id(Integer room_id) {
-		this.room_id = room_id;
+	public Integer getCompId() {
+		return compId;
 	}
 
-	public Integer getComp_id() {
-		return comp_id;
+	public void setCompId(Integer compId) {
+		this.compId = compId;
 	}
 
-	public void setComp_id(Integer comp_id) {
-		this.comp_id = comp_id;
+	public Integer getRoomType() {
+		return roomType;
 	}
 
-	public Integer getRoom_type() {
-		return room_type;
+	public void setRoomType(Integer roomType) {
+		this.roomType = roomType;
 	}
 
-	public void setRoom_type(Integer room_type) {
-		this.room_type = room_type;
+	public String getRoomName() {
+		return roomName;
 	}
 
-	public String getRoom_name() {
-		return room_name;
-	}
-
-	public void setRoom_name(String room_name) {
-		this.room_name = room_name;
+	public void setRoomName(String roomName) {
+		this.roomName = roomName;
 	}
 
 	public Integer getBeds() {
@@ -110,12 +137,12 @@ public class Room implements java.io.Serializable {
 		this.intro = intro;
 	}
 
-	public Integer getRoom_status() {
-		return room_status;
+	public Integer getRoomStatus() {
+		return roomStatus;
 	}
 
-	public void setRoom_status(Integer room_status) {
-		this.room_status = room_status;
+	public void setRoomStatus(Integer roomStatus) {
+		this.roomStatus = roomStatus;
 	}
 
 	public byte getTissue() {
@@ -198,15 +225,15 @@ public class Room implements java.io.Serializable {
 		this.spatub = spatub;
 	}
 
-	public byte getElectric_kettle() {
-		return electric_kettle;
+	public byte getElectricKettle() {
+		return electricKettle;
 	}
 
-	public void setElectric_kettle(byte electric_kettle) {
-		this.electric_kettle = electric_kettle;
+	public void setElectricKettle(byte electricKettle) {
+		this.electricKettle = electricKettle;
 	}
 	
-
+	
 	
 	
 }

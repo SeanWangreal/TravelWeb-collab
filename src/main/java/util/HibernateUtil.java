@@ -6,7 +6,6 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class HibernateUtil {
-
 	private static StandardServiceRegistry registry;
 	private static final SessionFactory sessionFactory = createSessionFactory();
 	
@@ -26,14 +25,17 @@ public class HibernateUtil {
 					.buildSessionFactory();
 
 			return sessionFactory;
-		} catch (Exception exc) {
-			exc.printStackTrace();
-			throw new ExceptionInInitializerError(exc);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ExceptionInInitializerError(e);
 		}
+
 	}
-	
+
 	public static void shutdown() {
 		if (registry != null)
 			StandardServiceRegistryBuilder.destroy(registry);
 	}
+	
 }
