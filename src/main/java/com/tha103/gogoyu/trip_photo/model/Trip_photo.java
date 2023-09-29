@@ -1,8 +1,6 @@
 package com.tha103.gogoyu.trip_photo.model;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,15 +10,18 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "trip_photo")
-public class Trip_photo implements Serializable {
+public class Trip_photo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "trip_photo_id")
 	private Integer tripPhotoId;
+
 	@Column(name = "trip_id")
 	private Integer tripId;
+
 	@Column(name = "photo", columnDefinition = "longblob")
 	private byte[] photo;
+
 	@Column(name = "upload_time")
 	private Timestamp uploadTime;
 

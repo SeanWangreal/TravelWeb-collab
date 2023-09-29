@@ -36,8 +36,8 @@ public class PlanningJDBCDAO implements PlanningDAO_interface {
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(INSERT_STMT);
-			pstmt.setInt(1, planning.getCus_id());
-			pstmt.setString(2, planning.getPlan_name());
+			pstmt.setInt(1, planning.getCusId());
+			pstmt.setString(2, planning.getPlanName());
 			pstmt.executeUpdate();
 		}  catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -54,9 +54,9 @@ public class PlanningJDBCDAO implements PlanningDAO_interface {
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
-			pstmt.setInt(1, planning.getCus_id());
-			pstmt.setString(2, planning.getPlan_name());
-			pstmt.setInt(3, planning.getPlan_id());
+			pstmt.setInt(1, planning.getCusId());
+			pstmt.setString(2, planning.getPlanName());
+			pstmt.setInt(3, planning.getPlanId());
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -96,9 +96,9 @@ public class PlanningJDBCDAO implements PlanningDAO_interface {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				planning = new Planning();
-				planning.setPlan_id(rs.getInt("plan_id"));
-				planning.setCus_id(rs.getInt("cus_id"));
-				planning.setPlan_name(rs.getString("plan_name"));
+				planning.setPlanId(rs.getInt("plan_id"));
+				planning.setCusId(rs.getInt("cus_id"));
+				planning.setPlanName(rs.getString("plan_name"));
 			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -122,9 +122,9 @@ public class PlanningJDBCDAO implements PlanningDAO_interface {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				planning = new Planning();
-				planning.setPlan_id(rs.getInt("plan_id"));
-				planning.setCus_id(rs.getInt("cus_id"));
-				planning.setPlan_name(rs.getString("plan_name"));
+				planning.setPlanId(rs.getInt("plan_id"));
+				planning.setCusId(rs.getInt("cus_id"));
+				planning.setPlanName(rs.getString("plan_name"));
 				list.add(planning); 
 			}
 		} catch (SQLException se) {
@@ -141,15 +141,15 @@ public class PlanningJDBCDAO implements PlanningDAO_interface {
 
 //		// 新增
 //		Planning planning01 = new Planning();
-//		planning01.setCus_id(2);
-//		planning01.setPlan_name("測試新增2");
+//		planning01.setCusId(2);
+//		planning01.setPlanName("測試新增2");
 //		dao.insert(planning01);
 
 //		// 修改
 //		Planning planning02 = new Planning();
-//		planning02.setPlan_id(1);
-//		planning02.setCus_id(1);
-//		planning02.setPlan_name("測試修改");	
+//		planning02.setPlanId(1);
+//		planning02.setCusId(1);
+//		planning02.setPlanName("測試修改");	
 //		dao.update(planning02);
 
 //		// 刪除
@@ -157,17 +157,17 @@ public class PlanningJDBCDAO implements PlanningDAO_interface {
 
 //		// 查詢單筆
 //		Planning planning03 = dao.findByPrimaryKey(2);
-//		System.out.print(planning03.getPlan_id() + ",");
-//		System.out.print(planning03.getCus_id() + ",");
-//		System.out.println(planning03.getPlan_name());
+//		System.out.print(planning03.getPlanId() + ",");
+//		System.out.print(planning03.getCusId() + ",");
+//		System.out.println(planning03.getPlanName());
 //		System.out.println("---------------------");
 
 //		// 查詢全部
 //		List<Planning> list = dao.getAll();
 //		for(Planning aPlanning : list) {
-//			System.out.print(aPlanning.getPlan_id() + ",");
-//			System.out.print(aPlanning.getCus_id() + ",");
-//			System.out.print(aPlanning.getPlan_name());
+//			System.out.print(aPlanning.getPlanId() + ",");
+//			System.out.print(aPlanning.getCusId() + ",");
+//			System.out.print(aPlanning.getPlanName());
 //			System.out.println();
 //		}
 	}

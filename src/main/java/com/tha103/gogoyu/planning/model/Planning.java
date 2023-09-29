@@ -1,45 +1,59 @@
 package com.tha103.gogoyu.planning.model;
 
-public class Planning implements java.io.Serializable{
-	private Integer plan_id;
-	private Integer cus_id;
-	private String plan_name;
-	
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "planning")
+public class Planning{
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "plan_id", updatable = false)
+	private Integer planId;
+
+	@Column(name = "cus_id")
+	private Integer cusId;
+
+	@Column(name = "plan_name")
+	private String planName;
+
 	public Planning() {
 		super();
 	}
 
-	public Planning(Integer plan_id, Integer cus_id, String plan_name) {
+	public Planning(Integer planId, Integer cusId, String planName) {
 		super();
-		this.plan_id = plan_id;
-		this.cus_id = cus_id;
-		this.plan_name = plan_name;
+		this.planId = planId;
+		this.cusId = cusId;
+		this.planName = planName;
 	}
 
-	public Integer getPlan_id() {
-		return plan_id;
+	public Integer getPlanId() {
+		return planId;
 	}
 
-	public void setPlan_id(Integer plan_id) {
-		this.plan_id = plan_id;
+	public void setPlanId(Integer planId) {
+		this.planId = planId;
 	}
 
-	public Integer getCus_id() {
-		return cus_id;
+	public Integer getCusId() {
+		return cusId;
 	}
 
-	public void setCus_id(Integer cus_id) {
-		this.cus_id = cus_id;
+	public void setCusId(Integer cusId) {
+		this.cusId = cusId;
 	}
 
-	public String getPlan_name() {
-		return plan_name;
+	public String getPlanName() {
+		return planName;
 	}
 
-	public void setPlan_name(String plan_name) {
-		this.plan_name = plan_name;
+	public void setPlanName(String planName) {
+		this.planName = planName;
 	}
+
 }
-	
-	
-	
