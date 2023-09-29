@@ -1,78 +1,100 @@
 package com.tha103.gogoyu.trip_ord.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="trip_ord")
 public class Trip_ord implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private Integer trip_ord_id;	
-	private Integer trip_id;
-	private Integer plan_id;
-	private Integer cus_id;
+	@Id
+	@Column(name="trip_ord_id")
+	private Integer tripOrdId;
+	@Column(name="trip_id")
+	private Integer tripId;
+	@Column(name="plan_id")
+	private Integer planId;
+	@Column(name="cus_id")
+	private Integer cusId;
+	@Column(name="amount")
 	private Integer amount;
-    private Double total_price;
-    private Double commission;
-    private Integer order_status;
-    private Timestamp ord_time;
+	@Column(name="total_price")
+    private BigDecimal totalPrice;
+	@Column(name="commission")
+    private BigDecimal commission;
+	@Column(name="ord_status")
+    private Integer ordStatus;
+	@Column(name="ord_time")
+    private Timestamp ordTime;
+	@Column(name="remark")
     private String remark;
+	@Column(name="score")
     private Integer score;
+	@Column(name="comments", columnDefinition="longtext")
     private String comments;
-    private Timestamp comments_time;
+	@Column(name="comments_time")
+    private Timestamp commentsTime;
     
 	public Trip_ord() {
 		super();
 	}
 
-	public Trip_ord(Integer trip_ord_id, Integer trip_id, Integer plan_id, Integer cus_id, Integer amount,
-			double total_price, Double commission, Integer order_status, Timestamp ord_time, String remark, Integer score,
-			String comments, Timestamp comments_time) {
+	public Trip_ord(Integer tripOrdId, Integer tripId, Integer planId, Integer cusId, Integer amount,
+			BigDecimal totalPrice, BigDecimal commission, Integer ordStatus, Timestamp ordTime, String remark, Integer score,
+			String comments, Timestamp commentsTime) {
 		super();
-		this.trip_ord_id = trip_ord_id;
-		this.trip_id = trip_id;
-		this.plan_id = plan_id;
-		this.cus_id = cus_id;
+		this.tripOrdId = tripOrdId;
+		this.tripId = tripId;
+		this.planId = planId;
+		this.cusId = cusId;
 		this.amount = amount;
-		this.total_price = total_price;
+		this.totalPrice = totalPrice;
 		this.commission = commission;
-		this.order_status = order_status;
-		this.ord_time = ord_time;
+		this.ordStatus = ordStatus;
+		this.ordTime = ordTime;
 		this.remark = remark;
 		this.score = score;
 		this.comments = comments;
-		this.comments_time = comments_time;
+		this.commentsTime = commentsTime;
 	}
 
-	public Integer getTrip_ord_id() {
-		return trip_ord_id;
+	public Integer getTripOrdId() {
+		return tripOrdId;
 	}
 
-	public void setTrip_ord_id(Integer trip_ord_id) {
-		this.trip_ord_id = trip_ord_id;
+	public void setTripOrdId(Integer tripOrdId) {
+		this.tripOrdId = tripOrdId;
 	}
 
-	public Integer getTrip_id() {
-		return trip_id;
+	public Integer getTripId() {
+		return tripId;
 	}
 
-	public void setTrip_id(Integer trip_id) {
-		this.trip_id = trip_id;
+	public void setTripId(Integer tripId) {
+		this.tripId = tripId;
 	}
 
-	public Integer getPlan_id() {
-		return plan_id;
+	public Integer getPlanId() {
+		return planId;
 	}
 
-	public void setPlan_id(Integer plan_id) {
-		this.plan_id = plan_id;
+	public void setPlanId(Integer planId) {
+		this.planId = planId;
 	}
 
-	public Integer getCus_id() {
-		return cus_id;
+	public Integer getCusId() {
+		return cusId;
 	}
 
-	public void setCus_id(Integer cus_id) {
-		this.cus_id = cus_id;
+	public void setCusId(Integer cusId) {
+		this.cusId = cusId;
 	}
 
 	public Integer getAmount() {
@@ -83,36 +105,36 @@ public class Trip_ord implements Serializable{
 		this.amount = amount;
 	}
 
-	public double getTotal_price() {
-		return total_price;
+	public BigDecimal getTotalPrice() {
+		return totalPrice;
 	}
 
-	public void setTotal_price(Double total_price) {
-		this.total_price = total_price;
+	public void setTotalPrice(BigDecimal totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 
-	public Double getCommission() {
+	public BigDecimal getCommission() {
 		return commission;
 	}
 
-	public void setCommission(Double commission) {
+	public void setCommission(BigDecimal commission) {
 		this.commission = commission;
 	}
 
-	public Integer getOrder_status() {
-		return order_status;
+	public Integer getOrdStatus() {
+		return ordStatus;
 	}
 
-	public void setOrder_status(Integer order_status) {
-		this.order_status = order_status;
+	public void setOrdStatus(Integer ordStatus) {
+		this.ordStatus = ordStatus;
 	}
 
-	public Timestamp getOrd_time() {
-		return ord_time;
+	public Timestamp getOrdTime() {
+		return ordTime;
 	}
 
-	public void setOrd_time(Timestamp ord_time) {
-		this.ord_time = ord_time;
+	public void setOrdTime(Timestamp ordTime) {
+		this.ordTime = ordTime;
 	}
 
 	public String getRemark() {
@@ -139,12 +161,17 @@ public class Trip_ord implements Serializable{
 		this.comments = comments;
 	}
 
-	public Timestamp getComments_time() {
-		return comments_time;
+	public Timestamp getCommentsTime() {
+		return commentsTime;
 	}
 
-	public void setComments_time(Timestamp comments_time) {
-		this.comments_time = comments_time;
+	public void setCommentsTime(Timestamp commentsTime) {
+		this.commentsTime = commentsTime;
 	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
 }
 

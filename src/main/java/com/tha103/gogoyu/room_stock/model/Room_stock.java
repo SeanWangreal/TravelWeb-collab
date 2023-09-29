@@ -2,65 +2,75 @@ package com.tha103.gogoyu.room_stock.model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "room_stock")
 public class Room_stock implements java.io.Serializable {
-	private Integer room_stock_id;
-	private Integer room_id;
-	private Date stock_date;
-	private Integer stock;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "room_stock_id", updatable = false)
+	private Integer roomStockId;
 	
+	@Column(name = "room_id")
+	private Integer roomId;
+	
+	@Column(name ="stock_date")
+	private Date stockDate;
+	
+	@Column(name = "stock")
+	private Integer stock;
 	
 	public Room_stock() {
 		super();
 	}
 
-
-	public Room_stock(Integer room_stock_id, Integer room_id, Date stock_date, Integer stock) {
+	public Room_stock(Integer roomStockId, Integer roomId, Date stockDate, Integer stock) {
 		super();
-		this.room_stock_id = room_stock_id;
-		this.room_id = room_id;
-		this.stock_date = stock_date;
+		this.roomStockId = roomStockId;
+		this.roomId = roomId;
+		this.stockDate = stockDate;
 		this.stock = stock;
 	}
 
-
-	public Integer getRoom_stock_id() {
-		return room_stock_id;
+	public Integer getRoomStockId() {
+		return roomStockId;
 	}
 
-
-	public void setRoom_stock_id(Integer room_stock_id) {
-		this.room_stock_id = room_stock_id;
+	public void setRoomStockId(Integer roomStockId) {
+		this.roomStockId = roomStockId;
 	}
 
-
-	public Integer getRoom_id() {
-		return room_id;
+	public Integer getRoomId() {
+		return roomId;
 	}
 
-
-	public void setRoom_id(Integer room_id) {
-		this.room_id = room_id;
+	public void setRoomId(Integer roomId) {
+		this.roomId = roomId;
 	}
 
-
-	public Date getStock_date() {
-		return stock_date;
+	public Date getStockDate() {
+		return stockDate;
 	}
 
-
-	public void setStock_date(Date stock_date) {
-		this.stock_date = stock_date;
+	public void setStockDate(Date stockDate) {
+		this.stockDate = stockDate;
 	}
-
 
 	public Integer getStock() {
 		return stock;
 	}
 
-
 	public void setStock(Integer stock) {
 		this.stock = stock;
 	}
+	
+	
 	
 	
 }

@@ -1,79 +1,101 @@
 package com.tha103.gogoyu.room_ord.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "employee")
 public class Room_ord implements Serializable {
-	private Integer room_ord_id;
-	private Integer plan_id;
-	private Integer room_id;
-	private Integer cus_id;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer roomOrdId;
+	
+	@Column(name = "plan_id")
+	private Integer planId;
+	@Column(name = "room_id")
+	private Integer roomId;
+	@Column(name = "cus_id")
+	private Integer cusId;
+	@Column(name = "amount")
 	private Integer amount;
-	private Double total_price;
-	private Double commission;
+	@Column(name = "total_price")
+	private BigDecimal totalPrice;
+	@Column(name = "commision")
+	private BigDecimal commission;
+	@Column(name = "people")
 	private Integer people;
-	private Timestamp check_in_time;
-	private Timestamp check_out_time;
-	private Integer ord_status;
-	private Timestamp ord_time;
+	@Column(name = "check_in_time", insertable = false, updatable = false)
+	private Timestamp checkInTime;
+	@Column(name = "check_out_time", insertable = false, updatable = false)
+	private Timestamp checkOutTime;
+	@Column(name = "ord_status")
+	private Integer ordStatus;
+	@Column(name = "ord_time", insertable = false, updatable = false)
+	private Timestamp ordTime;
+	@Column(name = "remark")
 	private String remark;
+	@Column(name = "score")
 	private Integer score;
+	@Column(name = "comments", columnDefinition = "longtext")
 	private String comments;
-	private Timestamp comments_time;
-	
+	@Column(name = "comments_time", insertable = false, updatable = false)
+	private Timestamp commentsTime;
 	public Room_ord() {
+		super();	
+		}
+	public Room_ord(Integer roomOrdId, Integer planId, Integer roomId, Integer cusId, Integer amount,
+			BigDecimal totalPrice, BigDecimal commission, Integer people, Timestamp checkInTime, Timestamp checkOutTime,
+			Integer ordStatus, Timestamp ordTime, String remark, Integer score, String comments,
+			Timestamp commentsTime) {
 		super();
-	}
-	
-	
-	
-	
-	public Room_ord(Integer room_ord_id, Integer plan_id, Integer room_id, Integer cus_id, Integer amount,
-			Double total_price, Double commission, Integer people, Timestamp check_in_time, Timestamp check_out_time,
-			Integer ord_status, Timestamp ord_time, String remark, Integer score, String comments, Timestamp comments_time) {
-		super();
-		this.room_ord_id = room_ord_id;
-		this.plan_id = plan_id;
-		this.room_id = room_id;
-		this.cus_id = cus_id;
+		this.roomOrdId = roomOrdId;
+		this.planId = planId;
+		this.roomId = roomId;
+		this.cusId = cusId;
 		this.amount = amount;
-		this.total_price = total_price;
+		this.totalPrice = totalPrice;
 		this.commission = commission;
 		this.people = people;
-		this.check_in_time = check_in_time;
-		this.check_out_time = check_out_time;
-		this.ord_status = ord_status;
-		this.ord_time = ord_time;
+		this.checkInTime = checkInTime;
+		this.checkOutTime = checkOutTime;
+		this.ordStatus = ordStatus;
+		this.ordTime = ordTime;
 		this.remark = remark;
 		this.score = score;
 		this.comments = comments;
-		this.comments_time = comments_time;
+		this.commentsTime = commentsTime;
 	}
-	
-	
-	public Integer getRoom_ord_id() {
-		return room_ord_id;
+	public Integer getRoomOrdId() {
+		return roomOrdId;
 	}
-	public void setRoom_ord_id(Integer room_ord_id) {
-		this.room_ord_id = room_ord_id;
+	public void setRoomOrdId(Integer roomOrdId) {
+		this.roomOrdId = roomOrdId;
 	}
-	public Integer getPlan_id() {
-		return plan_id;
+	public Integer getPlanId() {
+		return planId;
 	}
-	public void setPlan_id(Integer plan_id) {
-		this.plan_id = plan_id;
+	public void setPlanId(Integer planId) {
+		this.planId = planId;
 	}
-	public Integer getRoom_id() {
-		return room_id;
+	public Integer getRoomId() {
+		return roomId;
 	}
-	public void setRoom_id(Integer room_id) {
-		this.room_id = room_id;
+	public void setRoomId(Integer roomId) {
+		this.roomId = roomId;
 	}
-	public Integer getCus_id() {
-		return cus_id;
+	public Integer getCusId() {
+		return cusId;
 	}
-	public void setCus_id(Integer cus_id) {
-		this.cus_id = cus_id;
+	public void setCusId(Integer cusId) {
+		this.cusId = cusId;
 	}
 	public Integer getAmount() {
 		return amount;
@@ -81,16 +103,16 @@ public class Room_ord implements Serializable {
 	public void setAmount(Integer amount) {
 		this.amount = amount;
 	}
-	public double getTotal_price() {
-		return total_price;
+	public BigDecimal getTotalPrice() {
+		return totalPrice;
 	}
-	public void setTotal_price(double total_price) {
-		this.total_price = total_price;
+	public void setTotalPrice(BigDecimal totalPrice) {
+		this.totalPrice = totalPrice;
 	}
-	public double getCommission() {
+	public BigDecimal getCommission() {
 		return commission;
 	}
-	public void setCommission(double commission) {
+	public void setCommission(BigDecimal commission) {
 		this.commission = commission;
 	}
 	public Integer getPeople() {
@@ -99,29 +121,29 @@ public class Room_ord implements Serializable {
 	public void setPeople(Integer people) {
 		this.people = people;
 	}
-	public Timestamp getCheck_in_time() {
-		return check_in_time;
+	public Timestamp getCheckInTime() {
+		return checkInTime;
 	}
-	public void setCheck_in_time(Timestamp check_in_time) {
-		this.check_in_time = check_in_time;
+	public void setCheckInTime(Timestamp checkInTime) {
+		this.checkInTime = checkInTime;
 	}
-	public Timestamp getCheck_out_time() {
-		return check_out_time;
+	public Timestamp getCheckOutTime() {
+		return checkOutTime;
 	}
-	public void setCheck_out_time(Timestamp check_out_time) {
-		this.check_out_time = check_out_time;
+	public void setCheckOutTime(Timestamp checkOutTime) {
+		this.checkOutTime = checkOutTime;
 	}
-	public Integer getOrd_status() {
-		return ord_status;
+	public Integer getOrdStatus() {
+		return ordStatus;
 	}
-	public void setOrd_status(Integer ord_status) {
-		this.ord_status = ord_status;
+	public void setOrdStatus(Integer ordStatus) {
+		this.ordStatus = ordStatus;
 	}
-	public Timestamp getOrd_time() {
-		return ord_time;
+	public Timestamp getOrdTime() {
+		return ordTime;
 	}
-	public void setOrd_time(Timestamp ord_time) {
-		this.ord_time = ord_time;
+	public void setOrdTime(Timestamp ordTime) {
+		this.ordTime = ordTime;
 	}
 	public String getRemark() {
 		return remark;
@@ -141,13 +163,12 @@ public class Room_ord implements Serializable {
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
-	public Timestamp getComments_time() {
-		return comments_time;
+	public Timestamp getCommentsTime() {
+		return commentsTime;
 	}
-	public void setComments_time(Timestamp comments_time) {
-		this.comments_time = comments_time;
+	public void setCommentsTime(Timestamp commentsTime) {
+		this.commentsTime = commentsTime;
 	}
-	
 	
 	
 	

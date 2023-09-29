@@ -27,7 +27,7 @@ public class Room_stockJDBCDAO implements Room_stockDAO_interface {
 	
 	private static final String UPDATE = "UPDATE room_stock set room_id = ?,stock_date = ? ,stock = ? where room_stock_id = ?";
 	@Override
-	public void insert(Room_stock room_stock) {
+	public void insert(Room_stock roomStock) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -35,9 +35,9 @@ public class Room_stockJDBCDAO implements Room_stockDAO_interface {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			String[] cols = {"room_stock_id"};
 			pstmt = con.prepareStatement(INSERT_STMT,cols);
-			pstmt.setInt(1, room_stock.getRoom_id());
-			pstmt.setDate(2,room_stock.getStock_date());
-			pstmt.setInt(3,room_stock.getStock());		
+			pstmt.setInt(1, roomStock.getRoomId());
+			pstmt.setDate(2,roomStock.getStockDate());
+			pstmt.setInt(3,roomStock.getStock());		
 			pstmt.executeUpdate();
 
 		}catch (SQLException se) {
@@ -48,7 +48,7 @@ public class Room_stockJDBCDAO implements Room_stockDAO_interface {
 		
 	}
 	@Override
-	public void update(Room_stock room_stock) {
+	public void update(Room_stock roomStock) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -56,10 +56,10 @@ public class Room_stockJDBCDAO implements Room_stockDAO_interface {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setInt(1, room_stock.getRoom_id());
-			pstmt.setDate(2,room_stock.getStock_date());
-			pstmt.setInt(3,room_stock.getStock());				
-			pstmt.setInt(4,room_stock.getRoom_stock_id());
+			pstmt.setInt(1, roomStock.getRoomId());
+			pstmt.setDate(2,roomStock.getStockDate());
+			pstmt.setInt(3,roomStock.getStock());				
+			pstmt.setInt(4,roomStock.getRoomStockId());
 			pstmt.executeUpdate();
 
 		} catch (SQLException se) {
@@ -70,14 +70,14 @@ public class Room_stockJDBCDAO implements Room_stockDAO_interface {
 		
 	}
 	@Override
-	public void delete(Integer room_stock_id) {
+	public void delete(Integer roomStockId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(DELETE_ROOM_STOCK);
-			pstmt.setInt(1, room_stock_id);
+			pstmt.setInt(1, roomStockId);
 			pstmt.executeUpdate();
 
 		} catch (SQLException se) {
@@ -94,8 +94,8 @@ public class Room_stockJDBCDAO implements Room_stockDAO_interface {
 		}		
 	}
 	@Override
-	public Room_stock findByPrimaryKey(Integer room_stock_id) {
-		Room_stock room_stock = null;
+	public Room_stock findByPrimaryKey(Integer roomStockId) {
+		Room_stock roomStock = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -104,16 +104,16 @@ public class Room_stockJDBCDAO implements Room_stockDAO_interface {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, room_stock_id);
+			pstmt.setInt(1, roomStockId);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				room_stock = new Room_stock();
-				room_stock.setRoom_stock_id(rs.getInt("room_stock_id"));
-				room_stock.setRoom_id(rs.getInt("room_id"));
-				room_stock.setStock_date(rs.getDate("stock_date"));
-				room_stock.setStock(rs.getInt("stock"));
+				roomStock = new Room_stock();
+				roomStock.setRoomStockId(rs.getInt("room_stock_id"));
+				roomStock.setRoomId(rs.getInt("room_id"));
+				roomStock.setStockDate(rs.getDate("stock_date"));
+				roomStock.setStock(rs.getInt("stock"));
 				
 			
 			}
@@ -124,12 +124,12 @@ public class Room_stockJDBCDAO implements Room_stockDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, rs);
 		}
-		return room_stock;		
+		return roomStock;		
 	}
 	@Override
 	public List<Room_stock> getAll() {
 		List<Room_stock> list = new ArrayList<Room_stock>();
-		Room_stock room_stock = null;
+		Room_stock roomStock = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -141,13 +141,13 @@ public class Room_stockJDBCDAO implements Room_stockDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				room_stock = new Room_stock();
-				room_stock.setRoom_stock_id(rs.getInt("room_stock_id"));
-				room_stock.setRoom_id(rs.getInt("room_id"));
-				room_stock.setStock_date(rs.getDate("stock_date"));
-				room_stock.setStock(rs.getInt("stock"));
+				roomStock = new Room_stock();
+				roomStock.setRoomStockId(rs.getInt("room_stock_id"));
+				roomStock.setRoomId(rs.getInt("room_id"));
+				roomStock.setStockDate(rs.getDate("stock_date"));
+				roomStock.setStock(rs.getInt("stock"));
 				
-				list.add(room_stock);
+				list.add(roomStock);
 			}
 
 		} catch (SQLException se) {
@@ -162,31 +162,31 @@ public class Room_stockJDBCDAO implements Room_stockDAO_interface {
 	Room_stockJDBCDAO dao = new Room_stockJDBCDAO(); 
 	// 新增
 //	Room_stock stock01 = new Room_stock();
-//	stock01.setRoom_id(7);
-//	stock01.setStock_date(Date.valueOf("2022-02-02"));
+//	stock01.setRoomId(7);
+//	stock01.setStockDate(Date.valueOf("2022-02-02"));
 //	stock01.setStock(6);
 //	dao.insert(stock01);
 	
 	//修改
 //	Room_stock stock02 = new Room_stock();
-//	stock02.setRoom_stock_id(1000);
-//	stock02.setRoom_id(1);
-//	stock02.setStock_date(Date.valueOf("1999-10-10"));
+//	stock02.setRoomStockId(1000);
+//	stock02.setRoomId(1);
+//	stock02.setStockDate(Date.valueOf("1999-10-10"));
 //	stock02.setStock(1);
 //	dao.update(stock02);
 	//刪除
 //	dao.delete(1004);
 	//查詢
 	Room_stock st03 = dao.findByPrimaryKey(1000);
-	System.out.print(st03.getRoom_id() +",");
+	System.out.print(st03.getRoomId() +",");
 	System.out.print(st03.getStock() +",");
-	System.out.print(st03.getStock_date() +".");
+	System.out.print(st03.getStockDate() +".");
 	
 	List<Room_stock> list = dao.getAll();
 	for(Room_stock stock:list) {
-		System.out.print(stock.getRoom_stock_id()+",");
-		System.out.print(stock.getRoom_id()+",");
-		System.out.println(stock.getStock_date()+",");
+		System.out.print(stock.getRoomStockId()+",");
+		System.out.print(stock.getRoomId()+",");
+		System.out.println(stock.getStockDate()+",");
 		System.out.println(stock.getStock()+">");
 	}
 	

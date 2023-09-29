@@ -35,9 +35,9 @@ public class Room_collectJDBCDAO implements Room_collectDAO_interface{
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER,Util.PASSWORD);
 			pstmt = con.prepareStatement(INSERT_STMT);
-			pstmt.setInt(1, room_collect.getCus_id());
-			pstmt.setInt(2, room_collect.getRoom_id());
-			pstmt.setTimestamp(3, room_collect.getCollect_time());
+			pstmt.setInt(1, room_collect.getCusId());
+			pstmt.setInt(2, room_collect.getRoomId());
+			pstmt.setTimestamp(3, room_collect.getCollectTime());
 			pstmt.executeUpdate();
 		} catch(SQLException se){
 			se.getStackTrace();
@@ -51,9 +51,9 @@ public class Room_collectJDBCDAO implements Room_collectDAO_interface{
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER,Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
-			pstmt.setTimestamp(1, room_collect.getCollect_time());
-			pstmt.setInt(2, room_collect.getCus_id());
-			pstmt.setInt(3, room_collect.getRoom_id());
+			pstmt.setTimestamp(1, room_collect.getCollectTime());
+			pstmt.setInt(2, room_collect.getCusId());
+			pstmt.setInt(3, room_collect.getRoomId());
 			pstmt.executeUpdate();
 		} catch(SQLException se){
 			se.getStackTrace();
@@ -89,9 +89,9 @@ public class Room_collectJDBCDAO implements Room_collectDAO_interface{
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				room_collect = new Room_collect();
-				room_collect.setCus_id(rs.getInt("cus_id"));
-				room_collect.setRoom_id(rs.getInt("room_id"));
-				room_collect.setCollect_time(rs.getTimestamp("3"));
+				room_collect.setCusId(rs.getInt("cus_id"));
+				room_collect.setRoomId(rs.getInt("room_id"));
+				room_collect.setCollectTime(rs.getTimestamp("3"));
 			}
 		} catch(SQLException se){
 			se.getStackTrace();
@@ -112,9 +112,9 @@ public class Room_collectJDBCDAO implements Room_collectDAO_interface{
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				room_collect = new Room_collect();
-				room_collect.setCus_id(rs.getInt("cus_id"));
-				room_collect.setRoom_id(rs.getInt("room_id"));
-				room_collect.setCollect_time(rs.getTimestamp("collect_time"));
+				room_collect.setCusId(rs.getInt("cus_id"));
+				room_collect.setRoomId(rs.getInt("room_id"));
+				room_collect.setCollectTime(rs.getTimestamp("collect_time"));
 				list.add(room_collect);
 			}
 		} catch(SQLException se){
@@ -138,9 +138,9 @@ public class Room_collectJDBCDAO implements Room_collectDAO_interface{
 //		dao.delete(121, 201);
 		//查詢一個
 //		Room_collect select = dao.findByPrimaryKey(121, 201);
-//		System.out.println(select.getCus_id());
-//		System.out.println(select.getRoom_id());
-//		System.out.println(select.getCollect_time());
+//		System.out.println(select.getCusId());
+//		System.out.println(select.getRoomId());
+//		System.out.println(select.getCollectTime());
 		//查詢全部
 //		List<Room_collect> all = dao.getAll();
 //		for(Room_collect item : all) {
