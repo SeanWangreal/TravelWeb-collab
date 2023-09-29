@@ -1,145 +1,179 @@
 package com.tha103.gogoyu.company.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Company")
 public class Company implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
-	private Integer comp_id;
-	private Integer hotel_info_id;
-	private Integer comp_type;
-	private String comp_name;
-	private String comp_address;
-	private String comp_phone;
-	private String principal_name;
-	private String principal_phone;
-	private String comp_account;
-	private String comp_password;
-	private String comp_mail;
-	private byte[] comp_photo;
-	private Integer check_status;
+	@Id
+	@Column(name = "comp_id", updatable = false)
+	private Integer compId;
+
+	@Column(name = "hotel_info_id")
+	private Integer hotelInfoId;
+
+	@Column(name = "comp_type")
+	private Integer compType;
+
+	@Column(name = "comp_name")
+	private String compName;
+
+	@Column(name = "comp_address")
+	private String compAddress;
+
+	@Column(name = " comp_phone")
+	private String compPhone;
+
+	@Column(name = "principal_name")
+	private String principalName;
+
+	@Column(name = "principal_phone")
+	private String principalPhone;
+
+	@Column(name = "comp_account")
+	private String compAccount;
+
+	@Column(name = "comp_password")
+	private String compPassword;
+
+	@Column(name = "comp_mail")
+	private String compMail;
+
+	@Column(name = "comp_photo", columnDefinition = "longblob")
+	private byte[] compPhoto;
+
+	@Column(name = "check_status")
+	private Integer checkStatus;
 
 	public Company(Integer comp_id, Integer hotel_info_id, Integer comp_type, String comp_name, String comp_address,
 			String comp_phone, String principal_name, String principal_phone, String comp_account, String comp_password,
 			String comp_mail, byte[] comp_photo, Integer check_status) {
 		super();
-		this.comp_id = comp_id;
-		this.hotel_info_id = hotel_info_id;
-		this.comp_type = comp_type;
-		this.comp_name = comp_name;
-		this.comp_address = comp_address;
-		this.comp_phone = comp_phone;
-		this.principal_name = principal_name;
-		this.principal_phone = principal_phone;
-		this.comp_account = comp_account;
-		this.comp_password = comp_password;
-		this.comp_mail = comp_mail;
-		this.comp_photo = comp_photo;
-		this.check_status = check_status;
+		this.compId = comp_id;
+		this.hotelInfoId = hotel_info_id;
+		this.compType = comp_type;
+		this.compName = comp_name;
+		this.compAddress = comp_address;
+		this.compPhone = comp_phone;
+		this.principalName = principal_name;
+		this.principalPhone = principal_phone;
+		this.compAccount = comp_account;
+		this.compPassword = comp_password;
+		this.compMail = comp_mail;
+		this.compPhoto = comp_photo;
+		this.checkStatus = check_status;
 	}
-	
+
 	public Company() {
 		super();
 	}
 
-	public Integer getComp_id() {
-		return comp_id;
+	public Integer getCompId() {
+		return compId;
 	}
 
-	public void setComp_id(Integer comp_id) {
-		this.comp_id = comp_id;
+	public void setCompId(Integer compId) {
+		this.compId = compId;
 	}
 
-	public String getComp_name() {
-		return comp_name;
+	public Integer getHotelInfoId() {
+		return hotelInfoId;
 	}
 
-	public void setComp_name(String comp_name) {
-		this.comp_name = comp_name;
+	public void setHotelInfoId(Integer hotelInfoId) {
+		this.hotelInfoId = hotelInfoId;
 	}
 
-	public String getComp_address() {
-		return comp_address;
+	public Integer getCompType() {
+		return compType;
 	}
 
-	public void setComp_address(String comp_address) {
-		this.comp_address = comp_address;
+	public void setCompType(Integer compType) {
+		this.compType = compType;
 	}
 
-	public String getComp_phone() {
-		return comp_phone;
+	public String getCompName() {
+		return compName;
 	}
 
-	public void setComp_phone(String comp_phone) {
-		this.comp_phone = comp_phone;
+	public void setCompName(String compName) {
+		this.compName = compName;
 	}
 
-	public String getPrincipal_name() {
-		return principal_name;
+	public String getCompAddress() {
+		return compAddress;
 	}
 
-	public void setPrincipal_name(String principal_name) {
-		this.principal_name = principal_name;
+	public void setCompAddress(String compAddress) {
+		this.compAddress = compAddress;
 	}
 
-	public String getPrincipal_phone() {
-		return principal_phone;
+	public String getCompPhone() {
+		return compPhone;
 	}
 
-	public void setPrincipal_phone(String principal_phone) {
-		this.principal_phone = principal_phone;
+	public void setCompPhone(String compPhone) {
+		this.compPhone = compPhone;
 	}
 
-	public String getComp_account() {
-		return comp_account;
+	public String getPrincipalName() {
+		return principalName;
 	}
 
-	public void setComp_account(String comp_account) {
-		this.comp_account = comp_account;
+	public void setPrincipalName(String principalName) {
+		this.principalName = principalName;
 	}
 
-	public String getComp_password() {
-		return comp_password;
+	public String getPrincipalPhone() {
+		return principalPhone;
 	}
 
-	public void setComp_password(String comp_password) {
-		this.comp_password = comp_password;
+	public void setPrincipalPhone(String principalPhone) {
+		this.principalPhone = principalPhone;
 	}
 
-	public String getComp_mail() {
-		return comp_mail;
+	public String getCompAccount() {
+		return compAccount;
 	}
 
-	public void setComp_mail(String comp_mail) {
-		this.comp_mail = comp_mail;
+	public void setCompAccount(String compAccount) {
+		this.compAccount = compAccount;
 	}
 
-	public byte[] getComp_photo() {
-		return comp_photo;
+	public String getCompPassword() {
+		return compPassword;
 	}
 
-	public void setComp_photo(byte[] comp_photo) {
-		this.comp_photo = comp_photo;
+	public void setCompPassword(String compPassword) {
+		this.compPassword = compPassword;
 	}
 
-	public Integer getComp_type() {
-		return comp_type;
+	public String getCompMail() {
+		return compMail;
 	}
 
-	public void setComp_type(Integer comp_type) {
-		this.comp_type = comp_type;
+	public void setCompMail(String compMail) {
+		this.compMail = compMail;
 	}
 
-	public Integer getCheck_status() {
-		return check_status;
+	public byte[] getCompPhoto() {
+		return compPhoto;
 	}
 
-	public void setCheck_status(Integer check_status) {
-		this.check_status = check_status;
+	public void setCompPhoto(byte[] compPhoto) {
+		this.compPhoto = compPhoto;
 	}
 
-	public Integer getHotel_info_id() {
-		return hotel_info_id;
+	public Integer getCheckStatus() {
+		return checkStatus;
 	}
 
-	public void setHotel_info_id(Integer hotel_info_id) {
-		this.hotel_info_id = hotel_info_id;
+	public void setCheckStatus(Integer checkStatus) {
+		this.checkStatus = checkStatus;
 	}
 
 }

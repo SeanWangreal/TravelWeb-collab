@@ -1,40 +1,77 @@
 package com.tha103.gogoyu.hotel_info.model;
 
-public class Hotel_info implements java.io.Serializable{
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Hotel_info")
+public class Hotel_info implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
-	private Integer hotel_info_id;
+	@Id
+	@Column(name = "hotel_info_id", updatable = false)
+	private Integer hotelInfoId;
+
+	@Column(name = "restaurant")
 	private byte restaurant;
-	private byte room_service;
-	private byte allday_counter;
+
+	@Column(name = "room_service")
+	private byte roomService;
+
+	@Column(name = "allday_counter")
+	private byte alldayCounter;
+
+	@Column(name = "spa")
 	private byte spa;
+
+	@Column(name = "gym")
 	private byte gym;
+
+	@Column(name = "garden")
 	private byte garden;
+
+	@Column(name = "terrace")
 	private byte terrace;
-	private byte no_smoking;
+
+	@Column(name = "no_smoking")
+	private byte noSmoking;
+
+	@Column(name = "freewifi")
 	private byte freewifi;
+
+	@Column(name = "heater")
 	private byte heater;
+
+	@Column(name = "beach")
 	private byte beach;
+
+	@Column(name = "pool")
 	private byte pool;
+
+	@Column(name = "chargingstation")
 	private byte chargingstation;
+
+	@Column(name = "parking")
 	private byte parking;
+
 	public Hotel_info() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Hotel_info(Integer hotel_info_id, byte restaurant, byte room_service, byte allday_counter, byte spa,
 			byte gym, byte garden, byte terrace, byte no_smoking, byte freewifi, byte heater, byte beach, byte pool,
 			byte chargingstation, byte parking) {
 		super();
-		this.hotel_info_id = hotel_info_id;
+		this.hotelInfoId = hotel_info_id;
 		this.restaurant = restaurant;
-		this.room_service = room_service;
-		this.allday_counter = allday_counter;
+		this.roomService = room_service;
+		this.alldayCounter = allday_counter;
 		this.spa = spa;
 		this.gym = gym;
 		this.garden = garden;
 		this.terrace = terrace;
-		this.no_smoking = no_smoking;
+		this.noSmoking = no_smoking;
 		this.freewifi = freewifi;
 		this.heater = heater;
 		this.beach = beach;
@@ -43,14 +80,12 @@ public class Hotel_info implements java.io.Serializable{
 		this.parking = parking;
 	}
 
-	
-
-	public int getHotel_info_id() {
-		return hotel_info_id;
+	public Integer getHotelInfoId() {
+		return hotelInfoId;
 	}
 
-	public void setHotel_info_id(int hotel_info_id) {
-		this.hotel_info_id = hotel_info_id;
+	public void setHotelInfoId(Integer hotelInfoId) {
+		this.hotelInfoId = hotelInfoId;
 	}
 
 	public byte getRestaurant() {
@@ -61,20 +96,20 @@ public class Hotel_info implements java.io.Serializable{
 		this.restaurant = restaurant;
 	}
 
-	public byte getRoom_service() {
-		return room_service;
+	public byte getRoomService() {
+		return roomService;
 	}
 
-	public void setRoom_service(byte room_service) {
-		this.room_service = room_service;
+	public void setRoomService(byte roomService) {
+		this.roomService = roomService;
 	}
 
-	public byte getAllday_counter() {
-		return allday_counter;
+	public byte getAlldayCounter() {
+		return alldayCounter;
 	}
 
-	public void setAllday_counter(byte allday_counter) {
-		this.allday_counter = allday_counter;
+	public void setAlldayCounter(byte alldayCounter) {
+		this.alldayCounter = alldayCounter;
 	}
 
 	public byte getSpa() {
@@ -109,12 +144,12 @@ public class Hotel_info implements java.io.Serializable{
 		this.terrace = terrace;
 	}
 
-	public byte getNo_smoking() {
-		return no_smoking;
+	public byte getNoSmoking() {
+		return noSmoking;
 	}
 
-	public void setNo_smoking(byte no_smoking) {
-		this.no_smoking = no_smoking;
+	public void setNoSmoking(byte noSmoking) {
+		this.noSmoking = noSmoking;
 	}
 
 	public byte getFreewifi() {
