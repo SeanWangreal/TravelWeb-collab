@@ -127,9 +127,9 @@ public class Trip_collectJDBCDAO implements Trip_collectDAO_interface {
 	};
 
 	public static void main(String[] args) {
-//		Trip_collectJDBCDAO dao =new Trip_collectJDBCDAO();
-//		Date date = new Date();
-//		Timestamp time_s = new Timestamp(date.getTime());
+		Trip_collectJDBCDAO dao =new Trip_collectJDBCDAO();
+		Date date = new Date();
+		Timestamp time_s = new Timestamp(date.getTime());
 //		//新增
 //		Trip_collect item = new Trip_collect(121,201,time_s);
 //		dao.insert(item);
@@ -146,7 +146,9 @@ public class Trip_collectJDBCDAO implements Trip_collectDAO_interface {
 		// 查詢全部
 //		List<Trip_collect> all = dao.getAll();
 //		for(Trip_collect item : all) {
-//			System.out.println(item);
+//			System.out.println(item.getCusId());
+//			System.out.println(item.getTripId());
+//			System.out.println(item.getCollectTime());
 //		}
 		System.out.println("OK");
 	}
