@@ -23,7 +23,7 @@ public class Trip_collect implements Serializable {
 	@Column(name = "trip_id")
 	private Integer tripId;
 	@Id
-	@Column(name = "room_id")
+	@Column(name = "collect_time")
 	private Timestamp collectTime;
 
 	public Trip_collect() {
