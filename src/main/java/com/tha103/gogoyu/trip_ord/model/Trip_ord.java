@@ -30,7 +30,7 @@ public class Trip_ord implements Serializable{
 	@Column(name="commission")
     private BigDecimal commission;
 	@Column(name="ord_status")
-    private Integer orderStatus;
+    private Integer ordStatus;
 	@Column(name="ord_time")
     private Timestamp ordTime;
 	@Column(name="remark")
@@ -47,7 +47,7 @@ public class Trip_ord implements Serializable{
 	}
 
 	public Trip_ord(Integer tripOrdId, Integer tripId, Integer planId, Integer cusId, Integer amount,
-			BigDecimal totalPrice, BigDecimal commission, Integer orderStatus, Timestamp ordTime, String remark, Integer score,
+			BigDecimal totalPrice, BigDecimal commission, Integer ordStatus, Timestamp ordTime, String remark, Integer score,
 			String comments, Timestamp commentsTime) {
 		super();
 		this.tripOrdId = tripOrdId;
@@ -57,7 +57,7 @@ public class Trip_ord implements Serializable{
 		this.amount = amount;
 		this.totalPrice = totalPrice;
 		this.commission = commission;
-		this.orderStatus = orderStatus;
+		this.ordStatus = ordStatus;
 		this.ordTime = ordTime;
 		this.remark = remark;
 		this.score = score;
@@ -121,12 +121,12 @@ public class Trip_ord implements Serializable{
 		this.commission = commission;
 	}
 
-	public Integer getOrderStatus() {
-		return orderStatus;
+	public Integer getOrdStatus() {
+		return ordStatus;
 	}
 
-	public void setOrderStatus(Integer orderStatus) {
-		this.orderStatus = orderStatus;
+	public void setOrdStatus(Integer ordStatus) {
+		this.ordStatus = ordStatus;
 	}
 
 	public Timestamp getOrdTime() {

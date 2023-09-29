@@ -1,5 +1,6 @@
 package com.tha103.gogoyu.trip_ord.model;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -22,21 +23,6 @@ public class Trip_ordJDBCDAO implements Trip_ordDAO_Interface {
 		}
 	}
 	
-	private static final String INSERT_STMT = 
-			"INSERT INTO trip_ord ("
-					+ "trip_id,"
-					+ "plan_id,"
-					+ "cus_id,"
-					+ "amount,"
-					+ "total_price,"
-					+ "commission,"
-					+ "order_status,"
-					+ "ord_time,"
-					+ "remark,"
-					+ "score,"
-					+ "comments,"
-					+ "comments_time)"
-					+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		private static final String GET_ALL_STMT = 
 			"SELECT *  FROM trip_ord ORDER BY trip_ord_id";
 		private static final String GET_ONE_STMT = 
@@ -51,14 +37,29 @@ public class Trip_ordJDBCDAO implements Trip_ordDAO_Interface {
 					+ "amount=?,"
 					+ "total_price=?,"
 					+ "commission=?,"
-					+ "order_status=?,"
+					+ "ord_status=?,"
 					+ "ord_time=?,"
 					+ "remark=?,"
 					+ "score=?,"
 					+ "comments=?,"
 					+ "comments_time=?"
 					+ " WHERE trip_ord_id = ?";
-
+		private static final String INSERT_STMT = 
+			"INSERT INTO trip_ord ("
+					+ "trip_id,"
+					+ "plan_id,"
+					+ "cus_id,"						
+					+ "amount,"
+					+ "total_price,"
+					+ "commission,"
+					+ "ord_status,"
+					+ "ord_time,"
+					+ "remark,"
+					+ "score,"
+					+ "comments,"
+					+ "comments_time)"
+					+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		
 	@Override
 	public void insert(Trip_ord trip_ord) {
 		Connection con = null;
@@ -71,9 +72,9 @@ public class Trip_ordJDBCDAO implements Trip_ordDAO_Interface {
 			pstmt.setInt(2, trip_ord.getPlanId());
 			pstmt.setInt(3, trip_ord.getCusId());
 			pstmt.setInt(4, trip_ord.getAmount());
-			pstmt.setDouble(5, trip_ord.getTotalPrice());
-			pstmt.setDouble(6, trip_ord.getCommission());
-			pstmt.setInt(7, trip_ord.getOrderStatus());
+			pstmt.setBigDecimal(5, trip_ord.getTotalPrice());
+			pstmt.setBigDecimal(6, trip_ord.getCommission());
+			pstmt.setInt(7, trip_ord.getOrdStatus());
 			pstmt.setTimestamp(8, trip_ord.getOrdTime());
 			pstmt.setString(9, trip_ord.getRemark());
 			pstmt.setInt(10, trip_ord.getScore());
@@ -98,10 +99,10 @@ public class Trip_ordJDBCDAO implements Trip_ordDAO_Interface {
 			pstmt.setInt(1, trip_ord.getTripId());
 			pstmt.setInt(2, trip_ord.getPlanId());
 			pstmt.setInt(3, trip_ord.getCusId());
-			pstmt.setDouble(4, trip_ord.getAmount());
-			pstmt.setDouble(5, trip_ord.getTotalPrice());
-			pstmt.setDouble(6, trip_ord.getCommission());
-			pstmt.setInt(7, trip_ord.getOrderStatus());
+			pstmt.setInt(4, trip_ord.getAmount());
+			pstmt.setBigDecimal(5, trip_ord.getTotalPrice());
+			pstmt.setBigDecimal(6, trip_ord.getCommission());
+			pstmt.setInt(7, trip_ord.getOrdStatus());
 			pstmt.setTimestamp(8, trip_ord.getOrdTime());
 			pstmt.setString(9, trip_ord.getRemark());
 			pstmt.setInt(10, trip_ord.getScore());
@@ -153,9 +154,9 @@ public class Trip_ordJDBCDAO implements Trip_ordDAO_Interface {
 				trip_ord.setPlanId(rs.getInt("plan_id"));
 				trip_ord.setCusId(rs.getInt("cus_id"));
 				trip_ord.setAmount(rs.getInt("amount"));
-				trip_ord.setTotalPrice(rs.getDouble("total_price"));
-				trip_ord.setCommission(rs.getDouble("commission"));
-				trip_ord.setOrderStatus(rs.getInt("order_status"));
+				trip_ord.setTotalPrice(rs.getBigDecimal("total_price"));
+				trip_ord.setCommission(rs.getBigDecimal("commission"));
+				trip_ord.setOrdStatus(rs.getInt("ord_status"));
 				trip_ord.setOrdTime(rs.getTimestamp("ord_time"));
 				trip_ord.setRemark(rs.getString("remark"));
 				trip_ord.setScore(rs.getInt("score"));
@@ -192,9 +193,9 @@ public class Trip_ordJDBCDAO implements Trip_ordDAO_Interface {
 				trip_ord.setPlanId(rs.getInt("plan_id"));
 				trip_ord.setCusId(rs.getInt("cus_id"));
 				trip_ord.setAmount(rs.getInt("amount"));
-				trip_ord.setTotalPrice(rs.getDouble("total_price"));
-				trip_ord.setCommission(rs.getDouble("commission"));
-				trip_ord.setOrderStatus(rs.getInt("order_status"));
+				trip_ord.setTotalPrice(rs.getBigDecimal("total_price"));
+				trip_ord.setCommission(rs.getBigDecimal("commission"));
+				trip_ord.setOrdStatus(rs.getInt("ord_status"));
 				trip_ord.setOrdTime(rs.getTimestamp("ord_time"));
 				trip_ord.setRemark(rs.getString("remark"));
 				trip_ord.setScore(rs.getInt("score"));
@@ -219,18 +220,17 @@ public class Trip_ordJDBCDAO implements Trip_ordDAO_Interface {
 		//insert
 		Trip_ord trip_ordVO1 = new Trip_ord();
 		
-////		trip_ordVO1.setTripOrdId(103);
-//		trip_ordVO1.setTripId(203);
-//		trip_ordVO1.setPlanId(303);
-//		trip_ordVO1.setCusId(403);
+//		trip_ordVO1.setTripId(306);
+//		trip_ordVO1.setPlanId(206);
+//		trip_ordVO1.setCusId(106);
 //		trip_ordVO1.setAmount(3);
-//		trip_ordVO1.setTotalPrice((double)50000);
-//		trip_ordVO1.setCommission((double)10000);
-//		trip_ordVO1.setOrderStatus(0);
+//		trip_ordVO1.setTotalPrice(new BigDecimal(50000));
+//		trip_ordVO1.setCommission(new BigDecimal(5000));
+//		trip_ordVO1.setOrdStatus(0);
 //		trip_ordVO1.setOrdTime(time_s);
-//		trip_ordVO1.setRemark("Remark0");
+//		trip_ordVO1.setRemark("remark_insert");
 //		trip_ordVO1.setScore(10);
-//		trip_ordVO1.setComments("Comments0");
+//		trip_ordVO1.setComments("comments_insert");
 //		trip_ordVO1.setCommentsTime(time_s);
 //		
 //		dao.insert(trip_ordVO1);
@@ -238,28 +238,28 @@ public class Trip_ordJDBCDAO implements Trip_ordDAO_Interface {
 		// update
 		Trip_ord trip_ordVO2 = new Trip_ord();
 		
-//		trip_ordVO2.setTripId(203);
-//		trip_ordVO2.setPlanId(303);
-//		trip_ordVO2.setCusId(403);
-//		trip_ordVO2.setAmount(3);
-//		trip_ordVO2.setTotalPrice((double)60000);
-//		trip_ordVO2.setCommission((double)20000);
-//		trip_ordVO2.setOrderStatus(0);
+//		trip_ordVO2.setTripId(306);
+//		trip_ordVO2.setPlanId(206);
+//		trip_ordVO2.setCusId(106);
+//		trip_ordVO2.setAmount(5);
+//		trip_ordVO2.setTotalPrice(new BigDecimal(60000));
+//		trip_ordVO2.setCommission(new BigDecimal(6000));
+//		trip_ordVO2.setOrdStatus(0);
 //		trip_ordVO2.setOrdTime(time_s);
-//		trip_ordVO2.setRemark("Remark0");
+//		trip_ordVO2.setRemark("remark_update");
 //		trip_ordVO2.setScore(10);
-//		trip_ordVO2.setComments("Message0");
+//		trip_ordVO2.setComments("comments_update");
 //		trip_ordVO2.setCommentsTime(time_s);
-//		trip_ordVO2.setTripOrdId(5);
+//		trip_ordVO2.setTripOrdId(7);
 //		
 //		dao.update(trip_ordVO2);
 		
 		// delete
-//		dao.delete(4);
+		dao.delete(7);
 		
 		//findByPrimaryKey
 		Trip_ord trip_ordVO3 = dao.findByPrimaryKey(5);
-
+//
 //		System.out.print(trip_ordVO3.getTripOrdId() + ", ");
 //		System.out.print(trip_ordVO3.getTripId() + ", ");
 //		System.out.print(trip_ordVO3.getPlanId() + ", ");
@@ -267,7 +267,7 @@ public class Trip_ordJDBCDAO implements Trip_ordDAO_Interface {
 //		System.out.print(trip_ordVO3.getAmount() + ", ");
 //		System.out.print(trip_ordVO3.getTotalPrice() + ", ");
 //		System.out.print(trip_ordVO3.getCommission()+", ");
-//		System.out.print(trip_ordVO3.getOrderStatus()+", ");
+//		System.out.print(trip_ordVO3.getOrdStatus()+", ");
 //		System.out.print(trip_ordVO3.getOrdTime()+", ");
 //		System.out.print(trip_ordVO3.getRemark()+", ");
 //		System.out.print(trip_ordVO3.getScore()+", ");
@@ -278,22 +278,22 @@ public class Trip_ordJDBCDAO implements Trip_ordDAO_Interface {
 		//getAll
 		List<Trip_ord> list = dao.getAll();
 
-//		for (Trip_ord aTrip : list) {
-//			System.out.print(aTrip.getTripOrdId() + ", ");
-//			System.out.print(aTrip.getTripId() + ", ");
-//			System.out.print(aTrip.getPlanId() + ", ");
-//			System.out.print(aTrip.getCusId() + ", ");
-//			System.out.print(aTrip.getAmount() + ", ");
-//			System.out.print(aTrip.getTotalPrice() + ", ");
-//			System.out.print(aTrip.getCommission()+", ");
-//			System.out.print(aTrip.getOrderStatus()+", ");
-//			System.out.print(aTrip.getOrdTime()+", ");
-//			System.out.print(aTrip.getRemark()+", ");
-//			System.out.print(aTrip.getScore()+", ");
-//			System.out.print(aTrip.getComments()+", ");
-//			System.out.println(aTrip.getCommentsTime()+", ");
-//			System.out.println("----------------------------------------------------------------");
-//		}
+		for (Trip_ord aTrip : list) {
+			System.out.print(aTrip.getTripOrdId() + ", ");
+			System.out.print(aTrip.getTripId() + ", ");
+			System.out.print(aTrip.getPlanId() + ", ");
+			System.out.print(aTrip.getCusId() + ", ");
+			System.out.print(aTrip.getAmount() + ", ");
+			System.out.print(aTrip.getTotalPrice() + ", ");
+			System.out.print(aTrip.getCommission()+", ");
+			System.out.print(aTrip.getOrdStatus()+", ");
+			System.out.print(aTrip.getOrdTime()+", ");
+			System.out.print(aTrip.getRemark()+", ");
+			System.out.print(aTrip.getScore()+", ");
+			System.out.print(aTrip.getComments()+", ");
+			System.out.println(aTrip.getCommentsTime()+", ");
+			System.out.println("---------------------------------------------------------------------------------------------------------------");
+		}
 	}
 }
 
