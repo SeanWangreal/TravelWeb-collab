@@ -33,39 +33,35 @@ public class Adm_meb implements Serializable {
 		this.admAccount = adm_account;
 		this.admPassword = adm_password;
 	}
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "adms_id")
+	
 	public Integer getAdm_id() {
 		return admId;
 	}
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "adms_id")
+
 	public void setAdm_id(Integer adm_id) {
 		this.admId = adm_id;
 	}
-	@Column(name = "adm_name")
+
 	public String getAdm_name() {
 		return admName;
 	}
-	@Column(name = "adm_name")
+
 	public void setAdm_name(String adm_name) {
 		this.admName = adm_name;
 	}
-	@Column(name = "adm_account")
+	
 	public String getAdm_account() {
 		return admAccount;
 	}
-	@Column(name = "adm_account")
+
 	public void setAdm_account(String adm_account) {
 		this.admAccount = adm_account;
 	}
-	@Column(name = "adm_passwor")
+
 	public String getAdm_password() {
 		return admPassword;
 	}
-	@Column(name = "adm_password")
+
 	public void setAdm_password(String adm_password) {
 		this.admPassword = adm_password;
 	}

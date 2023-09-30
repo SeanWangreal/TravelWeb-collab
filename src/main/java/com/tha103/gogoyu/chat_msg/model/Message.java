@@ -36,47 +36,43 @@ public class Message implements Serializable {
 		this.msgTime = msg_time;
 		this.memId = mem_id;
 	}
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "msg_id")
+
 	public Integer getMsgId() {
 		return msgId;
 	}
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "msg_id")
+	
 	public void setMsgId(Integer msg_id) {
 		this.msgId = msg_id;
 	}
-	@Column(name = "chat_room_id")
+	
 	public Integer getChatRoomId() {
 		return chatRoomId;
 	}
-	@Column(name = "chat_room_id")
+	
 	public void setChatRoomId(Integer chat_room_id) {
 		this.chatRoomId = chat_room_id;
 	}
-	@Column(name = "msg_log")
+	
 	public String getMsgLog() {
 		return msgLog;
 	}
-	@Column(name = "msg_log")
+	
 	public void setMsgLog(String msg_log) {
 		this.msgLog = msg_log;
 	}
-	@Column(name = "msg_time")
+	
 	public Timestamp getMsgTime() {
 		return msgTime;
 	}
-	@Column(name = "msg_time")
+	
 	public void setMsgTime(Timestamp msg_time) {
 		this.msgTime = msg_time;
 	}
-	@Column(name = "mem_id")
+	
 	public Integer getMemId() {
 		return memId;
 	}
-	@Column(name = "mem_id")
+	
 	public void setMemId(Integer mem_id) {
 		this.memId = mem_id;
 	}
