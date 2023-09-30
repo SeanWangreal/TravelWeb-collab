@@ -145,7 +145,9 @@ public class Trip_thumbupJDBCDAO {
 		// 查詢全部
 //		List<Thumbup_trip> all = dao.getAll();
 //		for(Thumbup_trip item : all) {
-//			System.out.println(item);
+//		System.out.println(item.getCusId());
+//		System.out.println(item.getTripOrdId());
+//		System.out.println(item.getThumbupTime());
 //		}
 		System.out.println("OK");
 	}
