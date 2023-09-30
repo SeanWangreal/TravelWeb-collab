@@ -5,7 +5,7 @@ import java.util.*;
 public interface NotifyDAO_interface {
            void insert(Notify notify);
            void update(Notify notify);
-           void delete(Integer notify_id);
-           Notify findByPrimaryKey(Integer notify_id);
+           void delete(Integer notifyId);
+           Notify findByPrimaryKey(Integer notifyId);
            List<Notify> getAll();
 }

@@ -1,98 +1,121 @@
 package com.tha103.gogoyu.notify.model;
 
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-public class Notify implements java.io.Serializable{
-	private Integer notify_id;
-	private Integer cus_id;
-	private Integer comp_id;
-	private Integer room_ord_id;
-	private Integer trip_ord_id;
+@Entity
+@Table(name = "notify")
+public class Notify {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "notify_id", updatable = false)
+	private Integer notifyId;
+
+	@Column(name = "cus_id", insertable = false, updatable = false)
+	private Integer cusId;
+
+	@Column(name = "comp_id", insertable = false, updatable = false)
+	private Integer compId;
+
+	@Column(name = "room_ord_id", insertable = false, updatable = false)
+	private Integer roomOrdId;
+
+	@Column(name = "trip_ord_id", insertable = false, updatable = false)
+	private Integer tripOrdId;
+
+	@Column(name = "contents")
 	private String contents;
-	private Boolean state;
-	private Timestamp notify_time;
-	
+
+	@Column(name = "state")
+	private Byte state;
+
+	@Column(name = "notify_time")
+	private Timestamp notifyTime;
+
 	public Notify() {
 		super();
 	}
-	
-	public Notify(Integer notify_id, Integer cus_id, Integer comp_id, Integer room_ord_id, Integer trip_ord_id,
-			String contents, Boolean state, Timestamp notify_time) {
+
+	public Notify(Integer notifyId, Integer cusId, Integer compId, Integer roomOrdId, Integer tripOrdId,
+			String contents, Byte state, Timestamp notifyTime) {
 		super();
-		this.notify_id = notify_id;
-		this.cus_id = cus_id;
-		this.comp_id = comp_id;
-		this.room_ord_id = room_ord_id;
-		this.trip_ord_id = trip_ord_id;
+		this.notifyId = notifyId;
+		this.cusId = cusId;
+		this.compId = compId;
+		this.roomOrdId = roomOrdId;
+		this.tripOrdId = tripOrdId;
 		this.contents = contents;
 		this.state = state;
-		this.notify_time = notify_time;
+		this.notifyTime = notifyTime;
 	}
-	
-	public Integer getNotify_id() {
-		return notify_id;
+
+	public Integer getNotifyId() {
+		return notifyId;
 	}
-	
-	public void setNotify_id(Integer notify_id) {
-		this.notify_id = notify_id;
+
+	public void setNotifyId(Integer notifyId) {
+		this.notifyId = notifyId;
 	}
-	
-	public Integer getCus_id() {
-		return cus_id;
+
+	public Integer getCusId() {
+		return cusId;
 	}
-	
-	public void setCus_id(Integer cus_id) {
-		this.cus_id = cus_id;
+
+	public void setCusId(Integer cusId) {
+		this.cusId = cusId;
 	}
-	
-	public Integer getComp_id() {
-		return comp_id;
+
+	public Integer getCompId() {
+		return compId;
 	}
-	
-	public void setComp_id(Integer comp_id) {
-		this.comp_id = comp_id;
+
+	public void setCompId(Integer compId) {
+		this.compId = compId;
 	}
-	
-	public Integer getRoom_ord_id() {
-		return room_ord_id;
+
+	public Integer getRoomOrdId() {
+		return roomOrdId;
 	}
-	
-	public void setRoom_ord_id(Integer room_ord_id) {
-		this.room_ord_id = room_ord_id;
+
+	public void setRoomOrdId(Integer roomOrdId) {
+		this.roomOrdId = roomOrdId;
 	}
-	
-	public Integer getTrip_ord_id() {
-		return trip_ord_id;
+
+	public Integer getTripOrdId() {
+		return tripOrdId;
 	}
-	
-	public void setTrip_ord_id(Integer trip_ord_id) {
-		this.trip_ord_id = trip_ord_id;
+
+	public void setTripOrdId(Integer tripOrdId) {
+		this.tripOrdId = tripOrdId;
 	}
-	
+
 	public String getContents() {
 		return contents;
 	}
-	
+
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
-	
-	public Boolean getState() {
+
+	public Byte getState() {
 		return state;
 	}
-	
-	public void setState(Boolean state) {
+
+	public void setState(Byte state) {
 		this.state = state;
 	}
-	
-	public Timestamp getNotify_time() {
-		return notify_time;
+
+	public Timestamp getNotifyTime() {
+		return notifyTime;
 	}
-	
-	public void setNotify_time(Timestamp notify_time) {
-		this.notify_time = notify_time;
+
+	public void setNotifyTime(Timestamp notifyTime) {
+		this.notifyTime = notifyTime;
 	}
+
 }
-	
-	
-	

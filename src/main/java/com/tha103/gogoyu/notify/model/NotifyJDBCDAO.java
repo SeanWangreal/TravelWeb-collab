@@ -41,13 +41,13 @@ public class NotifyJDBCDAO implements NotifyDAO_interface {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			String[] cols = {"notify_id"};
 			pstmt = con.prepareStatement(INSERT_STMT,cols);
-			pstmt.setInt(1, notify.getCus_id());
-			pstmt.setInt(2, notify.getComp_id());
-			pstmt.setInt(3, notify.getRoom_ord_id());
-			pstmt.setInt(4, notify.getTrip_ord_id());
+			pstmt.setInt(1, notify.getCusId());
+			pstmt.setInt(2, notify.getCompId());
+			pstmt.setInt(3, notify.getRoomOrdId());
+			pstmt.setInt(4, notify.getTripOrdId());
 			pstmt.setString(5, notify.getContents());
-			pstmt.setBoolean(6, notify.getState());
-			pstmt.setTimestamp(7, notify.getNotify_time());
+			pstmt.setByte(6, notify.getState());
+			pstmt.setTimestamp(7, notify.getNotifyTime());
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -64,14 +64,14 @@ public class NotifyJDBCDAO implements NotifyDAO_interface {
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
-			pstmt.setInt(1, notify.getCus_id());
-			pstmt.setInt(2, notify.getComp_id());
-			pstmt.setInt(3, notify.getRoom_ord_id());
-			pstmt.setInt(4, notify.getTrip_ord_id());
+			pstmt.setInt(1, notify.getCusId());
+			pstmt.setInt(2, notify.getCompId());
+			pstmt.setInt(3, notify.getRoomOrdId());
+			pstmt.setInt(4, notify.getTripOrdId());
 			pstmt.setString(5, notify.getContents());
-			pstmt.setBoolean(6, notify.getState());
-			pstmt.setTimestamp(7, notify.getNotify_time());
-			pstmt.setInt(8, notify.getNotify_id());
+			pstmt.setByte(6, notify.getState());
+			pstmt.setTimestamp(7, notify.getNotifyTime());
+			pstmt.setInt(8, notify.getNotifyId());
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -82,13 +82,13 @@ public class NotifyJDBCDAO implements NotifyDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer notify_id) {
+	public void delete(Integer notifyId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(DELETE);
-			pstmt.setInt(1, notify_id);
+			pstmt.setInt(1, notifyId);
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -99,7 +99,7 @@ public class NotifyJDBCDAO implements NotifyDAO_interface {
 	}
 
 	@Override
-	public Notify findByPrimaryKey(Integer notify_id) {
+	public Notify findByPrimaryKey(Integer notifyId) {
 		Notify notify = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -107,18 +107,18 @@ public class NotifyJDBCDAO implements NotifyDAO_interface {
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
-			pstmt.setInt(1, notify_id);
+			pstmt.setInt(1, notifyId);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				notify = new Notify();
-				notify.setNotify_id(rs.getInt("notify_id"));
-				notify.setCus_id(rs.getInt("cus_id"));
-				notify.setComp_id(rs.getInt("comp_id"));
-				notify.setRoom_ord_id(rs.getInt("room_ord_id"));
-				notify.setTrip_ord_id(rs.getInt("trip_ord_id"));
+				notify.setNotifyId(rs.getInt("notify_id"));
+				notify.setCusId(rs.getInt("cus_id"));
+				notify.setCompId(rs.getInt("comp_id"));
+				notify.setRoomOrdId(rs.getInt("room_ord_id"));
+				notify.setTripOrdId(rs.getInt("trip_ord_id"));
 				notify.setContents(rs.getString("contents"));
-				notify.setState(rs.getBoolean("state"));
-				notify.setNotify_time(rs.getTimestamp("notify_time"));
+				notify.setState(rs.getByte("state"));
+				notify.setNotifyTime(rs.getTimestamp("notify_time"));
 			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -142,14 +142,14 @@ public class NotifyJDBCDAO implements NotifyDAO_interface {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				notify = new Notify();
-				notify.setNotify_id(rs.getInt("notify_id"));
-				notify.setCus_id(rs.getInt("cus_id"));
-				notify.setComp_id(rs.getInt("comp_id"));
-				notify.setRoom_ord_id(rs.getInt("room_ord_id"));
-				notify.setTrip_ord_id(rs.getInt("trip_ord_id"));
+				notify.setNotifyId(rs.getInt("notify_id"));
+				notify.setCusId(rs.getInt("cus_id"));
+				notify.setCompId(rs.getInt("comp_id"));
+				notify.setRoomOrdId(rs.getInt("room_ord_id"));
+				notify.setTripOrdId(rs.getInt("trip_ord_id"));
 				notify.setContents(rs.getString("contents"));
-				notify.setState(rs.getBoolean("state"));
-				notify.setNotify_time(rs.getTimestamp("notify_time"));
+				notify.setState(rs.getByte("state"));
+				notify.setNotifyTime(rs.getTimestamp("notify_time"));
 				list.add(notify); 
 			}
 		} catch (SQLException se) {
@@ -167,25 +167,25 @@ public class NotifyJDBCDAO implements NotifyDAO_interface {
 		Timestamp time_s = new Timestamp(date.getTime());
 //		// 新增
 //		Notify notify01 = new Notify();
-//		notify01.setCus_id(3);
-//		notify01.setComp_id(3);
-//		notify01.setRoom_ord_id(3);
-//		notify01.setTrip_ord_id(3);
+//		notify01.setCusId(3);
+//		notify01.setCompId(3);
+//		notify01.setRoomOrdId(3);
+//		notify01.setTripOrdId(3);
 //		notify01.setContents("測試新增3");
-//		notify01.setState(false);
-//		notify01.setNotify_time(time_s);
+//		notify01.setState((byte)0);
+//		notify01.setNotifyTime(time_s);
 //		dao.insert(notify01);
 
 //		// 修改
 //		Notify notify02 = new Notify();
-//		notify02.setNotify_id(1);
-//		notify02.setCus_id(1);
-//		notify02.setComp_id(1);
-//		notify02.setRoom_ord_id(1);
-//		notify02.setTrip_ord_id(1);
+//		notify02.setNotifyId(1);
+//		notify02.setCusId(1);
+//		notify02.setCompId(1);
+//		notify02.setRoomOrdId(1);
+//		notify02.setTripOrdId(1);
 //		notify02.setContents("測試修改");
-//		notify02.setState(false);
-//		notify02.setNotify_time(time_s);
+//		notify02.setState((byte)1);
+//		notify02.setNotifyTime(time_s);
 //		dao.update(notify02);
 
 //		// 刪除
@@ -193,27 +193,27 @@ public class NotifyJDBCDAO implements NotifyDAO_interface {
 		
 //		// 查詢單筆
 //		Notify notify03 = dao.findByPrimaryKey(1);
-//		System.out.print(notify03.getNotify_id() + ",");
-//		System.out.print(notify03.getCus_id() + ",");
-//		System.out.print(notify03.getComp_id() + ",");
-//		System.out.print(notify03.getRoom_ord_id() + ",");
-//		System.out.print(notify03.getTrip_ord_id() + ",");
+//		System.out.print(notify03.getNotifyId() + ",");
+//		System.out.print(notify03.getCusId() + ",");
+//		System.out.print(notify03.getCompId() + ",");
+//		System.out.print(notify03.getRoomOrdId() + ",");
+//		System.out.print(notify03.getTripOrdId() + ",");
 //		System.out.print(notify03.getContents() + ",");
 //		System.out.print(notify03.getState() + ",");
-//		System.out.println(notify03.getNotify_time());
+//		System.out.println(notify03.getNotifyTime());
 //		System.out.println("---------------------");
 
 //		// 查詢全部
 //		List<Notify> list = dao.getAll();
 //		for(Notify aNotify : list) {
-//			System.out.print(aNotify.getNotify_id() + ",");
-//			System.out.print(aNotify.getCus_id() + ",");
-//			System.out.print(aNotify.getComp_id() + ",");
-//			System.out.print(aNotify.getRoom_ord_id() + ",");
-//			System.out.print(aNotify.getTrip_ord_id() + ",");
+//			System.out.print(aNotify.getNotifyId() + ",");
+//			System.out.print(aNotify.getCusId() + ",");
+//			System.out.print(aNotify.getCompId() + ",");
+//			System.out.print(aNotify.getRoomOrdId() + ",");
+//			System.out.print(aNotify.getTripOrdId() + ",");
 //			System.out.print(aNotify.getContents() + ",");
 //			System.out.print(aNotify.getState() + ",");
-//			System.out.print(aNotify.getNotify_time());
+//			System.out.print(aNotify.getNotifyTime());
 //			System.out.println();
 //		}
 	}

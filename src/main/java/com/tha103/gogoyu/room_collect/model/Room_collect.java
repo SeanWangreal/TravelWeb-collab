@@ -19,7 +19,6 @@ public class Room_collect implements Serializable {
 	@Id
 	@Column(name = "cus_id")
 	private Integer cusId;
-
 	@Id
 	@Column(name = "room_id")
 	private Integer roomId;
@@ -36,26 +35,27 @@ public class Room_collect implements Serializable {
 		this.roomId = roomId;
 		this.collectTime = collectTime;
 	}
+
 	public Integer getCusId() {
 		return cusId;
 	}
-	
+
 	public void setCusId(Integer cusId) {
 		this.cusId = cusId;
 	}
-	
+
 	public Integer getRoomId() {
 		return roomId;
 	}
-	
+
 	public void setRoomId(Integer roomId) {
 		this.roomId = roomId;
 	}
-	
+
 	public Timestamp getCollectTime() {
 		return collectTime;
 	}
-	
+
 	public void setCollectTime(Timestamp collectTime) {
 		this.collectTime = collectTime;
 	}
