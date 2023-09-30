@@ -1,5 +1,6 @@
 package com.tha103.gogoyu.room_ord.model;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 
 import java.sql.DriverManager;
@@ -221,8 +222,8 @@ public class Room_ordJDBCDAO implements Room_ordDAO_interface {
 		ord001.setRoomId(1);
 		ord001.setCusId(1);
 		ord001.setAmount(1);
-//		ord001.setTotalPrice(10);
-//		ord001.setCommission(10.1);
+		ord001.setTotalPrice(new BigDecimal(50000));
+		ord001.setCommission(new BigDecimal(50000));
 		ord001.setPeople(1);
 		ord001.setCheckInTime(Timestamp.valueOf("2023-09-11 17:55:55"));
 		ord001.setCheckOutTime(Timestamp.valueOf("2023-09-12 17:55:55"));
