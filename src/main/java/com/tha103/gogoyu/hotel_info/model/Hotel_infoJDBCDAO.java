@@ -34,13 +34,13 @@ public class Hotel_infoJDBCDAO implements Hotel_infoDAO_interface {
 			String[] cols = { "hotel_info_id" };
 			pstmt = con.prepareStatement(INSERT_STMT, cols);
 			pstmt.setByte(1, Hotel_info.getRestaurant());
-			pstmt.setByte(2, Hotel_info.getRoom_service());
-			pstmt.setByte(3, Hotel_info.getAllday_counter());
+			pstmt.setByte(2, Hotel_info.getRoomService());
+			pstmt.setByte(3, Hotel_info.getAlldayCounter());
 			pstmt.setByte(4, Hotel_info.getSpa());
 			pstmt.setByte(5, Hotel_info.getGym());
 			pstmt.setByte(6, Hotel_info.getGarden());
 			pstmt.setByte(7, Hotel_info.getTerrace());
-			pstmt.setByte(8, Hotel_info.getNo_smoking());
+			pstmt.setByte(8, Hotel_info.getNoSmoking());
 			pstmt.setByte(9, Hotel_info.getFreewifi());
 			pstmt.setByte(10, Hotel_info.getHeater());
 			pstmt.setByte(11, Hotel_info.getBeach());
@@ -67,22 +67,22 @@ public class Hotel_infoJDBCDAO implements Hotel_infoDAO_interface {
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
-			pstmt.setInt(1, Hotel_info.getHotel_info_id());
+			pstmt.setInt(1, Hotel_info.getHotelInfoId());
 			pstmt.setByte(2, Hotel_info.getRestaurant());
-			pstmt.setByte(3, Hotel_info.getRoom_service());
-			pstmt.setByte(4, Hotel_info.getAllday_counter());
+			pstmt.setByte(3, Hotel_info.getRoomService());
+			pstmt.setByte(4, Hotel_info.getAlldayCounter());
 			pstmt.setByte(5, Hotel_info.getSpa());
 			pstmt.setByte(6, Hotel_info.getGym());
 			pstmt.setByte(7, Hotel_info.getGarden());
 			pstmt.setByte(8, Hotel_info.getTerrace());
-			pstmt.setByte(9, Hotel_info.getNo_smoking());
+			pstmt.setByte(9, Hotel_info.getNoSmoking());
 			pstmt.setByte(10, Hotel_info.getFreewifi());
 			pstmt.setByte(11, Hotel_info.getHeater());
 			pstmt.setByte(12, Hotel_info.getBeach());
 			pstmt.setByte(13, Hotel_info.getPool());
 			pstmt.setByte(14, Hotel_info.getChargingstation());
 			pstmt.setByte(15, Hotel_info.getParking());
-			pstmt.setInt(16, Hotel_info.getHotel_info_id());
+			pstmt.setInt(16, Hotel_info.getHotelInfoId());
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -122,15 +122,15 @@ public class Hotel_infoJDBCDAO implements Hotel_infoDAO_interface {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				hotelVO = new Hotel_info();
-				hotelVO.setHotel_info_id(rs.getInt("hotel_info_id"));
+				hotelVO.setHotelInfoId(rs.getInt("hotel_info_id"));
 				hotelVO.setRestaurant(rs.getByte("restaurant"));
-				hotelVO.setRoom_service(rs.getByte("room_service"));
-				hotelVO.setAllday_counter(rs.getByte("allday_counter"));
+				hotelVO.setRoomService(rs.getByte("room_service"));
+				hotelVO.setAlldayCounter(rs.getByte("allday_counter"));
 				hotelVO.setSpa(rs.getByte("spa"));
 				hotelVO.setGym(rs.getByte("gym"));
 				hotelVO.setGarden(rs.getByte("garden"));
 				hotelVO.setTerrace(rs.getByte("terrace"));
-				hotelVO.setNo_smoking(rs.getByte("no_smoking"));
+				hotelVO.setNoSmoking(rs.getByte("no_smoking"));
 				hotelVO.setFreewifi(rs.getByte("freewifi"));
 				hotelVO.setHeater(rs.getByte("heater"));
 				hotelVO.setBeach(rs.getByte("beach"));
@@ -159,15 +159,15 @@ public class Hotel_infoJDBCDAO implements Hotel_infoDAO_interface {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				hotelVO = new Hotel_info();
-				hotelVO.setHotel_info_id(rs.getInt("hotel_info_id"));
+				hotelVO.setHotelInfoId(rs.getInt("hotel_info_id"));
 				hotelVO.setRestaurant(rs.getByte("restaurant"));
-				hotelVO.setRoom_service(rs.getByte("room_service"));
-				hotelVO.setAllday_counter(rs.getByte("allday_counter"));
+				hotelVO.setRoomService(rs.getByte("room_service"));
+				hotelVO.setAlldayCounter(rs.getByte("allday_counter"));
 				hotelVO.setSpa(rs.getByte("spa"));
 				hotelVO.setGym(rs.getByte("gym"));
 				hotelVO.setGarden(rs.getByte("garden"));
 				hotelVO.setTerrace(rs.getByte("terrace"));
-				hotelVO.setNo_smoking(rs.getByte("no_smoking"));
+				hotelVO.setNoSmoking(rs.getByte("no_smoking"));
 				hotelVO.setFreewifi(rs.getByte("freewifi"));
 				hotelVO.setHeater(rs.getByte("heater"));
 				hotelVO.setBeach(rs.getByte("beach"));
@@ -189,13 +189,13 @@ public class Hotel_infoJDBCDAO implements Hotel_infoDAO_interface {
 //		// 新增
 //		Hotel_info hotelVO1= new Hotel_info();
 //		hotelVO1.setRestaurant((byte)1);
-//		hotelVO1.setRoom_service((byte)1);
-//		hotelVO1.setAllday_counter((byte)1);
+//		hotelVO1.setRoomService((byte)1);
+//		hotelVO1.setAlldayCounter((byte)1);
 //		hotelVO1.setSpa((byte)1);
 //		hotelVO1.setGym((byte)1);
 //		hotelVO1.setGarden((byte)1);
 //		hotelVO1.setTerrace((byte)1);
-//		hotelVO1.setNo_smoking((byte)1);
+//		hotelVO1.setNoSmoking((byte)1);
 //		hotelVO1.setFreewifi((byte)1);
 //		hotelVO1.setHeater((byte)1);
 //		hotelVO1.setBeach((byte)1);
@@ -205,15 +205,15 @@ public class Hotel_infoJDBCDAO implements Hotel_infoDAO_interface {
 //		dao.insert(hotelVO1);
 		// 修改
 //		Hotel_info hotelVO2 = new Hotel_info();
-//		hotelVO2.setHotel_info_id(1);
+//		hotelVO2.setHotelInfoId(1);
 //		hotelVO2.setRestaurant((byte)1);
-//		hotelVO2.setRoom_service((byte)1);
-//		hotelVO2.setAllday_counter((byte)1);
+//		hotelVO2.setRoomService((byte)1);
+//		hotelVO2.setAlldayCounter((byte)1);
 //		hotelVO2.setSpa((byte)1);
 //		hotelVO2.setGym((byte)1);
 //		hotelVO2.setGarden((byte)1);
 //		hotelVO2.setTerrace((byte)1);
-//		hotelVO2.setNo_smoking((byte)1);
+//		hotelVO2.setNoSmoking((byte)1);
 //		hotelVO2.setFreewifi((byte)1);
 //		hotelVO2.setHeater((byte)1);
 //		hotelVO2.setBeach((byte)1);
@@ -226,16 +226,16 @@ public class Hotel_infoJDBCDAO implements Hotel_infoDAO_interface {
 //		dao.delete(2);
 
 		// 查詢
-//		Hotel_info hotelVO3= dao.findByPrimaryKey(3);
-//		System.out.print(hotelVO3.getHotel_info_id() + ",");
+//		Hotel_info hotelVO3= dao.findByPrimaryKey(1);
+//		System.out.print(hotelVO3.getHotelInfoId() + ",");
 //		System.out.print(hotelVO3.getRestaurant() + ",");
-//		System.out.print(hotelVO3.getRoom_service() + ",");
-//		System.out.print(hotelVO3.getAllday_counter() + ",");
+//		System.out.print(hotelVO3.getRoomService() + ",");
+//		System.out.print(hotelVO3.getAlldayCounter() + ",");
 //		System.out.print(hotelVO3.getSpa() + ",");
 //		System.out.print(hotelVO3.getGym() + ",");
 //		System.out.print(hotelVO3.getGarden() + ",");
 //		System.out.println(hotelVO3.getTerrace()+",");		
-//		System.out.print(hotelVO3.getNo_smoking() + ",");
+//		System.out.print(hotelVO3.getNoSmoking() + ",");
 //		System.out.print(hotelVO3.getFreewifi() + ",");
 //		System.out.print(hotelVO3.getHeater() + ",");
 //		System.out.print(hotelVO3.getBeach() + ",");
@@ -245,23 +245,24 @@ public class Hotel_infoJDBCDAO implements Hotel_infoDAO_interface {
 //		System.out.println("---------------------");
 
 		// 查詢
-//		List<Hotel_info> list = dao.getAll();
-//		for (Hotel_info aHotel : list) {
-//			System.out.print(aHotel.getHotel_info_id() + ",");
-//			System.out.print(aHotel.getRestaurant() + ",");
-//			System.out.print(aHotel.getRoom_service() + ",");
-//			System.out.print(aHotel.getAllday_counter() + ",");
-//			System.out.print(aHotel.getSpa() + ",");
-//			System.out.print(aHotel.getGym() + ",");
-//			System.out.print(aHotel.getGarden() + ",");
-//			System.out.println(aHotel.getTerrace() + ",");
-//			System.out.print(aHotel.getNo_smoking() + ",");
-//			System.out.print(aHotel.getFreewifi() + ",");
-//			System.out.print(aHotel.getHeater() + ",");
-//			System.out.print(aHotel.getBeach() + ",");
-//			System.out.println(aHotel.getPool() + ",");
-//			System.out.print(aHotel.getChargingstation() + ",");
-//			System.out.println(aHotel.getParking() + ",");
-//			System.out.println("---------------------");
+		List<Hotel_info> list = dao.getAll();
+		for (Hotel_info aHotel : list) {
+			System.out.print(aHotel.getHotelInfoId() + ",");
+			System.out.print(aHotel.getRestaurant() + ",");
+			System.out.print(aHotel.getRoomService() + ",");
+			System.out.print(aHotel.getAlldayCounter() + ",");
+			System.out.print(aHotel.getSpa() + ",");
+			System.out.print(aHotel.getGym() + ",");
+			System.out.print(aHotel.getGarden() + ",");
+			System.out.println(aHotel.getTerrace() + ",");
+			System.out.print(aHotel.getNoSmoking() + ",");
+			System.out.print(aHotel.getFreewifi() + ",");
+			System.out.print(aHotel.getHeater() + ",");
+			System.out.print(aHotel.getBeach() + ",");
+			System.out.println(aHotel.getPool() + ",");
+			System.out.print(aHotel.getChargingstation() + ",");
+			System.out.println(aHotel.getParking() + ",");
+			System.out.println("---------------------");
+		}
 	}
 }

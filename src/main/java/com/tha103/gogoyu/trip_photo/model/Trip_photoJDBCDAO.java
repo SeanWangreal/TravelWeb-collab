@@ -5,16 +5,17 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import util.Util;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-// 此類別實作DAO interface，並將資料庫操作細節封裝起來
 public class Trip_photoJDBCDAO implements Trip_photoDAO_interface {
 
-	private static final String INSERT_STMT = "INSERT INTO trip_photo(trip_id, photo, upload_time) VALUES (?, ?)";
+	private static final String INSERT_STMT = "INSERT INTO trip_photo(trip_id, photo, upload_time) VALUES (?, ?, ?)";
 	private static final String UPDATE = "UPDATE trip_photo SET trip_id = ?, photo = ?, upload_time = ? WHERE trip_photo_id = ?";
 	private static final String DELETE = "DELETE FROM trip_photo WHERE trip_photo_id = ?";
 	private static final String GET_ONE_STMT = "SELECT * FROM trip_photo WHERE trip_photo_id = ?";
@@ -144,22 +145,24 @@ public class Trip_photoJDBCDAO implements Trip_photoDAO_interface {
 
 	public static void main(String[] args) {
 		Trip_photoJDBCDAO dao = new Trip_photoJDBCDAO();
+		Date date = new Date();
+		Timestamp time_s = new Timestamp(date.getTime());
 
 //		// 新增
 //		Trip_photo trip_photo01 = new Trip_photo();
-//		trip_photo01.setTripId(2);
+//		trip_photo01.setTripId(3);
 //		try {
-//			byte[] pic = getPictureByteArray("C:\\Users\\Tibame_T14\\Pictures\\20230322_171359.jpg");
+//			byte[] pic = getPictureByteArray("C:\\Users\\Tibame_T14\\Pictures\\20220405_231851.jpg");
 //			trip_photo01.setPhoto(pic);
 //		} catch(IOException ie){
 //			System.out.println(ie);
 //		}
-//		trip_photo01.setUploadTime(java.sql.Timestamp.valueOf("2023-09-11 10:36:33"));
+//		trip_photo01.setUploadTime(time_s);
 //		dao.insert(trip_photo01);
 
 //		// 修改
 //		Trip_photo trip_photo02 = new Trip_photo();
-//		trip_photo02.setTripPhotoId(1);
+//		trip_photo02.setTripPhotoId(2);
 //		trip_photo02.setTripId(1);
 //		try {
 //			byte[] pic = getPictureByteArray("C:\\Users\\Tibame_T14\\Pictures\\20230322_171359.jpg");
@@ -167,11 +170,11 @@ public class Trip_photoJDBCDAO implements Trip_photoDAO_interface {
 //		} catch(IOException ie) {
 //			System.out.println(ie);
 //		}
-//		trip_photo02.setUploadTime(java.sql.Timestamp.valueOf("2023-09-11 12:00:00"));
+//		trip_photo02.setUploadTime(time_s);
 //		dao.update(trip_photo02);
 
 //		// 刪除
-//		dao.delete(1);
+//		dao.delete(3);
 
 //		// 查詢單筆
 //		Trip_photo trip_photo03 = dao.findByPrimaryKey(2);

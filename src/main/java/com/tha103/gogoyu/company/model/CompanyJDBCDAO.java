@@ -37,18 +37,18 @@ public class CompanyJDBCDAO implements CompanyDAO_interface {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			String[] cols = { "comp_id" };
 			pstmt = con.prepareStatement(INSERT_STMT, cols);
-			pstmt.setString(1, Company.getComp_name());
-			pstmt.setInt(2, Company.getHotel_info_id());
-			pstmt.setInt(3, Company.getComp_type());
-			pstmt.setString(4, Company.getComp_address());
-			pstmt.setString(5, Company.getComp_phone());
-			pstmt.setString(6, Company.getPrincipal_name());
-			pstmt.setString(7, Company.getPrincipal_phone());
-			pstmt.setString(8, Company.getComp_account());
-			pstmt.setString(9, Company.getComp_password());
-			pstmt.setString(10, Company.getComp_mail());
-			pstmt.setBytes(11, Company.getComp_photo());
-			pstmt.setInt(12, Company.getCheck_status());
+			pstmt.setString(1, Company.getCompName());
+			pstmt.setInt(2, Company.getHotelInfoId());
+			pstmt.setInt(3, Company.getCompType());
+			pstmt.setString(4, Company.getCompAddress());
+			pstmt.setString(5, Company.getCompPhone());
+			pstmt.setString(6, Company.getPrincipalName());
+			pstmt.setString(7, Company.getPrincipalPhone());
+			pstmt.setString(8, Company.getCompAccount());
+			pstmt.setString(9, Company.getCompPassword());
+			pstmt.setString(10, Company.getCompMail());
+			pstmt.setBytes(11, Company.getCompPhoto());
+			pstmt.setInt(12, Company.getCheckStatus());
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -64,19 +64,19 @@ public class CompanyJDBCDAO implements CompanyDAO_interface {
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
-			pstmt.setString(1, Company.getComp_name());
-			pstmt.setInt(2, Company.getHotel_info_id());
-			pstmt.setInt(3, Company.getComp_type());
-			pstmt.setString(4, Company.getComp_address());
-			pstmt.setString(5, Company.getComp_phone());
-			pstmt.setString(6, Company.getPrincipal_name());
-			pstmt.setString(7, Company.getPrincipal_phone());
-			pstmt.setString(8, Company.getComp_account());
-			pstmt.setString(9, Company.getComp_password());
-			pstmt.setString(10, Company.getComp_mail());
-			pstmt.setBytes(11, Company.getComp_photo());
-			pstmt.setInt(12, Company.getCheck_status());
-			pstmt.setInt(13, Company.getComp_id());
+			pstmt.setString(1, Company.getCompName());
+			pstmt.setInt(2, Company.getHotelInfoId());
+			pstmt.setInt(3, Company.getCompType());
+			pstmt.setString(4, Company.getCompAddress());
+			pstmt.setString(5, Company.getCompPhone());
+			pstmt.setString(6, Company.getPrincipalName());
+			pstmt.setString(7, Company.getPrincipalPhone());
+			pstmt.setString(8, Company.getCompAccount());
+			pstmt.setString(9, Company.getCompPassword());
+			pstmt.setString(10, Company.getCompMail());
+			pstmt.setBytes(11, Company.getCompPhoto());
+			pstmt.setInt(12, Company.getCheckStatus());
+			pstmt.setInt(13, Company.getCompId());
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -114,19 +114,19 @@ public class CompanyJDBCDAO implements CompanyDAO_interface {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				comVO = new Company();
-				comVO.setComp_id(rs.getInt("comp_id"));
-				comVO.setHotel_info_id(rs.getInt("hotel_info_id"));
-				comVO.setComp_type(rs.getInt("comp_type"));
-				comVO.setComp_name(rs.getString("comp_name"));
-				comVO.setComp_address(rs.getString("comp_address"));
-				comVO.setComp_phone(rs.getString("comp_phone"));
-				comVO.setPrincipal_name(rs.getString("principal_name"));
-				comVO.setPrincipal_phone(rs.getString("principal_phone"));
-				comVO.setComp_account(rs.getString("comp_account"));
-				comVO.setComp_password(rs.getString("comp_password"));
-				comVO.setComp_mail(rs.getString("comp_mail"));
-				comVO.setComp_photo(rs.getBytes("comp_photo"));
-				comVO.setCheck_status(rs.getInt("check_status"));
+				comVO.setCompId(rs.getInt("comp_id"));
+				comVO.setHotelInfoId(rs.getInt("hotel_info_id"));
+				comVO.setCompType(rs.getInt("comp_type"));
+				comVO.setCompName(rs.getString("comp_name"));
+				comVO.setCompAddress(rs.getString("comp_address"));
+				comVO.setCompPhone(rs.getString("comp_phone"));
+				comVO.setPrincipalName(rs.getString("principal_name"));
+				comVO.setPrincipalPhone(rs.getString("principal_phone"));
+				comVO.setCompAccount(rs.getString("comp_account"));
+				comVO.setCompPassword(rs.getString("comp_password"));
+				comVO.setCompMail(rs.getString("comp_mail"));
+				comVO.setCompPhoto(rs.getBytes("comp_photo"));
+				comVO.setCheckStatus(rs.getInt("check_status"));
 			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -149,19 +149,19 @@ public class CompanyJDBCDAO implements CompanyDAO_interface {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				comVO = new Company();
-				comVO.setComp_id(rs.getInt("comp_id"));
-				comVO.setComp_name(rs.getString("comp_name"));
-				comVO.setComp_address(rs.getString("comp_address"));
-				comVO.setComp_phone(rs.getString("comp_phone"));
-				comVO.setPrincipal_name(rs.getString("principal_name"));
-				comVO.setPrincipal_phone(rs.getString("principal_phone"));
-				comVO.setComp_account(rs.getString("comp_account"));
-				comVO.setComp_password(rs.getString("comp_password"));
-				comVO.setComp_mail(rs.getString("comp_mail"));
-				comVO.setComp_photo(rs.getBytes("comp_photo"));
-				comVO.setComp_type(rs.getInt("comp_type"));
-				comVO.setCheck_status(rs.getInt("check_status"));
-				comVO.setHotel_info_id(rs.getInt("hotel_info_id"));
+				comVO.setCompId(rs.getInt("comp_id"));
+				comVO.setCompName(rs.getString("comp_name"));
+				comVO.setCompAddress(rs.getString("comp_address"));
+				comVO.setCompPhone(rs.getString("comp_phone"));
+				comVO.setPrincipalName(rs.getString("principal_name"));
+				comVO.setPrincipalPhone(rs.getString("principal_phone"));
+				comVO.setCompAccount(rs.getString("comp_account"));
+				comVO.setCompPassword(rs.getString("comp_password"));
+				comVO.setCompMail(rs.getString("comp_mail"));
+				comVO.setCompPhoto(rs.getBytes("comp_photo"));
+				comVO.setCompType(rs.getInt("comp_type"));
+				comVO.setCheckStatus(rs.getInt("check_status"));
+				comVO.setHotelInfoId(rs.getInt("hotel_info_id"));
 				list.add(comVO);
 			}
 		} catch (SQLException se) {
@@ -175,70 +175,70 @@ public class CompanyJDBCDAO implements CompanyDAO_interface {
 	public static void main(String[] args) {
 		CompanyJDBCDAO dao = new CompanyJDBCDAO();
 		// 新增
-//			companyVO comVO1= new companyVO();
-//			comVO1.setComp_id(123);
-//			comVO1.setComp_name("豬廷恩");
-//			comVO1.setComp_address("台北市");
-//			comVO1.setComp_phone("0987654321");
-//			comVO1.setPrincipal_name("豬八戒");
-//			comVO1.setPrincipal_phone("0987654321");
-//			comVO1.setComp_account("1");
-//			comVO1.setComp_password("2");
-//			comVO1.setComp_mail("3");
-//			comVO1.setComp_type(1);
-//			comVO1.setCheck_status(1);
-//			comVO1.setHotel_info_id(1);
+//			Company comVO1= new Company();
+//			comVO1.setCompId(123);
+//			comVO1.setCompName("豬廷恩");
+//			comVO1.setCompAddress("台北市");
+//			comVO1.setCompPhone("0987654321");
+//			comVO1.setPrincipalName("豬八戒");
+//			comVO1.setPrincipalPhone("0987654321");
+//			comVO1.setCompAccount("1");
+//			comVO1.setCompPassword("2");
+//			comVO1.setCompMail("3");
+//			comVO1.setCompType(1);
+//			comVO1.setCheckStatus(1);
+//			comVO1.setHotelInfoId(1);
 //			dao.insert(comVO1);
 
 		// 修改
-//			companyVO comVO2= new companyVO();
-//			comVO2.setComp_id(2);
-//			comVO2.setComp_name("豬廷恩");
-//			comVO2.setComp_address("台北市");
-//			comVO2.setComp_phone("0987654321");
-//			comVO2.setPrincipal_name("豬九戒");
-//			comVO2.setPrincipal_phone("0987654321");
-//			comVO2.setComp_account("1");
-//			comVO2.setComp_password("2");
-//			comVO2.setComp_mail("3");
-//			comVO2.setComp_type(1);
-//			comVO2.setCheck_status(1);
-//			comVO2.setHotel_info_id(2);
+//			Company comVO2= new Company();
+//			comVO2.setCompId(1);
+//			comVO2.setCompName("豬廷恩");
+//			comVO2.setCompAddress("台北市");
+//			comVO2.setCompPhone("0987654321");
+//			comVO2.setPrincipalName("豬九戒");
+//			comVO2.setPrincipalPhone("0987654321");
+//			comVO2.setCompAccount("1");
+//			comVO2.setCompPassword("2");
+//			comVO2.setCompMail("3");
+//			comVO2.setCompType(1);
+//			comVO2.setCheckStatus(1);
+//			comVO2.setHotelInfoId(2);
 //			dao.update(comVO2);
 
 		// 刪除
 //			dao.delete(1);
 
 		// 查詢
-		Company comVO4 = dao.findByPrimaryKey(2);
-		System.out.print(comVO4.getComp_name() + ",");
-		System.out.print(comVO4.getComp_address() + ",");
-		System.out.print(comVO4.getComp_phone() + ",");
-		System.out.print(comVO4.getPrincipal_name() + ",");
-		System.out.print(comVO4.getPrincipal_phone() + ",");
-		System.out.print(comVO4.getComp_account() + ",");
-		System.out.println(comVO4.getComp_password());
-		System.out.print(comVO4.getComp_mail() + ",");
-		System.out.print(comVO4.getComp_type() + ",");
-		System.out.print(comVO4.getCheck_status() + ",");
-		System.out.println(comVO4.getHotel_info_id());
-		System.out.println("---------------------");
+//		Company comVO4 = dao.findByPrimaryKey(2);
+//		System.out.print(comVO4.getCompName() + ",");
+//		System.out.print(comVO4.getCompAddress() + ",");
+//		System.out.print(comVO4.getCompPhone() + ",");
+//		System.out.print(comVO4.getPrincipalName() + ",");
+//		System.out.print(comVO4.getPrincipalPhone() + ",");
+//		System.out.print(comVO4.getCompAccount() + ",");
+//		System.out.println(comVO4.getCompPassword());
+//		System.out.print(comVO4.getCompMail() + ",");
+//		System.out.print(comVO4.getCompType() + ",");
+//		System.out.print(comVO4.getCheckStatus() + ",");
+//		System.out.println(comVO4.getHotelInfoId());
+//		System.out.println("---------------------");
 
 		// 查詢
-		List<Company> list = dao.getAll();
-		for (Company aComp : list) {
-			System.out.print(aComp.getComp_name() + ",");
-			System.out.print(aComp.getComp_address() + ",");
-			System.out.print(aComp.getComp_phone() + ",");
-			System.out.print(aComp.getPrincipal_name() + ",");
-			System.out.print(aComp.getPrincipal_phone() + ",");
-			System.out.print(aComp.getComp_account() + ",");
-			System.out.println(aComp.getComp_password());
-			System.out.print(aComp.getComp_mail() + ",");
-			System.out.print(aComp.getComp_type() + ",");
-			System.out.print(aComp.getCheck_status() + ",");
-			System.out.println(aComp.getHotel_info_id());
-			System.out.println("---------------------");
-		}
+//		List<Company> list = dao.getAll();
+//		for (Company aComp : list) {
+//			System.out.print(aComp.getCompName() + ",");
+//			System.out.print(aComp.getCompAddress() + ",");
+//			System.out.print(aComp.getCompPhone() + ",");
+//			System.out.print(aComp.getPrincipalName() + ",");
+//			System.out.print(aComp.getPrincipalPhone() + ",");
+//			System.out.print(aComp.getCompAccount() + ",");
+//			System.out.println(aComp.getCompPassword());
+//			System.out.print(aComp.getCompMail() + ",");
+//			System.out.print(aComp.getCompType() + ",");
+//			System.out.print(aComp.getCheckStatus() + ",");
+//			System.out.println(aComp.getHotelInfoId());
+//			System.out.println("---------------------");
+//		}
 	}
 }
