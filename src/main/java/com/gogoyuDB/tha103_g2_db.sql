@@ -240,18 +240,16 @@ CREATE TABLE trip_ord (
     CONSTRAINT TRIP_ORD_PRIMARY_KEY PRIMARY KEY (trip_ord_id)
 ) ;
 insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission, ord_status, ord_time, remark, score, comments, comments_time)
- 			VALUES (null, null, null, 5, 60000.011, 6000.012, 0, now(), "remark_7001", 9, "comments_7001", adddate(now(),interval 1 day));
+ 			VALUES (301, 201, 101, 5, 60000.011, 6000.012, 0, now(), "remark_1", 9, "comments_1", adddate(now(),interval 1 day));
 insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission, ord_status, ord_time, remark, score, comments, comments_time)
- 			VALUES (null, null, null, 4, 40000.021, 4000.022, 1, now(), "remark_7002", 4, "comments_7002", adddate(now(),interval 2 day));
+ 			VALUES (302, 202, 102, 4, 40000.021, 4000.022, 1, now(), "remark_2", 4, "comments_2", adddate(now(),interval 2 day));
 insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission, ord_status, ord_time, remark, score, comments, comments_time)
- 			VALUES (null, null, null, 3, 50000.031, 5000.032, 2, now(), "remark_7003", 1, "comments_7003", adddate(now(),interval 3 day));
+ 			VALUES (303, 203, 103, 3, 50000.031, 5000.032, 2, now(), "remark_3", 1, "comments_3", adddate(now(),interval 3 day));
 insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission, ord_status, ord_time, remark, score, comments, comments_time)
- 			VALUES (null, null, null, 2, 10000.041, 1000.042, 0, now(), "remark_7004", 6, "comments_7004", adddate(now(),interval 4 day));
+ 			VALUES (304, 204, 104, 2, 10000.041, 1000.042, 0, now(), "remark_4", 6, "comments_4", adddate(now(),interval 4 day));
 insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission, ord_status, ord_time, remark, score, comments, comments_time)
- 			VALUES (null, null, null, 1, 90000.051, 9000.052, 1, now(), "remark_7005", 8, "comments_7005", adddate(now(),interval 5 day));
+ 			VALUES (305, 205, 105, 1, 90000.051, 9000.052, 1, now(), "remark_5", 8, "comments_5", adddate(now(),interval 5 day));
 
--- 	insert into trip_ord (trip_id,plan_id,cus_id,amount,total_price,commission,order_status,ord_time, remark,score,chat_msg,comment_time)
--- 			VALUES (122, 414, 325, 5553, 48719.0, 21321, 0, now(), "hiihui", 10, ?, ?);
 CREATE TABLE notify (
 	notify_id     	INT AUTO_INCREMENT NOT NULL,
 	cus_id     		int,
