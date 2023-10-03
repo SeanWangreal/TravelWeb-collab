@@ -16,6 +16,7 @@ public class Room_ord implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "room_ord_id")
 	private Integer roomOrdId;
 	
 	@Column(name = "plan_id")
@@ -28,7 +29,7 @@ public class Room_ord implements Serializable {
 	private Integer amount;
 	@Column(name = "total_price")
 	private BigDecimal totalPrice;
-	@Column(name = "commision")
+	@Column(name = "commission")
 	private BigDecimal commission;
 	@Column(name = "people")
 	private Integer people;

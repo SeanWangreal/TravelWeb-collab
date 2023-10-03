@@ -26,7 +26,7 @@ public class Trip_collectJDBCDAO implements Trip_collectDAO_interface {
 	private static final String DELETE = "delete from trip_collect where cus_id = ? and trip_id = ?";
 	private static final String UPDATE = "update trip_collect set collect_time = ? where cus_id = ? and trip_id = ?";
 
-	public void insert(Trip_collect trip_collect) {
+	public int insert(Trip_collect trip_collect) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -36,14 +36,16 @@ public class Trip_collectJDBCDAO implements Trip_collectDAO_interface {
 			pstmt.setInt(2, trip_collect.getTripId());
 			pstmt.setTimestamp(3, trip_collect.getCollectTime());
 			pstmt.executeUpdate();
+			return 1;
 		} catch (SQLException se) {
 			se.getStackTrace();
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		return -1;
 	};
 
-	public void update(Trip_collect trip_collect) {
+	public int update(Trip_collect trip_collect) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -53,14 +55,16 @@ public class Trip_collectJDBCDAO implements Trip_collectDAO_interface {
 			pstmt.setInt(2, trip_collect.getCusId());
 			pstmt.setInt(3, trip_collect.getTripId());
 			pstmt.executeUpdate();
+			return 1;
 		} catch (SQLException se) {
 			se.getStackTrace();
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		return -1;
 	};
 
-	public void delete(Integer cus_id, Integer trip_id) {
+	public int delete(Integer cus_id, Integer trip_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -69,11 +73,13 @@ public class Trip_collectJDBCDAO implements Trip_collectDAO_interface {
 			pstmt.setInt(1, cus_id);
 			pstmt.setInt(2, trip_id);
 			pstmt.executeUpdate();
+			return 1;
 		} catch (SQLException se) {
 			se.getStackTrace();
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		return -1;
 	};
 
 	public Trip_collect findByPrimaryKey(Integer cus_id, Integer trip_id) {

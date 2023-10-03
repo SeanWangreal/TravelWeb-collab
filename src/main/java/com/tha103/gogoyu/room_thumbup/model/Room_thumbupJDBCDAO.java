@@ -10,7 +10,7 @@ import java.util.List;
 
 import util.Util;
 
-public class Room_thumbupJDBCDAO {
+public class Room_thumbupJDBCDAO implements Room_thumbupDAO_interface{
 	static {
 		try {
 			Class.forName(Util.DRIVER);
@@ -24,7 +24,7 @@ public class Room_thumbupJDBCDAO {
 	private static final String DELETE = "delete from thumbup_room where cus_id = ? and room_ord_id = ?";
 	private static final String UPDATE = "update thumbup_room set thumbup_time = ? where cus_id = ? and room_ord_id = ?";
 
-	public void insert(Room_thumbup roomThumbup) {
+	public int insert(Room_thumbup roomThumbup) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -34,14 +34,16 @@ public class Room_thumbupJDBCDAO {
 			pstmt.setInt(2, roomThumbup.getRoomOrdId());
 			pstmt.setTimestamp(3, roomThumbup.getThumbupTime());
 			pstmt.executeUpdate();
+			return 1;
 		} catch (SQLException se) {
 			se.getStackTrace();
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		return -1;
 	};
 
-	public void update(Room_thumbup roomThumbup) {
+	public int update(Room_thumbup roomThumbup) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -51,14 +53,16 @@ public class Room_thumbupJDBCDAO {
 			pstmt.setInt(2, roomThumbup.getCusId());
 			pstmt.setInt(3, roomThumbup.getRoomOrdId());
 			pstmt.executeUpdate();
+			return 1;
 		} catch (SQLException se) {
 			se.getStackTrace();
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		return -1;
 	};
 
-	public void delete(Integer cusId, Integer roomOrdId) {
+	public int delete(Integer cusId, Integer roomOrdId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -67,11 +71,13 @@ public class Room_thumbupJDBCDAO {
 			pstmt.setInt(1, cusId);
 			pstmt.setInt(2, roomOrdId);
 			pstmt.executeUpdate();
+			return 1;
 		} catch (SQLException se) {
 			se.getStackTrace();
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		return -1;
 	};
 
 	public Room_thumbup findByPrimaryKey(Integer cusId, Integer roomOrdId) {

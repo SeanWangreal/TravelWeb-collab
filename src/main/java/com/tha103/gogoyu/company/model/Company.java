@@ -25,7 +25,7 @@ public class Company implements java.io.Serializable {
 	@Column(name = "comp_address")
 	private String compAddress;
 
-	@Column(name = " comp_phone")
+	@Column(name = " comp_phone" ,columnDefinition = "char")
 	private String compPhone;
 
 	@Column(name = "principal_name")

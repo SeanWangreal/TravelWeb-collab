@@ -29,27 +29,27 @@ public class Room implements java.io.Serializable {
 	private String intro;
 	@Column(name = "room_status")
 	private Integer roomStatus;
-	@Column(name = "tissue")
+	@Column(name = "tissue", columnDefinition = "bit")
 	private byte tissue;
-	@Column(name = "shower")
+	@Column(name = "shower", columnDefinition = "bit")
 	private byte shower;
-	@Column(name = "bathroom")
+	@Column(name = "bathroom", columnDefinition = "bit")
 	private byte bathroom;
-	@Column(name = "dryer")
+	@Column(name = "dryer", columnDefinition = "bit")
 	private byte dryer;
-	@Column(name = "tub")
+	@Column(name = "tub", columnDefinition = "bit")
 	private byte tub;
-	@Column(name = "freetoiletries")
+	@Column(name = "freetoiletries", columnDefinition = "bit")
 	private byte freetoiletries;
-	@Column(name = "flushseat")
+	@Column(name = "flushseat", columnDefinition = "bit")
 	private byte flushseat;
-	@Column(name = "slippers")
+	@Column(name = "slippers", columnDefinition = "bit")
 	private byte slippers;
-	@Column(name = "bathrobe")
+	@Column(name = "bathrobe", columnDefinition = "bit")
 	private byte bathrobe;
-	@Column(name = "spatub")
+	@Column(name = "spatub", columnDefinition = "bit")
 	private byte spatub;
-	@Column(name = "electricKettle")
+	@Column(name = "electric_kettle", columnDefinition = "bit")
 	private byte electricKettle;
 	
 	public Room() {

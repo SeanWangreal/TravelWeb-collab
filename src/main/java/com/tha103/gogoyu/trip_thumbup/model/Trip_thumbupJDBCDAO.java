@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.*;
 import util.Util;
 
-public class Trip_thumbupJDBCDAO {
+public class Trip_thumbupJDBCDAO implements Trip_thumbupDAO_interface{
 	static {
 		try {
 			Class.forName(Util.DRIVER);
@@ -25,7 +25,7 @@ public class Trip_thumbupJDBCDAO {
 	private static final String DELETE = "delete from thumbup_trip where cus_id = ? and trip_ord_id = ?";
 	private static final String UPDATE = "update thumbup_trip set thumbup_time = ? where cus_id = ? and trip_ord_id = ?";
 
-	public void insert(Trip_thumbup tripThumbup) {
+	public int insert(Trip_thumbup tripThumbup) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -35,14 +35,16 @@ public class Trip_thumbupJDBCDAO {
 			pstmt.setInt(2, tripThumbup.getTripOrdId());
 			pstmt.setTimestamp(3, tripThumbup.getThumbupTime());
 			pstmt.executeUpdate();
+			return 1;
 		} catch (SQLException se) {
 			se.getStackTrace();
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		return -1;
 	};
 
-	public void update(Trip_thumbup tripThumbup) {
+	public int update(Trip_thumbup tripThumbup) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -52,14 +54,16 @@ public class Trip_thumbupJDBCDAO {
 			pstmt.setInt(2, tripThumbup.getCusId());
 			pstmt.setInt(3, tripThumbup.getTripOrdId());
 			pstmt.executeUpdate();
+			return 1;
 		} catch (SQLException se) {
 			se.getStackTrace();
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		return -1;
 	};
 
-	public void delete(Integer cusId, Integer tripOrdId) {
+	public int delete(Integer cusId, Integer tripOrdId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -68,11 +72,13 @@ public class Trip_thumbupJDBCDAO {
 			pstmt.setInt(1, cusId);
 			pstmt.setInt(2, tripOrdId);
 			pstmt.executeUpdate();
+			return 1;
 		} catch (SQLException se) {
 			se.getStackTrace();
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		return -1;
 	};
 
 	public Trip_thumbup findByPrimaryKey(Integer cusId, Integer tripOrdId) {

@@ -15,15 +15,15 @@ public class Consumer implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cus_id")
 	private Integer cusId;
-	@Column(name = "cus_cusname")
+	@Column(name = "cus_name")
 	private String cusName;
-	@Column(name = "cus_sccount")
+	@Column(name = "cus_account")
 	private String cusAccount;
 	@Column(name = "cus_password")
 	private String cusPassword;
 	@Column(name = "cus_mail")
 	private String cusMail;
-	@Column(name = "cus_phone")
+	@Column(name = "cus_phone",columnDefinition = "char")
 	private String cusPhone;
 	@Column(name = "cus_address")
 	private String cusAddress;
