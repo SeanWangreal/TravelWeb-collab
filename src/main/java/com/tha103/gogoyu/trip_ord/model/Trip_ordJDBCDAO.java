@@ -215,7 +215,7 @@ public class Trip_ordJDBCDAO implements Trip_ordDAO_Interface {
 	public static void main(String args[]) {
 		Trip_ordJDBCDAO dao=new Trip_ordJDBCDAO();
 		Date date = new Date();
-		Timestamp time_s = new Timestamp(date.getTime());
+		Timestamp nowTime = new Timestamp(date.getTime());
 		
 		//insert
 		Trip_ord trip_ordVO1 = new Trip_ord();
@@ -227,11 +227,11 @@ public class Trip_ordJDBCDAO implements Trip_ordDAO_Interface {
 //		trip_ordVO1.setTotalPrice(new BigDecimal(50000));
 //		trip_ordVO1.setCommission(new BigDecimal(5000));
 //		trip_ordVO1.setOrdStatus(0);
-//		trip_ordVO1.setOrdTime(time_s);
+//		trip_ordVO1.setOrdTime(nowTime);
 //		trip_ordVO1.setRemark("remark_insert");
 //		trip_ordVO1.setScore(10);
 //		trip_ordVO1.setComments("comments_insert");
-//		trip_ordVO1.setCommentsTime(time_s);
+//		trip_ordVO1.setCommentsTime(nowTime);
 //		
 //		dao.insert(trip_ordVO1);
 		
@@ -245,11 +245,11 @@ public class Trip_ordJDBCDAO implements Trip_ordDAO_Interface {
 //		trip_ordVO2.setTotalPrice(new BigDecimal(60000));
 //		trip_ordVO2.setCommission(new BigDecimal(6000));
 //		trip_ordVO2.setOrdStatus(0);
-//		trip_ordVO2.setOrdTime(time_s);
+//		trip_ordVO2.setOrdTime(nowTime);
 //		trip_ordVO2.setRemark("remark_update");
 //		trip_ordVO2.setScore(10);
 //		trip_ordVO2.setComments("comments_update");
-//		trip_ordVO2.setCommentsTime(time_s);
+//		trip_ordVO2.setCommentsTime(nowTime);
 //		trip_ordVO2.setTripOrdId(7);
 //		
 //		dao.update(trip_ordVO2);
@@ -279,6 +279,7 @@ public class Trip_ordJDBCDAO implements Trip_ordDAO_Interface {
 		List<Trip_ord> list = dao.getAll();
 
 		for (Trip_ord aTrip : list) {
+			System.out.println("----------------------------------------------------------------");
 			System.out.print(aTrip.getTripOrdId() + ", ");
 			System.out.print(aTrip.getTripId() + ", ");
 			System.out.print(aTrip.getPlanId() + ", ");
@@ -292,7 +293,6 @@ public class Trip_ordJDBCDAO implements Trip_ordDAO_Interface {
 			System.out.print(aTrip.getScore()+", ");
 			System.out.print(aTrip.getComments()+", ");
 			System.out.println(aTrip.getCommentsTime()+", ");
-			System.out.println("---------------------------------------------------------------------------------------------------------------");
 		}
 	}
 }
