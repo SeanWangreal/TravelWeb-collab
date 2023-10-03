@@ -61,6 +61,11 @@ public class Trip_collect implements Serializable {
 		this.collectTime = collectTime;
 	}
 
+	@Override
+	public String toString() {
+		return "Trip_collect [cusId=" + cusId + ", tripId=" + tripId + ", collectTime=" + collectTime + "]";
+	}
+
 	static class DoublePk implements Serializable {
 		private static final long serialVersionUID = 1L;
 		private Integer cusId;

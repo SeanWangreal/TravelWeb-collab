@@ -60,6 +60,11 @@ public class Room_collect implements Serializable {
 		this.collectTime = collectTime;
 	}
 
+	@Override
+	public String toString() {
+		return "Room_collect [cusId=" + cusId + ", roomId=" + roomId + ", collectTime=" + collectTime + "]";
+	}
+
 	static class DoublePk implements Serializable {
 		private static final long serialVersionUID = 1L;
 		private Integer cusId;

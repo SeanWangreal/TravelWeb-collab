@@ -60,6 +60,11 @@ public class Room_thumbup implements Serializable {
 		this.thumbupTime = thumbupTime;
 	}
 
+	@Override
+	public String toString() {
+		return "Room_thumbup [roomOrdId=" + roomOrdId + ", cusId=" + cusId + ", thumbupTime=" + thumbupTime + "]";
+	}
+
 	static class DoublePk implements Serializable {
 		private static final long serialVersionUID = 1L;
 		private Integer roomOrdId;
