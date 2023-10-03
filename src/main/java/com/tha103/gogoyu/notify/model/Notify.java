@@ -31,7 +31,7 @@ public class Notify {
 	@Column(name = "contents")
 	private String contents;
 
-	@Column(name = "state")
+	@Column(name = "state", columnDefinition = "bit")
 	private Byte state;
 
 	@Column(name = "notify_time")

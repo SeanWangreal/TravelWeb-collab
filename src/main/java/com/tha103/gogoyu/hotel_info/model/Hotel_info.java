@@ -6,53 +6,53 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Hotel_info")
+@Table(name = "hotel_info")
 public class Hotel_info implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "hotel_info_id", updatable = false)
 	private Integer hotelInfoId;
 
-	@Column(name = "restaurant")
+	@Column(name = "restaurant", columnDefinition = "bit")
 	private byte restaurant;
 
-	@Column(name = "room_service")
+	@Column(name = "room_service", columnDefinition = "bit")
 	private byte roomService;
 
-	@Column(name = "allday_counter")
+	@Column(name = "allday_counter", columnDefinition = "bit")
 	private byte alldayCounter;
 
-	@Column(name = "spa")
+	@Column(name = "spa", columnDefinition = "bit")
 	private byte spa;
 
-	@Column(name = "gym")
+	@Column(name = "gym", columnDefinition = "bit")
 	private byte gym;
 
-	@Column(name = "garden")
+	@Column(name = "garden", columnDefinition = "bit")
 	private byte garden;
 
-	@Column(name = "terrace")
+	@Column(name = "terrace", columnDefinition = "bit")
 	private byte terrace;
 
-	@Column(name = "no_smoking")
+	@Column(name = "no_smoking", columnDefinition = "bit")
 	private byte noSmoking;
 
-	@Column(name = "freewifi")
+	@Column(name = "freewifi", columnDefinition = "bit")
 	private byte freewifi;
 
-	@Column(name = "heater")
+	@Column(name = "heater", columnDefinition = "bit")
 	private byte heater;
 
-	@Column(name = "beach")
+	@Column(name = "beach", columnDefinition = "bit")
 	private byte beach;
 
-	@Column(name = "pool")
+	@Column(name = "pool", columnDefinition = "bit")
 	private byte pool;
 
-	@Column(name = "chargingstation")
+	@Column(name = "chargingstation", columnDefinition = "bit")
 	private byte chargingstation;
 
-	@Column(name = "parking")
+	@Column(name = "parking", columnDefinition = "bit")
 	private byte parking;
 
 	public Hotel_info() {

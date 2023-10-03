@@ -24,7 +24,7 @@ public class Room_collectJDBCDAO implements Room_collectDAO_interface {
 	private static final String DELETE = "delete from room_collect where cus_id = ? and room_id = ?";
 	private static final String UPDATE = "update room_collect set collect_time = ? where cus_id = ? and room_id = ?";
 
-	public void insert(Room_collect room_collect) {
+	public int insert(Room_collect room_collect) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -34,14 +34,16 @@ public class Room_collectJDBCDAO implements Room_collectDAO_interface {
 			pstmt.setInt(2, room_collect.getRoomId());
 			pstmt.setTimestamp(3, room_collect.getCollectTime());
 			pstmt.executeUpdate();
+			return 1;
 		} catch (SQLException se) {
 			se.getStackTrace();
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		return -1;
 	};
 
-	public void update(Room_collect room_collect) {
+	public int update(Room_collect room_collect) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -51,14 +53,16 @@ public class Room_collectJDBCDAO implements Room_collectDAO_interface {
 			pstmt.setInt(2, room_collect.getCusId());
 			pstmt.setInt(3, room_collect.getRoomId());
 			pstmt.executeUpdate();
+			return 1;
 		} catch (SQLException se) {
 			se.getStackTrace();
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		return -1;
 	};
 
-	public void delete(Integer cus_id, Integer room_id) {
+	public int delete(Integer cus_id, Integer room_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -67,11 +71,13 @@ public class Room_collectJDBCDAO implements Room_collectDAO_interface {
 			pstmt.setInt(1, cus_id);
 			pstmt.setInt(2, room_id);
 			pstmt.executeUpdate();
+			return 1;
 		} catch (SQLException se) {
 			se.getStackTrace();
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		return -1;
 	};
 
 	public Room_collect findByPrimaryKey(Integer cus_id, Integer room_id) {

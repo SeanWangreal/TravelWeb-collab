@@ -4,9 +4,9 @@ import java.util.List;
 
 
 public interface Trip_thumbupDAO_interface {
-	public void insert(Trip_thumbup tripThumbup);
-	public void update(Trip_thumbup tripThumbup);
-	public void delete(Integer tripOrdId, Integer cusId);
+	public int insert(Trip_thumbup tripThumbup);
+	public int update(Trip_thumbup tripThumbup);
+	public int delete(Integer tripOrdId, Integer cusId);
 	public Trip_thumbup findByPrimaryKey(Integer ttripOrdId, Integer cusId);
 	public List<Trip_thumbup> getAll();
 }

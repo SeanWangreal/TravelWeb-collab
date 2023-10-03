@@ -44,70 +44,70 @@ public class Trip implements Serializable {
 	@Column(name = "state")
 	private Integer state;
 
-	@Column(name = "taipei_city")
+	@Column(name = "taipei_city",columnDefinition = "bit")
 	private byte taipeiCity;
 
-	@Column(name = "newtaipei_city")
+	@Column(name = "newtaipei_city",columnDefinition = "bit")
 	private byte newtaipeiCity;
 
-	@Column(name = "taoyuan_city")
+	@Column(name = "taoyuan_city",columnDefinition = "bit")
 	private byte taoyuanCity;
 
-	@Column(name = "taichung_city")
+	@Column(name = "taichung_city",columnDefinition = "bit")
 	private byte taichungCity;
 
-	@Column(name = " tainan_city")
+	@Column(name = " tainan_city",columnDefinition = "bit")
 	private byte tainanCity;
 
-	@Column(name = "kaohsiung_city")
+	@Column(name = "kaohsiung_city",columnDefinition = "bit")
 	private byte kaohsiungCity;
 
-	@Column(name = "hsinchu_county")
+	@Column(name = "hsinchu_county",columnDefinition = "bit")
 	private byte hsinchuCounty;
 
-	@Column(name = "miaoli_county")
+	@Column(name = "miaoli_county",columnDefinition = "bit")
 	private byte miaoliCounty;
 
-	@Column(name = "changhua_county")
+	@Column(name = "changhua_county",columnDefinition = "bit")
 	private byte changhuaCounty;
 
-	@Column(name = "nantou_county")
+	@Column(name = "nantou_county",columnDefinition = "bit")
 	private byte nantouCounty;
 
-	@Column(name = "yunlin_county")
+	@Column(name = "yunlin_county",columnDefinition = "bit")
 	private byte yunlinCounty;
 
-	@Column(name = "chiayi_county")
+	@Column(name = "chiayi_county",columnDefinition = "bit")
 	private byte chiayiCounty;
 
-	@Column(name = "pingtung_county")
+	@Column(name = "pingtung_county",columnDefinition = "bit")
 	private byte pingtungCounty;
 
-	@Column(name = "yilan_city")
+	@Column(name = "yilan_city",columnDefinition = "bit")
 	private byte yilanCity;
 
-	@Column(name = "hualien_city")
+	@Column(name = "hualien_city",columnDefinition = "bit")
 	private byte hualienCity;
 
-	@Column(name = "taitung_county")
+	@Column(name = "taitung_county",columnDefinition = "bit")
 	private byte taitungCounty;
 
-	@Column(name = "kinmen_county")
+	@Column(name = "kinmen_county",columnDefinition = "bit")
 	private byte kinmenCounty;
 
-	@Column(name = "lienchiang_county")
+	@Column(name = "lienchiang_county",columnDefinition = "bit")
 	private byte lienchiangCounty;
 
-	@Column(name = "keelung_city")
+	@Column(name = "keelung_city",columnDefinition = "bit")
 	private byte keelungCity;
 
-	@Column(name = "hsinchu_city")
+	@Column(name = "hsinchu_city",columnDefinition = "bit")
 	private byte hsinchuCity;
 
-	@Column(name = "chiayi_city")
+	@Column(name = "chiayi_city",columnDefinition = "bit")
 	private byte chiayiCity;
 
-	@Column(name = "penghu_county")
+	@Column(name = "penghu_county",columnDefinition = "bit")
 	private byte penghuCounty;
 
 	public Trip(Integer trip_id, Integer comp_id, String trip_name, Integer amount, BigDecimal price, Integer people,

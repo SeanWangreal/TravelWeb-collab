@@ -26,7 +26,7 @@ public class Scene implements java.io.Serializable {
 	@Column(name = "trans_info", columnDefinition = "longtext")
 	private String transInfo;
 
-	@Column(name = "parking")
+	@Column(name = "parking", columnDefinition = "longtext")
 	private String parking;
 
 	@Column(name = "address", columnDefinition = "longtext")
