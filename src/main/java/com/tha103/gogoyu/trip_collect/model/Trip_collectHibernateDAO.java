@@ -89,8 +89,8 @@ public class Trip_collectHibernateDAO implements Trip_collectDAO_interface{
 		Date date = new Date();
 		Timestamp time_s = new Timestamp(date.getTime());
 		Trip_collect tripCollect = new Trip_collect(1,2,time_s);
-//		System.out.println(hDao.insert(tripCollect));
-		System.out.println(hDao.update(tripCollect));
+		System.out.println(hDao.insert(tripCollect));
+//		System.out.println(hDao.update(tripCollect));
 //		System.out.println(hDao.delete(13, 1));
 //		System.out.println(hDao.findByPrimaryKey(13, 2));
 		System.out.println(hDao.getAll());
