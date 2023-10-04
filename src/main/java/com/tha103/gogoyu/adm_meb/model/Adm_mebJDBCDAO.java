@@ -9,77 +9,85 @@ import util.Util;
 import java.sql.*;
 
 public class Adm_mebJDBCDAO implements Adm_mebDAO_interface {
-
+	static {
+		try {
+			Class.forName(Util.DRIVER);
+		} catch (ClassNotFoundException ce) {
+			ce.printStackTrace();
+		}
+	}
 	private static final String INSERT_STMT = "INSERT INTO Adm_meb (adm_name,adm_account,adm_password) VALUES (?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT adm_id,adm_name,adm_account,adm_password FROM Adm_meb order by adm_id";
 	private static final String GET_ONE_STMT = "SELECT adm_id,adm_name,adm_account,adm_password FROM Adm_meb where adm_id= ?";
 	private static final String DELETE = "DELETE FROM Adm_meb where adm_id = ?";
 	private static final String UPDATE = "UPDATE Adm_meb set adm_name=?, adm_account=?, adm_password=? where adm_id = ?";
-	static {
-		try {
-			Class.forName(Util.DRIVER);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
+
 
 	@Override
-	public void insert(Adm_meb Adm_meb) {
+	public int add(Adm_meb admMeb) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			String[] cols = { "adm_id" };
 			pstmt = con.prepareStatement(INSERT_STMT, cols);
-			pstmt.setString(1, Adm_meb.getAdm_name());
-			pstmt.setString(2, Adm_meb.getAdm_account());
-			pstmt.setString(3, Adm_meb.getAdm_password());
+			pstmt.setString(1, admMeb.getAdmName());
+			pstmt.setString(2, admMeb.getAdmAccount());
+			pstmt.setString(3, admMeb.getAdmPassword());
 			pstmt.executeUpdate();
-			System.out.println("success");
+			
+			return 1;
+			
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		
 	}
 
 	@Override
-	public void update(Adm_meb Adm_meb) {
+	public int update(Adm_meb admMeb) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
-			pstmt.setString(1, Adm_meb.getAdm_name());
-			pstmt.setString(2, Adm_meb.getAdm_account());
-			pstmt.setString(3, Adm_meb.getAdm_password());
-			pstmt.setInt(4, Adm_meb.getAdm_id());
+			pstmt.setString(1, admMeb.getAdmName());
+			pstmt.setString(2, admMeb.getAdmAccount());
+			pstmt.setString(3, admMeb.getAdmPassword());
+			pstmt.setInt(4, admMeb.getAdmId());
 			pstmt.executeUpdate();
+			return 1;
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		
 	}
+	
 
 	@Override
-	public void delete(Integer Adm_id) {
+	public int delete(Integer AdmId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(DELETE);
-			pstmt.setInt(1, Adm_id);
+			pstmt.setInt(1, AdmId);
 			pstmt.executeUpdate();
+			return 1;
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+	
 	}
 
 	@Override
-	public Adm_meb findByPrimaryKey(Integer Adm_id) {
+	public Adm_meb findByPrimaryKey(Integer AdmId) {
 		Adm_meb Adm_meb = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -87,14 +95,14 @@ public class Adm_mebJDBCDAO implements Adm_mebDAO_interface {
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
-			pstmt.setInt(1, Adm_id);
+			pstmt.setInt(1, AdmId);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Adm_meb = new Adm_meb();
-				Adm_meb.setAdm_id(rs.getInt("Adm_id"));
-				Adm_meb.setAdm_name(rs.getString("Adm_name"));
-				Adm_meb.setAdm_account(rs.getString("Adm_account"));
-				Adm_meb.setAdm_password(rs.getString("Adm_password"));
+				Adm_meb.setAdmId(rs.getInt("Adm_id"));
+				Adm_meb.setAdmName(rs.getString("Adm_name"));
+				Adm_meb.setAdmAccount(rs.getString("Adm_account"));
+				Adm_meb.setAdmPassword(rs.getString("Adm_password"));
 			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -117,10 +125,10 @@ public class Adm_mebJDBCDAO implements Adm_mebDAO_interface {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Adm_meb = new Adm_meb();
-				Adm_meb.setAdm_id(rs.getInt("Adm_id"));
-				Adm_meb.setAdm_name(rs.getString("Adm_name"));
-				Adm_meb.setAdm_account(rs.getString("Adm_account"));
-				Adm_meb.setAdm_password(rs.getString("Adm_password"));
+				Adm_meb.setAdmId(rs.getInt("Adm_id"));
+				Adm_meb.setAdmName(rs.getString("Adm_name"));
+				Adm_meb.setAdmAccount(rs.getString("Adm_account"));
+				Adm_meb.setAdmPassword(rs.getString("Adm_password"));
 				list.add(Adm_meb);
 			}
 		} catch (SQLException se) {
@@ -164,9 +172,9 @@ public class Adm_mebJDBCDAO implements Adm_mebDAO_interface {
 
 		List<Adm_meb> list = dao.getAll();
 		for (Adm_meb aAdm : list) {
-			System.out.print(aAdm.getAdm_name() + ",");
-			System.out.print(aAdm.getAdm_account() + ",");
-			System.out.print(aAdm.getAdm_password() + ",");
+			System.out.print(aAdm.getAdmName() + ",");
+			System.out.print(aAdm.getAdmAccount() + ",");
+			System.out.print(aAdm.getAdmPassword() + ",");
 			System.out.println();
 		}
 	}

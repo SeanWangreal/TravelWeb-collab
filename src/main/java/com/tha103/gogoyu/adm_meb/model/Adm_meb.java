@@ -34,36 +34,38 @@ public class Adm_meb implements Serializable {
 		this.admPassword = adm_password;
 	}
 	
-	public Integer getAdm_id() {
+	public Integer getAdmId() {
 		return admId;
 	}
 
-	public void setAdm_id(Integer adm_id) {
+	public void setAdmId(Integer adm_id) {
 		this.admId = adm_id;
 	}
 
-	public String getAdm_name() {
+	public String getAdmName() {
 		return admName;
 	}
 
-	public void setAdm_name(String adm_name) {
+	public void setAdmName(String adm_name) {
 		this.admName = adm_name;
 	}
 	
-	public String getAdm_account() {
+	public String getAdmAccount() {
 		return admAccount;
 	}
 
-	public void setAdm_account(String adm_account) {
+	public void setAdmAccount(String adm_account) {
 		this.admAccount = adm_account;
 	}
 
-	public String getAdm_password() {
+	public String getAdmPassword() {
 		return admPassword;
 	}
 
-	public void setAdm_password(String adm_password) {
+	public void setAdmPassword(String adm_password) {
 		this.admPassword = adm_password;
 	}
+
+	
 
 }

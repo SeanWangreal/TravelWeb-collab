@@ -3,21 +3,14 @@ package com.tha103.gogoyu.consumer.model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import util.Util;
 
-import java.sql.*;
-
 public class ConsumerJDBCDAO implements ConsumerDAO_interface {
-
-	private static final String INSERT_STMT = "INSERT INTO consumer (cus_name,cus_account,cus_password,cus_mail,cus_phone,cus_address,cus_sex,cus_photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT cus_id,cus_name,cus_account,cus_password,cus_mail,cus_phone,cus_address,cus_sex,cus_photo FROM consumer order by cus_id";
-	private static final String GET_ONE_STMT = "SELECT cus_id,cus_name,cus_account,cus_password,cus_mail,cus_phone,cus_address,cus_sex,cus_photo FROM consumer where cus_id= ?";
-	private static final String DELETE = "DELETE FROM consumer where cus_id = ?";
-	private static final String UPDATE = "UPDATE consumer set cus_name=?, cus_account=?, cus_password=?, cus_mail=?, cus_phone=?, cus_address=?, cus_sex=?,cus_photo=? where cus_id = ?";
-
 	static {
 		try {
 			Class.forName(Util.DRIVER);
@@ -25,48 +18,54 @@ public class ConsumerJDBCDAO implements ConsumerDAO_interface {
 			e.printStackTrace();
 		}
 	}
+	private static final String INSERT_STMT = "INSERT INTO consumer (cus_name,cus_account,cus_password,cus_mail,cus_phone,cus_address,cus_sex,cus_photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT cus_id,cus_name,cus_account,cus_password,cus_mail,cus_phone,cus_address,cus_sex,cus_photo FROM consumer order by cus_id";
+	private static final String GET_ONE_STMT = "SELECT cus_id,cus_name,cus_account,cus_password,cus_mail,cus_phone,cus_address,cus_sex,cus_photo FROM consumer where cus_id= ?";
+	private static final String DELETE = "DELETE FROM consumer where cus_id = ?";
+	private static final String UPDATE = "UPDATE consumer set cus_name=?, cus_account=?, cus_password=?, cus_mail=?, cus_phone=?, cus_address=?, cus_sex=?,cus_photo=? where cus_id = ?";
 
 	@Override
-	public void insert(Consumer Consumer) {
+	public int add(Consumer Consumer) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(INSERT_STMT);
-			pstmt.setString(1, Consumer.getCus_name());
-			pstmt.setString(2, Consumer.getCus_account());
-			pstmt.setString(3, Consumer.getCus_password());
-			pstmt.setString(4, Consumer.getCus_mail());
-			pstmt.setString(5, Consumer.getCus_phone());
-			pstmt.setString(6, Consumer.getCus_address());
-			pstmt.setInt(7, Consumer.getCus_sex());
-			pstmt.setBytes(8, Consumer.getCus_photo());
+			pstmt.setString(1, Consumer.getCusName());
+			pstmt.setString(2, Consumer.getCusAccount());
+			pstmt.setString(3, Consumer.getCusPassword());
+			pstmt.setString(4, Consumer.getCusMail());
+			pstmt.setString(5, Consumer.getCusPhone());
+			pstmt.setString(6, Consumer.getCusAddress());
+			pstmt.setInt(7, Consumer.getCusSex());
+			pstmt.setBytes(8, Consumer.getCusPhoto());
 			pstmt.executeUpdate();
-			System.out.println("success");
+			return 1;
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
-	}
+	}	
 
 	@Override
-	public void update(Consumer Consumer) {
+	public int update(Consumer consumer) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
-			pstmt.setString(1, Consumer.getCus_name());
-			pstmt.setString(2, Consumer.getCus_account());
-			pstmt.setString(3, Consumer.getCus_password());
-			pstmt.setString(4, Consumer.getCus_mail());
-			pstmt.setString(5, Consumer.getCus_phone());
-			pstmt.setString(6, Consumer.getCus_address());
-			pstmt.setInt(7, Consumer.getCus_sex());
-			pstmt.setBytes(8, Consumer.getCus_photo());
-			pstmt.setInt(9, Consumer.getCus_id());
+			pstmt.setString(1, consumer.getCusName());
+			pstmt.setString(2, consumer.getCusAccount());
+			pstmt.setString(3, consumer.getCusPassword());
+			pstmt.setString(4, consumer.getCusMail());
+			pstmt.setString(5, consumer.getCusPhone());
+			pstmt.setString(6, consumer.getCusAddress());
+			pstmt.setInt(7, consumer.getCusSex());
+			pstmt.setBytes(8, consumer.getCusPhoto());
+			pstmt.setInt(9, consumer.getCusId());
 			pstmt.executeUpdate();
+			return 1;
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
@@ -75,14 +74,15 @@ public class ConsumerJDBCDAO implements ConsumerDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer Cus_id) {
+	public int delete(Integer cusId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(DELETE);
-			pstmt.setInt(1, Cus_id);
+			pstmt.setInt(1, cusId);
 			pstmt.executeUpdate();
+			return 1;
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
@@ -103,15 +103,15 @@ public class ConsumerJDBCDAO implements ConsumerDAO_interface {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Consumer = new Consumer();
-				Consumer.setCus_id(rs.getInt("cus_id"));
-				Consumer.setCus_name(rs.getString("cus_name"));
-				Consumer.setCus_account(rs.getString("cus_account"));
-				Consumer.setCus_password(rs.getString("cus_password"));
-				Consumer.setCus_mail(rs.getString("cus_mail"));
-				Consumer.setCus_phone(rs.getString("cus_phone"));
-				Consumer.setCus_address(rs.getString("cus_address"));
-				Consumer.setCus_sex(rs.getInt("cus_sex"));
-				Consumer.setCus_photo(rs.getBytes("cus_photo"));
+				Consumer.setCusId(rs.getInt("cus_id"));
+				Consumer.setCusName(rs.getString("cus_name"));
+				Consumer.setCusAccount(rs.getString("cus_account"));
+				Consumer.setCusPassword(rs.getString("cus_password"));
+				Consumer.setCusMail(rs.getString("cus_mail"));
+				Consumer.setCusPhone(rs.getString("cus_phone"));
+				Consumer.setCusAddress(rs.getString("cus_address"));
+				Consumer.setCusSex(rs.getInt("cus_sex"));
+				Consumer.setCusPhoto(rs.getBytes("cus_photo"));
 			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -134,15 +134,15 @@ public class ConsumerJDBCDAO implements ConsumerDAO_interface {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				consumer = new Consumer();
-				consumer.setCus_id(rs.getInt("cus_id"));
-				consumer.setCus_name(rs.getString("cus_name"));
-				consumer.setCus_account(rs.getString("cus_account"));
-				consumer.setCus_password(rs.getString("cus_password"));
-				consumer.setCus_mail(rs.getString("cus_mail"));
-				consumer.setCus_phone(rs.getString("cus_phone"));
-				consumer.setCus_address(rs.getString("cus_address"));
-				consumer.setCus_sex(rs.getInt("cus_sex"));
-				consumer.setCus_photo(rs.getBytes("cus_photo"));
+				consumer.setCusId(rs.getInt("cus_id"));
+				consumer.setCusName(rs.getString("cus_name"));
+				consumer.setCusAccount(rs.getString("cus_account"));
+				consumer.setCusPassword(rs.getString("cus_password"));
+				consumer.setCusMail(rs.getString("cus_mail"));
+				consumer.setCusPhone(rs.getString("cus_phone"));
+				consumer.setCusAddress(rs.getString("cus_address"));
+				consumer.setCusSex(rs.getInt("cus_sex"));
+				consumer.setCusPhoto(rs.getBytes("cus_photo"));
 				list.add(consumer); // Store the row in the list
 			}
 		} catch (SQLException se) {
@@ -200,14 +200,14 @@ public class ConsumerJDBCDAO implements ConsumerDAO_interface {
 		// 查詢
 		List<Consumer> list = dao.getAll();
 		for (Consumer aCus : list) {
-			System.out.print(aCus.getCus_name() + ",");
-			System.out.print(aCus.getCus_account() + ",");
-			System.out.print(aCus.getCus_password() + ",");
-			System.out.print(aCus.getCus_mail() + ",");
-			System.out.print(aCus.getCus_phone() + ",");
-			System.out.print(aCus.getCus_address() + ",");
-			System.out.print(aCus.getCus_sex() + ",");
-			System.out.print(aCus.getCus_photo() + ",");
+			System.out.print(aCus.getCusName() + ",");
+			System.out.print(aCus.getCusAccount() + ",");
+			System.out.print(aCus.getCusPassword() + ",");
+			System.out.print(aCus.getCusMail() + ",");
+			System.out.print(aCus.getCusPhone() + ",");
+			System.out.print(aCus.getCusAddress() + ",");
+			System.out.print(aCus.getCusSex() + ",");
+			System.out.print(aCus.getCusPhoto() + ",");
 			System.out.println();
 		}
 	}
