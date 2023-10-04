@@ -4,10 +4,10 @@ import java.util.*;
 
 
 public interface RoomDAO_interface {
-	public void insert(Room room);
-	public void update(Room room);
-	public void delete(Integer roomId);
-	public Room findByPrimaryKey(Integer roomId);
-	public List<Room> getAll();
+	int add(Room room);
+	int update(Room room);
+	int delete(Integer roomId);
+	Room findByPK(Integer roomId);
+	List<Room> getAll();
 
 }
