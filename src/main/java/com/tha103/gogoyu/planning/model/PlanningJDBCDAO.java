@@ -146,7 +146,7 @@ public class PlanningJDBCDAO implements PlanningDAO_interface {
 //		Planning planning01 = new Planning();
 //		planning01.setCusId(2);
 //		planning01.setPlanName("測試新增2");
-//		dao.insert(planning01);
+//		dao.add(planning01);
 
 //		// 修改
 //		Planning planning02 = new Planning();
@@ -159,7 +159,7 @@ public class PlanningJDBCDAO implements PlanningDAO_interface {
 //		dao.delete(1);
 
 //		// 查詢單筆
-//		Planning planning03 = dao.findByPrimaryKey(2);
+//		Planning planning03 = dao.findByPK(2);
 //		System.out.print(planning03.getPlanId() + ",");
 //		System.out.print(planning03.getCusId() + ",");
 //		System.out.println(planning03.getPlanName());

@@ -161,7 +161,7 @@ public class Trip_photoJDBCDAO implements Trip_photoDAO_interface {
 //			System.out.println(ie);
 //		}
 //		trip_photo01.setUploadTime(time_s);
-//		dao.insert(trip_photo01);
+//		dao.add(trip_photo01);
 
 //		// 修改
 //		Trip_photo trip_photo02 = new Trip_photo();
@@ -180,7 +180,7 @@ public class Trip_photoJDBCDAO implements Trip_photoDAO_interface {
 //		dao.delete(3);
 
 //		// 查詢單筆
-//		Trip_photo trip_photo03 = dao.findByPrimaryKey(2);
+//		Trip_photo trip_photo03 = dao.findByPK(2);
 //		System.out.print(trip_photo03.getTripPhotoId() + ",");
 //		System.out.print(trip_photo03.getTripId() + ",");
 //		System.out.print(trip_photo03.getPhoto() + ",");
