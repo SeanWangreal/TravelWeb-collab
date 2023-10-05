@@ -30,7 +30,7 @@ public class Trip_photoJDBCDAO implements Trip_photoDAO_interface {
 	}
 
 	@Override
-	public void insert(Trip_photo trip_photo) {
+	public int add(Trip_photo trip_photo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -41,6 +41,7 @@ public class Trip_photoJDBCDAO implements Trip_photoDAO_interface {
 			pstmt.setBytes(2, trip_photo.getPhoto());
 			pstmt.setTimestamp(3, trip_photo.getUploadTime());
 			pstmt.executeUpdate();
+			return 1;
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
@@ -49,7 +50,7 @@ public class Trip_photoJDBCDAO implements Trip_photoDAO_interface {
 	}
 
 	@Override
-	public void update(Trip_photo trip_photo) {
+	public int update(Trip_photo trip_photo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -60,6 +61,7 @@ public class Trip_photoJDBCDAO implements Trip_photoDAO_interface {
 			pstmt.setTimestamp(3, trip_photo.getUploadTime());
 			pstmt.setInt(4, trip_photo.getTripPhotoId());
 			pstmt.executeUpdate();
+			return 1;
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
@@ -68,7 +70,7 @@ public class Trip_photoJDBCDAO implements Trip_photoDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer trip_photo_id) {
+	public int delete(Integer trip_photo_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -76,6 +78,7 @@ public class Trip_photoJDBCDAO implements Trip_photoDAO_interface {
 			pstmt = con.prepareStatement(DELETE);
 			pstmt.setInt(1, trip_photo_id);
 			pstmt.executeUpdate();
+			return 1;
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
@@ -84,7 +87,7 @@ public class Trip_photoJDBCDAO implements Trip_photoDAO_interface {
 	}
 
 	@Override
-	public Trip_photo findByPrimaryKey(Integer trip_photo_id) {
+	public Trip_photo findByPK(Integer trip_photo_id) {
 		Trip_photo trip_photo = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
