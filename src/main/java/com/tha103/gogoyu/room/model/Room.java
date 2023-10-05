@@ -1,5 +1,7 @@
 package com.tha103.gogoyu.room.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +26,7 @@ public class Room implements java.io.Serializable {
 	@Column(name = "beds")
 	private Integer beds;
 	@Column(name = "price")
-	private Double price;
+	private BigDecimal price;
 	@Column(name = "intro", columnDefinition = "longtext")
 	private String intro;
 	@Column(name = "room_status")
@@ -56,7 +58,7 @@ public class Room implements java.io.Serializable {
 		super();
 	}
 
-	public Room(Integer roomId, Integer compId, Integer roomType, String roomName, Integer beds, Double price,
+	public Room(Integer roomId, Integer compId, Integer roomType, String roomName, Integer beds, BigDecimal price,
 			String intro, Integer roomStatus, byte tissue, byte shower, byte bathroom, byte dryer, byte tub,
 			byte freetoiletries, byte flushseat, byte slippers, byte bathrobe, byte spatub, byte electricKettle) {
 		super();
@@ -121,11 +123,11 @@ public class Room implements java.io.Serializable {
 		this.beds = beds;
 	}
 
-	public Double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 

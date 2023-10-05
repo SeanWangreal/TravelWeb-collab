@@ -4,9 +4,9 @@ import java.util.*;
 
 
 public interface Room_photoDAO_interface {
-	public void insert(Room_photo roomPhoto);
-	public void update(Room_photo roomPhoto);
-	public void delete(Integer roomPhotoId);
-	public Room_photo findByPrimaryKey(Integer roomPhotoId);
-	public List<Room_photo> getAll();
+	int add(Room_photo roomPhoto);
+	int update(Room_photo roomPhoto);
+	int delete(Integer roomPhotoId);
+	Room_photo findByPK(Integer roomPhotoId);
+	List<Room_photo> getAll();
 }

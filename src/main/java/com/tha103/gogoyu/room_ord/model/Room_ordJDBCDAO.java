@@ -31,7 +31,7 @@ public class Room_ordJDBCDAO implements Room_ordDAO_interface {
 	private static final String UPDATE = "UPDATE room_ord set plan_id = ? ,room_id = ? ,cus_id = ? ,amount = ? ,total_price = ? ,commission = ? ,people = ? ,check_in_time = ? ,check_out_time = ? ,ord_status = ? ,ord_time = ? ,remark = ? ,score = ? ,comments = ? ,comments_time = ? where room_ord_id = ?";
 
 	@Override
-	public void insert(Room_ord roomOrd) {
+	public int add(Room_ord roomOrd) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -61,11 +61,11 @@ public class Room_ordJDBCDAO implements Room_ordDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
-
+		return -1;
 	}
 
 	@Override
-	public void update(Room_ord roomOrd) {
+	public int update(Room_ord roomOrd) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -96,11 +96,11 @@ public class Room_ordJDBCDAO implements Room_ordDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
-
+		return -1;
 	}
 
 	@Override
-	public void delete(Integer roomOrdId) {
+	public int delete(Integer roomOrdId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -122,11 +122,11 @@ public class Room_ordJDBCDAO implements Room_ordDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
-
+		return -1;
 	}
 
 	@Override
-	public Room_ord findByPrimaryKey(Integer roomOrdId) {
+	public Room_ord findByPK(Integer roomOrdId) {
 
 		Room_ord roomOrd = null;
 		Connection con = null;
@@ -233,7 +233,7 @@ public class Room_ordJDBCDAO implements Room_ordDAO_interface {
 		ord001.setScore(1);
 		ord001.setComments("測");
 		ord001.setCommentsTime(Timestamp.valueOf("2023-09-15 17:55:55"));
-		dao.insert(ord001);
+		dao.add(ord001);
 //修改
 //		Room_ord room_ord002 = new Room_ord();
 //		room_ord002.setRoomOrdId(3);
@@ -258,7 +258,7 @@ public class Room_ordJDBCDAO implements Room_ordDAO_interface {
 //		dao.delete(2);
 		
 		//查詢
-		Room_ord ord3 =dao.findByPrimaryKey(3);
+		Room_ord ord3 =dao.findByPK(3);
 		System.out.print(ord3.getCommission() + ",");
 		System.out.print(ord3.getPeople() + ",");
 		System.out.println("++++++++++++++++");

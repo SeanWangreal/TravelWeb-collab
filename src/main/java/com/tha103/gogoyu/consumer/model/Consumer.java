@@ -50,76 +50,78 @@ public class Consumer implements Serializable {
 		this.cusPhoto = cus_photo;
 	}
 	
-	public Integer getCus_id() {
+	public Integer getCusId() {
 		return cusId;
 	}
 	
-	public void setCus_id(Integer cus_id) {
+	public void setCusId(Integer cus_id) {
 		this.cusId = cus_id;
 	}
 	
-	public String getCus_name() {
+	public String getCusName() {
 		return cusName;
 	}
 
-	public void setCus_name(String cus_name) {
+	public void setCusName(String cus_name) {
 		this.cusName = cus_name;
 	}
 	
-	public String getCus_account() {
+	public String getCusAccount() {
 		return cusAccount;
 	}
 	
-	public void setCus_account(String cus_account) {
+	public void setCusAccount(String cus_account) {
 		this.cusAccount = cus_account;
 	}
 	
-	public String getCus_password() {
+	public String getCusPassword() {
 		return cusPassword;
 	}
 	
-	public void setCus_password(String cus_password) {
+	public void setCusPassword(String cus_password) {
 		this.cusPassword = cus_password;
 	}
 	
-	public String getCus_mail() {
+	public String getCusMail() {
 		return cusMail;
 	}
 	
-	public void setCus_mail(String cus_mail) {
+	public void setCusMail(String cus_mail) {
 		this.cusMail = cus_mail;
 	}
 	
-	public String getCus_phone() {
+	public String getCusPhone() {
 		return cusPhone;
 	}
 	
-	public void setCus_phone(String cus_phone) {
+	public void setCusPhone(String cus_phone) {
 		this.cusPhone = cus_phone;
 	}
 	
-	public String getCus_address() {
+	public String getCusAddress() {
 		return cusAddress;
 	}
 	
-	public void setCus_address(String cus_address) {
+	public void setCusAddress(String cus_address) {
 		this.cusAddress = cus_address;
 	}
 	
-	public Integer getCus_sex() {
+	public Integer getCusSex() {
 		return cusSex;
 	}
 	
-	public void setCus_sex(Integer cus_sex) {
+	public void setCusSex(Integer cus_sex) {
 		this.cusSex = cus_sex;
 	}
 	
-	public byte[] getCus_photo() {
+	public byte[] getCusPhoto() {
 		return cusPhoto;
 	}
 	
-	public void setCus_photo(byte[] cus_photo) {
+	public void setCusPhoto(byte[] cus_photo) {
 		this.cusPhoto = cus_photo;
 	}
+
+	
 
 }

@@ -39,7 +39,7 @@ public class TripJDBCDAO implements TripDAO_interface {
 			+ "	chiayi_city = ? ,penghu_county = ?  where trip_id = ? ";
 
 	@Override
-	public void insert(Trip Trip) {
+	public int add(Trip Trip) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -83,10 +83,11 @@ public class TripJDBCDAO implements TripDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		return -1;
 	}
 
 	@Override
-	public void update(Trip Trip) {
+	public int update(Trip Trip) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -131,10 +132,11 @@ public class TripJDBCDAO implements TripDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		return -1 ;
 	}
 
 	@Override
-	public void delete(Integer trip_id) {
+	public int delete(Integer trip_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -147,10 +149,11 @@ public class TripJDBCDAO implements TripDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		return -1 ;
 	}
 
 	@Override
-	public Trip findByPrimaryKey(Integer trip_id) {
+	public Trip findByPK(Integer trip_id) {
 		Trip trVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;

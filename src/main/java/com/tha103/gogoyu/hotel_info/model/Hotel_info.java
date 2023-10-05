@@ -1,9 +1,16 @@
 package com.tha103.gogoyu.hotel_info.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+import com.tha103.gogoyu.company.model.Company;
+import com.tha103.gogoyu.trip.model.Trip;
 
 @Entity
 @Table(name = "hotel_info")
@@ -12,7 +19,12 @@ public class Hotel_info implements java.io.Serializable {
 	@Id
 	@Column(name = "hotel_info_id", updatable = false)
 	private Integer hotelInfoId;
-
+//	@OneToMany(mappedBy = "Hotel_info")//pk
+//	@OrderBy("hotel_info_id asc")
+//	private Set<Company> comps; 
+	
+	
+	
 	@Column(name = "restaurant", columnDefinition = "bit")
 	private byte restaurant;
 

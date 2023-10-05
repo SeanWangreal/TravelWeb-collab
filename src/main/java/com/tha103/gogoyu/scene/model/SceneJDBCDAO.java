@@ -25,7 +25,7 @@ public class SceneJDBCDAO implements SceneDAO_interface {
 	private static final String UPDATE = "UPDATE scene set scene_name = ?,  open_time = ?,ticket_price=?,trans_info=?,parking=?, address = ? ,lon=?,lat=?, feature = ? , picture = ?   where scene_id = ? ";
 
 	@Override
-	public void insert(Scene Scene) {
+	public int add(Scene Scene) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -48,10 +48,11 @@ public class SceneJDBCDAO implements SceneDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		return -1 ;
 	}
 
 	@Override
-	public void update(Scene Scene) {
+	public int update(Scene Scene) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -74,10 +75,11 @@ public class SceneJDBCDAO implements SceneDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		return -1 ;
 	}
 
 	@Override
-	public void delete(Integer scene_id) {
+	public int delete(Integer scene_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -90,10 +92,11 @@ public class SceneJDBCDAO implements SceneDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		return -1 ;
 	}
 
 	@Override
-	public Scene findByPrimaryKey(Integer scene_id) {
+	public Scene findByPK(Integer scene_id) {
 		Scene scVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -225,7 +228,7 @@ public class SceneJDBCDAO implements SceneDAO_interface {
 //		dao.delete(1);
 
 		// 查詢
-//		Scene scene3 = dao.findByPrimaryKey(1);
+//		Scene scene3 = dao.findByPK(1);
 //		System.out.print(scene3.getSceneId() + ",");
 //		System.out.print(scene3.getOpenTime() + ",");
 //		System.out.print(scene3.getAddress() + ",");

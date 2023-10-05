@@ -1,21 +1,46 @@
 package com.tha103.gogoyu.company.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+import com.tha103.gogoyu.hotel_info.model.Hotel_info;
+import com.tha103.gogoyu.trip.model.Trip;
 
 @Entity
 @Table(name = "Company")
 public class Company implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	
+	
 	@Id
 	@Column(name = "comp_id", updatable = false)
 	private Integer compId;
+//	@OneToMany(mappedBy = "Company")
+//	@OrderBy("comp_id asc")
+//	private Set<Trip> trips; 
 
-	@Column(name = "hotel_info_id")
+
+	
+	
+	@Column(name = "hotel_info_id")//fk
 	private Integer hotelInfoId;
+//	@ManyToOne
+//	@JoinColumn(name = "hotel_info_id", referencedColumnName = "hotel_info_id")
+//	private Hotel_info hotelInfo; 
+	
 
+	
+	
+	
 	@Column(name = "comp_type")
 	private Integer compType;
 
