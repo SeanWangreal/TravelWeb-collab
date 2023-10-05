@@ -1,5 +1,6 @@
 package com.tha103.gogoyu.room.model;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 	private static final String UPDATE = "UPDATE room set comp_id = ?,room_type = ?,room_name = ?,beds =?,price = ?,intro = ? ,room_status = ?,tissue = ?,shower = ?,bathroom = ?,dryer = ?,tub = ?,freetoiletries = ?,flushseat = ?,slippers = ?,bathrobe = ?,spatub = ?,electric_kettle = ? where room_id = ?";
 
 	@Override
-	public void insert(Room room) {
+	public int add(Room room) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -29,7 +30,7 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 			pstmt.setInt(2, room.getRoomType());
 			pstmt.setString(3, room.getRoomName());
 			pstmt.setInt(4, room.getBeds());
-			pstmt.setDouble(5, room.getPrice());
+			pstmt.setBigDecimal(5, room.getPrice());
 			pstmt.setString(6, room.getIntro());
 			pstmt.setInt(7, room.getRoomStatus());
 			pstmt.setByte(8, room.getTissue());
@@ -50,11 +51,11 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
-
+		return -1;
 	}
 
 	@Override
-	public void update(Room room) {
+	public int update(Room room) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -66,7 +67,7 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 			pstmt.setInt(2, room.getRoomType());
 			pstmt.setString(3, room.getRoomName());
 			pstmt.setInt(4, room.getBeds());
-			pstmt.setDouble(5, room.getPrice());
+			pstmt.setBigDecimal(5, room.getPrice());
 			pstmt.setString(6, room.getIntro());
 			pstmt.setInt(7, room.getRoomStatus());
 			pstmt.setByte(8, room.getTissue());
@@ -88,11 +89,11 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
-
+		return -1;
 	}
 
 	@Override
-	public void delete(Integer room_id) {
+	public int delete(Integer room_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -114,11 +115,11 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
-
+		return -1;
 	}
 
 	@Override
-	public Room findByPrimaryKey(Integer roomId) {
+	public Room findByPK(Integer roomId) {
 		Room room = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -139,7 +140,7 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 				room.setRoomType(rs.getInt("room_type"));
 				room.setRoomName(rs.getString("room_name"));
 				room.setBeds(rs.getInt("beds"));
-				room.setPrice(rs.getDouble("price"));
+				room.setPrice(rs.getBigDecimal("price"));
 				room.setIntro(rs.getString("intro"));
 				room.setRoomStatus(rs.getInt("room_status"));
 				room.setTissue(rs.getByte("tissue"));
@@ -185,7 +186,7 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 				room.setRoomType(rs.getInt("room_type"));
 				room.setRoomName(rs.getString("room_name"));
 				room.setBeds(rs.getInt("beds"));
-				room.setPrice(rs.getDouble("price"));
+				room.setPrice(rs.getBigDecimal("price"));
 				room.setIntro(rs.getString("intro"));
 				room.setRoomStatus(rs.getInt("room_status"));
 				room.setTissue(rs.getByte("tissue"));
@@ -215,12 +216,12 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 		RoomJDBCDAO dao = new RoomJDBCDAO();
 
 		// 新增
-//		Room ro1= new Room(); 
+		Room ro1= new Room(); 
 //		ro1.setCompId(1001);
 //		ro1.setRoomType(3);
 //		ro1.setRoomName("北邊");
 //		ro1.setBeds(3);
-//		ro1.setPrice(10000.0);
+//		ro1.setPrice(new BigDecimal(5000));
 //		ro1.setIntro("沒什麼");
 //		ro1.setRoomStatus(1);
 //		ro1.setTissue((byte)0);
@@ -243,7 +244,7 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 //		r2.setRoomType(3);
 //		r2.setRoomName("北邊");
 //		r2.setBeds(3);
-//		r2.setPrice(10000.0);
+//		r2.setPrice(new BigDecimal(5000));
 //		r2.setIntro("沒什麼");
 //		r2.setRoomStatus(1);
 //		r2.setTissue((byte) 0);
@@ -263,25 +264,25 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 //		dao.delete(10004);
 
 		// 查詢
-		Room r4 =dao.findByPrimaryKey(10000);
-		System.out.print(r4.getRoomId() +",");
-		System.out.print(r4.getCompId()+",");
-		System.out.print(r4.getRoomType()+",");
-		System.out.print(r4.getRoomName()+",");
-		System.out.print(r4.getBeds()+",");
-		System.out.print(r4.getPrice()+",");
-		System.out.print(r4.getIntro()+",");
-		System.out.print(r4.getRoomStatus()+",");
-		System.out.print(r4.getTissue()+",");
-		System.out.print(r4.getShower()+",");
-		System.out.print(r4.getBathroom()+",");
-		System.out.print(r4.getDryer()+",");
-		System.out.print(r4.getTub()+",");
-		System.out.print(r4.getFreetoiletries()+",");
-		System.out.print(r4.getFlushseat()+",");
-		System.out.print(r4.getSlippers()+",");
-		System.out.print(r4.getSpatub()+",");
-		System.out.print(r4.getElectricKettle()+",");
+//		Room r4 =dao.findByPK(10000);
+//		System.out.print(r4.getRoomId() +",");
+//		System.out.print(r4.getCompId()+",");
+//		System.out.print(r4.getRoomType()+",");
+//		System.out.print(r4.getRoomName()+",");
+//		System.out.print(r4.getBeds()+",");
+//		System.out.print(r4.getPrice()+",");
+//		System.out.print(r4.getIntro()+",");
+//		System.out.print(r4.getRoomStatus()+",");
+//		System.out.print(r4.getTissue()+",");
+//		System.out.print(r4.getShower()+",");
+//		System.out.print(r4.getBathroom()+",");
+//		System.out.print(r4.getDryer()+",");
+//		System.out.print(r4.getTub()+",");
+//		System.out.print(r4.getFreetoiletries()+",");
+//		System.out.print(r4.getFlushseat()+",");
+//		System.out.print(r4.getSlippers()+",");
+//		System.out.print(r4.getSpatub()+",");
+//		System.out.print(r4.getElectricKettle()+",");
 		
 		List<Room> list =dao.getAll();
 		for(Room sRo :list) {
@@ -293,7 +294,7 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 			System.out.print(sRo.getBeds()+",");
 			System.out.print(sRo.getPrice()+",");
 			System.out.print(sRo.getIntro()+",");
-			System.out.print(r4.getRoomStatus()+",");
+			System.out.print(sRo.getRoomStatus()+",");
 			System.out.print(sRo.getTissue()+",");
 			System.out.print(sRo.getShower()+",");
 			System.out.print(sRo.getBathroom()+",");
