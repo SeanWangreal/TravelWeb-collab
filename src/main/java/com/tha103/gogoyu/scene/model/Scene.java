@@ -1,11 +1,16 @@
 package com.tha103.gogoyu.scene.model;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+import com.tha103.gogoyu.itinerary.model.Itinerary;
 
 @Entity
 @Table(name = "Scene")
@@ -13,7 +18,12 @@ public class Scene implements java.io.Serializable {
 	@Id
 	@Column(name = "scene_id", updatable = false)
 	private Integer sceneId;
+//	@OneToMany(mappedBy = "Scene")
+//	@OrderBy("scene_id")
+//	private Set<Itinerary> itinerarys;
 
+	
+	
 	@Column(name = "scene_name")
 	private String sceneName;
 

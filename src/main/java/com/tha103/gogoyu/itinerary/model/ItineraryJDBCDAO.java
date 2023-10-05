@@ -26,7 +26,7 @@ public class ItineraryJDBCDAO implements ItineraryDAO_interface {
 	private static final String UPDATE = "UPDATE itinerary set  itinerary_id = ? ,trip_id = ?, scene_id = ?, begin_time =?  where itinerary_id = ? ";
 
 	@Override
-	public void insert(Itinerary Itinerary) {
+	public int add(Itinerary Itinerary) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -47,11 +47,11 @@ public class ItineraryJDBCDAO implements ItineraryDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
-
+		return -1;
 	}
 
 	@Override
-	public void update(Itinerary Itinerary) {
+	public int update(Itinerary Itinerary) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -71,11 +71,11 @@ public class ItineraryJDBCDAO implements ItineraryDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
-
+		return -1;
 	}
 
 	@Override
-	public void delete(Integer itinerary_id) {
+	public int delete(Integer itinerary_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -89,11 +89,11 @@ public class ItineraryJDBCDAO implements ItineraryDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
-
+		return -1;
 	}
 
 	@Override
-	public Itinerary findByPrimaryKey(Integer itinerary_id) {
+	public Itinerary findByPK(Integer itinerary_id) {
 		Itinerary Itinerary = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -155,7 +155,7 @@ public class ItineraryJDBCDAO implements ItineraryDAO_interface {
 //		itinerary1.setTripId(5);
 //		itinerary1.setSceneId(1);
 //		itinerary1.setBeginTime(java.sql.Timestamp.valueOf("2005-01-01 10:10:49"));
-//		dao.insert(itinerary1);
+//		dao.add(itinerary1);
 
 		// 修改
 //	    Itinerary Itinerary2= new Itinerary();
@@ -169,7 +169,7 @@ public class ItineraryJDBCDAO implements ItineraryDAO_interface {
 //		dao.delete(2);
 
 //		 查詢
-		Itinerary Itinerary3 = dao.findByPrimaryKey(3);
+		Itinerary Itinerary3 = dao.findByPK(3);
 		System.out.print(Itinerary3.getItineraryId()+ ",");
 		System.out.print(Itinerary3.getTripId()+ ",");
 		System.out.print(Itinerary3.getSceneId()+ ",");
