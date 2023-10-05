@@ -34,7 +34,7 @@ public class NotifyJDBCDAO implements NotifyDAO_interface {
 	}
 	
 	@Override
-	public void insert(Notify notify) {
+	public int add(Notify notify) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -49,6 +49,7 @@ public class NotifyJDBCDAO implements NotifyDAO_interface {
 			pstmt.setByte(6, notify.getState());
 			pstmt.setTimestamp(7, notify.getNotifyTime());
 			pstmt.executeUpdate();
+			return 1;
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -58,7 +59,7 @@ public class NotifyJDBCDAO implements NotifyDAO_interface {
 	}
 
 	@Override
-	public void update(Notify notify) {
+	public int update(Notify notify) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -73,6 +74,7 @@ public class NotifyJDBCDAO implements NotifyDAO_interface {
 			pstmt.setTimestamp(7, notify.getNotifyTime());
 			pstmt.setInt(8, notify.getNotifyId());
 			pstmt.executeUpdate();
+			return 1;
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -82,7 +84,7 @@ public class NotifyJDBCDAO implements NotifyDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer notifyId) {
+	public int delete(Integer notifyId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -90,6 +92,7 @@ public class NotifyJDBCDAO implements NotifyDAO_interface {
 			pstmt = con.prepareStatement(DELETE);
 			pstmt.setInt(1, notifyId);
 			pstmt.executeUpdate();
+			return 1;
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -99,7 +102,7 @@ public class NotifyJDBCDAO implements NotifyDAO_interface {
 	}
 
 	@Override
-	public Notify findByPrimaryKey(Integer notifyId) {
+	public Notify findByPK(Integer notifyId) {
 		Notify notify = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;

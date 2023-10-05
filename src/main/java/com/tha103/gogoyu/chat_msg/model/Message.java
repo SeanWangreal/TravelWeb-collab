@@ -9,20 +9,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
+
 @Table(name = "message")
 public class Message implements Serializable {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "msg_id")
+
 	private Integer msgId;
-	@Column(name = "chat_room_id", insertable=false, updatable = false)
 	private Integer chatRoomId;
-	@Column(name = "room_mem_id")
 	private Integer memId;
-	@Column(name = "msg_log", columnDefinition="longtext")
 	private String msgLog;
-	@Column(name = "msg_time")
 	private Timestamp msgTime;
 
 	public Message() {
