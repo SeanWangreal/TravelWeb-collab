@@ -26,7 +26,7 @@ public class Hotel_infoJDBCDAO implements Hotel_infoDAO_interface {
 	private static final String UPDATE = "UPDATE hotel_info set  hotel_info_id = ?, restaurant = ?, room_service = ? , allday_counter = ? , spa = ? , gym = ? , garden = ? , terrace = ? , no_smoking = ? ,  freewifi = ? , heater = ? , beach = ? , pool = ? , chargingstation = ? ,  parking = ?  where hotel_info_id = ? ";
 
 	@Override
-	public void insert(Hotel_info Hotel_info) {
+	public int add(Hotel_info Hotel_info) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -55,11 +55,11 @@ public class Hotel_infoJDBCDAO implements Hotel_infoDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
-
+		return -1;
 	}
 
 	@Override
-	public void update(Hotel_info Hotel_info) {
+	public int update(Hotel_info Hotel_info) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -90,11 +90,11 @@ public class Hotel_infoJDBCDAO implements Hotel_infoDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
-
+		return -1;
 	}
 
 	@Override
-	public void delete(Integer hotel_info_id) {
+	public int delete(Integer hotel_info_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -107,10 +107,11 @@ public class Hotel_infoJDBCDAO implements Hotel_infoDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		return -1;
 	}
 
 	@Override
-	public Hotel_info findByPrimaryKey(Integer hotel_info_id) {
+	public Hotel_info findByPK(Integer hotel_info_id) {
 		Hotel_info hotelVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -226,7 +227,7 @@ public class Hotel_infoJDBCDAO implements Hotel_infoDAO_interface {
 //		dao.delete(2);
 
 		// 查詢
-//		Hotel_info hotelVO3= dao.findByPrimaryKey(1);
+//		Hotel_info hotelVO3= dao.findByPK(1);
 //		System.out.print(hotelVO3.getHotelInfoId() + ",");
 //		System.out.print(hotelVO3.getRestaurant() + ",");
 //		System.out.print(hotelVO3.getRoomService() + ",");

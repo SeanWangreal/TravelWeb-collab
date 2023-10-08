@@ -16,16 +16,16 @@ public class Notify {
 	@Column(name = "notify_id", updatable = false)
 	private Integer notifyId;
 
-	@Column(name = "cus_id", insertable = false, updatable = false)
+	@Column(name = "cus_id")
 	private Integer cusId;
 
-	@Column(name = "comp_id", insertable = false, updatable = false)
+	@Column(name = "comp_id")
 	private Integer compId;
 
-	@Column(name = "room_ord_id", insertable = false, updatable = false)
+	@Column(name = "room_ord_id")
 	private Integer roomOrdId;
 
-	@Column(name = "trip_ord_id", insertable = false, updatable = false)
+	@Column(name = "trip_ord_id")
 	private Integer tripOrdId;
 
 	@Column(name = "contents")

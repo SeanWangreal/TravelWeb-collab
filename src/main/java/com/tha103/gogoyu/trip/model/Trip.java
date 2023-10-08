@@ -3,23 +3,48 @@ package com.tha103.gogoyu.trip.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+import com.tha103.gogoyu.company.model.Company;
 
 @Entity
 @Table(name = "Trip")
 public class Trip implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	
+	
 	@Id
-	@Column(name = "trip_id", updatable = false)
+	@Column(name = "trip_id", updatable = false)   //pk
 	private Integer tripId;
 
-	@Column(name = "comp_id")
-	private Integer compId;
+//	@OneToMany(mappedBy = "trip")
+//	@OrderBy("trip_id asc")
 
+	
+	
+	
+	
+	@Column(name = "comp_id" )  //fk
+	private Integer compId;
+	
+//	// fetch 預設為 EAGER
+//	@ManyToOne
+//	@JoinColumn(name = "comp_id", referencedColumnName = "comp_id")
+//	private Company company;
+	
+
+	
+	
 	@Column(name = "trip_name")
 	private String tripName;
 

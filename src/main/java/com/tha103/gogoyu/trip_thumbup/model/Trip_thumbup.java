@@ -19,6 +19,7 @@ public class Trip_thumbup implements Serializable {
 	@Id
 	@Column(name = "trip_ord_id")
 	private Integer tripOrdId;
+
 	@Id
 	@Column(name = "cus_id")
 	private Integer cusId;
@@ -58,6 +59,11 @@ public class Trip_thumbup implements Serializable {
 
 	public void setThumbupTime(Timestamp thumbupTime) {
 		this.thumbupTime = thumbupTime;
+	}
+	
+	@Override
+	public String toString() {
+		return "Trip_thumbup [tripOrdId=" + tripOrdId + ", cusId=" + cusId + ", thumbupTime=" + thumbupTime + "]";
 	}
 
 	static class DoublePk implements Serializable {

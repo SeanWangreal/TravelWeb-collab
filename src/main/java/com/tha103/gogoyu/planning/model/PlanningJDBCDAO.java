@@ -30,7 +30,7 @@ public class PlanningJDBCDAO implements PlanningDAO_interface {
 		"SELECT * FROM planning";
 	
 	@Override
-	public void insert(Planning planning) {
+	public int add(Planning planning) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -39,6 +39,7 @@ public class PlanningJDBCDAO implements PlanningDAO_interface {
 			pstmt.setInt(1, planning.getCusId());
 			pstmt.setString(2, planning.getPlanName());
 			pstmt.executeUpdate();
+			return 1;
 		}  catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -48,7 +49,7 @@ public class PlanningJDBCDAO implements PlanningDAO_interface {
 	}
 
 	@Override
-	public void update(Planning planning) {
+	public int update(Planning planning) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -58,6 +59,7 @@ public class PlanningJDBCDAO implements PlanningDAO_interface {
 			pstmt.setString(2, planning.getPlanName());
 			pstmt.setInt(3, planning.getPlanId());
 			pstmt.executeUpdate();
+			return 1;
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -67,7 +69,7 @@ public class PlanningJDBCDAO implements PlanningDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer planning_id) {
+	public int delete(Integer planning_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -75,6 +77,7 @@ public class PlanningJDBCDAO implements PlanningDAO_interface {
 			pstmt = con.prepareStatement(DELETE);
 			pstmt.setInt(1, planning_id);
 			pstmt.executeUpdate();
+			return 1;
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -84,7 +87,7 @@ public class PlanningJDBCDAO implements PlanningDAO_interface {
 	}
 
 	@Override
-	public Planning findByPrimaryKey(Integer planning_id) {
+	public Planning findByPK(Integer planning_id) {
 		Planning planning = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
