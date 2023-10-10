@@ -86,7 +86,7 @@ public class Notify {
 	@Column(name = "state", columnDefinition = "bit")
 	private Byte state;
 
-	@Column(name = "notify_time")
+	@Column(name = "notify_time",insertable = false, updatable = false)
 	private Timestamp notifyTime;
 
 	public Notify() {

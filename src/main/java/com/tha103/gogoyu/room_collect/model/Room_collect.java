@@ -22,7 +22,7 @@ public class Room_collect implements Serializable {
 	@Id
 	@Column(name = "room_id")
 	private Integer roomId;
-	@Column(name = "collect_time")
+	@Column(name = "collect_time",insertable = false, updatable = false)
 	private Timestamp collectTime;
 
 	public Room_collect() {

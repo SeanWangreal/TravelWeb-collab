@@ -22,7 +22,7 @@ public class Trip_photo {
 	@Column(name = "photo", columnDefinition = "longblob")
 	private byte[] photo;
 
-	@Column(name = "upload_time")
+	@Column(name = "upload_time",insertable = false, updatable = false)
 	private Timestamp uploadTime;
 
 	public Trip_photo() {

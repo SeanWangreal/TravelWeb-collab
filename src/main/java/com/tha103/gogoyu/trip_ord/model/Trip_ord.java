@@ -47,6 +47,14 @@ public class Trip_ord implements Serializable {
 	@JoinColumn(name = "cus_id", referencedColumnName = "cus_id")
 	private Consumer consumer;
 
+	public Consumer getConsumer() {
+		return consumer;
+	}
+
+	public void setConsumer(Consumer consumer) {
+		this.consumer = consumer;
+	}
+
 	@Column(name = "amount")
 	private Integer amount;
 	@Column(name = "total_price")
