@@ -3,6 +3,7 @@ package com.tha103.gogoyu.itinerary.model;
 import java.sql.Timestamp;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -22,24 +23,23 @@ public class Itinerary implements java.io.Serializable {
 	@Id
 	@Column(name = "itinerary_id", updatable = false) //pk無跟人關聯
 	private Integer itineraryId;
-
 	
 	@Column(name = "trip_id")
 	private Integer tripId;
-//	@ManyToOne
-//	@JoinColumn(name = "trip_id", referencedColumnName = "trip_id")
-//	private Trip trip;
-	
-	
 	
 	@Column(name = "scene_id")
 	private Integer sceneId;
-//	@ManyToOne
-//	@JoinColumn(name = "scene_id", referencedColumnName = "scene_id")
-//	private Scene scene;
-	
-	
-	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "scene_id", referencedColumnName = "scene_id")
+	private Set<Scene> scene;
+
+	public Set<Scene> getScene() {
+		return scene;
+	}
+
+	public void setScene(Set<Scene> scene) {
+		this.scene = scene;
+	}
 
 	@Column(name = "begin_time")
 	private Timestamp beginTime;

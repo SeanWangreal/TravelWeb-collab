@@ -1,23 +1,31 @@
 package com.tha103.gogoyu.room.model;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+import com.tha103.gogoyu.room_photo.model.Room_photo;
+import com.tha103.gogoyu.room_stock.model.Room_stock;
 
 @Entity
 @Table(name = "room")
 public class Room implements java.io.Serializable {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "room_id", updatable = false)
 	private Integer roomId;
-	@Column(name = "comp_id")
+	@Column(name = "comp_id", updatable = false)
 	private Integer compId;
 	@Column(name = "room_type")
 	private Integer roomType;
@@ -53,7 +61,33 @@ public class Room implements java.io.Serializable {
 	private byte spatub;
 	@Column(name = "electric_kettle", columnDefinition = "bit")
 	private byte electricKettle;
-	
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="room_id",referencedColumnName = "room_id")
+	@OrderBy("upload_time asc")
+	private Set<Room_photo> roomPhoto;
+
+	public Set<Room_photo> getRoomPhoto() {
+		return roomPhoto;
+	}
+
+	public void setRoomPhoto(Set<Room_photo> roomPhoto) {
+		this.roomPhoto = roomPhoto;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="room_id",referencedColumnName = "room_id")
+	@OrderBy("stock_date asc")
+	private Set<Room_stock> roomStock;
+
+	public Set<Room_stock> getRoomStock() {
+		return roomStock;
+	}
+
+	public void setRoomStock(Set<Room_stock> roomStock) {
+		this.roomStock = roomStock;
+	}
+
 	public Room() {
 		super();
 	}
@@ -234,8 +268,5 @@ public class Room implements java.io.Serializable {
 	public void setElectricKettle(byte electricKettle) {
 		this.electricKettle = electricKettle;
 	}
-	
-	
-	
-	
+
 }

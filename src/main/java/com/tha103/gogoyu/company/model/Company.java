@@ -2,45 +2,53 @@ package com.tha103.gogoyu.company.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
-import com.tha103.gogoyu.hotel_info.model.Hotel_info;
+import com.tha103.gogoyu.room.model.Room;
 import com.tha103.gogoyu.trip.model.Trip;
 
 @Entity
 @Table(name = "Company")
 public class Company implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	
-	
+
 	@Id
 	@Column(name = "comp_id", updatable = false)
 	private Integer compId;
-//	@OneToMany(mappedBy = "Company")
-//	@OrderBy("comp_id asc")
-//	private Set<Trip> trips; 
-
-
 	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "comp_id", referencedColumnName = "comp_id")
+	private Set<Room> room;
 	
-	@Column(name = "hotel_info_id")//fk
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "comp_id", referencedColumnName = "comp_id")
+	private Set<Trip> trip;
+
+	public Set<Room> getRoom() {
+		return room;
+	}
+
+	public void setRoom(Set<Room> room) {
+		this.room = room;
+	}
+
+	public Set<Trip> getTrip() {
+		return trip;
+	}
+
+	public void setTrip(Set<Trip> trip) {
+		this.trip = trip;
+	}
+
+	@Column(name = "hotel_info_id") // fk
 	private Integer hotelInfoId;
-//	@ManyToOne
-//	@JoinColumn(name = "hotel_info_id", referencedColumnName = "hotel_info_id")
-//	private Hotel_info hotelInfo; 
-	
 
-	
-	
-	
 	@Column(name = "comp_type")
 	private Integer compType;
 
@@ -50,7 +58,7 @@ public class Company implements java.io.Serializable {
 	@Column(name = "comp_address")
 	private String compAddress;
 
-	@Column(name = " comp_phone" ,columnDefinition = "char")
+	@Column(name = " comp_phone", columnDefinition = "char")
 	private String compPhone;
 
 	@Column(name = "principal_name")

@@ -5,45 +5,53 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
-import com.tha103.gogoyu.company.model.Company;
+import com.tha103.gogoyu.itinerary.model.Itinerary;
+import com.tha103.gogoyu.trip_photo.model.Trip_photo;
 
 @Entity
 @Table(name = "Trip")
 public class Trip implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	
-	
 	@Id
 	@Column(name = "trip_id", updatable = false)   //pk
 	private Integer tripId;
 
-//	@OneToMany(mappedBy = "trip")
-//	@OrderBy("trip_id asc")
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="trip_id",referencedColumnName = "trip_id")
+	@OrderBy("upload_time asc")
+	private Set<Trip_photo> tripPhoto;
+	
+	public Set<Trip_photo> getTripPhoto() {
+		return tripPhoto;
+	}
+	public void setTripPhoto(Set<Trip_photo> tripPhoto) {
+		this.tripPhoto = tripPhoto;
+	}
 
-	
-	
-	
-	
-	@Column(name = "comp_id" )  //fk
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="trip_id",referencedColumnName = "trip_id")
+	@OrderBy("upload_time asc")
+	private Set<Itinerary> itinerary;
+
+	public Set<Itinerary> getItinerary() {
+		return itinerary;
+	}
+	public void setItinerary(Set<Itinerary> itinerary) {
+		this.itinerary = itinerary;
+	}
+
+	@Column(name = "comp_id" ) 
 	private Integer compId;
-	
-//	// fetch 預設為 EAGER
-//	@ManyToOne
-//	@JoinColumn(name = "comp_id", referencedColumnName = "comp_id")
-//	private Company company;
-	
-
-	
 	
 	@Column(name = "trip_name")
 	private String tripName;

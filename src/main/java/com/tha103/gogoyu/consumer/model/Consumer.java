@@ -1,12 +1,21 @@
 package com.tha103.gogoyu.consumer.model;
 
 import java.io.Serializable;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.tha103.gogoyu.room_ord.model.Room_ord;
+import com.tha103.gogoyu.trip_ord.model.Trip_ord;
+
 
 @Entity
 @Table(name = "Consumer")
@@ -15,6 +24,30 @@ public class Consumer implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cus_id")
 	private Integer cusId;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="cus_id",referencedColumnName = "cus_id")
+	private Set<Room_ord> roomOrd;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="cus_id",referencedColumnName = "cus_id")
+	private Set<Trip_ord> tripOrd;
+	
+	public Set<Room_ord> getRoomOrd() {
+		return roomOrd;
+	}
+
+	public void setRoomOrd(Set<Room_ord> roomOrd) {
+		this.roomOrd = roomOrd;
+	}
+
+	public Set<Trip_ord> getTripOrd() {
+		return tripOrd;
+	}
+
+	public void setTripOrd(Set<Trip_ord> tripOrd) {
+		this.tripOrd = tripOrd;
+	}
+
 	@Column(name = "cus_name")
 	private String cusName;
 	@Column(name = "cus_account")
