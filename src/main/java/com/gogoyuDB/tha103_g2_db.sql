@@ -396,16 +396,37 @@ CREATE TABLE trip_ord (
     CONSTRAINT TRIP_ORD_PRIMARY_KEY PRIMARY KEY (trip_ord_id)
 ) ;
 insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission, ord_status, ord_time, remark, score, comments, comments_time)
+<<<<<<< HEAD
 	VALUES (1, 1, 1, 5, 5000, 500, 0, null, null, null, null, null);
+=======
+ 			VALUES (301, 201, 101, 5, 60000.011, 6000.012, 0, now(), "remark_1", 9, "comments_1", adddate(now(),interval 1 day));
+>>>>>>> refs/heads/HolloWu
 insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission, ord_status, ord_time, remark, score, comments, comments_time)
+<<<<<<< HEAD
 	VALUES (2, 2, 2, 4, 8000, 800, 1, "2023-10-03 12:24:56", "素食", 4, "太爽了", "2023-10-10 12:34:56");
+=======
+ 			VALUES (302, 202, 102, 4, 40000.021, 4000.022, 1, now(), "remark_2", 4, "comments_2", adddate(now(),interval 2 day));
+>>>>>>> refs/heads/HolloWu
 insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission, ord_status, ord_time, remark, score, comments, comments_time)
+<<<<<<< HEAD
 	VALUES (3, 3, 3, 3, 9000, 900, 2, "2023-10-03 12:34:56", null, null, null, null);
+=======
+ 			VALUES (303, 203, 103, 3, 50000.031, 5000.032, 2, now(), "remark_3", 1, "comments_3", adddate(now(),interval 3 day));
+>>>>>>> refs/heads/HolloWu
 insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission, ord_status, ord_time, remark, score, comments, comments_time)
+<<<<<<< HEAD
 	VALUES (4, 4, 4, 2, 8000, 800, 0, null, null, null, null, null);
+=======
+ 			VALUES (304, 204, 104, 2, 10000.041, 1000.042, 0, now(), "remark_4", 6, "comments_4", adddate(now(),interval 4 day));
+>>>>>>> refs/heads/HolloWu
 insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission, ord_status, ord_time, remark, score, comments, comments_time)
+<<<<<<< HEAD
 	VALUES (5, 5, 5, 1, 5000, 500, 1, "2023-10-03 12:54:56", "素食", 3, "還好", "2023-10-10 12:34:56");
     
+=======
+ 			VALUES (305, 205, 105, 1, 90000.051, 9000.052, 1, now(), "remark_5", 8, "comments_5", adddate(now(),interval 5 day));
+
+>>>>>>> refs/heads/HolloWu
 CREATE TABLE notify (
 	notify_id     	INT AUTO_INCREMENT NOT NULL,
 	cus_id     		int,
