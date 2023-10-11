@@ -67,9 +67,9 @@ function add(e) {
         next_step = false;
         alert(product_type + "每晚價格要大於0!")
     }
-    if ($(".imgs").length === 0) {
+    if ($("img").length === 0) {
         next_step = false;
-        alert("請上傳至少一張圖片");
+        alert("請上傳一張圖片");
     }
     if (next_step) {
         bg_alert.classList.add("on");
@@ -95,7 +95,7 @@ function change_pic(pics) {
                 let reader = new FileReader();
                 reader.readAsDataURL(pics[i]);
                 $(reader).on('load', function () {
-                    var img = `<img class="imgs" src="${reader.result}" alt="" style="width: 23%;height:fit-content">`;
+                    var img = `<img src="${reader.result}" alt="" style="width: 100%;height:fit-content">`;
                     $(".drag").append(img);
                 })
             }

@@ -11,11 +11,11 @@ import java.util.List;
 import util.Util;
 
 public class RoomJDBCDAO implements RoomDAO_interface {
-	private static final String INSERT_STMT = "INSERT INTO room (comp_id,room_type,room_name,beds,price,intro,room_status,tissue,shower,bathroom,dryer,tub,freetoiletries,flushseat,slippers,bathrobe,spatub,electric_kettle) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-	private static final String GET_ALL_STMT = "SELECT room_id,comp_id,room_type,room_name,beds,price,intro,room_status,tissue,shower,bathroom,dryer,tub,freetoiletries,flushseat,slippers,bathrobe,spatub,electric_kettle FROM room";
-	private static final String GET_ONE_STMT = "SELECT room_id,comp_id,room_type,room_name,beds,price,intro,room_status,tissue,shower,bathroom,dryer,tub,freetoiletries,flushseat,slippers,bathrobe,spatub,electric_kettle FROM room where room_id = ?";
+	private static final String INSERT_STMT = "INSERT INTO room (comp_id,room_type,room_name,beds,price,intro,room_status,tissue,shower,bathroom,dryer,tub,freetoiletries,flushseat,slippers,bathrobe,spatub,electric_kettle,main_photo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	private static final String GET_ALL_STMT = "SELECT room_id,comp_id,room_type,room_name,beds,price,intro,room_status,tissue,shower,bathroom,dryer,tub,freetoiletries,flushseat,slippers,bathrobe,spatub,electric_kettle,main_photo FROM room";
+	private static final String GET_ONE_STMT = "SELECT room_id,comp_id,room_type,room_name,beds,price,intro,room_status,tissue,shower,bathroom,dryer,tub,freetoiletries,flushseat,slippers,bathrobe,spatub,electric_kettle,main_photo FROM room where room_id = ?";
 	private static final String DELETE_ROOM = "DELETE FROM room where room_id = ?";
-	private static final String UPDATE = "UPDATE room set comp_id = ?,room_type = ?,room_name = ?,beds =?,price = ?,intro = ? ,room_status = ?,tissue = ?,shower = ?,bathroom = ?,dryer = ?,tub = ?,freetoiletries = ?,flushseat = ?,slippers = ?,bathrobe = ?,spatub = ?,electric_kettle = ? where room_id = ?";
+	private static final String UPDATE = "UPDATE room set comp_id = ?,room_type = ?,room_name = ?,beds =?,price = ?,intro = ? ,room_status = ?,tissue = ?,shower = ?,bathroom = ?,dryer = ?,tub = ?,freetoiletries = ?,flushseat = ?,slippers = ?,bathrobe = ?,spatub = ?,electric_kettle = ?,main_photo=? where room_id = ?";
 
 	@Override
 	public int add(Room room) {
@@ -44,6 +44,7 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 			pstmt.setByte(16, room.getBathrobe());
 			pstmt.setByte(17, room.getSpatub());
 			pstmt.setByte(18, room.getElectricKettle());
+			pstmt.setBytes(19, room.getMainPhoto());
 			pstmt.executeUpdate();
 
 		} catch (SQLException se) {
@@ -62,7 +63,6 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
-
 			pstmt.setInt(1, room.getCompId());
 			pstmt.setInt(2, room.getRoomType());
 			pstmt.setString(3, room.getRoomName());
@@ -81,7 +81,8 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 			pstmt.setByte(16, room.getBathrobe());
 			pstmt.setByte(17, room.getSpatub());
 			pstmt.setByte(18, room.getElectricKettle());
-			pstmt.setInt(19, room.getRoomId());
+			pstmt.setBytes(19, room.getMainPhoto());
+			pstmt.setInt(20, room.getRoomId());
 			pstmt.executeUpdate();
 
 		} catch (SQLException se) {
@@ -153,12 +154,11 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 				room.setSlippers(rs.getByte("slippers"));
 				room.setSpatub(rs.getByte("spatub"));
 				room.setElectricKettle(rs.getByte("electric_kettle"));
-
+				room.setMainPhoto(rs.getBytes("main_photo"));
 			}
 
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
 		} finally {
 			Util.closeResources(con, pstmt, rs);
 		}
@@ -199,13 +199,11 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 				room.setSlippers(rs.getByte("slippers"));
 				room.setSpatub(rs.getByte("spatub"));
 				room.setElectricKettle(rs.getByte("electric_kettle"));
-
+				room.setMainPhoto(rs.getBytes("main_photo"));
 				list.add(room);
 			}
-
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
 		} finally {
 			Util.closeResources(con, pstmt, rs);
 		}

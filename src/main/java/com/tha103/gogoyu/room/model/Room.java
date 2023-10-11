@@ -61,6 +61,8 @@ public class Room implements java.io.Serializable {
 	private byte spatub;
 	@Column(name = "electric_kettle", columnDefinition = "bit")
 	private byte electricKettle;
+	@Column(name = "main_photo", columnDefinition = "longblob")
+	private byte[] mainPhoto;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="room_id",referencedColumnName = "room_id")
@@ -92,29 +94,13 @@ public class Room implements java.io.Serializable {
 		super();
 	}
 
-	public Room(Integer roomId, Integer compId, Integer roomType, String roomName, Integer beds, BigDecimal price,
-			String intro, Integer roomStatus, byte tissue, byte shower, byte bathroom, byte dryer, byte tub,
-			byte freetoiletries, byte flushseat, byte slippers, byte bathrobe, byte spatub, byte electricKettle) {
-		super();
-		this.roomId = roomId;
-		this.compId = compId;
-		this.roomType = roomType;
-		this.roomName = roomName;
-		this.beds = beds;
-		this.price = price;
-		this.intro = intro;
-		this.roomStatus = roomStatus;
-		this.tissue = tissue;
-		this.shower = shower;
-		this.bathroom = bathroom;
-		this.dryer = dryer;
-		this.tub = tub;
-		this.freetoiletries = freetoiletries;
-		this.flushseat = flushseat;
-		this.slippers = slippers;
-		this.bathrobe = bathrobe;
-		this.spatub = spatub;
-		this.electricKettle = electricKettle;
+
+	public byte[] getMainPhoto() {
+		return mainPhoto;
+	}
+
+	public void setMainPhoto(byte[] mainPhoto) {
+		this.mainPhoto = mainPhoto;
 	}
 
 	public Integer getRoomId() {

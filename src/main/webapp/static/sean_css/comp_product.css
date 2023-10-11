@@ -1,6 +1,6 @@
 @font-face {
     font-family: '粉圓';
-    src: url('/font/jf-openhuninn-2.0.ttf');
+    src: url('/gogoyu/static/font/jf-openhuninn-2.0.ttf');
     font-display: swap;
 }
 :root {
@@ -51,6 +51,7 @@ a.profile:hover {
 }
 
 .info {
+
     border: 1px solid black;
     width: 20vw;
     height: 30vh;
@@ -123,7 +124,6 @@ nav.st {
     flex-direction: column;
     z-index: 3;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    
 }
 
 div>a.left_btn {
@@ -139,34 +139,26 @@ div>a.left_btn {
     background-color: white;
     text-align: center;
     text-decoration: none;
-
 }
 
-a.left_btn:hover {
-    color:#FCC416;
 
-}
 .main-content {
+    min-height: calc(100vh - 55px);
+    background-color: #F3F3F3; 
     position: relative;
+    max-height:fit-content;
+
 }
 
 .main-content-info {
     position: relative;
-    left: 350px;
+    left: 360px;
     padding-top: 50px;
     padding-bottom: 50px;
     font-family: "粉圓";
-    font-size: 16px;
-    width: 60vw;
-    color: black;    
-}
-
-input{
-    background-color: #F3F3F3;
+    font-size: 20px;
+    width: calc(100% - 360px - 70px);
     color: black;
-    border-radius: 5px;
-    border: none;
-    padding-left: 5px;
 }
 .one-room{
     padding: 10px;
@@ -174,7 +166,6 @@ input{
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .one-room>*{
-    margin-bottom: 20px;
     position: relative;
 }
 .do{
@@ -187,10 +178,13 @@ input{
 .below-btn>*{
     border: none;
     /* border: 1px solid #FCC416; */
-    background-color: transparent;
+    background-color:#4D504F;
     color: white;
     border-radius: 5px;
     padding: 5px 15px;
+}
+.below-btn>a{
+	color: white;
 }
 .main-content-info>button {
     position: relative;
@@ -210,17 +204,21 @@ input{
     margin-top: 0px;
 }
 
+.d{
+    font-size: 40px;
+    font-weight: 100;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    color: black;
+}
 .change{
-    color: white;
+    color: black;
 }
 
 .delete{
     border: none;
-    color: white;
+    color: black;
     background-color: transparent;
-}
-.all{
-    background-color: #F3F3F3;
 }
 #shell{
     height: 10px;
@@ -229,14 +227,49 @@ input{
     z-index:1;
     top: 55px;width: 100%;
 }
-.other-btn{
-    border: none;
-    background-color: #4D504F;
-    border-radius: 5px;
-    color: white;
-    padding: 5px 10px;
+
+.below-btn{
+    display:flex;
+    justify-content:flex-end;
+    flex-grow: 1;
 }
-.alert {
+.below-btn>*{
+    margin-left: 5px;
+    text-decoration:solid;
+}
+
+.room-info{
+    font-size: 16px;
+    position: relative;
+    top: -3px;
+    display: inline-block;
+    width: 170px;
+}
+
+.all-info{
+    display: flex;
+    align-items:end;
+}
+
+a.left_btn:hover {
+    color: #ffbf1c;
+}
+
+
+
+.new{
+	display:block;
+    text-align: center;
+    border:1px solid black;
+    margin-bottom: 1px;
+    background-color:#4D504F;
+    color: white;
+}
+
+.new>button{
+    width: 100%;
+}
+.alert{
     position: relative;
     top: 10vh;
     left: 50%;
@@ -248,51 +281,56 @@ input{
     text-align: center;
     display: none;
 }
-
-.alert>* {
+.alert>*{
     position: relative;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%,-50%);
 }
-
-.alert_bg {
-    margin-top: 0px;
+.alert_bg{
     width: 100vw;
     height: 100vh;
-    position: fixed;
-    top: 0px;
+    position:fixed;
+    top:0px;
+    left: 0px;
     z-index: 3;
     background-color: #000000a6;
     display: none;
 }
-.in {
-    position: relative;
+.other-btn{
+	display: inline-block;
+    border: none;
+    background-color: #4D504F;
+    border-radius: 5px;
+    color: white;
+    padding: 5px 10px;
 }
+.on{
+    display: block !important; 
+}
+.title{
+    padding-top: 10px;
+    margin-top: 0px;
+}   
 
-.drag {
-    position: relative;
-    /* border: 1px dashed gray; */
-    width: 100%;
-    min-height: 10vw;
-    max-height: fit-content;
+.stop{
+    overflow-y: auto;
 }
-
-.drag>img.imgs{
-    cursor: pointer;
-    margin-right: 2.6%;
+.room-status-on{
+	display:inline-block;
+	border-radius: 30px;
+    color: white;
+    background-color: orange;
+/*     background-color: #FCC416; */
+    padding-left: 10px;
+    padding-right: 10px;
 }
-.drag>img.imgs:nth-child(4n){
-    margin-right:0px;
-}
-.demo{
-    float:left;
-    top: 0px; 
-    left: 0;
-    min-width: 100% !important;
-}
-.drag::after{
-    display: block;
-    content: "   ";
-    clear: both;
+.room-status-off{
+	display:inline-block;
+	border-radius: 30px;
+    color: white;
+    filter: opacity(0.5);
+    background-color: grey;
+    padding-left: 10px;
+    padding-right: 10px;
 }

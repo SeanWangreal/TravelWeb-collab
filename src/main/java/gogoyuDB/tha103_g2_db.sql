@@ -176,13 +176,14 @@ CREATE TABLE room (
     bathrobe 		boolean,
     spatub 			boolean,
     electric_kettle boolean,
+    main_photo		longblob,
   --   constraint room_comp_id_FK foreign key (comp_id) references company (comp_id),
 	constraint room_primary_key primary key (room_id)
 );
 insert into room (comp_id , room_type, room_name, beds, price, intro, room_status, tissue, shower, bathroom, dryer, tub, freetoiletries, flushseat, slippers, bathrobe, spatub, electric_kettle)
 	VALUES (1, 1, "豪華單人房", 1, 1000, "加大單人床", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 insert into room (comp_id , room_type, room_name, beds, price, intro, room_status, tissue, shower, bathroom, dryer, tub, freetoiletries, flushseat, slippers, bathrobe, spatub, electric_kettle)
-    VALUES (2, 2, "豪華雙人房", 2, 2000, "兩張加大單人床", 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+    VALUES (2, 2, "豪華雙人房", 2, 2000, "兩張加大單人床", 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 insert into room (comp_id , room_type, room_name, beds, price, intro, room_status, tissue, shower, bathroom, dryer, tub, freetoiletries, flushseat, slippers, bathrobe, spatub, electric_kettle)
     VALUES (3, 3, "豪華三人房", 2, 3000, "三張加大單人床", 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 insert into room (comp_id , room_type, room_name, beds, price, intro, room_status, tissue, shower, bathroom, dryer, tub, freetoiletries, flushseat, slippers, bathrobe, spatub, electric_kettle)
@@ -219,7 +220,7 @@ create table room_photo (
 	room_photo_id 	int auto_increment not null,
     room_id 		int,
     photo 			longblob,
-    upload_time 	timestamp,
+    upload_time 	datetime default current_timestamp,
 -- 	constraint room_photo_room_id_FK foreign key (room_id) references room (room_id),
 	constraint room_photo_PRIMARY_KEY primary key (room_photo_id)
 );
@@ -242,14 +243,14 @@ create table room_ord(
     total_price 		decimal(18,3),
     commission 			decimal(18,3),
     people 				int,
-    check_in_time 		timestamp,
-    check_out_time 		timestamp,
+    check_in_time 		datetime,
+    check_out_time 		datetime,
     ord_status 			int,
     ord_time 			timestamp,
     remark 				varchar(100),
     score 				int,
     comments 			longtext,
-    comments_time 		timestamp,
+    comments_time 		datetime default current_timestamp,
    --  constraint room_ord_plan_id_FK  foreign key (plan_id) references planning (plan_id),
 -- 	constraint room_ord_room_id_FK  foreign key (room_id) references room (room_id),
 --     constraint room_ord_cus_id_FK  foreign key (cus_id) references consumer (cus_id),
@@ -323,8 +324,9 @@ create table `trip`(
 	`keelung_city` boolean,
 	`hsinchu_city` boolean,
 	`chiayi_city` boolean,
-	`penghu_county` boolean
-   --  ,
+	`penghu_county` boolean,
+     main_photo		longblob
+--  ,
 --     constraint trip_comp_id foreign key (comp_id) REFERENCES company(comp_id)
 );
 insert into trip (comp_id, trip_name, amount, price, people, start_time, end_time, content, state, taipei_city, newtaipei_city, taoyuan_city, taichung_city, tainan_city, kaohsiung_city, hsinchu_county, miaoli_county, changhua_county, nantou_county, yunlin_county, chiayi_county, pingtung_county, yilan_city, hualien_city, taitung_county, kinmen_county, lienchiang_county, keelung_city, hsinchu_city, chiayi_city, penghu_county)
@@ -342,7 +344,7 @@ CREATE TABLE trip_photo (
 	trip_photo_id     	INT AUTO_INCREMENT NOT NULL,
 	trip_id     		int,
 	photo       		longblob,
-    upload_time     	timestamp,
+    upload_time     	datetime default current_timestamp,
 	-- CONSTRAINT trip_photo_trip_id_FK FOREIGN KEY (trip_id) REFERENCES trip (trip_id),
 	CONSTRAINT trip_photo_trip_photo_id_PK PRIMARY KEY (trip_photo_id)
 );
@@ -361,9 +363,10 @@ create table `itinerary`(
 	itinerary_id int not null auto_increment primary key,
 	trip_id int ,
 	scene_id int,
-	begin_time datetime,
+	begin_time datetime default current_timestamp
+    -- ,
  --    constraint itinerary_trip_id foreign key (trip_id) references trip(trip_id),
-	constraint itinerary_scene_id foreign key (scene_id) references scene(scene_id)
+	-- constraint itinerary_scene_id foreign key (scene_id) references scene(scene_id)
 );
 insert into itinerary (trip_id, scene_id, begin_time)
 	values(1, 1, "2023-10-4 07:34:56");
@@ -389,7 +392,7 @@ CREATE TABLE trip_ord (
     remark			varchar(50),
     score			int,
     comments		longtext,
-    comments_time	datetime,
+    comments_time	datetime default current_timestamp,
 -- 	CONSTRAINT TRIP_ORD_TRIP_ID_FK FOREIGN KEY (trip_id) REFERENCES trip (trip_id),
 -- 	CONSTRAINT TRIP_ORD_PLAN_ID_FK FOREIGN KEY (plan_id) REFERENCES planning (plan_id),
 -- 	CONSTRAINT TRIP_ORD_CUS_ID_FK FOREIGN KEY (cus_id) REFERENCES consumer (cus_id),
@@ -414,7 +417,7 @@ CREATE TABLE notify (
     trip_ord_id     int,
     contents     	varchar(50),
     state     		boolean,
-	notify_time     timestamp,
+	notify_time     datetime default current_timestamp,
 -- 	CONSTRAINT cus_id_FK FOREIGN KEY (cus_id) REFERENCES consumer (cus_id),
 -- 	CONSTRAINT comp_id_FK FOREIGN KEY (comp_id) REFERENCES company (comp_id),
 -- 	CONSTRAINT room_ord_id_FK FOREIGN KEY (room_ord_id) REFERENCES room_ord (room_ord_id),
@@ -446,7 +449,7 @@ VALUES (5, 10, null, 5, "預定編號10 已完成訂單", true, "2023-10-03 12:5
 create table room_collect(
 	cus_id 			int,
     room_id 		int,
-    collect_time 	datetime,
+    collect_time 	datetime default current_timestamp,
  --    constraint room_collect_cus_id foreign key (cus_id) REFERENCES consumer(cus_id),
 --     constraint room_collect_room_id foreign key (room_id) REFERENCES room(room_id),
     constraint room_collect_pk primary key (cus_id, room_id)
@@ -465,7 +468,7 @@ insert into room_collect (cus_id, room_id, collect_time)
 create table trip_collect(
 	cus_id 			int,
     trip_id 		int,
-    collect_time 	datetime,
+    collect_time 	datetime default current_timestamp,
 -- 	constraint trip_collect_cus_id foreign key (cus_id) REFERENCES consumer(cus_id),
 --     constraint trip_collect_room_id foreign key (trip_id) REFERENCES trip(trip_id),
     constraint trip_collect_pk primary key (cus_id, trip_id)
@@ -484,7 +487,7 @@ insert into trip_collect (cus_id, trip_id, collect_time)
 create table room_thumbup(
 	room_ord_id 	int not null,
     cus_id 			int not null,
-    thumbup_time	datetime,
+    thumbup_time	datetime default current_timestamp,
  --    constraint thumbup_room_ord_id foreign key (room_ord_id) REFERENCES room_ord(room_ord_id),
 --     constraint thumbup_room_cus_id foreign key (cus_id) REFERENCES consumer(cus_id),
     constraint thumbup_room_pk primary key (room_ord_id, cus_id)
@@ -503,7 +506,7 @@ insert into room_thumbup (room_ord_id, cus_id, thumbup_time)
 create table trip_thumbup(
 	trip_ord_id 	int not null,
 	cus_id 			int not null,
-    thumbup_time 	datetime,
+    thumbup_time 	datetime default current_timestamp,
  --    constraint thumbup_trip_ord_id foreign key (trip_ord_id) references trip_ord(trip_ord_id),
 --     constraint thumbup_trip_cus_id foreign key (cus_id) references consumer(cus_id),
     constraint thumbup_trip_pk primary key (trip_ord_id, cus_id)
