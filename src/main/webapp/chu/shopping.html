@@ -1,0 +1,305 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://kit.fontawesome.com/b4c50f14e1.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelMaker</title>
+    <link href="../dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/shopping.css">
+    </script>
+    <style>
+
+        .main-content-info>* {
+            margin-top: 10px;
+            margin-bottom: 10px;
+
+        }
+
+        #change_pass {
+            margin-top: 15px;
+            font-family: "粉圓";
+            font-size: 16px;
+            margin-left: 1%;
+            margin-right: 3%;
+            width: 100px;
+
+        }
+
+        #change_pass>a {
+            color: white;
+            /* border: 1px solid #FCC416; */
+            background-color: #4D504F;
+            padding: 5px 10px;
+            border-radius: 15px;
+        }
+
+        .main-content-info>label {
+            width: 100%;
+            position: relative;
+            color: black;
+            /* border: 1px solid black; */
+            background-color: white;
+            padding: 8px 5px;
+            border-radius: 10px;
+        }
+
+        .main-content-info>label>span {
+            border: none;
+            background-color: white;
+            color: #000000;
+            width: 70%;
+            position: absolute;
+            right: 0px;
+            border-left: 2px black solid;
+            padding-left: 15px;
+        }
+
+        .on {
+            display: block;
+        }
+
+        @media (min-height: 500px) and (max-height: 1300px) {
+            .shop {
+                height: 60vh;
+            }
+
+            .info {
+                height: 60vh;
+            }
+        }
+
+        @media (min-height: 0px) and (max-height: 500px) {
+            .shop {
+                height: 60vh;
+            }
+
+            .info {
+                height: 60vh;
+            }
+        }
+
+        .plan_tab {
+            width: auto;
+            height: auto;
+            min-height: 100vh;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #F3F3F3;
+            display:flex;
+            flex-direction: column;
+            align-items:stretch;
+        }
+      
+
+        #detail {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            border: 1px solid black;
+            width: 70%;
+            height: 80%;
+            background-color: white;
+            /* display: none; */
+        }
+
+        .hotel-btn {
+            border: none;
+            /* border: #FCC416 1px solid; */
+            background-color: #4D504F;
+            border-radius: 15px;
+            position: relative;
+            color: white;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="../vendors/jquery/jquery-3.7.1.min.js"></script>
+    <nav class="st">
+        <!-- <a class="word" id="home" href="#">Home</a> -->
+        <div class="head">
+            </button>
+            <button type="menu" class="head_btn" id="msg">
+                <i class="fa-regular fa-message icon" style="color: black; font-size:30px; 
+                            background-color:transparent;"></i>
+            </button>
+            <button type="menu" class="head_btn" id="info">
+                <i class="fa-regular fa-bell icon" style="color: black;font-size:30px; width: 30px;
+                            background-color:transparent;"></i>
+            </button>
+            <button type="menu" class="head_btn" id="">
+                <i class="fa-solid fa-store icon" style="color: #000000;font-size:30px; width: 30px;
+                background-color:transparent;"></i>
+
+            </button>
+            <button type="button" class="head_btn">
+                <a class="profile" href="#">
+                    <i class="fa-solid fa-user" style="color: black; font-size:30px;
+                                background-color:transparent;"></i>
+                </a>
+            </button>
+        </div>
+        <aside class="msg all_side nothing" id="msg_side">
+            msg<br>msg<br>msg<br>msg<br>msg<br>msg<br>msg
+            <br>msg<br>msg<br>msg<br>msg<br>msg<br>msg
+        </aside>
+        <aside class="info all_side nothing" id="info_side">
+            info<br>info<br>info<br>info<br>info<br>info
+            <br>info<br>info<br>info<br>info<br>info
+        </aside>
+        <aside class="shop all_side nothing" id="shop_side">
+            shop<br>shop<br>shop<br>shop<br>shop<br>shop
+            <br>shop<br>shop<br>shop<br>shop<br>shop<br>shop
+            <br>shop<br>shop<br>shop<br>shop<br>shop<br>shop
+            <br>shop<br>shop<br>shop<br>shop<br>shop<br>shop
+            <br>shop<br>shop<br>shop<br>shop<br>shop<br>shop
+            <br>shop<br>shop<br>shop<br>shop<br>shop<br>shop
+        </aside>
+        <div id="shell"></div>
+        <aside class="left">
+            <div class="mem-data">
+                <a class="left_btn">
+                    <i class="fa-solid fa-cart-shopping" style="color: black;"></i> 制定規劃
+                </a>
+            </div>
+            <div class="mem-data">
+                <a class="left_btn">
+                    <i class="fa-regular fa-user" style="color: black;"></i> 會員資料
+                </a>
+            </div>
+            <div class="mem-data">
+                <a class="left_btn">
+                    <i class="fa-solid fa-file-invoice" style="color: black;"></i> 訂單資訊
+                </a>
+            </div>
+            <div class="mem-data">
+                <a class="left_btn">
+                    <i class="fa-solid fa-star" style="color: black;"></i> 我的蒐藏
+                </a>
+            </div>
+            <div class="mem-data">
+                <a class="left_btn">
+                    <i class="fa-regular fa-calendar-days" style="color: black;"></i> 行事曆
+                </a>
+            </div>
+        </aside>
+    </nav>
+
+
+
+    <!-- =======================main_content===================== -->
+
+        
+    <div class="plan_tab">
+
+        <li style="margin-left: 40%;list-style:none ;">
+            <FORM METHOD="post" ACTION="emp.do" >  <!--  P68明確對應 web.xml -->
+                <b>請輸入欲查詢的訂單編號:</b>
+                <input type="text" name="Scene">
+                <input type="hidden" name="action" value="getOne_For_Display">
+                <input type="submit" value="送出">
+            </FORM>
+          </li>
+
+
+
+        <div class="tab_list_block">
+            <ul class="tab_list">
+                <li><a href="#" data-target="plan1" class="tab -on">規劃一</a></li>
+                <li><a href="#" data-target="plan2" class="tab ">規劃二</a></li>
+                <li><a href="#" data-target="plan3" class="tab ">規劃三</a></li>
+                <li><a href="#" data-target="plan4" class="tab ">規劃四</a></li>
+                <li><a href="#" data-target="plan5" class="tab ">規劃五</a></li>
+            </ul>
+        </div>
+
+
+        <div class="tab_contents">
+            <div class="tab plan1 -on" id="tab_plan1">
+                <!-- ==============裡面的list=============== -->
+                <!-- <div class="no-items n1">暫無商品</div> -->
+                <div class="plan_tab_1 list">
+                    
+                    <div class="plan_tab_1_left">
+                        
+                            <img  src="4621.png">
+                        
+                    </div>
+                        <div class="plan_tab_1_right">
+                            <div class="right_side_first_row">
+                                <div class="title_set">
+                                    <span class="mark_for_type_hotel">飯</span>
+                                    <i id="named_of_title">統神大戲院123</i>                                    </i>
+                                    <div>訂單編號: <i style="color: darkorange;">1232142141</i></div>
+                                </div>
+
+                                <div class="comment_set">
+                                    <div class="comment_message">  
+                                        <a href="#">
+                                            <i class="fa-solid fa-message"></i>
+                                        </a>
+                                    </div>
+                                    <div  class="count_star">  
+                                        <a href="#">
+                                            <i class="fa-solid fa-star">8.7</i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="book_price">價格(未含稅)</span>
+                            <i class="howmuch_nt">TWD</i>
+                        <div class="price_set">
+                            <i class="howmuch">9,999,999</i>
+                        </div>
+                        <div class="pay_btn">
+                            <button class="b list">查看行程細況</button>
+                            <button class="b infos">訂單資訊</button> 
+                            <div class="pay_or_remove">
+                                <button class="b pay">前往付款</button>
+                                <button class="b remove" onclick="">移除訂單</button>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+
+              
+               
+
+                
+            </div>
+            <div class="tab plan2">
+                <div class="no-items">暫無商品</div>
+
+            </div>
+            <div class="tab plan3 ">
+                <div class="no-items">暫無商品</div>
+
+            </div>
+            <div class="tab plan4">
+                <div class="no-items">暫無商品</div>
+
+            </div>
+            <div class="tab plan5">
+                <div class="no-items">暫無商品</div>
+
+            </div>
+        </div>
+    </div>
+    
+    <!-- =======================main_content===================== -->
+
+    <script src="../static/js/btn4com.js"></script>
+
+
+    
+    
+    
+</body>
+
+</html>
