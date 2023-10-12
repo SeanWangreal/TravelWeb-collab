@@ -306,4 +306,10 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 		}
 			
 	}
+
+	@Override
+	public List<Room> findRoomByCompId(Integer compId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

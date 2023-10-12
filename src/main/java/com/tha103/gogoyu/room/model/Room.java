@@ -1,6 +1,7 @@
 package com.tha103.gogoyu.room.model;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -255,4 +256,14 @@ public class Room implements java.io.Serializable {
 		this.electricKettle = electricKettle;
 	}
 
+	@Override
+	public String toString() {
+		return "Room [roomId=" + roomId + ", compId=" + compId + ", roomType=" + roomType + ", roomName=" + roomName
+				+ ", beds=" + beds + ", price=" + price + ", intro=" + intro + ", roomStatus=" + roomStatus
+				+ ", tissue=" + tissue + ", shower=" + shower + ", bathroom=" + bathroom + ", dryer=" + dryer + ", tub="
+				+ tub + ", freetoiletries=" + freetoiletries + ", flushseat=" + flushseat + ", slippers=" + slippers
+				+ ", bathrobe=" + bathrobe + ", spatub=" + spatub + ", electricKettle=" + electricKettle
+				+ ", mainPhoto=" + Arrays.toString(mainPhoto) + "]";
+	}
+	
 }

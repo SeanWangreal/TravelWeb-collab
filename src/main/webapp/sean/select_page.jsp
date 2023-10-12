@@ -53,24 +53,24 @@
   
   <li>
     <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/sean/RoomServlet" >
-        <b>輸入房間編號 (如1):</b>
-        <input type="text" name="roomId">
+        <b>(ONE)輸入業者編號 (如1):</b>
+        <input type="text" name="compId">
         <input type="hidden" name="action" value="getOne_For_Display">
         <input type="submit" value="送出">
     </FORM>
   </li>
 
-  <jsp:useBean id="roomSvc" scope="page" class="com.tha103.gogoyu.room.model.RoomService" />
+  <jsp:useBean id="roomSvc" scope="page" class="com.tha103.gogoyu.room.model.RoomServiceHibernate" />
    
   <li>
      <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/sean/RoomServlet" >
-       <b>選擇房間編號:</b>
-       <select size="1" name="roomId">
-         <c:forEach var="room" items="${roomSvc.all}" > 
-          <option value="${room.roomId}">${room.roomId}
+       <b>(ALL)選擇業者編號:</b>
+       <select size="1" name="compId">
+         <c:forEach var="room" items="${roomSvc.all}"> 
+          <option value="${room.compId}">${room.compId}
          </c:forEach>   
        </select>
-       <input type="hidden" name="action" value="getOne_For_Display">
+       <input type="hidden" name="action" value="getAllRoom">
        <input type="submit" value="送出">
     </FORM>
   </li>

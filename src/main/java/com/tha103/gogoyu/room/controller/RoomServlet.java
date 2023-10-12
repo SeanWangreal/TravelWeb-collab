@@ -18,6 +18,7 @@ import javax.servlet.http.Part;
 
 import com.tha103.gogoyu.room.model.Room;
 import com.tha103.gogoyu.room.model.RoomService;
+import com.tha103.gogoyu.room.model.RoomServiceHibernate;
 
 @WebServlet("/sean/RoomServlet")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
@@ -26,9 +27,9 @@ public class RoomServlet extends HttpServlet {
 
 	RoomService roomSrc = null;
 
-	@Override
+	@Override	
 	public void init() throws ServletException {
-		roomSrc = new RoomService();
+		roomSrc = new RoomServiceHibernate();
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -36,6 +37,7 @@ public class RoomServlet extends HttpServlet {
 		res.setContentType("text/html; charset=UTF-8");
 		Room room = null;
 		String roomId = req.getParameter("roomId");
+		String compId = req.getParameter("compId");
 		String id = req.getParameter("id");
 		String forwardPath = "";
 		String action = req.getParameter("action");
@@ -77,6 +79,11 @@ public class RoomServlet extends HttpServlet {
 				forwardPath = "/sean/hotel_room.jsp";
 			}
 			break;
+		case "getAllRoom":
+			List<Room> RoomList = roomSrc.getRoomByCompId(Integer.parseInt(compId));
+			req.setAttribute("RoomList", RoomList);
+			forwardPath = "/sean/hotel_room_all.jsp";
+			return ;
 		case "change":
 			room = roomSrc.getOneRoom(Integer. parseInt(id));
 			if (room != null) {
@@ -85,11 +92,6 @@ public class RoomServlet extends HttpServlet {
 			}
 			break;
 		case "addRoom":
-//			Enumeration<String> allName = req.getParameterNames();
-//			while (allName.hasMoreElements()) {
-//				String s = allName.nextElement();
-//				System.out.println(s);
-//			}
 			String roomName = req.getParameter("roomName");
 			Integer roomType = Integer.parseInt(req.getParameter("roomType"));
 			Integer beds = Integer.parseInt(req.getParameter("bedNum"));
@@ -107,14 +109,13 @@ public class RoomServlet extends HttpServlet {
 			if ((id != null) && (!id.trim().isBlank())) {
 				roomid = Integer.parseInt(id);
 				Room room1 = roomSrc.getOneRoom(roomid);
-				room = roomSrc.updateRoom(roomid, room1.getCompId(), roomType, roomName, beds, price, intro,
+				room = roomSrc.updateRoom(roomid, Integer.parseInt(compId), roomType, roomName, beds, price, intro,
 						room1.getRoomStatus(), (byte) detail[0], (byte) detail[1], (byte) detail[2], (byte) detail[3],
 						(byte) detail[4], (byte) detail[5], (byte) detail[6], (byte) detail[7], (byte) detail[8],
 						(byte) detail[9], (byte) detail[10], pic);
 			} else {
-				Integer compId = 0;
 				Integer roomStatus = 0;
-				roomSrc.addRoom(compId, roomType, roomName, beds, price, intro, roomStatus, (byte) detail[0],
+				roomSrc.addRoom(Integer.parseInt(compId), roomType, roomName, beds, price, intro, roomStatus, (byte) detail[0],
 						(byte) detail[1], (byte) detail[2], (byte) detail[3], (byte) detail[4], (byte) detail[5],
 						(byte) detail[6], (byte) detail[7], (byte) detail[8], (byte) detail[9], (byte) detail[10], pic);
 			}
@@ -138,12 +139,12 @@ public class RoomServlet extends HttpServlet {
 			roomid = Integer.parseInt(id);
 			room = roomSrc.getOneRoom(roomid);
 			if (pic == null) {
-				room = roomSrc.updateRoom(roomid, room.getCompId(), roomType, roomName, beds, price, intro,
+				room = roomSrc.updateRoom(roomid,Integer.parseInt(compId), roomType, roomName, beds, price, intro,
 						room.getRoomStatus(), (byte) detail[0], (byte) detail[1], (byte) detail[2], (byte) detail[3],
 						(byte) detail[4], (byte) detail[5], (byte) detail[6], (byte) detail[7], (byte) detail[8],
 						(byte) detail[9], (byte) detail[10], room.getMainPhoto());
 			} else {
-				room = roomSrc.updateRoom(roomid, room.getCompId(), roomType, roomName, beds, price, intro,
+				room = roomSrc.updateRoom(roomid, Integer.parseInt(compId), roomType, roomName, beds, price, intro,
 						room.getRoomStatus(), (byte) detail[0], (byte) detail[1], (byte) detail[2], (byte) detail[3],
 						(byte) detail[4], (byte) detail[5], (byte) detail[6], (byte) detail[7], (byte) detail[8],
 						(byte) detail[9], (byte) detail[10], pic);
@@ -190,7 +191,6 @@ public class RoomServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
-
 	}
 
 	public byte[] getAllDetail(HttpServletRequest req, HttpServletResponse res) {

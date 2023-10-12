@@ -3,6 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.tha103.gogoyu.room.model.*"%>
+<%
+response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
+response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+response.setDateHeader("Expires", 0);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -126,7 +131,6 @@ input {
 	width: 50%;
 	font-size: 30px;
 }
-
 </style>
 </head>
 
@@ -188,18 +192,18 @@ input {
 	<div class="all">
 		<main class="main-content">
 			<div class="main-content-info">
-			
-				<jsp:useBean id="roomSvc" scope="page" class="com.tha103.gogoyu.room.model.RoomService" />
-				<c:forEach var="room" items="${roomSvc.all}">
+				<%
+				Room roomList = (Room) request.getAttribute("RoomList");
+				%>
+<%-- 				<jsp:useBean id="roomSvc" scope="page" --%>
+<%-- 					class="com.tha103.gogoyu.room.model.RoomServiceHibernate" /> --%>
+				<c:forEach var="room" items="${roomList}">
 					<section class="one-room">
 						<div class="title">
 							<span class="room-name">${room.roomName}</span>
-							
-							
 							<div class="do">
 								<span class="room-status${room.roomStatus==1?'-on':'-off'}">
-							${room.roomStatus==1?'上架中':'下架中'}</span>
-								<a
+									${room.roomStatus==1?'上架中':'下架中'}</span> <a
 									href="${pageContext.request.contextPath}/sean/RoomServlet?action=change&id=${room.roomId}"
 									class="change">修改</a>
 								<button class="delete">刪除</button>
@@ -286,7 +290,8 @@ input {
 		</main>
 	</div>
 
-	<script src="${pageContext.request.contextPath}/static/sean_js/btn4com.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/static/sean_js/btn4com.js"></script>
 	<script>
         var delete_btn = document.querySelectorAll(".delete");
         $(".delete").on("click", function () {

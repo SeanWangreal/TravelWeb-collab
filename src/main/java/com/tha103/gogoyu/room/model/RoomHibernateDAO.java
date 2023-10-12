@@ -81,7 +81,7 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			List<Room> list = session.createQuery("from room", Room.class).list();
+			List<Room> list = session.createQuery("from Room", Room.class).list();
 			session.getTransaction().commit();
 			return list;
 		} catch (Exception e) {
@@ -90,9 +90,26 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		}
 		return null;
 	}
-	public static void main(String[] args) {
-		RoomHibernateDAO dao = new RoomHibernateDAO();
-		dao.findByPK(1);
+
+	@Override
+	public List<Room> findRoomByCompId(Integer compId) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			List<Room> list = session.createQuery("from Room where comp_id = :comp_id order by room_id", Room.class).
+					setParameter("comp_id", compId).list();
+			session.getTransaction().commit();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		return null;
 	}
 
+	public static void main(String[] args) {
+		RoomHibernateDAO dao = new RoomHibernateDAO();
+		System.out.println(dao.findRoomByCompId(1));
+		dao.getAll();
+	}
 }
