@@ -23,8 +23,9 @@ import com.tha103.gogoyu.room.model.RoomService;
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class RoomServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	RoomService roomSrc = null;
+
 	@Override
 	public void init() throws ServletException {
 		roomSrc = new RoomService();
@@ -32,12 +33,14 @@ public class RoomServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html; charset=UTF-8");
 		Room room = null;
-		String id = null;
+		String roomId = req.getParameter("roomId");
+		String id = req.getParameter("id");
 		String forwardPath = "";
 		String action = req.getParameter("action");
 		System.out.println(action);
-		if (action.equals(null)) {
+		if (action == null) {
 			action = "";
 		} else {
 			action = action.strip();
@@ -59,8 +62,7 @@ public class RoomServlet extends HttpServlet {
 		case "getOne_For_Display":
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			id = req.getParameter("roomId");
-			if (id == null || (id.trim()).length() == 0) {
+			if (roomId == null || (roomId.trim()).length() == 0) {
 				errorMsgs.add("請輸入房間編號");
 			}
 			// Send the use back to the form, if there were errors
@@ -70,14 +72,13 @@ public class RoomServlet extends HttpServlet {
 				dispatcher.forward(req, res);
 				return;// 程式中斷
 			} else {
-				room = roomSrc.getOneRoom(Integer.parseInt(id));
+				room = roomSrc.getOneRoom(Integer.parseInt(roomId));
 				req.setAttribute("room", room);
 				forwardPath = "/sean/hotel_room.jsp";
 			}
 			break;
 		case "change":
-			id = req.getParameter("id");
-			room = roomSrc.getOneRoom(Integer.parseInt(id));
+			room = roomSrc.getOneRoom(Integer. parseInt(id));
 			if (room != null) {
 				req.setAttribute("room", room);
 				forwardPath = "/sean/hotel_room_add.jsp";
@@ -103,7 +104,6 @@ public class RoomServlet extends HttpServlet {
 				pic = is.readAllBytes();
 			}
 			Integer roomid = null;
-			id = req.getParameter("id");
 			if ((id != null) && (!id.trim().isBlank())) {
 				roomid = Integer.parseInt(id);
 				Room room1 = roomSrc.getOneRoom(roomid);
@@ -126,13 +126,11 @@ public class RoomServlet extends HttpServlet {
 			beds = Integer.parseInt(req.getParameter("bedNum"));
 			price = new BigDecimal(req.getParameter("price"));
 			intro = req.getParameter("intro");
-			roomid = null;
 			detail = getAllDetail(req, res);
-			id = req.getParameter("id");
 			Collection<Part> parts2 = req.getParts();
 			pic = null;
 			for (Part part : parts2) {
-				if (part.getContentType() != null && part.getSize()!=0) {
+				if (part.getContentType() != null && part.getSize() != 0) {
 					InputStream is = part.getInputStream();
 					pic = is.readAllBytes();
 				}
@@ -150,6 +148,7 @@ public class RoomServlet extends HttpServlet {
 						(byte) detail[4], (byte) detail[5], (byte) detail[6], (byte) detail[7], (byte) detail[8],
 						(byte) detail[9], (byte) detail[10], pic);
 			}
+			forwardPath = "/sean/select_page.jsp";
 			break;
 		case "delete1":
 			id = req.getParameter("id");
@@ -169,7 +168,6 @@ public class RoomServlet extends HttpServlet {
 			}
 			break;
 		case "launch":
-			id = req.getParameter("id");
 			System.out.println(id);
 			if ((id != null) && (!id.trim().isBlank())) {
 				roomid = Integer.parseInt(id);
@@ -178,7 +176,6 @@ public class RoomServlet extends HttpServlet {
 			}
 			break;
 		case "recall":
-			id = req.getParameter("id");
 			if ((id != null) && (!id.trim().isBlank())) {
 				roomid = Integer.parseInt(id);
 				roomSrc.updateStatus(roomid, 0);
