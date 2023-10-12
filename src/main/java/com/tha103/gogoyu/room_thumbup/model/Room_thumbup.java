@@ -22,7 +22,7 @@ public class Room_thumbup implements Serializable {
 	@Id
 	@Column(name = "cus_id")
 	private Integer cusId;
-	@Column(name = "thumbup_time")
+	@Column(name = "thumbup_time",insertable = false, updatable = false)
 	private Timestamp thumbupTime;
 
 	public Room_thumbup() {

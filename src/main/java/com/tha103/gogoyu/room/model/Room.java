@@ -1,23 +1,31 @@
 package com.tha103.gogoyu.room.model;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+import com.tha103.gogoyu.room_photo.model.Room_photo;
+import com.tha103.gogoyu.room_stock.model.Room_stock;
 
 @Entity
 @Table(name = "room")
 public class Room implements java.io.Serializable {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "room_id", updatable = false)
 	private Integer roomId;
-	@Column(name = "comp_id")
+	@Column(name = "comp_id", updatable = false)
 	private Integer compId;
 	@Column(name = "room_type")
 	private Integer roomType;
@@ -53,34 +61,46 @@ public class Room implements java.io.Serializable {
 	private byte spatub;
 	@Column(name = "electric_kettle", columnDefinition = "bit")
 	private byte electricKettle;
-	
+	@Column(name = "main_photo", columnDefinition = "longblob")
+	private byte[] mainPhoto;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="room_id",referencedColumnName = "room_id")
+	@OrderBy("upload_time asc")
+	private Set<Room_photo> roomPhoto;
+
+	public Set<Room_photo> getRoomPhoto() {
+		return roomPhoto;
+	}
+
+	public void setRoomPhoto(Set<Room_photo> roomPhoto) {
+		this.roomPhoto = roomPhoto;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="room_id",referencedColumnName = "room_id")
+	@OrderBy("stock_date asc")
+	private Set<Room_stock> roomStock;
+
+	public Set<Room_stock> getRoomStock() {
+		return roomStock;
+	}
+
+	public void setRoomStock(Set<Room_stock> roomStock) {
+		this.roomStock = roomStock;
+	}
+
 	public Room() {
 		super();
 	}
 
-	public Room(Integer roomId, Integer compId, Integer roomType, String roomName, Integer beds, BigDecimal price,
-			String intro, Integer roomStatus, byte tissue, byte shower, byte bathroom, byte dryer, byte tub,
-			byte freetoiletries, byte flushseat, byte slippers, byte bathrobe, byte spatub, byte electricKettle) {
-		super();
-		this.roomId = roomId;
-		this.compId = compId;
-		this.roomType = roomType;
-		this.roomName = roomName;
-		this.beds = beds;
-		this.price = price;
-		this.intro = intro;
-		this.roomStatus = roomStatus;
-		this.tissue = tissue;
-		this.shower = shower;
-		this.bathroom = bathroom;
-		this.dryer = dryer;
-		this.tub = tub;
-		this.freetoiletries = freetoiletries;
-		this.flushseat = flushseat;
-		this.slippers = slippers;
-		this.bathrobe = bathrobe;
-		this.spatub = spatub;
-		this.electricKettle = electricKettle;
+
+	public byte[] getMainPhoto() {
+		return mainPhoto;
+	}
+
+	public void setMainPhoto(byte[] mainPhoto) {
+		this.mainPhoto = mainPhoto;
 	}
 
 	public Integer getRoomId() {
@@ -234,8 +254,5 @@ public class Room implements java.io.Serializable {
 	public void setElectricKettle(byte electricKettle) {
 		this.electricKettle = electricKettle;
 	}
-	
-	
-	
-	
+
 }

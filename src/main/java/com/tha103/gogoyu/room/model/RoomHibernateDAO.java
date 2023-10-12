@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import com.tha103.gogoyu.room_photo.model.Room_photo;
 
 import util.HibernateUtil;
 
@@ -63,6 +64,9 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		try {
 			session.beginTransaction();
 			Room room = session.get(Room.class, roomId);
+			for (Room_photo p : room.getRoomPhoto()) {
+				System.out.println(p.getUploadTime());
+			}
 			session.getTransaction().commit();
 			return room;
 		} catch (Exception e) {
@@ -85,6 +89,10 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 			session.getTransaction().rollback();
 		}
 		return null;
+	}
+	public static void main(String[] args) {
+		RoomHibernateDAO dao = new RoomHibernateDAO();
+		dao.findByPK(1);
 	}
 
 }

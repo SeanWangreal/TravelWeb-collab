@@ -1,6 +1,6 @@
 @font-face {
     font-family: '粉圓';
-    src: url('/font/jf-openhuninn-2.0.ttf');
+    src: url('/gogoyu/static/font/jf-openhuninn-2.0.ttf');
     font-display: swap;
 }
 :root {
@@ -123,8 +123,10 @@ nav.st {
     display: flex;
     flex-direction: column;
     z-index: 3;
+    /* border-radius: 15px; */
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
+
 
 div>a.left_btn {
     display: inline-block;
@@ -142,58 +144,76 @@ div>a.left_btn {
 }
 
 
+button.left_btn:hover {
+    border: 1px #FCC416 solid;
+
+}
 .main-content {
     min-height: calc(100vh - 55px);
     background-color: #F3F3F3; 
     position: relative;
     max-height:fit-content;
-
+    padding-top: 50px;
 }
 
 .main-content-info {
     position: relative;
     left: 360px;
-    padding-top: 50px;
     padding-bottom: 50px;
     font-family: "粉圓";
-    font-size: 20px;
+    font-size: 16px;
+    background-color: white;
     width: calc(100% - 360px - 70px);
     color: black;
-}
-.one-room{
-    padding: 10px;
-    background-color: white;
+    min-height: calc(100vh - 125px);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 10px 40px;
 }
-.one-room>*{
-    position: relative;
+
+h1{
+    font-size: 60px;
 }
-.do{
-    float: right;
+.one-review{
+    list-style: none;
 }
-.do>*{
-    margin-left: 15px;
-    margin-right: 5px;
+.title-block{
+    display: flex;
+    margin-left: 20px;
+    align-items: center;
 }
-.below-btn>*{
+.title-block>*{
+    margin-right: 20px;
+}
+.review-block{
+    margin: 10px 0px;
+    /* height: 45px; */
+}
+p{
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}
+.zoom{
+    white-space: wrap;
+}
+.read-block{
+    display: flex;
+   justify-content: flex-end;
+}
+.read{
     border: none;
-    /* border: 1px solid #FCC416; */
-    background-color:#4D504F;
-    color: white;
     border-radius: 5px;
-    padding: 5px 15px;
-}
-.main-content-info>button {
-    position: relative;
-    top: 100px;
-    left: -50px;
-    border: none;
-    margin-left: 10px;
-    margin-right: 10px;
+    font-size: 14px;
+    color: white;
+    background-color: #4D504F;
 }
 
 .main-content-info>* {
     margin-bottom: 20px;
+}
+ul{
+    padding-left: 0;
 }
 
 .title{
@@ -201,22 +221,6 @@ div>a.left_btn {
     margin-top: 0px;
 }
 
-.d{
-    font-size: 40px;
-    font-weight: 100;
-    margin-left: 0.5%;
-    margin-right: 0.5%;
-    color: black;
-}
-.change{
-    color: black;
-}
-
-.delete{
-    border: none;
-    color: black;
-    background-color: transparent;
-}
 #shell{
     height: 10px;
     background-color: #F3F3F3; 
@@ -224,29 +228,7 @@ div>a.left_btn {
     z-index:1;
     top: 55px;width: 100%;
 }
-
-.below-btn{
-    display:flex;
-    justify-content:flex-end;
-    flex-grow: 1;
-}
-.below-btn>*{
-    margin-left: 5px;
-    text-decoration:solid;
-}
-
-.room-info{
-    font-size: 16px;
-    position: relative;
-    top: -3px;
-    display: inline-block;
-    width: 170px;
-}
-
-.all-info{
-    display: flex;
-    align-items:end;
-}
+        
 
 a.left_btn:hover {
     color: #ffbf1c;
@@ -288,21 +270,19 @@ a.left_btn:hover {
     background-color: #000000a6;
     display: none;
 }
-.other-btn{
-    border: none;
-    background-color: #4D504F;
-    border-radius: 5px;
-    color: white;
-    padding: 5px 10px;
-}
 .on{
-    display: block !important; 
+    display: block;
 }
 .title{
     padding-top: 10px;
     margin-top: 0px;
-}   
-
-.stop{
-    overflow-y: auto;
 }
+#point-place{
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+#point-place>*{
+
+    margin-right: 10px;
+}      

@@ -3,12 +3,18 @@ package com.tha103.gogoyu.room_ord.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.tha103.gogoyu.consumer.model.Consumer;
+import com.tha103.gogoyu.room.model.Room;
 
 @Entity
 @Table(name = "room_ord")
@@ -21,10 +27,33 @@ public class Room_ord implements Serializable {
 	
 	@Column(name = "plan_id")
 	private Integer planId;
-	@Column(name = "room_id")
+
+	@Column(name = "room_id",insertable = false,updatable = false)
 	private Integer roomId;
-	@Column(name = "cus_id")
+	
+	@ManyToOne
+	@JoinColumn(name="room_id",referencedColumnName = "room_id")
+	private Room room;
+	
+	public Room getRoom() {
+		return room;
+	}
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+	@Column(name = "cus_id",insertable = false,updatable = false)
 	private Integer cusId;
+	
+	@ManyToOne
+	@JoinColumn(name="cus_id",referencedColumnName = "cus_id")
+	private Consumer cusumer;
+	
+	public Consumer getCusumer() {
+		return cusumer;
+	}
+	public void setCusumer(Consumer cusumer) {
+		this.cusumer = cusumer;
+	}
 	@Column(name = "amount")
 	private Integer amount;
 	@Column(name = "total_price")
@@ -49,6 +78,9 @@ public class Room_ord implements Serializable {
 	private String comments;
 	@Column(name = "comments_time", insertable = false, updatable = false)
 	private Timestamp commentsTime;
+	
+	
+	
 	public Room_ord() {
 		super();	
 		}

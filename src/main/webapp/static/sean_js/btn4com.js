@@ -7,8 +7,8 @@ var shop_side = document.getElementById("shop_side");
 var add_btn = document.getElementById("add");
 var yes_btn = document.getElementById("yes");
 var no_btn = document.getElementById("no");
-var bg_alert = document.querySelector(".alert_bg")
-var al = document.querySelector(".alert");
+//var bg_alert = document.querySelector(".alert_bg")
+//var al = document.querySelector(".alert");
 
 function say() {
 info_side.classList.remove("on");
