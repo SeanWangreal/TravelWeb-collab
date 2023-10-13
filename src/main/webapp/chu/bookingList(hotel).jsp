@@ -1,3 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="java.math.*"%>
+<%@ page import="com.tha103.gogoyu.room.model.*"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="../static/css/bookingList(hotel).css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/chu_css/bookingList(hotel).css">
 
 </head>
 <!-- <h1 class="payment-title">交易明細</h1> -->
