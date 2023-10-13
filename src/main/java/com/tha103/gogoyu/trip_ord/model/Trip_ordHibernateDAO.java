@@ -99,7 +99,7 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface{
 		//insert
 		Trip_ord tripOrd1 = new Trip_ord();
 		
-//		tripOrd1.setTripOrdId(6);
+//		//tripOrd1.setTripOrdId(6);
 //		tripOrd1.setTripId(306);
 //		tripOrd1.setPlanId(206);
 //		tripOrd1.setCusId(106);
