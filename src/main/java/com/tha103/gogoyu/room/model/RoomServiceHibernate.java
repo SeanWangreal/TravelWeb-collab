@@ -3,12 +3,14 @@ package com.tha103.gogoyu.room.model;
 import java.math.BigDecimal;
 import java.util.List;
 
+import util.HibernateUtil;
+
 public class RoomServiceHibernate implements RoomService{
 
 	private RoomDAO_interface dao;
 
 	public RoomServiceHibernate() {
-		dao = new RoomHibernateDAO();
+		dao = new RoomHibernateDAO(HibernateUtil.getSessionFactory());
 	}
 
 	public Room addRoom(Integer compId, Integer roomType, String roomName, Integer beds, BigDecimal price,
