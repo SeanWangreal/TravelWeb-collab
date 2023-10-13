@@ -60,7 +60,8 @@
     </FORM>
   </li>
 
-  <jsp:useBean id="roomSvc" scope="page" class="com.tha103.gogoyu.room.model.RoomServiceHibernate" />
+<%--   <jsp:useBean id="roomSvc" scope="page" class="com.tha103.gogoyu.room.model.RoomServiceHibernate" /> --%>
+  <jsp:useBean id="roomSvc" scope="page" class="com.tha103.gogoyu.room.model.RoomServiceJDBC" />
    
   <li>
      <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/sean/RoomServlet" >
