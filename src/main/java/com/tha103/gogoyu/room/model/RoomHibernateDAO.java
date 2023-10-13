@@ -42,7 +42,7 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
-//			getSession().getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return -1;
 	}
@@ -50,16 +50,16 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 	@Override
 	public int delete(Integer roomId) {
 		try {
-//			getSession().beginTransaction();
+			getSession().beginTransaction();
 			Room room = getSession().get(Room.class, roomId);
 			if (room != null) {
 				getSession().delete(room);
 			}
-//			getSession().getTransaction().commit();
+			getSession().getTransaction().commit();
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
-//			getSession().getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return -1;
 	}
@@ -67,12 +67,12 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 	@Override
 	public Room findByPK(Integer roomId) {
 		try {
-//			getSession().beginTransaction();
+			getSession().beginTransaction();
 			Room room = getSession().get(Room.class, roomId);
 			for (Room_photo p : room.getRoomPhoto()) {
 				System.out.println(p.getUploadTime());
 			}
-//			getSession().getTransaction().commit();
+			getSession().getTransaction().commit();
 			return room;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -84,13 +84,13 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 	@Override
 	public List<Room> getAll() {
 		try {
-//			getSession().beginTransaction();
+			getSession().beginTransaction();
 			List<Room> list = getSession().createQuery("from Room", Room.class).list();
-//			getSession().getTransaction().commit();
+			getSession().getTransaction().commit();
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
-//			getSession().getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return null;
 	}
@@ -106,7 +106,7 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
-//			getSession().getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return null;
 	}
