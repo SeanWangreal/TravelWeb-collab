@@ -192,12 +192,8 @@ input {
 	<div class="all">
 		<main class="main-content">
 			<div class="main-content-info">
-				<%
-				Room roomList = (Room) request.getAttribute("RoomList");
-				%>
-<%-- 				<jsp:useBean id="roomSvc" scope="page" --%>
-<%-- 					class="com.tha103.gogoyu.room.model.RoomServiceHibernate" /> --%>
-				<c:forEach var="room" items="${roomList}">
+				<% List<Room> roomList = (List<Room>)request.getAttribute("roomList");%>
+				<c:forEach var="room" items="<%= roomList%>">
 					<section class="one-room">
 						<div class="title">
 							<span class="room-name">${room.roomName}</span>

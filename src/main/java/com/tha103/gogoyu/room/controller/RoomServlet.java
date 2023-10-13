@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.tha103.gogoyu.room.model.Room;
@@ -27,7 +28,7 @@ public class RoomServlet extends HttpServlet {
 
 	RoomService roomSrc = null;
 
-	@Override	
+	@Override
 	public void init() throws ServletException {
 		roomSrc = new RoomServiceHibernate();
 	}
@@ -38,10 +39,11 @@ public class RoomServlet extends HttpServlet {
 		Room room = null;
 		String roomId = req.getParameter("roomId");
 		String compId = req.getParameter("compId");
+		HttpSession session = req.getSession();
+		System.out.println((String)session.getAttribute("compId"));
 		String id = req.getParameter("id");
 		String forwardPath = "";
 		String action = req.getParameter("action");
-		System.out.println(action);
 		if (action == null) {
 			action = "";
 		} else {
@@ -55,7 +57,7 @@ public class RoomServlet extends HttpServlet {
 				}
 				action = correctAction;
 			}
-			System.out.println(correctAction);
+			System.out.println(action);
 		}
 		switch (action) {
 		case "add":
@@ -80,12 +82,16 @@ public class RoomServlet extends HttpServlet {
 			}
 			break;
 		case "getAllRoom":
+			session.setAttribute("compId", compId);
 			List<Room> RoomList = roomSrc.getRoomByCompId(Integer.parseInt(compId));
-			req.setAttribute("RoomList", RoomList);
+			System.out.println(RoomList);
+			req.setAttribute("roomList", RoomList);
 			forwardPath = "/sean/hotel_room_all.jsp";
-			return ;
+			RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
+			dispatcher.forward(req, res);
+			return;
 		case "change":
-			room = roomSrc.getOneRoom(Integer. parseInt(id));
+			room = roomSrc.getOneRoom(Integer.parseInt(id));
 			if (room != null) {
 				req.setAttribute("room", room);
 				forwardPath = "/sean/hotel_room_add.jsp";
@@ -98,7 +104,6 @@ public class RoomServlet extends HttpServlet {
 			BigDecimal price = new BigDecimal(req.getParameter("price"));
 			String intro = req.getParameter("intro");
 			byte[] detail = getAllDetail(req, res);
-
 			byte[] pic = null;
 			Collection<Part> parts = req.getParts();
 			for (Part part : parts) {
@@ -106,6 +111,7 @@ public class RoomServlet extends HttpServlet {
 				pic = is.readAllBytes();
 			}
 			Integer roomid = null;
+			compId = (String) session.getAttribute("compId");
 			if ((id != null) && (!id.trim().isBlank())) {
 				roomid = Integer.parseInt(id);
 				Room room1 = roomSrc.getOneRoom(roomid);
@@ -115,11 +121,13 @@ public class RoomServlet extends HttpServlet {
 						(byte) detail[9], (byte) detail[10], pic);
 			} else {
 				Integer roomStatus = 0;
-				roomSrc.addRoom(Integer.parseInt(compId), roomType, roomName, beds, price, intro, roomStatus, (byte) detail[0],
-						(byte) detail[1], (byte) detail[2], (byte) detail[3], (byte) detail[4], (byte) detail[5],
-						(byte) detail[6], (byte) detail[7], (byte) detail[8], (byte) detail[9], (byte) detail[10], pic);
+				roomSrc.addRoom(Integer.parseInt(compId), roomType, roomName, beds, price, intro, roomStatus,
+						(byte) detail[0], (byte) detail[1], (byte) detail[2], (byte) detail[3], (byte) detail[4],
+						(byte) detail[5], (byte) detail[6], (byte) detail[7], (byte) detail[8], (byte) detail[9],
+						(byte) detail[10], pic);
 			}
 			forwardPath = "/sean/select_page.jsp";
+			
 			break;
 		case "updateRoom":
 			roomName = req.getParameter("roomName");
@@ -139,7 +147,7 @@ public class RoomServlet extends HttpServlet {
 			roomid = Integer.parseInt(id);
 			room = roomSrc.getOneRoom(roomid);
 			if (pic == null) {
-				room = roomSrc.updateRoom(roomid,Integer.parseInt(compId), roomType, roomName, beds, price, intro,
+				room = roomSrc.updateRoom(roomid, Integer.parseInt(compId), roomType, roomName, beds, price, intro,
 						room.getRoomStatus(), (byte) detail[0], (byte) detail[1], (byte) detail[2], (byte) detail[3],
 						(byte) detail[4], (byte) detail[5], (byte) detail[6], (byte) detail[7], (byte) detail[8],
 						(byte) detail[9], (byte) detail[10], room.getMainPhoto());
@@ -184,7 +192,7 @@ public class RoomServlet extends HttpServlet {
 			}
 			break;
 		}
-
+		System.out.println(forwardPath+"Hello");
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 		dispatcher.forward(req, res);
 	}

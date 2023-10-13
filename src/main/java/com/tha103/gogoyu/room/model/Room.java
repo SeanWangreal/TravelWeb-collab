@@ -263,7 +263,7 @@ public class Room implements java.io.Serializable {
 				+ ", tissue=" + tissue + ", shower=" + shower + ", bathroom=" + bathroom + ", dryer=" + dryer + ", tub="
 				+ tub + ", freetoiletries=" + freetoiletries + ", flushseat=" + flushseat + ", slippers=" + slippers
 				+ ", bathrobe=" + bathrobe + ", spatub=" + spatub + ", electricKettle=" + electricKettle
-				+ ", mainPhoto=" + Arrays.toString(mainPhoto) + "]";
+				;
 	}
 	
 }

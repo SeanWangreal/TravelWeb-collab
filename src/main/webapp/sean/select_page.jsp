@@ -54,13 +54,11 @@
   <li>
     <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/sean/RoomServlet" >
         <b>(ONE)輸入業者編號 (如1):</b>
-        <input type="text" name="compId">
+        <input type="text" name="roomId">
         <input type="hidden" name="action" value="getOne_For_Display">
         <input type="submit" value="送出">
     </FORM>
   </li>
-
-<%--   <jsp:useBean id="roomSvc" scope="page" class="com.tha103.gogoyu.room.model.RoomServiceHibernate" /> --%>
   <jsp:useBean id="roomSvc" scope="page" class="com.tha103.gogoyu.room.model.RoomServiceHibernate" />
    
   <li>

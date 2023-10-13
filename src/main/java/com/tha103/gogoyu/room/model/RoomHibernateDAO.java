@@ -25,8 +25,9 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 	@Override
 	public int add(Room room) {
 		try {
-			
+			getSession().getTransaction().begin();
 			Integer id = (Integer) getSession().save(room);
+			getSession().getTransaction().commit();
 			return id;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -38,7 +39,9 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 	@Override
 	public int update(Room room) {
 		try {
+			getSession().getTransaction().begin();
 			getSession().update(room);
+			getSession().getTransaction().commit();
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
