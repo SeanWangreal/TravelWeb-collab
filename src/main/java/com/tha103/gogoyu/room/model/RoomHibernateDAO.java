@@ -11,17 +11,18 @@ import util.HibernateUtil;
 
 public class RoomHibernateDAO implements RoomDAO_interface {
 	// SessionFactory 為 thread-safe，可宣告為屬性讓請求執行緒們共用
-		private SessionFactory factory;
+	private SessionFactory factory;
 
-		public RoomHibernateDAO(SessionFactory factory) {
-			this.factory = factory;
-		}
-		
-		// Session 為 not thread-safe，所以此方法在各個增刪改查方法裡呼叫
-		// 以避免請求執行緒共用了同個 Session
-		private Session getSession() {
-			return factory.getCurrentSession();
-		}
+	public RoomHibernateDAO(SessionFactory factory) {
+		this.factory = factory;
+	}
+
+	// Session 為 not thread-safe，所以此方法在各個增刪改查方法裡呼叫
+	// 以避免請求執行緒共用了同個 Session
+	private Session getSession() {
+		return factory.getCurrentSession();
+	}
+
 	@Override
 	public int add(Room room) {
 		try {
@@ -79,7 +80,7 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 			return room;
 		} catch (Exception e) {
 			e.printStackTrace();
-//			getSession().getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return null;
 	}
@@ -100,11 +101,12 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 
 	@Override
 	public List<Room> findRoomByCompId(Integer compId) {
-		
+
 		try {
 			getSession().beginTransaction();
-			List<Room> list = getSession().createQuery("from Room where comp_id = :comp_id order by room_id", Room.class).
-					setParameter("comp_id", compId).list();
+			List<Room> list = getSession()
+					.createQuery("from Room where comp_id = :comp_id order by room_id", Room.class)
+					.setParameter("comp_id", compId).list();
 			getSession().getTransaction().commit();
 			return list;
 		} catch (Exception e) {
@@ -114,9 +116,26 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		return null;
 	}
 
+	@Override
+	public byte[] getMainPhoto(Integer roomId) {
+		try {
+			getSession().beginTransaction();
+			byte[] mainPhoto = getSession().createQuery("select mainPhoto from Room where room_id = :room_id",byte[].class)
+					.setParameter("room_id", roomId)
+					.uniqueResult();
+			getSession().getTransaction().commit();
+			return mainPhoto;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+
 	public static void main(String[] args) {
 		RoomHibernateDAO dao = new RoomHibernateDAO(HibernateUtil.getSessionFactory());
-		System.out.println(dao.findRoomByCompId(2));
+//		System.out.println(dao.getMainPhoto(2));
 //		dao.getAll();
 	}
+
 }

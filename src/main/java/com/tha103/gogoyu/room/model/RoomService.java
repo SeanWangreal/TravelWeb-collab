@@ -15,4 +15,5 @@ public interface RoomService {
 	public Room getOneRoom(Integer roomId);
 	public List<Room> getAll();
 	public List<Room> getRoomByCompId(Integer compId);
+	public byte[] getMainPhoto(Integer roomId);
 }

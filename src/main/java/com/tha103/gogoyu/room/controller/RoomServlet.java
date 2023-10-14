@@ -74,7 +74,6 @@ public class RoomServlet extends HttpServlet {
 				forwardPath = "/sean/select_page.jsp";
 				RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 				dispatcher.forward(req, res);
-				return;// 程式中斷
 			} else {
 				room = roomSrc.getOneRoom(Integer.parseInt(roomId));
 				req.setAttribute("room", room);
@@ -84,14 +83,12 @@ public class RoomServlet extends HttpServlet {
 		case "getAllRoom":
 			session.setAttribute("compId", compId);
 			List<Room> RoomList = roomSrc.getRoomByCompId(Integer.parseInt(compId));
-			System.out.println(RoomList);
 			req.setAttribute("roomList", RoomList);
 			forwardPath = "/sean/hotel_room_all.jsp";
-			RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
-			dispatcher.forward(req, res);
-			return;
+			break;
 		case "change":
 			room = roomSrc.getOneRoom(Integer.parseInt(id));
+			System.out.println(req.getAttribute("backHere"));
 			if (room != null) {
 				req.setAttribute("room", room);
 				forwardPath = "/sean/hotel_room_add.jsp";
@@ -126,10 +123,11 @@ public class RoomServlet extends HttpServlet {
 						(byte) detail[5], (byte) detail[6], (byte) detail[7], (byte) detail[8], (byte) detail[9],
 						(byte) detail[10], pic);
 			}
-			forwardPath = "/sean/select_page.jsp";
+			forwardPath = "/sean/hotel_room_all.jsp";
 			
 			break;
 		case "updateRoom":
+			compId = (String) session.getAttribute("compId");
 			roomName = req.getParameter("roomName");
 			roomType = Integer.parseInt(req.getParameter("roomType"));
 			beds = Integer.parseInt(req.getParameter("bedNum"));
@@ -157,42 +155,52 @@ public class RoomServlet extends HttpServlet {
 						(byte) detail[4], (byte) detail[5], (byte) detail[6], (byte) detail[7], (byte) detail[8],
 						(byte) detail[9], (byte) detail[10], pic);
 			}
-			forwardPath = "/sean/select_page.jsp";
+			forwardPath = "/sean/hotel_room_all.jsp";
 			break;
 		case "delete1":
+			compId = (String) session.getAttribute("compId");
+			RoomList = roomSrc.getRoomByCompId(Integer.parseInt(compId));
+			req.setAttribute("roomList", RoomList);
 			id = req.getParameter("id");
 			if ((id != null) && (!id.trim().isBlank())) {
 				roomid = Integer.parseInt(id);
-				roomSrc.deleteRoom(Integer.parseInt(id));
+				roomSrc.updateStatus(roomid, -1);
 				forwardPath = "/sean/hotel_room.jsp";
 			}
 			break;
 		case "delete2":
+			compId = (String) session.getAttribute("compId");
+			RoomList = roomSrc.getRoomByCompId(Integer.parseInt(compId));
+			req.setAttribute("roomList", RoomList);
 			id = req.getParameter("id");
 			if ((id != null) && (!id.trim().isBlank())) {
 				roomid = Integer.parseInt(id);
-				roomSrc.deleteRoom(roomid);
+				roomSrc.updateStatus(roomid, -1);
 				res.sendRedirect(req.getContextPath() + "/sean/hotel_room_all.jsp");
 				return;
 			}
 			break;
 		case "launch":
-			System.out.println(id);
+			compId = (String) session.getAttribute("compId");
 			if ((id != null) && (!id.trim().isBlank())) {
 				roomid = Integer.parseInt(id);
 				roomSrc.updateStatus(roomid, 1);
-				forwardPath = "/sean/select_page.jsp";
+				RoomList = roomSrc.getRoomByCompId(Integer.parseInt(compId));
+				req.setAttribute("roomList", RoomList);
+				forwardPath = "/sean/hotel_room_all.jsp";
 			}
 			break;
 		case "recall":
+			compId = (String) session.getAttribute("compId");
 			if ((id != null) && (!id.trim().isBlank())) {
 				roomid = Integer.parseInt(id);
 				roomSrc.updateStatus(roomid, 0);
-				forwardPath = "/sean/select_page.jsp";
+				RoomList = roomSrc.getRoomByCompId(Integer.parseInt(compId));
+				req.setAttribute("roomList", RoomList);
+				forwardPath = "/sean/hotel_room_all.jsp";
 			}
 			break;
 		}
-		System.out.println(forwardPath+"Hello");
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 		dispatcher.forward(req, res);
 	}
