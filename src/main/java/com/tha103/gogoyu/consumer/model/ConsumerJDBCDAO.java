@@ -23,6 +23,7 @@ public class ConsumerJDBCDAO implements ConsumerDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT cus_id,cus_name,cus_account,cus_password,cus_mail,cus_phone,cus_address,cus_sex,cus_photo FROM consumer where cus_id= ?";
 	private static final String DELETE = "DELETE FROM consumer where cus_id = ?";
 	private static final String UPDATE = "UPDATE consumer set cus_name=?, cus_account=?, cus_password=?, cus_mail=?, cus_phone=?, cus_address=?, cus_sex=?,cus_photo=? where cus_id = ?";
+	private static final String getBinary = "SELECT cus_photo from consumer where cus_id = ?";
 
 	@Override
 	public int add(Consumer Consumer) {
@@ -91,7 +92,7 @@ public class ConsumerJDBCDAO implements ConsumerDAO_interface {
 	}
 
 	@Override
-	public Consumer findByPrimaryKey(Integer Cus_id) {
+	public Consumer findByPK(Integer Cus_id) {
 		Consumer Consumer = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -211,5 +212,26 @@ public class ConsumerJDBCDAO implements ConsumerDAO_interface {
 			System.out.println();
 		}
 	}
+
+	@Override
+	public byte[] getPicture(Integer cusId) throws Exception {
+		Connection con = null ;
+        PreparedStatement pstmt = null ;
+        ResultSet rs = null ;
+        byte[] picc = null;
+
+            con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+            pstmt = con.prepareStatement(getBinary);
+            pstmt.setInt(1, cusId);
+            rs = pstmt.executeQuery(); 
+
+        while (rs.next()) { 
+            picc = rs.getBytes("cusPhoto");
+        }
+
+        return picc;
+	}
+
+	
 
 }
