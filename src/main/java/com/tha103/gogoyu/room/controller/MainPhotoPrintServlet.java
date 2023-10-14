@@ -15,38 +15,55 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.tha103.gogoyu.room.model.RoomServiceHibernate;
-
 import util.Util;
 
-@WebServlet("/sean/RoomPhotoHibernateServlet")
-public class RoomPhotoHibernateServlet extends HttpServlet {
+@WebServlet("/sean/MainPhotoPrintServlet")
+public class MainPhotoPrintServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	RoomServiceHibernate roomSrc = null;
+	Connection con;
+	PreparedStatement pstmt = null;
 
 	public void init() throws ServletException {
-		roomSrc = new RoomServiceHibernate();
+		try {
+			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			pstmt = con.prepareStatement("Select main_photo from room where room_id = ?");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void destroy() {
-		roomSrc = null;
+		try {
+			if (con != null)
+				con.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		res.setContentType("image/gif");
 		ServletOutputStream out = res.getOutputStream();
-		byte[] photo = null;
-		String roomId = req.getParameter("room_id");
-		System.out.println(roomId);
-		if (roomId != null) {
-			photo = roomSrc.getMainPhoto(Integer.valueOf(roomId));
-			System.out.println(photo);
+		try {
+			byte[] pic = new byte[1];
+			Integer id = null;
+			String roomId = req.getParameter("room_id");
+			if (roomId != null) {
+				id = Integer.valueOf(roomId);
+				pstmt.setInt(1, id);
+				ResultSet rs = pstmt.executeQuery();
+				if (rs.next()) {
+					pic = rs.getBytes("main_photo");
+				}
+			} 
+			out.write(pic);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		out.write(photo);
 
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		
+
 	}
 }

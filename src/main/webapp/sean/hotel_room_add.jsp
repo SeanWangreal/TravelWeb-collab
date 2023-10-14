@@ -320,7 +320,7 @@ button.left_btn:hover {
 							accept="image/*">
 						<div class="drag">
 							<img
-								src="RoomPhotoHibernateServlet?room_id=${room.roomId}"
+								src="MainPhotoPrintHServlet?room_id=${room.roomId}"
 								style="max-width: 100%">
 						</div>
 					</c:if>

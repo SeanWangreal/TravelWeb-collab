@@ -415,7 +415,7 @@ input {
 										<c:if test="${room.mainPhoto != null}">
 										<h2>客房搜尋照片</h2>
 											<div class="drag">
-												<img src="RoomPhotoHibernateServlet?room_id=${room.roomId}"
+												<img src="MainPhotoPrintHServlet?room_id=${room.roomId}"
 													style="max-width: 100%">
 											</div>
 										</c:if>
