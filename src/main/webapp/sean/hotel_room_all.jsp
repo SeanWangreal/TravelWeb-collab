@@ -1,3 +1,4 @@
+<%@page import="org.hibernate.internal.build.AllowSysOut"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -131,6 +132,40 @@ input {
 	width: 50%;
 	font-size: 30px;
 }
+
+.between {
+	margin-top: 10px;
+	margin-bottom: 2px;
+}
+
+.detail {
+	border: none;
+	background-color: white;
+}
+.all-detail{
+	font-size: 16px
+}
+.details>*{
+	padding:5px;
+}
+.room {
+    display: flex;
+}
+.room-opt {
+    display: flex;
+    flex-basis: 20%;
+    flex-direction: column;
+}
+.no-css{
+	position: fixed;
+	top: calc(10vh - 15px);
+	right:calc(10% - 15px);
+	z-index: 3;
+	width:40px;
+	height:40px;
+	border-radius: 50%;
+	text-align:center;
+}
 </style>
 </head>
 
@@ -154,7 +189,9 @@ input {
 
 			</button>
 			<button type="button" class="head_btn">
-				<a class="profile" href="#"> <i class="fa-solid fa-user icon"
+				<a class="profile"
+					href="${pageContext.request.contextPath}/sean/select_page.jsp">
+					<i class="fa-solid fa-user icon"
 					style="color: black; font-size: 30px; background-color: transparent;"></i>
 				</a>
 			</button>
@@ -178,8 +215,9 @@ input {
 		<div id="shell"></div>
 		<aside class="left">
 			<div class="mem-data">
-				<a href="" class="left_btn"> <i class="fa-solid fa-hotel"
-					style="color: #000000;"></i> 我的房間
+				<a href="${pageContext.request.contextPath}/sean/hotel_room_all.jsp"
+					class="left_btn" style="color: #FCC416"> <i
+					class="fa-solid fa-hotel" style="color: #000000;"></i> 我的房間
 				</a>
 			</div>
 			<div class="mem-data">
@@ -192,90 +230,224 @@ input {
 	<div class="all">
 		<main class="main-content">
 			<div class="main-content-info">
-				<% List<Room> roomList = (List<Room>)request.getAttribute("roomList");%>
-				<c:forEach var="room" items="<%= roomList%>">
-					<section class="one-room">
-						<div class="title">
-							<span class="room-name">${room.roomName}</span>
-							<div class="do">
+				<%
+				List<Room> roomList = (List<Room>) request.getAttribute("roomList");
+				if (roomList == null) {
+					RoomService rs = new RoomServiceHibernate();
+					Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId"));
+					roomList = rs.getRoomByCompId(compId);
+				}
+				// 				request.setAttribute("backHere",request.getRequestURL());
+				// 				System.out.print(request.getRequestURI());
+				%>
+				<c:forEach var="room" items="<%=roomList%>">
+					<c:if test="${room.roomStatus!=-1}">
+						<section class="one-room">
+							<div class="title">
 								<span class="room-status${room.roomStatus==1?'-on':'-off'}">
-									${room.roomStatus==1?'上架中':'下架中'}</span> <a
-									href="${pageContext.request.contextPath}/sean/RoomServlet?action=change&id=${room.roomId}"
-									class="change">修改</a>
-								<button class="delete">刪除</button>
-							</div>
-						</div>
-						<hr>
-						<div class="all-info">
-							<span class="room-info" style="width: fit-content;"> <i
-								class="fa-solid fa-bed"></i> <span>${room.roomType}人房</span>
-							</span> <span class="d">|</span> <span class="room-info"
-								style="width: 80px;"> <span>床數</span> <span>${room.beds}</span>
-							</span> <span class="d">|</span> <span class="room-info"> <span>價格
-									$ ${room.price.stripTrailingZeros().toPlainString()}</span>
-							</span> <span class="d">|</span> <span class="room-info"
-								style="width: 140px;"> <span>今日空房</span> <span>30</span>
-							</span> <span class="below-btn">
-								<button class="stock">查看庫存</button>
-								<button type="button" class="renewStatus"
-									${(room.roomStatus == 1) ? 'disabled style="filter: opacity(0.5);"' : ""}>上架</button>
-								<input type="hidden" name="id" value="${roomId}">
-								<button type="button" class="renewStatus"
-									${(room.roomStatus == 0) ? 'disabled style="filter: opacity(0.5);"' : ""}>下架</button>
-							</span>
-						</div>
-
-						<div class="calendar">
-							<div class="calendar-head">
-								<a href="" class="prev aa">＜</a>
-								<div class="calendar-word">
-									<h1 class="color calendar-title">Month</h1>
-									<h2 class="color calendar-year">Year</h2>
-								</div>
-								<a href="" class="next aa">＞</a>
-							</div>
-							<div class="TIME-block">
-								<div class="lightgrey body-list">
-									<ul>
-										<li>MON</li>
-										<li>TUE</li>
-										<li>WED</li>
-										<li>THU</li>
-										<li>FRI</li>
-										<li>SAT</li>
-										<li>SUN</li>
-									</ul>
-								</div>
-								<div class="darkgrey body-list">
-									<ul class="days">
-									</ul>
-								</div>
-							</div>
-						</div>
-						<div class="alert_bg">
-							<div class="alert">
-								<div>
-									確定${(room.roomStatus == 1) ?'下架':'上架'}嗎? <br>
+									${room.roomStatus==1?'上架中':'下架中'}</span> <span class="room-name">${room.roomName}</span>
+								<div class="do">
+									<button class="detail">詳細資訊</button>
 									<form
-										action="${pageContext.request.contextPath}/sean/RoomServlet?action=${(room.roomStatus == 1)?'recall':'launch'}&id=${room.roomId}"
-										style="display: inline-block;" method="post">
-										<%-- 									<input type="hidden" name = "id" value = "${room.roomId}"> --%>
-										<button type="submit" class="other-btn">Yes</button>
+										action="${pageContext.request.contextPath}/sean/RoomServlet"
+										method="post" style="display: inline-block">
+										<input type="hidden" name="action" value="change"> <input
+											type="hidden" name="id" value="${room.roomId}">
+										<button type="submit" class="go" style="display: none"></button>
+										<button type="button" class="change">修改</button>
 									</form>
-									<button type="button" class="other-btn no">No</button>
+									<button class="delete">刪除</button>
 								</div>
 							</div>
-						</div>
-						<div class="alert_bg">
-							<div class="alert">
-								<div>
-									確定刪除嗎? <br> <a class="other-btn yes"
-										href="${pageContext.request.contextPath}/sean/RoomServlet?action=delete2&id=${room.roomId}">Yes</a>
-									<button type="button" class="other-btn no">No</button>
+							<hr class="between">
+							<div class="all-info">
+								<span class="room-info" style="width: fit-content;"> <i
+									class="fa-solid fa-bed"></i> <span>${room.roomType}人房</span>
+								</span> <span class="d">|</span> <span class="room-info"
+									style="width: 80px;"> <span>床數</span> <span>${room.beds}</span>
+								</span> <span class="d">|</span> <span class="room-info"> <span>價格
+										$ ${room.price.stripTrailingZeros().toPlainString()}</span>
+								</span> <span class="d">|</span> <span class="room-info"
+									style="width: 140px;"> <span>今日空房</span> <span>30</span>
+								</span> <span class="below-btn">
+									<button class="stock">查看庫存</button>
+									<button type="button" class="renewStatus"
+										${(room.roomStatus == 1) ? 'disabled style="filter: opacity(0.5);"' : ""}>上架</button>
+									<input type="hidden" name="id" value="${roomId}">
+									<button type="button" class="renewStatus"
+										${(room.roomStatus == 0) ? 'disabled style="filter: opacity(0.5);"' : ""}>下架</button>
+								</span>
+							</div>
+
+							<div class="calendar">
+								<div class="calendar-head">
+									<a href="" class="prev aa">＜</a>
+									<div class="calendar-word">
+										<h1 class="color calendar-title">Month</h1>
+										<h2 class="color calendar-year">Year</h2>
+									</div>
+									<a href="" class="next aa">＞</a>
+								</div>
+								<div class="TIME-block">
+									<div class="lightgrey body-list">
+										<ul>
+											<li>MON</li>
+											<li>TUE</li>
+											<li>WED</li>
+											<li>THU</li>
+											<li>FRI</li>
+											<li>SAT</li>
+											<li>SUN</li>
+										</ul>
+									</div>
+									<div class="darkgrey body-list">
+										<ul class="days">
+										</ul>
+									</div>
 								</div>
 							</div>
-						</div>
-					</section>
+							<div class="alert_bg">
+								<div class="watch">
+									<div class="all-detail">
+										<div class="details">
+											<h2>客房</h2>
+											<div style="">
+												<label for="name">房間名稱: ${room.roomName}</label>
+												<label>房型: </label><span>
+												${(room.roomType == 1) ? "單人房" : ""}
+												${(room.roomType == 2) ? "雙人房" : ""}
+												${(room.roomType == 3) ? "三人房" : ""}
+												${(room.roomType == 4) ? "四人房" : ""}</span>
+												<label for="bed-num">床位數: ${room.beds}</label>
+											</div>
+										</div>
+										<hr>
+										<div>
+											<h2>客房設施</h2>
+											<div class="room">
+												<div class="room-opt">
+													<span>
+														<i class="${(room.tissue== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}" style="color: #81a4df;">
+														</i> 
+														<label
+														for="tissue">衛生紙</label>
+													</span> 
+													<span>
+														<i class="${(room.freetoiletries== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}" style="color: #81a4df;">
+														</i>
+														<label
+														for="freetoiletries">免費盥洗用品</label>
+													</span> 
+													<span>
+														<i class="${(room.electricKettle== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}" style="color: #81a4df;">
+														</i>  
+														<label
+														for="electric_kettle">熱水壺</label>
+													</span>
+												</div>
+												<div class="room-opt">
+													<span> 
+														<i class="${(room.shower== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}" style="color: #81a4df;">
+														</i>
+														<label
+														for="shower">淋浴間</label>
+													</span> 
+													<span> 
+														<i class="${(room.flushseat== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}" style="color: #81a4df;">
+														</i>
+														<label
+														for="flushseat">沖洗座</label>
+													</span>
+												</div>
+												<div class="room-opt">
+													<span> 
+														<i class="${(room.bathroom== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}" style="color: #81a4df;">
+														</i>
+														<label
+														for="bathroom">廁所</label>
+													</span> 
+													<span> 
+														<i class="${(room.slippers== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}" style="color: #81a4df;">
+														</i>
+														<label
+														for="slippers">拖鞋</label>
+													</span>
+												</div>
+												<div class="room-opt">
+													<span>
+														<i class="${(room.dryer== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}" style="color: #81a4df;">
+														</i>
+														<label
+														for="dryer">吹風機</label>
+													</span> 
+													<span>
+														<i class="${(room.bathrobe== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}" style="color: #81a4df;">
+														</i>
+														<label
+														for="bathrobe">浴袍</label>
+													</span>
+												</div>
+												<div class="room-opt">
+													<span>
+														<i class="${(room.tub== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}" style="color: #81a4df;">
+															</i> 
+														<label
+															for="tub">浴缸</label>
+													</span> 
+													<span> 
+														<i class="${(room.spatub== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}" style="color: #81a4df;">
+														</i>
+														<label
+														for="spatub">SPA浴缸</label>
+													</span>
+												</div>
+											</div>
+											<hr>
+											<h2>客房介紹</h2>
+											<article style="width: 100%;border:1px solid black;border-radius: 5px;padding:5px">${room.intro}</article>
+										</div>
+										<br>
+										<h2>客房每晚價格</h2>
+										<span>TWD ${room.price.stripTrailingZeros().toPlainString()}</span>
+<%-- 									<span id="percent"><%=commissionPercent%></span><span>% --%>
+<%-- 									佣金</span> <br> <span>TWD </span><span id="profit"><%=profitS%></span><span>您的收益(四捨五入之結果)</span> --%>
+										<hr>
+										<c:if test="${room.mainPhoto != null}">
+										<h2>客房搜尋照片</h2>
+											<div class="drag">
+												<img src="MainPhotoPrintHServlet?room_id=${room.roomId}"
+													style="max-width: 100%">
+											</div>
+										</c:if>
+									</div>
+								</div>
+									<button type="button" class="other-btn no no-css">✘</button>
+							</div>
+							<div class="alert_bg">
+								<div class="alert">
+									<div>
+										確定${(room.roomStatus == 1) ?'下架':'上架'}嗎? <br>
+										<form
+											action="${pageContext.request.contextPath}/sean/RoomServlet?action=${(room.roomStatus == 1)?'recall':'launch'}&id=${room.roomId}"
+											style="display: inline-block;" method="post">
+											<%-- 									<input type="hidden" name = "id" value = "${room.roomId}"> --%>
+											<button type="submit" class="other-btn">Yes</button>
+										</form>
+										<button type="button" class="other-btn no">No</button>
+									</div>
+								</div>
+							</div>
+							<div class="alert_bg">
+								<div class="alert">
+									<div>
+										確定刪除嗎? <br> <a class="other-btn yes"
+											href="${pageContext.request.contextPath}/sean/RoomServlet?action=delete2&id=${room.roomId}">Yes</a>
+										<button type="button" class="other-btn no">No</button>
+									</div>
+								</div>
+							</div>
+						</section>
+					</c:if>
 				</c:forEach>
 
 
@@ -289,15 +461,52 @@ input {
 	<script
 		src="${pageContext.request.contextPath}/static/sean_js/btn4com.js"></script>
 	<script>
+		$(".detail").on("click", function () {
+	        let room = $(this).closest("section.one-room");
+	        $("body").css("overflow", "hidden");
+	        let alert_bg = $(room).find(".alert_bg").eq(0);
+	        alert_bg.addClass("on");
+	        let watch = $(room).find(".watch");
+	        watch.addClass("on");
+	        
+	        $(".no").on("click", function () {
+	            $("body").css("overflow", "auto");
+	            alert_bg.removeClass("on");
+	            watch.removeClass("on");
+	        })
+	    })
+		$(".renewStatus").on("click", function () {
+	        let room = $(this).closest("section.one-room");
+	        $("body").css("overflow", "hidden");
+	        let alert_bg = $(room).find(".alert_bg").eq(1);
+	        alert_bg.addClass("on");
+	        let al = $(room).find(".alert").eq(0);
+	       	al.addClass("on");
+	        $(".yes").on("click", function () {
+	            room.remove();
+	            $("body").css("overflow", "auto");
+	            alert_bg.removeClass("on");
+	            al.removeClass("on");
+	        })
+	        $(".no").on("click", function () {
+	            $("body").css("overflow", "auto");
+	            alert_bg.removeClass("on");
+	            al.removeClass("on");
+	        })
+	    })
         var delete_btn = document.querySelectorAll(".delete");
         $(".delete").on("click", function () {
             let room = $(this).closest("section.one-room");
-            $("body").css("overflow", "hidden");
             let alert_bg = $(room).find(".alert_bg").last();
-            console.log(alert_bg);
-            alert_bg.addClass("on");
             let al = $(room).find(".alert").last();
-           	al.addClass("on");
+        
+        	if(room.find("span").hasClass("room-status-on")){
+        		alert("請先下架再刪除!!");
+        	}else{
+            $("body").css("overflow", "hidden");
+            alert_bg.addClass("on");
+           	al.addClass("on");        		
+        	}
             $(".yes").on("click", function () {
                 room.remove();
                 $("body").css("overflow", "auto");
@@ -310,25 +519,14 @@ input {
                 al.removeClass("on");
             })
         })
-        $(".renewStatus").on("click", function () {
-            let room = $(this).closest("section.one-room");
-            $("body").css("overflow", "hidden");
-            let alert_bg = $(room).find(".alert_bg").first();
-            console.log(alert_bg);
-            alert_bg.addClass("on");
-            let al = $(room).find(".alert").first();
-           	al.addClass("on");
-            $(".yes").on("click", function () {
-                room.remove();
-                $("body").css("overflow", "auto");
-                alert_bg.removeClass("on");
-                al.removeClass("on");
-            })
-            $(".no").on("click", function () {
-                $("body").css("overflow", "auto");
-                alert_bg.removeClass("on");
-                al.removeClass("on");
-            })
+        
+        $(".change").on("click",function(){
+        	let room = $(this).closest(".one-room");
+        	if(room.find("span").hasClass("room-status-off")){
+        		$(this).closest("form").find(".go").click();        		
+        	} else{
+        		alert("請先下架再修改");
+        	}
         })
     </script>
 	<script>

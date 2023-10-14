@@ -10,5 +10,6 @@ public interface RoomDAO_interface {
 	Room findByPK(Integer roomId);
 	List<Room> findRoomByCompId(Integer compId);
 	List<Room> getAll();
+	byte[] getMainPhoto(Integer roomId);
 
 }
