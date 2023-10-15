@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.tha103.gogoyu.company.model.Company;
 import com.tha103.gogoyu.company.model.CompanyService;
 
-@WebServlet("/companyServlet")
+@WebServlet("/CompanyServlet")
 public class CompanyServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -40,7 +40,7 @@ public class CompanyServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/company/com_mem.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/ken/company/com_mem.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -53,7 +53,7 @@ public class CompanyServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/company/com_mem.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/ken/company/com_mem.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -66,7 +66,7 @@ public class CompanyServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/company/com_mem.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher(req.getContextPath()+"/ken/company/com_mem.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -74,7 +74,7 @@ public class CompanyServlet extends HttpServlet {
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			System.out.println(company);
 			req.setAttribute("Company", company); // 資料庫取出的empVO物件,存入req
-			String url = "/company/com_mem.jsp";
+			String url = "/ken/com_mem.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
 		}
@@ -205,7 +205,7 @@ public class CompanyServlet extends HttpServlet {
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("Company", company); // 含有輸入格式錯誤的empVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("/company/com_mem.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/ken/company/com_renewpass.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
@@ -217,7 +217,7 @@ public class CompanyServlet extends HttpServlet {
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("Company", company); // 資料庫update成功後,正確的的empVO物件,存入req
-			String url = "/company/com_mem.jsp";
+			String url = "/ken/company/com_renewpass.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 			successView.forward(req, res);
 		}
