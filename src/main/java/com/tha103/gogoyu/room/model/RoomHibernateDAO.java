@@ -73,9 +73,6 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		try {
 			getSession().beginTransaction();
 			Room room = getSession().get(Room.class, roomId);
-			for (Room_photo p : room.getRoomPhoto()) {
-				System.out.println(p.getUploadTime());
-			}
 			getSession().getTransaction().commit();
 			return room;
 		} catch (Exception e) {
@@ -132,10 +129,26 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		return null;
 	}
 
+	@Override
+	public int deleteAllPhoto(Integer roomId) {
+		try {
+			getSession().beginTransaction();
+			Room room = getSession().get(Room.class, roomId);
+			for (Room_photo p : room.getRoomPhoto()) {
+				getSession().delete(p);
+			}
+			getSession().getTransaction().commit();
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return -1;
+	}
 	public static void main(String[] args) {
 		RoomHibernateDAO dao = new RoomHibernateDAO(HibernateUtil.getSessionFactory());
-//		System.out.println(dao.getMainPhoto(2));
-//		dao.getAll();
+		dao.findByPK(6);
 	}
+
 
 }

@@ -13,7 +13,7 @@ public class RoomServiceHibernate implements RoomService{
 		dao = new RoomHibernateDAO(HibernateUtil.getSessionFactory());
 	}
 
-	public Room addRoom(Integer compId, Integer roomType, String roomName, Integer beds, BigDecimal price,
+	public int addRoom(Integer compId, Integer roomType, String roomName, Integer beds, BigDecimal price,
 			String intro, Integer roomStatus, byte tissue, byte shower, byte bathroom, byte dryer, byte tub,
 			byte freetoiletries, byte flushseat, byte slippers, byte bathrobe, byte spatub, byte electricKettle,byte[] mainPhoto) {
 
@@ -37,9 +37,7 @@ public class RoomServiceHibernate implements RoomService{
 		room.setSpatub(spatub);
 		room.setElectricKettle(electricKettle);
 		room.setMainPhoto(mainPhoto);
-		dao.add(room);
-
-		return room;
+		return dao.add(room);
 	}
 	public Room updateStatus(Integer roomId,Integer roomStatus) {
 		Room room = this.getOneRoom(roomId);
@@ -101,9 +99,14 @@ public class RoomServiceHibernate implements RoomService{
 		return dao.getMainPhoto(roomId);
  
 	}
+	@Override
+	public int deleteAllPhoto(Integer roomId) {
+		return dao.deleteAllPhoto(roomId);
+	}
 	
 	public static void main(String[] args) {
 		RoomServiceHibernate hi = new RoomServiceHibernate();
 		System.out.println(hi.getAll());
 	}
+
 }

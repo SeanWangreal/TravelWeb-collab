@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface RoomService {
-	public Room addRoom(Integer compId, Integer roomType, String roomName, Integer beds, BigDecimal price,
+	public int addRoom(Integer compId, Integer roomType, String roomName, Integer beds, BigDecimal price,
 			String intro, Integer roomStatus, byte tissue, byte shower, byte bathroom, byte dryer, byte tub,
 			byte freetoiletries, byte flushseat, byte slippers, byte bathrobe, byte spatub, byte electricKettle,byte[] mainPhoto);
 	public Room updateStatus(Integer roomId,Integer roomStatus);
@@ -16,4 +16,5 @@ public interface RoomService {
 	public List<Room> getAll();
 	public List<Room> getRoomByCompId(Integer compId);
 	public byte[] getMainPhoto(Integer roomId);
+	public int deleteAllPhoto(Integer roomId);
 }

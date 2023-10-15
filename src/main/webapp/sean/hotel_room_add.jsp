@@ -167,8 +167,8 @@ button.left_btn:hover {
 		<aside class="left">
 			<div class="mem-data">
 				<a href="${pageContext.request.contextPath}/sean/hotel_room_all.jsp"
-					class="left_btn" style="color: #FCC416"> <i class="fa-solid fa-hotel"
-					style="color: #000000;"></i> 我的房間
+					class="left_btn" style="color: #FCC416"> <i
+					class="fa-solid fa-hotel" style="color: #000000;"></i> 我的房間
 				</a>
 			</div>
 			<div class="mem-data">
@@ -181,10 +181,14 @@ button.left_btn:hover {
 	<div class="all">
 		<main class="main-content">
 			<div class="main-content-info">
-				<%Room room = (Room) request.getAttribute("room");%>
-				<%! final BigDecimal commissionPercent = new BigDecimal("5");%>
-				<%! BigDecimal profit = new BigDecimal("0");%>
-				<%String profitS = "0";%>
+				<%
+				Room room = (Room) request.getAttribute("room");
+				%>
+				<%!final BigDecimal commissionPercent = new BigDecimal("5");%>
+				<%!BigDecimal profit = new BigDecimal("0");%>
+				<%
+				String profitS = "0";
+				%>
 				<%
 				if (room != null) {
 					MathContext mx = new MathContext(34, RoundingMode.HALF_UP);
@@ -303,7 +307,7 @@ button.left_btn:hover {
 					<hr>
 					<c:if test="${room.mainPhoto == null}">
 						<input type="hidden" name="action" value="addRoom">
-						<input type="hidden" name="id" value="${room.roomId}">
+						<input type="hidden" name="roomId" value="${room.roomId}">
 						<h2>上傳房型照片</h2>
 						<p>上傳1張代表貴房型的照片，將顯示在搜尋頁面</p>
 						<input type="file" class="in" id="pic_file" name="mainPhoto"
@@ -312,31 +316,38 @@ button.left_btn:hover {
 					</c:if>
 					<c:if test="${room.mainPhoto != null}">
 						<input type="hidden" name="action" value="updateRoom">
-						<input type="hidden" name="id" value="${room.roomId}">
+						<input type="hidden" name="roomId" value="${room.roomId}">
 						<h2>上傳房型照片</h2>
 						<p>替換照片</p>
 						<input type="file" class="in" id="pic_file" name="mainPhoto"
 							accept="image/*">
 						<div class="drag">
-							<img
-								src="MainPhotoPrintHServlet?room_id=${room.roomId}"
+							<img src="MainPhotoPrintHServlet?room_id=${room.roomId}"
 								style="max-width: 100%">
 						</div>
 					</c:if>
-<%-- 					<c:if test=""> --%>
+					<c:if test="${room.roomPhoto == null}">
 						<h2>上傳房型細節照片</h2>
 						<p>上傳3張房型細節照片</p>
 						<input type="file" class="in" id="pic_files" name="photos"
 							accept="image/*" multiple>
-						<button type="button" id="cleanPics">清除全部照片</button>
-							<div class="multi-photo">
-							<img
-								src=""
-								style="max-width: 100%">
+						<div class="multi-photo"></div>
+					</c:if>
+					<c:if test="${room.roomPhoto != null}">
+						<h2>上傳房型細節照片</h2>
+						<p>更換房型細節照片</p>
+						<input type="file" class="in" id="pic_files" name="photos"
+							accept="image/*" multiple>
+						<div class="multi-photo">
+							<c:forEach var="pic" items="<%= room.getRoomPhoto()%>">
+								<img src="RoomPhotoPrintHServlet?room_photo_id=${pic.roomPhotoId}"
+									style="max-width: 23%">
+							</c:forEach>
 						</div>
-<%-- 					</c:if> --%>
+					</c:if>
 					<div class="btns">
-						<a href="${pageContext.request.contextPath}/sean/hotel_room_all.jsp"
+						<a
+							href="${pageContext.request.contextPath}/sean/hotel_room_all.jsp"
 							type="button" class="other-btn">取消</a>
 						<button type="button" id="add" class="other-btn">新增</button>
 					</div>

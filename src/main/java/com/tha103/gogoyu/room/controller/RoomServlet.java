@@ -3,6 +3,7 @@ package com.tha103.gogoyu.room.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,6 +21,8 @@ import javax.servlet.http.Part;
 import com.tha103.gogoyu.room.model.Room;
 import com.tha103.gogoyu.room.model.RoomService;
 import com.tha103.gogoyu.room.model.RoomServiceHibernate;
+import com.tha103.gogoyu.room_photo.model.RoomPhotoService;
+import com.tha103.gogoyu.room_photo.model.RoomPhotoServiceHibernate;
 
 @WebServlet("/sean/RoomServlet")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
@@ -27,10 +30,12 @@ public class RoomServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	RoomService roomSrc = null;
+	RoomPhotoService roomPhotoSrc = null;
 
 	@Override
 	public void init() throws ServletException {
 		roomSrc = new RoomServiceHibernate();
+		roomPhotoSrc = new RoomPhotoServiceHibernate();
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -102,10 +107,14 @@ public class RoomServlet extends HttpServlet {
 			String intro = req.getParameter("intro");
 			byte[] detail = getAllDetail(req, res);
 			byte[] pic = null;
+			List<byte[]> allPhoto = new ArrayList<byte[]>();
 			Collection<Part> parts = req.getParts();
 			for (Part part : parts) {
-				InputStream is = part.getInputStream();
-				pic = is.readAllBytes();
+				if (part.getContentType() != null && part.getSize() != 0) {
+					InputStream is = part.getInputStream();
+					pic = is.readAllBytes();
+					allPhoto.add(pic);
+				}
 			}
 			Integer roomid = null;
 			compId = (String) session.getAttribute("compId");
@@ -115,16 +124,21 @@ public class RoomServlet extends HttpServlet {
 				room = roomSrc.updateRoom(roomid, Integer.parseInt(compId), roomType, roomName, beds, price, intro,
 						room1.getRoomStatus(), (byte) detail[0], (byte) detail[1], (byte) detail[2], (byte) detail[3],
 						(byte) detail[4], (byte) detail[5], (byte) detail[6], (byte) detail[7], (byte) detail[8],
-						(byte) detail[9], (byte) detail[10], pic);
+						(byte) detail[9], (byte) detail[10], allPhoto.get(0));
+				for (int i = 1; i < allPhoto.size();i++) {
+					roomPhotoSrc.addRoomPhoto(roomid,  allPhoto.get(i));
+				}
 			} else {
 				Integer roomStatus = 0;
-				roomSrc.addRoom(Integer.parseInt(compId), roomType, roomName, beds, price, intro, roomStatus,
+				Integer newRoomId = roomSrc.addRoom(Integer.parseInt(compId), roomType, roomName, beds, price, intro, roomStatus,
 						(byte) detail[0], (byte) detail[1], (byte) detail[2], (byte) detail[3], (byte) detail[4],
 						(byte) detail[5], (byte) detail[6], (byte) detail[7], (byte) detail[8], (byte) detail[9],
-						(byte) detail[10], pic);
+						(byte) detail[10], allPhoto.get(0));
+				for (int i = 1; i < allPhoto.size();i++) {
+					roomPhotoSrc.addRoomPhoto(newRoomId,  allPhoto.get(i));
+				}
 			}
 			forwardPath = "/sean/hotel_room_all.jsp";
-			
 			break;
 		case "updateRoom":
 			compId = (String) session.getAttribute("compId");
@@ -134,17 +148,21 @@ public class RoomServlet extends HttpServlet {
 			price = new BigDecimal(req.getParameter("price"));
 			intro = req.getParameter("intro");
 			detail = getAllDetail(req, res);
+			List<byte[]> allPhotoUpdate = new ArrayList<byte[]>();
 			Collection<Part> parts2 = req.getParts();
 			pic = null;
 			for (Part part : parts2) {
 				if (part.getContentType() != null && part.getSize() != 0) {
 					InputStream is = part.getInputStream();
 					pic = is.readAllBytes();
+					allPhotoUpdate.add(pic);
+				} else if (part.getContentType() != null && part.getSize() == 0) {
+					allPhotoUpdate.add(null);
 				}
 			}
-			roomid = Integer.parseInt(id);
+			roomid = Integer.parseInt(roomId);
 			room = roomSrc.getOneRoom(roomid);
-			if (pic == null) {
+			if (allPhotoUpdate.get(0) == null) {
 				room = roomSrc.updateRoom(roomid, Integer.parseInt(compId), roomType, roomName, beds, price, intro,
 						room.getRoomStatus(), (byte) detail[0], (byte) detail[1], (byte) detail[2], (byte) detail[3],
 						(byte) detail[4], (byte) detail[5], (byte) detail[6], (byte) detail[7], (byte) detail[8],
@@ -153,7 +171,18 @@ public class RoomServlet extends HttpServlet {
 				room = roomSrc.updateRoom(roomid, Integer.parseInt(compId), roomType, roomName, beds, price, intro,
 						room.getRoomStatus(), (byte) detail[0], (byte) detail[1], (byte) detail[2], (byte) detail[3],
 						(byte) detail[4], (byte) detail[5], (byte) detail[6], (byte) detail[7], (byte) detail[8],
-						(byte) detail[9], (byte) detail[10], pic);
+						(byte) detail[9], (byte) detail[10], allPhotoUpdate.get(0));
+			}
+//			System.out.println("---------------------------------");
+//			System.out.println(allPhotoUpdate);
+//			System.out.println("---------------------------------");
+			if (allPhotoUpdate.get(1) != null) {
+				System.out.println("++++++++++");
+				roomSrc.deleteAllPhoto(roomid);
+				System.out.println("++++++++++");
+				for (int i = 1; i < allPhotoUpdate.size();i++) {
+					roomPhotoSrc.addRoomPhoto(roomid, allPhotoUpdate.get(i));
+				}				
 			}
 			forwardPath = "/sean/hotel_room_all.jsp";
 			break;

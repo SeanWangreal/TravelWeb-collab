@@ -314,7 +314,7 @@ input {
 	min-width: 100% !important;
 }
 
-.drag::after {
+.multi-photo::after {
 	display: block;
 	content: "   ";
 	clear: both;

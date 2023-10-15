@@ -33,7 +33,6 @@ public class Room_photoHibernateDAO implements Room_photoDAO_interface {
 
 	@Override
 	public int update(Room_photo roomPhoto) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			getSession().beginTransaction();
 			getSession().update(roomPhoto);
@@ -41,7 +40,7 @@ public class Room_photoHibernateDAO implements Room_photoDAO_interface {
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return -1;
 	}

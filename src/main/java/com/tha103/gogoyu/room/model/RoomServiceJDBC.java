@@ -11,7 +11,7 @@ public class RoomServiceJDBC implements RoomService{
 		dao = new RoomJDBCDAO();
 	}
 
-	public Room addRoom(Integer compId, Integer roomType, String roomName, Integer beds, BigDecimal price,
+	public int addRoom(Integer compId, Integer roomType, String roomName, Integer beds, BigDecimal price,
 			String intro, Integer roomStatus, byte tissue, byte shower, byte bathroom, byte dryer, byte tub,
 			byte freetoiletries, byte flushseat, byte slippers, byte bathrobe, byte spatub, byte electricKettle,byte[] mainPhoto) {
 
@@ -35,9 +35,7 @@ public class RoomServiceJDBC implements RoomService{
 		room.setSpatub(spatub);
 		room.setElectricKettle(electricKettle);
 		room.setMainPhoto(mainPhoto);
-		dao.add(room);
-
-		return room;
+		return dao.add(room);
 	}
 	public Room updateStatus(Integer roomId,Integer roomStatus) {
 		Room room = this.getOneRoom(roomId);
@@ -99,6 +97,12 @@ public class RoomServiceJDBC implements RoomService{
 	public byte[] getMainPhoto(Integer roomId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int deleteAllPhoto(Integer roomId) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }

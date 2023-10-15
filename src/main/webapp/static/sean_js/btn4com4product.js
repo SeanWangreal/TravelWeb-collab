@@ -11,6 +11,7 @@ var yes_btn = document.getElementById("yes");
 var no_btn = document.getElementById("no");
 var drop_place = document.querySelector(".drag");
 var pic_file = document.getElementById("pic_file");
+var pic_files = document.getElementById("pic_files");
 var product_type = document.getElementById("type").innerText;
 
 
@@ -116,7 +117,7 @@ function change_pics(pics) {
                 })
             }
         };
-        pic_file.files = pics;
+        pic_files.files = pics;
     }
 }
 $(document).ready(function () {
