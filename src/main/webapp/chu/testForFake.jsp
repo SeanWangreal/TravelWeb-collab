@@ -14,10 +14,11 @@ response.setDateHeader("Expires", 0);
 %>
 
 
+
 <%
-Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
-    List<Room_ord> list = ROSH.getAll();
-    pageContext.setAttribute("Room_ordList",list);
+	Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
+	    List<Room_ord> list = ROSH.getAll();
+	    pageContext.setAttribute("Room_ordList",list);
 %>
 
 
@@ -166,12 +167,18 @@ Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
 						
 						
 					</div>
+					
+					<form action="shopping_hotelServlet" method="post">
+					
 					<div class="plan_tab_1_right">
 						<div class="right_side_first_row">
 							<div class="title_set">
-								<span class="mark_for_type_hotel">飯</span> 
+								<span class="mark_for_type_hotel">飯</span>
+								<input type = "hidden"  name ="compType" value ="飯">
+								
 								<i id="named_of_title">統神大戲院123</i> 
 									<input type = "hidden"  name ="compName" value ="統神大戲院123">
+									
 								<div>
 									規劃ID: <i style="color: darkorange;">1232142141</i>
 									<input type = "hidden"  name ="planId" value ="1232142141">
@@ -198,16 +205,26 @@ Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
 						<div class="pay_btn">
                             <button class="b list">查看行程細況</button>
                             <button class="b infos">訂單資訊</button> 
+                            
 						<div class="pay_or_remove">
-							<form action="shopping_hotelServlet" method="post">
+						
+							
 								<input type="hidden" name="actionForPay" value="pay">
 									<select size="1" name="amount">
-								         <c:forEach var="Scene" items="豪小五人行" > 
-								          		<option value="豪小五人行">豪華五人床
-								         </c:forEach>   
+ 								         
+														<c:forEach begin="1" end="5" step="1" var="i">
+													        <option value="${i}" >${i}
+<%-- 													        <input type = "hidden"  name ="shopinCartNum" value ="${i} }"> --%>
+													    </c:forEach>
+
 							       </select>
-								<a  href="#" class="b pay" >加入購物車</a>
-							</form>
+								<a  href="#" class="b pay"  style = "border: 1px solid blcak ; background-color: blue; color:black;">加入購物車</a>
+								<input type = "hidden"  name ="action" value ="go_shopping">
+						</form>
+							
+							
+							
+							
 							<form action="shopping_hotelServlet" method="post">
 								<input type="hidden" name="actionForRemove" value="remove">
 								<button class="b remove" type="submit">移除訂單</button>

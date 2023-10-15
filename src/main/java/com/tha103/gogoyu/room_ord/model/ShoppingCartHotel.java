@@ -6,7 +6,7 @@ import com.tha103.gogoyu.planning.model.Planning;
 import com.tha103.gogoyu.room_photo.model.Room_photo;
 import com.tha103.gogoyu.trip_ord.model.Trip_ord;
 
-public class shoppingCart_hotel {
+public class ShoppingCartHotel {
 
 	// 照片
 	Room_photo photo;
@@ -18,13 +18,13 @@ public class shoppingCart_hotel {
 	Trip_ord score;
 
 	// 會員id
-	Consumer cusId;
+	String cusId;
 
-	// 規劃id
-	Planning planId;
+	// 購物車id
+	String planId;
 
 	// 訂單id
-	Room_ord orderId;
+//	String orderId;
 
 	public Room_photo getPhoto() {
 		return photo;
@@ -50,28 +50,20 @@ public class shoppingCart_hotel {
 		this.score = score;
 	}
 
-	public Consumer getCusId() {
+	public String getCusId() {
 		return cusId;
 	}
 
-	public void setCusId(Consumer cusId) {
+	public void setCusId(String cusId) {
 		this.cusId = cusId;
 	}
 
-	public Planning getPlanId() {
+	public String getPlanId() {
 		return planId;
 	}
 
-	public void setPlanId(Planning planId) {
+	public void setPlanId(String planId) {
 		this.planId = planId;
-	}
-
-	public Room_ord getOrderId() {
-		return orderId;
-	}
-
-	public void setOrderId(Room_ord orderId) {
-		this.orderId = orderId;
 	}
 
 }

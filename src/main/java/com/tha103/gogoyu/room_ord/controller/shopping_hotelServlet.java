@@ -9,7 +9,11 @@ import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import com.tha103.gogoyu.room_ord.model.shoppingCart_hotel;
+import com.tha103.gogoyu.room_ord.model.ShoppingCartHotel;
+import com.tha103.gogoyu.consumer.model.Consumer;
+
+
+
 
 //@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1* 1024 * 1024, maxRequestSize = 10* 1024 * 1024)
 @WebServlet("/shopping_hotelServlet")
@@ -23,11 +27,19 @@ public class shopping_hotelServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");  //接收請求參數的編碼設定
 		HttpSession session = req.getSession();
-		Vector<shoppingCart_hotel> shoppingList=(Vector<shoppingCart_hotel>)session.getAttribute("shoppingCart");
-		String Payment = req.getParameter("actionForPay"); //接收請求參數name=payment的queryString
-
-		if ("pay".equals(Payment)) { // 來自testForFake,jsp的"加入購物車"請求
-
+		Vector<ShoppingCartHotel> shoppingList=(Vector<ShoppingCartHotel>)session.getAttribute("shoppingCart");
+		String action = req.getParameter("action"); //將所有name(執行案件)都設為action方便透過if比對目前操作何者功能
+				
+		String compType= req.getParameter("compType");
+		String compName = req.getParameter("compName");
+		String planId = req.getParameter("planId");
+		
+	
+//		session.setAttribute("cus_id", 1);
+//		Consumer cusId = req.getParameter(action);
+		
+		if ("go_shopping".equals(action)) { // 來自testForFake,jsp的"加入購物車"請求
+			
 //			List<String> errorMsgs = new LinkedList<String>(); //將所有錯誤訊息包成一個list，前端就可以接收錯誤訊息加以渲染
 //			req.setAttribute("errorMsgs", errorMsgs);
 
