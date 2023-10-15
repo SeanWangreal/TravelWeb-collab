@@ -1,19 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!-- jsp使用  el語法註冊-->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.math.*"%>
-<%@ page import="com.tha103.gogoyu.room_ord.model.*"%>
-<%@ page import="com.tha103.gogoyu.consumer.model.*"%>
-<%@ page import="com.tha103.gogoyu.planning.model.*"%>
-<!-- 以下三行預防快取 -->
-<%
-response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
-response.setHeader("Pragma", "no-cache"); //HTTP 1.0
-response.setDateHeader("Expires", 0);
-%>
-
-
+<%@ page import="com.tha103.gogoyu.room.model.*"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,13 +12,13 @@ response.setDateHeader("Expires", 0);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/chu_css/bookingList(hotel).css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/chu_css/bookingCheckedList(hotel).css">
 
 </head>
 <!-- <h1 class="payment-title">交易明細</h1> -->
 <body>
     <!-- 背景衝浪圖 -->
-    <img class="fullscreen" src="./4621.png" alt="Full Screen Image">
+    <img class="fullscreen" src="${pageContext.request.contextPath}/chu/4621.png" alt="Full Screen Image">
 
     <div class="outside_div">
         <div class="inside_left_div">
@@ -80,44 +70,30 @@ response.setDateHeader("Expires", 0);
                     </div>
                     <hr>
                     <div class="order-item">
-                        <label for="remark">備註:&nbsp&nbsp&nbsp&nbsp</label>
+                        <label for="remark">備註: 
+                        <input type = "text"  name = "remark"  style = "width : 80%"> 
+	                        </label>
+                        </label>
                     </div>
                    
+
+					<div class="checkedBtn" >
+                   	 		<FORM METHOD="post" ACTION="shopping_hotelServlet" >
+							     <button type="submit">確認</button>
+							     <input type="hidden" name="action"	value="confirm">
+						     </FORM>
+						     <FORM METHOD="post" ACTION="shopping_hotelServlet" >
+							     <button type="submit">取消</button>
+							     <input type="hidden" name="action"	value="cancel">
+						     </FORM>
+                    </div>
+
+
+
 
                 </div>
 
             </form>
-        </div>
-
-        <div class="inside_right_div">
-            
-                <div class="order-item" style="width: 100%;">
-                    <div class="order_item_price">
-                        <label class="price">價格:</label>
-                        <label class="right_label2">280000<label>元</label></label>  
-                    </div>
-                    <hr>
-                    <div class="order_item_price">
-                        <label class="commission">稅額(10%):</label>
-                        <label class="right_label2">28000<label>元</label></label>  
-                    </div>
-                    <hr>
-                    <div class="order_item_price">
-                        <label class="totalPrice">總價格:</label>
-                        <label class="right_label2">308000<label>元</label></label>  
-                    </div>
-                    <hr>
-                </div>
-
-                <span class="pay_button">
-                    
-                    <button type="submit" class="payment-button">前往付款頁面</button>
-                    <button type="submit" class="payment-button">取消本次交易</button>
-    
-                </span>
-           
-            
-        </div>
 
         <script>
             

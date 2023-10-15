@@ -9,8 +9,8 @@ import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+import com.tha103.gogoyu.room_ord.model.shoppingCart_hotel;
 
-import com.emp.model.*;
 //@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1* 1024 * 1024, maxRequestSize = 10* 1024 * 1024)
 @WebServlet("/shopping_hotelServlet")
 public class shopping_hotelServlet extends HttpServlet {
@@ -22,9 +22,11 @@ public class shopping_hotelServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");  //接收請求參數的編碼設定
+		HttpSession session = req.getSession();
+		Vector<shoppingCart_hotel> shoppingList=(Vector<shoppingCart_hotel>)session.getAttribute("shoppingCart");
 		String Payment = req.getParameter("actionForPay"); //接收請求參數name=payment的queryString
 
-		if ("pay".equals(Payment)) { // 來自shopping.jsp的"前往付款"請求
+		if ("pay".equals(Payment)) { // 來自testForFake,jsp的"加入購物車"請求
 
 //			List<String> errorMsgs = new LinkedList<String>(); //將所有錯誤訊息包成一個list，前端就可以接收錯誤訊息加以渲染
 //			req.setAttribute("errorMsgs", errorMsgs);
@@ -398,24 +400,24 @@ public class shopping_hotelServlet extends HttpServlet {
 //			===================================移除訂單========================================
 //			===================================移除訂單========================================	
 //			===================================移除訂單========================================
-			String Remove = req.getParameter("actionForRemove");
-			if ("remove".equals(Remove)) { // 來自shopping.jsp的"移除訂單"請求
-
-				List<String> errorMsgs = new LinkedList<String>();//將所有錯誤訊息包成一個list，前端就可以接收錯誤訊息加以渲染
-				req.setAttribute("errorMsgs", errorMsgs);
-//	
-//				/***************************1.接收請求參數***************************************/
-				Integer SceneId = Integer.valueOf(req.getParameter("sceneId"));
-//				
-//				/***************************2.開始刪除資料***************************************/
-				SceneService SceneSvc = new SceneService();
-				SceneSvc.deleteScene(SceneId);
-
-//				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/emp/listAllEmp.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
-				successView.forward(req, res);
-			}
+//			String Remove = req.getParameter("actionForRemove");
+//			if ("remove".equals(Remove)) { // 來自shopping.jsp的"移除訂單"請求
+//
+//				List<String> errorMsgs = new LinkedList<String>();//將所有錯誤訊息包成一個list，前端就可以接收錯誤訊息加以渲染
+//				req.setAttribute("errorMsgs", errorMsgs);
+////	
+////				/***************************1.接收請求參數***************************************/
+//				Integer SceneId = Integer.valueOf(req.getParameter("sceneId"));
+////				
+////				/***************************2.開始刪除資料***************************************/
+//				SceneService SceneSvc = new SceneService();
+//				SceneSvc.deleteScene(SceneId);
+//
+////				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
+//				String url = "/emp/listAllEmp.jsp";
+//				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+//				successView.forward(req, res);
+//			}
 			
 			
 //			===================================移除訂單========================================

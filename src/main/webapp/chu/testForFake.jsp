@@ -14,10 +14,11 @@ response.setDateHeader("Expires", 0);
 %>
 
 
-<%-- <% --%>
-<%-- <%Vector<BOOK> buylist = (Vector<BOOK>) session.getAttribute("shoppingcart");%> --%>
-<%-- <%if (buylist != null && (buylist.size() > 0)) {%> --%>
-<!-- %> -->
+<%
+Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
+    List<Room_ord> list = ROSH.getAll();
+    pageContext.setAttribute("Room_ordList",list);
+%>
 
 
 <!DOCTYPE html>
@@ -153,7 +154,7 @@ response.setDateHeader("Expires", 0);
 		
 			<div class="tab plan1 -on" id="tab_plan1">
 
-<%-- 	<c:forEach var="Room_ord" items="${Room_ordList}"> --%>
+	  <form  method = "post"  action="shopping_hotelServlet">
 				<!-- ==============裡面的list=============== -->
 				<!-- <div class="no-items n1">暫無商品</div> -->
 
@@ -162,15 +163,18 @@ response.setDateHeader("Expires", 0);
 					<div class="plan_tab_1_left">
 
 						<img src="4621.png"> 
-<!-- 試試看用room_ord  找到fk通往有照片的pk -->
+						
+						
 					</div>
 					<div class="plan_tab_1_right">
 						<div class="right_side_first_row">
 							<div class="title_set">
-								<span class="mark_for_type_hotel">飯</span> <i
-									id="named_of_title">垃圾飯店</i> </i>
+								<span class="mark_for_type_hotel">飯</span> 
+								<i id="named_of_title">統神大戲院123</i> 
+									<input type = "hidden"  name ="compName" value ="統神大戲院123">
 								<div>
 									規劃ID: <i style="color: darkorange;">1232142141</i>
+									<input type = "hidden"  name ="planId" value ="1232142141">
 								</div>
 							</div>
 
@@ -181,36 +185,41 @@ response.setDateHeader("Expires", 0);
 								</div>
 								<div class="count_star">
 									<a href="#"> <i class="fa-solid fa-star">8.7</i>
+									<input type = "hidden"  name ="score" value ="8.7">
 									</a>
 								</div>
 							</div>
 						</div>
 						<span class="book_price">價格(未含稅)</span> <i class="howmuch_nt">TWD</i>
 						<div class="price_set">
-							<i class="howmuch">8000</i>
+							<i class="howmuch">87777</i>
+							<input type = "hidden"  name ="price" value ="87777">
 						</div>
 						<div class="pay_btn">
                             <button class="b list">查看行程細況</button>
                             <button class="b infos">訂單資訊</button> 
 						<div class="pay_or_remove">
-							<form action="/shopping_hotelServlet" method="post">
+							<form action="shopping_hotelServlet" method="post">
 								<input type="hidden" name="actionForPay" value="pay">
-								<button class="b pay" type="submit">前往付款</button>
+									<select size="1" name="amount">
+								         <c:forEach var="Scene" items="豪小五人行" > 
+								          		<option value="豪小五人行">豪華五人床
+								         </c:forEach>   
+							       </select>
+								<a  href="#" class="b pay" >加入購物車</a>
 							</form>
-							<form action="/shopping_hotelServlet" method="post">
-								<input type="hidden" name="action" value="remove">
-								<input type="hidden" name="planId"  >
+							<form action="shopping_hotelServlet" method="post">
+								<input type="hidden" name="actionForRemove" value="remove">
 								<button class="b remove" type="submit">移除訂單</button>
 							</form>
 						</div>
 					</div>
 				</div>
-						
+							
 					
 			</div>
-			
-<%-- 			</c:forEach> --%>
-
+			</form>
+		
 			<!--    =============================foreachForList======================================              -->
 
 
@@ -218,7 +227,7 @@ response.setDateHeader("Expires", 0);
 
 
 
-		</div>
+
 			<div class="tab plan2">
 				<div class="no-items">暫無商品</div>
 
