@@ -103,6 +103,22 @@ function change_pic(pics) {
         pic_file.files = pics;
     }
 }
+function change_pics(pics) {
+	 $(".multi-photo").html("");
+    if (pics.length != 0) {
+        for (var i = 0; i < pics.length; i++) {
+            if (pics[i].type.split('/')[0] == "image") {
+                let reader = new FileReader();
+                reader.readAsDataURL(pics[i]);
+                $(reader).on('load', function () {
+                    var img = `<img class="imgs" src="${reader.result}" alt="" style="width: 23%;height:fit-content">`;
+                    $(".multi-photo").append(img);
+                })
+            }
+        };
+        pic_file.files = pics;
+    }
+}
 $(document).ready(function () {
     msg_btn.addEventListener("click", say);
     info_btn.addEventListener("click", info);
@@ -114,7 +130,7 @@ $(document).ready(function () {
     })
     drop_place.addEventListener("drop", function (e) {
         e.preventDefault();
-        $(".drag").html("");
+//        $(".drag").html("");
         var pics = e.dataTransfer.files;
         change_pic(pics);
     })
@@ -141,6 +157,10 @@ $(document).ready(function () {
     $("#pic_file").on('change', function (e) {
         var pics = e.target.files;
         change_pic(pics);
+    })
+    $("#pic_files").on('change', function (e) {
+        var pics = e.target.files;
+        change_pics(pics);
     })
     $("#money").on('keyup', function (e) {
         console.log(e.which);

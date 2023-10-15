@@ -291,13 +291,19 @@ input {
 	min-height: 10vw;
 	max-height: fit-content;
 }
-
-.drag>img.imgs {
+.multi-photo{
+	position: relative;
+	/* border: 1px dashed gray; */
+	width: 100%;
+	min-height: 10vw;
+	max-height: fit-content;
+}
+.multi-photo>img.imgs {
 	cursor: pointer;
 	margin-right: 2.6%;
 }
 
-.drag>img.imgs:nth-child(4n) {
+.multi-photo>img.imgs:nth-child(4n) {
 	margin-right: 0px;
 }
 

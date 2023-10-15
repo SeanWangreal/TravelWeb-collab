@@ -304,17 +304,16 @@ button.left_btn:hover {
 					<c:if test="${room.mainPhoto == null}">
 						<input type="hidden" name="action" value="addRoom">
 						<input type="hidden" name="id" value="${room.roomId}">
-						<h2>上傳飯店照片</h2>
-						<p>上傳1張代表貴飯店的照片，將顯示在搜尋頁面</p>
+						<h2>上傳房型照片</h2>
+						<p>上傳1張代表貴房型的照片，將顯示在搜尋頁面</p>
 						<input type="file" class="in" id="pic_file" name="mainPhoto"
 							accept="image/*">
 						<div class="drag"></div>
-
 					</c:if>
 					<c:if test="${room.mainPhoto != null}">
 						<input type="hidden" name="action" value="updateRoom">
 						<input type="hidden" name="id" value="${room.roomId}">
-						<h2>上傳飯店照片</h2>
+						<h2>上傳房型照片</h2>
 						<p>替換照片</p>
 						<input type="file" class="in" id="pic_file" name="mainPhoto"
 							accept="image/*">
@@ -324,6 +323,18 @@ button.left_btn:hover {
 								style="max-width: 100%">
 						</div>
 					</c:if>
+<%-- 					<c:if test=""> --%>
+						<h2>上傳房型細節照片</h2>
+						<p>上傳3張房型細節照片</p>
+						<input type="file" class="in" id="pic_files" name="photos"
+							accept="image/*" multiple>
+						<button type="button" id="cleanPics">清除全部照片</button>
+							<div class="multi-photo">
+							<img
+								src=""
+								style="max-width: 100%">
+						</div>
+<%-- 					</c:if> --%>
 					<div class="btns">
 						<a href="${pageContext.request.contextPath}/sean/hotel_room_all.jsp"
 							type="button" class="other-btn">取消</a>
