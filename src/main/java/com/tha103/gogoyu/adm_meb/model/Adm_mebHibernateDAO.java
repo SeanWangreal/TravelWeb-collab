@@ -86,17 +86,17 @@ public class Adm_mebHibernateDAO implements Adm_mebDAO_interface {
 		return null;
 	}
 
-	public static void main(String[] args) {
-			Adm_mebHibernateDAO dao = new Adm_mebHibernateDAO();
+//	public static void main(String[] args) {
+//			Adm_mebHibernateDAO dao = new Adm_mebHibernateDAO();
 		
-//		新增
+		//新增
 //		Adm_meb admMeb = new Adm_meb();
 //		admMeb.setAdmName("1");
 //		admMeb.setAdmAccount("1");
 //		admMeb.setAdmPassword("1");
 //		dao.add(admMeb);
 		
-//		修改
+		//修改
 //		Adm_meb admMeb = new Adm_meb();
 //		admMeb.setAdmName("2");
 //		admMeb.setAdmAccount("2");
@@ -104,7 +104,7 @@ public class Adm_mebHibernateDAO implements Adm_mebDAO_interface {
 //		admMeb.setAdmId(6);
 //		dao.update(admMeb);
 			
-//		刪除
+		//刪除
 //		dao.delete(6);
 		
 		// 查詢
@@ -115,15 +115,14 @@ public class Adm_mebHibernateDAO implements Adm_mebDAO_interface {
 //			System.out.print(admMeb.getAdmPassword() + ",");
 //			System.out.println("---------------------");
 		
-			
-		List<Adm_meb> list = dao.getAll();
-		for (Adm_meb admMeb : list) {
-			System.out.print(admMeb.getAdmId() + ",");
-			System.out.print(admMeb.getAdmName() + ",");
-			System.out.print(admMeb.getAdmAccount() + ",");
-			System.out.print(admMeb.getAdmPassword() + ",");
-		}
-		
-
-	}
+		// getAll
+//		List<Adm_meb> list = dao.getAll();
+//		for (Adm_meb admMeb : list) {
+//			System.out.print(admMeb.getAdmId() + ",");
+//			System.out.print(admMeb.getAdmName() + ",");
+//			System.out.print(admMeb.getAdmAccount() + ",");
+//			System.out.print(admMeb.getAdmPassword() + ",");
+//		}
+//	}
+	
 }

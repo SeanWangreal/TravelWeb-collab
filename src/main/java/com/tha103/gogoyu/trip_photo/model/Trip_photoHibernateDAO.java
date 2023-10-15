@@ -2,14 +2,38 @@ package com.tha103.gogoyu.trip_photo.model;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Session;
 import util.HibernateUtil;
+import util.Util;
 
 
 public class Trip_photoHibernateDAO implements Trip_photoDAO_interface {
+	
+	@Override
+	public byte[] getPic(Integer trip_photo_id) throws Exception {
+		Connection con = null ;
+		PreparedStatement pstmt = null ;
+		ResultSet rs = null ;
+		byte[] picc = null;
+		
+			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			pstmt = con.prepareStatement(Util.getBinary);
+			pstmt.setInt(1, trip_photo_id);
+			rs = pstmt.executeQuery(); 
+			
+		while (rs.next()) { 
+			picc = rs.getBytes("photo");
+		}
+			
+		return picc;
+	} 
 
 	@Override
 	public int add(Trip_photo trip_photo) {

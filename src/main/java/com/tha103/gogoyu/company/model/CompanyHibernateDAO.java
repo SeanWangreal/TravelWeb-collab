@@ -3,12 +3,20 @@ package com.tha103.gogoyu.company.model;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import com.tha103.gogoyu.itinerary.model.Itinerary;
 
 import util.HibernateUtil;
 
 public class CompanyHibernateDAO implements CompanyDAO_interface {
+	
+	private SessionFactory factory;
+
+	public CompanyHibernateDAO(SessionFactory factory) {
+		this.factory = factory;
+	}
+	
 	@Override
 	public int add(Company Company) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();

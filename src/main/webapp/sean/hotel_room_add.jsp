@@ -4,6 +4,11 @@
 <%@ page import="java.util.*"%>
 <%@ page import="java.math.*"%>
 <%@ page import="com.tha103.gogoyu.room.model.*"%>
+<%
+response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
+response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+response.setDateHeader("Expires", 0);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -161,7 +166,8 @@ button.left_btn:hover {
 		<div id="shell"></div>
 		<aside class="left">
 			<div class="mem-data">
-				<a href="" class="left_btn"> <i class="fa-solid fa-hotel"
+				<a href="${pageContext.request.contextPath}/sean/hotel_room_all.jsp"
+					class="left_btn" style="color: #FCC416"> <i class="fa-solid fa-hotel"
 					style="color: #000000;"></i> 我的房間
 				</a>
 			</div>
@@ -175,14 +181,10 @@ button.left_btn:hover {
 	<div class="all">
 		<main class="main-content">
 			<div class="main-content-info">
-				<%
-				Room room = (Room) request.getAttribute("room");
-				%>
-				<%!final BigDecimal commissionPercent = new BigDecimal("5");%>
-				<%!BigDecimal profit = new BigDecimal("0");%>
-				<%
-				String profitS = "0";
-				%>
+				<%Room room = (Room) request.getAttribute("room");%>
+				<%! final BigDecimal commissionPercent = new BigDecimal("5");%>
+				<%! BigDecimal profit = new BigDecimal("0");%>
+				<%String profitS = "0";%>
 				<%
 				if (room != null) {
 					MathContext mx = new MathContext(34, RoundingMode.HALF_UP);
@@ -302,28 +304,36 @@ button.left_btn:hover {
 					<c:if test="${room.mainPhoto == null}">
 						<input type="hidden" name="action" value="addRoom">
 						<input type="hidden" name="id" value="${room.roomId}">
-						<h2>上傳飯店照片</h2>
-						<p>上傳1張代表貴飯店的照片，將顯示在搜尋頁面</p>
+						<h2>上傳房型照片</h2>
+						<p>上傳1張代表貴房型的照片，將顯示在搜尋頁面</p>
 						<input type="file" class="in" id="pic_file" name="mainPhoto"
 							accept="image/*">
 						<div class="drag"></div>
-
 					</c:if>
 					<c:if test="${room.mainPhoto != null}">
 						<input type="hidden" name="action" value="updateRoom">
 						<input type="hidden" name="id" value="${room.roomId}">
-						<h2>上傳飯店照片</h2>
+						<h2>上傳房型照片</h2>
 						<p>替換照片</p>
 						<input type="file" class="in" id="pic_file" name="mainPhoto"
 							accept="image/*">
 						<div class="drag">
 							<img
-								src="${request.contextPath}/gogoyu/sean/RoomPhotoServlet?room_id=${room.roomId}"
+								src="MainPhotoPrintHServlet?room_id=${room.roomId}"
 								style="max-width: 100%">
 						</div>
 					</c:if>
+<%-- 					<c:if test=""> --%>
+						<h2>上傳房型細節照片</h2>
+						<p>上傳3張房型細節照片</p>
+						<input type="file" class="in" id="pic_files" name="photos"
+							accept="image/*" multiple>
+						<button type="button" id="cleanPics">清除全部照片</button>
+							<div class="multi-photo">
+						</div>
+<%-- 					</c:if> --%>
 					<div class="btns">
-						<a href="${pageContext.request.contextPath}/sean/select_page.jsp"
+						<a href="${pageContext.request.contextPath}/sean/hotel_room_all.jsp"
 							type="button" class="other-btn">取消</a>
 						<button type="button" id="add" class="other-btn">新增</button>
 					</div>
