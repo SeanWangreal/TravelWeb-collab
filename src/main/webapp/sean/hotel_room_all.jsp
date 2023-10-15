@@ -166,6 +166,7 @@ input {
 	border-radius: 50%;
 	text-align:center;
 }
+
 </style>
 </head>
 
@@ -247,6 +248,7 @@ input {
 								<span class="room-status${room.roomStatus==1?'-on':'-off'}">
 									${room.roomStatus==1?'上架中':'下架中'}</span> <span class="room-name">${room.roomName}</span>
 								<div class="do">
+									<button class="pictures">圖庫</button>
 									<button class="detail">詳細資訊</button>
 									<form
 										action="${pageContext.request.contextPath}/sean/RoomServlet"
