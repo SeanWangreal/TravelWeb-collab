@@ -1,6 +1,5 @@
 package com.tha103.gogoyu.room.model;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 import util.Util;
 
 public class RoomJDBCDAO implements RoomDAO_interface {
@@ -326,5 +327,11 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 	public int deleteAllPhoto(Integer roomId) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public Set getAllPhoto(Integer roomId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -1,6 +1,7 @@
 package com.tha103.gogoyu.room.model;
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -145,9 +146,25 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		}
 		return -1;
 	}
+	public Set<Room_photo> getAllPhoto(Integer roomId) {
+		try {
+			getSession().beginTransaction();
+			Room room = getSession().get(Room.class, roomId);
+			Set<Room_photo> set = room.getRoomPhoto();
+			for (Room_photo rp: set) {
+				getSession().get(Room_photo.class, rp.getRoomPhotoId());
+			}
+			getSession().getTransaction().commit();
+			return set;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
 	public static void main(String[] args) {
 		RoomHibernateDAO dao = new RoomHibernateDAO(HibernateUtil.getSessionFactory());
-		dao.findByPK(6);
+		System.out.println(dao.getAllPhoto(8));
 	}
 
 

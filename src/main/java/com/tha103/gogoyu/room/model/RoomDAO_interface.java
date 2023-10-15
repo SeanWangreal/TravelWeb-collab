@@ -1,6 +1,9 @@
 package com.tha103.gogoyu.room.model;
 
-import java.util.*;
+import java.util.List;
+import java.util.Set;
+
+import com.tha103.gogoyu.room_photo.model.Room_photo;
 
 
 public interface RoomDAO_interface {
@@ -12,5 +15,6 @@ public interface RoomDAO_interface {
 	List<Room> getAll();
 	byte[] getMainPhoto(Integer roomId);
 	int deleteAllPhoto(Integer roomId);
+	Set<Room_photo> getAllPhoto(Integer roomId);
 
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,6 +24,7 @@ import com.tha103.gogoyu.room.model.RoomService;
 import com.tha103.gogoyu.room.model.RoomServiceHibernate;
 import com.tha103.gogoyu.room_photo.model.RoomPhotoService;
 import com.tha103.gogoyu.room_photo.model.RoomPhotoServiceHibernate;
+import com.tha103.gogoyu.room_photo.model.Room_photo;
 
 @WebServlet("/sean/RoomServlet")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
@@ -46,7 +48,6 @@ public class RoomServlet extends HttpServlet {
 		String compId = req.getParameter("compId");
 		HttpSession session = req.getSession();
 		System.out.println((String)session.getAttribute("compId"));
-		String id = req.getParameter("id");
 		String forwardPath = "";
 		String action = req.getParameter("action");
 		if (action == null) {
@@ -87,15 +88,16 @@ public class RoomServlet extends HttpServlet {
 			break;
 		case "getAllRoom":
 			session.setAttribute("compId", compId);
-			List<Room> RoomList = roomSrc.getRoomByCompId(Integer.parseInt(compId));
-			req.setAttribute("roomList", RoomList);
+			List<Room> roomList = roomSrc.getRoomByCompId(Integer.parseInt(compId));
+			req.setAttribute("roomList", roomList);
 			forwardPath = "/sean/hotel_room_all.jsp";
 			break;
 		case "change":
-			room = roomSrc.getOneRoom(Integer.parseInt(id));
-			System.out.println(req.getAttribute("backHere"));
+			room = roomSrc.getOneRoom(Integer.parseInt(roomId));
+			Set<Room_photo> roomPhoto = roomSrc.getAllPhoto(Integer.parseInt(roomId));
 			if (room != null) {
 				req.setAttribute("room", room);
+				req.setAttribute("roomPhoto", roomPhoto);
 				forwardPath = "/sean/hotel_room_add.jsp";
 			}
 			break;
@@ -118,8 +120,8 @@ public class RoomServlet extends HttpServlet {
 			}
 			Integer roomid = null;
 			compId = (String) session.getAttribute("compId");
-			if ((id != null) && (!id.trim().isBlank())) {
-				roomid = Integer.parseInt(id);
+			if ((roomId != null) && (!roomId.trim().isBlank())) {
+				roomid = Integer.parseInt(roomId);
 				Room room1 = roomSrc.getOneRoom(roomid);
 				room = roomSrc.updateRoom(roomid, Integer.parseInt(compId), roomType, roomName, beds, price, intro,
 						room1.getRoomStatus(), (byte) detail[0], (byte) detail[1], (byte) detail[2], (byte) detail[3],
@@ -173,13 +175,8 @@ public class RoomServlet extends HttpServlet {
 						(byte) detail[4], (byte) detail[5], (byte) detail[6], (byte) detail[7], (byte) detail[8],
 						(byte) detail[9], (byte) detail[10], allPhotoUpdate.get(0));
 			}
-//			System.out.println("---------------------------------");
-//			System.out.println(allPhotoUpdate);
-//			System.out.println("---------------------------------");
 			if (allPhotoUpdate.get(1) != null) {
-				System.out.println("++++++++++");
 				roomSrc.deleteAllPhoto(roomid);
-				System.out.println("++++++++++");
 				for (int i = 1; i < allPhotoUpdate.size();i++) {
 					roomPhotoSrc.addRoomPhoto(roomid, allPhotoUpdate.get(i));
 				}				
@@ -188,22 +185,22 @@ public class RoomServlet extends HttpServlet {
 			break;
 		case "delete1":
 			compId = (String) session.getAttribute("compId");
-			RoomList = roomSrc.getRoomByCompId(Integer.parseInt(compId));
-			req.setAttribute("roomList", RoomList);
-			id = req.getParameter("id");
-			if ((id != null) && (!id.trim().isBlank())) {
-				roomid = Integer.parseInt(id);
+			roomList = roomSrc.getRoomByCompId(Integer.parseInt(compId));
+			req.setAttribute("roomList", roomList);
+			roomId = req.getParameter("roomId");
+			if ((roomId != null) && (!roomId.trim().isBlank())) {
+				roomid = Integer.parseInt(roomId);
 				roomSrc.updateStatus(roomid, -1);
 				forwardPath = "/sean/hotel_room.jsp";
 			}
 			break;
 		case "delete2":
 			compId = (String) session.getAttribute("compId");
-			RoomList = roomSrc.getRoomByCompId(Integer.parseInt(compId));
-			req.setAttribute("roomList", RoomList);
-			id = req.getParameter("id");
-			if ((id != null) && (!id.trim().isBlank())) {
-				roomid = Integer.parseInt(id);
+			roomList = roomSrc.getRoomByCompId(Integer.parseInt(compId));
+			req.setAttribute("roomList", roomList);
+			roomId = req.getParameter("roomId");
+			if ((roomId != null) && (!roomId.trim().isBlank())) {
+				roomid = Integer.parseInt(roomId);
 				roomSrc.updateStatus(roomid, -1);
 				res.sendRedirect(req.getContextPath() + "/sean/hotel_room_all.jsp");
 				return;
@@ -211,21 +208,21 @@ public class RoomServlet extends HttpServlet {
 			break;
 		case "launch":
 			compId = (String) session.getAttribute("compId");
-			if ((id != null) && (!id.trim().isBlank())) {
-				roomid = Integer.parseInt(id);
+			if ((roomId != null) && (!roomId.trim().isBlank())) {
+				roomid = Integer.parseInt(roomId);
 				roomSrc.updateStatus(roomid, 1);
-				RoomList = roomSrc.getRoomByCompId(Integer.parseInt(compId));
-				req.setAttribute("roomList", RoomList);
+				roomList = roomSrc.getRoomByCompId(Integer.parseInt(compId));
+				req.setAttribute("roomList", roomList);
 				forwardPath = "/sean/hotel_room_all.jsp";
 			}
 			break;
 		case "recall":
 			compId = (String) session.getAttribute("compId");
-			if ((id != null) && (!id.trim().isBlank())) {
-				roomid = Integer.parseInt(id);
+			if ((roomId != null) && (!roomId.trim().isBlank())) {
+				roomid = Integer.parseInt(roomId);
 				roomSrc.updateStatus(roomid, 0);
-				RoomList = roomSrc.getRoomByCompId(Integer.parseInt(compId));
-				req.setAttribute("roomList", RoomList);
+				roomList = roomSrc.getRoomByCompId(Integer.parseInt(compId));
+				req.setAttribute("roomList", roomList);
 				forwardPath = "/sean/hotel_room_all.jsp";
 			}
 			break;

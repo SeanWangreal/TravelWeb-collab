@@ -2,6 +2,9 @@ package com.tha103.gogoyu.room.model;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
+
+import com.tha103.gogoyu.room_photo.model.Room_photo;
 
 public class RoomServiceJDBC implements RoomService{
 
@@ -103,6 +106,12 @@ public class RoomServiceJDBC implements RoomService{
 	public int deleteAllPhoto(Integer roomId) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public Set<Room_photo> getAllPhoto(Integer roomId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

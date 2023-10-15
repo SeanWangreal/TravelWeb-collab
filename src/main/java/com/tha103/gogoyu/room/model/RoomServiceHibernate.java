@@ -2,6 +2,9 @@ package com.tha103.gogoyu.room.model;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
+
+import com.tha103.gogoyu.room_photo.model.Room_photo;
 
 import util.HibernateUtil;
 
@@ -104,9 +107,15 @@ public class RoomServiceHibernate implements RoomService{
 		return dao.deleteAllPhoto(roomId);
 	}
 	
+	@Override
+	public Set<Room_photo> getAllPhoto(Integer roomId) {
+		return dao.getAllPhoto(roomId);
+	}
 	public static void main(String[] args) {
 		RoomServiceHibernate hi = new RoomServiceHibernate();
 		System.out.println(hi.getAll());
 	}
+
+
 
 }

@@ -4,6 +4,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="java.math.*"%>
 <%@ page import="com.tha103.gogoyu.room.model.*"%>
+<%@ page import="com.tha103.gogoyu.room_photo.model.*"%>
 <%
 response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
 response.setHeader("Pragma", "no-cache"); //HTTP 1.0
@@ -183,6 +184,7 @@ button.left_btn:hover {
 			<div class="main-content-info">
 				<%
 				Room room = (Room) request.getAttribute("room");
+				Set roomPhoto = (Set) request.getAttribute("roomPhoto");
 				%>
 				<%!final BigDecimal commissionPercent = new BigDecimal("5");%>
 				<%!BigDecimal profit = new BigDecimal("0");%>
@@ -326,25 +328,26 @@ button.left_btn:hover {
 								style="max-width: 100%">
 						</div>
 					</c:if>
-					<c:if test="${room.roomPhoto == null}">
+					<c:if test="${roomPhoto != null}">
+						<h2>上傳房型細節照片</h2>
+						<p>更換房型細節照片</p>
+						<input type="file" class="in" id="pic_files" name="photos"
+							accept="image/*" multiple>
+						<div class="multi-photo">
+							<c:forEach var="pic" items="${roomPhoto}">
+								<img class="imgs" src="RoomPhotoPrintHServlet?room_photo_id=${pic.roomPhotoId}"
+									style="width: 23%">
+							</c:forEach>
+						</div>
+					</c:if>
+					<c:if test="${roomPhoto == null}">
 						<h2>上傳房型細節照片</h2>
 						<p>上傳3張房型細節照片</p>
 						<input type="file" class="in" id="pic_files" name="photos"
 							accept="image/*" multiple>
 						<div class="multi-photo"></div>
 					</c:if>
-					<c:if test="${room.roomPhoto != null}">
-						<h2>上傳房型細節照片</h2>
-						<p>更換房型細節照片</p>
-						<input type="file" class="in" id="pic_files" name="photos"
-							accept="image/*" multiple>
-						<div class="multi-photo">
-							<c:forEach var="pic" items="<%= room.getRoomPhoto()%>">
-								<img src="RoomPhotoPrintHServlet?room_photo_id=${pic.roomPhotoId}"
-									style="max-width: 23%">
-							</c:forEach>
-						</div>
-					</c:if>
+					
 					<div class="btns">
 						<a
 							href="${pageContext.request.contextPath}/sean/hotel_room_all.jsp"

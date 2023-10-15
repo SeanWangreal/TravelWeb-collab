@@ -253,7 +253,7 @@ input {
 										action="${pageContext.request.contextPath}/sean/RoomServlet"
 										method="post" style="display: inline-block">
 										<input type="hidden" name="action" value="change"> <input
-											type="hidden" name="id" value="${room.roomId}">
+											type="hidden" name="roomId" value="${room.roomId}">
 										<button type="submit" class="go" style="display: none"></button>
 										<button type="button" class="change">修改</button>
 									</form>
