@@ -6,9 +6,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
@@ -91,17 +91,18 @@ public class RoomServlet extends HttpServlet {
 		case "getAllRoom":
 			session.setAttribute("compId", compId);
 			List<Room> roomList = roomSrc.getRoomByCompId(Integer.parseInt(compId));
-			Map<Room, Set<Room_photo>> map = new HashMap<Room, Set<Room_photo>>();
+			LinkedHashMap<Room, Set<Room_photo>> map = new LinkedHashMap<Room, Set<Room_photo>>();
+			Set<Room_photo> roomPhoto = null;
 			for (Room li : roomList) {
-				Set<Room_photo> roomPhoto = roomSrc.getAllPhoto(li.getRoomId());
+				roomPhoto = roomSrc.getAllPhoto(li.getRoomId());
 				map.put(li, roomPhoto);
 			}
-			req.setAttribute("roomList", roomList);
+			req.setAttribute("map", map);
 			forwardPath = "/sean/hotel_room_all.jsp";
 			break;
 		case "change":
 			room = roomSrc.getOneRoom(Integer.parseInt(roomId));
-			Set<Room_photo> roomPhoto = roomSrc.getAllPhoto(Integer.parseInt(roomId));
+			roomPhoto = roomSrc.getAllPhoto(Integer.parseInt(roomId));
 			if (room != null) {
 				req.setAttribute("room", room);
 				req.setAttribute("roomPhoto", roomPhoto);

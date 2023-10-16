@@ -17,9 +17,7 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 	public RoomHibernateDAO(SessionFactory factory) {
 		this.factory = factory;
 	}
-
-	// Session 為 not thread-safe，所以此方法在各個增刪改查方法裡呼叫
-	// 以避免請求執行緒共用了同個 Session
+	
 	private Session getSession() {
 		return factory.getCurrentSession();
 	}

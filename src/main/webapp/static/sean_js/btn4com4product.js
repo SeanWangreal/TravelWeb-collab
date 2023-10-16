@@ -70,8 +70,12 @@ function add(e) {
     }
     if ($("img").length === 0) {
         next_step = false;
-        alert("請上傳一張圖片");
+        alert("請上傳一張搜尋圖片");
     }
+    if ($(".imgs").length < 3){
+		next_step = false;
+        alert("請上傳至少三張詳細圖片");
+	}
     if (next_step) {
         bg_alert.classList.add("on");
         al.classList.add("on");

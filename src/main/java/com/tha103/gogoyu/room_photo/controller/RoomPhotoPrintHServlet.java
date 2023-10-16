@@ -32,7 +32,6 @@ public class RoomPhotoPrintHServlet extends HttpServlet {
 		String roomPhotoId = req.getParameter("room_photo_id");
 		if (roomPhotoId != null) {
 			photo = roomPhotoSrc.getRoomPhoto(Integer.valueOf(roomPhotoId));
-			System.out.println(photo);
 		}
 		out.write(photo);
 

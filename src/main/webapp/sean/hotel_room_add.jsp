@@ -226,11 +226,13 @@ button.left_btn:hover {
 								id="bed-num" type="number" style="width: 70px;"
 								required="required" value="${room.beds}" min="1">
 						</div>
-						<div style="flex-basis: 15%;">
-							<label for="default-num">預設每日房數</label> <br> <input
-								name="default-num" id="defaultNum" type="text"
-								style="width: 130px;" required="required" value="5" min="1">
-						</div>
+						<c:if test="${room == null}">
+							<div style="flex-basis: 15%;">
+								<label for="default-num">預設每日房數</label> <br> <input
+									name="default-num" id="defaultNum" type="text"
+									style="width: 130px;" required="required" value="5" min="1">
+							</div>
+						</c:if>
 					</div>
 					<hr>
 					<div>
@@ -309,11 +311,8 @@ button.left_btn:hover {
 					<hr>
 					<c:if test="${room.mainPhoto == null}">
 						<input type="hidden" name="action" value="addRoom">
-<<<<<<< HEAD
 						<input type="hidden" name="roomId" value="${room.roomId}">
-=======
 						<input type="hidden" name="id" value="${room.roomId}">
->>>>>>> refs/heads/master
 						<h2>上傳房型照片</h2>
 						<p>上傳1張代表貴房型的照片，將顯示在搜尋頁面</p>
 						<input type="file" class="in" id="pic_file" name="mainPhoto"
@@ -322,11 +321,8 @@ button.left_btn:hover {
 					</c:if>
 					<c:if test="${room.mainPhoto != null}">
 						<input type="hidden" name="action" value="updateRoom">
-<<<<<<< HEAD
 						<input type="hidden" name="roomId" value="${room.roomId}">
-=======
 						<input type="hidden" name="id" value="${room.roomId}">
->>>>>>> refs/heads/master
 						<h2>上傳房型照片</h2>
 						<p>替換照片</p>
 						<input type="file" class="in" id="pic_file" name="mainPhoto"
@@ -336,7 +332,6 @@ button.left_btn:hover {
 								style="max-width: 100%">
 						</div>
 					</c:if>
-<<<<<<< HEAD
 					<c:if test="${roomPhoto != null}">
 						<h2>上傳房型細節照片</h2>
 						<p>更換房型細節照片</p>
@@ -344,7 +339,8 @@ button.left_btn:hover {
 							accept="image/*" multiple>
 						<div class="multi-photo">
 							<c:forEach var="pic" items="${roomPhoto}">
-								<img class="imgs" src="RoomPhotoPrintHServlet?room_photo_id=${pic.roomPhotoId}"
+								<img class="imgs"
+									src="RoomPhotoPrintHServlet?room_photo_id=${pic.roomPhotoId}"
 									style="width: 23%">
 							</c:forEach>
 						</div>
@@ -356,18 +352,6 @@ button.left_btn:hover {
 							accept="image/*" multiple>
 						<div class="multi-photo"></div>
 					</c:if>
-					
-=======
-<%-- 					<c:if test=""> --%>
-						<h2>上傳房型細節照片</h2>
-						<p>上傳3張房型細節照片</p>
-						<input type="file" class="in" id="pic_files" name="photos"
-							accept="image/*" multiple>
-						<button type="button" id="cleanPics">清除全部照片</button>
-							<div class="multi-photo">
-						</div>
-<%-- 					</c:if> --%>
->>>>>>> refs/heads/master
 					<div class="btns">
 						<a
 							href="${pageContext.request.contextPath}/sean/hotel_room_all.jsp"

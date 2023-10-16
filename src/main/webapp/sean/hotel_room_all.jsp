@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.tha103.gogoyu.room.model.*"%>
+<%@ page import="com.tha103.gogoyu.room_photo.model.*"%>
 <%
 response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
 response.setHeader("Pragma", "no-cache"); //HTTP 1.0
@@ -172,6 +173,21 @@ input {
 	text-align: center;
 	border: 2px white solid;
 }
+.multi-photo{
+	position: relative;
+	/* border: 1px dashed gray; */
+	width: 100%;
+	min-height: 10vw;
+	max-height: fit-content;
+	font-size: 0px;
+}
+.multi-photo>img.imgs {
+	margin-right: 2.6%;
+}
+
+.multi-photo>img.imgs:nth-child(4n) {
+	margin-right: 0px;
+}
 
 </style>
 </head>
@@ -238,16 +254,24 @@ input {
 		<main class="main-content">
 			<div class="main-content-info">
 				<%
-				List<Room> roomList = (List<Room>) request.getAttribute("roomList");
-				if (roomList == null) {
-					RoomService rs = new RoomServiceHibernate();
+				LinkedHashMap<Room, Set<Room_photo>> map = (LinkedHashMap<Room, Set<Room_photo>>) request.getAttribute("map");
+				List<Room> roomList = null;
+				if (map == null){
+					map = new LinkedHashMap<Room, Set<Room_photo>>();
+					RoomService roomSrc = new RoomServiceHibernate();
 					Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId"));
-					roomList = rs.getRoomByCompId(compId);
+					roomList = roomSrc.getRoomByCompId(compId);
+					for (Room li : roomList) {
+						Set<Room_photo> roomPhoto = roomSrc.getAllPhoto(li.getRoomId());
+						map.put(li, roomPhoto);
+					}
+					request.setAttribute("map",map);
+					map = (LinkedHashMap<Room, Set<Room_photo>>) request.getAttribute("map");
 				}
 				// 				request.setAttribute("backHere",request.getRequestURL());
 				// 				System.out.print(request.getRequestURI());
 				%>
-				<c:forEach var="room" items="<%=roomList%>">
+				<c:forEach var="room" items="${map.keySet()}">
 					<c:if test="${room.roomStatus!=-1}">
 						<section class="one-room">
 							<div class="title">
@@ -397,6 +421,13 @@ input {
 											<div class="drag">
 												<img src="MainPhotoPrintHServlet?room_id=${room.roomId}"
 													style="max-width: 100%">
+											</div>
+											<h2>客房詳細照片</h2>
+											<div class="multi-photo">
+											<c:forEach var="pics" items="${map.get(room)}">
+												<img class="imgs" src="RoomPhotoPrintHServlet?room_photo_id=${pics.roomPhotoId}"
+													style="width: 23%">											
+											</c:forEach>
 											</div>
 										</c:if>
 									</div>
