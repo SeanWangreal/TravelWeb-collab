@@ -1,15 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.tha103.gogoyu.trip_photo.model.*"%>
+<%@ page import="com.tha103.gogoyu.room_collect.model.*"%>
 
 <%//見com.emp.controller.EmpServlet.java第238行存入req的empVO物件 (此為輸入格式有錯誤時的empVO物件)
-Trip_photo trip_photo = (Trip_photo) request.getAttribute("trip_photo");
+Room_collect room_collect = (Room_collect) request.getAttribute("room_collectVO");
 %>
 
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>員工資料新增 - addTripPhoto.jsp</title>
+<title>行程收藏資料新增 - addRoomCollect.jsp</title>
 
 <style>
   table#table-1 {
@@ -48,7 +48,7 @@ Trip_photo trip_photo = (Trip_photo) request.getAttribute("trip_photo");
 
 <table id="table-1">
 	<tr><td>
-		 <h3>員工資料新增 - addTripPhoto.jsp</h3></td><td>
+		 <h3>行程收藏資料新增 - addRoomCollect.jsp</h3></td><td>
 		 <h4><a href="select_page.jsp"><img src="images/tomcat.png" width="100" height="100" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
@@ -65,21 +65,17 @@ Trip_photo trip_photo = (Trip_photo) request.getAttribute("trip_photo");
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="trip_photo.do" enctype="multipart/form-data" >
+<FORM METHOD="post" ACTION="room_collect.do" name="form1">
 <table>
-	
-	
-
 	<tr>
-		<td>行程套票ID:</td>
-		<td><input type="TEXT" name="trip_id"   value="<%= (trip_photo==null)? "1" : trip_photo.getTripId()%>"/></td>
+		<td>會員ID:</td>
+		<td><input type="TEXT" name="cus_id" value="<%=(room_collect == null)? "0" : room_collect.getCusId()%>" size="45"/></td>
 	</tr>
 	<tr>
-		<td>照片:</td>
-		<td><input type="file" name="photo"/></td>
+		<td>行程ID:</td>
+		<td><input type="TEXT" name="room_id" value="<%=(room_collect == null)? "0" : room_collect.getRoomId()%>" size="45"/></td>
 	</tr>
-
-	<jsp:useBean id="tripPhotoSvc" scope="page" class="com.tha103.gogoyu.trip_photo.model.Trip_photoService" />
+	
 </table>
 <br>
 <input type="hidden" name="action" value="add">
