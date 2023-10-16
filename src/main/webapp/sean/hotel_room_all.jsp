@@ -172,6 +172,7 @@ input {
 	text-align: center;
 	border: 2px white solid;
 }
+
 </style>
 </head>
 

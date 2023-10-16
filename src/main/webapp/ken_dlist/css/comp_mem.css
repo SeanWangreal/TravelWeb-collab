@@ -1,0 +1,109 @@
+nav {
+    display: flex;
+}
+
+nav a.word {
+    -webkit-text-stroke: 1px black;
+    font-size: 30px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: white;
+    margin-right: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a.word:hover {
+    color: rgb(252, 217, 188);
+    text-decoration: none;
+}
+
+.head_btn {
+    border: none;
+}
+
+.head_btn:hover {
+    background-color: whitesmoke;
+}
+
+a.profile:hover {
+    background-color: transparent;
+}
+
+.msg {
+    position: absolute;
+    top: 60px;
+    right: 0px;
+    border: 1px solid black;
+    width: 20vw;
+    height: 90vh;
+    display: none;
+}
+
+.info {
+    position: absolute;
+    top: 60px;
+    right: 0px;
+    border: 1px solid black;
+    width: 20vw;
+    height: 30vh;
+    display: none;
+}
+
+.shop {
+    position: absolute;
+    top: 60px;
+    right: 0px;
+    border: 1px solid black;
+    width: 40vw;
+    height: 50vh;
+    display: none;
+}
+
+.on {
+    display: block;
+}
+
+.all_side {
+    background-color: white;
+    overflow: scroll;
+}
+
+div.head {
+    display: flex;
+    position: absolute;
+    right: 10px;
+}
+
+div.head>button {
+    margin-right: 5px;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    background-color: #ece7dd;
+}
+
+nav.st {
+    position: sticky;
+    top: 0px;
+    background-color: #ece7dd;
+    z-index: 3;
+    height: 55px;
+    padding-bottom: 10px;
+}
+
+:root {
+    --ifm-font-family-base: "粉圓";
+  }
+  @font-face {
+    font-family: '粉圓';
+    src: url('/static/font/jf-openhuninn-2.0.ttf');
+    font-display: swap;
+  }
