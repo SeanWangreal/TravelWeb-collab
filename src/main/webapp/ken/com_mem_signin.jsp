@@ -5,6 +5,9 @@
 <%@ page import="java.math.*"%>
 <%@ page import="com.tha103.gogoyu.company.model.*"%>
 
+<%
+Company company = (Company) request.getAttribute("Company"); //Servlet.java(Concroller), 存入req的Company物件
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,17 +21,7 @@
     <link href="./dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./dist/css/head_and_font.css">
     <style>
-        html {
-            background-color: inherit;
-        }
-
-       
-        .button-container {
-            display: flex;
-            justify-content: center;
-
-        }
-
+        
     </style>
 </head>
 
@@ -40,7 +33,7 @@
         <a class="word" id="journel" href="#">HOT<i class="fa-solid fa-fire"
                 style="color: #ff9500; background-color:transparent;"></i>Journel</a>
         <div class="head">
-            <button type="menu" class="head_btn" aria-label="è¦åè¡ç¨" id="shop">
+            <button type="menu" class="head_btn" aria-label="規劃行程" id="shop">
                 <i class="fa-solid fa-suitcase-rolling" style="color: black; font-size:30px;
                             background-color:transparent;"></i>
             </button>
@@ -76,43 +69,38 @@
             <br>shop<br>shop<br>shop<br>shop<br>shop<br>shop
         </aside>
     </nav>
-    <form action="">
+    <form action="loginhandler" method="post">
         <div class="container-fluid" style="background-color: #d9d2c5;">
-            <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
-                <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
-                    <div class>
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h3>è¨»åå¸³è</h3>
+            <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;" >
+                <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4" >
+                    <div class >
+                        <div class="d-flex align-items-center justify-content-between mb-3" >
+                            <h3>登入帳號</h3>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput">
-                            <label for="floatingInput">å¸³è</label>
+                            <input type="email" class="form-control" id="floatingInput" >
+                            <label for="floatingInput">帳號</label>
                         </div>
                         <div class="form-floating mb-4">
-                            <input type="password" class="form-control" id="floatingPassword">
-                            <label for="floatingPassword">ä¿¡ç®±</label>
-                            <button type="submit" class="btn btn-primary py-0 w-20 mb-4">å¯é©è­ç¢¼</button>
+                            <input type="password" class="form-control" id="floatingPassword" >
+                            <label for="floatingPassword">密碼</label>
                         </div>
-
-                        <div class="form-floating mb-5">
-                            <input type="password" class="form-control" id="floatingPassword">
-                            <label for="floatingPassword">é©è­ç¢¼</label>
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <a href="">Forgot Password</a>
                         </div>
-
-
-                        <button type="submit" class="btn btn-primary py-3 w-100 mb-4">ä¸ä¸æ­¥</button>
-
+                        <button type="submit" class="btn btn-primary py-3 w-100 mb-4">登入</button>
+                        <p class="text-center mb-0">沒有帳號嗎? <a href="">點此註冊</a></p>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Sign In End -->
-        </div>
+    </div>
 
     </form>
-
-
-
+   
+  
+   
     <script>
         var msg_btn = document.getElementById("msg");
         var msg_side = document.getElementById("msg_side");

@@ -8,6 +8,8 @@
 <%
 //見com.emp.controller.EmpServlet.java第163行存入req的empVO物件 (此為從資料庫取出的empVO, 也可以是輸入格式有錯誤時的empVO物件)
 Company company = (Company) request.getAttribute("Company");
+System.out.println("2132145");
+System.out.println(company);
 %>
 
 <!DOCTYPE html>
@@ -188,7 +190,7 @@ button.left_btn:hover {
 		<main class="main-content">
 			<FORM METHOD="post" ACTION="CompanyServlet">
 				<label class="main-content-info">舊密碼 
-				<input type="text" name="compPassword" value="<%= company.getCompPassword() %>"></label> <br>
+				<input type="text" name="compId" value="<%= company.getCompPassword() %>"></label> <br>
 <!-- 				<label class="">新密碼 :&ensp;<input type="text" id="new_p" -->
 <%-- 					name="compPassword" value="<%= company.getCompPassword()%>"></label> <br> --%>
 <!-- 				<label class="">確認新密碼 :&ensp;<input type="text" id="check" -->
@@ -216,7 +218,7 @@ button.left_btn:hover {
 			</div>
 		</div>
 	</div>
-	<script src="../static/js/btn4com.js"></script>
+	<script src="${pageContext.request.contextPath}/static/ken_js/btn4com.js"></script>
 </body>
 
 </html>
