@@ -94,5 +94,11 @@ public class RoomServiceJDBC implements RoomService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public byte[] getMainPhoto(Integer roomId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

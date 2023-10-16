@@ -8,4 +8,5 @@ public interface Trip_photoDAO_interface {
            int delete(Integer trip_photo_id);
            Trip_photo findByPK(Integer trip_photo_id);
            List<Trip_photo> getAll();
+           byte[] getPic(Integer voPK) throws Exception; 
 }
