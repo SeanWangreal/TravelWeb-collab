@@ -95,9 +95,15 @@ public class RoomServiceHibernate implements RoomService{
 	public List<Room> getRoomByCompId(Integer compId) {
 		return dao.findRoomByCompId(compId);
 	}
+
+	@Override
+	public byte[] getMainPhoto(Integer roomId) {
+		return dao.getMainPhoto(roomId);
+ 
+	}
+	
 	public static void main(String[] args) {
 		RoomServiceHibernate hi = new RoomServiceHibernate();
 		System.out.println(hi.getAll());
 	}
-	
 }

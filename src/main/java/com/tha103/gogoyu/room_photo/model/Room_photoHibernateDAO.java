@@ -3,22 +3,30 @@ package com.tha103.gogoyu.room_photo.model;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import util.HibernateUtil;
 
 public class Room_photoHibernateDAO implements Room_photoDAO_interface {
+	private SessionFactory factory;
 
+	public  Room_photoHibernateDAO(SessionFactory factory) {
+		this.factory = factory;
+	}
+	
+	private Session getSession() {
+		return factory.getCurrentSession();
+	}
 	@Override
 	public int add(Room_photo roomPhoto) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-			session.beginTransaction();
-			Integer id = (Integer) session.save(roomPhoto);
-			session.getTransaction().commit();
+			getSession().beginTransaction();
+			Integer id = (Integer) getSession().save(roomPhoto);
+			getSession().getTransaction().commit();
 			return id;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return -1;
 	}
@@ -27,9 +35,9 @@ public class Room_photoHibernateDAO implements Room_photoDAO_interface {
 	public int update(Room_photo roomPhoto) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-			session.beginTransaction();
-			session.update(roomPhoto);
-			session.getTransaction().commit();
+			getSession().beginTransaction();
+			getSession().update(roomPhoto);
+			getSession().getTransaction().commit();
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -40,48 +48,45 @@ public class Room_photoHibernateDAO implements Room_photoDAO_interface {
 
 	@Override
 	public int delete(Integer roomPhotoId) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-			session.beginTransaction();
-			Room_photo roomPhoto = session.get(Room_photo.class, roomPhotoId);
+			getSession().beginTransaction();
+			Room_photo roomPhoto = getSession().get(Room_photo.class, roomPhotoId);
 			if (roomPhoto != null) {
-				session.delete(roomPhoto);
+				getSession().delete(roomPhoto);
 			}
-			session.getTransaction().commit();
+			getSession().getTransaction().commit();
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return -1;
 	}
 
 	@Override
 	public Room_photo findByPK(Integer roomPhotoId) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-			session.beginTransaction();
-			Room_photo roomPhoto = session.get(Room_photo.class, roomPhotoId);
-			session.getTransaction().commit();
+			getSession().beginTransaction();
+			Room_photo roomPhoto = getSession().get(Room_photo.class, roomPhotoId);
+			getSession().getTransaction().commit();
 			return roomPhoto;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return null;
 	}
 
 	@Override
 	public List<Room_photo> getAll() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-			session.beginTransaction();
-			List<Room_photo> list = session.createQuery("from room_photo", Room_photo.class).list();
-			session.getTransaction().commit();
+			getSession().beginTransaction();
+			List<Room_photo> list = getSession().createQuery("from Room_photo", Room_photo.class).list();
+			getSession().getTransaction().commit();
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return null;
 	}
