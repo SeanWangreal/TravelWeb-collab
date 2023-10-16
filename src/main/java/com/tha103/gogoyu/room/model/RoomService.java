@@ -11,9 +11,7 @@ public interface RoomService {
 			String intro, Integer roomStatus, byte tissue, byte shower, byte bathroom, byte dryer, byte tub,
 			byte freetoiletries, byte flushseat, byte slippers, byte bathrobe, byte spatub, byte electricKettle,byte[] mainPhoto);
 	public Room updateStatus(Integer roomId,Integer roomStatus);
-	public Room updateRoom(Integer roomId, Integer compId, Integer roomType, String roomName, Integer beds, BigDecimal price,
-			String intro, Integer roomStatus, byte tissue, byte shower, byte bathroom, byte dryer, byte tub,
-			byte freetoiletries, byte flushseat, byte slippers, byte bathrobe, byte spatub, byte electricKettle,byte[] mainPhoto);
+	public int updateRoom(Room room);
 	public void deleteRoom(Integer roomId);
 	public Room getOneRoom(Integer roomId);
 	public List<Room> getAll();

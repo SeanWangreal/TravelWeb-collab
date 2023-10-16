@@ -5,8 +5,10 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
@@ -89,6 +91,11 @@ public class RoomServlet extends HttpServlet {
 		case "getAllRoom":
 			session.setAttribute("compId", compId);
 			List<Room> roomList = roomSrc.getRoomByCompId(Integer.parseInt(compId));
+			Map<Room, Set<Room_photo>> map = new HashMap<Room, Set<Room_photo>>();
+			for (Room li : roomList) {
+				Set<Room_photo> roomPhoto = roomSrc.getAllPhoto(li.getRoomId());
+				map.put(li, roomPhoto);
+			}
 			req.setAttribute("roomList", roomList);
 			forwardPath = "/sean/hotel_room_all.jsp";
 			break;
@@ -122,11 +129,26 @@ public class RoomServlet extends HttpServlet {
 			compId = (String) session.getAttribute("compId");
 			if ((roomId != null) && (!roomId.trim().isBlank())) {
 				roomid = Integer.parseInt(roomId);
-				Room room1 = roomSrc.getOneRoom(roomid);
-				room = roomSrc.updateRoom(roomid, Integer.parseInt(compId), roomType, roomName, beds, price, intro,
-						room1.getRoomStatus(), (byte) detail[0], (byte) detail[1], (byte) detail[2], (byte) detail[3],
-						(byte) detail[4], (byte) detail[5], (byte) detail[6], (byte) detail[7], (byte) detail[8],
-						(byte) detail[9], (byte) detail[10], allPhoto.get(0));
+				room = roomSrc.getOneRoom(roomid);
+				room.setCompId(Integer.parseInt(compId));
+				room.setRoomType(roomType);
+				room.setRoomName(roomName);
+				room.setBeds(beds);
+				room.setPrice(price);
+				room.setIntro(intro);
+				room.setTissue((byte) detail[0]);
+				room.setShower( (byte) detail[1]);
+				room.setBathroom( (byte) detail[2]);
+				room.setDryer( (byte) detail[3]);
+				room.setTub( (byte) detail[4]);
+				room.setFreetoiletries( (byte) detail[5]);
+				room.setFlushseat( (byte) detail[6]);
+				room.setSlippers( (byte) detail[7]);
+				room.setBathrobe( (byte) detail[8]);
+				room.setSpatub((byte) detail[9]);
+				room.setElectricKettle((byte) detail[10]);
+				room.setMainPhoto(allPhoto.get(0));
+				roomSrc.updateRoom(room);
 				for (int i = 1; i < allPhoto.size();i++) {
 					roomPhotoSrc.addRoomPhoto(roomid,  allPhoto.get(i));
 				}
@@ -165,15 +187,44 @@ public class RoomServlet extends HttpServlet {
 			roomid = Integer.parseInt(roomId);
 			room = roomSrc.getOneRoom(roomid);
 			if (allPhotoUpdate.get(0) == null) {
-				room = roomSrc.updateRoom(roomid, Integer.parseInt(compId), roomType, roomName, beds, price, intro,
-						room.getRoomStatus(), (byte) detail[0], (byte) detail[1], (byte) detail[2], (byte) detail[3],
-						(byte) detail[4], (byte) detail[5], (byte) detail[6], (byte) detail[7], (byte) detail[8],
-						(byte) detail[9], (byte) detail[10], room.getMainPhoto());
+				room.setCompId(Integer.parseInt(compId));
+				room.setRoomType(roomType);
+				room.setRoomName(roomName);
+				room.setBeds(beds);
+				room.setPrice(price);
+				room.setIntro(intro);
+				room.setTissue((byte) detail[0]);
+				room.setShower( (byte) detail[1]);
+				room.setBathroom( (byte) detail[2]);
+				room.setDryer( (byte) detail[3]);
+				room.setTub( (byte) detail[4]);
+				room.setFreetoiletries( (byte) detail[5]);
+				room.setFlushseat( (byte) detail[6]);
+				room.setSlippers( (byte) detail[7]);
+				room.setBathrobe( (byte) detail[8]);
+				room.setSpatub((byte) detail[9]);
+				room.setElectricKettle((byte) detail[10]);
+				roomSrc.updateRoom(room);
 			} else {
-				room = roomSrc.updateRoom(roomid, Integer.parseInt(compId), roomType, roomName, beds, price, intro,
-						room.getRoomStatus(), (byte) detail[0], (byte) detail[1], (byte) detail[2], (byte) detail[3],
-						(byte) detail[4], (byte) detail[5], (byte) detail[6], (byte) detail[7], (byte) detail[8],
-						(byte) detail[9], (byte) detail[10], allPhotoUpdate.get(0));
+				room.setCompId(Integer.parseInt(compId));
+				room.setRoomType(roomType);
+				room.setRoomName(roomName);
+				room.setBeds(beds);
+				room.setPrice(price);
+				room.setIntro(intro);
+				room.setTissue((byte) detail[0]);
+				room.setShower( (byte) detail[1]);
+				room.setBathroom( (byte) detail[2]);
+				room.setDryer( (byte) detail[3]);
+				room.setTub( (byte) detail[4]);
+				room.setFreetoiletries( (byte) detail[5]);
+				room.setFlushseat( (byte) detail[6]);
+				room.setSlippers( (byte) detail[7]);
+				room.setBathrobe( (byte) detail[8]);
+				room.setSpatub((byte) detail[9]);
+				room.setElectricKettle((byte) detail[10]);
+				room.setMainPhoto(allPhotoUpdate.get(0));
+				roomSrc.updateRoom(room);
 			}
 			if (allPhotoUpdate.get(1) != null) {
 				roomSrc.deleteAllPhoto(roomid);

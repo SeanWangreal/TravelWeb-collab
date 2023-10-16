@@ -142,29 +142,35 @@ input {
 	border: none;
 	background-color: white;
 }
-.all-detail{
+
+.all-detail {
 	font-size: 16px
 }
-.details>*{
-	padding:5px;
+
+.details>* {
+	padding: 5px;
 }
+
 .room {
-    display: flex;
+	display: flex;
 }
+
 .room-opt {
-    display: flex;
-    flex-basis: 20%;
-    flex-direction: column;
+	display: flex;
+	flex-basis: 20%;
+	flex-direction: column;
 }
-.no-css{
+
+.no-css {
 	position: fixed;
 	top: calc(10vh - 15px);
-	right:calc(10% - 15px);
+	right: calc(10% - 15px);
 	z-index: 3;
-	width:40px;
-	height:40px;
+	width: 40px;
+	height: 40px;
 	border-radius: 50%;
-	text-align:center;
+	text-align: center;
+	border: 2px white solid;
 }
 </style>
 </head>
@@ -313,13 +319,11 @@ input {
 										<div class="details">
 											<h2>客房</h2>
 											<div style="">
-												<label for="name">房間名稱: ${room.roomName}</label>
-												<label>房型: </label><span>
-												${(room.roomType == 1) ? "單人房" : ""}
-												${(room.roomType == 2) ? "雙人房" : ""}
-												${(room.roomType == 3) ? "三人房" : ""}
-												${(room.roomType == 4) ? "四人房" : ""}</span>
-												<label for="bed-num">床位數: ${room.beds}</label>
+												<label for="name">房間名稱: ${room.roomName}</label> <label>房型:
+												</label><span> ${(room.roomType == 1) ? "單人房" : ""}
+													${(room.roomType == 2) ? "雙人房" : ""} ${(room.roomType == 3) ? "三人房" : ""}
+													${(room.roomType == 4) ? "四人房" : ""}</span> <label for="bed-num">床位數:
+													${room.beds}</label>
 											</div>
 										</div>
 										<hr>
@@ -327,94 +331,68 @@ input {
 											<h2>客房設施</h2>
 											<div class="room">
 												<div class="room-opt">
-													<span>
-														<i class="${(room.tissue== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}" style="color: #81a4df;">
-														</i> 
-														<label
-														for="tissue">衛生紙</label>
-													</span> 
-													<span>
-														<i class="${(room.freetoiletries== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}" style="color: #81a4df;">
-														</i>
-														<label
-														for="freetoiletries">免費盥洗用品</label>
-													</span> 
-													<span>
-														<i class="${(room.electricKettle== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}" style="color: #81a4df;">
-														</i>  
-														<label
-														for="electric_kettle">熱水壺</label>
+													<span> <i
+														class="${(room.tissue== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}"
+														style="color: #81a4df;"> </i> <label for="tissue">衛生紙</label>
+													</span> <span> <i
+														class="${(room.freetoiletries== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}"
+														style="color: #81a4df;"> </i> <label for="freetoiletries">免費盥洗用品</label>
+													</span> <span> <i
+														class="${(room.electricKettle== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}"
+														style="color: #81a4df;"> </i> <label for="electric_kettle">熱水壺</label>
 													</span>
 												</div>
 												<div class="room-opt">
-													<span> 
-														<i class="${(room.shower== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}" style="color: #81a4df;">
-														</i>
-														<label
-														for="shower">淋浴間</label>
-													</span> 
-													<span> 
-														<i class="${(room.flushseat== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}" style="color: #81a4df;">
-														</i>
-														<label
-														for="flushseat">沖洗座</label>
+													<span> <i
+														class="${(room.shower== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}"
+														style="color: #81a4df;"> </i> <label for="shower">淋浴間</label>
+													</span> <span> <i
+														class="${(room.flushseat== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}"
+														style="color: #81a4df;"> </i> <label for="flushseat">沖洗座</label>
 													</span>
 												</div>
 												<div class="room-opt">
-													<span> 
-														<i class="${(room.bathroom== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}" style="color: #81a4df;">
-														</i>
-														<label
-														for="bathroom">廁所</label>
-													</span> 
-													<span> 
-														<i class="${(room.slippers== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}" style="color: #81a4df;">
-														</i>
-														<label
-														for="slippers">拖鞋</label>
+													<span> <i
+														class="${(room.bathroom== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}"
+														style="color: #81a4df;"> </i> <label for="bathroom">廁所</label>
+													</span> <span> <i
+														class="${(room.slippers== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}"
+														style="color: #81a4df;"> </i> <label for="slippers">拖鞋</label>
 													</span>
 												</div>
 												<div class="room-opt">
-													<span>
-														<i class="${(room.dryer== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}" style="color: #81a4df;">
-														</i>
-														<label
-														for="dryer">吹風機</label>
-													</span> 
-													<span>
-														<i class="${(room.bathrobe== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}" style="color: #81a4df;">
-														</i>
-														<label
-														for="bathrobe">浴袍</label>
+													<span> <i
+														class="${(room.dryer== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}"
+														style="color: #81a4df;"> </i> <label for="dryer">吹風機</label>
+													</span> <span> <i
+														class="${(room.bathrobe== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}"
+														style="color: #81a4df;"> </i> <label for="bathrobe">浴袍</label>
 													</span>
 												</div>
 												<div class="room-opt">
-													<span>
-														<i class="${(room.tub== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}" style="color: #81a4df;">
-															</i> 
-														<label
-															for="tub">浴缸</label>
-													</span> 
-													<span> 
-														<i class="${(room.spatub== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}" style="color: #81a4df;">
-														</i>
-														<label
-														for="spatub">SPA浴缸</label>
+													<span> <i
+														class="${(room.tub== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}"
+														style="color: #81a4df;"> </i> <label for="tub">浴缸</label>
+													</span> <span> <i
+														class="${(room.spatub== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}"
+														style="color: #81a4df;"> </i> <label for="spatub">SPA浴缸</label>
 													</span>
 												</div>
 											</div>
 											<hr>
 											<h2>客房介紹</h2>
-											<article style="width: 100%;border:1px solid black;border-radius: 5px;padding:5px">${room.intro}</article>
+											<article
+												style="width: 100%; border: 1px solid black; border-radius: 5px; padding: 5px">${room.intro}</article>
 										</div>
 										<br>
 										<h2>客房每晚價格</h2>
-										<span>TWD ${room.price.stripTrailingZeros().toPlainString()}</span>
-<%-- 									<span id="percent"><%=commissionPercent%></span><span>% --%>
-<%-- 									佣金</span> <br> <span>TWD </span><span id="profit"><%=profitS%></span><span>您的收益(四捨五入之結果)</span> --%>
+										<span>TWD
+											${room.price.stripTrailingZeros().toPlainString()}</span>
+										<%-- 									<span id="percent"><%=commissionPercent%></span><span>% --%>
+										<%-- 									佣金</span> <br> <span>TWD </span><span id="profit"><%=profitS%></span><span>您的收益(四捨五入之結果)</span> --%>
 										<hr>
 										<c:if test="${room.mainPhoto != null}">
-										<h2>客房搜尋照片</h2>
+											<h2>客房搜尋照片</h2>
 											<div class="drag">
 												<img src="MainPhotoPrintHServlet?room_id=${room.roomId}"
 													style="max-width: 100%">
@@ -422,16 +400,18 @@ input {
 										</c:if>
 									</div>
 								</div>
-									<button type="button" class="other-btn no no-css">✘</button>
+								<button type="button" class="other-btn no no-css">✘</button>
 							</div>
 							<div class="alert_bg">
 								<div class="alert">
 									<div>
 										確定${(room.roomStatus == 1) ?'下架':'上架'}嗎? <br>
 										<form
-											action="${pageContext.request.contextPath}/sean/RoomServlet?action=${(room.roomStatus == 1)?'recall':'launch'}&id=${room.roomId}"
+											action="${pageContext.request.contextPath}/sean/RoomServlet"
 											style="display: inline-block;" method="post">
-											<%-- 									<input type="hidden" name = "id" value = "${room.roomId}"> --%>
+											<input type="hidden" name="action"
+												value="${(room.roomStatus == 1)?'recall':'launch'}">
+											<input type="hidden" name="roomId" value="${room.roomId}">
 											<button type="submit" class="other-btn">Yes</button>
 										</form>
 										<button type="button" class="other-btn no">No</button>
@@ -442,7 +422,7 @@ input {
 								<div class="alert">
 									<div>
 										確定刪除嗎? <br> <a class="other-btn yes"
-											href="${pageContext.request.contextPath}/sean/RoomServlet?action=delete2&id=${room.roomId}">Yes</a>
+											href="${pageContext.request.contextPath}/sean/RoomServlet?action=delete2&roomId=${room.roomId}">Yes</a>
 										<button type="button" class="other-btn no">No</button>
 									</div>
 								</div>

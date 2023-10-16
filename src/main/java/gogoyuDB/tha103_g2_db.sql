@@ -221,19 +221,10 @@ create table room_photo (
     room_id 		int,
     photo 			longblob,
     upload_time 	datetime default current_timestamp,
--- 	constraint room_photo_room_id_FK foreign key (room_id) references room (room_id),
+	constraint room_photo_room_id_FK foreign key (room_id) references room (room_id),
 	constraint room_photo_PRIMARY_KEY primary key (room_photo_id)
 );
-insert into room_photo (room_id, photo, upload_time)
-	VALUES (1, null, "2023-10-03 12:34:56");
-insert into room_photo (room_id, photo, upload_time)
-	VALUES (2, null, "2023-10-03 12:34:56");
-insert into room_photo (room_id, photo, upload_time)
-	VALUES (3, null, "2023-10-03 12:34:56");
-insert into room_photo (room_id, photo, upload_time)
-	VALUES (4, null, "2023-10-03 12:34:56");
-insert into room_photo (room_id, photo, upload_time)
-	VALUES (5, null, "2023-10-03 12:34:56");
+
 create table room_ord(
 	room_ord_id 		int auto_increment not null,
     plan_id 			int,
@@ -348,16 +339,6 @@ CREATE TABLE trip_photo (
 	-- CONSTRAINT trip_photo_trip_id_FK FOREIGN KEY (trip_id) REFERENCES trip (trip_id),
 	CONSTRAINT trip_photo_trip_photo_id_PK PRIMARY KEY (trip_photo_id)
 );
-insert into trip_photo (trip_id, photo, upload_time)
-	values(1, null, "2023-10-3 11:34:56");
-insert into trip_photo (trip_id, photo, upload_time)
-	values(2, null, "2023-10-3 11:34:56");
-insert into trip_photo (trip_id, photo, upload_time)
-	values(3, null, "2023-10-3 11:34:56");
-insert into trip_photo (trip_id, photo, upload_time)
-	values(4, null, "2023-10-3 11:34:56");
-insert into trip_photo (trip_id, photo, upload_time)
-	values(5, null, "2023-10-3 11:34:56");
 
 create table `itinerary`(
 	itinerary_id int not null auto_increment primary key,

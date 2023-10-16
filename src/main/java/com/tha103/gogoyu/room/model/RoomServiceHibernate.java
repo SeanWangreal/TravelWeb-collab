@@ -49,35 +49,8 @@ public class RoomServiceHibernate implements RoomService{
 		return room;
 	}
 
-	public Room updateRoom(Integer roomId, Integer compId, Integer roomType, String roomName, Integer beds, BigDecimal price,
-			String intro, Integer roomStatus, byte tissue, byte shower, byte bathroom, byte dryer, byte tub,
-			byte freetoiletries, byte flushseat, byte slippers, byte bathrobe, byte spatub, byte electricKettle,byte[] mainPhoto) {
-
-		Room room = new Room();
-
-		room.setRoomId(roomId);
-		room.setCompId(compId);
-		room.setRoomType(roomType);
-		room.setRoomName(roomName);
-		room.setBeds(beds);
-		room.setPrice(price);
-		room.setIntro(intro);
-		room.setRoomStatus(roomStatus);
-		room.setTissue(tissue);
-		room.setShower(shower);
-		room.setBathroom(bathroom);
-		room.setDryer(dryer);
-		room.setTub(tub);
-		room.setFreetoiletries(freetoiletries);
-		room.setFlushseat(flushseat);
-		room.setSlippers(slippers);
-		room.setBathrobe(bathrobe);
-		room.setSpatub(spatub);
-		room.setElectricKettle(electricKettle);
-		room.setMainPhoto(mainPhoto);
-		dao.update(room);
-
-		return room;
+	public int updateRoom(Room room) {
+		return dao.update(room);
 	}
 
 	public void deleteRoom(Integer roomId) {
