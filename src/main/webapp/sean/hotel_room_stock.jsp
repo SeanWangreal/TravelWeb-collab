@@ -24,25 +24,104 @@ response.setDateHeader("Expires", 0);
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/static/sean_css/comp_product.css">
 <style>
-.main-content-info{
+.left-down {
+	padding: 5px;
+	width: 265px;
+	position: absolute;
+	top: 225px;
+	left: 60px;
+	background-color: white;
+	z-index: 1;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.left-down>* {
+	margin-top: 10px;
+	font-family: "粉圓";
+}
+
+.main-content-info {
 	font-size: 0px;
 }
-.all-date {
-	width:13%;
+
+div.all-date {
+	padding: 10px;
+	width: 13%;
 	margin-right: 1.3%;
-	border: 1px solid black;
-	display: inline-block;	
+	margin-bottom: 1.3%;
+	height: 100px;
+	display: inline-block;
+	background-color: white;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+	width: 13%;
+	display: inline-block;
+	height: 100px;
 }
-.all-date:nth-child(7n){
+
+div.all-date>* {
+	font-size: 16px;
+}
+
+div.all-date:nth-child(7n) {
 	margin-right: 0%;
 }
-.stock{
-	width:50%;
-	border:none;
+
+.searching {
+	display: flex;
+	width: 100%;
+}
+
+.searching>button {
+	width: 25%;
+	border-radius: 5px;
+	border: none;
+	color: white;
+	background-color: #4D504F;
+}
+
+.search {
+	width: 70%;
+	margin-right: 5%;
+	display: inline-block;
+}
+
+.stock {
+	width: 50%;
+	border: none;
+	font-size: 16px;
+	background-color: #F3F3F3;
+}
+
+.date {
 	font-size: 16px;
 }
-.date{
-	font-size: 16px;
+
+.controllers {
+	font-size: 0px;
+}
+
+.controller:nth-child(2n) {
+	margin-right: 0%;
+}
+
+.controller {
+	text-align: center; display : inline-block;
+	font-size: 20px;
+	margin-right: 10%;
+	width: 45%;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	background-color: #4D504F;
+	display: inline-block;
+}
+
+.alert {
+	font-size: 20px;
+}
+
+.nothing {
+	display: none;
 }
 </style>
 </head>
@@ -103,85 +182,51 @@ response.setDateHeader("Expires", 0);
 				</a>
 			</div>
 		</aside>
+		<aside class="left-down">
+			<form action="" class="searching">
+				<input type="date" class="search">
+				<button type="submit">查詢</button>
+			</form>
+			<div class="controllers">
+				<button type="button" class="controller" id="lessDay">減少一天</button>
+				<button type="button" class="controller" id="addDay">新增一天</button>
+			</div>
+			<div class="controllers">
+				<a href="${pageContext.request.contextPath}/sean/hotel_room_all.jsp"
+					class="controller">取消</a>
+				<button type="button" class="controller" id="change">更新</button>
+			</div>
+		</aside>
 	</nav>
 	<div class="all">
 		<main class="main-content">
 			<div class="main-content-info">
-				<%-- 				<% --%>
-				<!-- 				LinkedHashMap<Room, Set<Room_photo>> map = (LinkedHashMap<Room, Set<Room_photo>>) request.getAttribute("map"); -->
-				<!-- 				List<Room> roomList = null; -->
-				<!-- 				if (map == null){ -->
-				<!-- 					map = new LinkedHashMap<Room, Set<Room_photo>>(); -->
-				<!-- 					RoomService roomSrc = new RoomServiceHibernate(); -->
-				<!-- 					Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId")); -->
-				<!-- 					roomList = roomSrc.getRoomByCompId(compId); -->
-				<!-- 					for (Room li : roomList) { -->
-				<!-- 						Set<Room_photo> roomPhoto = roomSrc.getAllPhoto(li.getRoomId()); -->
-				<!-- 						map.put(li, roomPhoto); -->
-				<!-- 					} -->
-				<!-- 					request.setAttribute("map",map); -->
-				<!-- 					map = (LinkedHashMap<Room, Set<Room_photo>>) request.getAttribute("map"); -->
-				<!-- 				} -->
-				<!-- 				// 				request.setAttribute("backHere",request.getRequestURL()); -->
-				<!-- 				// 				System.out.print(request.getRequestURI()); -->
-				<%-- 				%> --%>
-<%-- 				<c:forEach var="room" items="${map.keySet()}"> --%>
-					<%-- 					<c:if test="${room.roomStatus!=-1}"> --%>
-					<div class="all-date">
-						<label class="date">2023/10/17</label>
-						<br>
-						<input class="stock" type="text" value="5"><span>間</span>
+				<form
+					action="${pageContext.request.contextPath}/sean/RoomStockServlet"
+					method="post" id="dayForm">
+					<input type="hidden" name="action" value="changeStock"> <input
+						type="hidden" name="roomId" value="${roomId}">
+					<button type="submit" id="go" style="display: none;"></button>
+					<div class="alert_bg">
+						<div class="alert">
+							<div>
+								確定更新嗎? <br>
+								<button type="submit" class="other-btn yes">Yes</button>
+								<button type="button" class="other-btn no">No</button>
+							</div>
+						</div>
 					</div>
-					<div class="all-date">
-						<label class="date">2023/10/17</label>
-						<br>
-						<input class="stock" type="text" value="5"><span>間</span>
-					</div>
-					<div class="all-date">
-						<label class="date">2023/10/17</label>
-						<br>
-						<input class="stock" type="text" value="5"><span>間</span>
-					</div>
-					<div class="all-date">
-						<label class="date">2023/10/17</label>
-						<br>
-						<input class="stock" type="text" value="5"><span>間</span>
-					</div>
-					<div class="all-date">
-						<label class="date">2023/10/17</label>
-						<br>
-						<input class="stock" type="text" value="5"><span>間</span>
-					</div>
-					<div class="all-date">
-						<label class="date">2023/10/17</label>
-						<br>
-						<input class="stock" type="text" value="5"><span>間</span>
-					</div>
-					<div class="all-date">
-						<label class="date">2023/10/17</label>
-						<br>
-						<input class="stock" type="text" value="5"><span>間</span>
-					</div>
-					<div class="all-date">
-						<label class="date">2023/10/17</label>
-						<br>
-						<input class="stock" type="text" value="5"><span>間</span>
-					</div>
-					<div class="all-date">
-						<label class="date">2023/10/17</label>
-						<br>
-						<input class="stock" type="text" value="5"><span>間</span>
-					</div>
-					<div class="all-date">
-						<label class="date">2023/10/17</label>
-						<br>
-						<input class="stock" type="text" value="5"><span>間</span>
-					</div>
-					<%-- 					</c:if> --%>
-<%-- 				</c:forEach> --%>
-
-
-
+					<c:forEach var="stock" items="${list}">
+						<div class="all-date">
+							<label class="date">${stock.stockDate}</label> <input
+								type="hidden" class="id" name="oldStock"
+								value="${stock.roomStockId}"><br> <label
+								class="week"></label><br> <label class="">庫存</label> <input
+								class="stock" type="text" name="stockNum" value="${stock.stock}"><span
+								class="">間</span>
+						</div>
+					</c:forEach>
+				</form>
 			</div>
 		</main>
 	</div>
@@ -189,167 +234,85 @@ response.setDateHeader("Expires", 0);
 	<script
 		src="${pageContext.request.contextPath}/static/sean_js/btn4com.js"></script>
 	<script>
-		$(".detail").on("click", function () {
-	        let room = $(this).closest("section.one-room");
-	        $("body").css("overflow", "hidden");
-	        let alert_bg = $(room).find(".alert_bg").eq(0);
-	        alert_bg.addClass("on");
-	        let watch = $(room).find(".watch");
-	        watch.addClass("on");
-	        
-	        $(".no").on("click", function () {
-	            $("body").css("overflow", "auto");
-	            alert_bg.removeClass("on");
-	            watch.removeClass("on");
-	        })
-	    })
-		$(".renewStatus").on("click", function () {
-	        let room = $(this).closest("section.one-room");
-	        $("body").css("overflow", "hidden");
-	        let alert_bg = $(room).find(".alert_bg").eq(1);
-	        alert_bg.addClass("on");
-	        let al = $(room).find(".alert").eq(0);
-	       	al.addClass("on");
-	        $(".yes").on("click", function () {
-	            room.remove();
-	            $("body").css("overflow", "auto");
-	            alert_bg.removeClass("on");
-	            al.removeClass("on");
-	        })
-	        $(".no").on("click", function () {
-	            $("body").css("overflow", "auto");
-	            alert_bg.removeClass("on");
-	            al.removeClass("on");
-	        })
-	    })
-        var delete_btn = document.querySelectorAll(".delete");
-        $(".delete").on("click", function () {
-            let room = $(this).closest("section.one-room");
-            let alert_bg = $(room).find(".alert_bg").last();
-            let al = $(room).find(".alert").last();
-        
-        	if(room.find("span").hasClass("room-status-on")){
-        		alert("請先下架再刪除!!");
-        	}else{
-            $("body").css("overflow", "hidden");
-            alert_bg.addClass("on");
-           	al.addClass("on");        		
-        	}
-            $(".yes").on("click", function () {
-                room.remove();
-                $("body").css("overflow", "auto");
-                alert_bg.removeClass("on");
-                al.removeClass("on");
-            })
-            $(".no").on("click", function () {
-                $("body").css("overflow", "auto");
-                alert_bg.removeClass("on");
-                al.removeClass("on");
-            })
-        })
-        
-        $(".change").on("click",function(){
-        	let room = $(this).closest(".one-room");
-        	if(room.find("span").hasClass("room-status-off")){
-        		$(this).closest("form").find(".go").click();        		
-        	} else{
-        		alert("請先下架再修改");
-        	}
-        })
-    </script>
-	<script>
-        var month_leap = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-        var month_normal = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-        var month_name = ["January", "Febrary", "March", "April", "May", "June", "July", "Auguest", "September", "October", "November", "December"];
-        var holder = document.getElementsByClassName("days");
-        var prev = document.getElementsByClassName("prev");
-        var next = document.getElementsByClassName("next");
-        var ctitle = document.getElementsByClassName("calendar-title");
-        var cyear = document.getElementsByClassName("calendar-year");
-        var my_date = new Date();
-        var my_year = my_date.getFullYear();
-        var my_month = my_date.getMonth();
-        var my_day = my_date.getDate();
-        //获取某年某月第一天是星期几
-        $(function () {
-            function dayStart(month, year) {
-                var tmpDate = new Date(year, month, 1);
-                return (tmpDate.getDay());
-            }
-            //计算某年是不是闰年，通过求年份除以4的余数即可
-            function daysMonth(month, year) {
-                if (year % 4 === 0 && year % 100 !== 0 || year % 400 === 0) {
-                    return (month_leap[month]);
-                } else {
-                    return (month_normal[month]);
-                }
-            }
-            function refreshDate() {
-                var str = "";
-                var totalDay = daysMonth(my_month, my_year); //获取该月总天数
-                var firstDay = dayStart(my_month, my_year); //获取该月第一天是星期几
-                var myclass;
-                for (var i = 1; i < firstDay; i++) {
-                    str += "<li></li>"; //为起始日之前的日期创建空白节点
-                }
-                for (var i = 1; i <= totalDay; i++) {
-                    if ((i < my_day && my_year == my_date.getFullYear() && my_month == my_date.getMonth()) || my_year < my_date.getFullYear() || (my_year == my_date.getFullYear() && my_month < my_date.getMonth())) {
-                        myclass = 'lightgrey'; //当该日期在今天之前时，以浅灰色字体显示
-                    } else if (i == my_day && my_year == my_date.getFullYear() && my_month == my_date.getMonth()) {
-                        myclass = 'colorbox'; //当天日期以绿色背景突出显示
-                    } else {
-                        myclass = 'darkgrey'; //当该日期在今天之后时，以深灰字体显示
-                    }
-                    str += `<li class=` + myclass + `>` +i+ `<p>30</p>
-                        <input class="switch" type="text" value="213"></li>`; //创建日期节点
-                }
-                for (var i = 0; i < holder.length; i++) {
-                    holder[i].innerHTML = str; //设置日期显示
-                    ctitle[i].innerHTML = month_name[my_month]; //设置英文月份显示
-                    cyear[i].innerHTML = my_year; //设置年份显示
-                }
-                $("p").on("click", function () {
-                    $(this).toggleClass("switch");
-                    $(this).closest("li").find("input").toggleClass("switch");
-                })
-                $("input").on("keydown", function (e) {
-                    if (e.which == 13) {
-                        $(this).toggleClass("switch");
-                        var p = $(this).closest("li").find("p");
-                        p.toggleClass("switch");
-                        $(p).text($(this).val());
-                    }
-                })
-            }
-            refreshDate();
-            $(prev).on('click', function (e) {
-                e.preventDefault();
-                my_month--;
-                if (my_month < 0) {
-                    my_year--;
-                    my_month = 11;
-                }
-                refreshDate();
-            })
-            $(next).on('click', function (e) {
-                e.preventDefault();
-                my_month++;
-                if (my_month > 11) {
-                    my_year++;
-                    my_month = 0;
-                }
-                refreshDate();
-            })
-            $(".stock").on('click', function () {
-                $(this).closest(".one-room").find(".calendar").toggleClass("on");
-            })
-            $("h1").on("click", function () {
-                my_month = my_date.getMonth();
-                my_day = my_date.getDate();
-                my_year = my_date.getFullYear();
-                refreshDate()
-            })
-        })
-    </script>
+		var day_list = ['日', '一', '二', '三', '四', '五', '六'];
+		function addWeek(){
+			let alldate = document.querySelectorAll(".all-date");
+			for (var i=0; i<alldate.length; i++){
+				let day = $(alldate[i]).find(".date").text();
+				let now = new Date(day);
+				let weekday = now.getDay();
+				$(alldate[i]).find(".week").text("星期"+day_list[weekday]);
+			}
+		}
+
+		$(function(){
+			addWeek();
+			$("#addDay").on("click",function(){
+				let alldate = document.querySelectorAll(".all-date");
+				if ($(".all-date").length != 0){
+					let formatDay = $(".all-date").eq(-1).find(".date").text();
+					let now = new Date(formatDay);
+	 				now.setDate(now.getDate(formatDay)+1);
+					let day = now.getDate();
+					let weekday = now.getDay();
+					let month = now.getMonth() +1;
+					let year = now.getFullYear();
+					now =year+'-'+ month+'-'+day;
+					let newDay = 
+						`<div class="all-date">
+							<label class="date">`+now+`</label><br>
+							<label class="">`+"星期"+day_list[weekday]+`</label><br>
+							<input  type="hidden" name="newStockDate"  value=`
+								+now+
+								`>
+							<label class="">庫存</label>
+							<input class="stock" type="text" name="newStock" value="0"><span class="">間</span>
+						 </div>`;
+					$("#dayForm").append(newDay);					
+				} else{
+					let now = new Date();
+					let day = now.getDate();
+					let weekday = now.getDay();
+					let month = now.getMonth() +1;
+					let year = now.getFullYear();
+					now =year+'-'+ month+'-'+day;
+					let newDay = 
+						`<div class="all-date">
+							<label class="date">`+now+`</label><br>
+							<label class="">`+"星期"+day_list[weekday]+
+							`</label><br><input  type="date" name="newStockDate"  value=`
+							+now+
+							`><label class="">庫存</label>
+							<input class="stock" type="text" name="newStock" value="0"><span>間</span>
+						 </div>`;
+					console.log(newDay);
+					$("#dayForm").append(newDay);		
+				}
+			})
+			$("#lessDay").on("click",function(){
+				if ($(".all-date").eq(-1).find(".stock").attr("name") === "newStock") {
+					$(".all-date").eq(-1).remove();
+				} else {
+					$(".all-date").eq(-1).find(".id").attr("name","deleteStock");
+					$(".all-date").eq(-1).find(".stock").attr("name","abandon");
+					$(".all-date").eq(-1).addClass("nothing").removeClass("all-date");					
+				}
+			})
+			$("#change").on("click", function() {
+				$("body").css("overflow", "hidden");
+				let alert_bg = $(".alert_bg").first();
+				alert_bg.addClass("on");
+				let alert = $(".alert").first();
+				alert.addClass("on");
+				$(".no").on("click", function() {
+					$("body").css("overflow", "auto");
+					alert_bg.removeClass("on");
+					alert.removeClass("on");
+				})
+			})
+			
+		});
+	</script>
+
 </body>
 </html>

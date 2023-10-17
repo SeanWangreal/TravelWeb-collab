@@ -1,23 +1,26 @@
 package com.tha103.gogoyu.room_stock.model;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.tha103.gogoyu.room.model.Room;
-
 import util.HibernateUtil;
 
 public class Room_stockHibernateDAO implements Room_stockDAO_interface {
 	private SessionFactory factory;
-	
+	private final int DEFAULT_DAY = 30;
+	private final long ONE_DAY = 1 * 24 * 60 * 60 * 1000L;
+
 	public Room_stockHibernateDAO(SessionFactory factory) {
 		this.factory = factory;
 	}
+
 	private Session getSession() {
 		return factory.getCurrentSession();
 	}
+
 	@Override
 	public int add(Room_stock roomStock) {
 		try {
@@ -91,4 +94,57 @@ public class Room_stockHibernateDAO implements Room_stockDAO_interface {
 		return null;
 	}
 
+	@Override
+	public List<Room_stock> getStockByRoomId(Integer roomId) {
+		try {
+			getSession().beginTransaction();
+			List<Room_stock> list = getSession()
+					.createQuery("from Room_stock where room_id = :roomId order by stock_date", Room_stock.class)
+					.setParameter("roomId", roomId).list();
+			getSession().getTransaction().commit();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+
+	@Override
+	public void addFirstTime(Room_stock roomStock) {
+		try {
+			getSession().beginTransaction();
+			Date firstDate = roomStock.getStockDate();
+			Room_stock roomStockNew = null;
+			long time = firstDate.getTime();
+			for (int i = 0; i < DEFAULT_DAY; i++) {
+				if (i == 0) {
+					getSession().save(roomStock);
+				} else {
+					time += ONE_DAY;
+					roomStockNew = new Room_stock();
+					roomStockNew.setRoomId(roomStock.getRoomId());
+					roomStockNew.setStock(roomStock.getStock());
+					roomStockNew.setStockDate(new Date(time));
+					getSession().save(roomStockNew);
+				}
+			}
+			getSession().getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+	}
+
+	public static void main(String[] args) {
+		Room_stockHibernateDAO dao = new Room_stockHibernateDAO(HibernateUtil.getSessionFactory());
+		Room_stock r = new Room_stock();
+		java.util.Date ee = new java.util.Date();
+		Date time = new Date(ee.getTime());
+		r.setRoomId(6);
+		r.setStockDate(time);
+		r.setStock(5);
+		dao.addFirstTime(r);
+
+	}
 }

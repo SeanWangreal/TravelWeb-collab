@@ -269,8 +269,8 @@ input {
 						map.put(li, roomPhoto);
 					}
 					request.setAttribute("map",map);
-					map = (LinkedHashMap<Room, Set<Room_photo>>) request.getAttribute("map");
-				}
+// 					map = (LinkedHashMap<Room, Set<Room_photo>>) request.getAttribute("map");
+				} 
 				// 				request.setAttribute("backHere",request.getRequestURL());
 				// 				System.out.print(request.getRequestURI());
 				%>

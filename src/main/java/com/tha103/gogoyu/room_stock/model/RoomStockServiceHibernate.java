@@ -23,27 +23,39 @@ public class RoomStockServiceHibernate implements RoomStockService {
 	}
 
 	@Override
-	public int updateRoomStock(Integer roomStockId, Date stockDate) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateRoomStock(Integer roomStockId,Integer stock) {
+		Room_stock roomStock = this.getRoomStock(roomStockId);
+		roomStock.setStock(stock);
+		return dao.update(roomStock);
 	}
 
 	@Override
 	public void deleteRoomStock(Integer roomStockId) {
-		// TODO Auto-generated method stub
-
+		dao.delete(roomStockId);
 	}
 
 	@Override
 	public Room_stock getRoomStock(Integer roomStockId) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.findByPK(roomStockId);
 	}
 
 	@Override
 	public List<Room_stock> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getAll();
 	}
+	@Override
+	public List<Room_stock> getStockByRoomId(Integer roomId) {
+		return dao.getStockByRoomId(roomId);
+	}
+	@Override
+	public void addFirstTime(Integer roomId, Date stockDate, Integer stock) {
+		Room_stock roomStock = new Room_stock();
+		roomStock.setRoomId(roomId);
+		roomStock.setStockDate(stockDate);
+		roomStock.setStock(stock);
+		dao.addFirstTime(roomStock);
+		
+	}
+
 
 }

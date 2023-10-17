@@ -50,10 +50,7 @@ public class RoomServiceJDBC implements RoomService{
 	public Room updateRoom(Integer roomId, Integer compId, Integer roomType, String roomName, Integer beds, BigDecimal price,
 			String intro, Integer roomStatus, byte tissue, byte shower, byte bathroom, byte dryer, byte tub,
 			byte freetoiletries, byte flushseat, byte slippers, byte bathrobe, byte spatub, byte electricKettle,byte[] mainPhoto) {
-
-		Room room = new Room();
-
-		room.setRoomId(roomId);
+		Room room = this.getOneRoom(roomId);
 		room.setCompId(compId);
 		room.setRoomType(roomType);
 		room.setRoomName(roomName);
@@ -73,7 +70,7 @@ public class RoomServiceJDBC implements RoomService{
 		room.setSpatub(spatub);
 		room.setElectricKettle(electricKettle);
 		room.setMainPhoto(mainPhoto);
-		dao.update(room);
+		 dao.update(room);
 
 		return room;
 	}
