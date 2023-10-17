@@ -192,11 +192,15 @@ Company company = (Company) request.getAttribute("Company"); //Servlet.java(Conc
 				<button type="button" class="hotel-btn">查看飯店資訊</button>
 			</div>
 			<FORM METHOD="post" ACTION="CompanyServlet" >
-				<div id="change_pass">
-					<a href="${pageContext.request.contextPath}/CompanyServlet?action=getOneUpdate&compId=<%= company.getCompId()%>">修改密碼</a>
-				</div>
+<!-- 				<div id="change_pass"> -->
+<%-- 					<a href="${pageContext.request.contextPath}/CompanyServlet?action=getOneUpdate&compId=<%= company.getCompId()%>">修改密碼</a> --%>
+<!-- 				</div> -->
 				<input type="hidden" name="compId" value="<%= company.getCompId()%>">
 				<input type="hidden" name="action" value="getOneUpdate">
+				<div id="change_pass"> 
+					<button type = "submit" >修改密碼</button>
+ 				</div> 
+				
 			</FORM>
 			<div
 				style="border: 1px solid grey; height: 350px; width: 350px; position: relative; right: 0px; margin-top: 10px;">

@@ -10,8 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.tha103.gogoyu.hotel_info.model.Hotel_info;
+import com.tha103.gogoyu.hotel_info.model.Hotel_infoHibernateDAO;
 import com.tha103.gogoyu.hotel_info.model.Hotel_infoServiceHibernate;
 
 @WebServlet("/Hotel_infoServlet")
@@ -25,7 +27,9 @@ public class Hotel_infoServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-
+		
+		
+		
 		if ("getOne".equals(action)) { // 來自select_page.jsp的請求
 			System.out.println("getOne");
 			List<String> errorMsgs = new LinkedList<String>();
@@ -40,7 +44,7 @@ public class Hotel_infoServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/ken/hotelInfo/com_mem.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/ken/Hotel_infoselect_page.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -53,7 +57,7 @@ public class Hotel_infoServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/ken/hotelInfo/com_mem.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/ken/Hotel_infoselect_page.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -66,7 +70,7 @@ public class Hotel_infoServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher(req.getContextPath()+"/ken/hotelInfo/com_mem.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher(req.getContextPath()+"/ken/Hotel_infoselect_page.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -74,7 +78,7 @@ public class Hotel_infoServlet extends HttpServlet {
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			System.out.println(hotelInfo);
 			req.setAttribute("Hotel_info", hotelInfo); // 資料庫取出的empVO物件,存入req
-			String url = "/ken/com_mem.jsp";
+			String url = "/ken/listOneHtel_info.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
 		}
@@ -95,13 +99,13 @@ public class Hotel_infoServlet extends HttpServlet {
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			req.setAttribute("Hotel_info", hotelInfo); // 資料庫取出的empVO物件,存入req
-			String url = "/ken/com_mem.jsp";
+			String url = "/ken/update_Hotel_info.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 			successView.forward(req, res);
 		}
 
 		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
-
+			
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -203,7 +207,7 @@ public class Hotel_infoServlet extends HttpServlet {
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("Hotel_info", hotelInfo); // 含有輸入格式錯誤的empVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("/ken/hotelInfo/com_renewpass.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/ken/update_Hotel_info.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
@@ -215,7 +219,7 @@ public class Hotel_infoServlet extends HttpServlet {
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("Hotel_info", hotelInfo); // 資料庫update成功後,正確的的empVO物件,存入req
-			String url = "/ken/hotelInfo/com_renewpass.jsp";
+			String url = "/ken/listOneHtel_info.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 			successView.forward(req, res);
 		}
@@ -323,19 +327,11 @@ public class Hotel_infoServlet extends HttpServlet {
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("Hotel_info", hotelInfo); // 含有輸入格式錯誤的empVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("/ken/hotelInfo/com_renewpass.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/ken/addHotel_info.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
 			
-
-			// Send the use back to the form, if there were errors
-			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("hotelInfo", hotelInfo); // 含有輸入格式錯誤的empVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("/hotelInfo/com_mem.jsp");
-				failureView.forward(req, res);
-				return;
-			}
 
 			/*************************** 2.開始新增資料 ***************************************/
 			Hotel_infoServiceHibernate hotelInfoSvc = new Hotel_infoServiceHibernate();
@@ -343,7 +339,7 @@ public class Hotel_infoServlet extends HttpServlet {
 					terrace, noSmoking, freewifi, heater, beach, pool, chargingstation, parking);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/ken/com_mem.jsp";
+			String url = "/ken/listAllHotelinfo.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 		}
@@ -363,9 +359,15 @@ public class Hotel_infoServlet extends HttpServlet {
 			hotelInfoSvc.deleteHotel_info(hotelInfoId);
 
 			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-			String url = "/ken/com_mem.jsp";
+			String url = "/ken/listAllHotelinfo.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
 		}
 	}
+
+	public static void main(String[] args) {
+		
+	}
+
+	
 }

@@ -52,11 +52,11 @@ public class Hotel_infoHibernateDAO implements Hotel_infoDAO_interface {
 	}
 
 	@Override
-	public int delete(Integer HoteInfoIid) {
+	public int delete(Integer hoteInfoIid) {
 		
 		try {
 			getSession().beginTransaction();
-			Hotel_info hotelInfo = getSession().get(Hotel_info.class, HoteInfoIid);
+			Hotel_info hotelInfo = getSession().get(Hotel_info.class, hoteInfoIid);
 			if (hotelInfo != null) {
 				getSession().delete(hotelInfo);
 			}
@@ -70,11 +70,11 @@ public class Hotel_infoHibernateDAO implements Hotel_infoDAO_interface {
 	}
 
 	@Override
-	public Hotel_info findByPK(Integer HoteInfoIid) {
+	public Hotel_info findByPK(Integer hoteInfoIid) {
 		
 		try {
 			getSession().beginTransaction();
-			Hotel_info hotelInfo = getSession().get(Hotel_info.class, HoteInfoIid);
+			Hotel_info hotelInfo = getSession().get(Hotel_info.class, hoteInfoIid);
 			getSession().getTransaction().commit();
 			return hotelInfo;
 		} catch (Exception e) {
@@ -89,7 +89,7 @@ public class Hotel_infoHibernateDAO implements Hotel_infoDAO_interface {
 		
 		try {
 			getSession().beginTransaction();
-			List<Hotel_info> list = getSession().createQuery("from hotelInfo", Hotel_info.class).list();
+			List<Hotel_info> list = getSession().createQuery("from Hotel_info", Hotel_info.class).list();
 			getSession().getTransaction().commit();
 			return list;
 		} catch (Exception e) {

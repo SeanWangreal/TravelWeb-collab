@@ -73,17 +73,17 @@
 		<th>·Ó¤ù</th>
 	</tr>
 <%-- 	<%@ include file="page1.file" %>  --%>
-<%-- 	<c:forEach var="consumer" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>"> --%>
+	<c:forEach var="company" items="${list}" >
 		
 		<tr>
-			<td>${consumer.cusId}</td>
-			<td>${consumer.cusName}</td>
-			<td>${consumer.cusAccount}</td>
-			<td>${consumer.cusPassword}</td>
-			<td>${consumer.cusMail}</td>
-			<td>${consumer.cusPhone}</td> 
-			<td>${consumer.cusAddress}</td>
-			<td>${consumer.cusSex}</td>
+			<td>${company.compId}</td>
+<%-- 			<td>${company.compName}</td> --%>
+<%-- 			<td>${company.compAccount}</td> --%>
+<%-- 			<td>${company.compPassword}</td> --%>
+<%-- 			<td>${company.compMail}</td> --%>
+<%-- 			<td>${company.compPhone}</td>  --%>
+<%-- 			<td>${company.compAddress}</td> --%>
+<%-- 			<td>${company.compSex}</td> --%>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/emp/emp.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="­×§ï">
@@ -98,8 +98,8 @@
 			  </FORM>
 			</td>
 		</tr>
-<%-- 	</c:forEach> --%>
-<!-- </table> -->
+	</c:forEach>
+</table>
 <%-- <%@ include file="page2.file" %> --%>
 
 </body>

@@ -52,11 +52,11 @@ public class CompanyHibernateDAO implements CompanyDAO_interface {
 	}
 
 	@Override
-	public int delete(Integer comp_id) {
+	public int delete(Integer compId) {
 		
 		try {
 			getSession().beginTransaction();
-			Company comp = getSession().get(Company.class, comp_id);
+			Company comp = getSession().get(Company.class, compId);
 			if (comp != null) {
 				getSession().delete(comp);
 			}
@@ -70,11 +70,11 @@ public class CompanyHibernateDAO implements CompanyDAO_interface {
 	}
 
 	@Override
-	public Company findByPK(Integer comp_id) {
+	public Company findByPK(Integer compId) {
 		
 		try {
 			getSession().beginTransaction();
-			Company com= getSession().get(Company.class, comp_id);
+			Company com= getSession().get(Company.class, compId);
 			getSession().getTransaction().commit();
 			return com;
 		} catch (Exception e) {

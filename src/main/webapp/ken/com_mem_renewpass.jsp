@@ -10,6 +10,7 @@
 Company company = (Company) request.getAttribute("Company");
 System.out.println("2132145");
 System.out.println(company);
+
 %>
 
 <!DOCTYPE html>
@@ -185,40 +186,39 @@ button.left_btn:hover {
 		</aside>
 	</nav>
 
-	<div class="all">
+	F
+		<div class="all">
 
-		<main class="main-content">
-			<FORM METHOD="post" ACTION="CompanyServlet">
-				<label class="main-content-info">舊密碼 
-				<input type="text" name="compId" value="<%= company.getCompPassword() %>"></label> <br>
-<!-- 				<label class="">新密碼 :&ensp;<input type="text" id="new_p" -->
-<%-- 					name="compPassword" value="<%= company.getCompPassword()%>"></label> <br> --%>
-<!-- 				<label class="">確認新密碼 :&ensp;<input type="text" id="check" -->
-<%-- 					name="compPassword" value="<%= company.getCompPassword()%>"></label> --%>
-			</FORM>
+			<main class="main-content">
+				<label class="main-content-info">請輸入新密碼 <input type="text"
+					name="compId" >
+				</label>
+					<br>
 				<div>
-					<a type="button" class="pass-btn">取消</a>
-					<button type="button" class="pass-btn" id="add">更新密碼</button>
+					<!-- 					<a type="button" class="pass-btn">取消</a> -->
+					<button type="button" class="pass-btn" id="add" >更新密碼</button>
+					<button type="submit" id="add-data" style="display: none;"></button>
 				</div>
-				<button type="submit" id="add-data" style="display: none;"></button>
-			
-		</main>
-	</div>
-	<div class="alert_bg">
-		<div class="alert">
-			<div>
-				確定更新嗎? <br>
-<!-- 				<button type="button" id="yes" class="other-btn">Yes</button> -->
-<!-- 				<button type="button" id="no" class="other-btn">No</button> -->
-				<br> 
-				<input type="hidden" name="action" value="update">
-				<input type="hidden" name="compId" value="<%=company.getCompId()%>">
-				<input type="submit" value="送出修改">
-				
+			</main>
+		</div>
+	<FORM METHOD="post" ACTION="CompanyServlet">
+		<div class="alert_bg">
+			<div class="alert">
+				<div>確定更新嗎? 
+					<br>
+					<!-- 				<button type="button" id="yes" class="other-btn">Yes</button> -->
+					<!-- 				<button type="button" id="no" class="other-btn">No</button> -->
+					<br> 
+<%-- 					<a href="${pageContext.request.contextPath}/CompanyServlet?action=getPSForUpdate&compId=<%= company.getCompId()%>">送出修改</a> --%>
+					<input type="hidden" name="action" value="getPSForUpdate">
+					<input type="hidden" name="compId" value="<%=company.getCompId()%>">
+					<input type="submit" value="送出修改">
+				</div>
 			</div>
 		</div>
-	</div>
-	<script src="${pageContext.request.contextPath}/static/ken_js/btn4com.js"></script>
+	</FORM>
+	<script
+		src="${pageContext.request.contextPath}/static/ken_js/btn4com.js"></script>
 </body>
 
 </html>
