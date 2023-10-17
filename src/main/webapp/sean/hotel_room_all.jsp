@@ -188,7 +188,10 @@ input {
 .multi-photo>img.imgs:nth-child(4n) {
 	margin-right: 0px;
 }
-
+.stocks{
+	border:none;
+	background-color: white;
+}
 </style>
 </head>
 
@@ -279,6 +282,14 @@ input {
 									${room.roomStatus==1?'上架中':'下架中'}</span> <span class="room-name">${room.roomName}</span>
 								<div class="do">
 									<button class="pictures">圖庫</button>
+									<form
+										action="${pageContext.request.contextPath}/sean/RoomStockServlet"
+										method="post" style="display: inline-block">
+										<input type="hidden" name="action" value="change"> <input
+											type="hidden" name="roomId" value="${room.roomId}">
+										<button type="submit" class="go" style="display: none"></button>
+										<button class="stocks">調整庫存</button>
+									</form>
 									<button class="detail">詳細資訊</button>
 									<form
 										action="${pageContext.request.contextPath}/sean/RoomServlet"

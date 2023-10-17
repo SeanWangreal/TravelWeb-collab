@@ -235,17 +235,6 @@ public class RoomServlet extends HttpServlet {
 			}
 			forwardPath = "/sean/hotel_room_all.jsp";
 			break;
-		case "delete1":
-			compId = (String) session.getAttribute("compId");
-			roomList = roomSrc.getRoomByCompId(Integer.parseInt(compId));
-			req.setAttribute("roomList", roomList);
-			roomId = req.getParameter("roomId");
-			if ((roomId != null) && (!roomId.trim().isBlank())) {
-				roomid = Integer.parseInt(roomId);
-				roomSrc.updateStatus(roomid, -1);
-				forwardPath = "/sean/hotel_room.jsp";
-			}
-			break;
 		case "delete2":
 			compId = (String) session.getAttribute("compId");
 			roomList = roomSrc.getRoomByCompId(Integer.parseInt(compId));

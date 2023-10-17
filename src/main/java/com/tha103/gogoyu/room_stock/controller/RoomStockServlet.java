@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/RoomStockServlet")
+@WebServlet("/sean/RoomStockServlet")
 public class RoomStockServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
