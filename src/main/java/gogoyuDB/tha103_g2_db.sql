@@ -50,19 +50,20 @@ CREATE TABLE planning (
 	plan_id     	INT AUTO_INCREMENT NOT NULL,
 	cus_id    		int,
 	plan_name       varchar(10),
+    cart_id         int(10),
 -- 	CONSTRAINT planning_cus_id_FK FOREIGN KEY (cus_id) REFERENCES consumer (cus_id),
 	CONSTRAINT planning_plan_id_PK PRIMARY KEY (plan_id)
 );
-insert into planning (cus_id, plan_name)
-	values(1, "好玩的規劃");
-insert into planning (cus_id, plan_name)
-	values(2, "有趣的規劃");
-insert into planning (cus_id, plan_name)
-	values(3, "難忘的規劃");
-insert into planning (cus_id, plan_name)
-	values(4, "快樂的規劃");
-insert into planning (cus_id, plan_name)
-	values(5, "刺激的規劃");
+insert into planning (cus_id, plan_name,cart_id)
+	values(1, "好玩的規劃",1);
+insert into planning (cus_id, plan_name,cart_id)
+	values(1, "有趣的規劃",2);
+insert into planning (cus_id, plan_name,cart_id)
+	values(1, "難忘的規劃",3);
+insert into planning (cus_id, plan_name,cart_id)
+	values(1, "快樂的規劃",4);
+insert into planning (cus_id, plan_name,cart_id)
+	values(1, "刺激的規劃",5);
 
 CREATE TABLE adm_meb (
   adm_id 		int NOT NULL AUTO_INCREMENT,
@@ -201,19 +202,19 @@ CREATE TABLE room_stock (
 	constraint room_stock_PRIMARY_KEY primary key (room_stock_id)
 );
 insert into room_stock (room_id, stock_date, stock)
-	VALUES (1, '2023-10-20', 1);
+	VALUES (1, '2023-10-17', 1);
 insert into room_stock (room_id, stock_date, stock)
-	VALUES (2, '2023-10-20', 2);
+	VALUES (2, '2023-10-17', 2);
 insert into room_stock (room_id, stock_date, stock)
-	VALUES (2, '2023-10-21', 2);
+	VALUES (2, '2023-10-17', 2);
 insert into room_stock (room_id, stock_date, stock)
-	VALUES (3, '2023-10-20', 3);
+	VALUES (3, '2023-10-17', 3);
 insert into room_stock (room_id, stock_date, stock)
-	VALUES (3, '2023-10-21', 3);
+	VALUES (3, '2023-10-17', 3);
 insert into room_stock (room_id, stock_date, stock)
-	VALUES (3, '2023-10-22', 3);
+	VALUES (3, '2023-10-17', 3);
 insert into room_stock (room_id, stock_date, stock)
-	VALUES (4, '2023-10-20', 4);
+	VALUES (4, '2023-10-17', 4);
 
 
 create table room_photo (
@@ -224,7 +225,16 @@ create table room_photo (
 	constraint room_photo_room_id_FK foreign key (room_id) references room (room_id),
 	constraint room_photo_PRIMARY_KEY primary key (room_photo_id)
 );
-
+insert into room_photo (room_id, photo, upload_time)
+	VALUES (1, null, "2023-10-03 12:34:56");
+insert into room_photo (room_id, photo, upload_time)
+	VALUES (2, null, "2023-10-03 12:34:56");
+insert into room_photo (room_id, photo, upload_time)
+	VALUES (3, null, "2023-10-03 12:34:56");
+insert into room_photo (room_id, photo, upload_time)
+	VALUES (4, null, "2023-10-03 12:34:56");
+insert into room_photo (room_id, photo, upload_time)
+	VALUES (5, null, "2023-10-03 12:34:56");
 create table room_ord(
 	room_ord_id 		int auto_increment not null,
     plan_id 			int,
@@ -233,6 +243,7 @@ create table room_ord(
     amount 				int,
     total_price 		decimal(18,3),
     commission 			decimal(18,3),
+    profit				decimal(18,3),
     people 				int,
     check_in_time 		datetime,
     check_out_time 		datetime,
@@ -248,16 +259,16 @@ create table room_ord(
     constraint room_ord_PRIMARY_KEY primary key (room_ord_id)
     
 );
-insert into room_ord (plan_id, room_id, cus_id, amount, total_price, commission, people, check_in_time, check_out_time, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (1, 1, 1, 5, 5000, 500, 5, "2023-10-5 17:14:56", "2023-10-6 11:14:56", 0, "2023-10-2 17:14:56", "幫忙保管物品1", 9, "好棒", "2023-10-10 11:14:56");
-insert into room_ord (plan_id, room_id, cus_id, amount, total_price, commission, people, check_in_time, check_out_time, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (2, 2, 2, 4, 8000, 800, 8, "2023-10-5 17:24:56", "2023-10-6 11:24:56", 1, "2023-10-2 17:24:56", "幫忙保管物品2", 8, "好讚", "2023-10-10 11:24:56");
-insert into room_ord (plan_id, room_id, cus_id, amount, total_price, commission, people, check_in_time, check_out_time, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (3, 3, 3, 3, 9000, 900, 9, "2023-10-5 17:34:56", "2023-10-6 11:34:56", 2, "2023-10-2 17:34:56", "幫忙保管物品3", null, null, null);
-insert into room_ord (plan_id, room_id, cus_id, amount, total_price, commission, people, check_in_time, check_out_time, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (4, 4, 4, 2, 8000, 800, 8, "2023-10-5 17:44:56", "2023-10-6 11:44:56", 0, "2023-10-2 17:44:56", "幫忙保管物品4", 7, "好強", "2023-10-10 11:44:56");
-insert into room_ord (plan_id, room_id, cus_id, amount, total_price, commission, people, check_in_time, check_out_time, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (5, 5, 5, 1, 500, 50, 2, "2023-10-5 17:54:56", "2023-10-6 11:54:56", 1, "2023-10-2 17:54:56", "幫忙保管物品5", 9, "好舒服", "2023-10-10 11:54:56");
+insert into room_ord (plan_id, room_id, cus_id, amount, total_price, commission,profit, people, check_in_time, check_out_time, ord_status, ord_time, remark, score, comments, comments_time)
+	VALUES (1, 1, 1, 5, 5000, 500, 1000,5, "2023-10-5 17:14:56", "2023-10-6 11:14:56", 0, "2023-10-2 17:14:56", "幫忙保管物品1", 9, "好棒", "2023-10-10 11:14:56");
+insert into room_ord (plan_id, room_id, cus_id, amount, total_price, commission,profit, people, check_in_time, check_out_time, ord_status, ord_time, remark, score, comments, comments_time)
+	VALUES (2, 2, 2, 4, 8000, 800, 1000,8, "2023-10-5 17:24:56", "2023-10-6 11:24:56", 1, "2023-10-2 17:24:56", "幫忙保管物品2", 8, "好讚", "2023-10-10 11:24:56");
+insert into room_ord (plan_id, room_id, cus_id, amount, total_price, commission,profit, people, check_in_time, check_out_time, ord_status, ord_time, remark, score, comments, comments_time)
+	VALUES (3, 3, 3, 3, 9000, 900, 1000,9, "2023-10-5 17:34:56", "2023-10-6 11:34:56", 2, "2023-10-2 17:34:56", "幫忙保管物品3", null, null, null);
+insert into room_ord (plan_id, room_id, cus_id, amount, total_price, commission, profit,people, check_in_time, check_out_time, ord_status, ord_time, remark, score, comments, comments_time)
+	VALUES (4, 4, 4, 2, 8000, 800, 1000,8, "2023-10-5 17:44:56", "2023-10-6 11:44:56", 0, "2023-10-2 17:44:56", "幫忙保管物品4", 7, "好強", "2023-10-10 11:44:56");
+insert into room_ord (plan_id, room_id, cus_id, amount, total_price, commission,profit, people, check_in_time, check_out_time, ord_status, ord_time, remark, score, comments, comments_time)
+	VALUES (5, 5, 5, 1, 500, 50, 1000,2, "2023-10-5 17:54:56", "2023-10-6 11:54:56", 1, "2023-10-2 17:54:56", "幫忙保管物品5", 9, "好舒服", "2023-10-10 11:54:56");
 
 create table `scene`(
 	`scene_id` int not null auto_increment primary key,
@@ -272,16 +283,16 @@ create table `scene`(
 	`feature` longtext,
 	`picture` varchar(200)
 );
-insert into scene (scene_name, open_time, ticket_price, trans_info, parking, address, lon, lat, feature, picture)
-	values("湳仔溝自行車道", "早上8點~下午5點", "40元", "公車102", "沒停車場", "新北市220板橋區環河道路", 24.997026046042937, 121.44846021667415, "河岸風景", null);
-insert into scene (scene_name, open_time, ticket_price, trans_info, parking, address, lon, lat, feature, picture)
-	values("萬里漁村生活館", "早上7點~下午5點", "30元", "公車101", "有停車場", "新北市207萬里區野柳里港東路167號", 25.20523201208685, 121.68918846908646, "有很多魚", null);
-insert into scene (scene_name, open_time, ticket_price, trans_info, parking, address, lon, lat, feature, picture)
-	values("野柳燈塔", "早上9點~下午5點", "50元", "公車103", "有停車場", "新北市207萬里區野柳燈塔", 25.213740762064287, 121.6973120996188, "看很遠", null);
-insert into scene (scene_name, open_time, ticket_price, trans_info, parking, address, lon, lat, feature, picture)
-	values("野柳地質公園", "開放時間為上午8:00至下午5:00夏季開放(7、8月)時間為上午9:00至下午6:00除依「天然災停止版辦公及上課作業辦法」規定新北市政府決定停止公告或上課之起止時間。", "1.全票120元 （一般遊客）2.優待票60元（持證優待）■ 學生（以具有臺灣正式學籍之學生證者為認定標準）■ 兒童6歲以上及未滿12歲者。■ 年滿65歲以上長者(需本國籍)。■ ...", "【公車資訊】1.淡水客運862號(在淡水捷運站前搭車→往基隆在野柳站下車) 約每30分鐘一班車。2.國光客運1815號(於國光客運台北車站搭車→往金山青年活動中心路經忠孝東路、台北市政府轉運站→ 在野柳站下車)約每20分鐘一班車。3.基隆客運790號(基隆火車站旁搭車→往金山在野柳站下車) 約每15分鐘一班車。4.基隆客運1068號(台灣大學搭車→往金山在野柳地質公園站...", "設有野柳地質公園停車場", "新北市207萬里區野柳村港東路167-1號", 25.20656911396514, 121.69036259510332, "擁有奇岩美石的野柳地質公園是大屯山餘脈延伸至海中的岬角受到風化、海蝕及地殼運動等作用造就了蕈狀岩、海蝕洞、豆腐石、燭狀岩及壺穴等奇景是揚名國際的天然風景名勝地。其中「女王頭」更是野柳具代表性的地標與熱門打卡點；「俏皮公主」則有著如綁著馬尾般的造型被譽為女王頭的接班人。 在野柳地質公園進入岬角地景區之前可以看到仿真的「女王頭」與「俏皮公主」還有五顏六色的奇岩怪石Q版公仔這裡有樹蔭、也不會太靠近岩石區與海岸適合小朋友在此遊憩、拍照。海岸岬角區共分為三大區域第一區有多樣且造型奇特的蕈狀岩、燭台石在這裡可以看到蕈狀岩的發育過程大小不同的蕈狀岩一字排開形成療癒可愛的景致；野柳夯點&mdash", null);
-insert into scene (scene_name, open_time, ticket_price, trans_info, parking, address, lon, lat, feature, picture)
-	values("浮洲藝術河濱公園", "早上10點~下午5點", "60元", "公車104", "沒停車場", "新北市220板橋區環河道路", 24.99639480354863, 121.43853679982915, "綠地，親子遊玩好去處", null);
+-- insert into scene (scene_name, open_time, ticket_price, trans_info, parking, address, lon, lat, feature, picture)
+-- 	values("湳仔溝自行車道", "早上8點~下午5點", "40元", "公車102", "沒停車場", "新北市220板橋區環河道路", 24.997026046042937, 121.44846021667415, "河岸風景", null);
+-- insert into scene (scene_name, open_time, ticket_price, trans_info, parking, address, lon, lat, feature, picture)
+-- 	values("萬里漁村生活館", "早上7點~下午5點", "30元", "公車101", "有停車場", "新北市207萬里區野柳里港東路167號", 25.20523201208685, 121.68918846908646, "有很多魚", null);
+-- insert into scene (scene_name, open_time, ticket_price, trans_info, parking, address, lon, lat, feature, picture)
+-- 	values("野柳燈塔", "早上9點~下午5點", "50元", "公車103", "有停車場", "新北市207萬里區野柳燈塔", 25.213740762064287, 121.6973120996188, "看很遠", null);
+-- insert into scene (scene_name, open_time, ticket_price, trans_info, parking, address, lon, lat, feature, picture)
+-- 	values("野柳地質公園", "開放時間為上午8:00至下午5:00夏季開放(7、8月)時間為上午9:00至下午6:00除依「天然災停止版辦公及上課作業辦法」規定新北市政府決定停止公告或上課之起止時間。", "1.全票120元 （一般遊客）2.優待票60元（持證優待）■ 學生（以具有臺灣正式學籍之學生證者為認定標準）■ 兒童6歲以上及未滿12歲者。■ 年滿65歲以上長者(需本國籍)。■ ...", "【公車資訊】1.淡水客運862號(在淡水捷運站前搭車→往基隆在野柳站下車) 約每30分鐘一班車。2.國光客運1815號(於國光客運台北車站搭車→往金山青年活動中心路經忠孝東路、台北市政府轉運站→ 在野柳站下車)約每20分鐘一班車。3.基隆客運790號(基隆火車站旁搭車→往金山在野柳站下車) 約每15分鐘一班車。4.基隆客運1068號(台灣大學搭車→往金山在野柳地質公園站...", "設有野柳地質公園停車場", "新北市207萬里區野柳村港東路167-1號", 25.20656911396514, 121.69036259510332, "擁有奇岩美石的野柳地質公園是大屯山餘脈延伸至海中的岬角受到風化、海蝕及地殼運動等作用造就了蕈狀岩、海蝕洞、豆腐石、燭狀岩及壺穴等奇景是揚名國際的天然風景名勝地。其中「女王頭」更是野柳具代表性的地標與熱門打卡點；「俏皮公主」則有著如綁著馬尾般的造型被譽為女王頭的接班人。 在野柳地質公園進入岬角地景區之前可以看到仿真的「女王頭」與「俏皮公主」還有五顏六色的奇岩怪石Q版公仔這裡有樹蔭、也不會太靠近岩石區與海岸適合小朋友在此遊憩、拍照。海岸岬角區共分為三大區域第一區有多樣且造型奇特的蕈狀岩、燭台石在這裡可以看到蕈狀岩的發育過程大小不同的蕈狀岩一字排開形成療癒可愛的景致；野柳夯點&mdash", null);
+-- insert into scene (scene_name, open_time, ticket_price, trans_info, parking, address, lon, lat, feature, picture)
+-- 	values("浮洲藝術河濱公園", "早上10點~下午5點", "60元", "公車104", "沒停車場", "新北市220板橋區環河道路", 24.99639480354863, 121.43853679982915, "綠地，親子遊玩好去處", null);
 
 create table `trip`(
 	`trip_id` int not null auto_increment primary key,
@@ -368,6 +379,7 @@ CREATE TABLE trip_ord (
     amount			int,
     total_price		decimal(18,3),
     commission		decimal(18,3),
+    profit       	decimal(18,3),
     ord_status 	int,
     ord_time		datetime,
     remark			varchar(50),
@@ -379,16 +391,16 @@ CREATE TABLE trip_ord (
 -- 	CONSTRAINT TRIP_ORD_CUS_ID_FK FOREIGN KEY (cus_id) REFERENCES consumer (cus_id),
     CONSTRAINT TRIP_ORD_PRIMARY_KEY PRIMARY KEY (trip_ord_id)
 ) ;
-insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (1, 1, 1, 5, 5000, 500, 0, null, null, null, null, null);
-insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (2, 2, 2, 4, 8000, 800, 1, "2023-10-03 12:24:56", "素食", 4, "太爽了", "2023-10-10 12:34:56");
-insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (3, 3, 3, 3, 9000, 900, 2, "2023-10-03 12:34:56", null, null, null, null);
-insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (4, 4, 4, 2, 8000, 800, 0, null, null, null, null, null);
-insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (5, 5, 5, 1, 5000, 500, 1, "2023-10-03 12:54:56", "素食", 3, "還好", "2023-10-10 12:34:56");
+insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission,profit, ord_status, ord_time, remark, score, comments, comments_time)
+	VALUES (1, 1, 1, 5, 5000, 500, 1000,0, null, null, null, null, null);
+insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission,profit, ord_status, ord_time, remark, score, comments, comments_time)
+	VALUES (2, 2, 2, 4, 8000, 800,1000, 1, "2023-10-03 12:24:56", "素食", 4, "太爽了", "2023-10-10 12:34:56");
+insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission,profit, ord_status, ord_time, remark, score, comments, comments_time)
+	VALUES (3, 3, 3, 3, 9000, 900, 1000,2, "2023-10-03 12:34:56", null, null, null, null);
+insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission, profit,ord_status, ord_time, remark, score, comments, comments_time)
+	VALUES (4, 4, 4, 2, 8000, 800, 1000,0, null, null, null, null, null);
+insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission,profit, ord_status, ord_time, remark, score, comments, comments_time)
+	VALUES (5, 5, 5, 1, 5000, 500,1000, 1, "2023-10-03 12:54:56", "素食", 3, "還好", "2023-10-10 12:34:56");
     
 CREATE TABLE notify (
 	notify_id     	INT AUTO_INCREMENT NOT NULL,
