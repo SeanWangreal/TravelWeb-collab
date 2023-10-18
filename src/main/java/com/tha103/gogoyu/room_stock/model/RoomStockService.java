@@ -10,6 +10,7 @@ public interface RoomStockService {
 	public Room_stock getRoomStock(Integer roomStockId);
 	public List<Room_stock> getAll();
 	public List<Room_stock> getStockByRoomId(Integer roomId);
+	public List<Room_stock> getStockByTodayByRoomId(Integer roomId);
 	public void addFirstTime(Integer roomId,Date stockDate,Integer stock);
 	
 }

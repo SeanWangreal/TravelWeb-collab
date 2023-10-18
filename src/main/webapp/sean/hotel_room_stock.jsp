@@ -44,8 +44,8 @@ response.setDateHeader("Expires", 0);
 	font-size: 0px;
 }
 
-div.all-date {
-	padding: 10px;
+.all-date {
+	padding: 5px 0px 5px 5px;
 	width: 13%;
 	margin-right: 1.3%;
 	margin-bottom: 1.3%;
@@ -62,7 +62,7 @@ div.all-date>* {
 	font-size: 16px;
 }
 
-div.all-date:nth-child(7n) {
+.all-date:nth-child(7n) {
 	margin-right: 0%;
 }
 
@@ -216,16 +216,18 @@ div.all-date:nth-child(7n) {
 							</div>
 						</div>
 					</div>
+					<div id="ALL">
 					<c:forEach var="stock" items="${list}">
 						<div class="all-date">
 							<label class="date">${stock.stockDate}</label> <input
 								type="hidden" class="id" name="oldStock"
 								value="${stock.roomStockId}"><br> <label
 								class="week"></label><br> <label class="">庫存</label> <input
-								class="stock" type="text" name="stockNum" value="${stock.stock}"><span
+								class="stock" type="number" name="stockNum" value="${stock.stock}"><span
 								class="">間</span>
 						</div>
-					</c:forEach>
+					</c:forEach>					
+					</div>
 				</form>
 			</div>
 		</main>
@@ -266,27 +268,27 @@ div.all-date:nth-child(7n) {
 								+now+
 								`>
 							<label class="">庫存</label>
-							<input class="stock" type="text" name="newStock" value="0"><span class="">間</span>
+							<input class="stock" type="number" name="newStock" value="0"><span class="">間</span>
 						 </div>`;
-					$("#dayForm").append(newDay);					
+					$("#ALL").append(newDay);					
 				} else{
 					let now = new Date();
 					let day = now.getDate();
 					let weekday = now.getDay();
 					let month = now.getMonth() +1;
 					let year = now.getFullYear();
-					now =year+'-'+ month+'-'+day;
+					now = year+'-'+ month+'-'+day;
 					let newDay = 
 						`<div class="all-date">
 							<label class="date">`+now+`</label><br>
 							<label class="">`+"星期"+day_list[weekday]+
-							`</label><br><input  type="date" name="newStockDate"  value=`
+							`</label><br><input type="hidden" name="newStockDate" value=`
 							+now+
 							`><label class="">庫存</label>
-							<input class="stock" type="text" name="newStock" value="0"><span>間</span>
+							<input class="stock" type="number" name="newStock" value="0"><span>間</span>
 						 </div>`;
 					console.log(newDay);
-					$("#dayForm").append(newDay);		
+					$("#ALL").append(newDay);		
 				}
 			})
 			$("#lessDay").on("click",function(){

@@ -56,6 +56,10 @@ public class RoomStockServiceHibernate implements RoomStockService {
 		dao.addFirstTime(roomStock);
 		
 	}
+	@Override
+	public List<Room_stock> getStockByTodayByRoomId(Integer roomId) {
+		return dao.getAllByToday(roomId);
+	}
 
 
 }

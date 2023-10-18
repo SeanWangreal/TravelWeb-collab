@@ -1,6 +1,7 @@
 package com.tha103.gogoyu.room_stock.model;
 
 
+import java.sql.Date;
 import java.util.List;
 
 
@@ -12,5 +13,6 @@ public interface Room_stockDAO_interface {
 	void addFirstTime(Room_stock roomStock);
 	Room_stock findByPK(Integer roomStockId);
 	List<Room_stock> getAll();
+	List<Room_stock> getAllByToday(Integer roomId);
 	List<Room_stock> getStockByRoomId(Integer roomId);
 }

@@ -1,6 +1,7 @@
 package com.tha103.gogoyu.room_stock.model;
 
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -117,6 +118,7 @@ public class Room_stockHibernateDAO implements Room_stockDAO_interface {
 			Date firstDate = roomStock.getStockDate();
 			Room_stock roomStockNew = null;
 			long time = firstDate.getTime();
+			time -= ONE_DAY;
 			for (int i = 0; i < DEFAULT_DAY; i++) {
 				if (i == 0) {
 					getSession().save(roomStock);
@@ -138,13 +140,39 @@ public class Room_stockHibernateDAO implements Room_stockDAO_interface {
 
 	public static void main(String[] args) {
 		Room_stockHibernateDAO dao = new Room_stockHibernateDAO(HibernateUtil.getSessionFactory());
-		Room_stock r = new Room_stock();
-		java.util.Date ee = new java.util.Date();
-		Date time = new Date(ee.getTime());
-		r.setRoomId(6);
-		r.setStockDate(time);
-		r.setStock(5);
-		dao.addFirstTime(r);
-
+//		Room_stock r = new Room_stock();
+//		java.util.Date ee = new java.util.Date();
+//		Date time = new Date(ee.getTime());
+//		r.setRoomId(6);
+//		r.setStockDate(time);
+//		r.setStock(5);
+//		dao.addFirstTime(r);
+//		System.out.println(dao.getAllByToday(6));
 	}
+
+	@Override
+	public List<Room_stock> getAllByToday(Integer roomId) {
+		try {
+			getSession().beginTransaction();
+			Calendar cal = Calendar.getInstance();
+			java.util.Date now = new java.util.Date();
+			cal.setTime(now);
+			int year = cal.get(Calendar.YEAR);
+			int month = cal.get(Calendar.MONTH) + 1;
+			int day = cal.get(Calendar.DATE);
+			String formatDate = year+"-"+month+"-"+day;
+			List<Room_stock> list = getSession()
+					.createQuery("from Room_stock where stockDate >= :today and roomId = :roomId", Room_stock.class)
+					.setParameter("today", Date.valueOf(formatDate))
+					.setParameter("roomId", roomId)
+					.list();
+			getSession().getTransaction().commit();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+
 }

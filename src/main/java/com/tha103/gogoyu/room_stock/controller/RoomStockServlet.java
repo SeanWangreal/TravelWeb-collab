@@ -54,7 +54,7 @@ public class RoomStockServlet extends HttpServlet {
 		String forwardPath = "";
 		switch (action) {
 		case "change":
-			List<Room_stock> list = roomStockSvc.getStockByRoomId(Integer.parseInt(roomId));
+			List<Room_stock> list = roomStockSvc.getStockByTodayByRoomId(Integer.parseInt(roomId));
 			req.setAttribute("list", list);
 			req.setAttribute("roomId", roomId);
 			forwardPath = "/sean/hotel_room_stock.jsp";
