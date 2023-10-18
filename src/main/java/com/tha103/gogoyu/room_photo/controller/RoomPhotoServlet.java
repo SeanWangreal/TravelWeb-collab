@@ -59,18 +59,14 @@ public class RoomPhotoServlet extends HttpServlet {
 			forwardPath = "/sean/hotel_room_add.jsp";
 			break;
 		case "getAllRoom":
-
 			forwardPath = "/sean/hotel_room_all.jsp";
 			break;
 		case "change":
-	
-				forwardPath = "/sean/hotel_room_add.jsp";
-
+			forwardPath = "/sean/hotel_room_add.jsp";
 			break;
 		case "updateRoom":
 			break;
 		case "delete":
-			
 			break;
 		}
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);

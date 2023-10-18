@@ -1,6 +1,5 @@
 package com.tha103.gogoyu.room.model;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 import util.Util;
 
 public class RoomJDBCDAO implements RoomDAO_interface {
@@ -21,7 +22,6 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 	public int add(Room room) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			String[] cols = { "room_id" };
@@ -46,13 +46,17 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 			pstmt.setByte(18, room.getElectricKettle());
 			pstmt.setBytes(19, room.getMainPhoto());
 			pstmt.executeUpdate();
-
+			ResultSet rs = pstmt.getGeneratedKeys();
+			int id = 0;
+			if(rs.next()) {
+				 id = rs.getInt(1);
+			}
+			return id;
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
-		return -1;
 	}
 
 	@Override
@@ -315,6 +319,18 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 
 	@Override
 	public byte[] getMainPhoto(Integer roomId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int deleteAllPhoto(Integer roomId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Set getAllPhoto(Integer roomId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

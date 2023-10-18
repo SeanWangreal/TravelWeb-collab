@@ -65,7 +65,7 @@ public class Room implements java.io.Serializable {
 	@Column(name = "main_photo", columnDefinition = "longblob")
 	private byte[] mainPhoto;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.REMOVE)
 	@JoinColumn(name="room_id",referencedColumnName = "room_id")
 	@OrderBy("upload_time asc")
 	private Set<Room_photo> roomPhoto;
@@ -78,7 +78,7 @@ public class Room implements java.io.Serializable {
 		this.roomPhoto = roomPhoto;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.REMOVE)
 	@JoinColumn(name="room_id",referencedColumnName = "room_id")
 	@OrderBy("stock_date asc")
 	private Set<Room_stock> roomStock;
