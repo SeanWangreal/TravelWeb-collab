@@ -301,8 +301,8 @@ create table `trip`(
 	`amount` int,
 	`price` decimal(18,3),
 	`people` int,
-	`start_time` datetime,
-	`end_time` datetime,
+	`start_time` date,
+	`end_time` date,
 	`content` longtext,
 	`state` int,
 	`taipei_city` boolean,
@@ -357,7 +357,7 @@ create table `itinerary`(
 	scene_id int,
 	begin_time datetime default current_timestamp
     -- ,
- --    constraint itinerary_trip_id foreign key (trip_id) references trip(trip_id),
+    -- constraint itinerary_trip_id foreign key (trip_id) references trip(trip_id),
 	-- constraint itinerary_scene_id foreign key (scene_id) references scene(scene_id)
 );
 insert into itinerary (trip_id, scene_id, begin_time)
