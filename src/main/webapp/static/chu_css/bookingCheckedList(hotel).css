@@ -25,8 +25,8 @@
     font-family: "粉圓";
     /* 將整個大表置於垂直中間並且水平排列 */
     box-shadow: 20px 20px 20px 0px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    width: 50%;/* 調整大框寬度為整個html的50% */
-    height: 85%;/* 調整大框高度整個html的80% */ 
+    width: 30%;/* 調整大框寬度為整個html的50% */
+    height: 95%;/* 調整大框高度整個html的80% */ 
     border-radius: 5px;   
     backdrop-filter: blur(10px); /* 添加模糊效果 */
     background: rgba(255, 255, 255, 0.5); /*添加透明度*/
@@ -37,114 +37,14 @@
 
 
 
-/* 大表框裡面的"左"框 start*/
+
 .inside_left_div{
-    width:60%;/* 調整左邊框寬度"整個表的框"的40% */ 
+    width:100%;/*調整左邊框寬度"整個表的框"的40%*/ 
     height: 100%;/* 調整左邊框高度"整個表的框"的100% */
     border-bottom-left-radius: 5px; /*只有邊框左側才有角度*/
     border-right: 2px solid lightgray;/*只有邊框右邊有線*/
    
 }
-/* 大表框裡面的"左"框 end*/
-
-
-
-
-
-
-/* 大表框裡面的"右"框 start*/
-.inside_right_div{
-    width: 40%;/* 調整左邊框寬度"整個表的框"的60% */ 
-    height:100%;/* 調整左邊框高度"整個表的框"的100% */
-    border-radius: auto; /*只有邊框左側才有角度*/
-    background-color: lightskyblue;
-    /* display: flex; */
-    /* flex-direction: column;  */
-    
-}
-
-/* 大表框裡面的"右"框 end*/
-
-div.inside_right_div span.pay_button{
-    margin-top: 1000px;
-    margin-left: 20px;
-    
-}
-
-
-
-/* 付款或取消的按鈕 */
-div.inside_right_div span.pay_button button.payment-button{
-    position: relative;
-    top:10px;
-    right: 7px;
-    border-radius: 5px;
-    margin: 7px;
-    height: 50px;
-    width: 100px;
-    background-color: blue;
-    color: white;
-}
-
-
-/* 滑鼠移至button字會反藍 */
-div.inside_right_div span.pay_button button.payment-button:hover{
-    color: blue;
-}
-
-
-
-
-/* 價格 */
-div.inside_right_div div.order-item div.order_item_price label.price{
-    position: absolute;
-    top: 20px;
-    left: 80px;
-    font-size: 20px;
-    text-decoration: underline;
-}
-
-/* 傭金 */
-div.inside_right_div div.order-item div.order_item_price label.commission{
-    position: absolute;
-    top: 20px;
-    left: 80px;
-    font-size: 20px;
-    text-decoration: underline;
-}
-
-/* 總價格 */
-div.inside_right_div div.order-item div.order_item_price label.totalPrice{
-    position: absolute;
-    top: 20px;
-    left: 80px;
-    font-size: 20px;
-    text-decoration: underline;
-}
-
-
-/* 100(金額) */
-div.inside_right_div div.order-item div.order_item_price label.right_label2{
-    position: absolute;
-    bottom: 0px;
-    right: 5%;
-    font-size: 30px;
-}
-
-/* 100(金額)跟價格的大div */
-div.inside_right_div div.order-item div.order_item_price{
-    position: relative;
-    height: 100px;
-}
-
-
-
-
-
-
-
-
-
 
 
 
@@ -156,7 +56,7 @@ div.inside_right_div div.order-item div.order_item_price{
 }
 
 img.fullscreen {
-    object-fit: cover;
+/*     object-fit: cover; */
     width: 100%;
     height: 100%;
     z-index: 0; /* 設置圖片的z-index為0，使其在其他元素下面 */
@@ -192,11 +92,6 @@ img.fullscreen {
 }
 
 
-/* .right_label{
-    align-items: center;
-} */
-
-
 /* orderitem裡面存入內容長度 */
 div.outside_div div.inside_left_div form div.order-details div.order-item{
     width: 100%;
@@ -213,6 +108,19 @@ div.outside_div div.inside_left_div form div.order-details div.order-item{
 }
 
 
+div.checkedBtn{
+	position:relative;
+	display : flex;
+	top :10px;
+	margin-left : 90px;
+}
+
+div.checkedBtn  button{
+	width : 80px;
+	background-color: lightblue;
+	font-family: "粉圓";
+	margin-left : 10px;
+}
 
 
 

@@ -60,6 +60,8 @@ public class Room_ord implements Serializable {
 	private BigDecimal totalPrice;
 	@Column(name = "commission")
 	private BigDecimal commission;
+	@Column(name = "profit")
+	private BigDecimal profit;
 	@Column(name = "people")
 	private Integer people;
 	@Column(name = "check_in_time", insertable = false, updatable = false)
@@ -147,6 +149,13 @@ public class Room_ord implements Serializable {
 	}
 	public void setCommission(BigDecimal commission) {
 		this.commission = commission;
+	}
+	
+	public BigDecimal getProfit() {
+		return profit;
+	}
+	public void setProfit(BigDecimal profit) {
+		this.profit = profit;
 	}
 	public Integer getPeople() {
 		return people;

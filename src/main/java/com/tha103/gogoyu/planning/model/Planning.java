@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.tha103.gogoyu.room.model.Room;
+
 @Entity
 @Table(name = "planning")
 public class Planning{
@@ -18,18 +20,23 @@ public class Planning{
 	@Column(name = "cus_id")
 	private Integer cusId;
 
-	@Column(name = "plan_name")
-	private String planName;
+//	@Column(name = "plan_name")
+//	private String planName;
+//	
+	@Column(name = "cart_id")
+	private Integer cartId;
+	
+
 
 	public Planning() {
 		super();
 	}
 
-	public Planning(Integer planId, Integer cusId, String planName) {
+	public Planning(Integer planId, Integer cusId) {
 		super();
 		this.planId = planId;
 		this.cusId = cusId;
-		this.planName = planName;
+//		this.planName = planName;
 	}
 
 	public Integer getPlanId() {
@@ -48,12 +55,20 @@ public class Planning{
 		this.cusId = cusId;
 	}
 
-	public String getPlanName() {
-		return planName;
+//	public String getPlanName() {
+//		return planName;
+//	}
+//
+//	public void setPlanName(String planName) {
+//		this.planName = planName;
+//	}
+
+	public Integer getCartId() {
+		return cartId;
 	}
 
-	public void setPlanName(String planName) {
-		this.planName = planName;
+	public void setCartId(Integer cartId) {
+		this.cartId = cartId;
 	}
 
 }
