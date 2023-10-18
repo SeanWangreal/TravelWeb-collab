@@ -1,11 +1,11 @@
 package com.tha103.gogoyu.trip.model;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
-import com.tha103.gogoyu.room.model.RoomService;
+import com.tha103.gogoyu.trip_photo.model.Trip_photo;
 
 import util.HibernateUtil;
 
@@ -17,13 +17,12 @@ public class TripServiceHibernate implements TripService {
 	}
 	@Override
 	public Trip addTrip(Integer compId, String tripName, Integer amount, BigDecimal price, Integer people,
-			Timestamp startTime, Timestamp endTime, String content, Integer state, byte taipeiCity, byte newtaipeiCity,
+			Date startTime, Date endTime, String content, Integer state, byte taipeiCity, byte newtaipeiCity,
 			byte taoyuanCity, byte taichungCity, byte tainanCity, byte kaohsiungCity, byte hsinchuCounty,
 			byte miaoliCounty, byte changhuaCounty, byte nantouCounty, byte yunlinCounty, byte chiayiCounty,
 			byte pingtungCounty, byte yilanCity, byte hualienCity, byte taitungCounty, byte kinmenCounty,
 			byte lienchiangCounty, byte keelungCity, byte hsinchuCity, byte chiayiCity, byte penghuCounty,
 			byte[] mainPhoto) {
-
 		Trip trip = new Trip();
 		trip.setCompId(compId);
 		trip.setTripName(tripName);
@@ -58,20 +57,17 @@ public class TripServiceHibernate implements TripService {
 		trip.setPenghuCounty(penghuCounty);
 		trip.setMainPhoto(mainPhoto);
 		dao.add(trip);
-
 		return trip;
 	}
 	@Override
-	public Trip updateTrip(Integer compId, String tripName, Integer amount, BigDecimal price, Integer people,
-			Timestamp startTime, Timestamp endTime, String content, Integer state, byte taipeiCity, byte newtaipeiCity,
+	public Trip updateTrip(Integer tripId,Integer compId, String tripName, Integer amount, BigDecimal price, Integer people,
+			Date startTime, Date endTime, String content, Integer state, byte taipeiCity, byte newtaipeiCity,
 			byte taoyuanCity, byte taichungCity, byte tainanCity, byte kaohsiungCity, byte hsinchuCounty,
 			byte miaoliCounty, byte changhuaCounty, byte nantouCounty, byte yunlinCounty, byte chiayiCounty,
 			byte pingtungCounty, byte yilanCity, byte hualienCity, byte taitungCounty, byte kinmenCounty,
 			byte lienchiangCounty, byte keelungCity, byte hsinchuCity, byte chiayiCity, byte penghuCounty,
 			byte[] mainPhoto) {
-
-		Trip trip = new Trip();
-
+		Trip trip = this.getOneTrip(tripId);
 		trip.setCompId(compId);
 		trip.setTripName(tripName);
 		trip.setAmount(amount);
@@ -105,19 +101,43 @@ public class TripServiceHibernate implements TripService {
 		trip.setPenghuCounty(penghuCounty);
 		trip.setMainPhoto(mainPhoto);
 		dao.update(trip);
-
 		return trip;
 	}
 	@Override
-	public void delete(Integer tripId) {
+	public void deleteTrip(Integer tripId) {
 		dao.delete(tripId);
 	}
 	@Override
-	public Trip getOne(Integer tripId) {
+	public Trip getOneTrip(Integer tripId) {
 		return dao.findByPK(tripId);
 	}
 	@Override
 	public List<Trip> getAll() {
 		return dao.getAll();
+	}
+	@Override
+	public Set<Trip_photo> getAllPhoto(Integer tripId) {
+		return dao. getAllPhotoByTripId(tripId);
+	}
+	@Override
+	public Trip updateStatus(Integer tripid, Integer state) {
+		Trip trip = this.getOneTrip(tripid);
+		trip.setState(state);
+		dao.update(trip);
+		return trip;
+		
+	}
+	@Override
+	public List<Trip> getTripByCompId(Integer compId) {
+		return dao.findTripByCompId(compId);
+	}
+	@Override
+	public byte[] getMainPhoto(Integer tripId) {
+		return dao.getMainPhoto(tripId);
+	}
+	
+	@Override
+	public int deleteAllPhoto(Integer tripId) {
+		return dao.deleteAllPhoto(tripId);
 	}
 }

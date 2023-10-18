@@ -2,7 +2,8 @@ package com.tha103.gogoyu.trip.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.sql.Date;
+import java.sql.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -23,7 +24,7 @@ public class Trip implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name = "trip_id", updatable = false)   //pk
+	@Column(name = "trip_id", updatable = false)
 	private Integer tripId;
 
 	@OneToMany(cascade = CascadeType.ALL)
@@ -66,13 +67,13 @@ public class Trip implements Serializable {
 	private Integer people;
 
 	@Column(name = "start_time")
-	private Timestamp startTime;
+	private Date startTime;
 
 	@Column(name = "end_time")
-	private Timestamp endTime;
+	private Date endTime;
 
 	@Column(name = "content", columnDefinition = "longtext")
-	private String content; // CLOB
+	private String content;
 
 	@Column(name = "state")
 	private Integer state;
@@ -147,7 +148,7 @@ public class Trip implements Serializable {
 	private byte[] mainPhoto;
 
 	public Trip(Integer tripId, Integer compId, String tripName, Integer amount, BigDecimal price, Integer people,
-			Timestamp startTime, Timestamp endTime, String content, Integer state, byte taipeiCity, byte newtaipeiCity,
+			Date startTime, Date endTime, String content, Integer state, byte taipeiCity, byte newtaipeiCity,
 			byte taoyuanCity, byte taichungCity, byte tainanCity, byte kaohsiungCity, byte hsinchuCounty,
 			byte miaoliCounty, byte changhuaCounty, byte nantouCounty, byte yunlinCounty, byte chiayiCounty,
 			byte pingtungCounty, byte yilanCity, byte hualienCity, byte taitungCounty, byte kinmenCounty,
@@ -246,19 +247,19 @@ public class Trip implements Serializable {
 		this.people = people;
 	}
 
-	public Timestamp getStartTime() {
+	public Date getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Timestamp startTime) {
+	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
 
-	public Timestamp getEndTime() {
+	public Date getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Timestamp endTime) {
+	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
 
