@@ -297,6 +297,7 @@ input {
 	width: 100%;
 	min-height: 10vw;
 	max-height: fit-content;
+	font-size: 0px;
 }
 .multi-photo>img.imgs {
 	cursor: pointer;

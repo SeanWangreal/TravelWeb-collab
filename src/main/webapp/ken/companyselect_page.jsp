@@ -63,7 +63,7 @@
   <jsp:useBean id="companySvc" scope="page" class="com.tha103.gogoyu.company.model.CompanyService" />
    
   <li>
-     <FORM METHOD="post" ACTION="CompanyServlet" >
+     <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/CompanyServlet" >
        <b>選擇會員編號:</b>
        <select size="1" name="compId">
          <c:forEach var="company" items="${companySvc.allCompany}" > 

@@ -17,80 +17,84 @@ public class CompanyHibernateDAO implements CompanyDAO_interface {
 		this.factory = factory;
 	}
 	
+	private Session getSession() {
+		return factory.getCurrentSession();
+	}
+	
 	@Override
 	public int add(Company Company) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		
 		try {
-			session.beginTransaction();
-			Integer id = (Integer) session.save(Company);
-			session.getTransaction().commit();
+			getSession().beginTransaction();
+			Integer id = (Integer) getSession().save(Company);
+			getSession().getTransaction().commit();
 			return id;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return -1;
 	}
 
 	@Override
 	public int update(Company Company) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		
 		try {
-			session.beginTransaction();
-			session.update(Company);
-			session.getTransaction().commit();
+			getSession().beginTransaction();
+			getSession().update(Company);
+			getSession().getTransaction().commit();
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return -1;
 	}
 
 	@Override
-	public int delete(Integer comp_id) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	public int delete(Integer compId) {
+		
 		try {
-			session.beginTransaction();
-			Company comp = session.get(Company.class, comp_id);
+			getSession().beginTransaction();
+			Company comp = getSession().get(Company.class, compId);
 			if (comp != null) {
-				session.delete(comp);
+				getSession().delete(comp);
 			}
-			session.getTransaction().commit();
+			getSession().getTransaction().commit();
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return -1;
 	}
 
 	@Override
-	public Company findByPK(Integer comp_id) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	public Company findByPK(Integer compId) {
+		
 		try {
-			session.beginTransaction();
-			Company com= session.get(Company.class, comp_id);
-			session.getTransaction().commit();
+			getSession().beginTransaction();
+			Company com= getSession().get(Company.class, compId);
+			getSession().getTransaction().commit();
 			return com;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return null;
 	}
 
 	@Override
 	public List<Company> getAll() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		
 		try {
-			session.beginTransaction();
-			List<Company> list = session.createQuery("from company", Company.class).list();
-			session.getTransaction().commit();
+			getSession().beginTransaction();
+			List<Company> list = getSession().createQuery("from Company", Company.class).list();
+			getSession().getTransaction().commit();
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return null;
 	}

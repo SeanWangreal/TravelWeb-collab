@@ -49,10 +49,9 @@ public class CompanyService {
 			company.setCompMail(compMail);
 			company.setCompPhoto(compPhoto);
 			company.setCheckStatus(checkStatus);
-			dao.update(company);
+			dao.add(company);
 			return company;
 		}
-
 		public void deleteCompany(Integer compId) {
 			dao.delete(compId);
 		}
