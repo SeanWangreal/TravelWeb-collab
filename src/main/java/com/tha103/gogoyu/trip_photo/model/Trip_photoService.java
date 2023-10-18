@@ -9,7 +9,7 @@ public class Trip_photoService {
 	private Trip_photoDAO_interface dao;
 
 	public Trip_photoService() {
-		dao = new Trip_photoJDBCDAO();
+		dao = new Trip_photoHibernateDAO();
 	}
 	
 	private Date date = new Date();

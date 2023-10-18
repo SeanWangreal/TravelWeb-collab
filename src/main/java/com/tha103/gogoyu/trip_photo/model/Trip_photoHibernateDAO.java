@@ -10,6 +10,9 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Session;
+
+import com.tha103.gogoyu.scene.model.Scene;
+
 import util.HibernateUtil;
 import util.Util;
 
@@ -18,22 +21,20 @@ public class Trip_photoHibernateDAO implements Trip_photoDAO_interface {
 	
 	@Override
 	public byte[] getPic(Integer trip_photo_id) throws Exception {
-		Connection con = null ;
-		PreparedStatement pstmt = null ;
-		ResultSet rs = null ;
-		byte[] picc = null;
-		
-			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
-			pstmt = con.prepareStatement(Util.getBinary);
-			pstmt.setInt(1, trip_photo_id);
-			rs = pstmt.executeQuery(); 
-			
-		while (rs.next()) { 
-			picc = rs.getBytes("photo");
-		}
-			
-		return picc;
-	} 
+			  Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+			  try {
+			   session.beginTransaction();
+			   byte[] picc = session.createQuery("select photo from Trip_photo where trip_photo_id = :trip_photo_id",byte[].class)
+			     .setParameter("trip_photo_id", trip_photo_id)
+			     .uniqueResult();
+			   session.getTransaction().commit();
+			   return picc;
+			  } catch (Exception e) {
+			   e.printStackTrace();
+			   session.getTransaction().rollback();
+			  }
+			  return null;
+	}
 
 	@Override
 	public int add(Trip_photo trip_photo) {
