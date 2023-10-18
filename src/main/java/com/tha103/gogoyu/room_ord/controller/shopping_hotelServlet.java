@@ -113,8 +113,20 @@ public class shopping_hotelServlet extends HttpServlet {
 				TripServiceHibernate TSH = new TripServiceHibernate();
 				Trip_ordServiceHibernate TOSH = new Trip_ordServiceHibernate();
 				
+//				BigDecimal totalPrice=TSH.getByPrice(tripId);  //透過tripservicehibernate取得(等翔哥)
+//				BigDecimal startTime=TSH.getByStratTime(tripId); //透過tripservicehibernate取得(等翔哥)
+//				BigDecimal EndTime=TSH.getByEndTime(tripId); //透過tripservicehibernate取得(等翔哥)
+//				
+//				BigDecimal roundedtotalPriceValue = totalPrice.setScale(0, RoundingMode.HALF_UP);
+//				//comm = price *10%
+//				BigDecimal comm = new BigDecimal(0.1);
+//				BigDecimal commission = totalPrice.multiply(comm); //透過price算出comm
+//				BigDecimal roundedCommissionValue = commission.setScale(0, RoundingMode.HALF_UP);
+//				//profit = price - comm
+//				BigDecimal profit = roundedtotalPriceValue.subtract(roundedCommissionValue);
+				//等等vo補上profit
 				
-//				TOSH.addTrip(tripId,planId,cusId,tripAmount,);
+//				TOSH.addTrip(tripId,planId,cusId,tripAmount,totalPrice,commission,0,);
 				
 				
 				
