@@ -3,6 +3,8 @@ package com.tha103.gogoyu.room.model;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.tha103.gogoyu.room_ord.model.Room_ord;
+
 import util.HibernateUtil;
 
 public class RoomServiceHibernate implements RoomService{
@@ -86,7 +88,16 @@ public class RoomServiceHibernate implements RoomService{
 	public Room getOneRoom(Integer roomId) {
 		return dao.findByPK(roomId);
 	}
-
+	
+	public BigDecimal getByPrice(Integer room_Id) { //取得price的屬性
+		
+		Room rm = dao.findByPK(room_Id);
+			
+		return  rm.getPrice();
+	}
+	
+	
+	
 	public List<Room> getAll() {
 		return dao.getAll();
 	}

@@ -79,14 +79,10 @@ response.setDateHeader("Expires", 0);
 		</aside>
 		<div id="shell"></div>
 		<aside class="left">
+			
 			<div class="mem-data">
 				<a class="left_btn"> <i class="fa-solid fa-cart-shopping"
-					style="color: black;"></i> 制定規劃(行程)
-				</a>
-			</div>
-			<div class="mem-data">
-				<a class="left_btn"> <i class="fa-solid fa-cart-shopping"
-					style="color: black;"></i> 制定規劃(飯店)
+					style="color: black;"></i> 制定規劃
 				</a>
 			</div>
 			<div class="mem-data">
@@ -153,7 +149,7 @@ response.setDateHeader("Expires", 0);
 		
 			<div class="tab plan1 -on" id="tab_plan1">
 
-<%-- 	<c:forEach var="Room_ord" items="${Room_ordList}"> --%>
+<%-- 	<c:forEach var="Shopping" items="${ShoppingCart}"> --%>
 				<!-- ==============裡面的list=============== -->
 				<!-- <div class="no-items n1">暫無商品</div> -->
 
@@ -167,10 +163,10 @@ response.setDateHeader("Expires", 0);
 					<div class="plan_tab_1_right">
 						<div class="right_side_first_row">
 							<div class="title_set">
-								<span class="mark_for_type_hotel">飯</span> <i
-									id="named_of_title">垃圾飯店</i> </i>
+								<span class="mark_for_type_hotel">飯店</span> <i
+									id="named_of_title">統神大戲院</i> 
 								<div>
-									規劃ID: <i style="color: darkorange;">1232142141</i>
+									訂單ID: <i style="color: darkorange;">1</i>
 								</div>
 							</div>
 
@@ -180,26 +176,34 @@ response.setDateHeader("Expires", 0);
 									</a>
 								</div>
 								<div class="count_star">
-									<a href="#"> <i class="fa-solid fa-star">8.7</i>
+									<a href="#"> <i class="fa-solid fa-star">1</i>
 									</a>
 								</div>
 							</div>
 						</div>
 						<span class="book_price">價格(未含稅)</span> <i class="howmuch_nt">TWD</i>
 						<div class="price_set">
-							<i class="howmuch">8000</i>
+							<i class="howmuch">1</i>
 						</div>
 						<div class="pay_btn">
                             <button class="b list">查看行程細況</button>
+                             
+                         <div style = "display :flex">
                             <button class="b infos">訂單資訊</button> 
+                           		<form action="/shopping_hotelServlet" method="post">
+									    <input type="hidden" name="action" value = "update">
+									    <button  class="b amount" type="submit">更新數量
+									    </button>
+								</form>
+                        </div>
 						<div class="pay_or_remove">
 							<form action="/shopping_hotelServlet" method="post">
-								<input type="hidden" name="actionForPay" value="pay">
+								<input type="hidden" name="action" value="checkOut">
 								<button class="b pay" type="submit">前往付款</button>
 							</form>
 							<form action="/shopping_hotelServlet" method="post">
 								<input type="hidden" name="action" value="remove">
-								<input type="hidden" name="planId"  >
+								<input type="hidden" name="planId"  value ="1">
 								<button class="b remove" type="submit">移除訂單</button>
 							</form>
 						</div>
@@ -210,7 +214,7 @@ response.setDateHeader("Expires", 0);
 			</div>
 			
 <%-- 			</c:forEach> --%>
-
+		
 			<!--    =============================foreachForList======================================              -->
 
 

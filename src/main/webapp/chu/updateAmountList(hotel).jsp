@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/chu_css/bookingCheckedList(hotel).css">
+    <link rel="stylesheet" href="../static/chu_css/bookingCheckedList(trip).css">
 
 </head>
 <!-- <h1 class="payment-title">交易明細</h1> -->
@@ -22,70 +22,73 @@
 
     <div class="outside_div">
         <div class="inside_left_div">
-            <form action="#" method="get">
+          
 
-                <div class="order-details">
+                <div class="order-details"style = "margin-left:10px ; ">
                     <br>
                     <i class="payment-title">訂單資訊[飯店]</i>
                     
                     <br>
-                    <div class="order-item" >
-                        <label for="orderId">訂單編號:&nbsp&nbsp&nbsp&nbsp<label style="color: blue;">123</label></label>
+                    <div class="order-item"  style = "margin-top : 40px">
+                        <label for="orderId">訂單編號:<label style="color: blue;">123</label></label>
                     </div>
                     <hr>
                     <div class="order-item">
-                        <label for="cusId">會員編號:&nbsp&nbsp&nbsp&nbsp</label>
+                        <label for="cusId">會員編號:</label>
                     </div>
                     <hr>
                     <div class="order-item">
-                        <label for="hotel-name">飯店名稱:&nbsp&nbsp&nbsp&nbsp</label>
+                        <label for="hotel-name">飯店名稱:</label>
                     </div>
                     <hr>
                     <div class="order-item">
-                        <label for="agency">房型:&nbsp&nbsp&nbsp&nbsp</label>
+                        <label for="agency">房型:</label>
+                    </div>
+                    <hr>
+                    <form action="post"  ACTION="shopping_hotelServlet" >
+	                    <div class="order-item">
+	                        <label for="contact">房數: </label>
+		                         <select size="1" name="amount">
+							         <c:forEach var="Scene" items="1" > 
+							          		<option value="1">1
+							         </c:forEach>   
+						       </select>
+						       <input type="hidden" name="action" value="amount">
+	                    </div>
+                    </form>
+                    <hr>
+                    <div class="order-item">
+                        <label for="principalName">業者聯絡人:</label>
                     </div>
                     <hr>
                     <div class="order-item">
-                        <label for="contact">房數:&nbsp&nbsp&nbsp&nbsp</label>
+                        <label for="principalPhone">電話:</label>
                     </div>
                     <hr>
                     <div class="order-item">
-                        <label for="principalName">業者聯絡人:&nbsp&nbsp&nbsp&nbsp</label>
+                        <label for="checkInTime">入住時間:</label>
                     </div>
                     <hr>
                     <div class="order-item">
-                        <label for="principalPhone">電話:&nbsp&nbsp&nbsp&nbsp</label>
-                    </div>
-                    <hr>
-                    <div class="order-item">
-                        <label for="checkInTime">入住時間:&nbsp&nbsp&nbsp&nbsp</label>
-                    </div>
-                    <hr>
-                    <div class="order-item">
-                        <label for="checkOutTime">退房時間:&nbsp&nbsp&nbsp&nbsp</label>
+                        <label for="checkOutTime">退房時間:</label>
                     </div>
                     <hr>
                      <div class="order-item">
-                        <label for="ordTime">下單時間:&nbsp&nbsp&nbsp&nbsp</label>
+                        <label for="ordTime">下單時間:</label>
                     </div>
                     <hr>
-                    <div class="order-item">
-                        <label for="remark">備註: 
-                        <input type = "text"  name = "remark"  style = "width : 80%"> 
-	                        </label>
-                        </label>
-                    </div>
+                  
                    
 
 					<div class="checkedBtn" >
                    	 		<FORM METHOD="post" ACTION="shopping_hotelServlet" >
-							     <button type="submit">確認</button>
+							     <button type="submit" style = "font-size:2px"><b>確認</b></button>
 							     <input type="hidden" name="action"	value="confirm">
 						     </FORM>
-						     <FORM METHOD="post" ACTION="shopping_hotelServlet" >
-							     <button type="submit">取消</button>
-							     <input type="hidden" name="action"	value="cancel">
-						     </FORM>
+						    
+							     <a href="${pageContext.request.contextPath}/chu/shopping(hotel).jsp" style =" text-decoration: none ; color : black "    font-size: 1px;>取消</a>
+							    
+						    
                     </div>
 
 
@@ -93,7 +96,7 @@
 
                 </div>
 
-            </form>
+            
 
         <script>
             

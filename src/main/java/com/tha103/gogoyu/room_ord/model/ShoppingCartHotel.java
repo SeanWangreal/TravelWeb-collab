@@ -9,22 +9,28 @@ import com.tha103.gogoyu.trip_ord.model.Trip_ord;
 public class ShoppingCartHotel {
 
 	// 照片
-	Room_photo photo;
+	private Room_photo photo;
 
-	// 飯店名
-	Company compName;
+	// 飯店
+	private String compName;
 
 	// 評分數
-	Trip_ord score;
+	private String score;
 
 	// 會員id
-	String cusId;
+	private String cusId;
 
 	// 購物車id
-	String planId;
+	private String planId;
 
-	// 訂單id
-//	String orderId;
+	// 廠商類型
+	private String compType;
+
+	// 購物車號碼
+	private String cartNum;
+
+	// 價格
+	private String price;
 
 	public Room_photo getPhoto() {
 		return photo;
@@ -34,19 +40,19 @@ public class ShoppingCartHotel {
 		this.photo = photo;
 	}
 
-	public Company getCompName() {
+	public String getCompName() {
 		return compName;
 	}
 
-	public void setCompName(Company compName) {
+	public void setCompName(String compName) {
 		this.compName = compName;
 	}
 
-	public Trip_ord getScore() {
+	public String getScore() {
 		return score;
 	}
 
-	public void setScore(Trip_ord score) {
+	public void setScore(String score) {
 		this.score = score;
 	}
 
@@ -64,6 +70,30 @@ public class ShoppingCartHotel {
 
 	public void setPlanId(String planId) {
 		this.planId = planId;
+	}
+
+	public String getCompType() {
+		return compType;
+	}
+
+	public void setCompType(String compType) {
+		this.compType = compType;
+	}
+
+	public String getCartNum() {
+		return cartNum;
+	}
+
+	public void setCartNum(String cartNum) {
+		this.cartNum = cartNum;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
 	}
 
 }

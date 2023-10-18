@@ -11,15 +11,15 @@
 response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
 response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setDateHeader("Expires", 0);
-%>
+
+
+session.setAttribute("cus_id",1);
+session.setAttribute("room_id",1);
+%> 
 
 
 
-<%
-	Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
-	    List<Room_ord> list = ROSH.getAll();
-	    pageContext.setAttribute("Room_ordList",list);
-%>
+
 
 
 <!DOCTYPE html>
@@ -81,14 +81,10 @@ response.setDateHeader("Expires", 0);
 		</aside>
 		<div id="shell"></div>
 		<aside class="left">
+			
 			<div class="mem-data">
 				<a class="left_btn"> <i class="fa-solid fa-cart-shopping"
-					style="color: black;"></i> 制定規劃(行程)
-				</a>
-			</div>
-			<div class="mem-data">
-				<a class="left_btn"> <i class="fa-solid fa-cart-shopping"
-					style="color: black;"></i> 制定規劃(飯店)
+					style="color: black;"></i> 制定規劃
 				</a>
 			</div>
 			<div class="mem-data">
@@ -155,7 +151,7 @@ response.setDateHeader("Expires", 0);
 		
 			<div class="tab plan1 -on" id="tab_plan1">
 
-	  <form  method = "post"  action="shopping_hotelServlet">
+	  <form  method = "post"  action="${pageContext.request.contextPath}/shopping_hotelServlet">
 				<!-- ==============裡面的list=============== -->
 				<!-- <div class="no-items n1">暫無商品</div> -->
 
@@ -168,7 +164,7 @@ response.setDateHeader("Expires", 0);
 						
 					</div>
 					
-					<form action="shopping_hotelServlet" method="post">
+					
 					
 					<div class="plan_tab_1_right">
 						<div class="right_side_first_row">
@@ -211,22 +207,24 @@ response.setDateHeader("Expires", 0);
 							
 								<input type="hidden" name="actionForPay" value="pay">
 									<select size="1" name="amount">
+									 
  								         
-														<c:forEach begin="1" end="5" step="1" var="i">
-													        <option value="${i}" >${i}
-<%-- 													        <input type = "hidden"  name ="shopinCartNum" value ="${i} }"> --%>
-													    </c:forEach>
+														
+													        <option value="1">
+													      <input type="hidden" name="cart_id" value="1">
+
 
 							       </select>
-								<a  href="#" class="b pay"  style = "border: 1px solid blcak ; background-color: blue; color:black;">加入購物車</a>
-								<input type = "hidden"  name ="action" value ="go_shopping">
-						</form>
+							       <form action="shopping_hotelServlet" method="post">
+									<button  href="#" class="b pay"  style = "border: 1px solid blcak ; background-color: blue; color:black;">加入購物車</button>
+									<input type = "hidden"  name ="action" value ="room_goShopping">
+								</form>
 							
 							
 							
 							
 							<form action="shopping_hotelServlet" method="post">
-								<input type="hidden" name="actionForRemove" value="remove">
+								<input type="hidden" name="action" value="remove">
 								<button class="b remove" type="submit">移除訂單</button>
 							</form>
 						</div>
@@ -273,9 +271,17 @@ response.setDateHeader("Expires", 0);
 
 	<script src="../static/chu_js/shopping.js"></script>
 
-
-
-
+ <script>
+ 
+ 
+ let a = ${successPutShopping};
+ $("button.b pay").on("click",function(){
+	 alert(a)
+ })
+ 
+ 
+ 
+ </script>
 
 </body>
 

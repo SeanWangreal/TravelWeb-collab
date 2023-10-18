@@ -293,7 +293,13 @@
                         </div>
                         <div class="pay_btn">
                             <button class="b list">查看行程細況</button>
+                            <div style = "display :flex">
                             <button class="b infos">訂單資訊</button> 
+                            		<form action="/Room_ordServlet" method="post">
+										    <input type="hidden" name="actionForPay" value = "pay">
+										    <button  class="b pay" type="submit">前往付款</button>
+									</form>
+                            </div>
                             <div class="pay_or_remove">
                                 	<form action="/Room_ordServlet" method="post">
 										    <input type="hidden" name="actionForPay" value = "pay">
