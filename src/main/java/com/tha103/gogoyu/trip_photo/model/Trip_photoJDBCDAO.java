@@ -31,7 +31,7 @@ public class Trip_photoJDBCDAO implements Trip_photoDAO_interface {
 		}
 	}
 	
-	@Override
+
 	public byte[] getPic(Integer trip_photo_id) throws Exception {
 		Connection con = null ;
 		PreparedStatement pstmt = null ;

@@ -60,7 +60,7 @@
     </FORM>
   </li>
 
-  <jsp:useBean id="tripPhotoSvc" scope="page" class="com.tha103.gogoyu.trip_photo.model.Trip_photoService" />
+  <jsp:useBean id="tripPhotoSvc" scope="page" class="com.tha103.gogoyu.trip_photo.model.Trip_photoServiceJDBC" />
    
   <li>
      <FORM METHOD="post" ACTION="trip_photo.do" >

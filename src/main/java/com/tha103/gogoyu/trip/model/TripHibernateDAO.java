@@ -20,10 +20,10 @@ public class TripHibernateDAO implements TripDAO_interface{
 	}
 	
 	@Override
-	public int add(Trip tripId) {
+	public int add(Trip trip) {
 		try {
 			getSession().beginTransaction();
-			Integer id = (Integer) getSession().save(tripId);
+			Integer id = (Integer) getSession().save(trip);
 			getSession().getTransaction().commit();
 			return id;
 		} catch (Exception e) {
@@ -34,10 +34,10 @@ public class TripHibernateDAO implements TripDAO_interface{
 	}
 
 	@Override
-	public int update(Trip Trip) {
+	public int update(Trip trip) {
 		try {
 			getSession().beginTransaction();
-			getSession().update(Trip);
+			getSession().update(trip);
 			getSession().getTransaction().commit();
 			return 1;
 		} catch (Exception e) {
@@ -82,7 +82,7 @@ public class TripHibernateDAO implements TripDAO_interface{
 	public List<Trip> getAll() {
 		try {
 			getSession().beginTransaction();
-			List<Trip> list = getSession().createQuery("from trip", Trip.class).list();
+			List<Trip> list = getSession().createQuery("from Trip", Trip.class).list();
 			getSession().getTransaction().commit();
 			return list;
 		} catch (Exception e) {

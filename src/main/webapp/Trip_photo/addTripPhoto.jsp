@@ -79,7 +79,7 @@ Trip_photo trip_photo = (Trip_photo) request.getAttribute("trip_photo");
 		<td><input type="file" name="photo"/></td>
 	</tr>
 
-	<jsp:useBean id="tripPhotoSvc" scope="page" class="com.tha103.gogoyu.trip_photo.model.Trip_photoService" />
+	<jsp:useBean id="tripPhotoSvc" scope="page" class="com.tha103.gogoyu.trip_photo.model.Trip_photoServiceJDBC" />
 </table>
 <br>
 <input type="hidden" name="action" value="add">

@@ -225,16 +225,7 @@ create table room_photo (
 	constraint room_photo_room_id_FK foreign key (room_id) references room (room_id),
 	constraint room_photo_PRIMARY_KEY primary key (room_photo_id)
 );
-insert into room_photo (room_id, photo, upload_time)
-	VALUES (1, null, "2023-10-03 12:34:56");
-insert into room_photo (room_id, photo, upload_time)
-	VALUES (2, null, "2023-10-03 12:34:56");
-insert into room_photo (room_id, photo, upload_time)
-	VALUES (3, null, "2023-10-03 12:34:56");
-insert into room_photo (room_id, photo, upload_time)
-	VALUES (4, null, "2023-10-03 12:34:56");
-insert into room_photo (room_id, photo, upload_time)
-	VALUES (5, null, "2023-10-03 12:34:56");
+
 create table room_ord(
 	room_ord_id 		int auto_increment not null,
     plan_id 			int,
@@ -355,21 +346,22 @@ create table `itinerary`(
 	itinerary_id int not null auto_increment primary key,
 	trip_id int ,
 	scene_id int,
+    scene_name varchar(50),
 	begin_time datetime default current_timestamp
     -- ,
     -- constraint itinerary_trip_id foreign key (trip_id) references trip(trip_id),
 	-- constraint itinerary_scene_id foreign key (scene_id) references scene(scene_id)
 );
-insert into itinerary (trip_id, scene_id, begin_time)
-	values(1, 1, "2023-10-4 07:34:56");
-insert into itinerary (trip_id, scene_id, begin_time)
-	values(2, 2, "2023-10-4 12:34:56");
-insert into itinerary (trip_id, scene_id, begin_time)
-	values(3, 3, "2023-10-4 12:34:56");
-insert into itinerary (trip_id, scene_id, begin_time)
-	values(4, 4, "2023-10-4 12:34:56");
-insert into itinerary (trip_id, scene_id, begin_time)
-	values(5, 5, "2023-10-4 12:34:56");
+-- insert into itinerary (trip_id, scene_id, begin_time)
+-- 	values(1, 1, "2023-10-4 07:34");
+-- insert into itinerary (trip_id, scene_id, begin_time)
+-- 	values(2, 2, "2023-10-4 12:34");
+-- insert into itinerary (trip_id, scene_id, begin_time)
+-- 	values(3, 3, "2023-10-4 12:34");
+-- insert into itinerary (trip_id, scene_id, begin_time)
+-- 	values(4, 4, "2023-10-4 12:34");
+-- insert into itinerary (trip_id, scene_id, begin_time)
+-- 	values(5, 5, "2023-10-4 12:34");
 
 CREATE TABLE trip_ord (
 	trip_ord_id		int auto_increment not null,

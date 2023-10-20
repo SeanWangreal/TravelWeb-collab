@@ -81,7 +81,7 @@ Trip_photo trip_photo = (Trip_photo) request.getAttribute("trip_photo");
 	</tr>
 	
 
-	<jsp:useBean id="tripPhotoSvc" scope="page" class="com.tha103.gogoyu.trip_photo.model.Trip_photoService" />
+	<jsp:useBean id="tripPhotoSvc" scope="page" class="com.tha103.gogoyu.trip_photo.model.Trip_photoServiceJDBC" />
 
 
 </table>

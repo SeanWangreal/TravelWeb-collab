@@ -5,6 +5,8 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.tha103.gogoyu.room.model.*"%>
 <%@ page import="com.tha103.gogoyu.room_photo.model.*"%>
+<%@ page import="com.tha103.gogoyu.room_stock.model.*"%>
+
 <%
 response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
 response.setHeader("Pragma", "no-cache"); //HTTP 1.0
@@ -156,12 +158,6 @@ input {
 	display: flex;
 }
 
-.room-opt {
-	display: flex;
-	flex-basis: 20%;
-	flex-direction: column;
-}
-
 .no-css {
 	position: fixed;
 	top: calc(10vh - 15px);
@@ -257,28 +253,33 @@ input {
 		<main class="main-content">
 			<div class="main-content-info">
 				<%
-				LinkedHashMap<Room, Set<Room_photo>> map = (LinkedHashMap<Room, Set<Room_photo>>) request.getAttribute("map");
+				LinkedHashMap<Room, Set<Room_photo>> mapPhoto = (LinkedHashMap<Room, Set<Room_photo>>) request.getAttribute("mapPhoto");
+				LinkedHashMap<Room, List<Room_stock>> mapStock = (LinkedHashMap<Room, List<Room_stock>>) request.getAttribute("mapStock");
 				List<Room> roomList = null;
-				if (map == null){
-					map = new LinkedHashMap<Room, Set<Room_photo>>();
-					RoomService roomSrc = new RoomServiceHibernate();
+				if (mapPhoto == null || mapStock == null){
+					mapPhoto = new LinkedHashMap<Room, Set<Room_photo>>();
+					mapStock = new LinkedHashMap<Room, List<Room_stock>>();
+					RoomService roomSvc = new RoomServiceHibernate();
+					RoomStockService roomStockSvc = new RoomStockServiceHibernate();
 					Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId"));
-					roomList = roomSrc.getRoomByCompId(compId);
-					for (Room li : roomList) {
-						Set<Room_photo> roomPhoto = roomSrc.getAllPhoto(li.getRoomId());
-						map.put(li, roomPhoto);
+					roomList = roomSvc.getRoomByCompId(compId);
+					for (Room room : roomList) {
+						Set<Room_photo> roomPhoto = roomSvc.getAllPhoto(room.getRoomId());
+						mapPhoto.put(room, roomPhoto);
+						List<Room_stock> roomStock = roomStockSvc.getStockByTodayByRoomId(room.getRoomId());
+						mapStock.put(room, roomStock);
 					}
-					request.setAttribute("map",map);
-// 					map = (LinkedHashMap<Room, Set<Room_photo>>) request.getAttribute("map");
+					request.setAttribute("mapPhoto",mapPhoto);
+					request.setAttribute("mapStock",mapStock);
 				} 
 				// 				request.setAttribute("backHere",request.getRequestURL());
 				// 				System.out.print(request.getRequestURI());
 				%>
-				<c:forEach var="room" items="${map.keySet()}">
+				<c:forEach var="room" items="${mapPhoto.keySet()}">
 					<c:if test="${room.roomStatus!=-1}">
-						<section class="one-room">
+						<section class="one-product">
 							<div class="title">
-								<span class="room-status${room.roomStatus==1?'-on':'-off'}">
+								<span class="product-status${room.roomStatus==1?'-on':'-off'}">
 									${room.roomStatus==1?'上架中':'下架中'}</span> <span class="room-name">${room.roomName}</span>
 								<div class="do">
 									<button class="pictures">圖庫</button>
@@ -288,7 +289,7 @@ input {
 										<input type="hidden" name="action" value="change"> <input
 											type="hidden" name="roomId" value="${room.roomId}">
 										<button type="submit" class="go" style="display: none"></button>
-										<button class="stocks">調整庫存</button>
+										<button type="button" class="stocks">調整庫存</button>
 									</form>
 									<button class="detail">詳細資訊</button>
 									<form
@@ -304,14 +305,14 @@ input {
 							</div>
 							<hr class="between">
 							<div class="all-info">
-								<span class="room-info" style="width: fit-content;"> <i
+								<span class="product-info" style="width: fit-content;"> <i
 									class="fa-solid fa-bed"></i> <span>${room.roomType}人房</span>
-								</span> <span class="d">|</span> <span class="room-info"
+								</span> <span class="d">|</span> <span class="product-info"
 									style="width: 80px;"> <span>床數</span> <span>${room.beds}</span>
-								</span> <span class="d">|</span> <span class="room-info"> <span>價格
+								</span> <span class="d">|</span> <span class="product-info"> <span>價格
 										$ ${room.price.stripTrailingZeros().toPlainString()}</span>
-								</span> <span class="d">|</span> <span class="room-info"
-									style="width: 140px;"> <span>今日空房</span> <span>30</span>
+								</span> <span class="d">|</span> <span class="product-info"
+									style="width: 140px;"> <span>今日空房${mapStock.get(room)[0].stock}</span>
 								</span> <span class="below-btn">
 									<button class="stock">查看庫存</button>
 									<button type="button" class="renewStatus"
@@ -354,18 +355,18 @@ input {
 										<div class="details">
 											<h2>客房</h2>
 											<div style="">
-												<label for="name">房間名稱: ${room.roomName}</label> <label>房型:
-												</label><span> ${(room.roomType == 1) ? "單人房" : ""}
+												<h5>房間名稱:</h5><label for="name" class="detail-label">${room.roomName}</label>
+												<h5>房型:</h5><label class="detail-label">${(room.roomType == 1) ? "單人房" : ""}
 													${(room.roomType == 2) ? "雙人房" : ""} ${(room.roomType == 3) ? "三人房" : ""}
-													${(room.roomType == 4) ? "四人房" : ""}</span> <label for="bed-num">床位數:
-													${room.beds}</label>
+													${(room.roomType == 4) ? "四人房" : ""}</label>
+												<h5>床位數:</h5> <label for="bed-num" class="detail-label">${room.beds}</label>
 											</div>
 										</div>
 										<hr>
 										<div>
 											<h2>客房設施</h2>
 											<div class="room">
-												<div class="room-opt">
+												<div class="product-opt">
 													<span> <i
 														class="${(room.tissue== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}"
 														style="color: #81a4df;"> </i> <label for="tissue">衛生紙</label>
@@ -377,7 +378,7 @@ input {
 														style="color: #81a4df;"> </i> <label for="electric_kettle">熱水壺</label>
 													</span>
 												</div>
-												<div class="room-opt">
+												<div class="product-opt">
 													<span> <i
 														class="${(room.shower== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}"
 														style="color: #81a4df;"> </i> <label for="shower">淋浴間</label>
@@ -386,7 +387,7 @@ input {
 														style="color: #81a4df;"> </i> <label for="flushseat">沖洗座</label>
 													</span>
 												</div>
-												<div class="room-opt">
+												<div class="product-opt">
 													<span> <i
 														class="${(room.bathroom== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}"
 														style="color: #81a4df;"> </i> <label for="bathroom">廁所</label>
@@ -395,7 +396,7 @@ input {
 														style="color: #81a4df;"> </i> <label for="slippers">拖鞋</label>
 													</span>
 												</div>
-												<div class="room-opt">
+												<div class="product-opt">
 													<span> <i
 														class="${(room.dryer== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}"
 														style="color: #81a4df;"> </i> <label for="dryer">吹風機</label>
@@ -404,7 +405,7 @@ input {
 														style="color: #81a4df;"> </i> <label for="bathrobe">浴袍</label>
 													</span>
 												</div>
-												<div class="room-opt">
+												<div class="product-opt">
 													<span> <i
 														class="${(room.tub== 1) ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}"
 														style="color: #81a4df;"> </i> <label for="tub">浴缸</label>
@@ -434,7 +435,7 @@ input {
 											</div>
 											<h2>客房詳細照片</h2>
 											<div class="multi-photo">
-											<c:forEach var="pics" items="${map.get(room)}">
+											<c:forEach var="pics" items="${mapPhoto.get(room)}">
 												<img class="imgs" src="RoomPhotoPrintHServlet?room_photo_id=${pics.roomPhotoId}"
 													style="width: 23%">											
 											</c:forEach>
@@ -485,7 +486,7 @@ input {
 		src="${pageContext.request.contextPath}/static/sean_js/btn4com.js"></script>
 	<script>
 		$(".detail").on("click", function () {
-	        let room = $(this).closest("section.one-room");
+	        let room = $(this).closest("section.one-product");
 	        $("body").css("overflow", "hidden");
 	        let alert_bg = $(room).find(".alert_bg").eq(0);
 	        alert_bg.addClass("on");
@@ -499,7 +500,7 @@ input {
 	        })
 	    })
 		$(".renewStatus").on("click", function () {
-	        let room = $(this).closest("section.one-room");
+	        let room = $(this).closest("section.one-product");
 	        $("body").css("overflow", "hidden");
 	        let alert_bg = $(room).find(".alert_bg").eq(1);
 	        alert_bg.addClass("on");
@@ -519,11 +520,11 @@ input {
 	    })
         var delete_btn = document.querySelectorAll(".delete");
         $(".delete").on("click", function () {
-            let room = $(this).closest("section.one-room");
+            let room = $(this).closest("section.one-product");
             let alert_bg = $(room).find(".alert_bg").last();
             let al = $(room).find(".alert").last();
         
-        	if(room.find("span").hasClass("room-status-on")){
+        	if(room.find("span").hasClass("product-status-on")){
         		alert("請先下架再刪除!!");
         	}else{
             $("body").css("overflow", "hidden");
@@ -544,11 +545,19 @@ input {
         })
         
         $(".change").on("click",function(){
-        	let room = $(this).closest(".one-room");
-        	if(room.find("span").hasClass("room-status-off")){
+        	let room = $(this).closest(".one-product");
+        	if(room.find("span").hasClass("product-status-off")){
         		$(this).closest("form").find(".go").click();        		
         	} else{
         		alert("請先下架再修改");
+        	}
+        })
+        $(".stocks").on("click",function(){
+        	let room = $(this).closest(".one-product");
+        	if(room.find("span").hasClass("product-status-off")){
+        		$(this).closest("form").find(".go").click();        		
+        	} else{
+        		alert("請先下架再調整庫存");
         	}
         })
     </script>
@@ -595,8 +604,8 @@ input {
                     } else {
                         myclass = 'darkgrey'; //当该日期在今天之后时，以深灰字体显示
                     }
-                    str += `<li class=` + myclass + `>` +i+ `<p>30</p>
-                        <input class="switch" type="text" value="213"></li>`; //创建日期节点
+                    str += `<li class=` + myclass + `>` +i+ `<p></p>
+                       </li>`; //创建日期节点
                 }
                 for (var i = 0; i < holder.length; i++) {
                     holder[i].innerHTML = str; //设置日期显示
@@ -636,7 +645,7 @@ input {
                 refreshDate();
             })
             $(".stock").on('click', function () {
-                $(this).closest(".one-room").find(".calendar").toggleClass("on");
+                $(this).closest(".one-product").find(".calendar").toggleClass("on");
             })
             $("h1").on("click", function () {
                 my_month = my_date.getMonth();

@@ -200,7 +200,7 @@ button.left_btn:hover {
 				}
 				%>
 
-				<form class="one-room" method="POST"
+				<form class="one-product" method="POST"
 					action="${pageContext.request.contextPath}/sean/RoomServlet"
 					enctype="multipart/form-data">
 					<h2 id="type">客房</h2>

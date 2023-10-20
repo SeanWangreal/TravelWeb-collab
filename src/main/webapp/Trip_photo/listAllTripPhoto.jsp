@@ -5,7 +5,7 @@
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
-Trip_photoService tripPhotoSvc = new Trip_photoService();
+Trip_photoServiceJDBC tripPhotoSvc = new Trip_photoServiceJDBC();
     List<Trip_photo> list = tripPhotoSvc.getAll();
     pageContext.setAttribute("list",list);
 %>

@@ -1,0 +1,38 @@
+package com.tha103.gogoyu.scene.model;
+
+import java.util.List;
+import util.HibernateUtil;
+
+public class SceneServiceHibernate implements SceneService {
+	private SceneDAO_interface dao;
+
+	public SceneServiceHibernate() {
+		dao = new SceneHibernateDAO(HibernateUtil.getSessionFactory());
+	}
+	
+	@Override
+	public int add(Scene Scene) {
+		return dao.add(Scene);
+	}
+
+	@Override
+	public int update(Scene Scene) {
+		return dao.update(Scene);
+	}
+
+	@Override
+	public int delete(Integer tripId) {
+		return dao.delete(tripId);
+	}
+
+	@Override
+	public Scene findByPK(Integer tripId) {
+		return dao.findByPK(tripId);
+	}
+
+	@Override
+	public List<Scene> getAll() {
+		return dao.getAll();
+	}
+
+}
