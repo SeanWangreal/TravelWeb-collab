@@ -356,7 +356,7 @@ button.left_btn:hover {
 						<a
 							href="${pageContext.request.contextPath}/sean/hotel_room_all.jsp"
 							type="button" class="other-btn">取消</a>
-						<button type="button" id="add" class="other-btn">新增</button>
+						<button type="button" id="add" class="other-btn">${room == null ? "新增":"更新"}</button>
 					</div>
 					<button type="submit" id="add-data" style="display: none;"></button>
 				</form>
