@@ -5,7 +5,7 @@ import java.util.List;
 public interface SceneService {
 	int add(Scene Scene);
 	int update(Scene Scene);
-	int delete(Integer tripId);
-	Scene findByPK(Integer tripId);
+	int delete(Integer sceneId);
+	Scene findByPK(Integer sceneId);
 	List<Scene> getAll();
 }
