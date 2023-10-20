@@ -17,23 +17,6 @@ public class Trip_photoHibernateDAO implements Trip_photoDAO_interface {
 
 	private Session getSession() {
 		return factory.getCurrentSession();
-
-	
-	@Override
-	public byte[] getPic(Integer trip_photo_id) throws Exception {
-			  Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-			  try {
-			   session.beginTransaction();
-			   byte[] picc = session.createQuery("select photo from Trip_photo where trip_photo_id = :trip_photo_id",byte[].class)
-			     .setParameter("trip_photo_id", trip_photo_id)
-			     .uniqueResult();
-			   session.getTransaction().commit();
-			   return picc;
-			  } catch (Exception e) {
-			   e.printStackTrace();
-			   session.getTransaction().rollback();
-			  }
-			  return null;
 	}
 
 	@Override

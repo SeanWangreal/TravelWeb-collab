@@ -21,13 +21,13 @@ public class SceneServiceHibernate implements SceneService {
 	}
 
 	@Override
-	public int delete(Integer tripId) {
-		return dao.delete(tripId);
+	public int delete(Integer sceneId) {
+		return dao.delete(sceneId);
 	}
 
 	@Override
-	public Scene findByPK(Integer tripId) {
-		return dao.findByPK(tripId);
+	public Scene findByPK(Integer sceneId) {
+		return dao.findByPK(sceneId);
 	}
 
 	@Override
