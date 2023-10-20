@@ -28,32 +28,16 @@ public class Room_ord implements Serializable {
 	@Column(name = "plan_id")
 	private Integer planId;
 
-	@Column(name = "room_id",insertable = false,updatable = false)
+     	
+	
+	@Column(name = "room_id")
 	private Integer roomId;
 	
-	@ManyToOne
-	@JoinColumn(name="room_id",referencedColumnName = "room_id")
-	private Room room;
-	
-	public Room getRoom() {
-		return room;
-	}
-	public void setRoom(Room room) {
-		this.room = room;
-	}
-	@Column(name = "cus_id",insertable = false,updatable = false)
+
+	@Column(name = "cus_id")
 	private Integer cusId;
 	
-	@ManyToOne
-	@JoinColumn(name="cus_id",referencedColumnName = "cus_id")
-	private Consumer cusumer;
 	
-	public Consumer getCusumer() {
-		return cusumer;
-	}
-	public void setCusumer(Consumer cusumer) {
-		this.cusumer = cusumer;
-	}
 	@Column(name = "amount")
 	private Integer amount;
 	@Column(name = "total_price")

@@ -26,24 +26,14 @@ public class Trip_ord implements Serializable {
 	@Column(name = "trip_ord_id")
 	private Integer tripOrdId;
 
-	@Column(name = "trip_id", insertable = false, updatable = false)
-	private Integer tripId;
+	@Column(name = "trip_id")
+	private Integer tripId;  
 
-	@ManyToOne
-	@JoinColumn(name = "trip_id", referencedColumnName = "trip_id")
-	private Trip trip;
-
-	public Trip getTrip() {
-		return trip;
-	}
-
-	public void setTrip(Trip trip) {
-		this.trip = trip;
-	}
 
 	@Column(name = "plan_id")
 	private Integer planId;
 	
+
 	@Column(name = "cus_id", insertable = false, updatable = false)
 	private Integer cusId;
 	@ManyToOne
@@ -64,6 +54,8 @@ public class Trip_ord implements Serializable {
 	private BigDecimal totalPrice;
 	@Column(name = "commission")
 	private BigDecimal commission;
+	@Column(name = "profit")
+	private BigDecimal profit;
 	@Column(name = "ord_status")
 	private Integer ordStatus;
 	@Column(name = "ord_time")
@@ -152,10 +144,19 @@ public class Trip_ord implements Serializable {
 		return commission;
 	}
 
+	public BigDecimal getProfit() {
+		return profit;
+	}
+
+	public void setProfit(BigDecimal profit) {
+		this.profit = profit;
+	}
+
 	public void setCommission(BigDecimal commission) {
 		this.commission = commission;
 	}
 
+	
 	public Integer getOrdStatus() {
 		return ordStatus;
 	}

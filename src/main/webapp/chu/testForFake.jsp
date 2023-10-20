@@ -13,8 +13,6 @@ response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setDateHeader("Expires", 0);
 
 
-session.setAttribute("cus_id",1);
-session.setAttribute("room_id",1);
 %> 
 
 

@@ -1,9 +1,14 @@
 package com.tha103.gogoyu.room_ord.model;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
+import com.tha103.gogoyu.room.model.Room;
+import com.tha103.gogoyu.room_photo.model.Room_photo;
 
 import util.HibernateUtil;
 
@@ -52,9 +57,9 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 	public int delete(Integer roomOrdId) { //傳入一個pk，只需要提供pk即可將該筆資料刪除，不需要整個VO
 		try {
 			getSession().beginTransaction();
-//			Room_ord roomOrd = getSession().get(Room_ord.class, roomOrdId); //在刪除前，要先查詢是否有該pk資料
+			Room_ord roomOrd = getSession().get(Room_ord.class, roomOrdId); //在刪除前，要先查詢是否有該pk資料
 //			if (roomOrd != null) {  //判斷假如有東西
-				getSession().delete(roomOrdId);  //依照傳入pk刪除該datarow
+				getSession().delete(roomOrd);  //依照傳入pk刪除該datarow
 //			}
 			getSession().getTransaction().commit();//交易完成
 			return 1;
@@ -93,5 +98,30 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 		}
 		return null; //如果該table沒有東西就回傳null
 	}
+	
+	
+	//下面先等等
+//	 public Set<Planning> getAllCart(Integer roomId) {
+//		try {
+//			getSession().beginTransaction();
+//			Room_ord roomOrd = getSession().get(Room_ord.class, roomId);
+//			Set<Planning> set = roomOrd.get();
+//			for (Room_photo rp: set) {
+//				getSession().get(Room_photo.class, rp.getRoomPhotoId());
+//			}
+//			getSession().getTransaction().commit();
+//			return set;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			getSession().getTransaction().rollback();
+//		}
+//		return null;
+//	} 
+	
+	
+	
+	
+	
+	
 
 }

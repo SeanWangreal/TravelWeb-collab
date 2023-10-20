@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.tha103.gogoyu.room.model.Room;
+import com.tha103.gogoyu.trip.model.Trip;
+
 public interface Trip_ordService {
 	
 	public Trip_ord addTrip(Integer tripId, Integer planId, Integer cusId, Integer amount, BigDecimal totalPrice,

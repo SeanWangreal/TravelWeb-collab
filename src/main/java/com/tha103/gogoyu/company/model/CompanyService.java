@@ -59,6 +59,11 @@ public class CompanyService {
 		public Company getOneCompany(Integer compId) {
 			return dao.findByPK(compId);
 		}
+		
+		
+		public Company getComp(Integer compId) {
+			return dao.findByPK(compId);
+		}
 
 		public List<Company> getAllCompany() {
 			return dao.getAll();

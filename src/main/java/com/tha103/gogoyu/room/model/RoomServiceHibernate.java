@@ -63,15 +63,12 @@ public class RoomServiceHibernate implements RoomService{
 		return dao.findByPK(roomId);
 	}
 	
-	public BigDecimal getByPrice(Integer room_Id) { //取得price的屬性
-		
-		Room rm = dao.findByPK(room_Id);
-			
-		return  rm.getPrice();
-	}
-	
-	
-	
+	//order取得price使用
+		@Override
+		public Room getRoom(Integer roomId) {
+			return dao.findByPK(roomId);
+		}
+
 	public List<Room> getAll() {
 		return dao.getAll();
 	}

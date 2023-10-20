@@ -1,6 +1,9 @@
 package com.tha103.gogoyu.room_ord.model;
 
+import java.math.BigDecimal;
 import java.util.*;
+
+import com.tha103.gogoyu.room.model.Room;
  
 
 public interface Room_ordDAO_interface {

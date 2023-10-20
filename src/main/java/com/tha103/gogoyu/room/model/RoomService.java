@@ -19,4 +19,5 @@ public interface RoomService {
 	public byte[] getMainPhoto(Integer roomId);
 	public int deleteAllPhoto(Integer roomId);
 	public Set<Room_photo> getAllPhoto(Integer roomId);
+	public Room getRoom(Integer roomId);
 }

@@ -33,6 +33,7 @@ public class Room_ordServiceHibernate {
 		roomOrd.setTotalPrice(totalPrice);
 		roomOrd.setCommission(commission);
 		roomOrd.setProfit(profit);
+		roomOrd.setPeople(people);
 		roomOrd.setCheckInTime(checkInTime);
 		roomOrd.setCheckOutTime(checkOutTime);
 		roomOrd.setOrdStatus(ordStatus);
@@ -78,13 +79,7 @@ public class Room_ordServiceHibernate {
 	
 	
 	
-	
-//	public Room updateStatus(Integer roomId,Integer roomStatus) {
-//		Room room = this.getOneRoom(roomId);
-//		room.setRoomStatus(roomStatus);
-//		dao.update(room);
-//		return room;
-//	}
+
 
 	public Room_ord update(Integer planId, Integer roomId, Integer cusId, Integer amount,
 			BigDecimal totalPrice, BigDecimal commission,BigDecimal profit, Integer people, Timestamp checkInTime, Timestamp checkOutTime,
@@ -113,6 +108,7 @@ public class Room_ordServiceHibernate {
 	
 	public void delete(Integer room_ordId) {
 		dao.delete(room_ordId);
+		
 	}
 
 	public Room_ord getByRoom_ordID(Integer room_ordId) { 
@@ -121,6 +117,11 @@ public class Room_ordServiceHibernate {
 	}
 	
 
+	public Room_ord getRoomOrd(Integer room_ordId) {  //¾켹consumerず콜㈙
+		return dao.findByPK(room_ordId);
+	}
+	
+	
 	
 	public Room_ord getBycusID(Integer room_ordId) {  //¾켹consumerず콜㈙
 		return dao.findByPK(room_ordId);
@@ -132,13 +133,12 @@ public class Room_ordServiceHibernate {
 		return dao.getAll();
 	}
 
-//	@Override
-//	public List<Room> getRoomByCompId(Integer compId) {
-//		return dao.findRoomByCompId(compId);
-//	}
-//	public static void main(String[] args) {
-//		RoomServiceHibernate hi = new RoomServiceHibernate();
-//		System.out.println(hi.getAll());
-//	}
 	
+
+	
+	
+	
+	
+	
+
 }
