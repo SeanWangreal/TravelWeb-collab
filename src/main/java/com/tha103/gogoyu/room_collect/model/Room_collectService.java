@@ -9,7 +9,7 @@ public class Room_collectService {
 	private Room_collectDAO_interface dao;
 
 	public Room_collectService() {
-		dao = new Room_collectJDBCDAO();
+		dao = new Room_collectHibernateDAO();
 	}
 	
 	private Date date = new Date();

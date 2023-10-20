@@ -3,10 +3,12 @@ package com.tha103.gogoyu.trip_photo.model;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import com.tha103.gogoyu.scene.model.Scene;
 import util.HibernateUtil;
 
 
 public class Trip_photoHibernateDAO implements Trip_photoDAO_interface {
+
 	private SessionFactory factory;
 
 	public Trip_photoHibernateDAO(SessionFactory factory) {
@@ -15,6 +17,23 @@ public class Trip_photoHibernateDAO implements Trip_photoDAO_interface {
 
 	private Session getSession() {
 		return factory.getCurrentSession();
+
+	
+	@Override
+	public byte[] getPic(Integer trip_photo_id) throws Exception {
+			  Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+			  try {
+			   session.beginTransaction();
+			   byte[] picc = session.createQuery("select photo from Trip_photo where trip_photo_id = :trip_photo_id",byte[].class)
+			     .setParameter("trip_photo_id", trip_photo_id)
+			     .uniqueResult();
+			   session.getTransaction().commit();
+			   return picc;
+			  } catch (Exception e) {
+			   e.printStackTrace();
+			   session.getTransaction().rollback();
+			  }
+			  return null;
 	}
 
 	@Override
