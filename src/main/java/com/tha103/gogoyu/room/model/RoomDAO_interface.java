@@ -16,5 +16,5 @@ public interface RoomDAO_interface {
 	byte[] getMainPhoto(Integer roomId);
 	int deleteAllPhoto(Integer roomId);
 	Set<Room_photo> getAllPhoto(Integer roomId);
-
+	List<Room> getHotRoom();
 }

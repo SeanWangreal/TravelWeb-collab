@@ -1,6 +1,5 @@
 package com.tha103.gogoyu.room.model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -129,21 +128,6 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		}
 		return null;
 	}
-	
-	public List<Room> getHotRoom() {
-		try {
-			getSession().beginTransaction();
-			@SuppressWarnings("unchecked")
-			NativeQuery<Room> query1 = getSession().createNativeQuery("SELECT * FROM room WHERE room_id IN (SELECT room_id FROM (SELECT room_id, count(room_id) FROM room_ord GROUP BY room_id ORDER BY 2 DESC LIMIT 3) as xxx);", Room.class);
-			List<Room> list = query1.list();
-			getSession().getTransaction().commit();
-			return list;
-		} catch (Exception e) {
-			e.printStackTrace();
-			getSession().getTransaction().rollback();
-		}
-		return null;
-	}
 
 	@Override
 	public int deleteAllPhoto(Integer roomId) {
@@ -177,6 +161,22 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		}
 		return null;
 	}
+	
+	public List<Room> getHotRoom() {
+		try {
+			getSession().beginTransaction();
+			@SuppressWarnings("unchecked")
+			NativeQuery<Room> query1 = getSession().createNativeQuery("SELECT * FROM room WHERE room_id IN (SELECT room_id FROM (SELECT room_id, count(room_id) FROM room_ord GROUP BY room_id ORDER BY 2 DESC LIMIT 3) as xxx);", Room.class);
+			List<Room> list = query1.list();
+			getSession().getTransaction().commit();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+	
 	public static void main(String[] args) {
 		RoomHibernateDAO dao = new RoomHibernateDAO(HibernateUtil.getSessionFactory());
 		System.out.println(dao.getAllPhoto(8));

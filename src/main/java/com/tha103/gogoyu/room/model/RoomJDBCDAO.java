@@ -334,4 +334,10 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Room> getHotRoom() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

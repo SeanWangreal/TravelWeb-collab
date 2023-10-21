@@ -116,5 +116,11 @@ public class RoomServiceJDBC implements RoomService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public List<Room> getHotRoom() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

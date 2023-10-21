@@ -95,6 +95,11 @@ public class RoomServiceHibernate implements RoomService{
 	public Set<Room_photo> getAllPhoto(Integer roomId) {
 		return dao.getAllPhoto(roomId);
 	}
+	
+	public List<Room> getHotRoom() {
+		return dao.getHotRoom();
+	}
+	
 	public static void main(String[] args) {
 		RoomServiceHibernate hi = new RoomServiceHibernate();
 		System.out.println(hi.getAll());
