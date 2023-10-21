@@ -134,7 +134,9 @@ public class Room_ordServiceHibernate {
 	}
 
 	
-
+	public List<Room_ord> getRoomOrdVo(Integer cartId , Integer cusId){
+		return dao.getRoomOrdVo(cartId , cusId);
+	}
 	
 	
 	
