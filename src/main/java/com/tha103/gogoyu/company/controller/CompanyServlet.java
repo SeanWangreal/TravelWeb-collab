@@ -84,7 +84,7 @@ public class CompanyServlet extends HttpServlet {
 		}
 		
 		if ("getOneJSON".equals(action)) { // 來自select_page.jsp的請求
-			List<String> errorMsgs = new LinkedList<String>();
+			Map<String, Object> errorMsgs = new HashMap();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -92,7 +92,7 @@ public class CompanyServlet extends HttpServlet {
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			String str = req.getParameter("compId");
 			if (str == null || (str.trim()).length() == 0) {
-				errorMsgs.add("請輸入會員編號");
+				errorMsgs.put("noCompId","請輸入公司編號");
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
@@ -105,18 +105,19 @@ public class CompanyServlet extends HttpServlet {
 			try {
 				compId = Integer.valueOf(str);
 			} catch (Exception e) {
-				errorMsgs.add("員工編號格式不正確");
+				errorMsgs.put("wrongId","員工編號格式不正確");
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 //				RequestDispatcher failureView = req.getRequestDispatcher("/hollow/backend.jsp");
 //				failureView.forward(req, res);
+				errorMsgs.put("status","Failed");
 				Gson gson =new Gson();
-				String outStr=gson.toJson(errorMsgs);
+				String json=gson.toJson(errorMsgs);
 				
 				PrintWriter out = res.getWriter();
-				out.println(outStr);
-				System.out.println(outStr);
+				out.println(json);
+				System.out.println(json);
 				out.close();
 				
 				return;// 程式中斷
@@ -126,18 +127,19 @@ public class CompanyServlet extends HttpServlet {
 			CompanyService companySvc = new CompanyService();
 			Company company = companySvc.getOneCompany(compId);
 			if (company == null) {
-				errorMsgs.add("查無資料");
+				errorMsgs.put("noData","查無資料");
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 //				RequestDispatcher failureView = req.getRequestDispatcher(req.getContextPath()+"ken/com_mem.jsp");
 //				failureView.forward(req, res);
+				errorMsgs.put("status","Failed");
 				Gson gson =new Gson();
-				String outStr=gson.toJson(errorMsgs);
+				String json=gson.toJson(errorMsgs);
 				
 				PrintWriter out = res.getWriter();
-				out.println(outStr);
-				System.out.println(outStr);
+				out.println(json);
+				System.out.println(json);
 				out.close();
 				
 				return;// 程式中斷
@@ -158,6 +160,7 @@ public class CompanyServlet extends HttpServlet {
 			cmpMap.put("principalPhone", company.getPrincipalPhone());
 			cmpMap.put("compAccount", company.getCompAccount());
 			cmpMap.put("compMail", company.getCompMail());
+			cmpMap.put("status", "Success");
 			
 			Gson gson =new Gson();
 			String json=gson.toJson(cmpMap);

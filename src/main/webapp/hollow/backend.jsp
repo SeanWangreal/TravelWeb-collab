@@ -139,47 +139,7 @@
                 <li>
                     <div class="">
                         <table class="table table-striped">
-                            <tr>
-                                <th>業者ID</th>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <th>公司名稱</th>
-                                <td><input type="text" class="text" value="國瑜旅行社"></td>
-                            </tr>
-                            <tr>
-                                <th>公司地址</th>
-                                <td><input type="text" class="text" value="國瑜競選總部"></td>
-                            </tr>
-                            <tr>
-                                <th>公司電話</th>
-                                <td><input type="text" class="text" value="02-34567891"></td>
-                            </tr>
-                            <tr>
-                                <th>負責人</th>
-                                <td><input type="text" class="text" value="蔣國瑜"></td>
-                            </tr>
-                            <tr>
-                                <th>負責人電話</th>
-                                <td><input type="text" class="text" value="0912-345678"></td>
-                            </tr>
-                            <tr>
-                                <th>帳號</th>
-                                <td><input type="text" class="text" value="guoyugo"></td>
-                            </tr>
-                            <tr>
-                                <th>信箱</th>
-                                <td><input type="text" class="text" value="guoyugo@abc.com"></td>
-                            </tr>
-                            <tr>
-                                <th>照片</th>
-                                <td><input type="file" class="text" value="照片在這"></td>
-                            </tr>
                         </table>
-                        <div id="preview">
-                            <span class="text">預覽圖</span>
-                        </div><br>
-                        <button class="btn_update btn btn-outline-primary btn-lg">更新</button>
                     </div>                    
                 </li>                
             </ul>
@@ -305,16 +265,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
     <script src="${pageContext.request.contextPath}/static/hollow_js/backend_js.js"></script>
-    
-    <script type="text/javascript">
-    $("#btn_comp_search").on("click",function(e){
-    	console.log("123");
-        alert("業者查尋");
-	})
-	
-	$("#btn_cust_search").on("click",function(e){
-	alert("會員查尋");
-	})
-    </script>
 </body>
 </html>
