@@ -8,11 +8,11 @@
 		<version>2.7.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>demo</groupId>
-	<artifactId>demo</artifactId>
+	<groupId>com.tha103</groupId>
+	<artifactId>gogoyu</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>demo</name>
+	<name>gogoyu</name>
 	<description>demo</description>
 	<properties>
 		<java.version>17</java.version>
