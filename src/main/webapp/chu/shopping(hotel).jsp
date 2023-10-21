@@ -12,9 +12,9 @@ response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
 response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setDateHeader("Expires", 0);
 
-// session.setAttribute("trip_id", 1);
-// session.setAttribute("cus_id", 1);
-// session.setAttribute("room_id", 1);
+session.setAttribute("trip_id", 1);
+session.setAttribute("cus_id", 1);
+session.setAttribute("room_id", 1);
 
 int cusId = (int) session.getAttribute("cus_id");
 Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
