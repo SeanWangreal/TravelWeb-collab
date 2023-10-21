@@ -18,18 +18,12 @@ session.setAttribute("room_id", 1);
 
 int cusId = (int) session.getAttribute("cus_id");
 Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
-List<Room_ord> room1 = ROSH.getRoomOrdVo(1, cusId);
-List<Room_ord> room2 = ROSH.getRoomOrdVo(2, cusId);
-List<Room_ord> room3 = ROSH.getRoomOrdVo(3, cusId);
-List<Room_ord> room4 = ROSH.getRoomOrdVo(4, cusId);
-List<Room_ord> room5 = ROSH.getRoomOrdVo(5, cusId);
 
-
-pageContext.setAttribute("room1", room1);
-pageContext.setAttribute("room2", room2);
-pageContext.setAttribute("room3", room3);
-pageContext.setAttribute("room4", room4);
-pageContext.setAttribute("room5", room5);
+pageContext.setAttribute("room1", ROSH.getRoomOrdVo(1, cusId));
+pageContext.setAttribute("room2", ROSH.getRoomOrdVo(2, cusId));
+pageContext.setAttribute("room3", ROSH.getRoomOrdVo(3, cusId));
+pageContext.setAttribute("room4", ROSH.getRoomOrdVo(4, cusId));
+pageContext.setAttribute("room5", ROSH.getRoomOrdVo(5, cusId));
 %>
 
 
