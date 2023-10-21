@@ -184,4 +184,16 @@ public class ItineraryJDBCDAO implements ItineraryDAO_interface {
 			System.out.print(aItinerary.getBeginTime());
 		}
 	}
+
+	@Override
+	public List<Itinerary> getAllByTripId(Integer tripId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteAllByTripId(Integer tripId) {
+		// TODO Auto-generated method stub
+		
+	}
 }

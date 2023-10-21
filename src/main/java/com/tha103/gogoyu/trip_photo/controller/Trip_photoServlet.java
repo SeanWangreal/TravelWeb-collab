@@ -60,7 +60,7 @@ public class Trip_photoServlet extends HttpServlet {
 				}
 				
 				/***************************2.開始查詢資料*****************************************/
-				Trip_photoService tripPhotoSvc = new Trip_photoService();
+				Trip_photoServiceJDBC tripPhotoSvc = new Trip_photoServiceJDBC();
 				Trip_photo trip_photo = tripPhotoSvc.getOneTripPhoto(trip_photo_id);
 				if (trip_photo == null) {
 					errorMsgs.add("查無資料");
@@ -92,7 +92,7 @@ public class Trip_photoServlet extends HttpServlet {
 				Integer trip_photo_id = Integer.valueOf(req.getParameter("trip_photo_id"));
 				
 				/***************************2.開始查詢資料****************************************/
-				Trip_photoService tripPhotoSvc = new Trip_photoService();
+				Trip_photoServiceJDBC tripPhotoSvc = new Trip_photoServiceJDBC();
 				Trip_photo trip_photo = tripPhotoSvc.getOneTripPhoto(trip_photo_id);
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
@@ -145,7 +145,7 @@ req.setAttribute("trip_photo",  trip_photo); // 含有輸入格式錯誤的empVO
 				}
 				
 				/***************************2.開始修改資料*****************************************/
-				Trip_photoService tripPhotoSvc = new Trip_photoService();
+				Trip_photoServiceJDBC tripPhotoSvc = new Trip_photoServiceJDBC();
 				trip_photo = tripPhotoSvc.updateTripPhoto(trip_photo_id, trip_id, photo);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
@@ -198,7 +198,7 @@ req.setAttribute("trip_photo",  trip_photo); // 含有輸入格式錯誤的empVO
 				}
 				
 				/***************************2.開始新增資料***************************************/
-				Trip_photoService tripPhotoSvc = new Trip_photoService();
+				Trip_photoServiceJDBC tripPhotoSvc = new Trip_photoServiceJDBC();
 				trip_photo = tripPhotoSvc.addTripPhoto(trip_id, photo);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
@@ -219,7 +219,7 @@ req.setAttribute("trip_photo",  trip_photo); // 含有輸入格式錯誤的empVO
 				Integer trip_photo_id = Integer.valueOf(req.getParameter("trip_photo_id"));
 				
 				/***************************2.開始刪除資料***************************************/
-				Trip_photoService tripPhotoSvc = new Trip_photoService();
+				Trip_photoServiceJDBC tripPhotoSvc = new Trip_photoServiceJDBC();
 				tripPhotoSvc.deleteTripPhoto(trip_photo_id);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								

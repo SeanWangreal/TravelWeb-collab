@@ -47,7 +47,7 @@ response.setDateHeader("Expires", 0);
 .all-date {
 	padding: 5px 0px 5px 5px;
 	width: 13%;
-	margin-right: 1.3%;
+	margin-right: 1.25%;
 	margin-bottom: 1.3%;
 	height: 100px;
 	display: inline-block;
@@ -60,10 +60,6 @@ response.setDateHeader("Expires", 0);
 
 div.all-date>* {
 	font-size: 16px;
-}
-
-.all-date:nth-child(7n) {
-	margin-right: 0%;
 }
 
 .searching {
