@@ -46,25 +46,25 @@ table.main_btn button.-pressed{
     font-size: xX-large;
   }
   article{
-    width: 600px;
+    width: 1000px;
     margin: 20px auto 20px;
     border-radius: 5px;
     padding: 10px;
     box-shadow: 1px 1px 5px gray;
   }
-  article.comp_audit{
+  article.art_comp_audit{
     display: none;
   }
-  article.client_msg{
+  article.art_client_msg{
     display: none;
   }
-  article.comp_search{
+  article.art_comp_search{
     display: none;
   }
-  article.cust_search{
+  article.art_cust_search{
     display: none;
   }
-  article.add_scene{
+  article.art_add_scene{
     display: none;
   }
   /* article.task_container{
@@ -313,7 +313,8 @@ table.main_btn button.-pressed{
     width: 25%;
   } */
 
-  /* .btn_update{
+  /*button.btn_update{
+ 	display: inline-block;
     margin-top: 20px;
   } */
   /* ul.list > li > a.link_title button.switch_btn{
