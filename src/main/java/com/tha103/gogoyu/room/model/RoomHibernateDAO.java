@@ -1,9 +1,11 @@
 package com.tha103.gogoyu.room.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.NativeQuery;
 
 import com.tha103.gogoyu.room_photo.model.Room_photo;
 
@@ -125,6 +127,21 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 					.uniqueResult();
 			getSession().getTransaction().commit();
 			return mainPhoto;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+	
+	public List<Room> getHotRoom() {
+		try {
+			getSession().beginTransaction();
+			@SuppressWarnings("unchecked")
+			NativeQuery<Room> query1 = getSession().createNativeQuery("SELECT * FROM room WHERE room_id IN (SELECT room_id FROM (SELECT room_id, count(room_id) FROM room_ord GROUP BY room_id ORDER BY 2 DESC LIMIT 3) as xxx);", Room.class);
+			List<Room> list = query1.list();
+			getSession().getTransaction().commit();
+			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
 			getSession().getTransaction().rollback();

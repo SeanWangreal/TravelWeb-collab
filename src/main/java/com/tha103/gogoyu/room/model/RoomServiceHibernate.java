@@ -98,8 +98,11 @@ public class RoomServiceHibernate implements RoomService{
 
 	@Override
 	public byte[] getMainPhoto(Integer roomId) {
-		return dao.getMainPhoto(roomId);
- 
+		return dao.getMainPhoto(roomId); 
+	}
+	
+	public List<Room> getHotRoom() {
+		return dao.getHotRoom();
 	}
 	
 	public static void main(String[] args) {

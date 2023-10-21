@@ -417,4 +417,10 @@ public class TripJDBCDAO implements TripDAO_interface {
 //			System.out.println(aTrip.getPenghuCounty());
 //		}
 	}
+
+	@Override
+	public List<Trip> getHotTrip() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

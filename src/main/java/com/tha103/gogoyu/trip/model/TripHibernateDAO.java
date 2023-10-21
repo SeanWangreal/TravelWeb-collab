@@ -3,7 +3,9 @@ package com.tha103.gogoyu.trip.model;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
 
+import com.tha103.gogoyu.room.model.Room;
 import com.tha103.gogoyu.scene.model.Scene;
 
 import util.HibernateUtil;
@@ -78,6 +80,22 @@ public class TripHibernateDAO implements TripDAO_interface{
 		try {
 			session.beginTransaction();
 			List<Trip> list = session.createQuery("from trip", Trip.class).list();
+			session.getTransaction().commit();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		return null;
+	}
+	
+	public List<Trip> getHotTrip() {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			@SuppressWarnings("unchecked")
+			NativeQuery<Trip> query1 = session.createNativeQuery("SELECT * FROM trip WHERE trip_id IN (SELECT trip_id FROM (SELECT trip_id, count(trip_id) FROM trip_ord GROUP BY trip_id ORDER BY 2 DESC LIMIT 3) as xxx);", Trip.class);
+			List<Trip> list = query1.list();
 			session.getTransaction().commit();
 			return list;
 		} catch (Exception e) {

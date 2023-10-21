@@ -11,5 +11,5 @@ public interface RoomDAO_interface {
 	List<Room> findRoomByCompId(Integer compId);
 	List<Room> getAll();
 	byte[] getMainPhoto(Integer roomId);
-
+	public List<Room> getHotRoom();
 }
