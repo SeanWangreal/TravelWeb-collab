@@ -1,102 +1,131 @@
 package com.tha103.gogoyu.itinerary.model;
 
-//import static idv.david.util.Constants.PAGE_MAX_RESULT;
-
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.tha103.gogoyu.*;
 import util.HibernateUtil;
 
 public class ItineraryHibernateDAO implements ItineraryDAO_interface {
+	private SessionFactory factory;
+	
+	public  ItineraryHibernateDAO(SessionFactory factory) {
+		this.factory = factory;
+	}
+
+	private Session getSession() {
+		return factory.getCurrentSession();
+	}
+	
 	@Override
 	public int add(Itinerary Itinerary) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-			session.beginTransaction();
-			Integer id = (Integer) session.save(Itinerary);
-			session.getTransaction().commit();
+			getSession().beginTransaction();
+			Integer id = (Integer) getSession().save(Itinerary);
+			getSession().getTransaction().commit();
 			return id;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return -1;
 	}
 
 	@Override
 	public int update(Itinerary Itinerary) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-			session.beginTransaction();
-			session.update(Itinerary);
-			session.getTransaction().commit();
+			getSession().beginTransaction();
+			getSession().update(Itinerary);
+			getSession().getTransaction().commit();
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return -1;
 	}
 
 	@Override
-	public int delete(Integer itinerary_id) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	public int delete(Integer itineraryId) {
 		try {
-			session.beginTransaction();
-			Itinerary emp = session.get(Itinerary.class, itinerary_id);
+			getSession().beginTransaction();
+			Itinerary emp = getSession().get(Itinerary.class, itineraryId);
 			if (emp != null) {
-				session.delete(emp);
+				getSession().delete(emp);
 			}
-			session.getTransaction().commit();
+			getSession().getTransaction().commit();
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return -1;
 	}
 
 	@Override
-	public Itinerary findByPK(Integer itinerary_id) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	public Itinerary findByPK(Integer itineraryId) {
 		try {
-			session.beginTransaction();
-			Itinerary itinerary = session.get(Itinerary.class, itinerary_id);
-			session.getTransaction().commit();
+			getSession().beginTransaction();
+			Itinerary itinerary = getSession().get(Itinerary.class, itineraryId);
+			getSession().getTransaction().commit();
 			return itinerary;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return null;
 	}
 
 	@Override
 	public List<Itinerary> getAll() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-			session.beginTransaction();
-			List<Itinerary> list = session.createQuery("from itinerary", Itinerary.class).list();
-			session.getTransaction().commit();
+			getSession().beginTransaction();
+			List<Itinerary> list = getSession().createQuery("from Itinerary", Itinerary.class).list();
+			getSession().getTransaction().commit();
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return null;
 	}
 
+	@Override
+	public List<Itinerary> getAllByTripId(Integer tripId) {
+		try {
+			getSession().beginTransaction();
+			List<Itinerary> list = getSession().createQuery("from Itinerary where trip_id = :tripId order by begin_time", Itinerary.class)
+					.setParameter("tripId", tripId)
+					.list();
+			getSession().getTransaction().commit();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+
+	@Override
+	public void deleteAllByTripId(Integer tripId) {
+		try {
+			getSession().beginTransaction();
+			List<Itinerary> list = getSession().createQuery("from Itinerary where trip_id = :tripId order by begin_time", Itinerary.class)
+					.setParameter("tripId", tripId)
+					.list();
+			for (Itinerary li : list) {
+				getSession().delete(li);				
+			}
+			getSession().getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+	}
+	public static void main(String[] args) {
+		ItineraryHibernateDAO dao = new ItineraryHibernateDAO(HibernateUtil.getSessionFactory());
+//		System.out.println(dao.getAllByTripId(8));
+		dao.deleteAllByTripId(8);
+	}
 }

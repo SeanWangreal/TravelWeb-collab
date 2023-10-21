@@ -1,17 +1,18 @@
 package com.tha103.gogoyu.trip.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.*;
-import util.Util;
-
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import com.tha103.gogoyu.trip_photo.model.Trip_photo;
+
+import util.Util;
 
 public class TripJDBCDAO implements TripDAO_interface {
 	static {
@@ -51,8 +52,8 @@ public class TripJDBCDAO implements TripDAO_interface {
 			pstmt.setInt(3, trip.getAmount());
 			pstmt.setBigDecimal(4, trip.getPrice());
 			pstmt.setInt(5, trip.getPeople());
-			pstmt.setTimestamp(6, trip.getStartTime());
-			pstmt.setTimestamp(7, trip.getEndTime());
+			pstmt.setDate(6, trip.getStartTime());
+			pstmt.setDate(7, trip.getEndTime());
 			pstmt.setString(8, trip.getContent());
 			pstmt.setInt(9, trip.getState());
 			pstmt.setByte(10, trip.getTaipeiCity());
@@ -100,8 +101,8 @@ public class TripJDBCDAO implements TripDAO_interface {
 			pstmt.setInt(4, trip.getAmount());
 			pstmt.setBigDecimal(5, trip.getPrice());
 			pstmt.setInt(6, trip.getPeople());
-			pstmt.setTimestamp(7, trip.getStartTime());
-			pstmt.setTimestamp(8, trip.getEndTime());
+			pstmt.setDate(7, trip.getStartTime());
+			pstmt.setDate(8, trip.getEndTime());
 			pstmt.setString(9, trip.getContent());
 			pstmt.setInt(10, trip.getState());
 			pstmt.setByte(11, trip.getTaipeiCity());
@@ -173,8 +174,8 @@ public class TripJDBCDAO implements TripDAO_interface {
 				trVO.setAmount(rs.getInt("amount"));
 				trVO.setPrice(rs.getBigDecimal("price"));
 				trVO.setPeople(rs.getInt("people"));
-				trVO.setStartTime(rs.getTimestamp("start_time"));
-				trVO.setEndTime(rs.getTimestamp("end_time"));
+				trVO.setStartTime(rs.getDate("start_time"));
+				trVO.setEndTime(rs.getDate("end_time"));
 				trVO.setContent(rs.getString("content"));
 				trVO.setState(rs.getInt("state"));
 				trVO.setTaipeiCity(rs.getByte("Taipei_city"));
@@ -228,8 +229,8 @@ public class TripJDBCDAO implements TripDAO_interface {
 				trVO.setAmount(rs.getInt("amount"));
 				trVO.setPrice(rs.getBigDecimal("price"));
 				trVO.setPeople(rs.getInt("people"));
-				trVO.setStartTime(rs.getTimestamp("start_time"));
-				trVO.setEndTime(rs.getTimestamp("end_time"));
+				trVO.setStartTime(rs.getDate("start_time"));
+				trVO.setEndTime(rs.getDate("end_time"));
 				trVO.setContent(rs.getString("content"));
 				trVO.setState(rs.getInt("state"));
 				trVO.setTaipeiCity(rs.getByte("taipei_city"));
@@ -267,8 +268,8 @@ public class TripJDBCDAO implements TripDAO_interface {
 
 	public static void main(String[] args) {
 		TripJDBCDAO dao = new TripJDBCDAO();
-		Date date = new Date();
-		Timestamp time_s = new Timestamp(date.getTime());
+		java.util.Date date = new java.util.Date();
+		Date time_s = new Date(date.getTime());
 		// 新增
 //		Trip tripVO1 = new Trip();
 //		tripVO1.setCompId(2);
@@ -311,8 +312,8 @@ public class TripJDBCDAO implements TripDAO_interface {
 //		tripVO2.setAmount(1);
 //		tripVO2.setPrice(new BigDecimal(1));
 //		tripVO2.setPeople(1);
-//		tripVO2.setStartTime(java.sql.Timestamp.valueOf("2005-01-01 10:10:49"));
-//		tripVO2.setEndTime(java.sql.Timestamp.valueOf("2005-01-01 10:10:49"));
+//		tripVO2.setStartTime(java.sql.Date.valueOf("2005-01-01 10:10:49"));
+//		tripVO2.setEndTime(java.sql.Date.valueOf("2005-01-01 10:10:49"));
 //		tripVO2.setContent("1");
 //		tripVO2.setState(1);
 //		tripVO2.setTaipeiCity((byte) 1);
@@ -418,8 +419,27 @@ public class TripJDBCDAO implements TripDAO_interface {
 //		}
 	}
 
+
 	@Override
-	public List<Trip> getHotTrip() {
+	public List<Trip> findTripByCompId(Integer compId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int deleteAllPhoto(Integer tripId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public byte[] getMainPhoto(Integer tripId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<Trip_photo> getAllPhotoByTripId(Integer tripId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

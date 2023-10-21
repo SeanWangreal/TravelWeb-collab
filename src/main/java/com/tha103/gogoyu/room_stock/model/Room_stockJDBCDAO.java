@@ -195,5 +195,21 @@ public class Room_stockJDBCDAO implements Room_stockDAO_interface {
 	
 	
 	}
+	@Override
+	public List<Room_stock> getStockByRoomId(Integer roomId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addFirstTime(Room_stock roomStock) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public List<Room_stock> getAllByToday(Integer roomId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

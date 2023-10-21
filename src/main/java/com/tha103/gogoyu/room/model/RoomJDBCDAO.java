@@ -1,8 +1,5 @@
 package com.tha103.gogoyu.room.model;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 import util.Util;
 
 public class RoomJDBCDAO implements RoomDAO_interface {
@@ -23,7 +22,6 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 	public int add(Room room) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			String[] cols = { "room_id" };
@@ -48,13 +46,17 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 			pstmt.setByte(18, room.getElectricKettle());
 			pstmt.setBytes(19, room.getMainPhoto());
 			pstmt.executeUpdate();
-
+			ResultSet rs = pstmt.getGeneratedKeys();
+			int id = 0;
+			if(rs.next()) {
+				 id = rs.getInt(1);
+			}
+			return id;
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
-		return -1;
 	}
 
 	@Override
@@ -211,13 +213,6 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 		}
 		return list;
 	}
-	
-	public static byte[] getPictureByteArray(String path) throws IOException {
-		FileInputStream fis = new FileInputStream(path);
-		byte[] buffer = fis.readAllBytes();
-		fis.close();
-		return buffer;
-	}
 
 	public static void main(String[] args) {
 		RoomJDBCDAO dao = new RoomJDBCDAO();
@@ -246,14 +241,14 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 
 		// 修改
 //		Room r2 = new Room();
-//		r2.setRoomId(3);
-//		r2.setCompId(1);
-//		r2.setRoomType(1);
-//		r2.setRoomName("豪華單人房");
-//		r2.setBeds(1);
-//		r2.setPrice(new BigDecimal(1000));
-//		r2.setIntro("加大單人床");
-//		r2.setRoomStatus(0);
+//		r2.setRoomId(10001);
+//		r2.setCompId(1001);
+//		r2.setRoomType(3);
+//		r2.setRoomName("北邊");
+//		r2.setBeds(3);
+//		r2.setPrice(new BigDecimal(5000));
+//		r2.setIntro("沒什麼");
+//		r2.setRoomStatus(1);
 //		r2.setTissue((byte) 0);
 //		r2.setShower((byte) 1);
 //		r2.setBathroom((byte) 1);
@@ -265,12 +260,6 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 //		r2.setBathrobe((byte) 1);
 //		r2.setSpatub((byte) 1);
 //		r2.setElectricKettle((byte) 1);
-//		try {
-//			byte[] pic = getPictureByteArray("C:\\Users\\Tibame_T14\\Pictures\\DSC_1295.jpg");
-//			r2.setMainPhoto(pic);
-//		} catch(IOException ie) {
-//			System.out.println(ie);
-//		}
 //		dao.update(r2);
 
 		// 刪除
@@ -297,28 +286,28 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 //		System.out.print(r4.getSpatub()+",");
 //		System.out.print(r4.getElectricKettle()+",");
 		
-//		List<Room> list =dao.getAll();
-//		for(Room sRo :list) {
-//			
-//			System.out.print(sRo.getRoomId() +",");
-//			System.out.print(sRo.getCompId()+",");
-//			System.out.print(sRo.getRoomType()+",");
-//			System.out.print(sRo.getRoomName()+",");
-//			System.out.print(sRo.getBeds()+",");
-//			System.out.print(sRo.getPrice()+",");
-//			System.out.print(sRo.getIntro()+",");
-//			System.out.print(sRo.getRoomStatus()+",");
-//			System.out.print(sRo.getTissue()+",");
-//			System.out.print(sRo.getShower()+",");
-//			System.out.print(sRo.getBathroom()+",");
-//			System.out.print(sRo.getDryer()+",");
-//			System.out.print(sRo.getTub()+",");
-//			System.out.print(sRo.getFreetoiletries()+",");
-//			System.out.print(sRo.getFlushseat()+",");
-//			System.out.print(sRo.getSlippers()+",");
-//			System.out.print(sRo.getSpatub()+",");
-//			System.out.print(sRo.getElectricKettle()+",");
-//		}
+		List<Room> list =dao.getAll();
+		for(Room sRo :list) {
+			
+			System.out.print(sRo.getRoomId() +",");
+			System.out.print(sRo.getCompId()+",");
+			System.out.print(sRo.getRoomType()+",");
+			System.out.print(sRo.getRoomName()+",");
+			System.out.print(sRo.getBeds()+",");
+			System.out.print(sRo.getPrice()+",");
+			System.out.print(sRo.getIntro()+",");
+			System.out.print(sRo.getRoomStatus()+",");
+			System.out.print(sRo.getTissue()+",");
+			System.out.print(sRo.getShower()+",");
+			System.out.print(sRo.getBathroom()+",");
+			System.out.print(sRo.getDryer()+",");
+			System.out.print(sRo.getTub()+",");
+			System.out.print(sRo.getFreetoiletries()+",");
+			System.out.print(sRo.getFlushseat()+",");
+			System.out.print(sRo.getSlippers()+",");
+			System.out.print(sRo.getSpatub()+",");
+			System.out.print(sRo.getElectricKettle()+",");
+		}
 			
 	}
 
@@ -335,7 +324,13 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 	}
 
 	@Override
-	public List<Room> getHotRoom() {
+	public int deleteAllPhoto(Integer roomId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Set getAllPhoto(Integer roomId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

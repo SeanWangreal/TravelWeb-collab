@@ -1,106 +1,160 @@
 package com.tha103.gogoyu.trip.model;
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
-import org.hibernate.query.NativeQuery;
+import org.hibernate.SessionFactory;
+import com.tha103.gogoyu.trip_photo.model.Trip_photo;
 
-import com.tha103.gogoyu.room.model.Room;
-import com.tha103.gogoyu.scene.model.Scene;
-
-import util.HibernateUtil;
 
 public class TripHibernateDAO implements TripDAO_interface{
+	private SessionFactory factory;
+
+	public TripHibernateDAO(SessionFactory factory) {
+		this.factory = factory;
+	}
+
+	private Session getSession() {
+		return factory.getCurrentSession();
+	}
+	
 	@Override
-	public int add(Trip trip_id) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	public int add(Trip trip) {
 		try {
-			session.beginTransaction();
-			Integer id = (Integer) session.save(trip_id);
-			session.getTransaction().commit();
+			getSession().beginTransaction();
+			Integer id = (Integer) getSession().save(trip);
+			getSession().getTransaction().commit();
 			return id;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return -1;
 	}
 
 	@Override
-	public int update(Trip Trip) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	public int update(Trip trip) {
 		try {
-			session.beginTransaction();
-			session.update(Trip);
-			session.getTransaction().commit();
+			getSession().beginTransaction();
+			getSession().update(trip);
+			getSession().getTransaction().commit();
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return -1;
 	}
 
 	@Override
-	public int delete(Integer tripVO) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	public int delete(Integer tripId) {
 		try {
-			session.beginTransaction();
-			Trip trip = session.get(Trip.class, tripVO);
+			getSession().beginTransaction();
+			Trip trip = getSession().get(Trip.class, tripId);
 			if (trip != null) {
-				session.delete(trip);
+				getSession().delete(trip);
 			}
-			session.getTransaction().commit();
+			getSession().getTransaction().commit();
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return -1;
 	}
 
 	@Override
-	public Trip findByPK(Integer trip_VO) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	public Trip findByPK(Integer tripId) {
 		try {
-			session.beginTransaction();
-			Trip trip = session.get(Trip.class, trip_VO);
-			session.getTransaction().commit();
+			getSession().beginTransaction();
+			Trip trip = getSession().get(Trip.class, tripId);
+			getSession().getTransaction().commit();
 			return trip;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return null;
 	}
 
 	@Override
 	public List<Trip> getAll() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-			session.beginTransaction();
-			List<Trip> list = session.createQuery("from trip", Trip.class).list();
-			session.getTransaction().commit();
+			getSession().beginTransaction();
+			List<Trip> list = getSession().createQuery("from Trip", Trip.class).list();
+			getSession().getTransaction().commit();
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return null;
 	}
-	
-	public List<Trip> getHotTrip() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+	@Override
+	public Set<Trip_photo> getAllPhotoByTripId(Integer tripId) {
 		try {
-			session.beginTransaction();
-			@SuppressWarnings("unchecked")
-			NativeQuery<Trip> query1 = session.createNativeQuery("SELECT * FROM trip WHERE trip_id IN (SELECT trip_id FROM (SELECT trip_id, count(trip_id) FROM trip_ord GROUP BY trip_id ORDER BY 2 DESC LIMIT 3) as xxx);", Trip.class);
-			List<Trip> list = query1.list();
-			session.getTransaction().commit();
+			getSession().beginTransaction();
+			Trip trip = getSession().get(Trip.class, tripId);
+			Set<Trip_photo> set = trip.getTripPhoto();
+			for (Trip_photo tp: set) {
+				getSession().get(Trip_photo.class, tp.getTripPhotoId());
+			}
+			getSession().getTransaction().commit();
+			return set;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Trip> findTripByCompId(Integer compId) {
+		try {
+			getSession().beginTransaction();
+			List<Trip> list = getSession()
+					.createQuery("from Trip where comp_id = :comp_id order by trip_id", Trip.class)
+					.setParameter("comp_id", compId).list();
+			getSession().getTransaction().commit();
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+
+	@Override
+	public int deleteAllPhoto(Integer tripId) {
+		try {
+			getSession().beginTransaction();
+			Trip trip = getSession().get(Trip.class, tripId);
+			for (Trip_photo p : trip.getTripPhoto()) {
+				getSession().delete(p);
+			}
+			getSession().getTransaction().commit();
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return -1;
+	}
+
+	@Override
+	public byte[] getMainPhoto(Integer tripId) {
+		try {
+			getSession().beginTransaction();
+			byte[] mainPhoto = getSession().createQuery("select mainPhoto from Trip where trip_id = :trip_id",byte[].class)
+					.setParameter("trip_id", tripId)
+					.uniqueResult();
+			getSession().getTransaction().commit();
+			return mainPhoto;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
 		}
 		return null;
 	}

@@ -23,14 +23,15 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 	public int add(Room_ord roomOrd) { //此傳入的是"無"pk的(這樣才能透過自增主鍵新增)
 		try {
 			getSession().beginTransaction();//開始交易
-			Integer id = (Integer) getSession().save(roomOrd);  //傳入一個roomOrd並且建立在table內
+			getSession().save(roomOrd);  //傳入一個roomOrd並且建立在table內
 			getSession().getTransaction().commit();//交易完成
-			return id;  //回傳int型別pk去判斷是否有成功，假如不回傳-1就代表成功commit
+			return 1;  //回傳int型別pk去判斷是否有成功，假如不回傳-1就代表成功commit
 		} catch (Exception e) {
 			e.printStackTrace();
 			getSession().getTransaction().rollback();//發生例外執行交易取消
+			return -1; //代表失敗rollback
 		}
-		return -1; //代表失敗rollback
+		
 	}
 
 	@Override
@@ -80,15 +81,15 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 
 	@Override
 	public List<Room_ord> getAll() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	
 		try {
-			session.beginTransaction();
-			List<Room_ord> list = session.createQuery("from Room_ord", Room_ord.class).list(); //用hql傳入於哪個table，回傳整個該table物件並集合成一個list
-			session.getTransaction().commit(); //交易完成
+			getSession().beginTransaction();
+			List<Room_ord> list = getSession().createQuery("from Room_ord", Room_ord.class).list(); //用hql傳入於哪個table，回傳整個該table物件並集合成一個list
+			getSession().getTransaction().commit(); //交易完成
 			return list; //回傳該table所有的物件
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();//發生例外執行交易取消
+			getSession().getTransaction().rollback();//發生例外執行交易取消
 		}
 		return null; //如果該table沒有東西就回傳null
 	}

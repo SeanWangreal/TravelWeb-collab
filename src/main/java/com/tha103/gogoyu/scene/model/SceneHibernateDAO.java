@@ -3,86 +3,92 @@ package com.tha103.gogoyu.scene.model;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import com.tha103.gogoyu.itinerary.model.Itinerary;
 
 import util.HibernateUtil;
 
-public class SceneHibernateDAO implements  SceneDAO_interface {
+public class SceneHibernateDAO implements SceneDAO_interface {
+	private SessionFactory factory;
+
+	public SceneHibernateDAO(SessionFactory factory) {
+		this.factory = factory;
+	}
+
+	private Session getSession() {
+		return factory.getCurrentSession();
+	}
+
 	@Override
 	public int add(Scene Scene) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-			session.beginTransaction();
-			Integer id = (Integer) session.save(Scene);
-			session.getTransaction().commit();
+			getSession().beginTransaction();
+			Integer id = (Integer) getSession().save(Scene);
+			getSession().getTransaction().commit();
 			return id;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return -1;
 	}
 
 	@Override
 	public int update(Scene Scene) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-			session.beginTransaction();
-			session.update(Scene);
-			session.getTransaction().commit();
+			getSession().beginTransaction();
+			getSession().update(Scene);
+			getSession().getTransaction().commit();
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return -1;
 	}
 
 	@Override
-	public int delete(Integer scene_id) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	public int delete(Integer sceneId) {
 		try {
-			session.beginTransaction();
-			Scene emp = session.get(Scene.class, scene_id);
+			getSession().beginTransaction();
+			Scene emp = getSession().get(Scene.class, sceneId);
 			if (emp != null) {
-				session.delete(emp);
+				getSession().delete(emp);
 			}
-			session.getTransaction().commit();
+			getSession().getTransaction().commit();
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return -1;
 	}
 
 	@Override
-	public Scene findByPK(Integer scene_id) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	public Scene findByPK(Integer sceneId) {
 		try {
-			session.beginTransaction();
-			Scene scene = session.get(Scene.class, scene_id);
-			session.getTransaction().commit();
+			getSession().beginTransaction();
+			Scene scene = getSession().get(Scene.class, sceneId);
+			getSession().getTransaction().commit();
 			return scene;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return null;
 	}
 
 	@Override
 	public List<Scene> getAll() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-			session.beginTransaction();
-			List<Scene> list = session.createQuery("from scene", Scene.class).list();
-			session.getTransaction().commit();
+			getSession().beginTransaction();
+			List<Scene> list = getSession().createQuery("from Scene", Scene.class).list();
+			getSession().getTransaction().commit();
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return null;
 	}

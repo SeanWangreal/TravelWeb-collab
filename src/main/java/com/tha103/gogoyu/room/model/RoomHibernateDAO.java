@@ -2,6 +2,7 @@ package com.tha103.gogoyu.room.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -18,9 +19,7 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 	public RoomHibernateDAO(SessionFactory factory) {
 		this.factory = factory;
 	}
-
-	// Session 為 not thread-safe，所以此方法在各個增刪改查方法裡呼叫
-	// 以避免請求執行緒共用了同個 Session
+	
 	private Session getSession() {
 		return factory.getCurrentSession();
 	}
@@ -75,9 +74,6 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		try {
 			getSession().beginTransaction();
 			Room room = getSession().get(Room.class, roomId);
-			for (Room_photo p : room.getRoomPhoto()) {
-				System.out.println(p.getUploadTime());
-			}
 			getSession().getTransaction().commit();
 			return room;
 		} catch (Exception e) {
@@ -149,10 +145,42 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		return null;
 	}
 
+	@Override
+	public int deleteAllPhoto(Integer roomId) {
+		try {
+			getSession().beginTransaction();
+			Room room = getSession().get(Room.class, roomId);
+			for (Room_photo p : room.getRoomPhoto()) {
+				getSession().delete(p);
+			}
+			getSession().getTransaction().commit();
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return -1;
+	}
+	public Set<Room_photo> getAllPhoto(Integer roomId) {
+		try {
+			getSession().beginTransaction();
+			Room room = getSession().get(Room.class, roomId);
+			Set<Room_photo> set = room.getRoomPhoto();
+			for (Room_photo rp: set) {
+				getSession().get(Room_photo.class, rp.getRoomPhotoId());
+			}
+			getSession().getTransaction().commit();
+			return set;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
 	public static void main(String[] args) {
 		RoomHibernateDAO dao = new RoomHibernateDAO(HibernateUtil.getSessionFactory());
-//		System.out.println(dao.getMainPhoto(2));
-//		dao.getAll();
+		System.out.println(dao.getAllPhoto(8));
 	}
+
 
 }

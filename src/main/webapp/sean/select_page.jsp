@@ -63,7 +63,7 @@
    
   <li>
      <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/sean/RoomServlet" >
-       <b>(ALL)選擇業者編號:</b>
+       <b>(ALL)選擇旅店業者編號:</b>
        <select size="1" name="compId">
          <c:forEach var="room" items="${roomSvc.all}"> 
           <option value="${room.compId}">${room.compId}
@@ -73,7 +73,19 @@
        <input type="submit" value="送出">
     </FORM>
   </li>
-  
+   <li>
+   <jsp:useBean id="tripSvc" scope="page" class="com.tha103.gogoyu.trip.model.TripServiceHibernate" />
+     <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/sean/TripServlet" >
+       <b>(ALL)選擇旅遊業編號:</b>
+       <select size="1" name="compId">
+         <c:forEach var="trip" items="${tripSvc.all}"> 
+          <option value="${trip.compId}">${trip.compId}
+         </c:forEach>   
+       </select>
+       <input type="hidden" name="action" value="getAllTrip">
+       <input type="submit" value="送出">
+    </FORM>
+  </li>
   <li>
      <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/sean/RoomServlet" >
        <b>選擇房間名稱:</b>

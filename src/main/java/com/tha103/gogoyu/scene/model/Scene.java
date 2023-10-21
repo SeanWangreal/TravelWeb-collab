@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
@@ -16,13 +18,12 @@ import com.tha103.gogoyu.itinerary.model.Itinerary;
 @Table(name = "Scene")
 public class Scene implements java.io.Serializable {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "scene_id", updatable = false)
 	private Integer sceneId;
 //	@OneToMany(mappedBy = "Scene")
 //	@OrderBy("scene_id")
 //	private Set<Itinerary> itinerarys;
-
-	
 	
 	@Column(name = "scene_name")
 	private String sceneName;

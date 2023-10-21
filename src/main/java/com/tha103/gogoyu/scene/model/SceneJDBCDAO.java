@@ -163,39 +163,39 @@ public class SceneJDBCDAO implements SceneDAO_interface {
 
 	public static void main(String[] args) throws IOException {
 		SceneJDBCDAO dao = new SceneJDBCDAO();
-//		File scene_data = new File("./src/main/java/com/tha103/gogoyu/scene/model/景點.csv");
-//		
-//		try {
-//			BufferedReader br = new BufferedReader(new FileReader(scene_data));
-//			String line;
-//			int count = 0;
-//			while ((line = br.readLine()) != null) {
-//				if (count == 0) {
-//					count++;
-//				} else {
-//					String[] data_row = line.split(",");
-//					Scene sc = new Scene();
-//					sc.setSceneName(data_row[1]);
-//					sc.setOpenTime(data_row[9]);
-//					sc.setTransInfo(data_row[8]);
-//					sc.setAddress(data_row[6]);
-//					sc.setLon(new BigDecimal(data_row[17]));
-//					sc.setLat(new BigDecimal(data_row[18]));
-//					sc.setFeature(data_row[3]);
-//					sc.setPicture(data_row[10]);
-//					if (data_row.length == 33) {
-//						sc.setParking(data_row[25]);
-//						sc.setTicketPrice(data_row[28]);
-//					} 
-//					dao.insert(sc);
-//					count++;
-//				}
-//			}
-//			br.close();
-//			System.out.println("Success rows :"+--count);
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
+		File scene_data = new File("./src/main/java/com/tha103/gogoyu/scene/model/景點.csv");
+		
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(scene_data));
+			String line;
+			int count = 0;
+			while ((line = br.readLine()) != null) {
+				if (count == 0) {
+					count++;
+				} else {
+					String[] data_row = line.split(",");
+					Scene sc = new Scene();
+					sc.setSceneName(data_row[1]);
+					sc.setOpenTime(data_row[9]);
+					sc.setTransInfo(data_row[8]);
+					sc.setAddress(data_row[6]);
+					sc.setLon(new BigDecimal(data_row[17]));
+					sc.setLat(new BigDecimal(data_row[18]));
+					sc.setFeature(data_row[3]);
+					sc.setPicture(data_row[10]);
+					if (data_row.length == 33) {
+						sc.setParking(data_row[25]);
+						sc.setTicketPrice(data_row[28]);
+					} 
+					dao.add(sc);
+					count++;
+				}
+			}
+			br.close();
+			System.out.println("Success rows :"+--count);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 //		Date date = new Date();
 //		String time_s = new String(date.getTime());
 //		// 新增

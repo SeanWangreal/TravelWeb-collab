@@ -13,13 +13,13 @@ Company company = (Company) request.getAttribute("Company"); //Servlet.java(Conc
 <html lang="en">
 
 <head>
-<script src="https://kit.fontawesome.com/b4c50f14e1.js"
-	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/b4c50f14e1.js"crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TravelMaker</title>
-<link href="../dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="../static/css/comp_mem.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/ken_css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/ken_css/comp_mem.css">
+
 <style>
 .main-content-info>* {
 	margin-top: 10px;
@@ -124,7 +124,7 @@ Company company = (Company) request.getAttribute("Company"); //Servlet.java(Conc
 </head>
 
 <body>
-	<script src="../vendors/jquery/jquery-3.7.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/vendors/jquery/jquery-3.7.1.min.js"></script>
 	<nav class="st">
 		<!-- <a class="word" id="home" href="#">Home</a> -->
 		<div class="head">
@@ -191,14 +191,17 @@ Company company = (Company) request.getAttribute("Company"); //Servlet.java(Conc
 				<br>
 				<button type="button" class="hotel-btn">查看飯店資訊</button>
 			</div>
-<%-- 			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/emp/emp.do" --%>
-<!-- 				style="margin-bottom: 0px;"> -->
+			<FORM METHOD="post" ACTION="CompanyServlet" >
 <!-- 				<div id="change_pass"> -->
-<!-- 					<a href="">修改密碼</a> -->
+<%-- 					<a href="${pageContext.request.contextPath}/CompanyServlet?action=getOneUpdate&compId=<%= company.getCompId()%>">修改密碼</a> --%>
 <!-- 				</div> -->
-<%-- 				<input type="hidden" name="compId" value="<%=company.getCompId()%>"> --%>
-<!-- 				<input type="hidden" name="action" value="getOne_For_Update"> -->
-<!-- 			</FORM> -->
+				<input type="hidden" name="compId" value="<%= company.getCompId()%>">
+				<input type="hidden" name="action" value="getOneUpdate">
+				<div id="change_pass"> 
+					<button type = "submit" >修改密碼</button>
+ 				</div> 
+				
+			</FORM>
 			<div
 				style="border: 1px solid grey; height: 350px; width: 350px; position: relative; right: 0px; margin-top: 10px;">
 				<img src="" alt="">
@@ -206,7 +209,7 @@ Company company = (Company) request.getAttribute("Company"); //Servlet.java(Conc
 		</main>
 	</div>
 	<div id="detail" style="display: none;">123</div>
-	<script src="../static/js/btn4com.js"></script>
+	<script src="${pageContext.request.contextPath}/static/ken_js/btn4com.js"></script>
 </body>
 
 </html>
