@@ -1,5 +1,6 @@
 package com.tha103.gogoyu.itinerary.model;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -127,5 +128,26 @@ public class ItineraryHibernateDAO implements ItineraryDAO_interface {
 		ItineraryHibernateDAO dao = new ItineraryHibernateDAO(HibernateUtil.getSessionFactory());
 //		System.out.println(dao.getAllByTripId(8));
 		dao.deleteAllByTripId(8);
+	}
+
+	@Override
+	public void deleteAllByTripIdAndAdd(Integer tripId, List<Itinerary> ItineraryList) {
+		try {
+			getSession().beginTransaction();
+			List<Itinerary> list = getSession().createQuery("from Itinerary where trip_id = :tripId order by begin_time", Itinerary.class)
+					.setParameter("tripId", tripId)
+					.list();
+			for (Itinerary li : list) {
+				getSession().delete(li);				
+			}
+			for (int i = 0;i<ItineraryList.size();i++) {
+				getSession().save(ItineraryList.get(i));
+			}
+			getSession().getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		
 	}
 }
