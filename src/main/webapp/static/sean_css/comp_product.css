@@ -186,6 +186,7 @@ div>a.left_btn {
     color: white;
     border-radius: 5px;
     padding: 5px 15px;
+/*     width:100%; */
 }
 .below-btn>a{
 	color: white;
@@ -248,7 +249,7 @@ div>a.left_btn {
     position: relative;
     top: -3px;
     display: inline-block;
-    width: 170px;
+  	margin-right: 5px;
 }
 h5{
 	display: inline-block;

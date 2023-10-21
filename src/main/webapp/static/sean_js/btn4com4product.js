@@ -55,6 +55,7 @@ function add(e) {
 			if ($("input.select").eq(i).val() === "" || $(".time").eq(i).val() === "") {
 				next_step = false;
 				alert("請填寫完整景點及行程時間");
+				break;
 			}
 		}
 	}
