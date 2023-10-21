@@ -7,9 +7,11 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
@@ -226,13 +228,17 @@ public class TripServlet extends HttpServlet {
 					tripPhotoSvc.addTripPhoto(tripid, allPhotoUpdate.get(i));
 				}
 			}
-			itinerarySvc.deleteAllByTripId(tripid);
+			List<Integer> sceneIdList = new ArrayList<Integer>();
+			List<String> sceneNameList = new ArrayList<String>();
+			List<Timestamp> beginTimeList = new ArrayList<Timestamp>();
 			for (int i = 0; i < sceneIdUnion.length; i++) {
-				String newbeginTime = beginTimeUnion[i].replace('T', ' ');
-				newbeginTime += ":00";
-				itinerarySvc.add(trip.getTripId(), Integer.parseInt(sceneIdUnion[i]), sceneNameUnion[i],
-						Timestamp.valueOf(newbeginTime));
+				String newbeginTime = beginTimeUnion[i].replace('T', ' ') + ":00";
+				sceneIdList.add(Integer.parseInt(sceneIdUnion[i]));
+				sceneNameList.add(sceneNameUnion[i]);
+				beginTimeList.add(Timestamp.valueOf(newbeginTime));
 			}
+			itinerarySvc.deleteAllByTripIdAndAdd(tripid, sceneIdList, sceneNameList, beginTimeList);
+			
 			res.sendRedirect(req.getContextPath() + "/sean/trip_ticket_all.jsp");
 			return;
 		case "delete":

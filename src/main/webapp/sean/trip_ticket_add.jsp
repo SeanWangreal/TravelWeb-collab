@@ -247,12 +247,12 @@ datalist {
 								value="${trip.amount}" min="1">
 							</label>
 						</div>
-						<div style="flex-basis: 23%; flex-grow: 1;">
+						<div style="flex-basis: 15%; flex-grow: 1;">
 							<label for="">開始日期 <input type="date" style="width: 100%"
 								name="startTime" value="${trip.startTime}" required="required">
 							</label>
 						</div>
-						<div style="flex-basis: 23%; flex-grow: 1;">
+						<div style="flex-basis: 15%; flex-grow: 1;">
 							<label for="">結束日期 <input type="date"
 								style="width: 100%;" name="endTime" value="${trip.endTime}"
 								required="required">
@@ -553,7 +553,7 @@ datalist {
                              <div style="flex-basis: 20%;">
                              <label for="">行程時間</label>
                              <br>
-                             <input type="datetime-local" style="width: 270px;" name="beginTime">
+                             <input type="datetime-local" class="time" style="width: 270px;" name="beginTime">
                              </div>
                              <div style="flex-basis: 20%;">
                                  <button type="button" class="delete other-btn" >刪除</button>
