@@ -1,6 +1,7 @@
 package com.tha103.gogoyu.room_ord.model;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class Room_ordServiceHibernate {
 	
 	//for加入購物車時，所以是沒有下完訂單才能有的屬性，例如comment...
 	public Integer addFromShopping(Integer planId, Integer roomId, Integer cusId, Integer amount,
-			BigDecimal totalPrice, BigDecimal commission,BigDecimal profit, Integer people, Timestamp checkInTime, Timestamp checkOutTime,
+			BigDecimal totalPrice, BigDecimal commission,BigDecimal profit, Integer people, Date checkInTime, Date checkOutTime,
 			Integer ordStatus) { 
 
 		Room_ord roomOrd = new Room_ord();
@@ -50,7 +51,7 @@ public class Room_ordServiceHibernate {
 	
 	
 	public Room_ord add(Integer planId, Integer roomId, Integer cusId, Integer amount,
-			BigDecimal totalPrice, BigDecimal commission,BigDecimal profit, Integer people, Timestamp checkInTime, Timestamp checkOutTime,
+			BigDecimal totalPrice, BigDecimal commission,BigDecimal profit, Integer people, Date checkInTime, Date checkOutTime,
 			Integer ordStatus, String remark, Integer score, String comments,
 			Timestamp commentsTime) {
 
@@ -82,7 +83,7 @@ public class Room_ordServiceHibernate {
 
 
 	public Room_ord update(Integer planId, Integer roomId, Integer cusId, Integer amount,
-			BigDecimal totalPrice, BigDecimal commission,BigDecimal profit, Integer people, Timestamp checkInTime, Timestamp checkOutTime,
+			BigDecimal totalPrice, BigDecimal commission,BigDecimal profit, Integer people, Date checkInTime, Date checkOutTime,
 			Integer ordStatus, String remark, Integer score, String comments,
 			Timestamp commentsTime) {
 

@@ -4,7 +4,7 @@ import java.io.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.*;
 
 import javax.servlet.*;
@@ -20,6 +20,8 @@ import com.tha103.gogoyu.room.model.*;
 import com.tha103.gogoyu.trip.model.*;
 import com.tha103.gogoyu.trip_ord.model.*;
 import com.tha103.gogoyu.company.model.*;
+import java.text.SimpleDateFormat;
+
 //@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1* 1024 * 1024, maxRequestSize = 10* 1024 * 1024)
 @WebServlet("/shopping_hotelServlet")
 public class shopping_hotelServlet extends HttpServlet {
@@ -55,8 +57,13 @@ public class shopping_hotelServlet extends HttpServlet {
 		//roomAmount最後要放回去房間新增裡的if!!
 		Integer roomAmount= 1;//Integer.valueOf(req.getParameter("amount")); //抓數量amount(name value)
 		
-		Timestamp checkInTime= Timestamp.valueOf("2023-10-17 12:30:45"); //抓checkingtime(name value)
-		Timestamp checkOutTime= Timestamp.valueOf("2023-10-17 12:30:45"); //抓checkingtime(name value)
+		String Timestart= "2023-10-21"; // 示例日期字符串
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date checkInTime = Date.valueOf(Timestart);
+		
+		
+		String Timeend= "2023-10-22"; // 示例日期字符串
+		Date checkOutTime =Date.valueOf(Timeend);
 		
 		
 		
@@ -91,7 +98,7 @@ public class shopping_hotelServlet extends HttpServlet {
 				
 			// check in  out 時間由明翰搜尋的結果得知
 				
-				Integer newRoomOrder = ROSH.addFromShopping(plan_id,roomId,cusId,roomAmount,totalPrice,commission, profit , people ,checkInTime, checkOutTime,0);
+//				Integer newRoomOrder = ROSH.addFromShopping(plan_id,roomId,cusId,roomAmount,totalPrice,commission, profit , people ,checkInTime, checkOutTime,null);
 				
 				
 				String url = "/chu/shopping(hotel).jsp";
@@ -137,6 +144,8 @@ public class shopping_hotelServlet extends HttpServlet {
 			
 			Room_ord RoomOrd =ROSH.getRoomOrd(roomOrderId);//取得該訂單pk的物件
 			
+			Date checkIn =RoomOrd.getCheckInTime();
+			Date checkOut =RoomOrd.getCheckOutTime();
 			Integer RoomId = RoomOrd.getRoomId();
 			Integer compId = RSH.getOneRoom(RoomId).getCompId();
 			
@@ -145,7 +154,7 @@ public class shopping_hotelServlet extends HttpServlet {
 			String principalPhone=CSH.getComp(compId).getPrincipalPhone();//抓聯絡人電話
 			
 			
-			
+			String roomName = RSH.getRoom(RoomId).getRoomName();
 			Integer roomTypeId=RSH.getRoom(RoomId).getRoomType();
 			String roomType  = null ;//抓房型
 			switch (roomTypeId) {
@@ -165,6 +174,7 @@ public class shopping_hotelServlet extends HttpServlet {
 			
 			
 			Room_ordList ROL = new Room_ordList();
+			ROL.setRoomName(roomName);
 			ROL.setRoomOrdId(RoomOrd.getRoomOrdId());
 			ROL.setCusId(RoomOrd.getCusId());
 			ROL.setCompName(compName);
@@ -172,8 +182,8 @@ public class shopping_hotelServlet extends HttpServlet {
 			ROL.setAmount(RoomOrd.getAmount());
 			ROL.setPrincipalName(principalName);
 			ROL.setPrincipalPhone(principalPhone);
-			ROL.setStartTime(checkInTime); //要再改
-			ROL.setStartTime(checkOutTime);//要再改
+			ROL.setStartTime(checkIn); //要再改
+			ROL.setEndTime(checkOut);//要再改
 			ROL.setProfit(RoomOrd.getProfit());
 			ROL.setCommission(RoomOrd.getCommission());
 			ROL.setTotalPrice(RoomOrd.getTotalPrice());

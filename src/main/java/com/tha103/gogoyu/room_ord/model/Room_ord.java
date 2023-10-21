@@ -2,6 +2,7 @@ package com.tha103.gogoyu.room_ord.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -49,9 +50,9 @@ public class Room_ord implements Serializable {
 	@Column(name = "people")
 	private Integer people;
 	@Column(name = "check_in_time", insertable = false, updatable = false)
-	private Timestamp checkInTime;
+	private Date checkInTime;
 	@Column(name = "check_out_time", insertable = false, updatable = false)
-	private Timestamp checkOutTime;
+	private Date checkOutTime;
 	@Column(name = "ord_status")
 	private Integer ordStatus;
 	@Column(name = "ord_time", insertable = false, updatable = false)
@@ -71,7 +72,7 @@ public class Room_ord implements Serializable {
 		super();	
 		}
 	public Room_ord(Integer roomOrdId, Integer planId, Integer roomId, Integer cusId, Integer amount,
-			BigDecimal totalPrice, BigDecimal commission, Integer people, Timestamp checkInTime, Timestamp checkOutTime,
+			BigDecimal totalPrice, BigDecimal commission, Integer people, Date checkInTime, Date checkOutTime,
 			Integer ordStatus, Timestamp ordTime, String remark, Integer score, String comments,
 			Timestamp commentsTime) {
 		super();
@@ -147,16 +148,16 @@ public class Room_ord implements Serializable {
 	public void setPeople(Integer people) {
 		this.people = people;
 	}
-	public Timestamp getCheckInTime() {
+	public Date getCheckInTime() {
 		return checkInTime;
 	}
-	public void setCheckInTime(Timestamp checkInTime) {
+	public void setCheckInTime(Date  checkInTime) {
 		this.checkInTime = checkInTime;
 	}
-	public Timestamp getCheckOutTime() {
+	public Date  getCheckOutTime() {
 		return checkOutTime;
 	}
-	public void setCheckOutTime(Timestamp checkOutTime) {
+	public void setCheckOutTime(Date  checkOutTime) {
 		this.checkOutTime = checkOutTime;
 	}
 	public Integer getOrdStatus() {

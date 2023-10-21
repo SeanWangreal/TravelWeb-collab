@@ -1,9 +1,11 @@
 package com.tha103.gogoyu.room_ord.model;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Room_ordList {
+	String roomName;
 	Integer RoomOrdId ;
 	Integer CusId;
 	String CompName;
@@ -11,11 +13,19 @@ public class Room_ordList {
 	Integer amount;
 	String principalName;
 	String principalPhone;
-	Timestamp startTime;
-	Timestamp endTime;
+	Date startTime;
+	Date endTime;
 	BigDecimal profit;
 	BigDecimal commission;
 	BigDecimal totalPrice;
+	
+	
+	public String getRoomName() {
+		return roomName;
+	}
+	public void setRoomName(String roomName) {
+		this.roomName = roomName;
+	}
 	public Integer getRoomOrdId() {
 		return RoomOrdId;
 	}
@@ -58,16 +68,16 @@ public class Room_ordList {
 	public void setPrincipalPhone(String principalPhone) {
 		this.principalPhone = principalPhone;
 	}
-	public Timestamp getStartTime() {
+	public Date getStartTime() {
 		return startTime;
 	}
-	public void setStartTime(Timestamp startTime) {
+	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
-	public Timestamp getEndTime() {
+	public Date getEndTime() {
 		return endTime;
 	}
-	public void setEndTime(Timestamp endTime) {
+	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
 	public BigDecimal getProfit() {

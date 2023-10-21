@@ -8,9 +8,9 @@
 <%@ page import="com.tha103.gogoyu.planning.model.*"%>
 <!-- 以下三行預防快取 -->
 <%
-response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
-response.setHeader("Pragma", "no-cache"); //HTTP 1.0
-response.setDateHeader("Expires", 0);
+// response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
+// response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+// response.setDateHeader("Expires", 0);
 
 session.setAttribute("trip_id", 1);
 session.setAttribute("cus_id", 1);
@@ -48,7 +48,11 @@ pageContext.setAttribute("room5", ROSH.getRoomOrdVo(5, cusId));
 </head>
 
 <body>
+
+
+
 	<script src="../vendors/jquery/jquery-3.7.1.min.js"></script>
+		<script src="../static/chu_js/shopping.js"></script>
 	<nav class="st">
 		<!-- <a class="word" id="home" href="#">Home</a> -->
 		<div class="head">
@@ -159,13 +163,13 @@ pageContext.setAttribute("room5", ROSH.getRoomOrdVo(5, cusId));
 
 
 			<div class="tab plan1 -on" id="tab_plan1">
-				<form method ="get"  action="${pageContext.request.contextPath}/room_photoServlet">
+<!-- 				<div class="no-items">暫無商品</div> -->
 				<!-- ==============裡面的list=============== -->
 				<c:forEach var="roomVo1" items="${room1}">
 				
 	
 					<div class="plan_tab_1 list">
-
+							
 						<div class="plan_tab_1_left">
 
 							<img src="${pageContext.request.contextPath}/room_photoServlet?roomId=${roomVo1.roomId}">
@@ -180,7 +184,7 @@ pageContext.setAttribute("room5", ROSH.getRoomOrdVo(5, cusId));
 										訂單ID: <i style="color: darkorange;">${roomVo1.roomOrdId} </i>
 									</div>
 								</div>
-					</form>
+<!-- 					</form> -->
 								<div class="comment_set">
 									<div class="comment_message">
 										<a href="#"> <i class="fa-solid fa-message"></i>
@@ -315,8 +319,6 @@ pageContext.setAttribute("room5", ROSH.getRoomOrdVo(5, cusId));
 			<div class="tab plan2">
 				<div class="no-items">暫無商品</div>
 				<!-- ==============裡面的list=============== -->
-				<form method ="get"  action="${pageContext.request.contextPath}/room_photoServlet">
-				<!-- ==============裡面的list=============== -->
 				<c:forEach var="roomVo2" items="${room2}">
 				
 	
@@ -391,7 +393,6 @@ pageContext.setAttribute("room5", ROSH.getRoomOrdVo(5, cusId));
 			</div>
 			<div class="tab plan3 ">
 				<div class="no-items">暫無商品</div>
-				<form method ="get"  action="${pageContext.request.contextPath}/room_photoServlet">
 				<!-- ==============裡面的list=============== -->
 				<c:forEach var="roomVo3" items="${room3}">
 				
@@ -412,8 +413,7 @@ pageContext.setAttribute("room5", ROSH.getRoomOrdVo(5, cusId));
 										訂單ID: <i style="color: darkorange;">${roomVo3.roomOrdId} </i>
 									</div>
 								</div>
-					</form>
-
+					
 								<div class="comment_set">
 									<div class="comment_message">
 										<a href="#"> <i class="fa-solid fa-message"></i>
@@ -465,8 +465,7 @@ pageContext.setAttribute("room5", ROSH.getRoomOrdVo(5, cusId));
 				</c:forEach>
 			</div>
 			<div class="tab plan4">
-								<div class="no-items">暫無商品</div>
-				<form method ="get"  action="${pageContext.request.contextPath}/room_photoServlet">
+				<div class="no-items">暫無商品</div>
 				<!-- ==============裡面的list=============== -->
 				<c:forEach var="roomVo4" items="${room4}">
 				
@@ -487,7 +486,6 @@ pageContext.setAttribute("room5", ROSH.getRoomOrdVo(5, cusId));
 										訂單ID: <i style="color: darkorange;">${roomVo4.roomOrdId} </i>
 									</div>
 								</div>
-					</form>
 
 								<div class="comment_set">
 									<div class="comment_message">
@@ -541,7 +539,6 @@ pageContext.setAttribute("room5", ROSH.getRoomOrdVo(5, cusId));
 			</div>
 					<div class="tab plan5">
 						<div class="no-items">暫無商品</div>
-						<form method ="get"  action="${pageContext.request.contextPath}/room_photoServlet">
 				<!-- ==============裡面的list=============== -->
 				<c:forEach var="roomVo5" items="${room5}">
 				
@@ -562,7 +559,7 @@ pageContext.setAttribute("room5", ROSH.getRoomOrdVo(5, cusId));
 										訂單ID: <i style="color: darkorange;">${roomVo5.roomOrdId} </i>
 									</div>
 								</div>
-					</form>
+					
 
 										<div class="comment_set">
 											<div class="comment_message">
@@ -621,7 +618,7 @@ pageContext.setAttribute("room5", ROSH.getRoomOrdVo(5, cusId));
 
 
 
-			<script src="../static/chu_js/shopping.js"></script>
+		
 </body>
 
 </html>

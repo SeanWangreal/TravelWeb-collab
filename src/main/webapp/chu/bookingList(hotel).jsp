@@ -30,7 +30,7 @@ response.setDateHeader("Expires", 0);
 <!-- <h1 class="payment-title">交易明細</h1> -->
 <body>
     <!-- 背景衝浪圖 -->
-    <img class="fullscreen" src="bed.jpg" alt="Full Screen Image">
+    <img class="fullscreen" src="${pageContext.request.contextPath}/chu/bed.jpg" alt="Full Screen Image">
 
     <div class="outside_div">
         <div class="inside_left_div">
@@ -44,44 +44,46 @@ response.setDateHeader("Expires", 0);
                      
                     <br>
                     <div class="order-item"  style = "margin-left : 10px;">
-                        <label for="orderId">訂單編號:<label style="color: blue;">${RoomOrd.roomOrdId}</label>
+                        <label for="orderId">訂單編號:<label style="color: blue;margin-left:30px">${RoomOrd.roomOrdId}</label></label>
                     </div>
                     <hr>
                     <div class="order-item" style = "margin-left : 10px;">
-                        <label for="cusId">會員編號:</label>
+                        <label for="cusId">會員編號:<label style="color: blue;margin-left:30px">${RoomOrd.cusId}</label></label>
                     </div>
                     <hr>
                     <div class="order-item" style = "margin-left : 10px;">
-                        <label for="hotel-name">飯店名稱:</label>
+                        <label for="hotel-name">飯店名稱:<label style="color: blue;margin-left:30px">${RoomOrd.compName}</label></label>
                     </div>
                     <hr>
                     <div class="order-item" style = "margin-left : 10px;">
-                        <label for="agency">房型:</label>
+                        <label for="ordTime">房型名稱:<label style="color: blue;margin-left:30px">${RoomOrd.roomName}</label></label>
                     </div>
                     <hr>
                     <div class="order-item" style = "margin-left : 10px;">
-                        <label for="contact">房數:</label>
+                        <label for="agency">房型:<label style="color: blue;margin-left:30px">${RoomOrd.roomType}</label></label>
                     </div>
                     <hr>
                     <div class="order-item" style = "margin-left : 10px;">
-                        <label for="principalName">業者聯絡人:</label>
+                        <label for="contact">房數:<label style="color: blue;margin-left:30px">${RoomOrd.amount}</label></label>
                     </div>
                     <hr>
                     <div class="order-item" style = "margin-left : 10px;">
-                        <label for="principalPhone">電話:</label>
+                        <label for="principalName">業者聯絡人:<label style="color: blue;margin-left:30px">${RoomOrd.principalName}</label></label>
                     </div>
                     <hr>
                     <div class="order-item" style = "margin-left : 10px;">
-                        <label for="checkInTime">入住時間:</label>
+                        <label for="principalPhone">電話:<label style="color: blue;margin-left:30px">${RoomOrd.principalPhone}</label></label>
                     </div>
                     <hr>
                     <div class="order-item" style = "margin-left : 10px;">
-                        <label for="checkOutTime">退房時間:</label>
+                        <label for="checkInTime">入住時間:<label style="color: blue;margin-left:30px">${RoomOrd.startTime}</label></label>
                     </div>
                     <hr>
-                     <div class="order-item" style = "margin-left : 10px;">
-                        <label for="ordTime">下單時間:</label>
+                    <div class="order-item" style = "margin-left : 10px;">
+                        <label for="checkOutTime">退房時間:<label style="color: blue;margin-left:30px">${RoomOrd.endTime}</label></label>
                     </div>
+                   
+                     
                     <hr>
 <!--                     結帳後才會存入"備註" -->
                     <div class="order-item" style = "margin-left : 10px;">
@@ -102,17 +104,17 @@ response.setDateHeader("Expires", 0);
                 <div class="order-item" style="width: 100%;">
                     <div class="order_item_price">
                         <label class="price">價格:</label>
-                        <label class="right_label2">280000<label>元</label></label>  
+                        <label class="right_label2">${RoomOrd.profit}<label>元</label></label>  
                     </div>
                     <hr>
                     <div class="order_item_price">
                         <label class="commission">稅額(10%):</label>
-                        <label class="right_label2">28000<label>元</label></label>  
+                        <label class="right_label2">${RoomOrd.commission}<label>元</label></label>  
                     </div>
                     <hr>
                     <div class="order_item_price">
                         <label class="totalPrice">總價格:</label>
-                        <label class="right_label2">308000<label>元</label></label>  
+                        <label class="right_label2">${RoomOrd.totalPrice}<label>元</label></label>  
                     </div>
                     <hr>
                 </div>

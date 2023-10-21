@@ -236,8 +236,8 @@ create table room_ord(
     commission 			decimal(18,3),
     profit				decimal(18,3),
     people 				int,
-    check_in_time 		datetime,
-    check_out_time 		datetime,
+    check_in_time 		date,
+    check_out_time 		date,
     ord_status 			int,
     ord_time 			timestamp,
     remark 				varchar(100),
@@ -251,15 +251,15 @@ create table room_ord(
     
 );
 insert into room_ord (plan_id, room_id, cus_id, amount, total_price, commission,profit, people, check_in_time, check_out_time, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (1, 1, 1, 5, 5000, 500, 1000,5, "2023-10-5 17:14:56", "2023-10-6 11:14:56", 0, "2023-10-2 17:14:56", "幫忙保管物品1", 9, "好棒", "2023-10-10 11:14:56");
+	VALUES (1, 1, 1, 5, 5000, 500, 1000,5, "2023-10-5", "2023-10-6 ", 0, "2023-10-2 17:14:56", "幫忙保管物品1", 9, "好棒", "2023-10-10 11:14:56");
 insert into room_ord (plan_id, room_id, cus_id, amount, total_price, commission,profit, people, check_in_time, check_out_time, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (2, 2, 2, 4, 8000, 800, 1000,8, "2023-10-5 17:24:56", "2023-10-6 11:24:56", 1, "2023-10-2 17:24:56", "幫忙保管物品2", 8, "好讚", "2023-10-10 11:24:56");
+	VALUES (2, 2, 2, 4, 8000, 800, 1000,8, "2023-10-6", "2023-10-7 ", 1, "2023-10-2 17:24:56", "幫忙保管物品2", 8, "好讚", "2023-10-10 11:24:56");
 insert into room_ord (plan_id, room_id, cus_id, amount, total_price, commission,profit, people, check_in_time, check_out_time, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (3, 3, 3, 3, 9000, 900, 1000,9, "2023-10-5 17:34:56", "2023-10-6 11:34:56", 2, "2023-10-2 17:34:56", "幫忙保管物品3", null, null, null);
+	VALUES (3, 3, 3, 3, 9000, 900, 1000,9, "2023-10-7", "2023-10-8 ", 2, "2023-10-2 17:34:56", "幫忙保管物品3", null, null, null);
 insert into room_ord (plan_id, room_id, cus_id, amount, total_price, commission, profit,people, check_in_time, check_out_time, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (4, 4, 4, 2, 8000, 800, 1000,8, "2023-10-5 17:44:56", "2023-10-6 11:44:56", 0, "2023-10-2 17:44:56", "幫忙保管物品4", 7, "好強", "2023-10-10 11:44:56");
+	VALUES (4, 4, 4, 2, 8000, 800, 1000,8, "2023-10-8", "2023-10-9", 0, "2023-10-2 17:44:56", "幫忙保管物品4", 7, "好強", "2023-10-10 11:44:56");
 insert into room_ord (plan_id, room_id, cus_id, amount, total_price, commission,profit, people, check_in_time, check_out_time, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (5, 5, 5, 1, 500, 50, 1000,2, "2023-10-5 17:54:56", "2023-10-6 11:54:56", 1, "2023-10-2 17:54:56", "幫忙保管物品5", 9, "好舒服", "2023-10-10 11:54:56");
+	VALUES (5, 5, 5, 1, 500, 50, 1000,2, "2023-10-9", "2023-10-10", 1, "2023-10-2 17:54:56", "幫忙保管物品5", 9, "好舒服", "2023-10-10 11:54:56");
 
 create table `scene`(
 	`scene_id` int not null auto_increment primary key,
