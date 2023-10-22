@@ -244,4 +244,16 @@ public class CompanyJDBCDAO implements CompanyDAO_interface {
 //			System.out.println("---------------------");
 //		}
 	}
+
+	@Override
+	public List<Company> getByCheckStatus() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updChkStatus(Integer compId, Integer checkStatus) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -1,6 +1,7 @@
 package com.tha103.gogoyu.itinerary.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import util.HibernateUtil;
@@ -53,8 +54,20 @@ public class ItineraryServiceHibernate implements ItineraryService {
 	}
 
 	@Override
-	public void deleteAllByTripId(Integer tripId) {
-		dao.deleteAllByTripId(tripId);
+	public void deleteAllByTripIdAndAdd(Integer tripId, List<Integer> sceneIdList, List<String> sceneNameList,
+			List<Timestamp> beginTimeList) {
+		List<Itinerary> itineraryList = new ArrayList<Itinerary>();
+		for (int i=0; i<sceneIdList.size();i++) {
+			Itinerary itinerary = new Itinerary();
+			itinerary.setTripId(tripId);
+			itinerary.setSceneId(sceneIdList.get(i));
+			itinerary.setSceneName(sceneNameList.get(i));
+			itinerary.setBeginTime(beginTimeList.get(i));
+			itineraryList.add(itinerary);
+		}
+		dao.deleteAllByTripIdAndAdd(tripId, itineraryList);
 	}
+
+
 
 }

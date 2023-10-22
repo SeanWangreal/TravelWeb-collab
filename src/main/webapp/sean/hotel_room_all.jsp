@@ -314,7 +314,7 @@ input {
 								</span> <span class="d">|</span> <span class="product-info"
 									style="width: 140px;"> <span>今日空房${mapStock.get(room)[0].stock}</span>
 								</span> <span class="below-btn">
-									<button class="stock">查看庫存</button>
+									<button class="stock" data-value="${room.roomId}">查看庫存</button>
 									<button type="button" class="renewStatus"
 										${(room.roomStatus == 1) ? 'disabled style="filter: opacity(0.5);"' : ""}>上架</button>
 									<input type="hidden" name="id" value="${roomId}">
@@ -324,12 +324,12 @@ input {
 							</div>
 							<div class="calendar">
 								<div class="calendar-head">
-									<a href="" class="prev aa">＜</a>
+									<a href="" class="prev aa" data-value="${room.roomId}">＜</a>
 									<div class="calendar-word">
-										<h1 class="color calendar-title">Month</h1>
+										<h1 class="color calendar-title" data-value="${room.roomId}">Month</h1>
 										<h2 class="color calendar-year">Year</h2>
 									</div>
-									<a href="" class="next aa">＞</a>
+									<a href="" class="next aa" data-value="${room.roomId}">＞</a>
 								</div>
 								<div class="TIME-block">
 									<div class="lightgrey body-list">
@@ -588,7 +588,24 @@ input {
                     return (month_normal[month]);
                 }
             }
-            function refreshDate() {
+            function refreshDate(roomId) {
+            	$.ajax({
+            		  url: "/TravelWeb-collab/sean/RoomStockServlet",
+            		  type: "POST",                  // GET | POST | PUT | DELETE | PATCH
+            		  data: {
+            			  "action" : "showStocks",
+            			  "roomId" : roomId
+            		  },
+            		  dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
+            		  success: function(data){      // request 成功取得回應後執行
+            		    console.log(data);
+            		  }
+            		});
+            	
+            	
+            	
+            	
+            	
                 var str = "";
                 var totalDay = daysMonth(my_month, my_year); //获取该月总天数
                 var firstDay = dayStart(my_month, my_year); //获取该月第一天是星期几
@@ -625,33 +642,37 @@ input {
                     }
                 })
             }
-            refreshDate();
             $(prev).on('click', function (e) {
                 e.preventDefault();
+                var roomId = $(this).attr("data-value");
                 my_month--;
                 if (my_month < 0) {
                     my_year--;
                     my_month = 11;
                 }
-                refreshDate();
+                refreshDate(roomId);
             })
             $(next).on('click', function (e) {
                 e.preventDefault();
+                var roomId = $(this).attr("data-value");
                 my_month++;
                 if (my_month > 11) {
                     my_year++;
                     my_month = 0;
                 }
-                refreshDate();
+                refreshDate(roomId);
             })
             $(".stock").on('click', function () {
+            	var roomId = $(this).attr("data-value");
+                refreshDate(roomId);
                 $(this).closest(".one-product").find(".calendar").toggleClass("on");
             })
             $("h1").on("click", function () {
+            	var roomId = $(this).attr("data-value");
                 my_month = my_date.getMonth();
                 my_day = my_date.getDate();
                 my_year = my_date.getFullYear();
-                refreshDate()
+                refreshDate(roomId)
             })
         })
     </script>

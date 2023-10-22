@@ -3,6 +3,7 @@ package com.tha103.gogoyu.room_stock.model;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -174,5 +175,35 @@ public class Room_stockHibernateDAO implements Room_stockDAO_interface {
 		}
 		return null;
 	}
+
+	@Override
+	public void updateAll(List<Room_stock> oldRoomStock, List<Room_stock> deleteRoomStock,
+			List<Room_stock> newRoomStock) {
+		try {
+			getSession().beginTransaction();
+			if (oldRoomStock != null) {
+				for (Room_stock roomStock: oldRoomStock) {
+					getSession().update(roomStock);
+				}
+			}
+			if (deleteRoomStock != null) {
+				for (Room_stock roomStock: deleteRoomStock) {
+					getSession().delete(roomStock);
+				}
+			}
+			if (newRoomStock != null) {
+				for (Room_stock roomStock: newRoomStock) {
+					getSession().save(roomStock);
+				}
+			}
+			getSession().getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		
+	}
+
+
 
 }

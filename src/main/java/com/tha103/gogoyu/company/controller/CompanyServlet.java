@@ -1,8 +1,11 @@
 package com.tha103.gogoyu.company.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.tha103.gogoyu.company.model.Company;
 import com.tha103.gogoyu.company.model.CompanyService;
 
@@ -22,7 +26,7 @@ public class CompanyServlet extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+		res.setContentType("text/plain; charset=UTF-8");
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
@@ -77,6 +81,91 @@ public class CompanyServlet extends HttpServlet {
 			String url = "/ken/com_mem.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
+		}
+		
+		if ("getOneJSON".equals(action)) { // 來自select_page.jsp的請求
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+			String str = req.getParameter("compId");
+			if (str == null || (str.trim()).length() == 0) {
+				errorMsgs.add("請輸入會員編號");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/hollow/backend.jsp");
+				failureView.forward(req, res);
+				return;// 程式中斷
+			}
+
+			Integer compId = null;
+			try {
+				compId = Integer.valueOf(str);
+			} catch (Exception e) {
+				errorMsgs.add("員工編號格式不正確");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+//				RequestDispatcher failureView = req.getRequestDispatcher("/hollow/backend.jsp");
+//				failureView.forward(req, res);
+				Gson gson =new Gson();
+				String outStr=gson.toJson(errorMsgs);
+				
+				PrintWriter out = res.getWriter();
+				out.println(outStr);
+				System.out.println(outStr);
+				out.close();
+				
+				return;// 程式中斷
+			}
+
+			/*************************** 2.開始查詢資料 *****************************************/
+			CompanyService companySvc = new CompanyService();
+			Company company = companySvc.getOneCompany(compId);
+			if (company == null) {
+				errorMsgs.add("查無資料");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+//				RequestDispatcher failureView = req.getRequestDispatcher(req.getContextPath()+"ken/com_mem.jsp");
+//				failureView.forward(req, res);
+				Gson gson =new Gson();
+				String outStr=gson.toJson(errorMsgs);
+				
+				PrintWriter out = res.getWriter();
+				out.println(outStr);
+				System.out.println(outStr);
+				out.close();
+				
+				return;// 程式中斷
+			}
+
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+//			System.out.println(company);
+//			req.setAttribute("Company", company); // 資料庫取出的empVO物件,存入req
+//			String url = "/ken/com_mem.jsp";
+//			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+//			successView.forward(req, res);
+			Map<String, Object> cmpMap=new HashMap();
+			cmpMap.put("compId", company.getCompId());
+			cmpMap.put("compName", company.getCompName());
+			cmpMap.put("compAddress", company.getCompAddress());
+			cmpMap.put("compPhone", company.getCompPhone());
+			cmpMap.put("principalName", company.getPrincipalName());
+			cmpMap.put("principalPhone", company.getPrincipalPhone());
+			cmpMap.put("compAccount", company.getCompAccount());
+			cmpMap.put("compMail", company.getCompMail());
+			
+			Gson gson =new Gson();
+			String json=gson.toJson(cmpMap);
+			
+			PrintWriter out = res.getWriter();
+			out.println(json);
+//			System.out.println(json);
+			out.close();
 		}
 		
 		//密碼修改
@@ -154,6 +243,21 @@ public class CompanyServlet extends HttpServlet {
 				String url = "/ken/com_mem.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 				successView.forward(req, res);
+		}
+		
+		if ("updChkStat".equals(action)) { // 來自update_emp_input.jsp的請求
+			Integer compId = Integer.valueOf(req.getParameter("compId").trim());
+			Integer checkStatus = Integer.valueOf(req.getParameter("chkStatus").trim());
+
+
+			/*************************** 2.開始修改資料 *****************************************/
+			CompanyService companySvc = new CompanyService();
+			companySvc.updChkStatus(compId, checkStatus);
+
+			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
+			String url = "/hollow/backend.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
+			successView.forward(req, res);
 		}
 
 		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求

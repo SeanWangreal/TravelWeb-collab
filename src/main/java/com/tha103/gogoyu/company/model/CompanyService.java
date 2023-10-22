@@ -63,6 +63,14 @@ public class CompanyService {
 		public List<Company> getAllCompany() {
 			return dao.getAll();
 		}
+		
+		public List<Company> getByCheckStatus(){
+			return dao.getByCheckStatus();
+		}
+		
+		public void updChkStatus(Integer compId, Integer checkStatus) {
+			dao.updChkStatus(compId, checkStatus);
+		}
 	}
 
 
