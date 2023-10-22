@@ -240,7 +240,6 @@ article {
 								</span> <span class="d">|</span> <span class="product-info"
 									style="width: 100px;"> <span>庫存</span> <span>${trip.amount}</span>
 								</span> <span class="below-btn">
-									<button class="stock">查看庫存</button>
 									<button type="button" class="renewStatus"
 										${(trip.state == 1) ? 'disabled style="filter: opacity(0.5);"' : ""}>上架</button>
 									<input type="hidden" name="id" value="${tripId}">

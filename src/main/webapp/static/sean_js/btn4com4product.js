@@ -59,6 +59,19 @@ function add(e) {
 			}
 		}
 	}
+	console.log($("input.where"));
+	if($("input.where").length != 0){
+		if ($("input.where:checked").length ===0){
+			next_step = false;
+			alert("請至少勾選一個地點");
+		}
+	}
+	if($("input.essential").length != 0){
+		if ($("input.essential:checked").length ===0){
+			next_step = false;
+			alert("請至少勾選一個客房設施");
+		}
+	}
 	if ($("label.warning")!= undefined){
 		for (var i = 0; i < $("input.select").length; i++) {
 			if ($("label.warning").eq(i).text() !== "") {
