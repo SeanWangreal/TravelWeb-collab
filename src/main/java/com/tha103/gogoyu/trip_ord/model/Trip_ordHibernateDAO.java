@@ -7,9 +7,11 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.NativeQuery;
 
 import com.tha103.gogoyu.room.model.Room;
 import com.tha103.gogoyu.room_ord.model.Room_ord;
+import com.tha103.gogoyu.room_ord.model.Room_ordServiceHibernate;
 import com.tha103.gogoyu.trip.model.Trip;
 
 import util.HibernateUtil;
@@ -17,13 +19,13 @@ import util.HibernateUtil;
 public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface{
 	private SessionFactory factory;
 
-	//³z¹Lservice±asessionªº«Øºc¤l¨Ï¥Î¦h«¬³z¹Linterface©I¥sªºhibernateDAO
+	//é€éserviceå¸¶sessionçš„å»ºæ§‹å­ä½¿ç”¨å¤šå‹é€éinterfaceå‘¼å«çš„hibernateDAO
 	public Trip_ordHibernateDAO(SessionFactory factory) {
-		this.factory = factory;  //¨ú±osessionfactory¨Ã¦^¶Ç
+		this.factory = factory;  //å–å¾—sessionfactoryä¸¦å›å‚³
 	}
 	
 	private Session getSession() {
-		return factory.getCurrentSession(); //¨ú±oCurrentSession¡A«áÄò¥u­n©I¥sgetSession()´N¥i¥H¶}©l¥æ©ö
+		return factory.getCurrentSession(); //å–å¾—CurrentSessionï¼Œå¾ŒçºŒåªè¦å‘¼å«getSession()å°±å¯ä»¥é–‹å§‹äº¤æ˜“
 	}
 	@Override
 	public Integer add(Trip_ord tripOrd) {
@@ -75,34 +77,58 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface{
 	
 	@Override
 	public Trip_ord findByPrimaryKey(Integer tripOrdId) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			Trip_ord tripOrd = session.get(Trip_ord.class, tripOrdId);
-			session.getTransaction().commit();
+			try {
+			getSession().beginTransaction();
+			Trip_ord tripOrd = getSession().get(Trip_ord.class, tripOrdId);
+			getSession().getTransaction().commit();
 			return tripOrd;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return null;
 	}
 
 	@Override
 	public List<Trip_ord> getAll() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-			session.beginTransaction();
-			List<Trip_ord> list = session.createQuery("from Trip_ord", Trip_ord.class).list();
-			session.getTransaction().commit();
+			getSession().beginTransaction();
+			List<Trip_ord> list = getSession().createQuery("from Trip_ord", Trip_ord.class).list();
+			getSession().getTransaction().commit();
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return null;
 	}
-	
+	@Override
+	public List<Trip_ord> getTripOrdVo(Integer cartId, Integer cusId) {
+
+		try {
+			getSession().beginTransaction();
+			@SuppressWarnings("unchecked")
+			NativeQuery<Trip_ord> query1 = getSession().createNativeQuery(
+					"SELECT * from trip_ord where plan_id in (select plan_id from planning where cart_id= :cartId and cus_id = :cusId)", Trip_ord.class);
+						query1.setParameter("cartId", cartId);
+						query1.setParameter("cusId", cusId);
+			List<Trip_ord> list1 = query1.list();
+			getSession().getTransaction().commit();
+			return list1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+	public static void main(String[] args) {
+		Trip_ordServiceHibernate n = new Trip_ordServiceHibernate();
+		List<Trip_ord>a = n.getTripOrdVo(1,1);
+		for(Trip_ord a1 : a) {
+			System.out.println(a1.getTripOrdId());
+			
+		}
+	}
 //	public static void main(String[] args) {
 //		Trip_ordDAO_Interface dao=new Trip_ordHibernateDAO();
 //		Date date = new Date();

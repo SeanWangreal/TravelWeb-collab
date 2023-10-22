@@ -30,7 +30,7 @@ response.setDateHeader("Expires", 0);
 <!-- <h1 class="payment-title">交易明細</h1> -->
 <body>
     <!-- 背景衝浪圖 -->
-    <img class="fullscreen" src="./4621.png" alt="Full Screen Image">
+    <img class="fullscreen" src="${pageContext.request.contextPath}/chu/4621.png" alt="Full Screen Image">
 
     <div class="outside_div">
         <div class="inside_left_div">
@@ -42,42 +42,42 @@ response.setDateHeader("Expires", 0);
                     <br>
                     <br>
                     <div class="order-item">
-                        <label for="orderId">訂單編號:</label>
+                        <label for="orderId">訂單編號:<i style="color: blue;margin-left:30px">${TripOrd.tripOrdId}</i></label>
                     </div>
                     <hr>
                     <div class="order-item">
-                        <label for="cusId">會員編號:</label>
+                        <label for="cusId">會員編號:<i style="color: blue;margin-left:30px">${TripOrd.cusId}</i></label>
                     </div>
                     <hr>
                     <div class="order-item">
-                        <label for="tripName">行程名稱:</label>
+                        <label for="tripName">行程名稱:<i style="color: blue;margin-left:30px">${TripOrd.tripName}</i></label>
                     </div>
                     <hr>
-
-                    <div class="order-item">
-                        <label for="amount">數量:</label>
-                    </div>
-                    <hr>
-                    <div class="order-item">
-                        <label for="princitalName">業者聯絡人:</label>
+                    <div class="order-item" >
+                     <label for="agency">套票人數:<i style="color: blue;margin-left:30px">${TripOrd.people}</i></label>
                     </div>
                     <hr>
                     <div class="order-item">
-                        <label for="princitalPhone">電話:</label>
+                        <label for="amount">數量:<i style="color: blue;margin-left:30px">${TripOrd.amount}</i></label>
                     </div>
                     <hr>
                     <div class="order-item">
-                        <label for="startTime">行程開始時間:</label>
+                        <label for="princitalName">業者聯絡人:<i style="color: blue;margin-left:30px">${TripOrd.principalName}</i></label>
                     </div>
                     <hr>
                     <div class="order-item">
-                        <label for="endTime">行程結束時間:</label>
+                        <label for="princitalPhone">電話:<i style="color: blue;margin-left:30px">${TripOrd.principalPhone}</i></label>
                     </div>
                     <hr>
                     <div class="order-item">
-                        <label for="ordTime">下單時間:</label>
+                        <label for="startTime">行程開始時間:<i style="color: blue;margin-left:30px">${TripOrd.startTime}</i></label>
                     </div>
                     <hr>
+                    <div class="order-item">
+                        <label for="endTime">行程結束時間:<i style="color: blue;margin-left:30px">${TripOrd.endTime}</i></label>
+                    </div>
+                    <hr>
+                   
                     <!--                     結帳後才會存入"備註" -->
                     <div class="order-item" style = "margin-left : 10px;">
                         <label for="remark">備註:</label>
@@ -97,17 +97,17 @@ response.setDateHeader("Expires", 0);
                 <div class="order-item" style="width: 100%;">
                     <div class="order_item_price">
                         <label class="price">價格:</label>
-                        <label class="right_label2">280000<label>元</label></label>  
+    					 <label class="right_label2"><i>${TripOrd.profit}元</i></label>  
                     </div>
                     <hr>
                     <div class="order_item_price">
                         <label class="commission">稅額(10%):</label>
-                        <label class="right_label2">28000<label>元</label></label>  
+                          <label class="right_label2"><i>${TripOrd.commission}元</i></label>  
                     </div>
                     <hr>
                     <div class="order_item_price">
                         <label class="totalPrice">總價格:</label>
-                        <label class="right_label2">308000<label>元</label></label>  
+                       <label class="right_label2"><i>${TripOrd.totalPrice}元</i></label>  
                     </div>
                     <hr>
                 </div>

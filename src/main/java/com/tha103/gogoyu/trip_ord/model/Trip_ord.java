@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.tha103.gogoyu.consumer.model.Consumer;
 import com.tha103.gogoyu.trip.model.Trip;
@@ -34,19 +35,19 @@ public class Trip_ord implements Serializable {
 	private Integer planId;
 	
 
-	@Column(name = "cus_id", insertable = false, updatable = false)
+	@Column(name = "cus_id")
 	private Integer cusId;
-	@ManyToOne
-	@JoinColumn(name = "cus_id", referencedColumnName = "cus_id")
-	private Consumer consumer;
-
-	public Consumer getConsumer() {
-		return consumer;
-	}
-
-	public void setConsumer(Consumer consumer) {
-		this.consumer = consumer;
-	}
+	
+//	@Transient
+//	private String tripName ;
+//	
+//	public String getTripName() {
+//		return tripName;
+//	}
+//
+//	public void setTripName(String tripName) {
+//		this.tripName = tripName;
+//	}
 
 	@Column(name = "amount")
 	private Integer amount;

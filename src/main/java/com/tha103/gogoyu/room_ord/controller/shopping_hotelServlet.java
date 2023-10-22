@@ -22,7 +22,6 @@ import com.tha103.gogoyu.trip_ord.model.*;
 import com.tha103.gogoyu.company.model.*;
 import java.text.SimpleDateFormat;
 
-//@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1* 1024 * 1024, maxRequestSize = 10* 1024 * 1024)
 @WebServlet("/shopping_hotelServlet")
 public class shopping_hotelServlet extends HttpServlet {
 
@@ -44,16 +43,9 @@ public class shopping_hotelServlet extends HttpServlet {
 		
 		Integer cusId = (Integer) session.getAttribute("cus_id"); // 抓會員id
 		
-		//tripId最後要放回去行程新增裡的if!!
-		Integer tripId = (Integer) session.getAttribute("trip_id"); // 抓行程 id   最後getparameter(name value)
-		
 		//roomId最後要放回去房間新增裡的if!!
 		Integer roomId = (Integer) session.getAttribute("room_id"); // 抓房間id  最後會用getparameter(name value)
-		
-		//cartId最後要放回去"房間"和"行程"的新增裡的if!!
-		
-		//tripAmount最後要放回去行程新增裡的if!!
-		Integer tripAmount= 1;//Integer.valueOf(req.getParameter("amount")); //抓數量amount(name value)
+	
 		//roomAmount最後要放回去房間新增裡的if!!
 		Integer roomAmount= 1;//Integer.valueOf(req.getParameter("amount")); //抓數量amount(name value)
 		
@@ -88,7 +80,8 @@ public class shopping_hotelServlet extends HttpServlet {
 			//跟room_ord 從room拿price
 				
 				BigDecimal totalPrice = RSH.getRoom(roomId).getPrice().setScale(0, RoundingMode.HALF_UP);
-			//comm = price *10%
+			System.out.println(totalPrice);
+				//comm = price *10%
 				BigDecimal commission =  totalPrice.multiply(new BigDecimal(0.1)).setScale(0, RoundingMode.HALF_UP);
 			//profit = price - comm
 				BigDecimal profit = totalPrice.subtract(commission);
@@ -98,7 +91,7 @@ public class shopping_hotelServlet extends HttpServlet {
 				
 			// check in  out 時間由明翰搜尋的結果得知
 				
-//				Integer newRoomOrder = ROSH.addFromShopping(plan_id,roomId,cusId,roomAmount,totalPrice,commission, profit , people ,checkInTime, checkOutTime,null);
+				Integer newRoomOrder = ROSH.addFromShopping(plan_id,roomId,cusId,roomAmount,totalPrice,commission, profit , people ,checkInTime, checkOutTime,1);
 				
 				
 				String url = "/chu/shopping(hotel).jsp";
@@ -152,8 +145,9 @@ public class shopping_hotelServlet extends HttpServlet {
 			String compName=CSH.getComp(compId).getCompName();//抓房名
 			String principalName=CSH.getComp(compId).getPrincipalName();//抓聯絡人
 			String principalPhone=CSH.getComp(compId).getPrincipalPhone();//抓聯絡人電話
-			
-			
+			Integer profit = RoomOrd.getProfit().setScale(3, RoundingMode.HALF_UP).intValue();
+			Integer commission = RoomOrd.getCommission().setScale(3, RoundingMode.HALF_UP).intValue();
+			Integer totalPrice= RoomOrd.getTotalPrice().setScale(3, RoundingMode.HALF_UP).intValue();
 			String roomName = RSH.getRoom(RoomId).getRoomName();
 			Integer roomTypeId=RSH.getRoom(RoomId).getRoomType();
 			String roomType  = null ;//抓房型
@@ -182,11 +176,11 @@ public class shopping_hotelServlet extends HttpServlet {
 			ROL.setAmount(RoomOrd.getAmount());
 			ROL.setPrincipalName(principalName);
 			ROL.setPrincipalPhone(principalPhone);
-			ROL.setStartTime(checkIn); //要再改
-			ROL.setEndTime(checkOut);//要再改
-			ROL.setProfit(RoomOrd.getProfit());
-			ROL.setCommission(RoomOrd.getCommission());
-			ROL.setTotalPrice(RoomOrd.getTotalPrice());
+			ROL.setStartTime(checkIn); 
+			ROL.setEndTime(checkOut);
+			ROL.setProfit(profit);
+			ROL.setCommission(commission);
+			ROL.setTotalPrice(totalPrice);
 			
 			
 			req.setAttribute( "RoomOrd" , ROL);
@@ -198,48 +192,6 @@ public class shopping_hotelServlet extends HttpServlet {
 //=========================購物車(飯店)結帳===============================
 		
 
-		
-
-		
-		
-		
-		
-		
-		
-//		if ("trip_goShopping".equals(action)) { // trip區塊加入購物車時(新增)
-
-//			if (cusId != null) {// 如果session有cus_id資料代表有人登入
-//				Integer cartId = Integer.valueOf(req.getParameter("cart_id")); //透過js給值抓購物車號(name value)
-//				
-//				PlanningServiceHibernate PSH = new PlanningServiceHibernate();// 創造出SERVICE
-//				Integer planId = PSH.getPlanId(cusId, cartId); //得到1.他是誰   2.是哪台車 
-//				
-//					//透過取得的trip_id去找到該物件的屬性
-//
-//				Trip_ordServiceHibernate TOSH = new Trip_ordServiceHibernate();
-//				TripServiceHibernate TSH = new TripServiceHibernate();
-//			//	改成dateformat
-////				Timestamp startTime=TOSH.findByTrip(tripId).getStartTime(); //透過tripservicehibernate取得(等翔哥)
-////				Timestamp endTime=TOSH.findByTrip(tripId).getEndTime(); //透過tripservicehibernate取得(等翔哥)
-//				
-//				BigDecimal totalPrice = TSH.findByTrip(tripId).getPrice().setScale(0, RoundingMode.HALF_UP);
-////				//comm = price *10%
-//				BigDecimal commission = totalPrice.multiply(new BigDecimal(0.1)).setScale(0, RoundingMode.HALF_UP);
-////				//profit = price - comm
-//				BigDecimal profit = totalPrice.subtract(commission);
-//
-//				
-//				TOSH.addFromShopping(tripId,planId,cusId,tripAmount,totalPrice,commission,profit,0);
-//				
-//				
-//				
-//
-//			} else { // 導回登入
-//				session.setAttribute("location", req.getRequestURI()); // 如果沒登入先記錄現在的位置(網址)
-//				res.sendRedirect(req.getContextPath() + "/chu/bookingList(trip).jsp");// 然後導回登入頁面(等到有login.jsp再改路徑)
-//
-//			}
-//
-//		}
+	
 	}
 }

@@ -54,7 +54,6 @@ public class PlanningServiceHibernate {
 		return dao.findByPlanId(cart_id,cus_id);
 	}
 
-	
 
 	public List<Planning> getAll() {
 		return dao.getAll();

@@ -26,7 +26,7 @@ public class Trip_ordServiceHibernate implements Trip_ordService {
 
 			Trip_ord TripOrd = new Trip_ord();
 			TripOrd.setTripId(tripId);
-			TripOrd.setTripId(planId);
+			TripOrd.setPlanId(planId);
 			TripOrd.setCusId(cusId);
 			TripOrd.setAmount(amount);
 			TripOrd.setTotalPrice(totalPrice);
@@ -85,10 +85,11 @@ public class Trip_ordServiceHibernate implements Trip_ordService {
 		return tripOrd;
 	}
 	
-
+	public List<Trip_ord> getTripOrdVo(Integer cartId , Integer cusId){
+		return dao.getTripOrdVo(cartId , cusId);
+	}
 	
 
-	
 	public void deleteTrip(Integer tripOrdId) {
 		dao.delete(tripOrdId);
 	}

@@ -119,10 +119,34 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 		}
 		return null;
 	}
+	
+	
+//	public List<Room_ord> getRoomOrdVo(Integer cartId, Integer cusId) {
+//
+//		try {
+//			getSession().beginTransaction();
+//			@SuppressWarnings("unchecked")
+//			NativeQuery<Room_ord> query1 = getSession().createNativeQuery(
+//					"SELECT *\r\n"
+//					+ "FROM room_ord ro\r\n"
+//					+ "JOIN room r ON ro.room_id = r.room_id\r\n"
+//					+ "JOIN company c ON r.comp_id = c.comp_id\r\n"
+//					+ "WHERE ro.plan_id IN (SELECT plan_id FROM planning WHERE cart_id = 1 AND cus_id = 1,room_ord.class)");
+//						query1.setParameter("cartId", cartId);
+//						query1.setParameter("cusId", cusId);
+//			List<Room_ord> list1 = query1.list();
+//			getSession().getTransaction().commit();
+//			return list1;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			getSession().getTransaction().rollback();
+//		}
+//		return null;
+//	}
 
 public static void main(String[] args) {
 	Room_ordServiceHibernate n = new Room_ordServiceHibernate();
-	List<Room_ord>a = n.getRoomOrdVo(2,1);
+	List<Room_ord>a = n.getRoomOrdVo(1,1);
 	for(Room_ord a1 : a) {
 		System.out.println(a1.getCommission());
 		

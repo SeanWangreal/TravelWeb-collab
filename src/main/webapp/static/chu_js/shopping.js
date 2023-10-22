@@ -77,18 +77,18 @@ $(function () {//domcontentloaded event
 
 
     // 移除訂單start
-    $("div.pay_btn button.b.remove").on("click", function (e) {
-        var rem = confirm("是否確定要移除訂單?");
+//    $("div.pay_btn button.b.remove").on("click", function (e) {
+//        var rem = confirm("是否確定要移除訂單?");
 
-        if (rem) {
-            $(this).closest("div.plan_tab_1.list").remove();
-            if ($("div.plan_tab_1.list").length == 0 ) {
-                $("#tab_plan1").append('<div class="no-items">暫無商品</div>');
-                
-            }
-        }
-
-    })
+//        if (rem) {
+//            $(this).closest("div.plan_tab_1.list").remove();
+//            if ($("div.plan_tab_1.list").length == 0 ) {
+//                $("#tab_plan1").append('<div class="no-items">暫無商品</div>');
+//                
+//            }
+//        }
+//
+//    })
     //移除訂單end
 
 
@@ -155,7 +155,7 @@ $(function () {//domcontentloaded event
 
 // console.log($("div.plan_tab_1.list").length);
 
-
+console.log($("div.plan_tab_1.list").length);
     if ($("div.plan_tab_1.list").length == 0 ) {
         $("#tab_plan1").append('<div class="no-items">暫無商品</div>');
         

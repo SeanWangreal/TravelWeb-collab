@@ -15,9 +15,9 @@ public class Room_ordList {
 	String principalPhone;
 	Date startTime;
 	Date endTime;
-	BigDecimal profit;
-	BigDecimal commission;
-	BigDecimal totalPrice;
+	Integer profit;
+	Integer commission;
+	Integer totalPrice;
 	
 	
 	public String getRoomName() {
@@ -80,22 +80,22 @@ public class Room_ordList {
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
-	public BigDecimal getProfit() {
+	public Integer getProfit() {
 		return profit;
 	}
-	public void setProfit(BigDecimal profit) {
+	public void setProfit(Integer profit) {
 		this.profit = profit;
 	}
-	public BigDecimal getCommission() {
+	public Integer getCommission() {
 		return commission;
 	}
-	public void setCommission(BigDecimal commission) {
+	public void setCommission(Integer commission) {
 		this.commission = commission;
 	}
-	public BigDecimal getTotalPrice() {
+	public Integer getTotalPrice() {
 		return totalPrice;
 	}
-	public void setTotalPrice(BigDecimal totalPrice) {
+	public void setTotalPrice(Integer totalPrice) {
 		this.totalPrice = totalPrice;
 	}
 	
