@@ -149,9 +149,9 @@ insert into company (hotel_info_id, comp_type, comp_name, comp_address, comp_pho
 insert into company (hotel_info_id, comp_type, comp_name, comp_address, comp_phone, principal_name, principal_phone, comp_account, comp_password, comp_mail, comp_photo, check_status)
 		VALUES (null, 1, "太平洋旅行社", "10491台北市中山區南京東路三段168號5樓", "0999999997", "王八", "0988888887", "abcdh1", "a12348", "abcd12348@amail.com", null, 1);
 insert into company (hotel_info_id, comp_type, comp_name, comp_address, comp_phone, principal_name, principal_phone, comp_account, comp_password, comp_mail, comp_photo, check_status)
-		VALUES (null, 1, "鈦美旅行社", "10491台北市中山區南京東路三段129號3樓", "0999999998", "王九", "0988888888", "abcdi1", "a12349", "abcd12349@amail.com", null, 1);
+		VALUES (null, 1, "鈦美旅行社", "10491台北市中山區南京東路三段129號3樓", "0999999998", "王九", "0988888888", "abcdi1", "a12349", "abcd12349@amail.com", null, 0);
 insert into company (hotel_info_id, comp_type, comp_name, comp_address, comp_phone, principal_name, principal_phone, comp_account, comp_password, comp_mail, comp_photo, check_status)
-		VALUES (null, 1, "環遊國際旅行社", "104台北市中山區復興北路五十八號八樓之一", "0999999999", "王十", "0988888889", "abcdj1", "a12340", "abcd12340@amail.com", null, 1);
+		VALUES (null, 1, "環遊國際旅行社", "104台北市中山區復興北路五十八號八樓之一", "0999999999", "王十", "0988888889", "abcdj1", "a12340", "abcd12340@amail.com", null, 0);
 insert into company (hotel_info_id, comp_type, comp_name, comp_address, comp_phone, principal_name, principal_phone, comp_account, comp_password, comp_mail, comp_photo, check_status)
 		VALUES (6, 0, "安盛商務旅館", "231新北市新店區二十張路31號", "0999999981", "王十一", "0988888879", "abcdk1", "a12350", "abcdk12350@amail.com", null, 0);
 insert into company (hotel_info_id, comp_type, comp_name, comp_address, comp_phone, principal_name, principal_phone, comp_account, comp_password, comp_mail, comp_photo, check_status)

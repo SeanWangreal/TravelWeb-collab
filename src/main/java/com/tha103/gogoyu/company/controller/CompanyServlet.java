@@ -111,7 +111,7 @@ public class CompanyServlet extends HttpServlet {
 			try {
 				compId = Integer.valueOf(str);
 			} catch (Exception e) {
-				errorMsgs.put("wrongId","員工編號格式不正確");
+				errorMsgs.put("wrongId","公司編號格式不正確");
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
@@ -276,57 +276,64 @@ public class CompanyServlet extends HttpServlet {
 			
 			String compName = req.getParameter("compName");
 //			String compNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-//			if (compName == null || compName.trim().length() == 0) {
-//				errorMsgs.put("wrongName","公司名稱: 請勿空白");
-//			} else if (!compName.trim().matches(compNameReg)) { // 以下練習正則(規)表示式(regular-expression)
+			if (compName == null || compName.trim().length() == 0) {
+				errorMsgs.put("wrongName","公司名稱: 請勿空白");
+			} 
+//			else if (!compName.trim().matches(compNameReg)) { // 以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.put("wrongName","公司名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 //			}
 			
 			String compAddress = req.getParameter("compAddress").trim();
 //			String compAddressReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)]$";
-//			if (compAddress == null || compAddress.trim().length() == 0) {
-//				errorMsgs.put("wrongAddress","公司地址: 請勿空白");
-//			} else if (!compAddress.trim().matches(compAddressReg)) { // 以下練習正則(規)表示式(regular-expression)
+			if (compAddress == null || compAddress.trim().length() == 0) {
+				errorMsgs.put("wrongAddress","公司地址: 請勿空白");
+			} 
+//			else if (!compAddress.trim().matches(compAddressReg)) { // 以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.put("wrongAddress","公司地址: 只能是中、英文字母、數字");
 //			}
 			
 			String compPhone = req.getParameter("compPhone").trim();
 //			String compPhoneReg = "^0[(0-9)]{1,2}-[(0-9)]{8}$";
-//			if (compPhone == null || compPhone.trim().length() == 0) {
-//				errorMsgs.put("wrongPhone","公司電話: 請勿空白");
-//			} else if (!compPhone.trim().matches(compPhoneReg)) { // 以下練習正則(規)表示式(regular-expression)
+			if (compPhone == null || compPhone.trim().length() == 0) {
+				errorMsgs.put("wrongPhone","公司電話: 請勿空白");
+			} 
+//			else if (!compPhone.trim().matches(compPhoneReg)) { // 以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.put("wrongPhone","公司電話: 格式錯誤");
 //			}
 			
 			String principalName = req.getParameter("principalName").trim();
-//			String principalNameReg = "^[(\\u4e00-\\u9fa5)(a-zA-Z)]$";
-//			if (principalName == null || principalName.trim().length() == 0) {
-//				errorMsgs.put("wrongPrincipalName","負責人名稱: 請勿空白");
-//			} else if (!principalName.trim().matches(principalNameReg)) { // 以下練習正則(規)表示式(regular-expression)
+//			String principalNameReg = "^[(\u4e00-\\u9fa5)(a-zA-Z0-9_)]$";
+			if (principalName == null || principalName.trim().length() == 0) {
+				errorMsgs.put("wrongPrincipalName","負責人名稱: 請勿空白");
+			} 
+//			else if (!principalName.trim().matches(principalNameReg)) { // 以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.put("wrongPrincipalName","負責人名稱: 只能是中、英文字母");
 //			}
 			
 			String principalPhone = req.getParameter("principalPhone").trim();
 //			String principalPhoneReg = "^0[(0-9)]{1,2}-[(0-9)]{8}$";
-//			if (principalPhone == null || principalPhone.trim().length() == 0) {
-//				errorMsgs.put("wrongPrincipalPhone","負責人電話: 請勿空白");
-//			} else if (!principalPhone.trim().matches(principalPhoneReg)) { // 以下練習正則(規)表示式(regular-expression)
+			if (principalPhone == null || principalPhone.trim().length() == 0) {
+				errorMsgs.put("wrongPrincipalPhone","負責人電話: 請勿空白");
+			} 
+//			else if (!principalPhone.trim().matches(principalPhoneReg)) { // 以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.put("wrongPrincipalPhone","負責人電話: 格式錯誤");
 //			}
 			
 			String compAccount = req.getParameter("compAccount");
 //			String compAccountReg = "^[(a-zA-Z0-9_)]{2,10}$";
-//			if (compAccount == null || compAccount.trim().length() == 0) {
-//				errorMsgs.put("wrongAccount","公司帳號: 請勿空白");
-//			} else if (!compAccount.trim().matches(compAccountReg)) { // 以下練習正則(規)表示式(regular-expression)
+			if (compAccount == null || compAccount.trim().length() == 0) {
+				errorMsgs.put("wrongAccount","公司帳號: 請勿空白");
+			} 
+//			else if (!compAccount.trim().matches(compAccountReg)) { // 以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.put("wrongAccount","公司帳號: 只能是英文字母、數字和_ , 且長度必需在2到10之間");
 //			}
 			
 			String compMail = req.getParameter("compMail");
 //			String compMailReg = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";//網路上查的Email正規表達式
-//			if (compMail == null || compMail.trim().length() == 0) {
-//				errorMsgs.put("wrongMail","公司信箱: 請勿空白");
-//			} else if (!compMail.trim().matches(compMailReg)) { // 以下練習正則(規)表示式(regular-expression)
+			if (compMail == null || compMail.trim().length() == 0) {
+				errorMsgs.put("wrongMail","公司信箱: 請勿空白");
+			} 
+//			else if (!compMail.trim().matches(compMailReg)) { // 以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.put("wrongMail","公司信箱: 格式錯誤");
 //			}
 			

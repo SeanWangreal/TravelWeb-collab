@@ -141,6 +141,7 @@ $(function() {
 	
 	function compUpdateResult(data) {
 		if (data.status == "Success") {
+			alert("業者更新");
 			let list_html = "";
 			console.log(data);
 			list_html += `
@@ -256,7 +257,6 @@ $(function() {
 	}
 
 	$("ul.list_company").on("click", "button.btn_comp_update", function() {
-		alert("業者更新");
 		let compId=($(this).closest("li").find("span.spn_compId")).attr("data-id");
 		let compName=($(this).closest("li").find("input.inp_compName")).val().trim();
 		let compAddress=($(this).closest("li").find("input.inp_compAddress")).val().trim();
