@@ -6,98 +6,136 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.NativeQuery;
+
+import com.tha103.gogoyu.room.model.Room;
+import com.tha103.gogoyu.room_ord.model.Room_ord;
+import com.tha103.gogoyu.room_ord.model.Room_ordServiceHibernate;
+import com.tha103.gogoyu.trip.model.Trip;
 
 import util.HibernateUtil;
 
 public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface{
+	private SessionFactory factory;
+
+	//透過service帶session的建構子使用多型透過interface呼叫的hibernateDAO
+	public Trip_ordHibernateDAO(SessionFactory factory) {
+		this.factory = factory;  //取得sessionfactory並回傳
+	}
 	
+	private Session getSession() {
+		return factory.getCurrentSession(); //取得CurrentSession，後續只要呼叫getSession()就可以開始交易
+	}
 	@Override
-	public void insert(Trip_ord tripOrd) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-//			Integer id = (Integer) session.save(tripOrd);
-			session.save(tripOrd);
-			session.getTransaction().commit();
-//			return id;
+	public Integer add(Trip_ord tripOrd) {
+				try {
+			getSession().beginTransaction();
+			Integer id = (Integer) getSession().save(tripOrd);
+			getSession().save(tripOrd);
+			getSession().getTransaction().commit();
+			return id;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
-//		return -1;
+		return -1;
 	}
 
 	@Override
-	public void update(Trip_ord tripOrd) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	public Integer update(Trip_ord tripOrd) {
 		try {
-			session.beginTransaction();
-			session.update(tripOrd);
-			session.getTransaction().commit();
-//			return 1;
+			getSession().beginTransaction();
+			getSession().update(tripOrd);
+			getSession().getTransaction().commit();
+			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
-//		return -1;
+		return -1;
 	}
 
 	@Override
-	public void delete(Integer tripOrdId) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	public Integer delete(Integer tripOrdId) {
 		try {
-			session.beginTransaction();
-			Trip_ord emp = session.get(Trip_ord.class, tripOrdId);
+			getSession().beginTransaction();
+			Trip_ord emp = getSession().get(Trip_ord.class, tripOrdId);
 			if (emp != null) {
-				session.delete(emp);
+				getSession().delete(emp);
 			}
-			session.getTransaction().commit();
-//			return 1;
+			getSession().getTransaction().commit();
+			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
-//		return -1;
+		return -1;
 		
 	}
-
+	
+	
 	@Override
 	public Trip_ord findByPrimaryKey(Integer tripOrdId) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			Trip_ord tripOrd = session.get(Trip_ord.class, tripOrdId);
-			session.getTransaction().commit();
+			try {
+			getSession().beginTransaction();
+			Trip_ord tripOrd = getSession().get(Trip_ord.class, tripOrdId);
+			getSession().getTransaction().commit();
 			return tripOrd;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return null;
 	}
 
 	@Override
 	public List<Trip_ord> getAll() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-			session.beginTransaction();
-			List<Trip_ord> list = session.createQuery("from Trip_ord", Trip_ord.class).list();
-			session.getTransaction().commit();
+			getSession().beginTransaction();
+			List<Trip_ord> list = getSession().createQuery("from Trip_ord", Trip_ord.class).list();
+			getSession().getTransaction().commit();
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			getSession().getTransaction().rollback();
 		}
 		return null;
 	}
-	
+	@Override
+	public List<Trip_ord> getTripOrdVo(Integer cartId, Integer cusId) {
+
+		try {
+			getSession().beginTransaction();
+			@SuppressWarnings("unchecked")
+			NativeQuery<Trip_ord> query1 = getSession().createNativeQuery(
+					"SELECT * from trip_ord where plan_id in (select plan_id from planning where cart_id= :cartId and cus_id = :cusId)", Trip_ord.class);
+						query1.setParameter("cartId", cartId);
+						query1.setParameter("cusId", cusId);
+			List<Trip_ord> list1 = query1.list();
+			getSession().getTransaction().commit();
+			return list1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
 	public static void main(String[] args) {
-		Trip_ordDAO_Interface dao=new Trip_ordHibernateDAO();
-		Date date = new Date();
-		Timestamp nowTime = new Timestamp(date.getTime());
+		Trip_ordServiceHibernate n = new Trip_ordServiceHibernate();
+		List<Trip_ord>a = n.getTripOrdVo(1,1);
+		for(Trip_ord a1 : a) {
+			System.out.println(a1.getTripOrdId());
+			
+		}
+	}
+//	public static void main(String[] args) {
+//		Trip_ordDAO_Interface dao=new Trip_ordHibernateDAO();
+//		Date date = new Date();
+//		Timestamp nowTime = new Timestamp(date.getTime());
 		
 		//insert
-		Trip_ord tripOrd1 = new Trip_ord();
+//		Trip_ord tripOrd1 = new Trip_ord();
 		
 //		//tripOrd1.setTripOrdId(6);
 //		tripOrd1.setTripId(306);
@@ -115,7 +153,7 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface{
 //		dao.insert(tripOrd1);
 		
 		// update
-		Trip_ord tripOrd2 = new Trip_ord();
+//		Trip_ord tripOrd2 = new Trip_ord();
 		
 //		tripOrd2.setTripId(306);
 //		tripOrd2.setPlanId(206);
@@ -153,22 +191,22 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface{
 //		System.out.println(tripOrd3.getCommentsTime()+", ");
 		
 		//getAll
-		List<Trip_ord> list = dao.getAll();
-		for (Trip_ord aTrip : list) {
-			System.out.println("----------------------------------------------------------------");
-			System.out.print(aTrip.getTripOrdId() + ", ");
-			System.out.print(aTrip.getTripId() + ", ");
-			System.out.print(aTrip.getPlanId() + ", ");
-			System.out.print(aTrip.getCusId() + ", ");
-			System.out.print(aTrip.getAmount() + ", ");
-			System.out.print(aTrip.getTotalPrice() + ", ");
-			System.out.print(aTrip.getCommission()+", ");
-			System.out.print(aTrip.getOrdStatus()+", ");
-			System.out.print(aTrip.getOrdTime()+", ");
-			System.out.print(aTrip.getRemark()+", ");
-			System.out.print(aTrip.getScore()+", ");
-			System.out.print(aTrip.getComments()+", ");
-			System.out.println(aTrip.getCommentsTime()+", ");
-		}
-	}
+//		List<Trip_ord> list = dao.getAll();
+//		for (Trip_ord aTrip : list) {
+//			System.out.println("----------------------------------------------------------------");
+//			System.out.print(aTrip.getTripOrdId() + ", ");
+//			System.out.print(aTrip.getTripId() + ", ");
+//			System.out.print(aTrip.getPlanId() + ", ");
+//			System.out.print(aTrip.getCusId() + ", ");
+//			System.out.print(aTrip.getAmount() + ", ");
+//			System.out.print(aTrip.getTotalPrice() + ", ");
+//			System.out.print(aTrip.getCommission()+", ");
+//			System.out.print(aTrip.getOrdStatus()+", ");
+//			System.out.print(aTrip.getOrdTime()+", ");
+//			System.out.print(aTrip.getRemark()+", ");
+//			System.out.print(aTrip.getScore()+", ");
+//			System.out.print(aTrip.getComments()+", ");
+//			System.out.println(aTrip.getCommentsTime()+", ");
+//		}
+//	}
 }

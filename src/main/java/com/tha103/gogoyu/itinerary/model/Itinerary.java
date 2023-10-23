@@ -6,6 +6,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,6 +23,7 @@ import com.tha103.gogoyu.trip.model.Trip;
 @Table(name = "Itinerary")
 public class Itinerary implements java.io.Serializable {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "itinerary_id", updatable = false) //pk無跟人關聯
 	private Integer itineraryId;
 	
@@ -29,27 +32,29 @@ public class Itinerary implements java.io.Serializable {
 	
 	@Column(name = "scene_id")
 	private Integer sceneId;
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "scene_id", referencedColumnName = "scene_id")
-	private Set<Scene> scene;
-
-	public Set<Scene> getScene() {
-		return scene;
-	}
-
-	public void setScene(Set<Scene> scene) {
-		this.scene = scene;
-	}
+	
+	@Column(name = "scene_name")
+	private String sceneName;
 
 	@Column(name = "begin_time")
 	private Timestamp beginTime;
 
-	public Itinerary(Integer itinerary_id, Integer trip_id, Integer scene_id, Timestamp begin_time) {
+	
+	public Itinerary(Integer itineraryId, Integer tripId, Integer sceneId, String sceneName, Timestamp beginTime) {
 		super();
-		this.itineraryId = itinerary_id;
-		this.tripId = trip_id;
-		this.sceneId = scene_id;
-		this.beginTime = begin_time;
+		this.itineraryId = itineraryId;
+		this.tripId = tripId;
+		this.sceneId = sceneId;
+		this.sceneName = sceneName;
+		this.beginTime = beginTime;
+	}
+
+	public String getSceneName() {
+		return sceneName;
+	}
+
+	public void setSceneName(String sceneName) {
+		this.sceneName = sceneName;
 	}
 
 	public Itinerary() {

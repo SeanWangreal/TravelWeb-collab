@@ -1,14 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
-    pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.tha103.gogoyu.room.model.*"%>
+<%@ page import="com.tha103.gogoyu.company.model.*"%>
+
+<%
+    CompanyService cmpSvc = new CompanyService();
+    List<Company> list = cmpSvc.getByCheckStatus();
+    pageContext.setAttribute("list",list);
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>´·•x≠∫≠∂</title>
+    <title>ÂæåÂè∞È¶ñÈ†Å</title>
 <link
 	href="${pageContext.request.contextPath}/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -17,103 +24,96 @@
 </head>
 <body>
     <br>
-    <header>GoGoYu´·•x
+    <header>GoGoYuÂæåÂè∞
         <table class="main_btn">
             <tr>
                 <td>
-                    <button type="button" class="btn_comp_audit" data-bs-toggle="button" autocomplete="off">∑~™ÃºfÆ÷</button>
+                    <button type="button" class="main_btn_comp_audit" data-bs-toggle="button" autocomplete="off">Ê•≠ËÄÖÂØ©Ê†∏</button>
                 </td>
                 <td>
-                    <button type="button" class="btn_client_msg" data-bs-toggle="button" autocomplete="off">´»§·∞TÆß</button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button type="button" class="btn_comp_search" data-bs-toggle="button" autocomplete="off">∑~™Ã¨d∏ﬂ</button>
-                </td>
-                <td>
-                    <button type="button" class="btn_cust_search" data-bs-toggle="button" autocomplete="off">∑|≠˚¨d∏ﬂ</button>
+                    <button type="button" class="main_btn_client_msg" data-bs-toggle="button" autocomplete="off">ÂÆ¢Êà∂Ë®äÊÅØ</button>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <button type="button" class="btn_add_scene" data-bs-toggle="button" autocomplete="off">¥∫¬I∑sºW</button>
+                    <button type="button" class="main_btn_comp_search" data-bs-toggle="button" autocomplete="off">Ê•≠ËÄÖÊü•Ë©¢</button>
+                </td>
+                <td>
+                    <button type="button" class="main_btn_cust_search" data-bs-toggle="button" autocomplete="off">ÊúÉÂì°Êü•Ë©¢</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" class="main_btn_add_scene" data-bs-toggle="button" autocomplete="off">ÊôØÈªûÊñ∞Â¢û</button>
                 </td>
             </tr>
         </table>
     </header>
     
-    <article class="comp_audit">
-        <!-- <button type="button" class="btn_empty">≤M™≈</button> -->
-        <h1 class="title1">∑~™ÃºfÆ÷</h1>
+    <article class="art_comp_audit">
+        <!-- <button type="button" class="btn_empty">Ê∏ÖÁ©∫</button> -->
+        <h1 class="title1">Ê•≠ËÄÖÂØ©Ê†∏</h1>
         
+        <!-- 
         <div class="task_add_block">
-            <input type="text" class="task_name" placeholder="øÈ§J´›øÏ®∆∂µ°K">
-            <button type="button" class="task_add">¨d∏ﬂ</button>
+            <input type="text" class="task_name" placeholder="Ëº∏ÂÖ•ÂæÖËæ¶‰∫ãÈ†Ö‚Ä¶">
+            <button type="button" class="task_add">Êü•Ë©¢</button>
         </div>
-        
+        -->
         <div class="task_list_parent">
-            <ul class="list">                  
-                <li>
-                    <a class="link_title" href="#">
-                    <!-- <button type="button" class="switch_btn">
-                        <span class="-plus">+</span><span class="-minus">-</span>
-                    </button> -->
-                    ∞Í∑ÏÆ»¶Ê™¿
-                    </a>
-                    <div class="inner_block">
-                        <table class="table table-striped">
-                            <tr>
-                                <th>∑~™ÃID</th>
-                                <th>§Ω•q¶W∫Ÿ</th>
-                                <th>§Ω•q¶aß}</th>
-                                <th>≠t≥d§H</th>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>∞Í∑ÏÆ»¶Ê™¿</td>
-                                <td>∞Í∑ÏƒvøÔ¡`≥°</td>
-                                <td>Ω±∞Í∑Ï</td>
-                            </tr>
-                        </table>
-                        <button class="btn_update btn btn-outline-success btn-lg">≥qπL</button>
-                        <button class="btn_update btn btn-outline-danger btn-lg">∫MæP</button>
-                    </div>                    
-                </li>                
-                <li>
-                    <a class="link_title" href="#">
-                    ≤ŒØ´§j∂∫©±
-                    </a>
-                    <div class="inner_block">
-                        <table class="table table-striped">
-                            <tr>
-                                <th>∑~™ÃID</th>
-                                <th>§Ω•q¶W∫Ÿ</th>
-                                <th>§Ω•q¶aß}</th>
-                                <th>≠t≥d§H</th>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>≤ŒØ´§j∂∫©±</td>
-                                <td>•x•_±iÆa</td>
-                                <td>±iÆa•SßÃ</td>
-                            </tr>
-                        </table> 
-                        <button class="btn_update btn btn-outline-success btn-lg">≥qπL</button>
-                        <button class="btn_update btn btn-outline-danger btn-lg">∫MæP</button>                   
-                    </div>
-                </li>
-            </ul>
-        </div>
+            <ul class="list">
+            	<c:forEach var="cmpVO" items="${list}">
+					<li>
+	                    <a class="link_title" href="#">
+	                    ${cmpVO.compName}
+	                    </a>
+	                    <div class="inner_block">
+	                        <table class="table table-striped">
+	                            <tr>
+	                                <th>Ê•≠ËÄÖID</th>
+	                                <th>ÂÖ¨Âè∏ÂêçÁ®±</th>
+	                                <th>ÂÖ¨Âè∏Âú∞ÂùÄ</th>
+	                                <th>Ë≤†Ë≤¨‰∫∫</th>
+	                            </tr>
+	                            <tr>
+	                                <td>${cmpVO.compId}</td>
+	                                <td>${cmpVO.compName}</td>
+	                                <td>${cmpVO.compAddress}</td>
+	                                <td>${cmpVO.principalName}</td>
+	                            </tr>
+	                        </table>
+	                        <table>
+	                        	<tr>
+	                        		<td>
+	                        			 <form action="${pageContext.request.contextPath}/CompanyServlet">
+						     				<input type="hidden" name="compId"  value="${cmpVO.compId}">
+						     				<input type="hidden" name="chkStatus"  value=1>
+						     				<input type="hidden" name="action"	value="updChkStat">
+				                        	<button type="submit" class="btn_update btn btn-outline-success btn-lg">ÈÄöÈÅé</button>
+				                        </form>
+	                        		</td>
+	                        		<td>
+	                        			<form class="" action="${pageContext.request.contextPath}/CompanyServlet">
+						     				<input type="hidden" name="compId"  value="${cmpVO.compId}">
+						     				<input type="hidden" name="chkStatus"  value=-1>
+						     				<input type="hidden" name="action"	value="updChkStat">
+				                        	<button type="submit" class="btn_update btn btn-outline-danger btn-lg">Êí§Èä∑</button>
+				                        </form>
+	                        		</td>
+	                        	</tr>
+	                        </table>
+	                    </div>                    
+	                </li>
+				</c:forEach>
     </article>
 
-    <article class="client_msg">
-        <!-- <button type="button" class="btn_empty">≤M™≈</button> -->
-        <h1 class="title1">´»§·∞TÆß</h1>
+    <article class="art_client_msg">
+        <!-- <button type="button" class="btn_empty">Ê∏ÖÁ©∫</button> -->
+        <h1 class="title1">ÂÆ¢Êà∂Ë®äÊÅØ</h1>
         
         <div class="task_add_block">
-            <input type="text" class="task_name" placeholder="øÈ§J´›øÏ®∆∂µ°K">
-            <button type="button" class="task_add">¨d∏ﬂ</button>
+            <input type="text" class="task_name" placeholder="Ëº∏ÂÖ•ÂæÖËæ¶‰∫ãÈ†Ö‚Ä¶">
+            <button type="button" class="task_add">Êü•Ë©¢</button>
         </div>
         
         <div class="task_list_parent">
@@ -122,73 +122,76 @@
         </div>
     </article>
 
-    <article class="comp_search">
-        <!-- <button type="button" class="btn_empty">≤M™≈</button> -->
-        <h1 class="title1">∑~™Ã¨d∏ﬂ</h1>
+    <article class="art_comp_search">
+        <!-- <button type="button" class="btn_empty">Ê∏ÖÁ©∫</button> -->
+        <h1 class="title1">Ê•≠ËÄÖÊü•Ë©¢</h1>
         
         <div class="task_add_block">
-            <input type="text" class="task_name" placeholder="øÈ§J¨d∏ﬂ®∆∂µ°K">
-            <button type="button" class="task_add">¨d∏ﬂ</button>
+        	<form action="${pageContext.request.contextPath}/CompanyServlet">
+        		<input type="hidden" name="action"	value="updChkStat">
+	            <input type="text" class="task_name comp_search_value" placeholder="Ëº∏ÂÖ•Êü•Ë©¢‰∫ãÈ†Ö‚Ä¶">
+	            <button type="button" class="task_add task_comp_search">Êü•Ë©¢</button>
+        	</form>
         </div>
         
         <div class="task_list_parent">
-            <ul class="list">
+            <ul class="list list_company">
                 <li>
                     <div class="">
                         <table class="table table-striped">
                             <tr>
-                                <th>∑~™ÃID</th>
+                                <th>Ê•≠ËÄÖID</th>
                                 <td>1</td>
                             </tr>
                             <tr>
-                                <th>§Ω•q¶W∫Ÿ</th>
-                                <td><input type="text" class="text" value="∞Í∑ÏÆ»¶Ê™¿"></td>
+                                <th>ÂÖ¨Âè∏ÂêçÁ®±</th>
+                                <td><input type="text" class="text" value="ÂúãÁëúÊóÖË°åÁ§æ"></td>
                             </tr>
                             <tr>
-                                <th>§Ω•q¶aß}</th>
-                                <td><input type="text" class="text" value="∞Í∑ÏƒvøÔ¡`≥°"></td>
+                                <th>ÂÖ¨Âè∏Âú∞ÂùÄ</th>
+                                <td><input type="text" class="text" value="ÂúãÁëúÁ´∂ÈÅ∏Á∏ΩÈÉ®"></td>
                             </tr>
                             <tr>
-                                <th>§Ω•qπq∏‹</th>
+                                <th>ÂÖ¨Âè∏ÈõªË©±</th>
                                 <td><input type="text" class="text" value="02-34567891"></td>
                             </tr>
                             <tr>
-                                <th>≠t≥d§H</th>
-                                <td><input type="text" class="text" value="Ω±∞Í∑Ï"></td>
+                                <th>Ë≤†Ë≤¨‰∫∫</th>
+                                <td><input type="text" class="text" value="Ëî£ÂúãÁëú"></td>
                             </tr>
                             <tr>
-                                <th>≠t≥d§Hπq∏‹</th>
+                                <th>Ë≤†Ë≤¨‰∫∫ÈõªË©±</th>
                                 <td><input type="text" class="text" value="0912-345678"></td>
                             </tr>
                             <tr>
-                                <th>±b∏π</th>
+                                <th>Â∏≥Ëôü</th>
                                 <td><input type="text" class="text" value="guoyugo"></td>
                             </tr>
                             <tr>
-                                <th>´HΩc</th>
+                                <th>‰ø°ÁÆ±</th>
                                 <td><input type="text" class="text" value="guoyugo@abc.com"></td>
                             </tr>
                             <tr>
-                                <th>∑”§˘</th>
-                                <td><input type="file" class="text" value="∑”§˘¶b≥o"></td>
+                                <th>ÁÖßÁâá</th>
+                                <td><input type="file" class="text" value="ÁÖßÁâáÂú®ÈÄô"></td>
                             </tr>
                         </table>
                         <div id="preview">
-                            <span class="text">πwƒ˝πœ</span>
+                            <span class="text">È†êË¶ΩÂúñ</span>
                         </div><br>
-                        <button class="btn_update btn btn-outline-primary btn-lg">ßÛ∑s</button>
+                        <button class="btn_update btn btn-outline-primary btn-lg">Êõ¥Êñ∞</button>
                     </div>                    
                 </li>                
             </ul>
         </div>
     </article>
 
-    <article class="cust_search">
-        <h1 class="title1">∑|≠˚¨d∏ﬂ</h1>
+    <article class="art_cust_search">
+        <h1 class="title1">ÊúÉÂì°Êü•Ë©¢</h1>
         
         <div class="task_add_block">
-            <input type="text" class="task_name" placeholder="øÈ§J¨d∏ﬂ®∆∂µ°K">
-            <button type="button" class="task_add">¨d∏ﬂ</button>
+            <input type="text" class="task_name" placeholder="Ëº∏ÂÖ•Êü•Ë©¢‰∫ãÈ†Ö‚Ä¶">
+            <button type="button" class="task_add">Êü•Ë©¢</button>
         </div>
         
         <div class="task_list_parent">
@@ -197,57 +200,57 @@
                     <div class="">
                         <table class="table table-striped">
                             <tr>
-                                <th>∑|≠˚ID</th>
+                                <th>ÊúÉÂì°ID</th>
                                 <td>2</td>
                             </tr>
                             <tr>
-                                <th>©m¶W</th>
-                                <td><input type="text" class="text" value="±iÆaØË"></td>
+                                <th>ÂßìÂêç</th>
+                                <td><input type="text" class="text" value="ÂºµÂÆ∂Ëà™"></td>
                             </tr>
                             <tr>
-                                <th>±b∏π</th>
+                                <th>Â∏≥Ëôü</th>
                                 <td><input type="text" class="text" value="asiagodtone"></td>
                             </tr>
                             <tr>
-                                <th>´HΩc</th>
+                                <th>‰ø°ÁÆ±</th>
                                 <td><input type="text" class="text" value="asiagodtone@abc.com"></td>
                             </tr>
                             <tr>
-                                <th>πq∏‹</th>
+                                <th>ÈõªË©±</th>
                                 <td><input type="text" class="text" value="0912-345678"></td>
                             </tr>
                             <tr>
-                                <th>¶Ìß}</th>
-                                <td><input type="text" class="text" value="±iÆa§Ω∂È"></td>
+                                <th>‰ΩèÂùÄ</th>
+                                <td><input type="text" class="text" value="ÂºµÂÆ∂ÂÖ¨Âúí"></td>
                             </tr>
                             <tr>
-                                <th>© ßO</th>
+                                <th>ÊÄßÂà•</th>
                                 <td>
-                                    <input type="radio" name="gender" value="male" checked>®k
-                                    <input type="radio" name="gender" value="female">§k
+                                    <input type="radio" name="gender" value="male" checked>Áî∑
+                                    <input type="radio" name="gender" value="female">Â•≥
                                 </td>
                             </tr>
                             <tr>
-                                <th>∑”§˘</th>
-                                <td><input type="file" value="∑”§˘¶b≥o"></td>
+                                <th>ÁÖßÁâá</th>
+                                <td><input type="file" value="ÁÖßÁâáÂú®ÈÄô"></td>
                             </tr>
                         </table>
                         <div id="preview">
-                            <span class="text">πwƒ˝πœ</span>
+                            <span class="text">È†êË¶ΩÂúñ</span>
                         </div><br>
-                        <button class="btn_update btn btn-outline-primary btn-lg">ßÛ∑s</button>                    
+                        <button class="btn_update btn btn-outline-primary btn-lg">Êõ¥Êñ∞</button>                    
                     </div>
                 </li>
             </ul>
         </div>
     </article>
 
-    <article class="add_scene">
-        <h1 class="title1">¥∫¬I∑sºW</h1>
+    <article class="art_add_scene">
+        <h1 class="title1">ÊôØÈªûÊñ∞Â¢û</h1>
         
         <!-- <div class="task_add_block">
-            <input type="text" class="task_name" placeholder="øÈ§J´›øÏ®∆∂µ°K">
-            <button type="button" class="task_add">¨d∏ﬂ</button>
+            <input type="text" class="task_name" placeholder="Ëº∏ÂÖ•ÂæÖËæ¶‰∫ãÈ†Ö‚Ä¶">
+            <button type="button" class="task_add">Êü•Ë©¢</button>
         </div> -->
         
         <div class="task_list_parent">
@@ -256,51 +259,62 @@
                     <div class="">
                         <table class="table table-striped">
                             <tr>
-                                <th>¥∫¬I¶W∫Ÿ</th>
-                                <td><input type="text" class="text" value="§”•≠Æq•€™o§´"></td>
+                                <th>ÊôØÈªûÂêçÁ®±</th>
+                                <td><input type="text" class="text" value="Â§™Âπ≥Â≥∂Áü≥Ê≤π‰∫ï"></td>
                             </tr>
                             <tr>
-                                <th>∂}©ÒÆ…∂°</th>
-                                <td><input type="text" class="text" value="•˛§—"></td>
+                                <th>ÈñãÊîæÊôÇÈñì</th>
+                                <td><input type="text" class="text" value="ÂÖ®Â§©"></td>
                             </tr>
                             <tr>
-                                <th>™˘≤ºª˘ÆÊ</th>
+                                <th>ÈñÄÁ•®ÂÉπÊ†º</th>
                                 <td><input type="text" class="text" value="100,000"></td>
                             </tr>
                             <tr>
-                                <th>•Ê≥q∏Í∞T</th>
-                                <td><input type="text" class="text" value="≠∏æ˜"></td>
+                                <th>‰∫§ÈÄöË≥áË®ä</th>
+                                <td><input type="text" class="text" value="È£õÊ©ü"></td>
                             </tr>
                             <tr>
-                                <th>∞±®Æ≥ı</th>
-                                <td><input type="text" class="text" value="∞±æ˜©W"></td>
+                                <th>ÂÅúËªäÂ†¥</th>
+                                <td><input type="text" class="text" value="ÂÅúÊ©üÂù™"></td>
                             </tr>
                             <tr>
-                                <th>¶aß}</th>
-                                <td><input type="text" class="text" value="§”•≠Æq•€™o§Ω∂È"></td>
+                                <th>Âú∞ÂùÄ</th>
+                                <td><input type="text" class="text" value="Â§™Âπ≥Â≥∂Áü≥Ê≤πÂÖ¨Âúí"></td>
                             </tr>
                             <tr>
-                                <th>ØS¶‚</th>
-                                <td><input type="text" class="text" value="•i•H´ı•€™o"></td>
+                                <th>ÁâπËâ≤</th>
+                                <td><input type="text" class="text" value="ÂèØ‰ª•ÊåñÁü≥Ê≤π"></td>
                             </tr>
                             <tr>
-                                <th>πœ§˘</th>
-                                <td><input type="file" class="text" value="πœ§˘©Ò≥o"></td>
+                                <th>ÂúñÁâá</th>
+                                <td><input type="file" class="text" value="ÂúñÁâáÊîæÈÄô"></td>
                             </tr>
                         </table>
                         <div id="preview">
-                            <span class="text">πwƒ˝πœ</span>
+                            <span class="text">È†êË¶ΩÂúñ</span>
                         </div><br>
-                        <button class="btn_update btn btn-outline-primary btn-lg">∑sºW</button>                    
+                        <button class="btn_update btn btn-outline-primary btn-lg">Êñ∞Â¢û</button>                    
                     </div>
                 </li>
             </ul>
         </div>
     </article>
     
+    <script src="${pageContext.request.contextPath}/vendors/jquery/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
-    <script src="${pageContext.request.contextPath}/vendors/jquery/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/static/hollow_js/backend_js.js"></script>
+    
+    <script type="text/javascript">
+    $("#btn_comp_search").on("click",function(e){
+    	console.log("123");
+        alert("Ê•≠ËÄÖÊü•Â∞ã");
+	})
+	
+	$("#btn_cust_search").on("click",function(e){
+	alert("ÊúÉÂì°Êü•Â∞ã");
+	})
+    </script>
 </body>
 </html>

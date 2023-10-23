@@ -3,15 +3,25 @@ package com.tha103.gogoyu.room_ord.controller;
 import java.io.*;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.sql.Date;
 import java.util.*;
 
 import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import com.tha103.gogoyu.room_ord.model.shoppingCart_hotel;
+import com.tha103.gogoyu.room_ord.model.ShoppingCartHotel;
+import com.tha103.gogoyu.trip_ord.model.Trip_ord;
+import com.tha103.gogoyu.consumer.model.Consumer;
+import com.tha103.gogoyu.planning.model.*;
+import com.tha103.gogoyu.room_ord.model.*;
+import com.tha103.gogoyu.room.model.*;
+import com.tha103.gogoyu.trip.model.*;
+import com.tha103.gogoyu.trip_ord.model.*;
+import com.tha103.gogoyu.company.model.*;
+import java.text.SimpleDateFormat;
 
-//@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1* 1024 * 1024, maxRequestSize = 10* 1024 * 1024)
 @WebServlet("/shopping_hotelServlet")
 public class shopping_hotelServlet extends HttpServlet {
 
@@ -21,413 +31,167 @@ public class shopping_hotelServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-		req.setCharacterEncoding("UTF-8");  //±µ¦¬½Ğ¨D°Ñ¼Æªº½s½X³]©w
+		req.setCharacterEncoding("UTF-8"); // æ¥æ”¶è«‹æ±‚åƒæ•¸çš„ç·¨ç¢¼è¨­å®š
+
 		HttpSession session = req.getSession();
-		Vector<shoppingCart_hotel> shoppingList=(Vector<shoppingCart_hotel>)session.getAttribute("shoppingCart");
-		String Payment = req.getParameter("actionForPay"); //±µ¦¬½Ğ¨D°Ñ¼Æname=paymentªºqueryString
+		
+		session.setAttribute("trip_id", 1);
+		session.setAttribute("cus_id", 1);
+		session.setAttribute("room_id", 1);
 
-		if ("pay".equals(Payment)) { // ¨Ó¦ÛtestForFake,jspªº"¥[¤JÁÊª«¨®"½Ğ¨D
+	
+		
+		Integer cusId = (Integer) session.getAttribute("cus_id"); // æŠ“æœƒå“¡id
+		
+		//roomIdæœ€å¾Œè¦æ”¾å›å»æˆ¿é–“æ–°å¢è£¡çš„if!!
+		Integer roomId = (Integer) session.getAttribute("room_id"); // æŠ“æˆ¿é–“id  æœ€å¾Œæœƒç”¨getparameter(name value)
+	
+		//roomAmountæœ€å¾Œè¦æ”¾å›å»æˆ¿é–“æ–°å¢è£¡çš„if!!
+		Integer roomAmount= 1;//Integer.valueOf(req.getParameter("amount")); //æŠ“æ•¸é‡amount(name value)
+		
+		String Timestart= "2023-10-21"; // ç¤ºä¾‹æ—¥æœŸå­—ç¬¦ä¸²
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date checkInTime = Date.valueOf(Timestart);
+		
+		
+		String Timeend= "2023-10-22"; // ç¤ºä¾‹æ—¥æœŸå­—ç¬¦ä¸²
+		Date checkOutTime =Date.valueOf(Timeend);
+		
+		
+		
+		String action = req.getParameter("action");
+		
+		
+		
+		
+		
+//=========================è³¼ç‰©è»Š(é£¯åº—)æ–°å¢===============================
+		if ("room_goShopping".equals(action)) { 
+			
+			if (cusId != null) {// å¦‚æœsessionæœ‰cus_idè³‡æ–™ä»£è¡¨æœ‰äººç™»å…¥
+				Integer cartId = Integer.valueOf(req.getParameter("cart_id")); //é€éjsçµ¦å€¼æŠ“è³¼ç‰©è»Šè™Ÿ(name value)
+				RoomServiceHibernate RSH = new RoomServiceHibernate();
+				Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
+				PlanningServiceHibernate PSH = new PlanningServiceHibernate();// å‰µé€ å‡ºSERVICE
+				
+				Integer plan_id = PSH.getPlanId(cusId, cartId); //å¾—åˆ°1.ä»–æ˜¯èª°   2.æ˜¯å“ªå°è»Š 
+				
+				
+			//è·Ÿroom_ord å¾roomæ‹¿price
+				
+				BigDecimal totalPrice = RSH.getRoom(roomId).getPrice().setScale(0, RoundingMode.HALF_UP);
+			System.out.println(totalPrice);
+				//comm = price *10%
+				BigDecimal commission =  totalPrice.multiply(new BigDecimal(0.1)).setScale(0, RoundingMode.HALF_UP);
+			//profit = price - comm
+				BigDecimal profit = totalPrice.subtract(commission);
+			//people = æ•¸é‡ (æ˜ç¿°æä¾›) * room_type
+				Integer RoomType = RSH.getRoom(roomId).getRoomType();
+				Integer people = roomAmount * RoomType;
+				
+			// check in  out æ™‚é–“ç”±æ˜ç¿°æœå°‹çš„çµæœå¾—çŸ¥
+				
+				Integer newRoomOrder = ROSH.addFromShopping(plan_id,roomId,cusId,roomAmount,totalPrice,commission, profit , people ,checkInTime, checkOutTime,1);
+				
+				
+				String url = "/chu/shopping(hotel).jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // æ–°å¢æˆåŠŸå¾Œè½‰äº¤listAllEmp.jsp
+				successView.forward(req, res);	
 
-//			List<String> errorMsgs = new LinkedList<String>(); //±N©Ò¦³¿ù»~°T®§¥]¦¨¤@­Ólist¡A«eºİ´N¥i¥H±µ¦¬¿ù»~°T®§¥[¥H´è¬V
-//			req.setAttribute("errorMsgs", errorMsgs);
+			} else { // å°å›ç™»å…¥
+				session.setAttribute("location", req.getRequestURI()); // å¦‚æœæ²’ç™»å…¥å…ˆè¨˜éŒ„ç¾åœ¨çš„ä½ç½®(ç¶²å€)
+				res.sendRedirect(req.getContextPath() + "/chu/bookingList(trip).jsp");// ç„¶å¾Œå°å›ç™»å…¥é é¢(ç­‰åˆ°æœ‰login.jspå†æ”¹è·¯å¾‘)
+				System.out.println(cusId);
+			}
 
-//			/*************************** 1.±µ¦¬½Ğ¨D°Ñ¼Æ - ¿é¤J®æ¦¡ªº¿ù»~³B²z **********************/
-//			String str = req.getParameter("Scene");
-//			if (str == null || (str.trim()).length() == 0) {
-//				errorMsgs.add("¦ÑÅK¿é¤JÔ££z");
-//			}
-//			// Send the use back to the form, if there were errors
-//			if (!errorMsgs.isEmpty()) {
-//				RequestDispatcher failureView = req.getRequestDispatcher("/emp/select_page.jsp");
-//				failureView.forward(req, res);
-//				return;// µ{¦¡¤¤Â_
-//			}
-//
-//			Integer SceneId = null;
-//			try {
-//				SceneId = Integer.valueOf(str);
-//			} catch (Exception e) {
-//				errorMsgs.add("­û¤u½s¸¹®æ¦¡¤£¥¿½T");
-//			}
-//			// Send the use back to the form, if there were errors
-//			if (!errorMsgs.isEmpty()) {
-//				RequestDispatcher failureView = req.getRequestDispatcher("/emp/select_page.jsp");
-//				failureView.forward(req, res);
-//				return;// µ{¦¡¤¤Â_
-//			}
-//
-//			/*************************** 2.¶}©l¬d¸ß¸ê®Æ *****************************************/
-//			SceneService SceneSvc = new SceneService();
-//			Scene SceneVO = SceneSvc.getOneScene(SceneId);
-//			if (SceneVO == null) {
-//				errorMsgs.add("¬dµL¸ê®Æ");
-//			}
-//			// Send the use back to the form, if there were errors
-//			if (!errorMsgs.isEmpty()) {
-//				RequestDispatcher failureView = req.getRequestDispatcher("/emp/select_page.jsp");
-//				failureView.forward(req, res);
-//				return;// µ{¦¡¤¤Â_
-//			}
-//
-//			/*************************** 3.¬d¸ß§¹¦¨,·Ç³ÆÂà¥æ(Send the Success view) *************/
-//			req.setAttribute("successUpdateVO", SceneVO); // ¸ê®Æ®w¨ú¥XªºempVOª«¥ó,¦s¤Jreq
-//			String url = "/emp/listOneEmp.jsp";
-//			RequestDispatcher successView = req.getRequestDispatcher(url); // ¦¨¥\Âà¥æ listOneEmp.jsp
-//			successView.forward(req, res);
-//		}
-//
-//		if ("getOne_For_Update".equals(action)) { // ¨Ó¦ÛlistAllEmp.jspªº½Ğ¨D
-//
-//			List<String> errorMsgs = new LinkedList<String>();
-//			// Store this set in the request scope, in case we need to
-//			// send the ErrorPage view.
-//			req.setAttribute("errorMsgs", errorMsgs);
-//
-//			/*************************** 1.±µ¦¬½Ğ¨D°Ñ¼Æ ****************************************/
-//			Integer SceneId = Integer.valueOf(req.getParameter("sceneId"));
-//
-//			/*************************** 2.¶}©l¬d¸ß¸ê®Æ ****************************************/
-//			SceneService SceneSvc = new SceneService();
-//			Scene SceneVO = SceneSvc.getOneScene(SceneId);
-//
-//			/*************************** 3.¬d¸ß§¹¦¨,·Ç³ÆÂà¥æ(Send the Success view) ************/
-//			req.setAttribute("SceneVO", SceneVO); // ¸ê®Æ®w¨ú¥XªºempVOª«¥ó,¦s¤Jreq
-//			String url = "/emp/update_emp_input.jsp";
-//			RequestDispatcher successView = req.getRequestDispatcher(url);// ¦¨¥\Âà¥æ update_emp_input.jsp
-//			successView.forward(req, res);
-//		}
-//
-//		if ("update".equals(action)) { // ¨Ó¦Ûupdate_emp_input.jspªº½Ğ¨D
-//
-//			List<String> errorMsgs = new LinkedList<String>();
-//			// Store this set in the request scope, in case we need to
-//			// send the ErrorPage view.
-//			req.setAttribute("errorMsgs", errorMsgs);
-//
-//			/*************************** 1.±µ¦¬½Ğ¨D°Ñ¼Æ - ¿é¤J®æ¦¡ªº¿ù»~³B²z **********************/
-//			Integer sceneId = Integer.valueOf(req.getParameter("sceneId").trim());
-//
-//			String sceneName = req.getParameter("sceneName");
-//			String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-//			if (sceneName == null || sceneName.trim().length() == 0) {
-//				errorMsgs.add("­û¤u©m¦W: ½Ğ¤ÅªÅ¥Õ");
-//			} else if (!sceneName.trim().matches(enameReg)) { // ¥H¤U½m²ß¥¿«h(³W)ªí¥Ü¦¡(regular-expression)
-//				errorMsgs.add("­û¤u©m¦W: ¥u¯à¬O¤¤¡B­^¤å¦r¥À¡B¼Æ¦r©M_ , ¥Bªø«×¥²»İ¦b2¨ì10¤§¶¡");
-//			}
-//
-//			String openTime = req.getParameter("openTime").trim();
-//			if (openTime == null || openTime.trim().length() == 0) {
-//				errorMsgs.add("¶}©ñ®É¶¡½Ğ¤ÅªÅ¥Õ");
-//			}
-//
-//			String ticketPrice = req.getParameter("ticketPrice").trim();
-//			if (ticketPrice == null || ticketPrice.trim().length() == 0) {
-//				errorMsgs.add("ªù²¼»ù®æ½Ğ¤ÅªÅ¥Õ");
-//			}
-//
-//			String transInfo = req.getParameter("transInfo").trim();
-//			if (transInfo == null || transInfo.trim().length() == 0) {
-//				errorMsgs.add("¥æ³q¸ê°T½Ğ¤ÅªÅ¥Õ");
-//			}
-//
-//			String parking = req.getParameter("parking").trim();
-//			if (parking == null || parking.trim().length() == 0) {
-//				errorMsgs.add("°±¨®³õ½Ğ¤ÅªÅ¥Õ");
-//			}
-//
-//			String address = req.getParameter("address").trim();
-//			if (address == null || address.trim().length() == 0) {
-//				errorMsgs.add("¦a§}½Ğ¤ÅªÅ¥Õ");
-//			}
-//
-//			BigDecimal lon = null;
-//			try {
-//				lon = new BigDecimal(req.getParameter("lon").trim());
-//			} catch (Exception e) {
-//				lon = new BigDecimal(0.0);
-//				errorMsgs.add("¸g«×²§±`");
-//			}
-//
-//			BigDecimal lat = null;
-//			try {
-//				lat = new BigDecimal(req.getParameter("lat").trim());
-//			} catch (Exception e) {
-//				lat = new BigDecimal(0.0);
-//				errorMsgs.add("½n«×²§±`");
-//			}
-//
-//			String feature = req.getParameter("feature").trim();
-//			if (feature == null || feature.trim().length() == 0) {
-//				errorMsgs.add("¯S¦â½Ğ¤ÅªÅ¥Õ");
-//			}
-//
-//			String picture = req.getParameter("picture").trim();
-//			if (picture == null || picture.trim().length() == 0) {
-//				errorMsgs.add("¹Ï¤ù½Ğ¤ÅªÅ¥Õ");
-//			}
-//
-////				
-////				java.sql.Date hiredate = null;
-////				try {
-////hiredate = java.sql.Date.valueOf(req.getParameter("hiredate").trim());
-////				} catch (IllegalArgumentException e) {
-////					hiredate=new java.sql.Date(System.currentTimeMillis());
-////					errorMsgs.add("½Ğ¿é¤J¤é´Á!");
-////				}
-////
-////				Double sal = null;
-////				try {
-////sal = Double.valueOf(req.getParameter("sal").trim());
-////				} catch (NumberFormatException e) {
-////					sal = 0.0;
-////					errorMsgs.add("Á~¤ô½Ğ¶ñ¼Æ¦r.");
-////				}
-////
-////				Double comm = null;
-////				try {
-////comm = Double.valueOf(req.getParameter("comm").trim());
-////				} catch (NumberFormatException e) {
-////					comm = 0.0;
-////					errorMsgs.add("¼úª÷½Ğ¶ñ¼Æ¦r.");
-////				}
-////
-////Integer deptno = Integer.valueOf(req.getParameter("deptno").trim());
-//
-//			Scene SceneVO1 = new Scene();
-//			SceneVO1.setSceneId(sceneId);
-//			SceneVO1.setSceneName(sceneName);
-//			SceneVO1.setOpenTime(openTime);
-//			SceneVO1.setTicketPrice(ticketPrice);
-//			SceneVO1.setTransInfo(transInfo);
-//			SceneVO1.setParking(parking);
-//			SceneVO1.setAddress(address);
-//			SceneVO1.setLon(lon);
-//			SceneVO1.setLat(lat);
-//			SceneVO1.setFeature(feature);
-//			SceneVO1.setPicture(picture);
-////
-////				// Send the use back to the form, if there were errors
-//			if (!errorMsgs.isEmpty()) {
-//				req.setAttribute("SceneVO", SceneVO1); // §t¦³¿é¤J®æ¦¡¿ù»~ªºempVOª«¥ó,¤]¦s¤Jreq
-//				RequestDispatcher failureView = req.getRequestDispatcher("/emp/update_emp_input.jsp");
-//				failureView.forward(req, res);
-//				return; // µ{¦¡¤¤Â_
-//			}
-////				
-////				/***************************2.¶}©l­×§ï¸ê®Æ*****************************************/
-//			SceneService SceneSvc = new SceneService();
-//			Scene successUpdateVO = SceneSvc.updateScene(sceneId, sceneName, openTime, ticketPrice, transInfo, parking,
-//					address, lon, lat, feature, picture);
-////				
-////				/***************************3.­×§ï§¹¦¨,·Ç³ÆÂà¥æ(Send the Success view)*************/
-//			req.setAttribute("successUpdateVO", successUpdateVO); // ¸ê®Æ®wupdate¦¨¥\«á,¥¿½TªºªºempVOª«¥ó,¦s¤Jreq
-//			String url = "/emp/listOneEmp.jsp";
-//			RequestDispatcher successView = req.getRequestDispatcher(url); // ­×§ï¦¨¥\«á,Âà¥ælistOneEmp.jsp
-//			successView.forward(req, res);
-//		}
-////
-//		if ("insert".equals(action)) { // ¨Ó¦ÛaddEmp.jspªº½Ğ¨D
-//
-//			List<String> errorMsgs = new LinkedList<String>();
-//			// Store this set in the request scope, in case we need to
-//			// send the ErrorPage view.
-//			req.setAttribute("errorMsgs", errorMsgs);
-//
-////				/***********************1.±µ¦¬½Ğ¨D°Ñ¼Æ - ¿é¤J®æ¦¡ªº¿ù»~³B²z*************************/
-//
-//			String sceneName = req.getParameter("sceneName");
-//			String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-//			if (sceneName == null || sceneName.trim().length() == 0) {
-//				errorMsgs.add("­û¤u©m¦W: ½Ğ¤ÅªÅ¥Õ");
-//			} else if (!sceneName.trim().matches(enameReg)) { // ¥H¤U½m²ß¥¿«h(³W)ªí¥Ü¦¡(regular-expression)
-//				errorMsgs.add("­û¤u©m¦W: ¥u¯à¬O¤¤¡B­^¤å¦r¥À¡B¼Æ¦r©M_ , ¥Bªø«×¥²»İ¦b2¨ì10¤§¶¡");
-//			}
-////				
-//			String openTime = req.getParameter("openTime").trim();
-//			if (openTime == null || openTime.trim().length() == 0) {
-//				errorMsgs.add("¶}©ñ®É¶¡½Ğ¤ÅªÅ¥Õ");
-//			}
-//
-//			String ticketPrice = req.getParameter("ticketPrice").trim();
-//			if (ticketPrice == null || ticketPrice.trim().length() == 0) {
-//				errorMsgs.add("ªù²¼»ù®æ½Ğ¤ÅªÅ¥Õ");
-//			}
-//
-//			String transInfo = req.getParameter("transInfo").trim();
-//			if (transInfo == null || transInfo.trim().length() == 0) {
-//				errorMsgs.add("¥æ³q¸ê°T½Ğ¤ÅªÅ¥Õ");
-//			}
-//
-//			String parking = req.getParameter("parking").trim();
-//			if (parking == null || parking.trim().length() == 0) {
-//				errorMsgs.add("°±¨®³õ½Ğ¤ÅªÅ¥Õ");
-//			}
-//
-//			String address = req.getParameter("address").trim();
-//			if (address == null || address.trim().length() == 0) {
-//				errorMsgs.add("¦a§}½Ğ¤ÅªÅ¥Õ");
-//			}
-//
-//			BigDecimal lon = null;
-//			try {
-//				lon = new BigDecimal(req.getParameter("lon").trim());
-//			} catch (Exception e) {
-//				lon = new BigDecimal(0.0);
-//				errorMsgs.add("¸g«×²§±`");
-//			}
-//
-//			BigDecimal lat = null;
-//			try {
-//				lat = new BigDecimal(req.getParameter("lat").trim());
-//			} catch (Exception e) {
-//				lat = new BigDecimal(0.0);
-//				errorMsgs.add("½n«×²§±`");
-//			}
-//
-//			String feature = req.getParameter("feature").trim();
-//			if (feature == null || feature.trim().length() == 0) {
-//				errorMsgs.add("¯S¦â½Ğ¤ÅªÅ¥Õ");
-//			}
-//
-//			String picture = req.getParameter("picture").trim();
-//			if (picture == null || picture.trim().length() == 0) {
-//				errorMsgs.add("¹Ï¤ù½Ğ¤ÅªÅ¥Õ");
-//			}
-//
-////				
-////Integer deptno = Integer.valueOf(req.getParameter("deptno").trim());
-////
-//			Scene SceneVO1 = new Scene();
-//			SceneVO1.setSceneName(sceneName);
-//			SceneVO1.setOpenTime(openTime);
-//			SceneVO1.setTicketPrice(ticketPrice);
-//			SceneVO1.setTransInfo(transInfo);
-//			SceneVO1.setParking(parking);
-//			SceneVO1.setAddress(address);
-//			SceneVO1.setLon(lon);
-//			SceneVO1.setLat(lat);
-//			SceneVO1.setFeature(feature);
-//			SceneVO1.setPicture(picture);
-//
-//			// Send the use back to the form, if there were errors
-//			if (!errorMsgs.isEmpty()) {
-//				req.setAttribute("SceneVO", SceneVO1); // §t¦³¿é¤J®æ¦¡¿ù»~ªºempVOª«¥ó,¤]¦s¤Jreq
-//				RequestDispatcher failureView = req.getRequestDispatcher("/emp/addEmp.jsp");
-//				failureView.forward(req, res);
-//				return;
-//			}
-////				
-////				/***************************2.¶}©l·s¼W¸ê®Æ***************************************/
-//				SceneService SceneSvc = new SceneService();
-//				Scene successaddVO = SceneSvc.addScene(sceneName, openTime, ticketPrice, transInfo, parking,
-//						address, lon, lat, feature, picture);
-////				
-////				/***************************3.·s¼W§¹¦¨,·Ç³ÆÂà¥æ(Send the Success view)***********/
-//				String url = "/emp/listAllEmp.jsp";
-//				RequestDispatcher successView = req.getRequestDispatcher(url); // ·s¼W¦¨¥\«áÂà¥ælistAllEmp.jsp
-//				successView.forward(req, res);				
-//		}
-//		
-//		
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-//			===================================²¾°£­q³æ========================================
-//			===================================²¾°£­q³æ========================================	
-//			===================================²¾°£­q³æ========================================
-//			String Remove = req.getParameter("actionForRemove");
-//			if ("remove".equals(Remove)) { // ¨Ó¦Ûshopping.jspªº"²¾°£­q³æ"½Ğ¨D
-//
-//				List<String> errorMsgs = new LinkedList<String>();//±N©Ò¦³¿ù»~°T®§¥]¦¨¤@­Ólist¡A«eºİ´N¥i¥H±µ¦¬¿ù»~°T®§¥[¥H´è¬V
-//				req.setAttribute("errorMsgs", errorMsgs);
-////	
-////				/***************************1.±µ¦¬½Ğ¨D°Ñ¼Æ***************************************/
-//				Integer SceneId = Integer.valueOf(req.getParameter("sceneId"));
-////				
-////				/***************************2.¶}©l§R°£¸ê®Æ***************************************/
-//				SceneService SceneSvc = new SceneService();
-//				SceneSvc.deleteScene(SceneId);
-//
-////				/***************************3.§R°£§¹¦¨,·Ç³ÆÂà¥æ(Send the Success view)***********/								
-//				String url = "/emp/listAllEmp.jsp";
-//				RequestDispatcher successView = req.getRequestDispatcher(url);// §R°£¦¨¥\«á,Âà¥æ¦^°e¥X§R°£ªº¨Ó·½ºô­¶
-//				successView.forward(req, res);
-//			}
-			
-			
-//			===================================²¾°£­q³æ========================================
-//			===================================²¾°£­q³æ========================================	
-//			===================================²¾°£­q³æ========================================
-			
-			
-			
-			
 		}
+		
+//=========================è³¼ç‰©è»Š(é£¯åº—)æ–°å¢===============================
+		
+		
+//=========================è³¼ç‰©è»Š(é£¯åº—)åˆªé™¤===============================
+		
+		if("removeHotelOrder".equals(action)) { 
+			
+			Integer roomOrdId =Integer.valueOf(req.getParameter("roomOrdId"));
+			Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
+			ROSH.delete(roomOrdId);
+	
+			
+			String url = "/chu/shopping(hotel).jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // æ–°å¢æˆåŠŸå¾Œè½‰äº¤listAllEmp.jsp
+			successView.forward(req, res);	
+
+		}
+//=========================è³¼ç‰©è»Š(é£¯åº—)åˆªé™¤===============================
+	
+		
+	
+		
+//=========================è³¼ç‰©è»Š(é£¯åº—)çµå¸³===============================
+		if("hotelcheckOut".equals(action)) { 
+			Integer roomOrderId  = Integer.valueOf(req.getParameter("roomOrdId"));
+			Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
+			RoomServiceHibernate RSH = new RoomServiceHibernate();
+			CompanyService CSH = new CompanyService();
+			
+			Room_ord RoomOrd =ROSH.getRoomOrd(roomOrderId);//å–å¾—è©²è¨‚å–®pkçš„ç‰©ä»¶
+			
+			Date checkIn =RoomOrd.getCheckInTime();
+			Date checkOut =RoomOrd.getCheckOutTime();
+			Integer RoomId = RoomOrd.getRoomId();
+			Integer compId = RSH.getOneRoom(RoomId).getCompId();
+			
+			String compName=CSH.getComp(compId).getCompName();//æŠ“æˆ¿å
+			String principalName=CSH.getComp(compId).getPrincipalName();//æŠ“è¯çµ¡äºº
+			String principalPhone=CSH.getComp(compId).getPrincipalPhone();//æŠ“è¯çµ¡äººé›»è©±
+			Integer profit = RoomOrd.getProfit().setScale(3, RoundingMode.HALF_UP).intValue();
+			Integer commission = RoomOrd.getCommission().setScale(3, RoundingMode.HALF_UP).intValue();
+			Integer totalPrice= RoomOrd.getTotalPrice().setScale(3, RoundingMode.HALF_UP).intValue();
+			String roomName = RSH.getRoom(RoomId).getRoomName();
+			Integer roomTypeId=RSH.getRoom(RoomId).getRoomType();
+			String roomType  = null ;//æŠ“æˆ¿å‹
+			switch (roomTypeId) {
+			case 1 :
+				roomType = "å–®äººæˆ¿";
+			break;
+			case 2 :
+				roomType = "é›™äººæˆ¿";
+			break;
+			case 3 :
+				roomType = "ä¸‰äººæˆ¿";
+			break;
+			case 4 :
+				roomType = "å››äººæˆ¿";
+			break;
+			}
+			
+			
+			Room_ordList ROL = new Room_ordList();
+			ROL.setRoomName(roomName);
+			ROL.setRoomOrdId(RoomOrd.getRoomOrdId());
+			ROL.setCusId(RoomOrd.getCusId());
+			ROL.setCompName(compName);
+			ROL.setRoomType(roomType);
+			ROL.setAmount(RoomOrd.getAmount());
+			ROL.setPrincipalName(principalName);
+			ROL.setPrincipalPhone(principalPhone);
+			ROL.setStartTime(checkIn); 
+			ROL.setEndTime(checkOut);
+			ROL.setProfit(profit);
+			ROL.setCommission(commission);
+			ROL.setTotalPrice(totalPrice);
+			
+			
+			req.setAttribute( "RoomOrd" , ROL);
+			String url = "/chu/bookingList(hotel).jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // æ–°å¢æˆåŠŸå¾Œè½‰äº¤listAllEmp.jsp
+			successView.forward(req, res);	
+			
+		}		
+//=========================è³¼ç‰©è»Š(é£¯åº—)çµå¸³===============================
+		
+
+	
 	}
 }
-

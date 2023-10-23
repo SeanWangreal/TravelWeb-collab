@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -183,5 +184,24 @@ public class ItineraryJDBCDAO implements ItineraryDAO_interface {
 			System.out.print(aItinerary.getSceneId() + ",");
 			System.out.print(aItinerary.getBeginTime());
 		}
+	}
+
+	@Override
+	public List<Itinerary> getAllByTripId(Integer tripId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteAllByTripId(Integer tripId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void deleteAllByTripIdAndAdd(Integer tripId, List<Itinerary> Itinerary) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -12,33 +12,34 @@ public class RoomPhotoServiceHibernate implements RoomPhotoService {
 	}
 
 	@Override
-	public Room_photo addRoomPhoto(Integer roomPhotoId, Integer roomId, byte[] photo) {
-		// TODO Auto-generated method stub
-		return null;
+	public int addRoomPhoto(Integer roomId, byte[] photo) {
+		Room_photo roomPhoto = new Room_photo();
+		roomPhoto.setRoomId(roomId);
+		roomPhoto.setPhoto(photo);
+		return dao.add(roomPhoto);
 	}
 
 	@Override
-	public Room_photo updateRoomPhoto(Integer roomPhotoId, Integer roomId, byte[] photo) {
-		// TODO Auto-generated method stub
-		return null;
+	public int updateRoomPhoto(Integer roomPhotoId, byte[] photo) {
+		Room_photo roomPhoto = new Room_photo();
+		roomPhoto.setRoomPhotoId(roomPhotoId);
+		roomPhoto.setPhoto(photo);
+		return dao.update(roomPhoto);
 	}
 
 	@Override
 	public void deleteRoomPhoto(Integer roomPhotoId) {
-		// TODO Auto-generated method stub
-
+		dao.delete(roomPhotoId);
 	}
 
 	@Override
-	public Room_photo getRoomPhoto(Integer roomPhotoId) {
-		// TODO Auto-generated method stub
-		return null;
+	public byte[] getRoomPhoto(Integer roomPhotoId) {
+		return dao.findByPK(roomPhotoId).getPhoto();
 	}
 
 	@Override
 	public List<Room_photo> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getAll();
 	}
 
 }
