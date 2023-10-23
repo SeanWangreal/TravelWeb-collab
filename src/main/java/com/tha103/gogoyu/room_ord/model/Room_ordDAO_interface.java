@@ -18,5 +18,5 @@ public interface Room_ordDAO_interface {
 	Room_ord findByPK(Integer roomOrdId);
 	List<Room_ord> getAll();
 	public List<Room_ord> getRoomOrdVo(Integer cartId , Integer cusId);
-	public List<Room_ord> getRoomOrdByCompId(Integer compId);
+	public  Map<Room_ord,List<String>> getRoomOrdByCompId(Integer compId);
 }

@@ -403,15 +403,15 @@ CREATE TABLE trip_ord (
     CONSTRAINT TRIP_ORD_PRIMARY_KEY PRIMARY KEY (trip_ord_id)
 ) ;
 insert into trip_ord (trip_id, comp_id, plan_id, cus_id, amount, total_price, commission,profit, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (1, 1, 1, 1, 5, 5000, 500, 1000,0, null, null, null, null, null);
+	VALUES (1, 6, 1, 1, 5, 5000, 500, 1000,0, null, null, null, null, null);
 insert into trip_ord (trip_id, comp_id, plan_id, cus_id, amount, total_price, commission,profit, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (2, 2, 2, 2, 4, 8000, 800,1000, 1, "2023-10-03 12:24:56", "素食", 4, "太爽了", "2023-10-10 12:34:56");
+	VALUES (2, 7, 2, 2, 4, 8000, 800,1000, 1, "2023-10-03 12:24:56", "素食", 4, "太爽了", "2023-10-10 12:34:56");
 insert into trip_ord (trip_id, comp_id, plan_id, cus_id, amount, total_price, commission,profit, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (3, 3, 3, 3, 3, 9000, 900, 1000,2, "2023-10-03 12:34:56", null, null, null, null);
+	VALUES (3, 8, 3, 3, 3, 9000, 900, 1000,2, "2023-10-03 12:34:56", null, null, null, null);
 insert into trip_ord (trip_id, comp_id, plan_id, cus_id, amount, total_price, commission, profit,ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (4, 4, 4, 4, 2, 8000, 800, 1000,0, null, null, null, null, null);
+	VALUES (4, 9, 4, 4, 2, 8000, 800, 1000,0, null, null, null, null, null);
 insert into trip_ord (trip_id, comp_id, plan_id, cus_id, amount, total_price, commission,profit, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (5, 5, 5, 5, 1, 5000, 500,1000, 1, "2023-10-03 12:54:56", "素食", 3, "還好", "2023-10-10 12:34:56");
+	VALUES (5, 10, 5, 5, 1, 5000, 500,1000, 1, "2023-10-03 12:54:56", "素食", 3, "還好", "2023-10-10 12:34:56");
     
 CREATE TABLE notify (
 	notify_id     	INT AUTO_INCREMENT NOT NULL,

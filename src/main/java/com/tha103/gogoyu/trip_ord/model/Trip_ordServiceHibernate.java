@@ -3,10 +3,7 @@ package com.tha103.gogoyu.trip_ord.model;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
-
-import com.tha103.gogoyu.room.model.Room;
-import com.tha103.gogoyu.room_ord.model.Room_ord;
-import com.tha103.gogoyu.trip.model.Trip;
+import java.util.Map;
 
 import util.HibernateUtil;
 
@@ -95,7 +92,7 @@ public class Trip_ordServiceHibernate implements Trip_ordService {
 		return dao.getAll();
 	}
 	
-	public List<Trip_ord> getTripOrdByCompId(Integer compId){
+	public Map<Trip_ord,List<String>> getTripOrdByCompId(Integer compId){
 		return dao.getTripOrdByCompId(compId);
 	}
 }

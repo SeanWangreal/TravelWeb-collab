@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import com.tha103.gogoyu.consumer.model.Consumer;
 import com.tha103.gogoyu.room.model.Room;
@@ -107,7 +108,7 @@ public class Room_ordServiceHibernate {
 		return dao.getRoomOrdVo(cartId, cusId);
 	}
 	
-	public List<Room_ord> getRoomOrdByCompId(Integer compId){
+	public  Map<Room_ord,List<String>> getRoomOrdByCompId(Integer compId){
 		return dao.getRoomOrdByCompId(compId);
 	}
 
