@@ -81,7 +81,7 @@ insert into adm_meb (adm_name, adm_account, adm_password)
 insert into adm_meb (adm_name, adm_account, adm_password)
 	VALUES ("詩翰", "d12345", "aaee1122" );
 insert into adm_meb (adm_name, adm_account, adm_password)
-	VALUES ("廷晏", "e12345", "aaff1122" );
+	VALUES ("正晏", "e12345", "aaff1122" );
 
 CREATE TABLE `hotel_info` (
     `hotel_info_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -204,17 +204,32 @@ CREATE TABLE room_stock (
 insert into room_stock (room_id, stock_date, stock)
 	VALUES (1, '2023-10-17', 1);
 insert into room_stock (room_id, stock_date, stock)
-	VALUES (2, '2023-10-17', 2);
+	VALUES (1, '2023-10-18', 1);
 insert into room_stock (room_id, stock_date, stock)
 	VALUES (2, '2023-10-17', 2);
 insert into room_stock (room_id, stock_date, stock)
-	VALUES (3, '2023-10-17', 3);
+	VALUES (2, '2023-10-18', 2);
+insert into room_stock (room_id, stock_date, stock)
+	VALUES (2, '2023-10-19', 2);
 insert into room_stock (room_id, stock_date, stock)
 	VALUES (3, '2023-10-17', 3);
 insert into room_stock (room_id, stock_date, stock)
-	VALUES (3, '2023-10-17', 3);
+	VALUES (3, '2023-10-18', 3);
+insert into room_stock (room_id, stock_date, stock)
+	VALUES (3, '2023-10-19', 3);
+insert into room_stock (room_id, stock_date, stock)
+	VALUES (3, '2023-10-20', 3);
 insert into room_stock (room_id, stock_date, stock)
 	VALUES (4, '2023-10-17', 4);
+insert into room_stock (room_id, stock_date, stock)
+	VALUES (4, '2023-10-18', 4);
+insert into room_stock (room_id, stock_date, stock)
+	VALUES (4, '2023-10-19', 4);
+insert into room_stock (room_id, stock_date, stock)
+	VALUES (4, '2023-10-20', 4);
+insert into room_stock (room_id, stock_date, stock)
+	VALUES (4, '2023-10-21', 4);
+
 
 
 create table room_photo (
