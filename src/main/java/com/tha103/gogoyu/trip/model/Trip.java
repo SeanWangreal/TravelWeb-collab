@@ -2,24 +2,62 @@ package com.tha103.gogoyu.trip.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.sql.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+import com.tha103.gogoyu.itinerary.model.Itinerary;
+import com.tha103.gogoyu.trip_photo.model.Trip_photo;
 
 @Entity
 @Table(name = "Trip")
 public class Trip implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "trip_id", updatable = false)
 	private Integer tripId;
 
-	@Column(name = "comp_id")
-	private Integer compId;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="trip_id",referencedColumnName = "trip_id")
+	@OrderBy("upload_time asc")
+	private Set<Trip_photo> tripPhoto;
+	
+	public Set<Trip_photo> getTripPhoto() {
+		return tripPhoto;
+	}
+	public void setTripPhoto(Set<Trip_photo> tripPhoto) {
+		this.tripPhoto = tripPhoto;
+	}
 
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="trip_id",referencedColumnName = "trip_id")
+	@OrderBy("begin_time asc")
+	private Set<Itinerary> itinerary;
+
+	public Set<Itinerary> getItinerary() {
+		return itinerary;
+	}
+	public void setItinerary(Set<Itinerary> itinerary) {
+		this.itinerary = itinerary;
+	}
+
+	@Column(name = "comp_id" ) 
+	private Integer compId;
+	
 	@Column(name = "trip_name")
 	private String tripName;
 
@@ -33,13 +71,13 @@ public class Trip implements Serializable {
 	private Integer people;
 
 	@Column(name = "start_time")
-	private Timestamp startTime;
+	private Date startTime;
 
 	@Column(name = "end_time")
-	private Timestamp endTime;
+	private Date endTime;
 
 	@Column(name = "content", columnDefinition = "longtext")
-	private String content; // CLOB
+	private String content;
 
 	@Column(name = "state")
 	private Integer state;
@@ -109,53 +147,62 @@ public class Trip implements Serializable {
 
 	@Column(name = "penghu_county",columnDefinition = "bit")
 	private byte penghuCounty;
+	
+	@Column(name = "main_photo", columnDefinition = "longblob")
+	private byte[] mainPhoto;
 
-	public Trip(Integer trip_id, Integer comp_id, String trip_name, Integer amount, BigDecimal price, Integer people,
-			Timestamp start_time, Timestamp end_time, String content, Integer state, byte taipei_city,
-			byte newtaipei_city, byte taoyuan_city, byte taichung_city, byte tainan_city, byte kaohsiung_city,
-			byte hsinchu_county, byte miaoli_county, byte changhua_county, byte nantou_county, byte yunlin_county,
-			byte chiayi_county, byte pingtung_county, byte yilan_city, byte hualien_city, byte taitung_county,
-			byte kinmen_county, byte lienchiang_county, byte keelung_city, byte hsinchu_city, byte chiayi_city,
-			byte penghu_county) {
+	public Trip(Integer tripId, Integer compId, String tripName, Integer amount, BigDecimal price, Integer people,
+			Date  startTime, Date  endTime, String content, Integer state, byte taipeiCity, byte newtaipeiCity,
+			byte taoyuanCity, byte taichungCity, byte tainanCity, byte kaohsiungCity, byte hsinchuCounty,
+			byte miaoliCounty, byte changhuaCounty, byte nantouCounty, byte yunlinCounty, byte chiayiCounty,
+			byte pingtungCounty, byte yilanCity, byte hualienCity, byte taitungCounty, byte kinmenCounty,
+			byte lienchiangCounty, byte keelungCity, byte hsinchuCity, byte chiayiCity, byte penghuCounty,
+			byte[] mainPhoto) {
 		super();
-		this.tripId = trip_id;
-		this.compId = comp_id;
-		this.tripName = trip_name;
+		this.tripId = tripId;
+		this.compId = compId;
+		this.tripName = tripName;
 		this.amount = amount;
 		this.price = price;
 		this.people = people;
-		this.startTime = start_time;
-		this.endTime = end_time;
+		this.startTime = startTime;
+		this.endTime = endTime;
 		this.content = content;
 		this.state = state;
-		this.taipeiCity = taipei_city;
-		this.newtaipeiCity = newtaipei_city;
-		this.taoyuanCity = taoyuan_city;
-		this.taichungCity = taichung_city;
-		this.tainanCity = tainan_city;
-		this.kaohsiungCity = kaohsiung_city;
-		this.hsinchuCounty = hsinchu_county;
-		this.miaoliCounty = miaoli_county;
-		this.changhuaCounty = changhua_county;
-		this.nantouCounty = nantou_county;
-		this.yunlinCounty = yunlin_county;
-		this.chiayiCounty = chiayi_county;
-		this.pingtungCounty = pingtung_county;
-		this.yilanCity = yilan_city;
-		this.hualienCity = hualien_city;
-		this.taitungCounty = taitung_county;
-		this.kinmenCounty = kinmen_county;
-		this.lienchiangCounty = lienchiang_county;
-		this.keelungCity = keelung_city;
-		this.hsinchuCity = hsinchu_city;
-		this.chiayiCity = chiayi_city;
-		this.penghuCounty = penghu_county;
+		this.taipeiCity = taipeiCity;
+		this.newtaipeiCity = newtaipeiCity;
+		this.taoyuanCity = taoyuanCity;
+		this.taichungCity = taichungCity;
+		this.tainanCity = tainanCity;
+		this.kaohsiungCity = kaohsiungCity;
+		this.hsinchuCounty = hsinchuCounty;
+		this.miaoliCounty = miaoliCounty;
+		this.changhuaCounty = changhuaCounty;
+		this.nantouCounty = nantouCounty;
+		this.yunlinCounty = yunlinCounty;
+		this.chiayiCounty = chiayiCounty;
+		this.pingtungCounty = pingtungCounty;
+		this.yilanCity = yilanCity;
+		this.hualienCity = hualienCity;
+		this.taitungCounty = taitungCounty;
+		this.kinmenCounty = kinmenCounty;
+		this.lienchiangCounty = lienchiangCounty;
+		this.keelungCity = keelungCity;
+		this.hsinchuCity = hsinchuCity;
+		this.chiayiCity = chiayiCity;
+		this.penghuCounty = penghuCounty;
+		this.mainPhoto = mainPhoto;
 	}
-
 	public Trip() {
 		super();
 	}
 
+	public byte[] getMainPhoto() {
+		return mainPhoto;
+	}
+	public void setMainPhoto(byte[] mainPhoto) {
+		this.mainPhoto = mainPhoto;
+	}
 	public Integer getTripId() {
 		return tripId;
 	}
@@ -204,19 +251,19 @@ public class Trip implements Serializable {
 		this.people = people;
 	}
 
-	public Timestamp getStartTime() {
+	public Date  getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Timestamp startTime) {
+	public void setStartTime(Date  startTime) {
 		this.startTime = startTime;
 	}
 
-	public Timestamp getEndTime() {
+	public Date  getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Timestamp endTime) {
+	public void setEndTime(Date  endTime) {
 		this.endTime = endTime;
 	}
 

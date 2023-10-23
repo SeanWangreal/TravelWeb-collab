@@ -1,20 +1,67 @@
 package com.tha103.gogoyu.company.model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.tha103.gogoyu.hotel_info.model.Hotel_info;
+import com.tha103.gogoyu.room.model.Room;
+import com.tha103.gogoyu.trip.model.Trip;
+
 @Entity
-@Table(name = "Company")
+@Table(name = "company")
 public class Company implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name = "comp_id", updatable = false)
 	private Integer compId;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "comp_id", referencedColumnName = "comp_id")
+	private Set<Room> room;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "comp_id", referencedColumnName = "comp_id")
+	private Set<Trip> trip;
 
-	@Column(name = "hotel_info_id")
+	public Set<Room> getRoom() {
+		return room;
+	}
+
+	public void setRoom(Set<Room> room) {
+		this.room = room;
+	}
+
+	public Set<Trip> getTrip() {
+		return trip;
+	}
+
+	public void setTrip(Set<Trip> trip) {
+		this.trip = trip;
+	}
+	
+	@Column(name = "hotel_info_id", insertable = false, updatable = false) // fk
 	private Integer hotelInfoId;
+	
+	@OneToOne
+	@JoinColumn(name = "hotel_info_id",referencedColumnName = "hotel_info_id")
+	private Hotel_info hotelInfo;
+	
+	public Hotel_info getHotelInfo() {
+		return hotelInfo;
+	}
+
+	public void setHotelInfo(Hotel_info hotelInfo) {
+		this.hotelInfo = hotelInfo;
+	}
 
 	@Column(name = "comp_type")
 	private Integer compType;
@@ -25,7 +72,7 @@ public class Company implements java.io.Serializable {
 	@Column(name = "comp_address")
 	private String compAddress;
 
-	@Column(name = " comp_phone" ,columnDefinition = "char")
+	@Column(name = " comp_phone", columnDefinition = "character")
 	private String compPhone;
 
 	@Column(name = "principal_name")

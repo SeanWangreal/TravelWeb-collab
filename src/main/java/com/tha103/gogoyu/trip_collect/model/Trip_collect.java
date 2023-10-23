@@ -23,7 +23,7 @@ public class Trip_collect implements Serializable {
 	@Column(name = "trip_id")
 	private Integer tripId;
 	@Id
-	@Column(name = "collect_time")
+	@Column(name = "collect_time",insertable = false, updatable = false)
 	private Timestamp collectTime;
 
 	public Trip_collect() {
@@ -59,6 +59,11 @@ public class Trip_collect implements Serializable {
 
 	public void setCollectTime(Timestamp collectTime) {
 		this.collectTime = collectTime;
+	}
+
+	@Override
+	public String toString() {
+		return "Trip_collect [cusId=" + cusId + ", tripId=" + tripId + ", collectTime=" + collectTime + "]";
 	}
 
 	static class DoublePk implements Serializable {

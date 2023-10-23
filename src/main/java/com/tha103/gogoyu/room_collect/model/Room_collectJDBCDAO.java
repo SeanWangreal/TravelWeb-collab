@@ -95,7 +95,7 @@ public class Room_collectJDBCDAO implements Room_collectDAO_interface {
 				room_collect = new Room_collect();
 				room_collect.setCusId(rs.getInt("cus_id"));
 				room_collect.setRoomId(rs.getInt("room_id"));
-				room_collect.setCollectTime(rs.getTimestamp("3"));
+				room_collect.setCollectTime(rs.getTimestamp("collect_time"));
 			}
 		} catch (SQLException se) {
 			se.getStackTrace();

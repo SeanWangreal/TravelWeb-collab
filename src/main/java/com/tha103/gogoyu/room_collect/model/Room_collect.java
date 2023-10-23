@@ -22,7 +22,7 @@ public class Room_collect implements Serializable {
 	@Id
 	@Column(name = "room_id")
 	private Integer roomId;
-	@Column(name = "collect_time")
+	@Column(name = "collect_time",insertable = false, updatable = false)
 	private Timestamp collectTime;
 
 	public Room_collect() {
@@ -58,6 +58,11 @@ public class Room_collect implements Serializable {
 
 	public void setCollectTime(Timestamp collectTime) {
 		this.collectTime = collectTime;
+	}
+
+	@Override
+	public String toString() {
+		return "Room_collect [cusId=" + cusId + ", roomId=" + roomId + ", collectTime=" + collectTime + "]";
 	}
 
 	static class DoublePk implements Serializable {

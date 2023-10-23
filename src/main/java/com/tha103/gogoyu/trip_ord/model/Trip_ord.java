@@ -6,49 +6,77 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.tha103.gogoyu.consumer.model.Consumer;
+import com.tha103.gogoyu.trip.model.Trip;
 
 @Entity
-@Table(name="trip_ord")
-public class Trip_ord implements Serializable{
+@Table(name = "trip_ord")
+public class Trip_ord implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@Column(name="trip_ord_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "trip_ord_id")
 	private Integer tripOrdId;
-	@Column(name="trip_id")
-	private Integer tripId;
-	@Column(name="plan_id")
+
+	@Column(name = "trip_id")
+	private Integer tripId;  
+
+
+	@Column(name = "plan_id")
 	private Integer planId;
-	@Column(name="cus_id")
+	
+
+	@Column(name = "cus_id")
 	private Integer cusId;
-	@Column(name="amount")
+	
+//	@Transient
+//	private String tripName ;
+//	
+//	public String getTripName() {
+//		return tripName;
+//	}
+//
+//	public void setTripName(String tripName) {
+//		this.tripName = tripName;
+//	}
+
+	@Column(name = "amount")
 	private Integer amount;
-	@Column(name="total_price")
-    private BigDecimal totalPrice;
-	@Column(name="commission")
-    private BigDecimal commission;
-	@Column(name="ord_status")
-    private Integer ordStatus;
-	@Column(name="ord_time")
-    private Timestamp ordTime;
-	@Column(name="remark")
-    private String remark;
-	@Column(name="score")
-    private Integer score;
-	@Column(name="comments", columnDefinition="longtext")
-    private String comments;
-	@Column(name="comments_time")
-    private Timestamp commentsTime;
-    
+	@Column(name = "total_price")
+	private BigDecimal totalPrice;
+	@Column(name = "commission")
+	private BigDecimal commission;
+	@Column(name = "profit")
+	private BigDecimal profit;
+	@Column(name = "ord_status")
+	private Integer ordStatus;
+	@Column(name = "ord_time")
+	private Timestamp ordTime;
+	@Column(name = "remark")
+	private String remark;
+	@Column(name = "score")
+	private Integer score;
+	@Column(name = "comments", columnDefinition = "longtext")
+	private String comments;
+	@Column(name = "comments_time")
+	private Timestamp commentsTime;
+
 	public Trip_ord() {
 		super();
 	}
 
 	public Trip_ord(Integer tripOrdId, Integer tripId, Integer planId, Integer cusId, Integer amount,
-			BigDecimal totalPrice, BigDecimal commission, Integer ordStatus, Timestamp ordTime, String remark, Integer score,
-			String comments, Timestamp commentsTime) {
+			BigDecimal totalPrice, BigDecimal commission, Integer ordStatus, Timestamp ordTime, String remark,
+			Integer score, String comments, Timestamp commentsTime) {
 		super();
 		this.tripOrdId = tripOrdId;
 		this.tripId = tripId;
@@ -117,10 +145,19 @@ public class Trip_ord implements Serializable{
 		return commission;
 	}
 
+	public BigDecimal getProfit() {
+		return profit;
+	}
+
+	public void setProfit(BigDecimal profit) {
+		this.profit = profit;
+	}
+
 	public void setCommission(BigDecimal commission) {
 		this.commission = commission;
 	}
 
+	
 	public Integer getOrdStatus() {
 		return ordStatus;
 	}
@@ -172,6 +209,5 @@ public class Trip_ord implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-}
 
+}

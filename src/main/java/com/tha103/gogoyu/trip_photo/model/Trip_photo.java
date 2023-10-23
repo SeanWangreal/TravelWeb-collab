@@ -13,16 +13,16 @@ import javax.persistence.Table;
 public class Trip_photo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "trip_photo_id")
+	@Column(name = "trip_photo_id", updatable = false)
 	private Integer tripPhotoId;
 
-	@Column(name = "trip_id")
+	@Column(name = "trip_id", updatable = false)
 	private Integer tripId;
 
 	@Column(name = "photo", columnDefinition = "longblob")
 	private byte[] photo;
 
-	@Column(name = "upload_time")
+	@Column(name = "upload_time",insertable = false, updatable = false)
 	private Timestamp uploadTime;
 
 	public Trip_photo() {

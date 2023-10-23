@@ -1,13 +1,20 @@
 package com.tha103.gogoyu.itinerary.model;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 public interface ItineraryDAO_interface {
-    public void insert(Itinerary Itinerary);
-    public void update(Itinerary Itinerary);
-    public void delete(Integer itinerary_id);
-    public Itinerary findByPrimaryKey(Integer itinerary_id);
-    public List<Itinerary> getAll();
-    //萬用複合查詢(傳入參數型態Map)(回傳 List)
-//  public List<EmpVO> getAll(Map<String, String[]> map); 
+	int add(Itinerary Itinerary);
+	int update(Itinerary Itinerary);
+	int delete(Integer itinerary_id);
+	void deleteAllByTripId(Integer tripId);
+	Itinerary findByPK(Integer itinerary_id);
+	List<Itinerary> getAllByTripId(Integer tripId);
+	List<Itinerary> getAll();
+	void deleteAllByTripIdAndAdd(Integer tripId, List<Itinerary> Itinerary);
+	
+//    List<Itinerary> getByCompositeQuery(Map<String, String> map);
+//	List<Itinerary> getAll(int currentPage);
+//	long getTotal();
 }

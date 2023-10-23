@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import util.Util;
 
@@ -27,7 +28,7 @@ public class Room_stockJDBCDAO implements Room_stockDAO_interface {
 	
 	private static final String UPDATE = "UPDATE room_stock set room_id = ?,stock_date = ? ,stock = ? where room_stock_id = ?";
 	@Override
-	public void insert(Room_stock roomStock) {
+	public int add(Room_stock roomStock) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -45,10 +46,10 @@ public class Room_stockJDBCDAO implements Room_stockDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
-		
+		return -1;
 	}
 	@Override
-	public void update(Room_stock roomStock) {
+	public int update(Room_stock roomStock) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -67,10 +68,11 @@ public class Room_stockJDBCDAO implements Room_stockDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
-		
+		return -1;
+
 	}
 	@Override
-	public void delete(Integer roomStockId) {
+	public int delete(Integer roomStockId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -91,10 +93,12 @@ public class Room_stockJDBCDAO implements Room_stockDAO_interface {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			Util.closeResources(con, pstmt, null);
-		}		
+		}	
+		return -1;
+
 	}
 	@Override
-	public Room_stock findByPrimaryKey(Integer roomStockId) {
+	public Room_stock findByPK(Integer roomStockId) {
 		Room_stock roomStock = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -177,7 +181,7 @@ public class Room_stockJDBCDAO implements Room_stockDAO_interface {
 	//刪除
 //	dao.delete(1004);
 	//查詢
-	Room_stock st03 = dao.findByPrimaryKey(1000);
+	Room_stock st03 = dao.findByPK(1000);
 	System.out.print(st03.getRoomId() +",");
 	System.out.print(st03.getStock() +",");
 	System.out.print(st03.getStockDate() +".");
@@ -191,6 +195,28 @@ public class Room_stockJDBCDAO implements Room_stockDAO_interface {
 	}
 	
 	
+	}
+	@Override
+	public List<Room_stock> getStockByRoomId(Integer roomId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addFirstTime(Room_stock roomStock) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public List<Room_stock> getAllByToday(Integer roomId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void updateAll(List<Room_stock> oldRoomStock, List<Room_stock> deleteRoomStock,
+			List<Room_stock> newRoomStock) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

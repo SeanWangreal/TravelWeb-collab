@@ -1,17 +1,18 @@
 package com.tha103.gogoyu.trip.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.*;
-import util.Util;
-
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import com.tha103.gogoyu.trip_photo.model.Trip_photo;
+
+import util.Util;
 
 public class TripJDBCDAO implements TripDAO_interface {
 	static {
@@ -27,7 +28,7 @@ public class TripJDBCDAO implements TripDAO_interface {
 			+ "	newTaipei_city,taoyuan_city,taichung_city,tainan_city,kaohsiung_city,hsinchu_county,miaoli_county,"
 			+ "	changhua_county,nantou_county,yunlin_county,chiayi_county,pingtung_county,yilan_city,"
 			+ "	hualien_city,taitung_county,kinmen_county,lienchiang_county,keelung_city,hsinchu_city,"
-			+ "	chiayi_city,penghu_county) VALUES (?, ?,?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?, ?,?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?)";
+			+ "	chiayi_city,penghu_county,main_photo) VALUES (?, ?,?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?, ?,?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String GET_ALL_STMT = "SELECT *  FROM trip order by trip_id";
 	private static final String GET_ONE_STMT = "SELECT *  FROM trip where trip_id = ?";
 	private static final String DELETE = "DELETE FROM trip where trip_id= ?";
@@ -36,105 +37,109 @@ public class TripJDBCDAO implements TripDAO_interface {
 			+ "	newTaipei_city = ? ,taoyuan_city = ?,taichung_city = ? ,tainan_city = ? ,kaohsiung_city = ? ,hsinchu_county = ? ,miaoli_county = ?,"
 			+ "	changhua_county = ? ,nantou_county = ?,yunlin_county = ? ,chiayi_county = ? ,pingtung_county = ?,yilan_city = ? ,"
 			+ "	hualien_city = ?,taitung_county = ?,kinmen_county = ?,lienchiang_county = ?,keelung_city = ?,hsinchu_city = ?,"
-			+ "	chiayi_city = ? ,penghu_county = ?  where trip_id = ? ";
+			+ "	chiayi_city = ? ,penghu_county = ? ,main_photo = ? where trip_id = ? ";
 
 	@Override
-	public void insert(Trip Trip) {
+	public int add(Trip trip) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			String[] cols = { "trip_id" };
 			pstmt = con.prepareStatement(INSERT_STMT, cols);
-			pstmt.setInt(1, Trip.getCompId());
-			pstmt.setString(2, Trip.getTripName());
-			pstmt.setInt(3, Trip.getAmount());
-			pstmt.setBigDecimal(4, Trip.getPrice());
-			pstmt.setInt(5, Trip.getPeople());
-			pstmt.setTimestamp(6, Trip.getStartTime());
-			pstmt.setTimestamp(7, Trip.getEndTime());
-			pstmt.setString(8, Trip.getContent());
-			pstmt.setInt(9, Trip.getState());
-			pstmt.setByte(10, Trip.getTaipeiCity());
-			pstmt.setByte(11, Trip.getNewtaipeiCity());
-			pstmt.setByte(12, Trip.getTaoyuanCity());
-			pstmt.setByte(13, Trip.getTaichungCity());
-			pstmt.setByte(14, Trip.getTainanCity());
-			pstmt.setByte(15, Trip.getKaohsiungCity());
-			pstmt.setByte(16, Trip.getHsinchuCounty());
-			pstmt.setByte(17, Trip.getMiaoliCounty());
-			pstmt.setByte(18, Trip.getChanghuaCounty());
-			pstmt.setByte(19, Trip.getNantouCounty());
-			pstmt.setByte(20, Trip.getYunlinCounty());
-			pstmt.setByte(21, Trip.getChiayiCounty());
-			pstmt.setByte(22, Trip.getPingtungCounty());
-			pstmt.setByte(23, Trip.getYilanCity());
-			pstmt.setByte(24, Trip.getHualienCity());
-			pstmt.setByte(25, Trip.getTaitungCounty());
-			pstmt.setByte(26, Trip.getKinmenCounty());
-			pstmt.setByte(27, Trip.getLienchiangCounty());
-			pstmt.setByte(28, Trip.getKeelungCity());
-			pstmt.setByte(29, Trip.getHsinchuCity());
-			pstmt.setByte(30, Trip.getChiayiCity());
-			pstmt.setByte(31, Trip.getPenghuCounty());
+			pstmt.setInt(1, trip.getCompId());
+			pstmt.setString(2, trip.getTripName());
+			pstmt.setInt(3, trip.getAmount());
+			pstmt.setBigDecimal(4, trip.getPrice());
+			pstmt.setInt(5, trip.getPeople());
+			pstmt.setDate(6, trip.getStartTime());
+			pstmt.setDate(7, trip.getEndTime());
+			pstmt.setString(8, trip.getContent());
+			pstmt.setInt(9, trip.getState());
+			pstmt.setByte(10, trip.getTaipeiCity());
+			pstmt.setByte(11, trip.getNewtaipeiCity());
+			pstmt.setByte(12, trip.getTaoyuanCity());
+			pstmt.setByte(13, trip.getTaichungCity());
+			pstmt.setByte(14, trip.getTainanCity());
+			pstmt.setByte(15, trip.getKaohsiungCity());
+			pstmt.setByte(16, trip.getHsinchuCounty());
+			pstmt.setByte(17, trip.getMiaoliCounty());
+			pstmt.setByte(18, trip.getChanghuaCounty());
+			pstmt.setByte(19, trip.getNantouCounty());
+			pstmt.setByte(20, trip.getYunlinCounty());
+			pstmt.setByte(21, trip.getChiayiCounty());
+			pstmt.setByte(22, trip.getPingtungCounty());
+			pstmt.setByte(23, trip.getYilanCity());
+			pstmt.setByte(24, trip.getHualienCity());
+			pstmt.setByte(25, trip.getTaitungCounty());
+			pstmt.setByte(26, trip.getKinmenCounty());
+			pstmt.setByte(27, trip.getLienchiangCounty());
+			pstmt.setByte(28, trip.getKeelungCity());
+			pstmt.setByte(29, trip.getHsinchuCity());
+			pstmt.setByte(30, trip.getChiayiCity());
+			pstmt.setByte(31, trip.getPenghuCounty());
+			pstmt.setBytes(32, trip.getMainPhoto());
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		return -1;
 	}
 
 	@Override
-	public void update(Trip Trip) {
+	public int update(Trip trip) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
-			pstmt.setInt(1, Trip.getTripId());
-			pstmt.setInt(2, Trip.getCompId());
-			pstmt.setString(3, Trip.getTripName());
-			pstmt.setInt(4, Trip.getAmount());
-			pstmt.setBigDecimal(5, Trip.getPrice());
-			pstmt.setInt(6, Trip.getPeople());
-			pstmt.setTimestamp(7, Trip.getStartTime());
-			pstmt.setTimestamp(8, Trip.getEndTime());
-			pstmt.setString(9, Trip.getContent());
-			pstmt.setInt(10, Trip.getState());
-			pstmt.setByte(11, Trip.getTaipeiCity());
-			pstmt.setByte(12, Trip.getNewtaipeiCity());
-			pstmt.setByte(13, Trip.getTaoyuanCity());
-			pstmt.setByte(14, Trip.getTaichungCity());
-			pstmt.setByte(15, Trip.getTainanCity());
-			pstmt.setByte(16, Trip.getKaohsiungCity());
-			pstmt.setByte(17, Trip.getHsinchuCounty());
-			pstmt.setByte(18, Trip.getMiaoliCounty());
-			pstmt.setByte(19, Trip.getChanghuaCounty());
-			pstmt.setByte(20, Trip.getNantouCounty());
-			pstmt.setByte(21, Trip.getYunlinCounty());
-			pstmt.setByte(22, Trip.getChiayiCounty());
-			pstmt.setByte(23, Trip.getPingtungCounty());
-			pstmt.setByte(24, Trip.getYilanCity());
-			pstmt.setByte(25, Trip.getHualienCity());
-			pstmt.setByte(26, Trip.getTaitungCounty());
-			pstmt.setByte(27, Trip.getKinmenCounty());
-			pstmt.setByte(28, Trip.getLienchiangCounty());
-			pstmt.setByte(29, Trip.getKeelungCity());
-			pstmt.setByte(30, Trip.getHsinchuCity());
-			pstmt.setByte(31, Trip.getChiayiCity());
-			pstmt.setByte(32, Trip.getPenghuCounty());
-			pstmt.setInt(33, Trip.getTripId());
+			pstmt.setInt(1, trip.getTripId());
+			pstmt.setInt(2, trip.getCompId());
+			pstmt.setString(3, trip.getTripName());
+			pstmt.setInt(4, trip.getAmount());
+			pstmt.setBigDecimal(5, trip.getPrice());
+			pstmt.setInt(6, trip.getPeople());
+			pstmt.setDate(7, trip.getStartTime());
+			pstmt.setDate(8, trip.getEndTime());
+			pstmt.setString(9, trip.getContent());
+			pstmt.setInt(10, trip.getState());
+			pstmt.setByte(11, trip.getTaipeiCity());
+			pstmt.setByte(12, trip.getNewtaipeiCity());
+			pstmt.setByte(13, trip.getTaoyuanCity());
+			pstmt.setByte(14, trip.getTaichungCity());
+			pstmt.setByte(15, trip.getTainanCity());
+			pstmt.setByte(16, trip.getKaohsiungCity());
+			pstmt.setByte(17, trip.getHsinchuCounty());
+			pstmt.setByte(18, trip.getMiaoliCounty());
+			pstmt.setByte(19, trip.getChanghuaCounty());
+			pstmt.setByte(20, trip.getNantouCounty());
+			pstmt.setByte(21, trip.getYunlinCounty());
+			pstmt.setByte(22, trip.getChiayiCounty());
+			pstmt.setByte(23, trip.getPingtungCounty());
+			pstmt.setByte(24, trip.getYilanCity());
+			pstmt.setByte(25, trip.getHualienCity());
+			pstmt.setByte(26, trip.getTaitungCounty());
+			pstmt.setByte(27, trip.getKinmenCounty());
+			pstmt.setByte(28, trip.getLienchiangCounty());
+			pstmt.setByte(29, trip.getKeelungCity());
+			pstmt.setByte(30, trip.getHsinchuCity());
+			pstmt.setByte(31, trip.getChiayiCity());
+			pstmt.setByte(32, trip.getPenghuCounty());
+			pstmt.setBytes(33, trip.getMainPhoto());
+			pstmt.setInt(34, trip.getTripId());
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		return -1;
 	}
 
 	@Override
-	public void delete(Integer trip_id) {
+	public int delete(Integer trip_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -147,10 +152,11 @@ public class TripJDBCDAO implements TripDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		return -1;
 	}
 
 	@Override
-	public Trip findByPrimaryKey(Integer trip_id) {
+	public Trip findByPK(Integer trip_id) {
 		Trip trVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -168,8 +174,8 @@ public class TripJDBCDAO implements TripDAO_interface {
 				trVO.setAmount(rs.getInt("amount"));
 				trVO.setPrice(rs.getBigDecimal("price"));
 				trVO.setPeople(rs.getInt("people"));
-				trVO.setStartTime(rs.getTimestamp("start_time"));
-				trVO.setEndTime(rs.getTimestamp("end_time"));
+				trVO.setStartTime(rs.getDate("start_time"));
+				trVO.setEndTime(rs.getDate("end_time"));
 				trVO.setContent(rs.getString("content"));
 				trVO.setState(rs.getInt("state"));
 				trVO.setTaipeiCity(rs.getByte("Taipei_city"));
@@ -194,6 +200,7 @@ public class TripJDBCDAO implements TripDAO_interface {
 				trVO.setHsinchuCity(rs.getByte("Hsinchu_city"));
 				trVO.setChiayiCity(rs.getByte("chiayi_city"));
 				trVO.setPenghuCounty(rs.getByte("Penghu_county"));
+				trVO.setMainPhoto(rs.getBytes("main_photo"));
 			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -222,8 +229,8 @@ public class TripJDBCDAO implements TripDAO_interface {
 				trVO.setAmount(rs.getInt("amount"));
 				trVO.setPrice(rs.getBigDecimal("price"));
 				trVO.setPeople(rs.getInt("people"));
-				trVO.setStartTime(rs.getTimestamp("start_time"));
-				trVO.setEndTime(rs.getTimestamp("end_time"));
+				trVO.setStartTime(rs.getDate("start_time"));
+				trVO.setEndTime(rs.getDate("end_time"));
 				trVO.setContent(rs.getString("content"));
 				trVO.setState(rs.getInt("state"));
 				trVO.setTaipeiCity(rs.getByte("taipei_city"));
@@ -248,6 +255,7 @@ public class TripJDBCDAO implements TripDAO_interface {
 				trVO.setHsinchuCity(rs.getByte("hsinchu_city"));
 				trVO.setChiayiCity(rs.getByte("chiayi_city"));
 				trVO.setPenghuCounty(rs.getByte("penghu_county"));
+				trVO.setMainPhoto(rs.getBytes("main_photo"));
 				list.add(trVO);
 			}
 		} catch (SQLException se) {
@@ -260,8 +268,8 @@ public class TripJDBCDAO implements TripDAO_interface {
 
 	public static void main(String[] args) {
 		TripJDBCDAO dao = new TripJDBCDAO();
-		Date date = new Date();
-		Timestamp time_s = new Timestamp(date.getTime());
+		java.util.Date date = new java.util.Date();
+		Date time_s = new Date(date.getTime());
 		// 新增
 //		Trip tripVO1 = new Trip();
 //		tripVO1.setCompId(2);
@@ -304,8 +312,8 @@ public class TripJDBCDAO implements TripDAO_interface {
 //		tripVO2.setAmount(1);
 //		tripVO2.setPrice(new BigDecimal(1));
 //		tripVO2.setPeople(1);
-//		tripVO2.setStartTime(java.sql.Timestamp.valueOf("2005-01-01 10:10:49"));
-//		tripVO2.setEndTime(java.sql.Timestamp.valueOf("2005-01-01 10:10:49"));
+//		tripVO2.setStartTime(java.sql.Date.valueOf("2005-01-01 10:10:49"));
+//		tripVO2.setEndTime(java.sql.Date.valueOf("2005-01-01 10:10:49"));
 //		tripVO2.setContent("1");
 //		tripVO2.setState(1);
 //		tripVO2.setTaipeiCity((byte) 1);
@@ -409,5 +417,30 @@ public class TripJDBCDAO implements TripDAO_interface {
 //			System.out.print(aTrip.getChiayiCity() + ",");
 //			System.out.println(aTrip.getPenghuCounty());
 //		}
+	}
+
+
+	@Override
+	public List<Trip> findTripByCompId(Integer compId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int deleteAllPhoto(Integer tripId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public byte[] getMainPhoto(Integer tripId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<Trip_photo> getAllPhotoByTripId(Integer tripId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

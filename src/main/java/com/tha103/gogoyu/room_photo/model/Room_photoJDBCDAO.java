@@ -31,7 +31,7 @@ public class Room_photoJDBCDAO implements Room_photoDAO_interface {
 	private static final String UPDATE = "UPDATE roomPhoto set room_id = ?,photo = ?,upload_time = ? where room_photo_id = ?";
 	
 	@Override
-	public void insert(Room_photo roomPhoto) {
+	public int add(Room_photo roomPhoto) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -49,7 +49,7 @@ public class Room_photoJDBCDAO implements Room_photoDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
-
+		return -1;
 	}
 	
 	public static byte[] getPictureByteArray(String path) throws IOException {
@@ -61,7 +61,7 @@ public class Room_photoJDBCDAO implements Room_photoDAO_interface {
 	}
 
 	@Override
-	public void update(Room_photo roomPhoto) {
+	public int update(Room_photo roomPhoto) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -81,11 +81,11 @@ public class Room_photoJDBCDAO implements Room_photoDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
-
+		return -1;
 	}
 
 	@Override
-	public void delete(Integer roomPhotoId) {
+	public int delete(Integer roomPhotoId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -107,11 +107,11 @@ public class Room_photoJDBCDAO implements Room_photoDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
-
+		return -1;
 	}
 
 	@Override
-	public Room_photo findByPrimaryKey(Integer roomPhotoId) {
+	public Room_photo findByPK(Integer roomPhotoId) {
 		Room_photo roomPhoto = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -205,7 +205,7 @@ public class Room_photoJDBCDAO implements Room_photoDAO_interface {
 //		dao.delete(1004);
 		
 		//查詢
-//		Room_photo photo003 =dao.findByPrimaryKey(1005);
+//		Room_photo photo003 =dao.findByPK(1005);
 //		System.out.print(photo003.getRoomId() +",");
 //		System.out.print(photo003.getPhoto() +",");
 //		System.out.print(photo003.getUploadTime()+" ");

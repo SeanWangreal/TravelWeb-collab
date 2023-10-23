@@ -1,13 +1,19 @@
 package com.tha103.gogoyu.trip.model;
 
 import java.util.List;
+import java.util.Set;
+import com.tha103.gogoyu.trip_photo.model.Trip_photo;
+
 
 public interface TripDAO_interface {
-    public void insert(Trip Trip);
-    public void update(Trip Trip);
-    public void delete(Integer tripVO);
-    public Trip findByPrimaryKey(Integer tripVO);
-    public List<Trip> getAll();
-    //萬用複合查詢(傳入參數型態Map)(回傳 List)
-//  public List<EmpVO> getAll(Map<String, String[]> map); 
+	int add(Trip Trip);
+	int update(Trip Trip);
+	int delete(Integer tripId);
+	Trip findByPK(Integer tripId);
+	List<Trip> findTripByCompId(Integer compId);
+	List<Trip> getAll();
+	Set<Trip_photo> getAllPhotoByTripId(Integer tripId);
+	int deleteAllPhoto(Integer tripId);
+	byte[] getMainPhoto(Integer tripId);
+
 }

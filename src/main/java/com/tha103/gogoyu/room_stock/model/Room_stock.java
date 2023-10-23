@@ -17,7 +17,7 @@ public class Room_stock implements java.io.Serializable {
 	@Column(name = "room_stock_id", updatable = false)
 	private Integer roomStockId;
 	
-	@Column(name = "room_id")
+	@Column(name = "room_id", updatable = false)
 	private Integer roomId;
 	
 	@Column(name ="stock_date")

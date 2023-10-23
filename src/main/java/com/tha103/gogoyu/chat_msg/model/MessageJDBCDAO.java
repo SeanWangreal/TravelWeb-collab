@@ -6,11 +6,6 @@ import java.sql.*;
 import util.Util;
 
 public class MessageJDBCDAO implements MessageDAO_interface {
-	private static final String INSERT_STMT = "INSERT INTO Message (chat_room_id,msg_log,mem_id,msg_time) VALUES (?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT msg_id,chat_room_id,mem_id,msg_log,msg_time FROM Message order by msg_id";
-	private static final String GET_ONE_STMT = "SELECT msg_id,chat_room_id,mem_id,msg_log,msg_time FROM Message where msg_id= ?";
-	private static final String DELETE = "DELETE FROM Message where msg_id = ?";
-	private static final String UPDATE = "UPDATE Message set chat_room_id=?, mem_id=?, msg_log=?, msg_time=? where msg_id = ?";
 	static {
 		try {
 			Class.forName(Util.DRIVER);
@@ -18,7 +13,12 @@ public class MessageJDBCDAO implements MessageDAO_interface {
 			e.printStackTrace();
 		}
 	}
-
+	private static final String INSERT_STMT = "INSERT INTO Message (chat_room_id,msg_log,mem_id,msg_time) VALUES (?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT msg_id,chat_room_id,mem_id,msg_log,msg_time FROM Message order by msg_id";
+	private static final String GET_ONE_STMT = "SELECT msg_id,chat_room_id,mem_id,msg_log,msg_time FROM Message where msg_id= ?";
+	private static final String DELETE = "DELETE FROM Message where msg_id = ?";
+	private static final String UPDATE = "UPDATE Message set chat_room_id=?, mem_id=?, msg_log=?, msg_time=? where msg_id = ?";
+	
 	@Override
 	public void insert(Message Message) {
 		Connection con = null;

@@ -19,7 +19,7 @@ public class Room_photo implements Serializable {
 	@Column(name = "room_photo_id", updatable = false)
 	private Integer roomPhotoId;
 	
-	@Column(name="room_id")
+	@Column(name="room_id", updatable = false)
 	private Integer roomId;
 	
 	@Column(name = "photo", columnDefinition = "longblob")

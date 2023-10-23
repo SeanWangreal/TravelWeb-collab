@@ -30,7 +30,7 @@ public class CompanyJDBCDAO implements CompanyDAO_interface {
 			+ "comp_password = ? ,comp_mail = ? ,comp_photo = ?,check_status = ?  " + "where comp_id = ?";
 
 	@Override
-	public void insert(Company Company) {
+	public int add(Company Company) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -55,10 +55,11 @@ public class CompanyJDBCDAO implements CompanyDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		return -1;
 	}
 
 	@Override
-	public void update(Company Company) {
+	public int update(Company Company) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -83,10 +84,11 @@ public class CompanyJDBCDAO implements CompanyDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		return -1;
 	}
 
 	@Override
-	public void delete(Integer comp_id) {
+	public int delete(Integer comp_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -99,10 +101,11 @@ public class CompanyJDBCDAO implements CompanyDAO_interface {
 		} finally {
 			Util.closeResources(con, pstmt, null);
 		}
+		return -1;
 	}
 
 	@Override
-	public Company findByPrimaryKey(Integer comp_id) {
+	public Company findByPK(Integer comp_id) {
 		Company comVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -188,7 +191,7 @@ public class CompanyJDBCDAO implements CompanyDAO_interface {
 //			comVO1.setCompType(1);
 //			comVO1.setCheckStatus(1);
 //			comVO1.setHotelInfoId(1);
-//			dao.insert(comVO1);
+//			dao.add(comVO1);
 
 		// 修改
 //			Company comVO2= new Company();
@@ -210,7 +213,7 @@ public class CompanyJDBCDAO implements CompanyDAO_interface {
 //			dao.delete(1);
 
 		// 查詢
-//		Company comVO4 = dao.findByPrimaryKey(2);
+//		Company comVO4 = dao.findByPK(2);
 //		System.out.print(comVO4.getCompName() + ",");
 //		System.out.print(comVO4.getCompAddress() + ",");
 //		System.out.print(comVO4.getCompPhone() + ",");
@@ -240,5 +243,17 @@ public class CompanyJDBCDAO implements CompanyDAO_interface {
 //			System.out.println(aComp.getHotelInfoId());
 //			System.out.println("---------------------");
 //		}
+	}
+
+	@Override
+	public List<Company> getByCheckStatus() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updChkStatus(Integer compId, Integer checkStatus) {
+		// TODO Auto-generated method stub
+		
 	}
 }

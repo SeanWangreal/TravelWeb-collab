@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import util.Util;
 
-public class PlanningJDBCDAO implements PlanningDAO_interface {
+public class PlanningJDBCDAO //implements PlanningDAO_interface 
+{
 	static {
 		try {
 			Class.forName(Util.DRIVER);
@@ -29,7 +30,7 @@ public class PlanningJDBCDAO implements PlanningDAO_interface {
 	private static final String GET_ALL_STMT = 
 		"SELECT * FROM planning";
 	
-	@Override
+//	@Override
 	public int add(Planning planning) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -37,7 +38,7 @@ public class PlanningJDBCDAO implements PlanningDAO_interface {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(INSERT_STMT);
 			pstmt.setInt(1, planning.getCusId());
-			pstmt.setString(2, planning.getPlanName());
+//			pstmt.setString(2, planning.getPlanName());
 			pstmt.executeUpdate();
 			return 1;
 		}  catch (SQLException se) {
@@ -48,7 +49,7 @@ public class PlanningJDBCDAO implements PlanningDAO_interface {
 		}
 	}
 
-	@Override
+//	@Override
 	public int update(Planning planning) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -56,7 +57,7 @@ public class PlanningJDBCDAO implements PlanningDAO_interface {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
 			pstmt.setInt(1, planning.getCusId());
-			pstmt.setString(2, planning.getPlanName());
+//			pstmt.setString(2, planning.getPlanName());
 			pstmt.setInt(3, planning.getPlanId());
 			pstmt.executeUpdate();
 			return 1;
@@ -68,7 +69,7 @@ public class PlanningJDBCDAO implements PlanningDAO_interface {
 		}
 	}
 
-	@Override
+//	@Override
 	public int delete(Integer planning_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -86,7 +87,7 @@ public class PlanningJDBCDAO implements PlanningDAO_interface {
 		}
 	}
 
-	@Override
+//	@Override
 	public Planning findByPK(Integer planning_id) {
 		Planning planning = null;
 		Connection con = null;
@@ -101,7 +102,7 @@ public class PlanningJDBCDAO implements PlanningDAO_interface {
 				planning = new Planning();
 				planning.setPlanId(rs.getInt("plan_id"));
 				planning.setCusId(rs.getInt("cus_id"));
-				planning.setPlanName(rs.getString("plan_name"));
+//				planning.setPlanName(rs.getString("plan_name"));
 			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -112,7 +113,7 @@ public class PlanningJDBCDAO implements PlanningDAO_interface {
 		return planning;
 	}
 
-	@Override
+//	@Override
 	public List<Planning> getAll() {
 		List<Planning> list = new ArrayList<Planning>();
 		Planning planning = null;
@@ -127,7 +128,7 @@ public class PlanningJDBCDAO implements PlanningDAO_interface {
 				planning = new Planning();
 				planning.setPlanId(rs.getInt("plan_id"));
 				planning.setCusId(rs.getInt("cus_id"));
-				planning.setPlanName(rs.getString("plan_name"));
+//				planning.setPlanName(rs.getString("plan_name"));
 				list.add(planning); 
 			}
 		} catch (SQLException se) {
@@ -142,30 +143,30 @@ public class PlanningJDBCDAO implements PlanningDAO_interface {
 	public static void main(String[] args) {
 		PlanningJDBCDAO dao = new PlanningJDBCDAO();
 
-//		// 新增
+//		// �啣�
 //		Planning planning01 = new Planning();
 //		planning01.setCusId(2);
-//		planning01.setPlanName("測試新增2");
-//		dao.add(planning01);
+//		planning01.setPlanName("皜祈岫�啣�2");
+//		dao.insert(planning01);
 
-//		// 修改
+//		// 靽格��
 //		Planning planning02 = new Planning();
 //		planning02.setPlanId(1);
 //		planning02.setCusId(1);
-//		planning02.setPlanName("測試修改");	
+//		planning02.setPlanName("皜祈岫靽格��");	
 //		dao.update(planning02);
 
-//		// 刪除
+//		// �芷��
 //		dao.delete(1);
 
-//		// 查詢單筆
-//		Planning planning03 = dao.findByPK(2);
+//		// �亥岷�桃�
+//		Planning planning03 = dao.findByPrimaryKey(2);
 //		System.out.print(planning03.getPlanId() + ",");
 //		System.out.print(planning03.getCusId() + ",");
 //		System.out.println(planning03.getPlanName());
 //		System.out.println("---------------------");
 
-//		// 查詢全部
+//		// �亥岷�券��
 //		List<Planning> list = dao.getAll();
 //		for(Planning aPlanning : list) {
 //			System.out.print(aPlanning.getPlanId() + ",");

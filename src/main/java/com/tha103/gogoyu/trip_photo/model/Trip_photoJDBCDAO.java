@@ -20,6 +20,8 @@ public class Trip_photoJDBCDAO implements Trip_photoDAO_interface {
 	private static final String DELETE = "DELETE FROM trip_photo WHERE trip_photo_id = ?";
 	private static final String GET_ONE_STMT = "SELECT * FROM trip_photo WHERE trip_photo_id = ?";
 	private static final String GET_ALL_STMT = "SELECT * FROM trip_photo";
+	//for picture
+	private static final String getBinary = "SELECT photo from trip_photo where trip_photo_id = ?";
 
 	static {
 		try {
@@ -28,6 +30,25 @@ public class Trip_photoJDBCDAO implements Trip_photoDAO_interface {
 			e.printStackTrace();
 		}
 	}
+	
+
+	public byte[] getPic(Integer trip_photo_id) throws Exception {
+		Connection con = null ;
+		PreparedStatement pstmt = null ;
+		ResultSet rs = null ;
+		byte[] picc = null;
+		
+			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			pstmt = con.prepareStatement(getBinary);
+			pstmt.setInt(1, trip_photo_id);
+			rs = pstmt.executeQuery(); 
+			
+		while (rs.next()) { 
+			picc = rs.getBytes("photo");
+		}
+			
+		return picc;
+	} 
 
 	@Override
 	public int add(Trip_photo trip_photo) {

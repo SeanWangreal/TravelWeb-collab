@@ -7,40 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TravelMaker</title>
     <link href="../dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../static/css/comp_product.css">
+    <link rel="stylesheet" href="../static/sean_css/comp_product.css">
     </script>
     <style>
-
-        @media (min-height: 500px) and (max-height: 1300px) {
-            .shop {
-                height: 60vh;
-            }
-
-            .info {
-                height: 60vh;
-            }
-        }
-
-        @media (min-height: 0px) and (max-height: 500px) {
-            .shop {
-                height: 60vh;
-            }
-
-            .info {
-                height: 60vh;
-            }
-        }
-
        
     </style>
 </head>
 
 <body>
-    <script src="./vendors/jquery/jquery-3.7.1.min.js"></script>
+    <script src="../vendors/jquery/jquery-3.7.1.min.js"></script>
     <nav class="st">
         <!-- <a class="word" id="home" href="#">Home</a> -->
         <div class="head">
-            </button>
             <button type="menu" class="head_btn" id="msg">
                 <i class="fa-regular fa-message icon" style="color: black; font-size:30px; 
                             background-color:transparent;"></i>
@@ -104,7 +82,7 @@
                             <button type="button" class="delete">刪除</button>
                         </div>
                     </div>
-                    <hr>
+                    <hr class="between">
                     <div class="all-info">
                         <span class="room-info" style="width: 100px;">
                             <label for="">開始日期:</label>
@@ -147,7 +125,7 @@
             </div>
         </div>
     </div>
-    <script src="../static/js/btn4com.js"></script>
+    <script src="../static/sean_js/btn4com.js"></script>
     <script>
         var delete_btn = document.querySelectorAll(".delete");
         $(".delete").on("click",function(){

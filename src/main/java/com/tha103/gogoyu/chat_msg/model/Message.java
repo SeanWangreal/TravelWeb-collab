@@ -10,17 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 
+@Table(name = "message")
 public class Message implements Serializable {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	private Integer msgId;
-	@Column(name = "chart_room_id", updatable = false)
 	private Integer chatRoomId;
-	@Column(name = "mem_id")
 	private Integer memId;
-	@Column(name = "msg_log")
 	private String msgLog;
-	@Column(name = "msg_time")
 	private Timestamp msgTime;
 
 	public Message() {
