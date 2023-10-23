@@ -100,12 +100,17 @@ public class TripServlet extends HttpServlet {
 			session.setAttribute("compId", compId);
 			List<Trip> tripList = tripSvc.getTripByCompId(Integer.parseInt(compId));
 			LinkedHashMap<Trip, Set<Trip_photo>> map = new LinkedHashMap<Trip, Set<Trip_photo>>();
+			LinkedHashMap<Trip, Set<Itinerary>> itineraryMap = new LinkedHashMap<Trip, Set<Itinerary>>();
 			Set<Trip_photo> tripPhoto = null;
+			Set<Itinerary> itinerary = null;
 			for (Trip li : tripList) {
+				itinerary = tripSvc.getItineraryByTripId(li.getTripId());
 				tripPhoto = tripSvc.getAllPhoto(li.getTripId());
 				map.put(li, tripPhoto);
+				itineraryMap.put(li, itinerary);
 			}
 			req.setAttribute("map", map);
+			req.setAttribute("itineraryMap", itineraryMap);
 			forwardPath = "/sean/trip_ticket_all.jsp";
 			break;
 		case "change":

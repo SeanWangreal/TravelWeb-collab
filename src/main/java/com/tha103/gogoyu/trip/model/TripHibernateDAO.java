@@ -5,6 +5,8 @@ import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
+import com.tha103.gogoyu.itinerary.model.Itinerary;
 import com.tha103.gogoyu.trip_photo.model.Trip_photo;
 
 
@@ -152,6 +154,24 @@ public class TripHibernateDAO implements TripDAO_interface{
 					.uniqueResult();
 			getSession().getTransaction().commit();
 			return mainPhoto;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+
+	@Override
+	public Set<Itinerary> getItineraryByTripId(Integer tripId) {
+		try {
+			getSession().beginTransaction();
+			Trip trip = getSession().get(Trip.class, tripId);
+			Set<Itinerary> set = trip.getItinerary();
+			for (Itinerary it: set) {
+				getSession().get(Itinerary.class, it.getItineraryId());
+			}
+			getSession().getTransaction().commit();
+			return set;
 		} catch (Exception e) {
 			e.printStackTrace();
 			getSession().getTransaction().rollback();
