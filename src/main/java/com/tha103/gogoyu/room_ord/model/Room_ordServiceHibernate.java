@@ -1,6 +1,7 @@
 package com.tha103.gogoyu.room_ord.model;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class Room_ordServiceHibernate {
 	
 	//for加入購物車時，所以是沒有下完訂單才能有的屬性，例如comment...
 	public Integer addFromShopping(Integer planId, Integer roomId, Integer cusId, Integer amount,
-			BigDecimal totalPrice, BigDecimal commission,BigDecimal profit, Integer people, Timestamp checkInTime, Timestamp checkOutTime,
+			BigDecimal totalPrice, BigDecimal commission,BigDecimal profit, Integer people, Date checkInTime, Date checkOutTime,
 			Integer ordStatus) { 
 
 		Room_ord roomOrd = new Room_ord();
@@ -33,6 +34,7 @@ public class Room_ordServiceHibernate {
 		roomOrd.setTotalPrice(totalPrice);
 		roomOrd.setCommission(commission);
 		roomOrd.setProfit(profit);
+		roomOrd.setPeople(people);
 		roomOrd.setCheckInTime(checkInTime);
 		roomOrd.setCheckOutTime(checkOutTime);
 		roomOrd.setOrdStatus(ordStatus);
@@ -49,7 +51,7 @@ public class Room_ordServiceHibernate {
 	
 	
 	public Room_ord add(Integer planId, Integer roomId, Integer cusId, Integer amount,
-			BigDecimal totalPrice, BigDecimal commission,BigDecimal profit, Integer people, Timestamp checkInTime, Timestamp checkOutTime,
+			BigDecimal totalPrice, BigDecimal commission,BigDecimal profit, Integer people, Date checkInTime, Date checkOutTime,
 			Integer ordStatus, String remark, Integer score, String comments,
 			Timestamp commentsTime) {
 
@@ -78,16 +80,10 @@ public class Room_ordServiceHibernate {
 	
 	
 	
-	
-//	public Room updateStatus(Integer roomId,Integer roomStatus) {
-//		Room room = this.getOneRoom(roomId);
-//		room.setRoomStatus(roomStatus);
-//		dao.update(room);
-//		return room;
-//	}
+
 
 	public Room_ord update(Integer planId, Integer roomId, Integer cusId, Integer amount,
-			BigDecimal totalPrice, BigDecimal commission,BigDecimal profit, Integer people, Timestamp checkInTime, Timestamp checkOutTime,
+			BigDecimal totalPrice, BigDecimal commission,BigDecimal profit, Integer people, Date checkInTime, Date checkOutTime,
 			Integer ordStatus, String remark, Integer score, String comments,
 			Timestamp commentsTime) {
 
@@ -113,6 +109,7 @@ public class Room_ordServiceHibernate {
 	
 	public void delete(Integer room_ordId) {
 		dao.delete(room_ordId);
+		
 	}
 
 	public Room_ord getByRoom_ordID(Integer room_ordId) { 
@@ -121,6 +118,11 @@ public class Room_ordServiceHibernate {
 	}
 	
 
+	public Room_ord getRoomOrd(Integer room_ordId) {  //取得consumer的屬性
+		return dao.findByPK(room_ordId);
+	}
+	
+	
 	
 	public Room_ord getBycusID(Integer room_ordId) {  //取得consumer的屬性
 		return dao.findByPK(room_ordId);
@@ -132,13 +134,14 @@ public class Room_ordServiceHibernate {
 		return dao.getAll();
 	}
 
-//	@Override
-//	public List<Room> getRoomByCompId(Integer compId) {
-//		return dao.findRoomByCompId(compId);
-//	}
-//	public static void main(String[] args) {
-//		RoomServiceHibernate hi = new RoomServiceHibernate();
-//		System.out.println(hi.getAll());
-//	}
 	
+	public List<Room_ord> getRoomOrdVo(Integer cartId , Integer cusId){
+		return dao.getRoomOrdVo(cartId , cusId);
+	}
+	
+	
+	
+	
+	
+
 }

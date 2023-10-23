@@ -1,11 +1,11 @@
 @font-face {
-    font-family: '粉圓';
+    font-family: '蝎���';
     src: url('../font/jf-openhuninn-2.0.ttf'); 
     font-display: swap;
 }
 
 :root {
-    --ifm-font-family-base: "粉圓";
+    --ifm-font-family-base: "蝎���";
 }
 
 nav {
@@ -139,7 +139,7 @@ div>a.left_btn {
     width: 100%;
     padding-top: 10px;
     padding-bottom: 10px;
-    /* font-family: "粉圓"; */
+    /* font-family: "蝎���"; */
     font-weight: bold;
     color: black;
     background-color: white;
@@ -169,7 +169,7 @@ a.left_btn:hover {
 
 
 /* .main-content-info {
-    font-family: "粉圓";
+    font-family: "蝎���";
     font-size: 16px;
     width: 350px;
     margin-left: 20px;
@@ -238,7 +238,7 @@ a.pass-btn {
 
 /* =======================main_content===================== */
 
-/* * 規劃頁籤 */
+/* * 閬�����蝐� */
 div.plan_tab div.tab_list_block {
     width: fit-content;
     padding-left: 10%;
@@ -247,31 +247,31 @@ div.plan_tab div.tab_list_block {
     left: 22%;
     font-size: 30px;
     z-index: 2;
-    font-family: "粉圓";
+    font-family: "蝎���";
 
 }
 
-/* 頁籤列表 */
+/* ��蝐文��銵� */
 div.plan_tab div.tab_list_block ul.tab_list {
     list-style: none;
-    /*去掉list預設點點*/
+    /*�餅��list��閮剝�暺�*/
     display: inline-block;
-    /*讓頁籤水平排列*/
+    /*霈���蝐斗偌撟單����*/
     margin: 0;
     padding: 0;
-    font-family: "粉圓";
+    font-family: "蝎���";
 }
 
 div.plan_tab div.tab_list_block ul.tab_list>li {
     display: inline-block;
-    /*水平排列*/
+    /*瘞游像����*/
 }
 
 div.plan_tab div.tab_list_block ul.tab_list>li>a {
     text-decoration: none;
-    /*預設a標籤的底線拿掉*/
+    /*��閮苔璅�蝐斤��摨�蝺��踵��*/
     display: inline-block;
-    /*水平排列*/
+    /*瘞游像����*/
     border-top: 3px solid #ccc;
     border-right: 3px solid #ccc;
     border-left: 3px solid #ccc;
@@ -281,7 +281,7 @@ div.plan_tab div.tab_list_block ul.tab_list>li>a {
     color: #ccc;
 }
 
-/* 當a標籤觸發後畫出底部白線 */
+/* �軻璅�蝐方孛�澆��怠�箏��函�賜� */
 
 div.plan_tab div.tab_list_block ul.tab_list>li>a.-on {
     border-top: 3px solid black;
@@ -292,7 +292,7 @@ div.plan_tab div.tab_list_block ul.tab_list>li>a.-on {
     background-color: white;
 }
 
-/* 頁籤內容區塊 */
+/* ��蝐文�批捆��憛� */
 div.plan_tab div.tab_contents {
     border: 3px solid black;
 
@@ -305,17 +305,17 @@ div.plan_tab div.tab_contents {
     z-index: 1;
 }
 
-/* 未點擊前不顯示 */
+/* �芷�����銝�憿舐內 */
 div.plan_tab div.tab_contents div.tab {
     padding: 10px;
     display: none;
 }
 
 
-/* 點擊標籤後觸發顯示 */
+/* 暺���璅�蝐文�閫貊�潮＊蝷� */
 div.plan_tab div.tab_contents div.tab.-on {
     display: block;
-    /*預設顯示*/
+    /*��閮剝＊蝷�*/
 }
 
 
@@ -353,7 +353,7 @@ div.tab_contents div div.plan_tab_1 div.plan_tab_1_right {
 
 /* ==========================pay_button(right)========================== */
 
-/* 按鈕四套件*/
+/* ������憟�隞�*/
 div.tab_contents div div.plan_tab_1 div.plan_tab_1_right div.pay_btn {
     position: absolute;
     bottom: 5px;
@@ -362,15 +362,15 @@ div.tab_contents div div.plan_tab_1 div.plan_tab_1_right div.pay_btn {
     width: 26%;
     margin-top: -50px;
     margin-left: 5px;
-    font-family: "粉圓";
+    font-family: "蝎���";
 }
 
-/* 移除&付款的div按鈕 */
+/* 蝘駁��&隞�甈曄��div���� */
 div.pay_or_remove {
     display: flex;
 }
 
-/* pay的個別按鈕 */
+/* pay�����交���� */
 div.tab_contents div div.plan_tab_1 div.plan_tab_1_right div.pay_btn button.b {
     border-radius: 10px;
     margin: 3px;
@@ -378,7 +378,7 @@ div.tab_contents div div.plan_tab_1 div.plan_tab_1_right div.pay_btn button.b {
     color: white;
 }
 
-/* 滑鼠移過去有顏色 */
+/* 皛�曌�蝘駁���餅��憿��� */
 div.tab_contents div div.plan_tab_1 div.plan_tab_1_right div.pay_btn button.b:hover {
     color: #FCC416;
 }
@@ -396,7 +396,7 @@ div.tab_contents div div.plan_tab_1 div.plan_tab_1_right div.pay_btn button.b:ho
 
 
 
-/* 售價div */
+/* �桀�鉅iv */
 .price_set {
     position: absolute;
     right: 110px;
@@ -406,7 +406,7 @@ div.tab_contents div div.plan_tab_1 div.plan_tab_1_right div.pay_btn button.b:ho
 }
 
 
-/* 售價_nt */
+/* �桀�鉤nt */
 .howmuch_nt {
     position: absolute;
     font-size: 30px;
@@ -416,9 +416,9 @@ div.tab_contents div div.plan_tab_1 div.plan_tab_1_right div.pay_btn button.b:ho
 }
 
 
-/* 售價 */
+/* �桀�� */
 .howmuch {
-    font-family: "粉圓";
+    font-family: "蝎���";
     font-size: 22px;
     position: relative;
     left: 100%;
@@ -426,11 +426,11 @@ div.tab_contents div div.plan_tab_1 div.plan_tab_1_right div.pay_btn button.b:ho
 }
 
 
-/* "價格"字樣 */
+/* "�寞��"摮�璅� */
 .book_price {
     /* text-decoration: underline; */
 
-    font-family: "粉圓";
+    font-family: "蝎���";
     font-size: 30px;
     position: absolute;
     right: 7%;
@@ -441,7 +441,7 @@ div.tab_contents div div.plan_tab_1 div.plan_tab_1_right div.pay_btn button.b:ho
 
 
 
-/* 評論+標題雙雙件套 */
+/* 閰�隢�+璅�憿�����隞嗅� */
 .right_side_first_row {
     display: flex;
     margin: 0px;
@@ -454,7 +454,7 @@ div.tab_contents div div.plan_tab_1 div.plan_tab_1_right div.pay_btn button.b:ho
 
 
 
-/* 評論雙件套 */
+/* 閰�隢���隞嗅� */
 .comment_set {
     position: absolute;
     right: 30px;
@@ -463,7 +463,7 @@ div.tab_contents div div.plan_tab_1 div.plan_tab_1_right div.pay_btn button.b:ho
 
 }
 
-/* 評論星星數 */
+/* 閰�隢������� */
 .count_star {
     margin-left: 20px;
     margin-top: 15px;
@@ -477,39 +477,39 @@ div.tab_contents div div.plan_tab_1 div.plan_tab_1_right div.pay_btn button.b:ho
     border-radius: 5px;
 }
 
-/* 評論訊息 */
+/* 閰�隢�閮��� */
 .comment_message {
     font-size: 50px;
 }
 
 
 
-/* 標題雙件套 */
+/* 璅�憿���隞嗅� */
 div.title_set {
     position: relative;
     margin-left: 0px;
 }
 
 
-/* 飯店or行程mark */
+/* 憌臬�or銵�蝔�mark */
 .mark_for_type_hotel {
     border: 2px solid black;
     border-radius: 2px;
-    font-family: "粉圓";
+    font-family: "蝎���";
     background-color: lightblue;
 }
 
 .mark_for_type_trip {
     border: 2px solid black;
     border-radius: 2px;
-    font-family: "粉圓";
+    font-family: "蝎���";
     background-color: lightgreen;
 }
 
-/* 飯店or行程標題 */
+/* 憌臬�or銵�蝔�璅�憿� */
 #named_of_title {
     font-size: 25px;
-    font-family: "粉圓";
+    font-family: "蝎���";
     margin-left: 2px;
 
 }
@@ -531,7 +531,7 @@ img {
 
 
 
-/*搜尋欄的css */
+/*��撠�甈���css */
 div.plan_tab div.selectColumn{
     background-color:wheat;
     border-radius: 30%;
@@ -543,7 +543,7 @@ div.plan_tab div.selectColumn{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    font-family: "粉圓";
+    font-family: "蝎���";
 
 }
 
@@ -557,7 +557,7 @@ div.plan_tab div.selectColumn{
 
         #change_pass {
             margin-top: 15px;
-            font-family: "粉圓";
+            font-family: "蝎���";
             font-size: 16px;
             margin-left: 1%;
             margin-right: 3%;

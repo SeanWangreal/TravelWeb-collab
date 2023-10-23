@@ -127,6 +127,11 @@ public class TripServiceHibernate implements TripService {
 		return trip;
 		
 	}
+	public Trip getTrip(Integer tripid) {
+
+		return dao.findByPK(tripid);
+		
+	}
 	@Override
 	public List<Trip> getTripByCompId(Integer compId) {
 		return dao.findTripByCompId(compId);
@@ -140,4 +145,9 @@ public class TripServiceHibernate implements TripService {
 	public int deleteAllPhoto(Integer tripId) {
 		return dao.deleteAllPhoto(tripId);
 	}
+	
+	
+	
+	
+	
 }

@@ -63,15 +63,12 @@ public class RoomServiceHibernate implements RoomService{
 		return dao.findByPK(roomId);
 	}
 	
-	public BigDecimal getByPrice(Integer room_Id) { //���oprice���ݩ�
-		
-		Room rm = dao.findByPK(room_Id);
-			
-		return  rm.getPrice();
-	}
-	
-	
-	
+	//order¨ú±oprice¨Ï¥Î
+		@Override
+		public Room getRoom(Integer roomId) {
+			return dao.findByPK(roomId);
+		}
+
 	public List<Room> getAll() {
 		return dao.getAll();
 	}
@@ -83,9 +80,9 @@ public class RoomServiceHibernate implements RoomService{
 
 	@Override
 	public byte[] getMainPhoto(Integer roomId) {
-		return dao.getMainPhoto(roomId); 
+		return dao.getMainPhoto(roomId);
+ 
 	}
-	
 	@Override
 	public int deleteAllPhoto(Integer roomId) {
 		return dao.deleteAllPhoto(roomId);
@@ -95,11 +92,6 @@ public class RoomServiceHibernate implements RoomService{
 	public Set<Room_photo> getAllPhoto(Integer roomId) {
 		return dao.getAllPhoto(roomId);
 	}
-	
-	public List<Room> getHotRoom() {
-		return dao.getHotRoom();
-	}
-	
 	public static void main(String[] args) {
 		RoomServiceHibernate hi = new RoomServiceHibernate();
 		System.out.println(hi.getAll());

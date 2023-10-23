@@ -3,6 +3,7 @@ package com.tha103.gogoyu.trip.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.sql.Date;
 import java.util.Set;
 
@@ -151,7 +152,7 @@ public class Trip implements Serializable {
 	private byte[] mainPhoto;
 
 	public Trip(Integer tripId, Integer compId, String tripName, Integer amount, BigDecimal price, Integer people,
-			Date startTime, Date endTime, String content, Integer state, byte taipeiCity, byte newtaipeiCity,
+			Date  startTime, Date  endTime, String content, Integer state, byte taipeiCity, byte newtaipeiCity,
 			byte taoyuanCity, byte taichungCity, byte tainanCity, byte kaohsiungCity, byte hsinchuCounty,
 			byte miaoliCounty, byte changhuaCounty, byte nantouCounty, byte yunlinCounty, byte chiayiCounty,
 			byte pingtungCounty, byte yilanCity, byte hualienCity, byte taitungCounty, byte kinmenCounty,
@@ -250,19 +251,19 @@ public class Trip implements Serializable {
 		this.people = people;
 	}
 
-	public Date getStartTime() {
+	public Date  getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Date startTime) {
+	public void setStartTime(Date  startTime) {
 		this.startTime = startTime;
 	}
 
-	public Date getEndTime() {
+	public Date  getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Date endTime) {
+	public void setEndTime(Date  endTime) {
 		this.endTime = endTime;
 	}
 

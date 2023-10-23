@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.tha103.gogoyu.room_stock.model.RoomStockService;
 import com.tha103.gogoyu.room_stock.model.RoomStockServiceHibernate;
 import com.tha103.gogoyu.room_stock.model.Room_stock;
@@ -70,20 +72,23 @@ public class RoomStockServlet extends HttpServlet {
 			String[] deleteId = req.getParameterValues("deleteStock");
 			String[] newStock = req.getParameterValues("newStock");
 			String[] newStockDate = req.getParameterValues("newStockDate");
-			Map<Integer, Integer> oldMap = new HashMap<Integer, Integer>();
-			List<Integer> deleteIdList = new ArrayList<Integer>();
-			Map<Date, Integer> newStockMap = new HashMap<Date, Integer>();
+			Map<Integer, Integer> oldMap = null;
+			List<Integer> deleteIdList = null;
+			Map<Date, Integer> newStockMap = null;
 			if (oldId != null) {
+				oldMap = new LinkedHashMap<Integer, Integer>();
 				for (int i = 0; i < oldId.length; i++) {
 					oldMap.put(Integer.parseInt(oldId[i]), Integer.parseInt(oldStock[i]));
 				}
 			}
 			if (deleteId != null) {
+				deleteIdList = new ArrayList<Integer>();
 				for (int i = 0; i < deleteId.length; i++) {
 					deleteIdList.add(Integer.parseInt(deleteId[i]));
 				}
 			}
 			if (newStock != null) {
+				newStockMap = new LinkedHashMap<Date, Integer>();
 				for (int i = 0; i < newStock.length; i++) {
 					newStockMap.put(Date.valueOf(newStockDate[i]), Integer.parseInt(newStock[i]));
 				}
@@ -94,8 +99,8 @@ public class RoomStockServlet extends HttpServlet {
 		case "showStocks":
 			PrintWriter out  = res.getWriter();
 			List<Room_stock> stocks = roomStockSvc.getStockByTodayByRoomId(Integer.parseInt(roomId));
-			Gson json = new Gson();
-			String str = json.toJson(stocks);
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			String str = gson.toJson(stocks);
 			System.out.println(str);
 			out.write(str);
 			return;

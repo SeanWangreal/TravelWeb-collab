@@ -186,7 +186,7 @@ public class Room_stockHibernateDAO implements Room_stockDAO_interface {
 					getSession().update(roomStock);
 				}
 			}
-			if (deleteRoomStock != null) {
+			if (deleteRoomStock != null ) {
 				for (Room_stock roomStock: deleteRoomStock) {
 					getSession().delete(roomStock);
 				}
