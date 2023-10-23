@@ -1,6 +1,10 @@
 package com.tha103.gogoyu.room.model;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -213,12 +217,19 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 		}
 		return list;
 	}
+	
+	public static byte[] getPictureByteArray(String path) throws IOException {
+		FileInputStream fis = new FileInputStream(path);
+		byte[] buffer = fis.readAllBytes();
+		fis.close();
+		return buffer;
+	}
 
 	public static void main(String[] args) {
 		RoomJDBCDAO dao = new RoomJDBCDAO();
 
 		// 新增
-		Room ro1= new Room(); 
+//		Room ro1= new Room(); 
 //		ro1.setCompId(1001);
 //		ro1.setRoomType(3);
 //		ro1.setRoomName("北邊");
@@ -241,14 +252,14 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 
 		// 修改
 //		Room r2 = new Room();
-//		r2.setRoomId(10001);
-//		r2.setCompId(1001);
-//		r2.setRoomType(3);
-//		r2.setRoomName("北邊");
-//		r2.setBeds(3);
-//		r2.setPrice(new BigDecimal(5000));
-//		r2.setIntro("沒什麼");
-//		r2.setRoomStatus(1);
+//		r2.setRoomId(3);
+//		r2.setCompId(1);
+//		r2.setRoomType(1);
+//		r2.setRoomName("豪華單人房");
+//		r2.setBeds(1);
+//		r2.setPrice(new BigDecimal(1000));
+//		r2.setIntro("加大單人床");
+//		r2.setRoomStatus(0);
 //		r2.setTissue((byte) 0);
 //		r2.setShower((byte) 1);
 //		r2.setBathroom((byte) 1);
@@ -260,6 +271,12 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 //		r2.setBathrobe((byte) 1);
 //		r2.setSpatub((byte) 1);
 //		r2.setElectricKettle((byte) 1);
+//		try {
+//			byte[] pic = getPictureByteArray("C:\\Users\\Tibame_T14\\Pictures\\DSC_1295.jpg");
+//			r2.setMainPhoto(pic);
+//		} catch(IOException ie) {
+//			System.out.println(ie);
+//		}
 //		dao.update(r2);
 
 		// 刪除
@@ -337,6 +354,12 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 
 	@Override
 	public List<Room> getHotRoom() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Room> searchRoom(String comp_address, Date checkIn, Date checkOut, Integer number) {
 		// TODO Auto-generated method stub
 		return null;
 	}

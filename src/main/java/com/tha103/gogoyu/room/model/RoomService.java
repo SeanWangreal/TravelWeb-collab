@@ -1,6 +1,7 @@
 package com.tha103.gogoyu.room.model;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -20,4 +21,6 @@ public interface RoomService {
 	public int deleteAllPhoto(Integer roomId);
 	public Set<Room_photo> getAllPhoto(Integer roomId);
 	public Room getRoom(Integer roomId);
+	public List<Room> getHotRoom();
+	public List<Room> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number);
 }

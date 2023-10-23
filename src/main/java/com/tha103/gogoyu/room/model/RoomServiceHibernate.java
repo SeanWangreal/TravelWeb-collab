@@ -1,6 +1,7 @@
 package com.tha103.gogoyu.room.model;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -92,6 +93,15 @@ public class RoomServiceHibernate implements RoomService{
 	public Set<Room_photo> getAllPhoto(Integer roomId) {
 		return dao.getAllPhoto(roomId);
 	}
+	
+	public List<Room> getHotRoom(){
+		return dao.getHotRoom();
+	}
+	
+	public List<Room> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number){
+		return dao.searchRoom(comp_address, checkIn, checkOut, number);
+	}
+	
 	public static void main(String[] args) {
 		RoomServiceHibernate hi = new RoomServiceHibernate();
 		System.out.println(hi.getAll());
