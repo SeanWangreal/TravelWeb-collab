@@ -69,7 +69,9 @@ Company company = (Company) request.getAttribute("Company"); //Servlet.java(Conc
             <br>shop<br>shop<br>shop<br>shop<br>shop<br>shop
         </aside>
     </nav>
-    <form METHOD="post" ACTION="/CompanyServlet">
+    <jsp:useBean id="companySvc" scope="page" class="com.tha103.gogoyu.company.model.CompanyService" />
+    
+    <form METHOD="post" ACTION="<%=request.getContextPath()%>/CompanyServlet">
         <div class="container-fluid" style="background-color: #d9d2c5;">
             <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;" >
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4" >
@@ -78,11 +80,11 @@ Company company = (Company) request.getAttribute("Company"); //Servlet.java(Conc
                             <h3>登入帳號</h3>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" >
+                            <input type="text" class="form-control" id="floatingInput" value="abca1">
                             <label for="floatingInput">帳號</label>
                         </div>
                         <div class="form-floating mb-4">
-                            <input type="password" class="form-control" id="floatingPassword" >
+                            <input type="password" class="form-control" id="floatingPassword" value="a2341">
                             <label for="floatingPassword">密碼</label>
                         </div>
                         <div class="d-flex align-items-center justify-content-between mb-4">
@@ -96,7 +98,7 @@ Company company = (Company) request.getAttribute("Company"); //Servlet.java(Conc
         </div>
         <!-- Sign In End -->
     </div>
-     	<input type="hidden" name="action" value="getOne">
+     	<input type="hidden" name="action" value="signIn">
        	<input type="submit" value="送出">
     </form>
    

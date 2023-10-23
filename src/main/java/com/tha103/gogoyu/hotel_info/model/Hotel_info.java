@@ -19,12 +19,7 @@ public class Hotel_info implements java.io.Serializable {
 	@Id
 	@Column(name = "hotel_info_id", updatable = false)
 	private Integer hotelInfoId;
-//	@OneToMany(mappedBy = "Hotel_info")//pk
-//	@OrderBy("hotel_info_id asc")
-//	private Set<Company> comps; 
-	
-	
-	
+
 	@Column(name = "restaurant", columnDefinition = "bit")
 	private byte restaurant;
 
