@@ -137,6 +137,35 @@ public class CompanyHibernateDAO implements CompanyDAO_interface {
 		}
 		
 	}
+
+	@Override
+	public Company updFromBackend(Integer comp_id, String comp_name, String comp_address, String comp_phone,
+			String principal_name, String principal_phone, String comp_account, String comp_mail) {
+		try {
+			getSession().beginTransaction();
+			Query query=getSession().createQuery("update Company set compName=?0 compAddress=?1 compPhone=?2 "
+																			+ "principalName=?3 principalPhone=?4 compAccount=?5 compMail=?6  "
+																			+ "where compId=?7");
+			
+			query.setParameter(0, comp_name);
+			query.setParameter(1, comp_address);
+			query.setParameter(2, comp_phone);
+			query.setParameter(3, principal_name);
+			query.setParameter(4, principal_phone);
+			query.setParameter(5, comp_account);
+			query.setParameter(6, comp_mail);
+			query.setParameter(7, comp_id);
+			query.executeUpdate();
+			Company com= getSession().get(Company.class, comp_id);
+			getSession().getTransaction().commit();
+			
+			return com;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
 	
 	
 	

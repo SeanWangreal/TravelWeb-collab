@@ -49,7 +49,7 @@ public class CompanyService {
 			company.setCompMail(compMail);
 			company.setCompPhoto(compPhoto);
 			company.setCheckStatus(checkStatus);
-			dao.add(company);
+			dao.update(company);
 			return company;
 		}
 		public void deleteCompany(Integer compId) {
