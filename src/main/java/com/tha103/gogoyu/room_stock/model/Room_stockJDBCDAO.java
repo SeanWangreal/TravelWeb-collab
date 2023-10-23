@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import util.Util;
 
@@ -210,6 +211,12 @@ public class Room_stockJDBCDAO implements Room_stockDAO_interface {
 	public List<Room_stock> getAllByToday(Integer roomId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	@Override
+	public void updateAll(List<Room_stock> oldRoomStock, List<Room_stock> deleteRoomStock,
+			List<Room_stock> newRoomStock) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

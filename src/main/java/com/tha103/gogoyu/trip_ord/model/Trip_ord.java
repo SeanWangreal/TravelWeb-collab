@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.tha103.gogoyu.consumer.model.Consumer;
 import com.tha103.gogoyu.trip.model.Trip;
@@ -26,37 +27,17 @@ public class Trip_ord implements Serializable {
 	@Column(name = "trip_ord_id")
 	private Integer tripOrdId;
 
-	@Column(name = "trip_id", insertable = false, updatable = false)
-	private Integer tripId;
-
-	@ManyToOne
-	@JoinColumn(name = "trip_id", referencedColumnName = "trip_id")
-	private Trip trip;
-
-	public Trip getTrip() {
-		return trip;
-	}
-
-	public void setTrip(Trip trip) {
-		this.trip = trip;
-	}
+	@Column(name = "trip_id")
+	private Integer tripId;  
+	
+	@Column(name = "comp_id")
+	private Integer compId;
 
 	@Column(name = "plan_id")
 	private Integer planId;
-	
-	@Column(name = "cus_id", insertable = false, updatable = false)
+
+	@Column(name = "cus_id")
 	private Integer cusId;
-	@ManyToOne
-	@JoinColumn(name = "cus_id", referencedColumnName = "cus_id")
-	private Consumer consumer;
-
-	public Consumer getConsumer() {
-		return consumer;
-	}
-
-	public void setConsumer(Consumer consumer) {
-		this.consumer = consumer;
-	}
 
 	@Column(name = "amount")
 	private Integer amount;
@@ -64,6 +45,8 @@ public class Trip_ord implements Serializable {
 	private BigDecimal totalPrice;
 	@Column(name = "commission")
 	private BigDecimal commission;
+	@Column(name = "profit")
+	private BigDecimal profit;
 	@Column(name = "ord_status")
 	private Integer ordStatus;
 	@Column(name = "ord_time")
@@ -152,10 +135,19 @@ public class Trip_ord implements Serializable {
 		return commission;
 	}
 
+	public BigDecimal getProfit() {
+		return profit;
+	}
+
+	public void setProfit(BigDecimal profit) {
+		this.profit = profit;
+	}
+
 	public void setCommission(BigDecimal commission) {
 		this.commission = commission;
 	}
 
+	
 	public Integer getOrdStatus() {
 		return ordStatus;
 	}

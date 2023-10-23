@@ -1,5 +1,7 @@
 package com.tha103.gogoyu.room_ord.model;
 
+import java.math.BigDecimal;
+
 import com.tha103.gogoyu.company.model.Company;
 import com.tha103.gogoyu.consumer.model.Consumer;
 import com.tha103.gogoyu.planning.model.Planning;
@@ -9,36 +11,25 @@ import com.tha103.gogoyu.trip_ord.model.Trip_ord;
 public class ShoppingCartHotel {
 
 	// 照片
-	private Room_photo photo;
+//	private Room_photo photo;
 
 	// 飯店
 	private String compName;
 
 	// 評分數
-	private String score;
+	private BigDecimal score;
 
 	// 會員id
-	private String cusId;
+	private Integer cusId;
 
 	// 購物車id
-	private String planId;
-
-	// 廠商類型
-	private String compType;
+	private Integer planId;
 
 	// 購物車號碼
-	private String cartNum;
+	private Integer cart;
 
 	// 價格
-	private String price;
-
-	public Room_photo getPhoto() {
-		return photo;
-	}
-
-	public void setPhoto(Room_photo photo) {
-		this.photo = photo;
-	}
+	private BigDecimal price;
 
 	public String getCompName() {
 		return compName;
@@ -48,51 +39,43 @@ public class ShoppingCartHotel {
 		this.compName = compName;
 	}
 
-	public String getScore() {
+	public BigDecimal getScore() {
 		return score;
 	}
 
-	public void setScore(String score) {
+	public void setScore(BigDecimal score) {
 		this.score = score;
 	}
 
-	public String getCusId() {
+	public Integer getCusId() {
 		return cusId;
 	}
 
-	public void setCusId(String cusId) {
+	public void setCusId(Integer cusId) {
 		this.cusId = cusId;
 	}
 
-	public String getPlanId() {
+	public Integer getPlanId() {
 		return planId;
 	}
 
-	public void setPlanId(String planId) {
+	public void setPlanId(Integer planId) {
 		this.planId = planId;
 	}
 
-	public String getCompType() {
-		return compType;
+	public Integer getCart() {
+		return cart;
 	}
 
-	public void setCompType(String compType) {
-		this.compType = compType;
+	public void setCart(Integer cart) {
+		this.cart = cart;
 	}
 
-	public String getCartNum() {
-		return cartNum;
-	}
-
-	public void setCartNum(String cartNum) {
-		this.cartNum = cartNum;
-	}
-
-	public String getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 

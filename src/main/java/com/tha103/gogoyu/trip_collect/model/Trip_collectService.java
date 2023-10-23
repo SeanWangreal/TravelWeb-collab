@@ -9,7 +9,7 @@ public class Trip_collectService {
 	private Trip_collectDAO_interface dao;
 
 	public Trip_collectService() {
-		dao = new Trip_collectJDBCDAO();
+		dao = new Trip_collectHibernateDAO();
 	}
 	
 	private Date date = new Date();

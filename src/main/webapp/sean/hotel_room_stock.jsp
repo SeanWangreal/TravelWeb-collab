@@ -47,7 +47,7 @@ response.setDateHeader("Expires", 0);
 .all-date {
 	padding: 5px 0px 5px 5px;
 	width: 13%;
-	margin-right: 1.3%;
+	margin-right: 1.25%;
 	margin-bottom: 1.3%;
 	height: 100px;
 	display: inline-block;
@@ -60,10 +60,6 @@ response.setDateHeader("Expires", 0);
 
 div.all-date>* {
 	font-size: 16px;
-}
-
-.all-date:nth-child(7n) {
-	margin-right: 0%;
 }
 
 .searching {
@@ -223,7 +219,7 @@ div.all-date>* {
 								type="hidden" class="id" name="oldStock"
 								value="${stock.roomStockId}"><br> <label
 								class="week"></label><br> <label class="">庫存</label> <input
-								class="stock" type="number" name="stockNum" value="${stock.stock}"><span
+								class="stock" type="number" min="0" name="stockNum" value="${stock.stock}"><span
 								class="">間</span>
 						</div>
 					</c:forEach>					
@@ -268,7 +264,7 @@ div.all-date>* {
 								+now+
 								`>
 							<label class="">庫存</label>
-							<input class="stock" type="number" name="newStock" value="0"><span class="">間</span>
+							<input class="stock" type="number" name="newStock" value="0" min="0"><span class="">間</span>
 						 </div>`;
 					$("#ALL").append(newDay);					
 				} else{
@@ -285,7 +281,7 @@ div.all-date>* {
 							`</label><br><input type="hidden" name="newStockDate" value=`
 							+now+
 							`><label class="">庫存</label>
-							<input class="stock" type="number" name="newStock" value="0"><span>間</span>
+							<input class="stock" type="number" name="newStock" value="0"  min="0"><span>間</span>
 						 </div>`;
 					console.log(newDay);
 					$("#ALL").append(newDay);		
@@ -297,20 +293,33 @@ div.all-date>* {
 				} else {
 					$(".all-date").eq(-1).find(".id").attr("name","deleteStock");
 					$(".all-date").eq(-1).find(".stock").attr("name","abandon");
+					$(".all-date").eq(-1).find(".stock").removeClass("stock");
 					$(".all-date").eq(-1).addClass("nothing").removeClass("all-date");					
 				}
 			})
 			$("#change").on("click", function() {
-				$("body").css("overflow", "hidden");
-				let alert_bg = $(".alert_bg").first();
-				alert_bg.addClass("on");
-				let alert = $(".alert").first();
-				alert.addClass("on");
-				$(".no").on("click", function() {
-					$("body").css("overflow", "auto");
-					alert_bg.removeClass("on");
-					alert.removeClass("on");
+				var pass = true;
+				for  (var i =0 ; i<$("input.stock").length;i++){
+					if ($("input.stock").eq(i).val()  ==  ""){
+						pass = false;
+						alert("請填入庫存");
+						break;
+					}
+					
+				}
+				if (pass){
+					$("body").css("overflow", "hidden");
+					let alert_bg = $(".alert_bg").first();
+					alert_bg.addClass("on");
+					let alert = $(".alert").first();
+					alert.addClass("on");
+					$(".no").on("click", function() {
+						$("body").css("overflow", "auto");
+						alert_bg.removeClass("on");
+						alert.removeClass("on");
 				})
+					
+				}
 			})
 			
 		});

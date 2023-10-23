@@ -29,6 +29,7 @@ import com.tha103.gogoyu.room_photo.model.RoomPhotoServiceHibernate;
 import com.tha103.gogoyu.room_photo.model.Room_photo;
 import com.tha103.gogoyu.room_stock.model.RoomStockService;
 import com.tha103.gogoyu.room_stock.model.RoomStockServiceHibernate;
+import com.tha103.gogoyu.room_stock.model.Room_stock;
 
 @WebServlet("/sean/RoomServlet")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
@@ -94,13 +95,13 @@ public class RoomServlet extends HttpServlet {
 		case "getAllRoom":
 			session.setAttribute("compId", compId);
 			List<Room> roomList = roomSvc.getRoomByCompId(Integer.parseInt(compId));
-			LinkedHashMap<Room, Set<Room_photo>> map = new LinkedHashMap<Room, Set<Room_photo>>();
+			LinkedHashMap<Room, Set<Room_photo>> mapPhoto = new LinkedHashMap<Room, Set<Room_photo>>();
 			Set<Room_photo> roomPhoto = null;
 			for (Room li : roomList) {
 				roomPhoto = roomSvc.getAllPhoto(li.getRoomId());
-				map.put(li, roomPhoto);
+				mapPhoto.put(li, roomPhoto);
 			}
-			req.setAttribute("map", map);
+			req.setAttribute("mapPhoto", mapPhoto);
 			forwardPath = "/sean/hotel_room_all.jsp";
 			break;
 		case "change":
@@ -170,8 +171,8 @@ public class RoomServlet extends HttpServlet {
 				Date timeS = new Date(timeU.getTime());
 				roomStockSvc.addFirstTime(newRoomId, timeS, Integer.parseInt(defualtNum));
 			}
-			forwardPath = "/sean/hotel_room_all.jsp";
-			break;
+			res.sendRedirect(req.getContextPath() + "/sean/hotel_room_all.jsp");
+			return;
 		case "updateRoom":
 			compId = (String) session.getAttribute("compId");
 			roomName = req.getParameter("roomName");

@@ -8,13 +8,14 @@
 <%@ page import="com.tha103.gogoyu.planning.model.*"%>
 <!-- 以下三行預防快取 -->
 <%
+
 response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
 response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setDateHeader("Expires", 0);
 
 
-session.setAttribute("cus_id",1);
-session.setAttribute("room_id",1);
+
+
 %> 
 
 
@@ -237,7 +238,89 @@ session.setAttribute("room_id",1);
 		
 			<!--    =============================foreachForList======================================              -->
 
+				  <form  method = "post"  action="${pageContext.request.contextPath}/shopping_tripServlet">
+				<!-- ==============裡面的list=============== -->
+				<!-- <div class="no-items n1">暫無商品</div> -->
 
+				<div class="plan_tab_1 list">
+
+					<div class="plan_tab_1_left">
+
+						<img src="4621.png"> 
+						
+						
+					</div>
+					
+					
+					
+					<div class="plan_tab_1_right">
+						<div class="right_side_first_row">
+							<div class="title_set">
+								<span class="mark_for_type_hotel">飯</span>
+								<input type = "hidden"  name ="compType" value ="飯">
+								
+								<i id="named_of_title">統神大戲院123</i> 
+									<input type = "hidden"  name ="compName" value ="統神大戲院123">
+									
+								<div>
+									規劃ID: <i style="color: darkorange;">1232142141</i>
+									<input type = "hidden"  name ="planId" value ="1232142141">
+								</div>
+							</div>
+
+							<div class="comment_set">
+								<div class="comment_message">
+									<a href="#"> <i class="fa-solid fa-message"></i>
+									</a>
+								</div>
+								<div class="count_star">
+									<a href="#"> <i class="fa-solid fa-star">8.7</i>
+									<input type = "hidden"  name ="score" value ="8.7">
+									</a>
+								</div>
+							</div>
+						</div>
+						<span class="book_price">價格(未含稅)</span> <i class="howmuch_nt">TWD</i>
+						<div class="price_set">
+							<i class="howmuch">87777</i>
+							<input type = "hidden"  name ="price" value ="87777">
+						</div>
+						<div class="pay_btn">
+                            <button class="b list">查看行程細況</button>
+                            <button class="b infos">訂單資訊</button> 
+                            
+						<div class="pay_or_remove">
+						
+							
+								<input type="hidden" name="actionForPay" value="pay">
+									<select size="1" name="amount">
+									 
+ 								         
+														
+													        <option value="1">
+													      <input type="hidden" name="cart_id" value="1">
+
+
+							       </select>
+							       <form action="shopping_hotelServlet" method="post">
+									<button  href="#" class="b pay"  style = "border: 1px solid blcak ; background-color: blue; color:black;">加入購物車</button>
+									<input type = "hidden"  name ="action" value ="trip_goShopping">
+								</form>
+							
+							
+							
+							
+							<form action="shopping_hotelServlet" method="post">
+								<input type="hidden" name="action" value="remove">
+								<button class="b remove" type="submit">移除訂單</button>
+							</form>
+						</div>
+					</div>
+				</div>
+							
+					
+			</div>
+			</form>
 
 
 

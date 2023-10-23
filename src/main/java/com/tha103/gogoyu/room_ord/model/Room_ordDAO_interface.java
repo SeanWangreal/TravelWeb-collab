@@ -1,6 +1,9 @@
 package com.tha103.gogoyu.room_ord.model;
 
+import java.math.BigDecimal;
 import java.util.*;
+
+import com.tha103.gogoyu.room.model.Room;
  
 
 public interface Room_ordDAO_interface {
@@ -14,5 +17,6 @@ public interface Room_ordDAO_interface {
 	int delete(Integer roomOrdId);
 	Room_ord findByPK(Integer roomOrdId);
 	List<Room_ord> getAll();
-
+	public List<Room_ord> getRoomOrdVo(Integer cartId , Integer cusId);
+	public  Map<Room_ord,List<String>> getRoomOrdByCompId(Integer compId);
 }
