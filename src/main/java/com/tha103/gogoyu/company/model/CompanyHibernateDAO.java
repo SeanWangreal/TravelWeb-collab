@@ -98,5 +98,11 @@ public class CompanyHibernateDAO implements CompanyDAO_interface {
 		}
 		return null;
 	}
+	public static void main(String[] args) {
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		CompanyHibernateDAO dao= new CompanyHibernateDAO(factory);
+		List<Company> list=dao.getAll();
+		System.out.print(list.get(0));
+	}
 
 }

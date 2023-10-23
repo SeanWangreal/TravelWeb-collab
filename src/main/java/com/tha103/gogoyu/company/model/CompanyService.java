@@ -1,6 +1,8 @@
 package com.tha103.gogoyu.company.model;
 import java.util.List;
 
+import com.tha103.gogoyu.hotel_info.model.Hotel_infoServiceHibernate;
+
 import util.HibernateUtil;
 
 public class CompanyService {
@@ -49,7 +51,7 @@ public class CompanyService {
 			company.setCompMail(compMail);
 			company.setCompPhoto(compPhoto);
 			company.setCheckStatus(checkStatus);
-			dao.add(company);
+			dao.update(company);
 			return company;
 		}
 		public void deleteCompany(Integer compId) {
@@ -62,6 +64,10 @@ public class CompanyService {
 
 		public List<Company> getAllCompany() {
 			return dao.getAll();
+		}
+		public static void main(String[] args) {
+			CompanyService hi = new CompanyService();
+			System.out.println(hi.getAllCompany());
 		}
 	}
 
