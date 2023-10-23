@@ -1,6 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="java.math.*"%>
+<%@ page import="com.tha103.gogoyu.room_ord.model.*"%>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
+<head>
+<title>Insert title here</title>
 <head>
     <script src="https://kit.fontawesome.com/b4c50f14e1.js" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
@@ -12,25 +19,6 @@
     <style>
 
 
-        @media (min-height: 500px) and (max-height: 1300px) {
-            .shop {
-                height: 60vh;
-            }
-
-            .info {
-                height: 60vh;
-            }
-        }
-
-        @media (min-height: 0px) and (max-height: 500px) {
-            .shop {
-                height: 60vh;
-            }
-
-            .info {
-                height: 60vh;
-            }
-        }
     </style>
 </head>
 
@@ -53,12 +41,11 @@
                 background-color:transparent;"></i>
 
             </button>
-            <button type="button" class="head_btn" id="key">
-                <a class="profile" href="#" id="sign">
-                    <i class="fa-solid fa-key" style="color: #000000;font-size:25px; width: 30px;
-                    background-color:transparent;"></i> Sign in
-                </a>
-            </button>
+            <button type="button" class="head_btn">
+				<a class="profile" href="#"> <i class="fa-solid fa-user"
+					style="color: black; font-size: 30px; background-color: transparent;"></i>
+				</a>
+			</button>
         </div>
         <aside class="msg all_side nothing" id="msg_side">
             msg<br>msg<br>msg<br>msg<br>msg<br>msg<br>msg
@@ -84,12 +71,20 @@
                 </a>
             </div>
             <div class="mem-data">
-                <a href="" class="left_btn">
+                <a href="" class="left_btn" style="color: #FCC416">
                     <i class="fa-solid fa-file-invoice" style="color: black;"></i> 訂單資訊
                 </a>
             </div>
         </aside>
     </nav>
+    <% 
+	    Room_ord roomOrdList = (Room_ord) request.getAttribute("roomOrdList");
+	    if (roomOrdList == null){
+	    	Room_ordServiceHibernate roomStockSvc = new Room_ordServiceHibernate();
+			Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId"));
+	    };
+		request.setAttribute("roomOrdList",roomOrdList);
+	%>
     <div class="all">
         <main class="main-content">
             <div class="main-content-info">
@@ -123,5 +118,4 @@
     </div>
     <script src="../static/sean_js/btn4com.js"></script>
 </body>
-
 </html>

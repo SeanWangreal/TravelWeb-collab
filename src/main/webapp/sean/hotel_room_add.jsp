@@ -239,55 +239,55 @@ button.left_btn:hover {
 						<h2>客房設施</h2>
 						<div class="room">
 							<div class="room-opt">
-								<span> <input type="checkbox" id="tissue" name="detail"
-									value="tissue" ${(room.tissue== 1) ? "checked" : ""}> <label
+								<span> <input type="checkbox" id="tissue" name="detail" 
+									class="essential" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> <label
 									for="tissue">衛生紙</label>
-								</span> <span> <input type="checkbox" id="freetoiletries"
-									name="detail" value="freetoiletries"
+								</span> <span> <input type="checkbox" id="freetoiletries" 
+									name="detail" value="freetoiletries" class="essential"
 									${(room.freetoiletries == 1) ? "checked" : ""}> <label
 									for="freetoiletries">免費盥洗用品</label>
 								</span> <span> <input type="checkbox" id="electric_kettle"
-									name="detail" value="electric_kettle"
+									name="detail" value="electric_kettle" class="essential"
 									${(room.electricKettle == 1) ? "checked" : ""}> <label
 									for="electric_kettle">熱水壺</label>
 								</span>
 							</div>
 							<div class="room-opt">
 								<span> <input type="checkbox" id="shower" name="detail"
-									value="shower" ${(room.shower == 1) ? "checked" : ""}>
+									class="essential" value="shower" ${(room.shower == 1) ? "checked" : ""}>
 									<label for="shower">淋浴間</label>
 								</span> <span> <input type="checkbox" id="flushseat"
-									name="detail" value="flushseat"
+									name="detail" value="flushseat" class="essential"
 									${(room.flushseat == 1) ? "checked" : ""}> <label
 									for="flushseat">沖洗座</label>
 								</span>
 							</div>
 							<div class="room-opt">
-								<span> <input type="checkbox" id="bathroom" name="detail"
+								<span> <input type="checkbox" id="bathroom" name="detail" class="essential"
 									value="bathroom" ${(room.bathroom == 1) ? "checked" : ""}>
 									<label for="bathroom">廁所</label>
 
-								</span> <span> <input type="checkbox" id="slippers"
+								</span> <span> <input type="checkbox" id="slippers" class="essential"
 									name="detail" value="slippers"
 									${(room.slippers == 1) ? "checked" : ""}> <label
 									for="slippers">拖鞋</label>
 								</span>
 							</div>
 							<div class="room-opt">
-								<span> <input type="checkbox" id="dryer" name="detail"
+								<span> <input type="checkbox" id="dryer" name="detail" class="essential"
 									value="dryer" ${(room.dryer == 1) ? "checked" : ""}> <label
 									for="dryer">吹風機</label>
-								</span> <span> <input type="checkbox" id="bathrobe"
+								</span> <span> <input type="checkbox" id="bathrobe" class="essential"
 									name="detail" value="bathrobe"
 									${(room.bathrobe == 1) ? "checked" : ""}> <label
 									for="bathrobe">浴袍</label>
 								</span>
 							</div>
 							<div class="room-opt">
-								<span> <input type="checkbox" id="tub" name="detail"
+								<span> <input type="checkbox" id="tub" name="detail" class="essential"
 									value="tub" ${(room.tub == 1) ? "checked" : ""}> <label
 									for="tub">浴缸</label>
-								</span> <span> <input type="checkbox" id="spatub" name="detail"
+								</span> <span> <input type="checkbox" id="spatub" name="detail" class="essential"
 									value="spatub" ${(room.spatub == 1) ? "checked" : ""}>
 									<label for="spatub">SPA浴缸</label>
 								</span>
