@@ -16,28 +16,22 @@ public class Trip_ordServiceHibernate implements Trip_ordService {
 	public Trip_ordServiceHibernate() {
 		dao = new Trip_ordHibernateDAO(HibernateUtil.getSessionFactory());
 	}
-	
-	
-	
-	//for加入購物車時，所以是沒有下完訂單才能有的屬性，例如comment...
-		public Integer addFromShopping(Integer tripId, Integer planId, Integer cusId, Integer amount,
-				BigDecimal totalPrice, BigDecimal commission,BigDecimal profit, Integer ordStatus
-				) { 
 
-			Trip_ord TripOrd = new Trip_ord();
-			TripOrd.setTripId(tripId);
-			TripOrd.setPlanId(planId);
-			TripOrd.setCusId(cusId);
-			TripOrd.setAmount(amount);
-			TripOrd.setTotalPrice(totalPrice);
-			TripOrd.setCommission(commission);
-			TripOrd.setProfit(profit);
-			TripOrd.setOrdStatus(ordStatus);
-			return dao.add(TripOrd);
-		}
-	
-	
-	
+	public Integer addFromShopping(Integer tripId, Integer planId, Integer cusId, Integer amount, BigDecimal totalPrice,
+			BigDecimal commission, BigDecimal profit, Integer ordStatus) {
+
+		Trip_ord TripOrd = new Trip_ord();
+		TripOrd.setTripId(tripId);
+		TripOrd.setPlanId(planId);
+		TripOrd.setCusId(cusId);
+		TripOrd.setAmount(amount);
+		TripOrd.setTotalPrice(totalPrice);
+		TripOrd.setCommission(commission);
+		TripOrd.setProfit(profit);
+		TripOrd.setOrdStatus(ordStatus);
+		return dao.add(TripOrd);
+	}
+
 	public Trip_ord addTrip(Integer tripId, Integer planId, Integer cusId, Integer amount, BigDecimal totalPrice,
 			BigDecimal commission, Integer ordStatus, Timestamp ordTime, String remark, Integer score, String comments,
 			Timestamp commentsTime) {
@@ -84,11 +78,10 @@ public class Trip_ordServiceHibernate implements Trip_ordService {
 
 		return tripOrd;
 	}
-	
-	public List<Trip_ord> getTripOrdVo(Integer cartId , Integer cusId){
-		return dao.getTripOrdVo(cartId , cusId);
+
+	public List<Trip_ord> getTripOrdVo(Integer cartId, Integer cusId) {
+		return dao.getTripOrdVo(cartId, cusId);
 	}
-	
 
 	public void deleteTrip(Integer tripOrdId) {
 		dao.delete(tripOrdId);
@@ -100,5 +93,9 @@ public class Trip_ordServiceHibernate implements Trip_ordService {
 
 	public List<Trip_ord> getAll() {
 		return dao.getAll();
+	}
+	
+	public List<Trip_ord> getTripOrdByCompId(Integer compId){
+		return dao.getTripOrdByCompId(compId);
 	}
 }

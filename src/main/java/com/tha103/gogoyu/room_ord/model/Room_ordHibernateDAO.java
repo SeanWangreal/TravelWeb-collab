@@ -107,7 +107,7 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 			getSession().beginTransaction();
 			@SuppressWarnings("unchecked")
 			NativeQuery<Room_ord> query1 = getSession().createNativeQuery(
-					"SELECT * from room_ord where plan_id in (select plan_id from planning where cart_id= :cartId and cus_id = :cusId)", Room_ord.class);
+					"SELECT * from room_ord where plan_id in (select plan_id from Planning where cart_id= :cartId and cus_id = :cusId)", Room_ord.class);
 						query1.setParameter("cartId", cartId);
 						query1.setParameter("cusId", cusId);
 			List<Room_ord> list1 = query1.list();
@@ -119,6 +119,23 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 		}
 		return null;
 	}
+	
+	public List<Room_ord> getRoomOrdByCompId(Integer compId){
+		try {
+			getSession().beginTransaction();
+			List<Room_ord> list = getSession().createQuery("from Room_ord where comp_id = :compId order by ord_time desc", Room_ord.class)
+					.setParameter("compId", compId)
+					.list();
+			getSession().getTransaction().commit();
+			return list; 
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null; 
+	
+	}
+	
 	
 	
 //	public List<Room_ord> getRoomOrdVo(Integer cartId, Integer cusId) {
@@ -146,11 +163,13 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 
 public static void main(String[] args) {
 	Room_ordServiceHibernate n = new Room_ordServiceHibernate();
-	List<Room_ord>a = n.getRoomOrdVo(1,1);
-	for(Room_ord a1 : a) {
-		System.out.println(a1.getCommission());
-		
-	}
+//	List<Room_ord>a = n.getRoomOrdVo(1,1);
+//	for(Room_ord a1 : a) {
+//		System.out.println(a1.getCommission());
+//		
+//	}
+	System.out.println(n.getRoomOrdByCompId(2));
+	
 }
 
 }

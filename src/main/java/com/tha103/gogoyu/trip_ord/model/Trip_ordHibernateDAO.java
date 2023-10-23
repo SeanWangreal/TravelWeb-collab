@@ -16,20 +16,21 @@ import com.tha103.gogoyu.trip.model.Trip;
 
 import util.HibernateUtil;
 
-public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface{
+public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 	private SessionFactory factory;
 
-	//透過service帶session的建構子使用多型透過interface呼叫的hibernateDAO
+	// 透過service帶session的建構子使用多型透過interface呼叫的hibernateDAO
 	public Trip_ordHibernateDAO(SessionFactory factory) {
-		this.factory = factory;  //取得sessionfactory並回傳
+		this.factory = factory; // 取得sessionfactory並回傳
 	}
-	
+
 	private Session getSession() {
-		return factory.getCurrentSession(); //取得CurrentSession，後續只要呼叫getSession()就可以開始交易
+		return factory.getCurrentSession(); // 取得CurrentSession，後續只要呼叫getSession()就可以開始交易
 	}
+
 	@Override
 	public Integer add(Trip_ord tripOrd) {
-				try {
+		try {
 			getSession().beginTransaction();
 			Integer id = (Integer) getSession().save(tripOrd);
 			getSession().save(tripOrd);
@@ -71,13 +72,11 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface{
 			getSession().getTransaction().rollback();
 		}
 		return -1;
-		
 	}
-	
-	
+
 	@Override
 	public Trip_ord findByPrimaryKey(Integer tripOrdId) {
-			try {
+		try {
 			getSession().beginTransaction();
 			Trip_ord tripOrd = getSession().get(Trip_ord.class, tripOrdId);
 			getSession().getTransaction().commit();
@@ -102,16 +101,17 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface{
 		}
 		return null;
 	}
+
 	@Override
 	public List<Trip_ord> getTripOrdVo(Integer cartId, Integer cusId) {
-
 		try {
 			getSession().beginTransaction();
 			@SuppressWarnings("unchecked")
 			NativeQuery<Trip_ord> query1 = getSession().createNativeQuery(
-					"SELECT * from trip_ord where plan_id in (select plan_id from planning where cart_id= :cartId and cus_id = :cusId)", Trip_ord.class);
-						query1.setParameter("cartId", cartId);
-						query1.setParameter("cusId", cusId);
+					"SELECT * from trip_ord where plan_id in (select plan_id from planning where cart_id= :cartId and cus_id = :cusId)",
+					Trip_ord.class);
+			query1.setParameter("cartId", cartId);
+			query1.setParameter("cusId", cusId);
 			List<Trip_ord> list1 = query1.list();
 			getSession().getTransaction().commit();
 			return list1;
@@ -121,22 +121,39 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface{
 		}
 		return null;
 	}
+
 	public static void main(String[] args) {
 		Trip_ordServiceHibernate n = new Trip_ordServiceHibernate();
-		List<Trip_ord>a = n.getTripOrdVo(1,1);
-		for(Trip_ord a1 : a) {
+		List<Trip_ord> a = n.getTripOrdVo(1, 1);
+		for (Trip_ord a1 : a) {
 			System.out.println(a1.getTripOrdId());
-			
+
 		}
+	}
+
+	@Override
+	public List<Trip_ord> getTripOrdByCompId(Integer compId) {
+		try {
+			getSession().beginTransaction();
+			List<Trip_ord> list = getSession()
+					.createQuery("from Trip_ord where comp_id = :compId order by ord_time desc", Trip_ord.class)
+					.setParameter("compId", compId).list();
+			getSession().getTransaction().commit();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
 	}
 //	public static void main(String[] args) {
 //		Trip_ordDAO_Interface dao=new Trip_ordHibernateDAO();
 //		Date date = new Date();
 //		Timestamp nowTime = new Timestamp(date.getTime());
-		
-		//insert
+
+	// insert
 //		Trip_ord tripOrd1 = new Trip_ord();
-		
+
 //		//tripOrd1.setTripOrdId(6);
 //		tripOrd1.setTripId(306);
 //		tripOrd1.setPlanId(206);
@@ -151,10 +168,10 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface{
 //		tripOrd1.setComments("comments_insert");
 //		tripOrd1.setCommentsTime(nowTime);
 //		dao.insert(tripOrd1);
-		
-		// update
+
+	// update
 //		Trip_ord tripOrd2 = new Trip_ord();
-		
+
 //		tripOrd2.setTripId(306);
 //		tripOrd2.setPlanId(206);
 //		tripOrd2.setCusId(106);
@@ -169,11 +186,11 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface{
 //		tripOrd2.setCommentsTime(nowTime);
 //		tripOrd2.setTripOrdId(6);
 //		dao.update(tripOrd2);
-		
-		// delete
+
+	// delete
 //		dao.delete(6);
-		
-		//findByPrimaryKey
+
+	// findByPrimaryKey
 //		Trip_ord tripOrd3 = dao.findByPrimaryKey(5);
 //		System.out.println("----------------------------------------------------------------");
 //		System.out.print(tripOrd3.getTripOrdId() + ", ");
@@ -189,8 +206,8 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface{
 //		System.out.print(tripOrd3.getScore()+", ");
 //		System.out.print(tripOrd3.getComments()+", ");
 //		System.out.println(tripOrd3.getCommentsTime()+", ");
-		
-		//getAll
+
+	// getAll
 //		List<Trip_ord> list = dao.getAll();
 //		for (Trip_ord aTrip : list) {
 //			System.out.println("----------------------------------------------------------------");
