@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.tha103.gogoyu.trip.model.*"%>
+<%@ page import="com.tha103.gogoyu.itinerary.model.*"%>
 <%@ page import="com.tha103.gogoyu.trip_photo.model.*"%>
 <%
 response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
@@ -135,17 +136,20 @@ article {
 	<nav class="st">
 		<!-- <a class="word" id="home" href="#">Home</a> -->
 		<div class="head">
-			<button type="menu" class="head_btn" id="msg">
+			<button type="button" class="head_btn" id="msg">
 				<i class="fa-regular fa-message icon"
 					style="color: black; font-size: 30px; background-color: transparent;"></i>
 			</button>
-			<button type="menu" class="head_btn" id="info">
+			<button type="button" class="head_btn" id="info">
 				<i class="fa-regular fa-bell icon"
 					style="color: black; font-size: 30px; width: 30px; background-color: transparent;"></i>
 			</button>
-			<button type="menu" class="head_btn" id="">
+			<button type="button" class="head_btn" id="">
+				<a class="profile"
+					href="${pageContext.request.contextPath}/sean/trip_ticket_all.jsp">
 				<i class="fa-solid fa-store"
 					style="color: #000000; font-size: 30px; width: 30px; background-color: transparent;"></i>
+			</a>
 
 			</button>
 			<button type="button" class="head_btn">
@@ -182,7 +186,8 @@ article {
 				</a>
 			</div>
 			<div class="mem-data">
-				<a href="" class="left_btn"><i class="fa-solid fa-file-invoice"
+				<a href="${pageContext.request.contextPath}/sean/trip_ticket_review.jsp" 
+				class="left_btn"><i class="fa-solid fa-file-invoice"
 					style="color: black;"></i> 匿名評論 </a>
 			</div>
 		</aside>
@@ -192,6 +197,7 @@ article {
 			<div class="main-content-info">
 				<%
 				LinkedHashMap<Trip, Set<Trip_photo>> map = (LinkedHashMap<Trip, Set<Trip_photo>>) request.getAttribute("map");
+				LinkedHashMap<Trip, Set<Itinerary>> itineraryMap = (LinkedHashMap<Trip, Set<Itinerary>>) request.getAttribute("itineraryMap");
 				List<Trip> tripList = null;
 				if (map == null) {
 					map = new LinkedHashMap<Trip, Set<Trip_photo>>();
@@ -199,10 +205,13 @@ article {
 					Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId"));
 					tripList = tripSrc.getTripByCompId(compId);
 					for (Trip li : tripList) {
+						Set<Itinerary> itinerary= tripSrc.getItineraryByTripId(li.getTripId());
 						Set<Trip_photo> tripPhoto = tripSrc.getAllPhoto(li.getTripId());
+						itineraryMap.put(li,itinerary);
 						map.put(li, tripPhoto);
 					}
 					request.setAttribute("map", map);
+					request.setAttribute("itineraryMap", itineraryMap);
 					map = (LinkedHashMap<Trip, Set<Trip_photo>>) request.getAttribute("map");
 				}
 				// 				request.setAttribute("backHere", request.getRequestURL());
@@ -269,7 +278,7 @@ article {
 										</div>
 										<hr>
 										<div>
-											<h2>行程設施</h2>
+											<h2>行程地區</h2>
 											<div class="trip">
 												<div class="product-opt">
 													<span><i
@@ -382,10 +391,16 @@ article {
 											</div>
 											<hr>
 											<h2>詳細行程</h2>
+											<c:forEach var="it" items="${itineraryMap.get(trip)}">
+												<div>
+													<p>${it.beginTime}</p>
+													<p>${it.sceneName}</p>
+												</div>
+											</c:forEach>
 											<hr>
 											<h2>行程介紹</h2>
 											<article
-												style="width: 100%; border: 1px solid black; border-radius: 5px; padding: 5px;">${trip.content}</article>
+												style="width: 100%; border: 1px solid black; border-radius: 5px; padding: 5px; word-break:break-all;">${trip.content}</article>
 										</div>
 										<br>
 										<h2>行程價格</h2>

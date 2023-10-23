@@ -1,7 +1,16 @@
 package com.tha103.gogoyu.room.model;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,7 +26,7 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 	public RoomHibernateDAO(SessionFactory factory) {
 		this.factory = factory;
 	}
-	
+
 	private Session getSession() {
 		return factory.getCurrentSession();
 	}
@@ -101,8 +110,24 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		try {
 			getSession().beginTransaction();
 			List<Room> list = getSession()
-					.createQuery("from Room where comp_id = :comp_id order by room_id", Room.class)
+					.createQuery("from Room where comp_id = :comp_id order by room_status desc,room_id desc", Room.class)
 					.setParameter("comp_id", compId).list();
+//			CriteriaBuilder builder = getSession().getCriteriaBuilder();
+//			CriteriaQuery<Object[]> criteria = builder.createQuery(Object[].class);
+//			Root<Room> roomRoot = criteria.from(Room.class);
+//			Join<Room, Room_photo> roomPhotoRoot = roomRoot.join("roomPhoto", JoinType.LEFT);
+//			criteria.select(builder.array(roomRoot, roomPhotoRoot));
+//			criteria.where(builder.equal(roomRoot.get("compId"), compId));
+//			List<Object[]> rooms = getSession().createQuery(criteria).getResultList();
+//			Map<Room, List<Room_photo>> map = new LinkedHashMap();
+//			List<Room_photo> list = new ArrayList();
+//			for (Object[] room : rooms) {
+//				System.out.println(room[0]);
+//				Room_photo tp = (Room_photo) room[1];
+//				System.out.println(tp);
+//				list.add(tp);
+//				map.put((Room) room[0], list);
+//			}
 			getSession().getTransaction().commit();
 			return list;
 		} catch (Exception e) {
@@ -116,9 +141,9 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 	public byte[] getMainPhoto(Integer roomId) {
 		try {
 			getSession().beginTransaction();
-			byte[] mainPhoto = getSession().createQuery("select mainPhoto from Room where room_id = :room_id",byte[].class)
-					.setParameter("room_id", roomId)
-					.uniqueResult();
+			byte[] mainPhoto = getSession()
+					.createQuery("select mainPhoto from Room where room_id = :room_id", byte[].class)
+					.setParameter("room_id", roomId).uniqueResult();
 			getSession().getTransaction().commit();
 			return mainPhoto;
 		} catch (Exception e) {
@@ -144,10 +169,25 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		}
 		return -1;
 	}
+
 	public Set<Room_photo> getAllPhoto(Integer roomId) {
 		try {
 			getSession().beginTransaction();
 			Room room = getSession().get(Room.class, roomId);
+//			CriteriaBuilder builder = getSession().getCriteriaBuilder();
+//			CriteriaQuery<Object[]> criteria = builder.createQuery(Object[].class);
+//			Root<Room> roomRoot = criteria.from(Room.class);
+//			Join<Room, Room_photo> roomPhotoRoot = roomRoot.join("roomPhoto", JoinType.LEFT);
+//			criteria.select(builder.array(roomRoot, roomPhotoRoot));
+//			criteria.where(builder.equal(roomRoot.get("roomId"), roomId));
+//			List<Object[]> rooms = getSession().createQuery(criteria).getResultList();
+//			Map<Room, List<Room_photo>> map = new LinkedHashMap();
+//			List<Room_photo> list = new ArrayList();
+//			for (Object[] room : rooms) {
+//				Room_photo tp = (Room_photo) room[1];
+//				list.add(tp);
+//			}
+//			map.put((Room) rooms.get(0)[0], list);
 			Set<Room_photo> set = room.getRoomPhoto();
 			for (Room_photo rp: set) {
 				getSession().get(Room_photo.class, rp.getRoomPhotoId());
@@ -160,10 +200,10 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		}
 		return null;
 	}
+
 	public static void main(String[] args) {
 		RoomHibernateDAO dao = new RoomHibernateDAO(HibernateUtil.getSessionFactory());
-		System.out.println(dao.getAllPhoto(8));
+		System.out.println(dao.getAllPhoto(6));
 	}
-
 
 }

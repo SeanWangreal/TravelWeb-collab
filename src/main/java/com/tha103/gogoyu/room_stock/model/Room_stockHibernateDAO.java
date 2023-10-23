@@ -119,7 +119,6 @@ public class Room_stockHibernateDAO implements Room_stockDAO_interface {
 			Date firstDate = roomStock.getStockDate();
 			Room_stock roomStockNew = null;
 			long time = firstDate.getTime();
-			time -= ONE_DAY;
 			for (int i = 0; i < DEFAULT_DAY; i++) {
 				if (i == 0) {
 					getSession().save(roomStock);
