@@ -1,5 +1,6 @@
 package com.tha103.gogoyu.room.model;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -167,6 +168,26 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 			getSession().beginTransaction();
 			@SuppressWarnings("unchecked")
 			NativeQuery<Room> query1 = getSession().createNativeQuery("SELECT * FROM room WHERE room_id IN (SELECT room_id FROM (SELECT room_id, count(room_id) FROM room_ord GROUP BY room_id ORDER BY 2 DESC LIMIT 3) as xxx);", Room.class);
+			List<Room> list = query1.list();
+			getSession().getTransaction().commit();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+	
+	public List<Room> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number) {
+		try {
+			getSession().beginTransaction();
+			@SuppressWarnings("unchecked")
+			NativeQuery<Room> query1 = getSession().createNativeQuery(
+					"SELECT * FROM room WHERE room_id IN (SELECT r.room_id FROM room r JOIN room_stock rs ON r.room_id = rs.room_id JOIN company c ON r.comp_id = c.comp_id WHERE (comp_address LIKE '%:comp_address%') AND (stock_date BETWEEN ':checkIn' AND ':checkOut') AND (room_type <= :number) AND (stock > 0) GROUP BY room_id);", Room.class)
+			.setParameter("comp_address", comp_address)
+			.setParameter("checkIn", checkIn)
+			.setParameter("checkOut", comp_address)
+			.setParameter("number", number);
 			List<Room> list = query1.list();
 			getSession().getTransaction().commit();
 			return list;
