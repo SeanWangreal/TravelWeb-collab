@@ -1,5 +1,6 @@
 package com.tha103.gogoyu.room.model;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -16,5 +17,6 @@ public interface RoomDAO_interface {
 	byte[] getMainPhoto(Integer roomId);
 	int deleteAllPhoto(Integer roomId);
 	Set<Room_photo> getAllPhoto(Integer roomId);
-
+	List<Room> getHotRoom();
+	List<Room> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number);
 }

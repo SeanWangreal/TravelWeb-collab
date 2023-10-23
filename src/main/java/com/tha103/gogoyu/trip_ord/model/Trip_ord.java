@@ -29,25 +29,15 @@ public class Trip_ord implements Serializable {
 
 	@Column(name = "trip_id")
 	private Integer tripId;  
-
+	
+	@Column(name = "comp_id")
+	private Integer compId;
 
 	@Column(name = "plan_id")
 	private Integer planId;
-	
 
 	@Column(name = "cus_id")
 	private Integer cusId;
-	
-//	@Transient
-//	private String tripName ;
-//	
-//	public String getTripName() {
-//		return tripName;
-//	}
-//
-//	public void setTripName(String tripName) {
-//		this.tripName = tripName;
-//	}
 
 	@Column(name = "amount")
 	private Integer amount;

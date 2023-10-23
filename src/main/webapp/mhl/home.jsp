@@ -1,3 +1,15 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.tha103.gogoyu.room.model.*"%>
+<%
+	RoomServiceHibernate roomSvc = new RoomServiceHibernate();
+	List<Room> list = roomSvc.getHotRoom();
+	
+// 	TripServiceHibernate tripSvc = new TripServiceHibernate();
+// 	List<Trip> list = roomSvc.getHotTrip();
+
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,10 +28,10 @@
 
 
         .main-content {
-            height: 170vh;
+            height: 1000px;
             /* text-align: center;
             background-color: white; */
-            border: 1px solid black;
+/*             border: 1px solid black; */
         }
 
 
@@ -48,6 +60,24 @@
                 height: 60vh;
             }
         }
+        
+        .carousel-control-prev-icon, .carousel-control-next-icon {
+            background-color: gray;
+        }
+        
+        .carousel-item{ 
+ 		  width:100%;  
+ 		  height: 400px !important; 
+ 		} 
+ 		.carousel-item img{ 
+ 		  position: absolute; 
+ 		  top: -9999px; 
+ 		  bottom: -9999px; 
+ 		  left: -9999px; 
+ 		  right: -9999px; 
+ 		  margin: auto; 
+		  height: 100%; 
+ 		} 
     </style>
 </head>
 
@@ -59,7 +89,7 @@
         <a class="word" id="journel" href="#">HOT<i class="fa-solid fa-fire"
                 style="color: #ff9500; background-color:transparent;"></i>Journel</a>
         <div class="head">
-            <button type="menu" class="head_btn" aria-label="Ë¶èÂäÉË°åÁ®ã" id="shop">
+            <button type="menu" class="head_btn" aria-label="≥Wπ∫¶Êµ{" id="shop">
                 <i class="fa-solid fa-suitcase-rolling icon" style="color: black; font-size:30px;
                             background-color:transparent;"></i>
             </button>
@@ -80,17 +110,17 @@
         </div>
         <aside class="msg all_side nothing" id="msg_side">
             <div class="nothing">
-                4ÂâáÊú™ËÆÄË®äÊÅØ<br>
-                <a class="btn btn-primary" href="#" role="button">Êü•ÁúãÂç≥ÊôÇË®äÊÅØ</a>
+                4´h•º≈™∞TÆß<br>
+                <a class="btn btn-primary" href="#" role="button">¨d¨›ßYÆ…∞TÆß</a>
             </div>
         </aside>
         <aside class="info all_side nothing" id="info_side">
-            3ÂâáË®ÇÂñÆÂ∑≤ÂÆåÊàê<br>
-            <a class="btn btn-primary" href="#" role="button">Êü•ÁúãÊâÄÊúâË®ÇÂñÆ</a>
+            3´h≠q≥Ê§wßπ¶®<br>
+            <a class="btn btn-primary" href="#" role="button">¨d¨›©“¶≥≠q≥Ê</a>
         </aside>
         <aside class="shop all_side nothing" id="shop_side">
-            3ÂÄãÂïÜÂìÅÂú®Ë≥ºÁâ©ËªäÂÖß<br>
-            <a class="btn btn-primary" href="#" role="button">Êü•ÁúãË≥ºÁâ©Ëªä</a>
+            3≠”∞”´~¶b¡ ™´®Æ§∫<br>
+            <a class="btn btn-primary" href="#" role="button">¨d¨›¡ ™´®Æ</a>
         </aside>
     </nav>
 
@@ -131,15 +161,15 @@
         </div>
     </form>
 
-    <div class="main-content mb-6">
-        <main class="container">
-            <div class="row justify-content-center align-items-center h-100">
-                <div class="col-12 col-md-8 border h-10">
+    <div class="main-content mb-6" >
+        <main class="container ">
+            <div class="row justify-content-center align-items-center ">
+                <div class="col-12 col-md-8 h-10">
                     <h6 class="text-center">Hot Hotel</h6>
                 </div>
-                <div class="col-12 col-md-8 border h-40">
-                    <div id="carouselTrip" class="carousel slide h-100">
-                        <div class="carousel-indicators h-100">
+                <div class="col-12 col-md-8 h-40 mb-4">
+                    <div id="carouselTrip" class="carousel slide ">
+                        <div class="carousel-indicators">
                             <button type="button" data-bs-target="#carouselTrip" data-bs-slide-to="0"
                                 class="active" aria-current="true" aria-label="Slide 1"></button>
                             <button type="button" data-bs-target="#carouselTrip" data-bs-slide-to="1"
@@ -147,26 +177,26 @@
                             <button type="button" data-bs-target="#carouselTrip" data-bs-slide-to="2"
                                 aria-label="Slide 3"></button>
                         </div>
-                        <div class="carousel-inner h-100">
-                            <div class="carousel-item active h-100">
-                                <img src="https://picsum.photos/2800/1600?random=1" class="d-block w-100" alt="...">
+                        <div class="carousel-inner ">
+                            <div class="carousel-item active  ">
+                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=((Room)list.get(0)).getRoomId() %>" class="d-block w-100"   alt="...">
                                 <div class="carousel-caption d-none d-md-block">
-                                    <h5 class="bg-light text-dark mb-0">ÂÖÑÂºüÂ§ßÈ£ØÂ∫ó</h5>
-                                    <p class="bg-light text-dark">TWD 1,000Ëµ∑</p>
+                                    <h5 class="bg-light text-dark mb-0"><%=(list.get(0)).getRoomName() %></h5>
+                                    <p class="bg-light text-dark">TWD <%=(list.get(0)).getPrice().intValue() %></p>
                                 </div>
                             </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/1400/800?random=2" class="d-block w-100" alt="...">
+                            <div class="carousel-item ">
+                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=((Room)list.get(1)).getRoomId() %>" class="d-block w-100"  alt="...">
                                 <div class="carousel-caption d-none d-md-block">
-                                    <h5 class="bg-light text-dark mb-0">ÂÖÑÂºüÂ§ßÈ£ØÂ∫ó</h5>
-                                    <p class="bg-light text-dark">TWD 1,000Ëµ∑</p>
+                                    <h5 class="bg-light text-dark mb-0"><%=(list.get(1)).getRoomName() %></h5>
+                                    <p class="bg-light text-dark">TWD <%=(list.get(1)).getPrice().intValue() %></p>
                                 </div>
                             </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/1400/800?random=3" class="d-block w-100" alt="...">
+                            <div class="carousel-item  ">
+                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=((Room)list.get(2)).getRoomId() %>" class="d-block w-100"  alt="...">
                                 <div class="carousel-caption d-none d-md-block">
-                                    <h5 class="bg-light text-dark mb-0">ÂÖÑÂºüÂ§ßÈ£ØÂ∫ó</h5>
-                                    <p class="bg-light text-dark">TWD 1,000Ëµ∑</p>
+                                    <h5 class="bg-light text-dark mb-0"><%=(list.get(2)).getRoomName() %></h5>
+                                    <p class="bg-light text-dark">TWD <%=(list.get(2)).getPrice().intValue() %></p>
                                 </div>
                             </div>
                         </div>
@@ -182,12 +212,12 @@
                         </button>
                     </div>
                 </div>
-                <div class="col-12 col-md-8 border h-10">
+                <div class="col-12 col-md-8 h-10">
                     <h6 class="text-center">Hot Journey</h6>
                 </div>
-                <div class="col-12 col-md-8 border h-40 mb-6">
-                    <div id="carouselJourney" class="carousel slide h-100">
-                        <div class="carousel-indicators h-100">
+                <div class="col-12 col-md-8 h-40 mb-6">
+                    <div id="carouselJourney" class="carousel slide ">
+                        <div class="carousel-indicators ">
                             <button type="button" data-bs-target="#carouselJourney" data-bs-slide-to="0"
                                 class="active" aria-current="true" aria-label="Slide 1"></button>
                             <button type="button" data-bs-target="#carouselJourney" data-bs-slide-to="1"
@@ -195,26 +225,26 @@
                             <button type="button" data-bs-target="#carouselJourney" data-bs-slide-to="2"
                                 aria-label="Slide 3"></button>
                         </div>
-                        <div class="carousel-inner h-100">
-                            <div class="carousel-item active h-100">
+                        <div class="carousel-inner ">
+                            <div class="carousel-item active ">
                                 <img src="https://picsum.photos/2800/1600?random=1" class="d-block w-100" alt="...">
                                 <div class="carousel-caption d-none d-md-block">
-                                    <h5 class="bg-light text-dark mb-0">ÈáéÊü≥‰∫åÂ§©‰∏ÄÂ§ú</h5>
-                                    <p class="bg-light text-dark">ÊØè‰∫∫TWD 1,000Ëµ∑</p>
+                                    <h5 class="bg-light text-dark mb-0">≥•¨h§G§—§@©]</h5>
+                                    <p class="bg-light text-dark">®C§HTWD 1,000∞_</p>
                                 </div>
                             </div>
                             <div class="carousel-item">
                                 <img src="https://picsum.photos/1400/800?random=2" class="d-block w-100" alt="...">
                                 <div class="carousel-caption d-none d-md-block">
-                                    <h5 class="bg-light text-dark mb-0">ÈáéÊü≥‰∫åÂ§©‰∏ÄÂ§ú</h5>
-                                    <p class="bg-light text-dark">ÊØè‰∫∫TWD 1,000Ëµ∑</p>
+                                    <h5 class="bg-light text-dark mb-0">≥•¨h§G§—§@©]</h5>
+                                    <p class="bg-light text-dark">®C§HTWD 1,000∞_</p>
                                 </div>
                             </div>
                             <div class="carousel-item">
                                 <img src="https://picsum.photos/1400/800?random=3" class="d-block w-100" alt="...">
                                 <div class="carousel-caption d-none d-md-block">
-                                    <h5 class="bg-light text-dark mb-0">ÈáéÊü≥‰∫åÂ§©‰∏ÄÂ§ú</h5>
-                                    <p class="bg-light text-dark">ÊØè‰∫∫TWD 1,000Ëµ∑</p>
+                                    <h5 class="bg-light text-dark mb-0">≥•¨h§G§—§@©]</h5>
+                                    <p class="bg-light text-dark">®C§HTWD 1,000∞_</p>
                                 </div>
                             </div>
                         </div>
