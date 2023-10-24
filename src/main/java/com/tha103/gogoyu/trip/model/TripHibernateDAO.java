@@ -117,7 +117,7 @@ public class TripHibernateDAO implements TripDAO_interface{
 		try {
 			getSession().beginTransaction();
 			List<Trip> list = getSession()
-					.createQuery("from Trip where comp_id = :comp_id order by trip_id", Trip.class)
+					.createQuery("from Trip where comp_id = :comp_id order by state desc, trip_id desc", Trip.class)
 					.setParameter("comp_id", compId).list();
 			getSession().getTransaction().commit();
 			return list;
