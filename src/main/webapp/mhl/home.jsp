@@ -136,7 +136,31 @@
                 <hr id="kk">
                 <div id="inside_form">
                     <div style="flex-basis: 20%;">
-                        <input class="in" id="where" type="search" placeholder="Destination...">
+                        <select class="form-select me-2 in" aria-label="Default select example">
+                            <option value="Taipei_City">台北市</option>
+                            <option value="NewTaipei_City">新北市</option>
+                            <option value="Taoyuan_City">桃園市</option>
+                            <option value="Taichung_City">台中市</option>
+                            <option value="Tainan_City">台南市</option>
+                            <option value="Kaohsiung_City">高雄市</option>
+                            <option value="Hsinchu_County">新竹縣</option>
+                            <option value="Miaoli_County">新北市</option>
+                            <option value="Changhua_County">苗栗縣</option>
+                            <option value="Nantou_County">彰化縣</option>
+                            <option value="Nantou_County">南投縣</option>
+                            <option value="Yunlin_County">雲林縣</option>
+                            <option value="Chiayi_County">嘉義縣</option>
+                            <option value="Pingtung_County">屏東縣</option>
+                            <option value="Yilan_City">宜蘭市</option>
+                            <option value="Hualien_City">花蓮市</option>
+                            <option value="Taitung_County">台東縣</option>
+                            <option value="Kinmen_County">金門縣</option>
+                            <option value="Lienchiang_County">連江縣</option>
+                            <option value="Keelung_City">基隆市</option>
+                            <option value="Hsinchu_City">新竹市</option>
+                            <option value="Chiayi_City">嘉義市</option>
+                            <option value="Penghu_County">澎湖縣</option>
+                        </select>
                     </div>
                     <div style="flex-basis: 20%;">
 
