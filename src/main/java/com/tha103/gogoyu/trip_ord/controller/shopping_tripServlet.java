@@ -125,6 +125,7 @@ if("removeTripOrder".equals(action)) {
 			TOL.setCusId(trip_ord.getCusId());
 			TOL.setCompName(CSH.getComp(compId).getCompName());
 			TOL.setPeople(trip.getPeople());
+			TOL.setStore(trip.getAmount());
 			TOL.setAmount(trip_ord.getAmount());
 			TOL.setPrincipalName(CSH.getComp(compId).getPrincipalName());
 			TOL.setPrincipalPhone(CSH.getComp(compId).getPrincipalPhone());
@@ -133,7 +134,7 @@ if("removeTripOrder".equals(action)) {
 			TOL.setProfit(trip_ord.getProfit().setScale(3, RoundingMode.HALF_UP).intValue());
 			TOL.setCommission(trip_ord.getCommission().setScale(3, RoundingMode.HALF_UP).intValue());
 			TOL.setTotalPrice(trip_ord.getTotalPrice().setScale(3, RoundingMode.HALF_UP).intValue());
-			
+		
 			
 			req.setAttribute( "TripOrd" , TOL);
 			String url = "/chu/bookingList(trip).jsp";

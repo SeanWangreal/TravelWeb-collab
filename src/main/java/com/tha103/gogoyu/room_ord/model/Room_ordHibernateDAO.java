@@ -2,7 +2,6 @@ package com.tha103.gogoyu.room_ord.model;
 
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,7 +9,9 @@ import org.hibernate.query.NativeQuery;
 
 import com.tha103.gogoyu.room.model.Room;
 import com.tha103.gogoyu.room_photo.model.Room_photo;
-
+import com.tha103.gogoyu.trip.model.Trip;
+import com.tha103.gogoyu.trip_ord.model.Trip_ord;
+import com.tha103.gogoyu.company.model.Company;
 import util.HibernateUtil;
 
 public class Room_ordHibernateDAO implements Room_ordDAO_interface {
@@ -101,7 +102,7 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 	}
 
 
-	public List<Room_ord> getRoomOrdVo(Integer cartId, Integer cusId) {
+	public Map <Room_ord , List<String>> getRoomOrdVo(Integer cartId, Integer cusId) {
 
 		try {
 			getSession().beginTransaction();
@@ -111,8 +112,19 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 						query1.setParameter("cartId", cartId);
 						query1.setParameter("cusId", cusId);
 			List<Room_ord> list1 = query1.list();
+			
+			Map <Room_ord , List<String>> map  = new LinkedHashMap<Room_ord , List<String>>();
+			for (Room_ord ord: list1) {
+				List<String> info = new ArrayList<String>();
+//				Trip trip = getSession().get(Trip.class, ord.getTripId());
+				Integer compId =getSession().get(Room.class, ord.getRoomId()).getCompId();
+					info.add(getSession().get(Company.class, compId).getCompName());//String compName
+					map.put(ord,info);
+			}
+			
+			
 			getSession().getTransaction().commit();
-			return list1;
+			return map;
 		} catch (Exception e) {
 			e.printStackTrace();
 			getSession().getTransaction().rollback();
@@ -144,13 +156,13 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 //		return null;
 //	}
 
-public static void main(String[] args) {
-	Room_ordServiceHibernate n = new Room_ordServiceHibernate();
-	List<Room_ord>a = n.getRoomOrdVo(1,1);
-	for(Room_ord a1 : a) {
-		System.out.println(a1.getCommission());
-		
-	}
-}
+//public static void main(String[] args) {
+//	Room_ordServiceHibernate n = new Room_ordServiceHibernate();
+//	List<Room_ord>a = n.getRoomOrdVo(1,1);
+//	for(Room_ord a1 : a) {
+//		System.out.println(a1.getCommission());
+//		
+//	}
+//}
 
 }

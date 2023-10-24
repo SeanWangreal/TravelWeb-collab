@@ -2,9 +2,7 @@ package com.tha103.gogoyu.trip_ord.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
-
+import java.util.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
@@ -103,7 +101,7 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface{
 		return null;
 	}
 	@Override
-	public List<Trip_ord> getTripOrdVo(Integer cartId, Integer cusId) {
+	public Map<Trip_ord, List<String>> getTripOrdVo(Integer cartId, Integer cusId) {
 
 		try {
 			getSession().beginTransaction();
@@ -113,22 +111,31 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface{
 						query1.setParameter("cartId", cartId);
 						query1.setParameter("cusId", cusId);
 			List<Trip_ord> list1 = query1.list();
+			
+			Map<Trip_ord,List<String>> map  = new LinkedHashMap<Trip_ord,List<String>>();
+			for (Trip_ord ord: list1) {
+				List<String> info = new ArrayList<String>();
+//				Trip trip = getSession().get(Trip.class, ord.getTripId());
+					info.add(getSession().get(Trip.class, ord.getTripId()).getTripName());//String tripName
+					map.put(ord,info);
+			}
+						
 			getSession().getTransaction().commit();
-			return list1;
+			return map;
 		} catch (Exception e) {
 			e.printStackTrace();
 			getSession().getTransaction().rollback();
 		}
 		return null;
 	}
-	public static void main(String[] args) {
-		Trip_ordServiceHibernate n = new Trip_ordServiceHibernate();
-		List<Trip_ord>a = n.getTripOrdVo(1,1);
-		for(Trip_ord a1 : a) {
-			System.out.println(a1.getTripOrdId());
-			
-		}
-	}
+//	public static void main(String[] args) {
+//		Trip_ordServiceHibernate n = new Trip_ordServiceHibernate();
+//		List<Trip_ord>a = n.getTripOrdVo(1,1);
+//		for(Trip_ord a1 : a) {
+//			System.out.println(a1.getTripOrdId());
+//			
+//		}
+//	}
 //	public static void main(String[] args) {
 //		Trip_ordDAO_Interface dao=new Trip_ordHibernateDAO();
 //		Date date = new Date();

@@ -31,7 +31,9 @@
 
 
 				<div class="order-details" style = "margin-left:10px">
-					<br> <i class="payment-title">訂單資訊[行程]</i> <br>
+					<br> <i class="payment-title">訂單資訊[行程]</i> 
+					<br>
+					<br><br>
 					<div class="order-item">
 						<label for="orderId">訂單編號: </label>
 					</div>
@@ -76,11 +78,11 @@
 					<div class="checkedBtn">
 						<FORM METHOD="post" ACTION="/shopping_hotelServlet">
 							<button type="submit">確認更新</button>
-							<input type="hidden" name="action" value="confirmUpdate">
+							<input type="hidden" name="action" value="hotelConfirmUpdate">
 						</FORM>
 						<FORM METHOD="post" ACTION="/shopping_hotelServlet">
 							<button type="submit">取消更新</button>
-							<input type="hidden" name="action" value="cancelUpdate">
+							<input type="hidden" name="action" value="tripCancelUpdate">
 						</FORM>
 					</div>
 
