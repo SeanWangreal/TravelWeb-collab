@@ -96,7 +96,7 @@ public class PlanningHibernateDAO implements PlanningDAO_interface {
 				query.setParameter("cart_id", cart_id);
 				query.setParameter("cus_id", cus_id);
 				Integer planId = (Integer) query.uniqueResult();
-				
+//				System.out.println(planId);
 				getSession().getTransaction().commit();
 				return planId;
 		
@@ -124,7 +124,12 @@ public class PlanningHibernateDAO implements PlanningDAO_interface {
 		return null;
 	}
 	
-//	public static void main(String[] args) {
+	public static void main(String[] args) {
+		PlanningServiceHibernate p = new PlanningServiceHibernate();
+		p.getPlanId(3, 1);
+		
+	
+	}
 //		PlanningHibernateDAO dao = new PlanningHibernateDAO();
 //		Date date = new Date();
 //		Timestamp time_s = new Timestamp(date.getTime());

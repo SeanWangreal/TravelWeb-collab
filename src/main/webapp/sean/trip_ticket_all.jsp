@@ -145,11 +145,9 @@ article {
 					style="color: black; font-size: 30px; width: 30px; background-color: transparent;"></i>
 			</button>
 			<button type="button" class="head_btn" id="">
-				<a class="profile"
-					href="${pageContext.request.contextPath}/sean/trip_ticket_all.jsp">
-				<i class="fa-solid fa-store"
-					style="color: #000000; font-size: 30px; width: 30px; background-color: transparent;"></i>
-			</a>
+				<a class="profile" href="${pageContext.request.contextPath}/sean/trip_ticket_all.jsp">
+					<i class="fa-solid fa-store" style="color: #000000; font-size: 30px; width: 30px; background-color: transparent;"></i>
+							</a>
 
 			</button>
 			<button type="button" class="head_btn">
@@ -186,9 +184,13 @@ article {
 				</a>
 			</div>
 			<div class="mem-data">
+				<a href="${pageContext.request.contextPath}/sean/trip_com_ord.jsp" class="left_btn" style="color: #000000;"> <i class="fa-solid fa-file-invoice"
+					style="color: black;"></i> 訂單資訊
+				</a>
+			</div>
+			<div class="mem-data">
 				<a href="${pageContext.request.contextPath}/sean/trip_ticket_review.jsp" 
-				class="left_btn"><i class="fa-solid fa-file-invoice"
-					style="color: black;"></i> 匿名評論 </a>
+				class="left_btn"><i class="fa-regular fa-comment" style="color: #000000;"></i> 匿名評論 </a>
 			</div>
 		</aside>
 	</nav>
@@ -202,18 +204,24 @@ article {
 				if (map == null) {
 					map = new LinkedHashMap<Trip, Set<Trip_photo>>();
 					TripService tripSrc = new TripServiceHibernate();
+					itineraryMap = new LinkedHashMap<Trip, Set<Itinerary>>();
 					Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId"));
+					if (compId == null ){
+						response.sendRedirect(request.getContextPath() + "/sean/select_page.jsp");
+						return;
+					}
 					tripList = tripSrc.getTripByCompId(compId);
 					for (Trip li : tripList) {
 						Set<Itinerary> itinerary= tripSrc.getItineraryByTripId(li.getTripId());
 						Set<Trip_photo> tripPhoto = tripSrc.getAllPhoto(li.getTripId());
 						itineraryMap.put(li,itinerary);
 						map.put(li, tripPhoto);
+					}						
 					}
 					request.setAttribute("map", map);
 					request.setAttribute("itineraryMap", itineraryMap);
 					map = (LinkedHashMap<Trip, Set<Trip_photo>>) request.getAttribute("map");
-				}
+				
 				// 				request.setAttribute("backHere", request.getRequestURL());
 				// 				System.out.print(request.getRequestURI());
 				%>
@@ -225,7 +233,6 @@ article {
 									${trip.state==1?'上架中':'下架中'}</span> <span class="trip-name">${trip.tripName}</span>
 								<label for=""> ${trip.people}人套票</label>
 								<div class="do">
-									<button class="pictures">圖庫</button>
 									<button class="detail">詳細資訊</button>
 									<form
 										action="${pageContext.request.contextPath}/sean/TripServlet"

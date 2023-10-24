@@ -177,7 +177,7 @@ public class NotifyJDBCDAO implements NotifyDAO_interface {
 //		notify01.setContents("測試新增3");
 //		notify01.setState((byte)0);
 //		notify01.setNotifyTime(time_s);
-//		dao.insert(notify01);
+//		dao.add(notify01);
 
 //		// 修改
 //		Notify notify02 = new Notify();
@@ -195,7 +195,7 @@ public class NotifyJDBCDAO implements NotifyDAO_interface {
 //		dao.delete(1);
 		
 //		// 查詢單筆
-//		Notify notify03 = dao.findByPrimaryKey(1);
+//		Notify notify03 = dao.findByPK(1);
 //		System.out.print(notify03.getNotifyId() + ",");
 //		System.out.print(notify03.getCusId() + ",");
 //		System.out.print(notify03.getCompId() + ",");

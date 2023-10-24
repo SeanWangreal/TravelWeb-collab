@@ -47,10 +47,7 @@ response.setDateHeader("Expires", 0);
                         <label for="orderId">訂單編號:<i style="color: blue;margin-left:30px">${RoomOrd.roomOrdId}</i></label>
                     </div>
                     <hr>
-                    <div class="order-item" style = "margin-left : 10px;">
-                        <label for="cusId">會員編號:<i style="color: blue;margin-left:30px">${RoomOrd.cusId}</i></label>
-                    </div>
-                    <hr>
+                    
                     <div class="order-item" style = "margin-left : 10px;">
                         <label for="hotel-name">飯店名稱:<i style="color: blue;margin-left:30px">${RoomOrd.compName}</i></label>
                     </div>
