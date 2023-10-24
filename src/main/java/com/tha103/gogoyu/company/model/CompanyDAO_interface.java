@@ -8,6 +8,8 @@ public interface CompanyDAO_interface {
 	int update(Company Company);
 
 	int delete(Integer comp_id);
+	
+	public List<Company> findByAccount(String compAccount);
 
 	Company findByPK(Integer comp_id);
 

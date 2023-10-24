@@ -57,6 +57,10 @@ public class CompanyService {
 		public void deleteCompany(Integer compId) {
 			dao.delete(compId);
 		}
+		
+		public List<Company> getOneAccount(String compAccount) {
+			return dao.findByAccount(compAccount);
+		}
 
 		public Company getOneCompany(Integer compId) {
 			return dao.findByPK(compId);

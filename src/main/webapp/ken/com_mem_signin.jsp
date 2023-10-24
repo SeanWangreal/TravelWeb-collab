@@ -13,7 +13,7 @@ Company company = (Company) request.getAttribute("Company"); //Servlet.java(Conc
 <html lang="en">
 
 <head>
-    <script src="./vendors/jquery/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+    <script src="../vendors/jquery/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/b4c50f14e1.js" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -80,11 +80,11 @@ Company company = (Company) request.getAttribute("Company"); //Servlet.java(Conc
                             <h3>登入帳號</h3>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" value="abca1">
+                            <input type="text" class="form-control" id="floatingInput" value="abca1" name="account">
                             <label for="floatingInput">帳號</label>
                         </div>
                         <div class="form-floating mb-4">
-                            <input type="password" class="form-control" id="floatingPassword" value="a2341">
+                            <input type="password" class="form-control" id="floatingPassword" value="a2341" name="password">
                             <label for="floatingPassword">密碼</label>
                         </div>
                         <div class="d-flex align-items-center justify-content-between mb-4">
@@ -97,7 +97,6 @@ Company company = (Company) request.getAttribute("Company"); //Servlet.java(Conc
             </div>
         </div>
         <!-- Sign In End -->
-    </div>
      	<input type="hidden" name="action" value="signIn">
        	<input type="submit" value="送出">
     </form>

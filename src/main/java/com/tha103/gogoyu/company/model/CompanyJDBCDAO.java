@@ -256,4 +256,10 @@ public class CompanyJDBCDAO implements CompanyDAO_interface {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public List<Company> findByAccount(String compAccount) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
