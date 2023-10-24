@@ -256,4 +256,11 @@ public class CompanyJDBCDAO implements CompanyDAO_interface {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public Company updFromBackend(Integer comp_id, String comp_name, String comp_address, String comp_phone,
+			String principal_name, String principal_phone, String comp_account, String comp_mail) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
