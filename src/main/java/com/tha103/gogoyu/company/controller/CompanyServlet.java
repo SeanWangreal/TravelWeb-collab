@@ -32,53 +32,56 @@ public class CompanyServlet extends HttpServlet {
 
 		
 		
-		if ("singIn".equals(action)) { // 來自select_page.jsp的請求
-			System.out.println("singIn");
+		if ("signIn".equals(action)) { // 來自select_page.jsp的請求
+//			System.out.println("signIn");
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-			String str = req.getParameter("compAccount");
-			if (str == null || (str.trim()).length() == 0) {
-				errorMsgs.add("請輸入會員u");
+			String compAccount = req.getParameter("compAccount");
+			if (compAccount == null || (compAccount.trim()).length() == 0) {
+				errorMsgs.add("請輸入會員帳號");
 			}
 			
-			str = req.getParameter("compPassword");
-			if (str == null || (str.trim()).length() == 0) {
-				errorMsgs.add("請輸入會員編號");
+			String compPassword = req.getParameter("compPassword");
+			if (compPassword == null || (compPassword.trim()).length() == 0) {
+				errorMsgs.add("請輸入會員密碼");
 			}
 			
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req.getRequestDispatcher("/ken/com_mem.jsp");
 				failureView.forward(req, res);
+				
 				return;// 程式中斷
 			}
 
-			Integer compId = null;
-			try {
-				compId = Integer.valueOf(str);
-			} catch (Exception e) {
-				errorMsgs.add("員工編號格式不正確");
-			}
-			// Send the use back to the form, if there were errors
-			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/ken/com_mem.jsp");
-				failureView.forward(req, res);
-				return;// 程式中斷
-			}
+//			Integer compId = null;
+//			try {
+//				compId = Integer.valueOf(compAccount);
+//			} catch (Exception e) {
+//				errorMsgs.add("員工編號格式不正確");
+//			}
+//			// Send the use back to the form, if there were errors
+//			if (!errorMsgs.isEmpty()) {
+//				RequestDispatcher failureView = req.getRequestDispatcher("/ken/com_mem.jsp");
+//				failureView.forward(req, res);
+//				return;// 程式中斷
+//			}
 
 			/*************************** 2.開始查詢資料 *****************************************/
+			Integer account =  Integer.valueOf(compAccount);
+			Integer password = Integer.valueOf(compPassword);
 			CompanyService companySvc = new CompanyService();
-			Company company = companySvc.getOneCompany(compId);
+			Company company = companySvc.getOneCompany(account);
 			if (company == null) {
 				errorMsgs.add("查無資料");
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher(req.getContextPath()+"ken/com_mem.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher(req.getContextPath()+"/ken/com_mem.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
