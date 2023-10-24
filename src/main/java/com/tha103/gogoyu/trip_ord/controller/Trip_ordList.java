@@ -17,7 +17,7 @@ public class Trip_ordList {
 	private Integer profit;
 	private Integer commission;
 	private Integer totalPrice;
-
+	private Integer store;
 	public String getCompName() {
 		return compName;
 	}
@@ -125,5 +125,15 @@ public class Trip_ordList {
 	public void setTotalPrice(Integer totalPrice) {
 		this.totalPrice = totalPrice;
 	}
+
+	public Integer getStore() {
+		return store;
+	}
+
+	public void setStore(Integer store) {
+		this.store = store;
+	}
+
+	
 
 }

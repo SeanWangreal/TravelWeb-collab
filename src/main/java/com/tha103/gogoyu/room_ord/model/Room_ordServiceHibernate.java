@@ -21,11 +21,12 @@ public class Room_ordServiceHibernate {
 		dao = new Room_ordHibernateDAO(HibernateUtil.getSessionFactory());
 	}
 
-	public Integer addFromShopping(Integer planId, Integer roomId, Integer cusId, Integer amount, BigDecimal totalPrice,
+	public Integer addFromShopping(Integer compId , Integer planId, Integer roomId, Integer cusId, Integer amount, BigDecimal totalPrice,
 			BigDecimal commission, BigDecimal profit, Integer people, Date checkInTime, Date checkOutTime,
 			Integer ordStatus) {
 
 		Room_ord roomOrd = new Room_ord();
+		roomOrd.setCompId(compId);
 		roomOrd.setPlanId(planId);
 		roomOrd.setRoomId(roomId);
 		roomOrd.setCusId(cusId);
@@ -103,9 +104,9 @@ public class Room_ordServiceHibernate {
 	public List<Room_ord> getAll() {
 		return dao.getAll();
 	}
-
-	public List<Room_ord> getRoomOrdVo(Integer cartId, Integer cusId) {
-		return dao.getRoomOrdVo(cartId, cusId);
+	
+	public Map <Room_ord , List<String>> getRoomOrdVo(Integer cartId , Integer cusId){
+		return dao.getRoomOrdVo(cartId , cusId);
 	}
 	
 	public  Map<Room_ord,List<String>> getRoomOrdByCompId(Integer compId){

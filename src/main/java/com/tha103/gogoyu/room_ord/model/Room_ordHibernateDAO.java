@@ -1,16 +1,19 @@
 package com.tha103.gogoyu.room_ord.model;
 
+import java.math.BigDecimal;
+import java.util.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
-
 import com.tha103.gogoyu.consumer.model.Consumer;
 import com.tha103.gogoyu.room.model.Room;
+import com.tha103.gogoyu.room_photo.model.Room_photo;
+import com.tha103.gogoyu.company.model.Company;
+import util.HibernateUtil;
 
 public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 	private SessionFactory factory;
@@ -100,7 +103,7 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 	}
 
 
-	public List<Room_ord> getRoomOrdVo(Integer cartId, Integer cusId) {
+	public Map <Room_ord , List<String>> getRoomOrdVo(Integer cartId, Integer cusId) {
 
 		try {
 			getSession().beginTransaction();
@@ -110,8 +113,19 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 						query1.setParameter("cartId", cartId);
 						query1.setParameter("cusId", cusId);
 			List<Room_ord> list1 = query1.list();
+			
+			Map <Room_ord , List<String>> map  = new LinkedHashMap<Room_ord , List<String>>();
+			for (Room_ord ord: list1) {
+				List<String> info = new ArrayList<String>();
+//				Trip trip = getSession().get(Trip.class, ord.getTripId());
+				Integer compId =getSession().get(Room.class, ord.getRoomId()).getCompId();
+					info.add(getSession().get(Company.class, compId).getCompName());//String compName
+					map.put(ord,info);
+			}
+			
+			
 			getSession().getTransaction().commit();
-			return list1;
+			return map;
 		} catch (Exception e) {
 			e.printStackTrace();
 			getSession().getTransaction().rollback();

@@ -59,11 +59,12 @@ public class shopping_tripServlet extends HttpServlet {
 
 				PlanningServiceHibernate PSH = new PlanningServiceHibernate();// 創造出planning SERVICE
 				Integer planId = PSH.getPlanId(cusId, cartId); // 得到1.他是誰 2.是哪台車
-				
+			
 				// 透過取得的trip_id去找到該物件的屬性
 
 				Trip_ordServiceHibernate TOSH = new Trip_ordServiceHibernate();
 				TripServiceHibernate TSH = new TripServiceHibernate();
+			    Integer compId = TSH.getTrip(tripId).getCompId();
 				// 改成dateformat
 				Date startTime = TSH.getOneTrip(tripId).getStartTime(); // 透過tripservicehibernate取得(等翔哥)
 				Date endTime = TSH.getOneTrip(tripId).getEndTime(); // 透過tripservicehibernate取得(等翔哥)
@@ -73,8 +74,9 @@ public class shopping_tripServlet extends HttpServlet {
 				BigDecimal commission = totalPrice.multiply(new BigDecimal(0.1));
 //			//profit = price - comm
 				BigDecimal profit = totalPrice.subtract(commission);
-
-				TOSH.addFromShopping(tripId, planId, cusId, tripAmount, totalPrice, commission, profit, 0);
+				
+		
+				TOSH.addFromShopping(compId,tripId, planId, cusId, tripAmount, totalPrice, commission, profit, startTime,endTime ,0);
 
 				String url = "/chu/shopping(hotel).jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
@@ -125,6 +127,7 @@ if("removeTripOrder".equals(action)) {
 			TOL.setCusId(trip_ord.getCusId());
 			TOL.setCompName(CSH.getComp(compId).getCompName());
 			TOL.setPeople(trip.getPeople());
+			TOL.setStore(trip.getAmount());
 			TOL.setAmount(trip_ord.getAmount());
 			TOL.setPrincipalName(CSH.getComp(compId).getPrincipalName());
 			TOL.setPrincipalPhone(CSH.getComp(compId).getPrincipalPhone());
@@ -133,7 +136,7 @@ if("removeTripOrder".equals(action)) {
 			TOL.setProfit(trip_ord.getProfit().setScale(3, RoundingMode.HALF_UP).intValue());
 			TOL.setCommission(trip_ord.getCommission().setScale(3, RoundingMode.HALF_UP).intValue());
 			TOL.setTotalPrice(trip_ord.getTotalPrice().setScale(3, RoundingMode.HALF_UP).intValue());
-			
+		
 			
 			req.setAttribute( "TripOrd" , TOL);
 			String url = "/chu/bookingList(trip).jsp";
