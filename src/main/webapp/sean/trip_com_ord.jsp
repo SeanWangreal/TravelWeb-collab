@@ -3,11 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.math.*"%>
-<%@ page import="com.tha103.gogoyu.room_ord.model.*"%>
+<%@ page import="com.tha103.gogoyu.trip_ord.model.*"%>
 <!DOCTYPE html>
 <html>
-<head>
-<title>Insert title here</title>
 <head>
 <script src="https://kit.fontawesome.com/b4c50f14e1.js"
 	crossorigin="anonymous"></script>
@@ -16,7 +14,25 @@
 <title>TravelMaker</title>
 <link href="../dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="../static/sean_css/comp_ord.css">
+</script>
 <style>
+@media ( min-height : 500px) and (max-height: 1300px) {
+	.shop {
+		height: 60vh;
+	}
+	.info {
+		height: 60vh;
+	}
+}
+
+@media ( min-height : 0px) and (max-height: 500px) {
+	.shop {
+		height: 60vh;
+	}
+	.info {
+		height: 60vh;
+	}
+}
 </style>
 </head>
 
@@ -39,9 +55,11 @@
 					style="color: #000000; font-size: 30px; width: 30px; background-color: transparent;"></i>
 
 			</button>
-			<button type="button" class="head_btn">
-				<a class="profile" href="#"> <i class="fa-solid fa-user"
-					style="color: black; font-size: 30px; background-color: transparent;"></i>
+			<button type="button" class="head_btn" id="key">
+				<a class="profile" href="#" id="sign"> <i
+					class="fa-solid fa-key"
+					style="color: #000000; font-size: 30px; width: 30px; background-color: transparent;"></i>
+					Sign in
 				</a>
 			</button>
 		</div>
@@ -69,21 +87,20 @@
 				</a>
 			</div>
 			<div class="mem-data">
-				<a href="" class="left_btn" style="color: #FCC416"> <i
-					class="fa-solid fa-file-invoice" style="color: black;"></i> 訂單資訊
+				<a href="" class="left_btn"> <i class="fa-solid fa-file-invoice"
+					style="color: black;"></i> 訂單資訊
 				</a>
 			</div>
 		</aside>
 	</nav>
 	<%
-	 Map<Room_ord,List<String>> roomOrdMap = (Map<Room_ord,List<String>>) request.getAttribute("roomOrdMap");
-	if (roomOrdMap == null) {
-		Room_ordServiceHibernate roomStockSvc = new Room_ordServiceHibernate();
+	Map<Trip_ord, List<String>> tripOrdMap = (Map<Trip_ord, List<String>>) request.getAttribute("tripOrdMap");
+	if (tripOrdMap == null) {
+		Trip_ordServiceHibernate tripStockSvc = new Trip_ordServiceHibernate();
 		Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId"));
-		roomOrdMap = roomStockSvc.getRoomOrdByCompId(compId);
-	}
-	;
-	request.setAttribute("roomOrdMap", roomOrdMap);
+		tripOrdMap = tripStockSvc.getTripOrdByCompId(compId);
+	};
+	request.setAttribute("tripOrdMap", tripOrdMap);
 	%>
 	<div class="all">
 		<main class="main-content">
@@ -92,40 +109,37 @@
 					<i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i>
 					<input type="search" placeholder="輸入訂單編號" id="ord-search">
 				</div>
-				<c:forEach var="roomOrd" items="${roomOrdMap.keySet()}">
+				<c:forEach var="tripOrd" items="${tripOrdMap.keySet()}">
 					<div class="ord">
-						<div>
-							<label class="ord-head">訂單編號:<span name="ord_id">${roomOrd.roomOrdId}</span></label>
-							<label class="ord-head">房間名稱:<span name="room_name">${roomOrdMap.get(roomOrd).get(0)}</span></label>
-							<label class="ord-head">訂單狀態:<span name="room_name">${roomOrd.ordStatus == 1?"已成立":"已取消"}</span></label>
+						<div class="ord-head">
+							<label for="">訂單編號:</label><span>21214</span>
+							<label for="">訂單狀態:</label><span>${tripOrd.ordStatus == 1?"已成立":"已取消"}</span>
 						</div>
 						<div class="all-info">
 							<div>
-								<label for="" class="l_long ord-label">房型<br>
-								<span class="long" name="room_type">${roomOrdMap.get(roomOrd).get(1)}人房</span></label> <label for=""
-									class="l_long ord-label">房數<br>
-								<span class="long" name="room_num">${roomOrd.amount}</span></label> <label for=""
+								<label for="" class="l_long ord-label">套票<br>
+								<span class="long">333</span></label> <label for=""
+									class="l_long ord-label">張數<br>
+								<span class="long">333</span></label> <label for=""
 									class="l_long ord-label">總金額<br>
-								<span class="long" name="total_money">${roomOrd.totalPrice}</span><span>元</span></label>
-								<label for="" class="l_long ord-label">顧客名稱<br>
-								<span class="long" name="customer_name">${roomOrdMap.get(roomOrd).get(2)}</span></label> <label for=""
-									class="l_long ord-label">入住日期<br>
-								<span class="long" name="check_in">${roomOrd.checkInTime}</span></label> <label for=""
-									class="l_long ord-label">退房日期<br>
-								<span class="long" name="check_out">${roomOrd.checkOutTime}</span></label>
+								<span class="long">333912193012</span></label> <label for=""
+									class="l_long ord-label">顧客名稱<br>
+								<span class="long">333</span></label> <label for=""
+									class="l_long ord-label">開始日期<br>
+								<span class="long">2024/05/30</span></label> <label for=""
+									class="l_long ord-label">結束日期<br>
+								<span class="long">2024/06/3</span></label>
 							</div>
 							<div class="remark-block">
 								<label for="" class="remark">備註:</label>
-								<p class="remark-info" name="remark">${roomOrd.remark}
+								<p class="remark-info">我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我
 								</p>
 							</div>
 						</div>
 					</div>
-
 				</c:forEach>
 			</div>
 		</main>
 	</div>
 	<script src="../static/sean_js/btn4com.js"></script>
-</body>
 </html>

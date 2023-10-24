@@ -1,6 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
     <script src="https://kit.fontawesome.com/b4c50f14e1.js" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
@@ -108,47 +109,9 @@
                             <div>
                                 投稿日期<span class="year">2022</span><span>年</span>
                                 <span class="month">8</span><span>月</span>
-                                <div>
-                                    <span>1</span><span>人按讚</span>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="star" data-star="1">
-                                    <i class="fa-solid fa-star"></i>
-                                </span>
-                                <span class="star" data-star="2">
-                                    <i class="fa-solid fa-star"></i>
-                                </span>
-                                <span class="star" data-star="3">
-                                    <i class="fa-solid fa-star"></i>
-                                </span>
-                                <span class="star" data-star="4">
-                                    <i class="fa-solid fa-star"></i>
-                                </span>
-                                <span class="star" data-star="5">
-                                    <i class="fa-solid fa-star"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="review-block">
-                            <p>
-                                我們很高興聘請RTR為我們的家人定製5天愉快的旅行路線。Jo Wang是一位非常有責任心的旅遊顧問，她對所有的电子郵件都能及時回復。她很通融，對我們的行程提出了專業建議。保持良好的服務!👍👍👍傑弗里·彭分配司機導遊，非常關心我們。他總是把顧客的安全放在第一位，尤其是當我們帶着兩個孩子旅行的時候。他是一位經驗豐富的導遊，認真規劃我們每天的行程，確保每一個我們感興趣的地方都能得到最好的體驗。我們很高興有他作為我們這次旅行的司機和嚮導!👍👍👍
-                            </p>
-                            <div class="read-block">
-                                <button class="read">查看全部</button>
-                            </div>
-                        </div>
-                        <hr>
-                    </li>
-                    <li class="one-review">
-                        <div class="title-block">
-                            <img src="4621.png" alt="" style="width: 50px; height: 50px;border-radius: 25%;">
-                            <div>
-                                投稿日期<span class="year">2022</span><span>年</span>
-                                <span class="month">8</span><span>月</span>
-                                <div>
-                                    <span>1</span><span>人按讚</span>
-                                </div>
+<!--                                 <div> -->
+<!--                                     <span>1</span><span>人按讚</span> -->
+<!--                                 </div> -->
                             </div>
                             <div>
                                 <span class="star" data-star="1">
@@ -181,20 +144,24 @@
                 </ul>
             </div>
         </main>
-        <div class="alert_bg">
-            <div class="alert">
-                <div>確定刪除嗎?
-                    <br>
-                    <button type="button" id="yes">Yes</button>
-                    <button type="button" id="no">No</button>
-                </div>
-            </div>
-        </div>
         
     </div>
     <script src="../static/sean_js/btn4com_review.js"></script>
     <script>
-        
+        $(document).ready(function(){
+        	$.ajax({
+      		  url: "/TravelWeb-collab/sean/RoomStockServlet",
+      		  type: "POST",                  // GET | POST | PUT | DELETE | PATCH
+      		  data: {
+      			  "action" : "allReview",
+      			  "compId" : compId
+      		  },
+      		  dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
+      		  success: function(data){      // request 成功取得回應後執行
+      			  console.log(data);
+      		  }
+   		});
+        })
     </script>
 </body>
 

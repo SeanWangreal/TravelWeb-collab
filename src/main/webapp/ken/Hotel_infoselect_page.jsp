@@ -63,7 +63,7 @@
   <jsp:useBean id="hotel_infoSvc" scope="page" class="com.tha103.gogoyu.hotel_info.model.Hotel_infoServiceHibernate" />
    
   <li>
-     <FORM METHOD="post" ACTION="/Hotel_infoServlet" >
+     <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/Hotel_infoServlet" >
        <b>選擇會員編號:</b>
        <select size="1" name="hotelInfoId">
          <c:forEach var="hotelInfo" items="${hotelInfoSvc.all}" > 
