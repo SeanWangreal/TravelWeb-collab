@@ -56,13 +56,13 @@ $(function(){
     if (yes_btn != null){
         yes_btn.addEventListener("click", yes);
     }
-    $(".read").on('click',function(){
-        var p = $(this).closest(".review-block").find("p");
-        p.toggleClass("zoom");
-        if (p.hasClass('zoom')){
-            $(this).text("收回")
-        } else{
-            $(this).text("查看全部")
-        }
-    })
+//    $(".read").on('click',function(){
+//        var p = $(this).closest(".review-block").find("p");
+//        p.toggleClass("zoom");
+//        if (p.hasClass('zoom')){
+//            $(this).text("收回")
+//        } else{
+//            $(this).text("查看全部")
+//        }
+//    })
 })
