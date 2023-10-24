@@ -9,11 +9,13 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.tha103.gogoyu.trip_ord.model.Trip_ord;
+
 import util.HibernateUtil;
 import util.Util;
 
 public class ConsumerHibernateDAO implements ConsumerDAO_interface {
-	// SessionFactory 為 thread-safe，可宣告為屬性讓請求執行緒們共用
+	// SessionFactory �� thread-safe嚗��臬恐���箏惇�扯�隢�瘙��瑁�蝺����梁��
 	private SessionFactory factory;
 
 	public ConsumerHibernateDAO(SessionFactory factory) {
@@ -22,8 +24,8 @@ public class ConsumerHibernateDAO implements ConsumerDAO_interface {
 
 
 
-	// Session 為 not thread-safe，所以此方法在各個增刪改查方法裡呼叫
-	// 以避免請求執行緒共用了同個 Session
+	// Session �� not thread-safe嚗���隞交迨�寞��典����憓��芣�寞�交�寞�鋆∪�澆��
+	// 隞仿�踹��隢�瘙��瑁�蝺��梁�其����� Session
 	private Session getSession() {
 		return factory.getCurrentSession();
 	}
@@ -67,13 +69,24 @@ public class ConsumerHibernateDAO implements ConsumerDAO_interface {
 
 	@Override
 	public byte[] getPicture(Integer cusId) throws Exception {
-		Consumer consumer = getSession().get(Consumer.class, cusId);
-	    if (consumer != null) {
-	        return consumer.getCusPhoto(); // 假设你的 Consumer 类有名为 getPicture 的方法用于获取图片数据
-	    } else {
-	        throw new Exception("Consumer not found");
-	    }
-
+		
+		try {
+			getSession().beginTransaction();
+			Consumer consumer = getSession().get(Consumer.class, cusId);	
+			getSession().getTransaction().commit();
+			return consumer.getCusPhoto();
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+		
+		
+		
+			
+		
+		
 	}
 
-}
+

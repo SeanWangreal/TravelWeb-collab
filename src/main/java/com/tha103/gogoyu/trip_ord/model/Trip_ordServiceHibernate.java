@@ -16,6 +16,16 @@ public class Trip_ordServiceHibernate implements Trip_ordService {
 		dao = new Trip_ordHibernateDAO(HibernateUtil.getSessionFactory());
 	}
 
+	
+	
+	public Integer updateCommentAndScore(Integer tripOrd , Integer score , String comment ,Timestamp commentsTime) {
+	
+		return dao.updateCommentAndScore(tripOrd,score,comment, commentsTime);
+	}	
+		
+	
+	
+	
 	public Integer addFromShopping(Integer compId , Integer tripId, Integer planId, Integer cusId, Integer amount, BigDecimal totalPrice,
 			BigDecimal commission, BigDecimal profit, Date startTime , Date endTime ,Integer ordStatus) {
 
@@ -99,5 +109,9 @@ public class Trip_ordServiceHibernate implements Trip_ordService {
 	
 	public Map<Trip_ord,List<String>> getTripOrdByCompId(Integer compId){
 		return dao.getTripOrdByCompId(compId);
+	}
+	
+	public Map<Trip_ord,List<String>> gettripIdComment(Integer tripId){
+		return dao.gettripIdComment(tripId);
 	}
 }

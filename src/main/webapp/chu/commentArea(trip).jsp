@@ -1,16 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ page import="com.tha103.gogoyu.trip_ord.model.*"%>
+<%@ page import="com.tha103.gogoyu.trip.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!-- jsp使用  el語法註冊-->
 <%@ page import="java.util.*"%>
 <%@ page import="com.tha103.gogoyu.room_ord.model.*"%>
 <%@ page import="com.tha103.gogoyu.consumer.model.*"%>
+<%@ page import="com.tha103.gogoyu.planning.model.*"%>
 <%@ page import="com.tha103.gogoyu.planning.model.*"%>
 <!-- 以下三行預防快取 -->
 <%
 response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
 response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setDateHeader("Expires", 0);
+
+session.setAttribute("tripId", 3);
+Integer tripId =(Integer)session.getAttribute("tripId");
+
+Trip_ordServiceHibernate TOSH = new Trip_ordServiceHibernate();
+TripServiceHibernate TSH = new TripServiceHibernate();
+pageContext.setAttribute("trip1", TOSH.gettripIdComment(tripId));
+// String tripName = TSH.getTrip(tripId).getTripName();
+pageContext.setAttribute("trip_name",TSH.getTrip(tripId).getTripName());
 %>
 
 <!DOCTYPE html>
@@ -114,29 +125,37 @@ response.setDateHeader("Expires", 0);
 <body>
     
     <div class="comment-container">
-        
-        <h1 style="text-decoration: underline; color: blue;">統神大戲院</h1>
-        <h2>客人評語</h2>
-        <hr>
-        <div class="comment" style="display: flex;">
+    	<h1 style="text-decoration: underline; color: blue;">${trip_name}</h1>
+    	<h2>客人評語</h2>
+        <c:forEach var="tripVo1" items="${trip1.keySet()}">
+		<hr>
+		 <div class="comment" style="display: flex; height: 45px;">
             <div style="font-size: 20px;">
-                <span class="author" >會員編號: 11</span>
-                <div style="margin-top: 10px;">asiagodtone</div>
-                <br>                
-                <span style="margin-left: 30px;">8.7</span><span class="star" style="color: gold">★</span>
+                <span class="author" >會員編號: ${tripVo1.cusId}</span>
+                <br>
+                <div >${trip1.get(tripVo1).get(1)}</div>
+                <br>    
+                <img src="${pageContext.request.contextPath}/PictureServlet?cusId=${tripVo1.cusId}"  style="width: 130px; height: 140px; ">
             </div>
-            <div class="comment-text">
-                這是一個示例評論這是一個示例評論這是一個示例評論。這是一個示例評論。這是一個示例評論。這是一個示例評論。這是一個示例評論。這是一個示例評論。這是一個示例評論。這是一個示例評論。這是一個示例評論。這是一個示例評論。這是一個示例評論。
+            <div style="height: 20%; position: relative; left:200px; display: flex;font-size: 18px;">
+                <i style="position: relative; right: 100px;width: 100px;">評論時間:</i><i style="position: relative; right: 100px;width: 200px;">${tripVo1.commentsTime}</i>
+                <span >${tripVo1.score}</span><span class="star" style="color: gold; position: relative;bottom: 7px;">★</span>
             </div>
+           
         </div>
+        <div class="comment-text" style="position:relative ; bottom:20px;left: 100px;">
+            ${tripVo1.comments}
+        </div>
+		</c:forEach>
         <hr>
-        
 
         <div class="comment-form">
             <br>
             <br>
             <h3>新增評論</h3>
-            <form>
+            
+            <form action="${pageContext.request.contextPath}/Trip_ordComment" method="post">
+            
                 <label>評分：</label>
                 <div class="stars" data-rating="0">
                     <span class="star" data-value="1">★</span>
@@ -145,16 +164,21 @@ response.setDateHeader("Expires", 0);
                     <span class="star" data-value="4">★</span>
                     <span class="star" data-value="5">★</span>
                 </div>
-                <p>你的評分是: <span id="rating">0</span> 颗星</p>
+                <p>你的評分是: <span id="rating">0</span> 顆星</p>
+                
+                <input type="hidden" id="ratingInput" name="score" value="0"> 
+                
                 <br>
-                <label for="comment-text">評論內容 (不超過100字)：</label>
-                <textarea id="comment-text" name="comment-text" rows="4" required style="width: 100%; max-width: 400px;"></textarea>
-                <p style="color: gray;">最大字數: <span id="charCount">100</span>/100<span></span></p>
+                <label for="comment-text">評論內容 (不超過200字)：</label>
+                <textarea id="comment-text" name="comment" rows="4" required style="width: 100%; max-width: 400px;"></textarea>               
+                <p style="color: gray;">最大字數: <span id="charCount">200</span>/200<span></span></p>
                 <button type="submit">發表評論</button>
+                <input type="hidden" id="submitButtonClicked" name="submitButtonClicked" value="false">
+                
             </form>
         </div>
         
-        <!-- 離開按鈕 -->
+  
         <button class="leave-button" id="leaveButton">離開</button>
     </div>
 
@@ -176,11 +200,11 @@ response.setDateHeader("Expires", 0);
         commentText.addEventListener('input', () => {
             const text = commentText.value;
             const charCount = text.length;
-            const remainingChars = 100 - charCount;
+            const remainingChars = 200 - charCount;
             charCountElement.textContent = remainingChars;
 
-            if (charCount > 100) {
-                commentText.value = text.substring(0, 100); // 截斷文本以限制字數
+            if (charCount > 200) {
+                commentText.value = text.substring(0, 200); // 截斷文本以限制字數
                 charCountElement.textContent = 0;
             }
         });
@@ -194,6 +218,30 @@ response.setDateHeader("Expires", 0);
                 }
             });
         }
+        
+        
+        
+//         計算點選的星數方便傳值給後端
+        const ratingInput = document.getElementById('ratingInput');
+        starsContainer.addEventListener('click', (event) => {
+            if (event.target.classList.contains('star')) {
+                const rating = event.target.getAttribute('data-value');
+                ratingElement.textContent = rating;
+                ratingInput.value = rating; // 更新隱藏的輸入元素的值
+                updateStars(rating);
+            }
+        });
+//      計算點選的星數方便傳值給後端
+
+// 確認評論發表的按鈕有按
+		const submitButton = document.querySelector('button[type="submit"]');
+		const submitButtonClickedInput = document.getElementById('submitButtonClicked');
+		
+		submitButton.addEventListener('click', () => {
+		    submitButtonClickedInput.value = "true"; // 將值設置為 "true" 表示按鈕已被單擊
+		});
+// 確認評論發表的按鈕有按		
+
     </script>
 </body>
 </html>

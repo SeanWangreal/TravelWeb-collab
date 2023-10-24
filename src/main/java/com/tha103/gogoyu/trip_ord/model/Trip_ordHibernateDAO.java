@@ -3,6 +3,9 @@ package com.tha103.gogoyu.trip_ord.model;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.*;
+
+import javax.persistence.Query;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
@@ -97,6 +100,34 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 	}
 
 	@Override
+	public Map<Trip_ord, List<String>> gettripIdComment(Integer tripId) {
+		try {
+			getSession().beginTransaction();
+			@SuppressWarnings("unchecked")
+			NativeQuery<Trip_ord> query1 = getSession().createNativeQuery(
+			"select * from trip_ord where trip_id = :trip_id and comments is not null",Trip_ord.class);
+			query1.setParameter("trip_id", tripId);
+			List<Trip_ord> list1 = query1.list();
+			
+			Map<Trip_ord,List<String>> map  = new LinkedHashMap<Trip_ord,List<String>>();
+			for (Trip_ord ord: list1) {
+				List<String> info = new ArrayList<String>();
+					info.add(getSession().get(Trip.class, ord.getTripId()).getTripName());//String tripName
+					info.add(getSession().get(Consumer.class, ord.getCusId()).getCusName());//String cusName					
+					map.put(ord,info);
+			}
+			
+			getSession().getTransaction().commit();
+			return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+
+	
+	@Override
 	public Map<Trip_ord, List<String>> getTripOrdVo(Integer cartId, Integer cusId) {
 		try {
 			getSession().beginTransaction();
@@ -125,6 +156,27 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 		return null;
 	}
 
+	
+	
+	public Integer updateCommentAndScore(Integer tripOrd , Integer score , String comment ,Timestamp commentsTime) {
+		try {
+			getSession().beginTransaction();
+			Query query = getSession().createQuery("UPDATE Trip_ord SET score = :score, comments = :comments  , commentsTime = :commentsTime WHERE tripOrdId = :tripOrdId");
+			query.setParameter("comments", comment);
+			query.setParameter("score", score);
+			query.setParameter("tripOrdId", tripOrd);
+			query.setParameter("commentsTime", commentsTime);
+			query.executeUpdate();
+			
+			getSession().getTransaction().commit();
+			return 1 ;
+		}catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return -1 ;
+	}
+	
 	@Override
 	public Map<Trip_ord,List<String>> getTripOrdByCompId(Integer compId) {
 		try {

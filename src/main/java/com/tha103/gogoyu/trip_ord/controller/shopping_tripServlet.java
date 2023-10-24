@@ -131,8 +131,8 @@ if("removeTripOrder".equals(action)) {
 			TOL.setAmount(trip_ord.getAmount());
 			TOL.setPrincipalName(CSH.getComp(compId).getPrincipalName());
 			TOL.setPrincipalPhone(CSH.getComp(compId).getPrincipalPhone());
-			TOL.setStartTime(trip.getStartTime()); 
-			TOL.setEndTime(trip.getEndTime());
+			TOL.setStartTime(trip_ord.getStartTime()); 
+			TOL.setEndTime(trip_ord.getEndTime());
 			TOL.setProfit(trip_ord.getProfit().setScale(3, RoundingMode.HALF_UP).intValue());
 			TOL.setCommission(trip_ord.getCommission().setScale(3, RoundingMode.HALF_UP).intValue());
 			TOL.setTotalPrice(trip_ord.getTotalPrice().setScale(3, RoundingMode.HALF_UP).intValue());
