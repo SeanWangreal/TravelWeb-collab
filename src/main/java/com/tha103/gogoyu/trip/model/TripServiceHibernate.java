@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Set;
 
+import com.tha103.gogoyu.itinerary.model.Itinerary;
 import com.tha103.gogoyu.trip_photo.model.Trip_photo;
 
 import util.HibernateUtil;
@@ -144,6 +145,10 @@ public class TripServiceHibernate implements TripService {
 	@Override
 	public int deleteAllPhoto(Integer tripId) {
 		return dao.deleteAllPhoto(tripId);
+	}
+	@Override
+	public Set<Itinerary> getItineraryByTripId(Integer tripId) {
+		return dao.getItineraryByTripId(tripId);
 	}
 	
 	

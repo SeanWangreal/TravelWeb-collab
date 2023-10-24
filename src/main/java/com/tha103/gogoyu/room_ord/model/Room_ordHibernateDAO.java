@@ -2,15 +2,16 @@ package com.tha103.gogoyu.room_ord.model;
 
 import java.math.BigDecimal;
 import java.util.*;
-
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
-
+import com.tha103.gogoyu.consumer.model.Consumer;
 import com.tha103.gogoyu.room.model.Room;
 import com.tha103.gogoyu.room_photo.model.Room_photo;
-import com.tha103.gogoyu.trip.model.Trip;
-import com.tha103.gogoyu.trip_ord.model.Trip_ord;
 import com.tha103.gogoyu.company.model.Company;
 import util.HibernateUtil;
 
@@ -108,7 +109,7 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 			getSession().beginTransaction();
 			@SuppressWarnings("unchecked")
 			NativeQuery<Room_ord> query1 = getSession().createNativeQuery(
-					"SELECT * from room_ord where plan_id in (select plan_id from planning where cart_id= :cartId and cus_id = :cusId)", Room_ord.class);
+					"SELECT * from room_ord where plan_id in (select plan_id from Planning where cart_id= :cartId and cus_id = :cusId)", Room_ord.class);
 						query1.setParameter("cartId", cartId);
 						query1.setParameter("cusId", cusId);
 			List<Room_ord> list1 = query1.list();
@@ -131,6 +132,33 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 		}
 		return null;
 	}
+	
+	public Map<Room_ord,List<String>> getRoomOrdByCompId(Integer compId){
+		try {
+			getSession().beginTransaction();
+			Map<Room_ord,List<String>> map = new LinkedHashMap<Room_ord, List<String>>();
+			List<Room_ord> list = getSession().createQuery("from Room_ord where comp_id = :compId and ord_status != 0 order by ord_time desc", Room_ord.class)
+					.setParameter("compId", compId)
+					.list();
+			for (Room_ord ord : list) {
+				List<String> info = new ArrayList<String>();
+				Room room =getSession().get(Room.class, ord.getRoomId());
+				Consumer consumer =getSession().get(Consumer.class, ord.getCusId());
+				info.add(room.getRoomName());
+				info.add(room.getRoomType().toString());
+				info.add(consumer.getCusName());
+				map.put(ord, info);
+			}
+			getSession().getTransaction().commit();
+			return map; 
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null; 
+	
+	}
+	
 	
 	
 //	public List<Room_ord> getRoomOrdVo(Integer cartId, Integer cusId) {
@@ -156,13 +184,19 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 //		return null;
 //	}
 
-//public static void main(String[] args) {
-//	Room_ordServiceHibernate n = new Room_ordServiceHibernate();
+public static void main(String[] args) {
+	Room_ordServiceHibernate n = new Room_ordServiceHibernate();
 //	List<Room_ord>a = n.getRoomOrdVo(1,1);
 //	for(Room_ord a1 : a) {
 //		System.out.println(a1.getCommission());
 //		
 //	}
-//}
+	Map<Room_ord,List<String>> map = n.getRoomOrdByCompId(1);
+	for (Room_ord ord :map.keySet()) {
+		List lis =map.get(ord);
+		System.out.println(lis.get(1));
+		System.out.println(lis.get(0));
+	}
+}
 
 }

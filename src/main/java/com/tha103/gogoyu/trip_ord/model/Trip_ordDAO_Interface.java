@@ -12,5 +12,6 @@ public interface Trip_ordDAO_Interface {
     public Trip_ord findByPrimaryKey(Integer tripOrdId);
     public List<Trip_ord> getAll();
     public Map<Trip_ord, List<String>> getTripOrdVo(Integer cartId, Integer cusId);
+    public Map<Trip_ord,List<String>> getTripOrdByCompId(Integer compId);
 }
 

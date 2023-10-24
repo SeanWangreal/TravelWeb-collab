@@ -51,17 +51,17 @@ public class Company implements java.io.Serializable {
 	@Column(name = "hotel_info_id", insertable = false, updatable = false) // fk
 	private Integer hotelInfoId;
 	
-	@OneToOne
-	@JoinColumn(name = "hotel_info_id",referencedColumnName = "hotel_info_id")
-	private Hotel_info hotelInfo;
-	
-	public Hotel_info getHotelInfo() {
-		return hotelInfo;
-	}
-
-	public void setHotelInfo(Hotel_info hotelInfo) {
-		this.hotelInfo = hotelInfo;
-	}
+//	@OneToOne
+//	@JoinColumn(name = "hotel_info_id",referencedColumnName = "hotel_info_id")
+//	private Hotel_info hotelInfo;
+//	
+//	public Hotel_info getHotelInfo() {
+//		return hotelInfo;
+//	}
+//
+//	public void setHotelInfo(Hotel_info hotelInfo) {
+//		this.hotelInfo = hotelInfo;
+//	}
 
 	@Column(name = "comp_type")
 	private Integer compType;

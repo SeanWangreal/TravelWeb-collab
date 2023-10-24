@@ -96,17 +96,12 @@ public class RoomServlet extends HttpServlet {
 			session.setAttribute("compId", compId);
 			List<Room> roomList = roomSvc.getRoomByCompId(Integer.parseInt(compId));
 			LinkedHashMap<Room, Set<Room_photo>> mapPhoto = new LinkedHashMap<Room, Set<Room_photo>>();
-			LinkedHashMap<Room, List<Room_stock>> mapStock = new LinkedHashMap<Room, List<Room_stock>>();
 			Set<Room_photo> roomPhoto = null;
-			List<Room_stock> roomStock = null;
 			for (Room li : roomList) {
 				roomPhoto = roomSvc.getAllPhoto(li.getRoomId());
 				mapPhoto.put(li, roomPhoto);
-				roomStock = roomStockSvc.getStockByTodayByRoomId(li.getRoomId());
-				mapStock.put(li, roomStock);
 			}
 			req.setAttribute("mapPhoto", mapPhoto);
-			req.setAttribute("mapStock", mapStock);
 			forwardPath = "/sean/hotel_room_all.jsp";
 			break;
 		case "change":

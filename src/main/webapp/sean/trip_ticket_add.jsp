@@ -264,112 +264,112 @@ datalist {
 						<h2>選擇地點</h2>
 						<div class="room">
 							<div class="product-opt">
-								<span> <input type="checkbox" id="Taipei_City"
+								<span> <input class="where" type="checkbox" id="Taipei_City"
 									name="detail" value="taipeiCity"
 									${(trip.taipeiCity == 1) ? "checked" : ""}> <label
 									for="Taipei_City">台北市</label>
-								</span> <span> <input type="checkbox" id="NewTaipei_City"
+								</span> <span> <input class="where" type="checkbox" id="NewTaipei_City"
 									name="detail" value="newtaipeiCity"
 									${(trip.newtaipeiCity == 1) ? "checked" : ""}> <label
 									for="NewTaipei_City">新北市</label>
-								</span> <span> <input type="checkbox" id="Taoyuan_City"
+								</span> <span> <input class="where" type="checkbox" id="Taoyuan_City"
 									name="detail" value="taoyuanCity"
 									${(trip.taoyuanCity == 1) ? "checked" : ""}> <label
 									for="Taoyuan_City">桃園市</label>
 								</span>
 							</div>
 							<div class="product-opt">
-								<span> <input type="checkbox" id="Taichung_City"
+								<span> <input class="where" type="checkbox" id="Taichung_City"
 									name="detail" value="taichungCity"
 									${(trip.taichungCity == 1) ? "checked" : ""}> <label
 									for="Taichung_City">台中市</label>
-								</span> <span> <input type="checkbox" id="Tainan_City"
+								</span> <span> <input class="where" type="checkbox" id="Tainan_City"
 									name="detail" value="tainanCity"
 									${(trip.tainanCity == 1) ? "checked" : ""}> <label
 									for="Tainan_City">台南市</label>
-								</span> <span> <input type="checkbox" id="Kaohsiung_City"
+								</span> <span> <input class="where" type="checkbox" id="Kaohsiung_City"
 									name="detail" value="kaohsiungCity"
 									${(trip.kaohsiungCity == 1) ? "checked" : ""}> <label
 									for="Kaohsiung_City">高雄市</label>
 								</span>
 							</div>
 							<div class="product-opt">
-								<span> <input type="checkbox" id="Hsinchu_County"
+								<span> <input class="where" type="checkbox" id="Hsinchu_County"
 									name="detail" value="hsinchuCounty"
 									${(trip.hsinchuCounty == 1) ? "checked" : ""}> <label
 									for="Hsinchu_County">新竹縣</label>
-								</span> <span> <input type="checkbox" id="Miaoli_County"
+								</span> <span> <input class="where" type="checkbox" id="Miaoli_County"
 									name="detail" value="miaoliCounty"
 									${(trip.miaoliCounty == 1) ? "checked" : ""}> <label
 									for="Miaoli_County">苗栗縣</label>
-								</span> <span> <input type="checkbox" id="Changhua_County"
+								</span> <span> <input class="where" type="checkbox" id="Changhua_County"
 									name="detail" value="changhuaCounty"
 									${(trip.changhuaCounty == 1) ? "checked" : ""}> <label
 									for="Changhua_County">彰化縣</label>
 								</span>
 							</div>
 							<div class="product-opt">
-								<span> <input type="checkbox" id="Nantou_County"
+								<span> <input class="where" type="checkbox" id="Nantou_County"
 									name="detail" value="nantouCounty"
 									${(trip.nantouCounty == 1) ? "checked" : ""}> <label
 									for="Nantou_County">南投縣</label>
-								</span> <span> <input type="checkbox" id="Yunlin_County"
+								</span> <span> <input class="where" type="checkbox" id="Yunlin_County"
 									name="detail" value="yunlinCounty"
 									${(trip.yunlinCounty == 1) ? "checked" : ""}> <label
 									for="Yunlin_County">雲林縣</label>
-								</span> <span> <input type="checkbox" id="Chiayi_County"
+								</span> <span> <input class="where" type="checkbox" id="Chiayi_County"
 									name="detail" value="chiayiCounty"
 									${(trip.chiayiCounty == 1) ? "checked" : ""}> <label
 									for="Chiayi_County">嘉義縣</label>
 								</span>
 							</div>
 							<div class="product-opt">
-								<span> <input type="checkbox" id="Pingtung_County"
+								<span> <input class="where" type="checkbox" id="Pingtung_County"
 									name="detail" value="pingtungCounty"
 									${(trip.pingtungCounty == 1) ? "checked" : ""}> <label
 									for="Pingtung_County">屏東縣</label>
-								</span> <span> <input type="checkbox" id="Yilan_City"
+								</span> <span> <input class="where" type="checkbox" id="Yilan_City"
 									name="detail" value="yilanCity"
 									${(trip.yilanCity == 1) ? "checked" : ""}> <label
 									for="Yilan_City">宜蘭市</label>
-								</span> <span> <input type="checkbox" id="Hualien_City"
+								</span> <span> <input class="where" type="checkbox" id="Hualien_City"
 									name="detail" value="hualienCity"
 									${(trip.hualienCity == 1) ? "checked" : ""}> <label
 									for="Hualien_City">花蓮市</label>
 								</span>
 							</div>
 							<div class="product-opt">
-								<span> <input type="checkbox" id="Taitung_County"
+								<span> <input class="where" type="checkbox" id="Taitung_County"
 									name="detail" value="taitungCounty"
 									${(trip.taitungCounty == 1) ? "checked" : ""}> <label
 									for="Taitung_County">台東縣</label>
-								</span> <span> <input type="checkbox" id="Kinmen_County"
+								</span> <span> <input class="where" type="checkbox" id="Kinmen_County"
 									name="detail" value="kinmenCounty"
 									${(trip.kinmenCounty == 1) ? "checked" : ""}> <label
 									for="Kinmen_County">金門縣</label>
-								</span> <span> <input type="checkbox" id="Lienchiang_County"
+								</span> <span> <input class="where" type="checkbox" id="Lienchiang_County"
 									name="detail" value="lienchiangCounty"
 									${(trip.lienchiangCounty == 1) ? "checked" : ""}> <label
 									for="Lienchiang_County">連江縣</label>
 								</span>
 							</div>
 							<div class="product-opt">
-								<span> <input type="checkbox" id="Keelung_City"
+								<span> <input class="where" type="checkbox" id="Keelung_City"
 									name="detail" value="keelungCity"
 									${(trip.keelungCity == 1) ? "checked" : ""}> <label
 									for="Keelung_City">基隆市</label>
-								</span> <span> <input type="checkbox" id="Hsinchu_City"
+								</span> <span> <input class="where" type="checkbox" id="Hsinchu_City"
 									name="detail" value="hsinchuCity"
 									${(trip.hsinchuCity == 1) ? "checked" : ""}> <label
 									for="Hsinchu_City">新竹市</label>
-								</span> <span> <input type="checkbox" id="Chiayi_City"
+								</span> <span> <input class="where" type="checkbox" id="Chiayi_City"
 									name="detail" value="chiayiCity"
 									${(trip.chiayiCity == 1) ? "checked" : ""}> <label
 									for="Chiayi_City">嘉義市</label>
 								</span>
 							</div>
 							<div class="product-opt">
-								<span> <input type="checkbox" id="Penghu_County"
+								<span> <input class="where" type="checkbox" id="Penghu_County"
 									name="detail" value="penghuCounty"
 									${(trip.penghuCounty == 1) ? "checked" : ""}> <label
 									for="Penghu_County">澎湖縣</label>

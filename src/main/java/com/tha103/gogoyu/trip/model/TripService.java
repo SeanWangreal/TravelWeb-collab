@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 import java.util.Set;
+
+import com.tha103.gogoyu.itinerary.model.Itinerary;
 import com.tha103.gogoyu.trip_photo.model.Trip_photo;
 
 public interface TripService {
@@ -29,5 +31,6 @@ public interface TripService {
 	public byte[] getMainPhoto(Integer roomId);
 	public Set<Trip_photo> getAllPhoto(Integer tripId);
 	public Trip updateStatus(Integer tripid, Integer status);
+	public Set<Itinerary> getItineraryByTripId(Integer tripId);
 	int deleteAllPhoto(Integer tripId);
 }

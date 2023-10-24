@@ -116,7 +116,6 @@ response.setDateHeader("Expires", 0);
 p {
 	color: black;
 	font-size: 30px;
-	cursor: pointer;
 }
 
 h1 {
@@ -197,18 +196,20 @@ input {
 	<nav class="st">
 		<!-- <a class="word" id="home" href="#">Home</a> -->
 		<div class="head">
-			<button type="menu" class="head_btn" id="msg">
+			<button type="button" class="head_btn" id="msg">
 				<i class="fa-regular fa-message icon"
 					style="color: black; font-size: 30px; background-color: transparent;"></i>
 			</button>
-			<button type="menu" class="head_btn" id="info">
+			<button type="button" class="head_btn" id="info">
 				<i class="fa-regular fa-bell icon"
 					style="color: black; font-size: 30px; width: 30px; background-color: transparent;"></i>
 			</button>
-			<button type="menu" class="head_btn" id="">
+			<button type="button" class="head_btn" id="">
+			<a class="profile"
+					href="${pageContext.request.contextPath}/sean/hotel_room_all.jsp">
 				<i class="fa-solid fa-store"
 					style="color: #000000; font-size: 30px; width: 30px; background-color: transparent;"></i>
-
+			</a>
 			</button>
 			<button type="button" class="head_btn">
 				<a class="profile"
@@ -243,7 +244,8 @@ input {
 				</a>
 			</div>
 			<div class="mem-data">
-				<a href="" class="left_btn"> <i class="fa-regular fa-comment"
+				<a href="${pageContext.request.contextPath}/sean/hotel_room_review.jsp" 
+				class="left_btn"> <i class="fa-regular fa-comment"
 					style="color: #000000;"></i> 匿名評論
 				</a>
 			</div>
@@ -272,8 +274,6 @@ input {
 					request.setAttribute("mapPhoto",mapPhoto);
 					request.setAttribute("mapStock",mapStock);
 				} 
-				// 				request.setAttribute("backHere",request.getRequestURL());
-				// 				System.out.print(request.getRequestURI());
 				%>
 				<c:forEach var="room" items="${mapPhoto.keySet()}">
 					<c:if test="${room.roomStatus!=-1}">
@@ -418,7 +418,7 @@ input {
 											<hr>
 											<h2>客房介紹</h2>
 											<article
-												style="width: 100%; border: 1px solid black; border-radius: 5px; padding: 5px">${room.intro}</article>
+												style="width: 100%; border: 1px solid black; border-radius: 5px; padding: 5px;min-height:10vh; word-break:break-all; ">${room.intro}</article>
 										</div>
 										<br>
 										<h2>客房每晚價格</h2>
@@ -588,7 +588,7 @@ input {
                     return (month_normal[month]);
                 }
             }
-            function refreshDate(roomId) {
+            function refreshDate(roomId,  targetObj) {
             	$.ajax({
             		  url: "/TravelWeb-collab/sean/RoomStockServlet",
             		  type: "POST",                  // GET | POST | PUT | DELETE | PATCH
@@ -598,81 +598,86 @@ input {
             		  },
             		  dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
             		  success: function(data){      // request 成功取得回應後執行
-            		    console.log(data);
-            		  }
-            		});
-            	
-            	
-            	
-            	
-            	
-                var str = "";
-                var totalDay = daysMonth(my_month, my_year); //获取该月总天数
-                var firstDay = dayStart(my_month, my_year); //获取该月第一天是星期几
-                var myclass;
-                for (var i = 1; i < firstDay; i++) {
-                    str += "<li></li>"; //为起始日之前的日期创建空白节点
-                }
-                for (var i = 1; i <= totalDay; i++) {
-                    if ((i < my_day && my_year == my_date.getFullYear() && my_month == my_date.getMonth()) || my_year < my_date.getFullYear() || (my_year == my_date.getFullYear() && my_month < my_date.getMonth())) {
-                        myclass = 'lightgrey'; //当该日期在今天之前时，以浅灰色字体显示
-                    } else if (i == my_day && my_year == my_date.getFullYear() && my_month == my_date.getMonth()) {
-                        myclass = 'colorbox'; //当天日期以绿色背景突出显示
-                    } else {
-                        myclass = 'darkgrey'; //当该日期在今天之后时，以深灰字体显示
-                    }
-                    str += `<li class=` + myclass + `>` +i+ `<p></p>
-                       </li>`; //创建日期节点
-                }
-                for (var i = 0; i < holder.length; i++) {
-                    holder[i].innerHTML = str; //设置日期显示
-                    ctitle[i].innerHTML = month_name[my_month]; //设置英文月份显示
-                    cyear[i].innerHTML = my_year; //设置年份显示
-                }
-                $("p").on("click", function () {
-                    $(this).toggleClass("switch");
-                    $(this).closest("li").find("input").toggleClass("switch");
-                })
-                $("input").on("keydown", function (e) {
-                    if (e.which == 13) {
-                        $(this).toggleClass("switch");
-                        var p = $(this).closest("li").find("p");
-                        p.toggleClass("switch");
-                        $(p).text($(this).val());
-                    }
-                })
+            			var totalStock = data.length;
+        				var countStock = 0;
+		               var str = "";
+		               var totalDay = daysMonth(my_month, my_year); //获取该月总天数
+		               var firstDay = dayStart(my_month, my_year); //获取该月第一天是星期几
+		               var myclass;
+		               for (let i = 1; i < firstDay; i++) {
+		                   str += "<li></li>"; //为起始日之前的日期创建空白节点
+		               }
+		               for (let i = 1; i <= totalDay; i++) {
+		            	   if (i < 10){
+		            	   		var thisDay = my_year+'-'+(my_month+1)+'-0'+i;		            		   
+		            	   } else{
+		            		   var thisDay = my_year+'-'+(my_month+1)+'-'+i;		            		   
+		            	   }
+		                   if ((i < my_day && my_year == my_date.getFullYear() && my_month == my_date.getMonth()) || my_year < my_date.getFullYear() || (my_year == my_date.getFullYear() && my_month < my_date.getMonth())) {
+		                       myclass = 'lightgrey'; //当该日期在今天之前时，以浅灰色字体显示
+		                       str += `<li class=` + myclass + ` data-date=`+thisDay+`>` +i+ `<p></p></li>`;
+		                   } else if (i == my_day && my_year == my_date.getFullYear() && my_month == my_date.getMonth()) {
+		                       myclass = 'colorbox'; //当天日期以绿色背景突出显示
+	                    	   str += `<li class=` + myclass + `>` +i+ `<p class="today" data-date=`+thisDay+`></p></li>`;		  
+		                   } else {
+		                       myclass = 'darkgrey'; //当该日期在今天之后时，以深灰字体显示
+ 		                    str += `<li class=` + myclass + `>` +i+ `<p data-date=`+thisDay+`></p></li>`;
+		                   }
+		               }
+
+						targetObj.find(".days")[0].innerHTML = str;
+						targetObj.find(".calendar-title")[0].innerHTML = month_name[my_month];
+						targetObj.find(".calendar-year")[0].innerHTML = my_year;
+						let all_p = $("p").length;
+						console.log(all_p);
+		               let p_num =  targetObj.find("p").length;
+		   				console.log(p_num);
+		               for (let key in data){
+		            	   for (let i = 0; i<p_num; i++){
+		            	  		 if (data[key].stockDate ==  targetObj.find("p").eq(i).attr("data-date")){
+		            	  			targetObj.find("p").eq(i).text(data[key].stock);
+		            	  		 }
+		            	   }
+		               }
+           		  }
+         		});
             }
             $(prev).on('click', function (e) {
                 e.preventDefault();
                 var roomId = $(this).attr("data-value");
+                var targetObj = $(this).closest(".one-product");
                 my_month--;
                 if (my_month < 0) {
                     my_year--;
                     my_month = 11;
                 }
-                refreshDate(roomId);
+                refreshDate(roomId, targetObj);
             })
             $(next).on('click', function (e) {
                 e.preventDefault();
                 var roomId = $(this).attr("data-value");
+                var targetObj = $(this).closest(".one-product");
                 my_month++;
                 if (my_month > 11) {
                     my_year++;
                     my_month = 0;
                 }
-                refreshDate(roomId);
+                refreshDate(roomId, targetObj);
             })
             $(".stock").on('click', function () {
             	var roomId = $(this).attr("data-value");
-                refreshDate(roomId);
+            	var targetObj = $(this).closest(".one-product");
+            	var all = $(".one-product").length;
                 $(this).closest(".one-product").find(".calendar").toggleClass("on");
+                refreshDate(roomId, targetObj);
             })
             $("h1").on("click", function () {
             	var roomId = $(this).attr("data-value");
                 my_month = my_date.getMonth();
                 my_day = my_date.getDate();
                 my_year = my_date.getFullYear();
-                refreshDate(roomId)
+                var targetObj = $(this).closest(".one-product");
+                refreshDate(roomId, targetObj)
             })
         })
     </script>

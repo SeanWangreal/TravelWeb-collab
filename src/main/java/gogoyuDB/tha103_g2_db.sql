@@ -81,7 +81,7 @@ insert into adm_meb (adm_name, adm_account, adm_password)
 insert into adm_meb (adm_name, adm_account, adm_password)
 	VALUES ("詩翰", "d12345", "aaee1122" );
 insert into adm_meb (adm_name, adm_account, adm_password)
-	VALUES ("廷晏", "e12345", "aaff1122" );
+	VALUES ("正晏", "e12345", "aaff1122" );
 
 CREATE TABLE `hotel_info` (
     `hotel_info_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -204,17 +204,32 @@ CREATE TABLE room_stock (
 insert into room_stock (room_id, stock_date, stock)
 	VALUES (1, '2023-10-17', 1);
 insert into room_stock (room_id, stock_date, stock)
-	VALUES (2, '2023-10-17', 2);
+	VALUES (1, '2023-10-18', 1);
 insert into room_stock (room_id, stock_date, stock)
 	VALUES (2, '2023-10-17', 2);
 insert into room_stock (room_id, stock_date, stock)
-	VALUES (3, '2023-10-17', 3);
+	VALUES (2, '2023-10-18', 2);
+insert into room_stock (room_id, stock_date, stock)
+	VALUES (2, '2023-10-19', 2);
 insert into room_stock (room_id, stock_date, stock)
 	VALUES (3, '2023-10-17', 3);
 insert into room_stock (room_id, stock_date, stock)
-	VALUES (3, '2023-10-17', 3);
+	VALUES (3, '2023-10-18', 3);
+insert into room_stock (room_id, stock_date, stock)
+	VALUES (3, '2023-10-19', 3);
+insert into room_stock (room_id, stock_date, stock)
+	VALUES (3, '2023-10-20', 3);
 insert into room_stock (room_id, stock_date, stock)
 	VALUES (4, '2023-10-17', 4);
+insert into room_stock (room_id, stock_date, stock)
+	VALUES (4, '2023-10-18', 4);
+insert into room_stock (room_id, stock_date, stock)
+	VALUES (4, '2023-10-19', 4);
+insert into room_stock (room_id, stock_date, stock)
+	VALUES (4, '2023-10-20', 4);
+insert into room_stock (room_id, stock_date, stock)
+	VALUES (4, '2023-10-21', 4);
+
 
 
 create table room_photo (
@@ -230,6 +245,7 @@ create table room_ord(
 	room_ord_id 		int auto_increment not null,
     plan_id 			int,
     room_id 			int,
+    comp_id				int,
     cus_id 				int,
     amount 				int,
     total_price 		decimal(18,3),
@@ -244,22 +260,23 @@ create table room_ord(
     score 				int,
     comments 			longtext,
     comments_time 		datetime default current_timestamp,
+	--  constraint room_ord_comp_id_FK  foreign key (comp_id) references company (comp_id),
    --  constraint room_ord_plan_id_FK  foreign key (plan_id) references planning (plan_id),
 -- 	constraint room_ord_room_id_FK  foreign key (room_id) references room (room_id),
 --     constraint room_ord_cus_id_FK  foreign key (cus_id) references consumer (cus_id),
     constraint room_ord_PRIMARY_KEY primary key (room_ord_id)
     
 );
-insert into room_ord (plan_id, room_id, cus_id, amount, total_price, commission,profit, people, check_in_time, check_out_time, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (1, 1, 1, 5, 5000, 500, 1000,5, "2023-10-5", "2023-10-6 ", 0, "2023-10-2 17:14:56", "幫忙保管物品1", 9, "好棒", "2023-10-10 11:14:56");
-insert into room_ord (plan_id, room_id, cus_id, amount, total_price, commission,profit, people, check_in_time, check_out_time, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (2, 2, 2, 4, 8000, 800, 1000,8, "2023-10-6", "2023-10-7 ", 1, "2023-10-2 17:24:56", "幫忙保管物品2", 8, "好讚", "2023-10-10 11:24:56");
-insert into room_ord (plan_id, room_id, cus_id, amount, total_price, commission,profit, people, check_in_time, check_out_time, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (3, 3, 3, 3, 9000, 900, 1000,9, "2023-10-7", "2023-10-8 ", 2, "2023-10-2 17:34:56", "幫忙保管物品3", null, null, null);
-insert into room_ord (plan_id, room_id, cus_id, amount, total_price, commission, profit,people, check_in_time, check_out_time, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (4, 4, 4, 2, 8000, 800, 1000,8, "2023-10-8", "2023-10-9", 0, "2023-10-2 17:44:56", "幫忙保管物品4", 7, "好強", "2023-10-10 11:44:56");
-insert into room_ord (plan_id, room_id, cus_id, amount, total_price, commission,profit, people, check_in_time, check_out_time, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (5, 5, 5, 1, 500, 50, 1000,2, "2023-10-9", "2023-10-10", 1, "2023-10-2 17:54:56", "幫忙保管物品5", 9, "好舒服", "2023-10-10 11:54:56");
+insert into room_ord (plan_id, room_id, comp_id, cus_id, amount, total_price, commission,profit, people, check_in_time, check_out_time, ord_status, ord_time, remark, score, comments, comments_time)
+	VALUES (1, 1, 1, 1, 5, 5000, 500, 1000,5, "2023-10-5", "2023-10-6 ", 0, "2023-10-2 17:14:56", "幫忙保管物品1", 9, "好棒", "2023-10-10 11:14:56");
+insert into room_ord (plan_id, room_id, comp_id, cus_id, amount, total_price, commission,profit, people, check_in_time, check_out_time, ord_status, ord_time, remark, score, comments, comments_time)
+	VALUES (2, 2, 2, 2, 4, 8000, 800, 1000,8, "2023-10-6", "2023-10-7 ", 1, "2023-10-2 17:24:56", "幫忙保管物品2", 8, "好讚", "2023-10-10 11:24:56");
+insert into room_ord (plan_id, room_id, comp_id, cus_id, amount, total_price, commission,profit, people, check_in_time, check_out_time, ord_status, ord_time, remark, score, comments, comments_time)
+	VALUES (3, 3, 3, 3, 3, 9000, 900, 1000,9, "2023-10-7", "2023-10-8 ", 2, "2023-10-2 17:34:56", "幫忙保管物品3", null, null, null);
+insert into room_ord (plan_id, room_id, comp_id, cus_id, amount, total_price, commission, profit,people, check_in_time, check_out_time, ord_status, ord_time, remark, score, comments, comments_time)
+	VALUES (4, 4, 4, 4, 2, 8000, 800, 1000,8, "2023-10-8", "2023-10-9", 0, "2023-10-2 17:44:56", "幫忙保管物品4", 7, "好強", "2023-10-10 11:44:56");
+insert into room_ord (plan_id, room_id, comp_id, cus_id, amount, total_price, commission,profit, people, check_in_time, check_out_time, ord_status, ord_time, remark, score, comments, comments_time)
+	VALUES (5, 5, 5, 5, 1, 500, 50, 1000,2, "2023-10-9", "2023-10-10", 1, "2023-10-2 17:54:56", "幫忙保管物品5", 9, "好舒服", "2023-10-10 11:54:56");
 
 create table `scene`(
 	`scene_id` int not null auto_increment primary key,
@@ -366,6 +383,7 @@ create table `itinerary`(
 CREATE TABLE trip_ord (
 	trip_ord_id		int auto_increment not null,
 	trip_id			int,
+    comp_id			int,
 	plan_id			int,
     cus_id			int,
     amount			int,
@@ -378,21 +396,22 @@ CREATE TABLE trip_ord (
     score			int,
     comments		longtext,
     comments_time	datetime default current_timestamp,
+--  constraint TRIP_ORD_comp_id_FK  foreign key (comp_id) references company (comp_id),
 -- 	CONSTRAINT TRIP_ORD_TRIP_ID_FK FOREIGN KEY (trip_id) REFERENCES trip (trip_id),
 -- 	CONSTRAINT TRIP_ORD_PLAN_ID_FK FOREIGN KEY (plan_id) REFERENCES planning (plan_id),
 -- 	CONSTRAINT TRIP_ORD_CUS_ID_FK FOREIGN KEY (cus_id) REFERENCES consumer (cus_id),
     CONSTRAINT TRIP_ORD_PRIMARY_KEY PRIMARY KEY (trip_ord_id)
 ) ;
-insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission,profit, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (1, 1, 1, 5, 5000, 500, 1000,0, null, null, null, null, null);
-insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission,profit, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (2, 2, 2, 4, 8000, 800,1000, 1, "2023-10-03 12:24:56", "素食", 4, "太爽了", "2023-10-10 12:34:56");
-insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission,profit, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (3, 3, 3, 3, 9000, 900, 1000,2, "2023-10-03 12:34:56", null, null, null, null);
-insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission, profit,ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (4, 4, 4, 2, 8000, 800, 1000,0, null, null, null, null, null);
-insert into trip_ord (trip_id, plan_id, cus_id, amount, total_price, commission,profit, ord_status, ord_time, remark, score, comments, comments_time)
-	VALUES (5, 5, 5, 1, 5000, 500,1000, 1, "2023-10-03 12:54:56", "素食", 3, "還好", "2023-10-10 12:34:56");
+insert into trip_ord (trip_id, comp_id, plan_id, cus_id, amount, total_price, commission,profit, ord_status, ord_time, remark, score, comments, comments_time)
+	VALUES (1, 6, 1, 1, 5, 5000, 500, 1000,0, null, null, null, null, null);
+insert into trip_ord (trip_id, comp_id, plan_id, cus_id, amount, total_price, commission,profit, ord_status, ord_time, remark, score, comments, comments_time)
+	VALUES (2, 7, 2, 2, 4, 8000, 800,1000, 1, "2023-10-03 12:24:56", "素食", 4, "太爽了", "2023-10-10 12:34:56");
+insert into trip_ord (trip_id, comp_id, plan_id, cus_id, amount, total_price, commission,profit, ord_status, ord_time, remark, score, comments, comments_time)
+	VALUES (3, 8, 3, 3, 3, 9000, 900, 1000,2, "2023-10-03 12:34:56", null, null, null, null);
+insert into trip_ord (trip_id, comp_id, plan_id, cus_id, amount, total_price, commission, profit,ord_status, ord_time, remark, score, comments, comments_time)
+	VALUES (4, 9, 4, 4, 2, 8000, 800, 1000,0, null, null, null, null, null);
+insert into trip_ord (trip_id, comp_id, plan_id, cus_id, amount, total_price, commission,profit, ord_status, ord_time, remark, score, comments, comments_time)
+	VALUES (5, 10, 5, 5, 1, 5000, 500,1000, 1, "2023-10-03 12:54:56", "素食", 3, "還好", "2023-10-10 12:34:56");
     
 CREATE TABLE notify (
 	notify_id     	INT AUTO_INCREMENT NOT NULL,
