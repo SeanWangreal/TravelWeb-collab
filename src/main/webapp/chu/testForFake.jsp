@@ -205,18 +205,20 @@ response.setDateHeader("Expires", 0);
                             
 						<div class="pay_or_remove">
 						
-							
+							      <form action="shopping_hotelServlet" method="post">
 								<input type="hidden" name="actionForPay" value="pay">
-									<select size="1" name="amount">
-									 
- 								         
-														
-													        <option value="1">
-													      <input type="hidden" name="cart_id" value="1">
+								
+										 <select size="1" name="cart_id"> 
+									        
+									          <option value="1" >1
+									          <option value="2" >2
+									          <option value="3" >3
+									          <option value="4" >4
+									          <option value="5" >5
+									      
+									       </select>
 
-
-							       </select>
-							       <form action="shopping_hotelServlet" method="post">
+							 
 									<button  href="#" class="b pay"  style = "border: 1px solid blcak ; background-color: blue; color:black;">加入購物車</button>
 									<input type = "hidden"  name ="action" value ="room_goShopping">
 								</form>

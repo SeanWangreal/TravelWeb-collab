@@ -1,6 +1,7 @@
 package com.tha103.gogoyu.trip_ord.model;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
@@ -15,10 +16,11 @@ public class Trip_ordServiceHibernate implements Trip_ordService {
 		dao = new Trip_ordHibernateDAO(HibernateUtil.getSessionFactory());
 	}
 
-	public Integer addFromShopping(Integer tripId, Integer planId, Integer cusId, Integer amount, BigDecimal totalPrice,
-			BigDecimal commission, BigDecimal profit, Integer ordStatus) {
+	public Integer addFromShopping(Integer compId , Integer tripId, Integer planId, Integer cusId, Integer amount, BigDecimal totalPrice,
+			BigDecimal commission, BigDecimal profit, Date startTime , Date endTime ,Integer ordStatus) {
 
 		Trip_ord TripOrd = new Trip_ord();
+		TripOrd.setCompId(compId);
 		TripOrd.setTripId(tripId);
 		TripOrd.setPlanId(planId);
 		TripOrd.setCusId(cusId);
@@ -26,6 +28,8 @@ public class Trip_ordServiceHibernate implements Trip_ordService {
 		TripOrd.setTotalPrice(totalPrice);
 		TripOrd.setCommission(commission);
 		TripOrd.setProfit(profit);
+		TripOrd.setStartTime(startTime);
+		TripOrd.setEndTime(endTime);
 		TripOrd.setOrdStatus(ordStatus);
 		return dao.add(TripOrd);
 	}

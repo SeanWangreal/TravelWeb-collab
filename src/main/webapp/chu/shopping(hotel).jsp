@@ -179,7 +179,7 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 							
 						<div class="plan_tab_1_left">
 
-							<img src="${pageContext.request.contextPath}/room_photoServlet?roomId=${roomVo1.roomId}">
+							<img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${roomVo1.roomId}">
 
 						</div>
 						<div class="plan_tab_1_right">
@@ -201,7 +201,7 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 									</div>
 								</div>
 							</div>
-							<span class="book_price" >價格(含稅)</span> <i class="howmuch_nt">TWD</i>
+							<span class="book_price" >豪華二人房</span> <i class="howmuch_nt">TWD</i>
 							<div class="price_set">
 								<i class="howmuch">${roomVo1.totalPrice}</i>
 							</div>
@@ -248,7 +248,7 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 
 									<div class="plan_tab_1_left">
 
-										<img src="${pageContext.request.contextPath}/trip_photoServlet?tripId=${tripVo1.tripId}">
+										<img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${tripVo1.tripId}">
 
 									</div>
 									<div class="plan_tab_1_right">
@@ -316,8 +316,7 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 							
 						<div class="plan_tab_1_left">
 
-							<img src="${pageContext.request.contextPath}/room_photoServlet?roomId=${roomVo2.roomId}">
-
+						<img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${roomVo2.roomId}">
 						</div>
 						<div class="plan_tab_1_right">
 							<div class="right_side_first_row">
@@ -387,7 +386,7 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 
 									<div class="plan_tab_1_left">
 
-										<img src="${pageContext.request.contextPath}/trip_photoServlet?tripId=${tripVo2.tripId}">
+									<img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${tripVo2.tripId}">
 
 									</div>
 									<div class="plan_tab_1_right">
@@ -453,7 +452,7 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 							
 						<div class="plan_tab_1_left">
 
-							<img src="${pageContext.request.contextPath}/room_photoServlet?roomId=${roomVo3.roomId}">
+					<img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${roomVo3.roomId}">
 
 						</div>
 						<div class="plan_tab_1_right">
@@ -523,7 +522,7 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 
 									<div class="plan_tab_1_left">
 
-										<img src="${pageContext.request.contextPath}/trip_photoServlet?tripId=${tripVo3.tripId}">
+								<img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${tripVo3.tripId}">
 
 									</div>
 									<div class="plan_tab_1_right">
@@ -586,7 +585,7 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 							
 						<div class="plan_tab_1_left">
 
-							<img src="${pageContext.request.contextPath}/room_photoServlet?roomId=${roomVo4.roomId}">
+							<img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${roomVo4.roomId}">
 
 						</div>
 						<div class="plan_tab_1_right">
@@ -654,7 +653,7 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 
 									<div class="plan_tab_1_left">
 
-										<img src="${pageContext.request.contextPath}/trip_photoServlet?tripId=${tripVo4.tripId}">
+								<img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${tripVo4.tripId}">
 
 									</div>
 									<div class="plan_tab_1_right">
@@ -687,12 +686,12 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 										
 											<form action="${pageContext.request.contextPath}/shopping_tripServlet" method="post">
 												<input type="hidden" name="action" value="TripCheckOut">
-												<input type="hidden" name="TripOrdId"  value="${tripVo5.tripOrdId}">
+												<input type="hidden" name="TripOrdId"  value="${tripVo4.tripOrdId}">
 												<button class="b pay" type="submit" style = "width:170px">前往付款作業</button>
 											</form>
 											<form action="${pageContext.request.contextPath}/shopping_tripServlet" method="post">
 												<input type="hidden" name="action" value="removeTripOrder">
-												<input type="hidden" name="TripOrdId"  value="${tripVo5.tripOrdId}">
+												<input type="hidden" name="TripOrdId"  value="${tripVo4.tripOrdId}">
 												<button class="b remove" type="submit" style = "width:170px">移除此商品</button>
 											</form>
 										
@@ -716,7 +715,7 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 							
 						<div class="plan_tab_1_left">
 
-							<img src="${pageContext.request.contextPath}/room_photoServlet?roomId=${roomVo5.roomId}">
+							<img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${roomVo5.roomId}">
 
 						</div>
 						<div class="plan_tab_1_right">
@@ -783,7 +782,7 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 
 									<div class="plan_tab_1_left">
 
-										<img src="${pageContext.request.contextPath}/trip_photoServlet?tripId=${tripVo5.tripId}">
+										<img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${tripVo5.tripId}">
 
 									</div>
 									<div class="plan_tab_1_right">
