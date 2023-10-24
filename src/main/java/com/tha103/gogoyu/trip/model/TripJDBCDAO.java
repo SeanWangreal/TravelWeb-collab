@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.tha103.gogoyu.itinerary.model.Itinerary;
 import com.tha103.gogoyu.trip_photo.model.Trip_photo;
 
 import util.Util;
@@ -440,6 +441,12 @@ public class TripJDBCDAO implements TripDAO_interface {
 
 	@Override
 	public Set<Trip_photo> getAllPhotoByTripId(Integer tripId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<Itinerary> getItineraryByTripId(Integer tripId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

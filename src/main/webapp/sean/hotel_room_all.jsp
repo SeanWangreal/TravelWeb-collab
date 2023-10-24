@@ -196,18 +196,20 @@ input {
 	<nav class="st">
 		<!-- <a class="word" id="home" href="#">Home</a> -->
 		<div class="head">
-			<button type="menu" class="head_btn" id="msg">
+			<button type="button" class="head_btn" id="msg">
 				<i class="fa-regular fa-message icon"
 					style="color: black; font-size: 30px; background-color: transparent;"></i>
 			</button>
-			<button type="menu" class="head_btn" id="info">
+			<button type="button" class="head_btn" id="info">
 				<i class="fa-regular fa-bell icon"
 					style="color: black; font-size: 30px; width: 30px; background-color: transparent;"></i>
 			</button>
-			<button type="menu" class="head_btn" id="">
+			<button type="button" class="head_btn" id="">
+			<a class="profile"
+					href="${pageContext.request.contextPath}/sean/hotel_room_all.jsp">
 				<i class="fa-solid fa-store"
 					style="color: #000000; font-size: 30px; width: 30px; background-color: transparent;"></i>
-
+			</a>
 			</button>
 			<button type="button" class="head_btn">
 				<a class="profile"
@@ -242,7 +244,8 @@ input {
 				</a>
 			</div>
 			<div class="mem-data">
-				<a href="" class="left_btn"> <i class="fa-regular fa-comment"
+				<a href="${pageContext.request.contextPath}/sean/hotel_room_review.jsp" 
+				class="left_btn"> <i class="fa-regular fa-comment"
 					style="color: #000000;"></i> 匿名評論
 				</a>
 			</div>
@@ -271,8 +274,6 @@ input {
 					request.setAttribute("mapPhoto",mapPhoto);
 					request.setAttribute("mapStock",mapStock);
 				} 
-				// 				request.setAttribute("backHere",request.getRequestURL());
-				// 				System.out.print(request.getRequestURI());
 				%>
 				<c:forEach var="room" items="${mapPhoto.keySet()}">
 					<c:if test="${room.roomStatus!=-1}">
@@ -417,7 +418,7 @@ input {
 											<hr>
 											<h2>客房介紹</h2>
 											<article
-												style="width: 100%; border: 1px solid black; border-radius: 5px; padding: 5px">${room.intro}</article>
+												style="width: 100%; border: 1px solid black; border-radius: 5px; padding: 5px;min-height:10vh; word-break:break-all; ">${room.intro}</article>
 										</div>
 										<br>
 										<h2>客房每晚價格</h2>
@@ -623,6 +624,7 @@ input {
  		                    str += `<li class=` + myclass + `>` +i+ `<p data-date=`+thisDay+`></p></li>`;
 		                   }
 		               }
+
 						targetObj.find(".days")[0].innerHTML = str;
 						targetObj.find(".calendar-title")[0].innerHTML = month_name[my_month];
 						targetObj.find(".calendar-year")[0].innerHTML = my_year;
