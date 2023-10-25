@@ -6,10 +6,10 @@ import org.hibernate.Session;
 
 import util.HibernateUtil;
 
-public class Adm_mebHibernateDAO implements Adm_mebDAO_interface {
+public class AdminHibernateDAO implements AdminDAO_interface {
 
 	@Override
-	public int add(Adm_meb admMeb) {
+	public int add(Admin admMeb) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
@@ -24,7 +24,7 @@ public class Adm_mebHibernateDAO implements Adm_mebDAO_interface {
 	}
 
 	@Override
-	public int update(Adm_meb admMeb) {
+	public int update(Admin admMeb) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
@@ -43,7 +43,7 @@ public class Adm_mebHibernateDAO implements Adm_mebDAO_interface {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			Adm_meb admMeb = session.get(Adm_meb.class, admId);
+			Admin admMeb = session.get(Admin.class, admId);
 			if (admMeb != null) {
 				session.delete(admMeb);
 			}
@@ -57,11 +57,11 @@ public class Adm_mebHibernateDAO implements Adm_mebDAO_interface {
 	}
 
 	@Override
-	public Adm_meb findByPrimaryKey(Integer admId) {
+	public Admin findByPrimaryKey(Integer admId) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			Adm_meb admMeb = session.get(Adm_meb.class, admId);
+			Admin admMeb = session.get(Admin.class, admId);
 			session.getTransaction().commit();
 			return admMeb;
 		} catch (Exception e) {
@@ -72,11 +72,11 @@ public class Adm_mebHibernateDAO implements Adm_mebDAO_interface {
 	}
 
 	@Override
-	public List<Adm_meb> getAll() {
+	public List<Admin> getAll() {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			List<Adm_meb> list = session.createQuery("from Adm_meb", Adm_meb.class).list();
+			List<Admin> list = session.createQuery("from Adm_meb", Admin.class).list();
 			session.getTransaction().commit();
 			return list;
 		} catch (Exception e) {

@@ -5,8 +5,8 @@
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
-	Adm_mebService Adm_mebSvc = new Adm_mebService();
-    List<Adm_meb> list = Adm_mebSvc.getAll();
+AdminService Adm_mebSvc = new AdminService();
+    List<Admin> list = Adm_mebSvc.getAll();
     pageContext.setAttribute("list",list);
 %>
 

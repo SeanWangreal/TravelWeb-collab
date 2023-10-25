@@ -2,17 +2,16 @@ package com.tha103.gogoyu.adm_meb.model;
 
 import java.util.List;
 
-public class Adm_mebService {
-	private Adm_mebDAO_interface dao;
+public class AdminService {
+	private AdminDAO_interface dao;
 
-	public Adm_mebService() {
-		dao = new Adm_mebHibernateDAO();
+	public AdminService() {
+		dao = new AdminHibernateDAO();
 	}
 
-	public Adm_meb addAdm(String adm_name, String adm_account, 
-														String adm_password) {
+	public Admin addAdm(String adm_name, String adm_account, String adm_password) {
 
-		Adm_meb admMeb = new Adm_meb();
+		Admin admMeb = new Admin();
 
 		admMeb.setAdmName(adm_name);
 		admMeb.setAdmAccount(adm_account);
@@ -23,10 +22,9 @@ public class Adm_mebService {
 		return admMeb;
 	}
 
-	public Adm_meb updateAdm(Integer adm_id, String adm_name, String adm_account, 
-																String adm_password) {
+	public Admin updateAdm(Integer adm_id, String adm_name, String adm_account, String adm_password) {
 
-		Adm_meb admMeb = new Adm_meb();
+		Admin admMeb = new Admin();
 
 		admMeb.setAdmId(adm_id);
 		admMeb.setAdmName(adm_name);
@@ -42,11 +40,11 @@ public class Adm_mebService {
 		dao.delete(adm_id);
 	}
 
-	public Adm_meb getOneAdm(Integer adm_id) {
+	public Admin getOneAdm(Integer adm_id) {
 		return dao.findByPrimaryKey(adm_id);
 	}
 
-	public List<Adm_meb> getAll() {
+	public List<Admin> getAll() {
 		return dao.getAll();
 	}
 }

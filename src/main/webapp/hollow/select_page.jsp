@@ -60,7 +60,7 @@
     </FORM>
   </li>
 
-  <jsp:useBean id="empSvc" scope="page" class="com.tha103.gogoyu.adm_meb.model.Adm_mebService" />
+  <jsp:useBean id="empSvc" scope="page" class="com.tha103.gogoyu.adm_meb.model.AdminService" />
    
   <li>
      <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/hollow/AdmServlet" >

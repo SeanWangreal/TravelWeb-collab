@@ -17,7 +17,7 @@ import com.tha103.gogoyu.company.model.Company;
 import com.tha103.gogoyu.company.model.CompanyService;
 
 @WebServlet("/hollow/AdmServlet")
-public class Adm_memServlet extends HttpServlet{
+public class AdminServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -40,17 +40,17 @@ public class Adm_memServlet extends HttpServlet{
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			String admAccount = req.getParameter("admAccount");
 			if (admAccount == null || (admAccount.trim()).length() == 0) {
-				errorMsgs.add("請輸入會員帳號");
+				errorMsgs.add("請輸入帳號");
 			}
 			
 			String admPassword = req.getParameter("admPassword");
 			if (admPassword == null || (admPassword.trim()).length() == 0) {
-				errorMsgs.add("請輸入會員密碼");
+				errorMsgs.add("請輸入密碼");
 			}
 			
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/ken/com_mem.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/hollow/backend_login.jsp");
 				failureView.forward(req, res);
 				
 				return;// 程式中斷
@@ -127,8 +127,8 @@ public class Adm_memServlet extends HttpServlet{
 				}
 				
 				/***************************2.開始查詢資料*****************************************/
-				Adm_mebService admSvc = new Adm_mebService();
-				Adm_meb admVO = admSvc.getOneAdm(admId);
+				AdminService admSvc = new AdminService();
+				Admin admVO = admSvc.getOneAdm(admId);
 				if (admVO == null) {
 					errorMsgs.add("查無資料");
 				}
@@ -159,8 +159,8 @@ public class Adm_memServlet extends HttpServlet{
 				Integer empno = Integer.valueOf(req.getParameter("admId"));
 				
 				/***************************2.開始查詢資料****************************************/
-				Adm_mebService empSvc = new Adm_mebService();
-				Adm_meb empVO = empSvc.getOneAdm(empno);
+				AdminService empSvc = new AdminService();
+				Admin empVO = empSvc.getOneAdm(empno);
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("admVO", empVO);         // 資料庫取出的empVO物件,存入req
@@ -204,7 +204,7 @@ public class Adm_memServlet extends HttpServlet{
 							errorMsgs.add("管理員密碼: 只能是英文字母、數字和_ , 且長度必需在2到10之間");
 						}
 				
-				Adm_meb admVO = new Adm_meb();
+				Admin admVO = new Admin();
 				
 				admVO.setAdmId(admId);
 				admVO.setAdmName(admName);
@@ -221,7 +221,7 @@ req.setAttribute("admVO", admVO); // 含有輸入格式錯誤的empVO物件,也�
 				}
 				
 				/***************************2.開始修改資料*****************************************/
-				Adm_mebService empSvc = new Adm_mebService();
+				AdminService empSvc = new AdminService();
 				admVO = empSvc.updateAdm(admId, admName, admAcc, admPass);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
@@ -263,7 +263,7 @@ req.setAttribute("admVO", admVO); // 含有輸入格式錯誤的empVO物件,也�
 						errorMsgs.add("管理員密碼: 只能是英文字母、數字和_ , 且長度必需在2到10之間");
 					}
 			
-				Adm_meb admVO = new Adm_meb();
+				Admin admVO = new Admin();
 
 				admVO.setAdmName(admName);
 				admVO.setAdmAccount(admAcc);
@@ -279,7 +279,7 @@ req.setAttribute("admVO", admVO); // 含有輸入格式錯誤的empVO物件,也�
 				}
 				
 				/***************************2.開始新增資料***************************************/
-				Adm_mebService empSvc = new Adm_mebService();
+				AdminService empSvc = new AdminService();
 				admVO = empSvc.addAdm(admName, admAcc, admPass);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
@@ -300,7 +300,7 @@ req.setAttribute("admVO", admVO); // 含有輸入格式錯誤的empVO物件,也�
 				Integer admId = Integer.valueOf(req.getParameter("admId"));
 				
 				/***************************2.開始刪除資料***************************************/
-				Adm_mebService empSvc = new Adm_mebService();
+				AdminService empSvc = new AdminService();
 				empSvc.deleteAdm(admId);
 				
 				/***************************3.�R������,�ǳ����(Send the Success view)***********/								

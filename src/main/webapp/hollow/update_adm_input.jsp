@@ -2,8 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.tha103.gogoyu.adm_meb.model.*"%>
 
-<% //見com.emp.controller.EmpServlet.java第163行存入req的empVO物件 (此為從資料庫取出的empVO, 也可以是輸入格式有錯誤時的empVO物件)
-	Adm_meb empVO = (Adm_meb) request.getAttribute("admVO");
+<%
+//見com.emp.controller.EmpServlet.java第163行存入req的empVO物件 (此為從資料庫取出的empVO, 也可以是輸入格式有錯誤時的empVO物件)
+	Admin empVO = (Admin) request.getAttribute("admVO");
 %>
 --<%= empVO==null %>--${empVO.admId}-- <!-- line 100 -->
 <html>

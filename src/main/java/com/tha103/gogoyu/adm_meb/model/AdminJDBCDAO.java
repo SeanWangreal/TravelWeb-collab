@@ -8,7 +8,7 @@ import java.util.*;
 import util.Util;
 import java.sql.*;
 
-public class Adm_mebJDBCDAO implements Adm_mebDAO_interface {
+public class AdminJDBCDAO implements AdminDAO_interface {
 	static {
 		try {
 			Class.forName(Util.DRIVER);
@@ -24,7 +24,7 @@ public class Adm_mebJDBCDAO implements Adm_mebDAO_interface {
 
 
 	@Override
-	public int add(Adm_meb admMeb) {
+	public int add(Admin admMeb) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -47,7 +47,7 @@ public class Adm_mebJDBCDAO implements Adm_mebDAO_interface {
 	}
 
 	@Override
-	public int update(Adm_meb admMeb) {
+	public int update(Admin admMeb) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -87,8 +87,8 @@ public class Adm_mebJDBCDAO implements Adm_mebDAO_interface {
 	}
 
 	@Override
-	public Adm_meb findByPrimaryKey(Integer AdmId) {
-		Adm_meb Adm_meb = null;
+	public Admin findByPrimaryKey(Integer AdmId) {
+		Admin Admin = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -98,24 +98,24 @@ public class Adm_mebJDBCDAO implements Adm_mebDAO_interface {
 			pstmt.setInt(1, AdmId);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				Adm_meb = new Adm_meb();
-				Adm_meb.setAdmId(rs.getInt("Adm_id"));
-				Adm_meb.setAdmName(rs.getString("Adm_name"));
-				Adm_meb.setAdmAccount(rs.getString("Adm_account"));
-				Adm_meb.setAdmPassword(rs.getString("Adm_password"));
+				Admin = new Admin();
+				Admin.setAdmId(rs.getInt("Adm_id"));
+				Admin.setAdmName(rs.getString("Adm_name"));
+				Admin.setAdmAccount(rs.getString("Adm_account"));
+				Admin.setAdmPassword(rs.getString("Adm_password"));
 			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			Util.closeResources(con, pstmt, rs);
 		}
-		return Adm_meb;
+		return Admin;
 	}
 
 	@Override
-	public List<Adm_meb> getAll() {
-		List<Adm_meb> list = new ArrayList<Adm_meb>();
-		Adm_meb Adm_meb = null;
+	public List<Admin> getAll() {
+		List<Admin> list = new ArrayList<Admin>();
+		Admin Admin = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -124,12 +124,12 @@ public class Adm_mebJDBCDAO implements Adm_mebDAO_interface {
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				Adm_meb = new Adm_meb();
-				Adm_meb.setAdmId(rs.getInt("Adm_id"));
-				Adm_meb.setAdmName(rs.getString("Adm_name"));
-				Adm_meb.setAdmAccount(rs.getString("Adm_account"));
-				Adm_meb.setAdmPassword(rs.getString("Adm_password"));
-				list.add(Adm_meb);
+				Admin = new Admin();
+				Admin.setAdmId(rs.getInt("Adm_id"));
+				Admin.setAdmName(rs.getString("Adm_name"));
+				Admin.setAdmAccount(rs.getString("Adm_account"));
+				Admin.setAdmPassword(rs.getString("Adm_password"));
+				list.add(Admin);
 			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -140,7 +140,7 @@ public class Adm_mebJDBCDAO implements Adm_mebDAO_interface {
 	}
 
 	public static void main(String[] args) {
-		Adm_mebJDBCDAO dao = new Adm_mebJDBCDAO();
+		AdminJDBCDAO dao = new AdminJDBCDAO();
 
 		// 新增
 //		Adm_meb Adm_meb = new Adm_meb();
@@ -170,8 +170,8 @@ public class Adm_mebJDBCDAO implements Adm_mebDAO_interface {
 
 		// 查詢
 
-		List<Adm_meb> list = dao.getAll();
-		for (Adm_meb aAdm : list) {
+		List<Admin> list = dao.getAll();
+		for (Admin aAdm : list) {
 			System.out.print(aAdm.getAdmName() + ",");
 			System.out.print(aAdm.getAdmAccount() + ",");
 			System.out.print(aAdm.getAdmPassword() + ",");
