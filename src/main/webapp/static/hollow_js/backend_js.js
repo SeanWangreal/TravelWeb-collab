@@ -302,6 +302,7 @@ $(function() {
 		console.log(e);
 		let custId = ($("input.cust_search_value").val()).trim();
 		console.log(custId);
+		
 		$.ajax({
 			url: custEndPointURL,           // 資料請求的網址
 			type: "POST",                  // GET | POST | PUT | DELETE | PATCH

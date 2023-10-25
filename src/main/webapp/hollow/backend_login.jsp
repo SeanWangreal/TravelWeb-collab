@@ -7,7 +7,7 @@
 <html lang="en">
 
 <head>
-    <script src="./vendors/jquery/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+    <script src="${pageContext.request.contextPath}/vendors/jquery/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/b4c50f14e1.js" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -67,16 +67,16 @@
         <div class="container-fluid" style="background-color: #d9d2c5;">
             <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;" >
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4" >
-                    <div class >
+                    <div class="" >
                         <div class="d-flex align-items-center justify-content-between mb-3" >
                             <h3>GOGOYU後台登入</h3>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" name="admAcct">
+                            <input type="text" class="form-control" id="floatingInput" name="admAccount">
                             <label for="floatingInput">帳號</label>
                         </div>
                         <div class="form-floating mb-4">
-                            <input type="password" class="form-control" id="floatingPassword" name="admPass">
+                            <input type="password" class="form-control" id="floatingPassword" name="admPassword">
                             <label for="floatingPassword">密碼</label>
                         </div>
                         <input type="hidden" name="action" value="backendLogin">
@@ -84,11 +84,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+		</div>
+	</form>
         <!-- Sign In End -->
-    </div>
-
-    </form>
    
   
    

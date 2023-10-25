@@ -349,58 +349,58 @@ public class ConsumerServlet extends HttpServlet {
 		if("updFromBackend".equals(action)) {
 			Map<String, Object> errorMsgs=new HashMap<String, Object>();
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-			Integer custId = Integer.valueOf(req.getParameter("custId").trim());
-			System.out.println(custId);
+			Integer cusId = Integer.valueOf(req.getParameter("custId").trim());
+			System.out.println(cusId);
 			
-			String custName = req.getParameter("custName");
+			String cusName = req.getParameter("custName");
 //			String compNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-			if (custName == null || custName.trim().length() == 0) {
+			if (cusName == null || cusName.trim().length() == 0) {
 				errorMsgs.put("wrongName","會員名稱: 請勿空白");
 			} 
-			System.out.println(custName);
+			System.out.println(cusName);
 //			else if (!compName.trim().matches(compNameReg)) { // 以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.put("wrongName","公司名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 //			}
 			
-			Integer custGender = Integer.valueOf(req.getParameter("custGender"));
-			System.out.println(custGender);
+			Integer cusGender = Integer.valueOf(req.getParameter("custGender"));
+			System.out.println(cusGender);
 			
-			String custAccount = req.getParameter("custAccount");
+			String cusAccount = req.getParameter("custAccount");
 //			String compAccountReg = "^[(a-zA-Z0-9_)]{2,10}$";
-			if (custAccount == null || custAccount.trim().length() == 0) {
+			if (cusAccount == null || cusAccount.trim().length() == 0) {
 				errorMsgs.put("wrongAccount","會員帳號: 請勿空白");
 			} 
-			System.out.println(custAccount);
+			System.out.println(cusAccount);
 //			else if (!compAccount.trim().matches(compAccountReg)) { // 以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.put("wrongAccount","公司帳號: 只能是英文字母、數字和_ , 且長度必需在2到10之間");
 //			}
 			
-			String custMail = req.getParameter("custMail");
+			String cusMail = req.getParameter("custMail");
 //			String compMailReg = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";//網路上查的Email正規表達式
-			if (custMail == null || custMail.trim().length() == 0) {
+			if (cusMail == null || cusMail.trim().length() == 0) {
 				errorMsgs.put("wrongMail","會員信箱: 請勿空白");
 			} 
-			System.out.println(custMail);
+			System.out.println(cusMail);
 //			else if (!compMail.trim().matches(compMailReg)) { // 以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.put("wrongMail","公司信箱: 格式錯誤");
 //			}
 			
-			String custPhone = req.getParameter("custPhone").trim();
+			String cusPhone = req.getParameter("custPhone").trim();
 //			String compPhoneReg = "^0[(0-9)]{1,2}-[(0-9)]{8}$";
-			if (custPhone == null || custPhone.trim().length() == 0) {
+			if (cusPhone == null || cusPhone.trim().length() == 0) {
 				errorMsgs.put("wrongPhone","會員電話: 請勿空白");
 			} 
-			System.out.println(custPhone);
+			System.out.println(cusPhone);
 //			else if (!compPhone.trim().matches(compPhoneReg)) { // 以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.put("wrongPhone","公司電話: 格式錯誤");
 //			}
 			
-			String custAddress = req.getParameter("custAddress").trim();
+			String cusAddress = req.getParameter("custAddress").trim();
 //			String compAddressReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)]$";
-			if (custAddress == null || custAddress.trim().length() == 0) {
+			if (cusAddress == null || cusAddress.trim().length() == 0) {
 				errorMsgs.put("wrongAddress","會員地址: 請勿空白");
 			} 
-			System.out.println(custAddress);
+			System.out.println(cusAddress);
 //			else if (!compAddress.trim().matches(compAddressReg)) { // 以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.put("wrongAddress","公司地址: 只能是中、英文字母、數字");
 //			}
@@ -408,13 +408,13 @@ public class ConsumerServlet extends HttpServlet {
 			if (!errorMsgs.isEmpty()) {
 //				RequestDispatcher failureView = req.getRequestDispatcher(req.getContextPath()+"ken/com_mem.jsp");
 //				failureView.forward(req, res);
-				errorMsgs.put("custId", custId);
-				errorMsgs.put("custName", custName);
-				errorMsgs.put("custGender", custGender);
-				errorMsgs.put("custAccount", custAccount);
-				errorMsgs.put("custMail", custMail);
-				errorMsgs.put("custPhone", custPhone);
-				errorMsgs.put("custAddress", custAddress);
+				errorMsgs.put("custId", cusId);
+				errorMsgs.put("custName", cusName);
+				errorMsgs.put("custAccount", cusAccount);
+				errorMsgs.put("custMail", cusMail);
+				errorMsgs.put("custPhone", cusPhone);
+				errorMsgs.put("custAddress", cusAddress);
+				errorMsgs.put("custGender", cusGender);
 				errorMsgs.put("status", "Failed");
 				
 				Gson gson =new Gson();
@@ -429,17 +429,17 @@ public class ConsumerServlet extends HttpServlet {
 			}
 
 			ConsumerServiceHibernate consumerSvc = new ConsumerServiceHibernate();
-			consumerSvc.updFromBackend(custId, custName, custAccount, custMail, custPhone, custAddress, custGender);
-			Consumer consumer=consumerSvc.getOneCus(custId);
+			consumerSvc.updFromBackend(cusId, cusName, cusAccount, cusMail, cusPhone, cusAddress, cusGender);
+			Consumer consumer=consumerSvc.getOneCus(cusId);
 			
 			Map<String, Object> cusMap=new HashMap<String, Object>();
 			cusMap.put("custId", consumer.getCusId());
 			cusMap.put("custName", consumer.getCusName());
-			cusMap.put("custAddress", consumer.getCusAddress());
-			cusMap.put("custPhone", consumer.getCusPhone());
-			cusMap.put("custMail", consumer.getCusMail());
-			cusMap.put("custGender", consumer.getCusSex());
 			cusMap.put("custAccount", consumer.getCusAccount());
+			cusMap.put("custMail", consumer.getCusMail());
+			cusMap.put("custPhone", consumer.getCusPhone());
+			cusMap.put("custAddress", consumer.getCusAddress());
+			cusMap.put("custGender", consumer.getCusSex());
 			cusMap.put("status", "Success");
 			
 			Gson gson =new Gson();

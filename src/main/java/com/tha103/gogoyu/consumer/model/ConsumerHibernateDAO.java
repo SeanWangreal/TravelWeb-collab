@@ -145,8 +145,8 @@ public class ConsumerHibernateDAO implements ConsumerDAO_interface {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			Query query=session.createQuery("update Consumer set cusName=?0 cusAccount=?1 cusMail=?2 cusPhone=?3 "
-					+ "cusAddress=?4 cusSex=?5 where compId=?6");
+			Query query=session.createQuery("update Consumer set cusName=?0, cusAccount=?1, cusMail=?2, cusPhone=?3, "
+					+ "cusAddress=?4, cusSex=?5 where cusId=?6");
 			query.setParameter(0, cusName);
 			query.setParameter(1, cusAccount);
 			query.setParameter(2, cusMail);

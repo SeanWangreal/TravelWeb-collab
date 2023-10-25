@@ -105,6 +105,8 @@
 	                    </div>                    
 	                </li>
 				</c:forEach>
+			</ul>
+		</div>
     </article>
 
     <article class="art_client_msg">
@@ -158,46 +160,7 @@
                 <li>                    
                     <div class="">
                         <table class="table table-striped">
-                            <tr>
-                                <th>會員ID</th>
-                                <td>2</td>
-                            </tr>
-                            <tr>
-                                <th>姓名</th>
-                                <td><input type="text" class="text" value="張家航"></td>
-                            </tr>
-                            <tr>
-                                <th>帳號</th>
-                                <td><input type="text" class="text" value="asiagodtone"></td>
-                            </tr>
-                            <tr>
-                                <th>信箱</th>
-                                <td><input type="text" class="text" value="asiagodtone@abc.com"></td>
-                            </tr>
-                            <tr>
-                                <th>電話</th>
-                                <td><input type="text" class="text" value="0912-345678"></td>
-                            </tr>
-                            <tr>
-                                <th>住址</th>
-                                <td><input type="text" class="text" value="張家公園"></td>
-                            </tr>
-                            <tr>
-                                <th>性別</th>
-                                <td>
-                                    <input type="radio" name="gender" value="male" checked>男
-                                    <input type="radio" name="gender" value="female">女
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>照片</th>
-                                <td><input type="file" value="照片在這"></td>
-                            </tr>
-                        </table>
-                        <div id="preview">
-                            <span class="text">預覽圖</span>
-                        </div><br>
-                        <button class="btn_update btn btn-outline-primary btn-lg">更新</button>                    
+                        </table>      
                     </div>
                 </li>
             </ul>
