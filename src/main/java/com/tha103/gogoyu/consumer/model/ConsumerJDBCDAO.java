@@ -244,6 +244,13 @@ public class ConsumerJDBCDAO implements ConsumerDAO_interface {
 		return null;
 	}
 
+	@Override
+	public void updFromBackend(Integer cusId, String cusName, String cusAccount, String cusMail, String cusPhone,
+			String cusAddress, Integer cusSex) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 
 }

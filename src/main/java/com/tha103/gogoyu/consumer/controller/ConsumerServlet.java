@@ -45,7 +45,7 @@ public class ConsumerServlet extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+		res.setContentType("text/plain; charset=UTF-8");
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
@@ -172,11 +172,6 @@ public class ConsumerServlet extends HttpServlet {
 			}
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-//			System.out.println(company);
-//			req.setAttribute("Company", company); // 資料庫取出的empVO物件,存入req
-//			String url = "/ken/com_mem.jsp";
-//			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
-//			successView.forward(req, res);
 			Map<String, Object> cusMap=new HashMap<String, Object>();
 			cusMap.put("cusId", consumer.getCusId());
 			cusMap.put("cusName", consumer.getCusName());
@@ -349,6 +344,111 @@ public class ConsumerServlet extends HttpServlet {
 			String url = "/eric/listOneCus.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 			successView.forward(req, res);
+		}
+		
+		if("updFromBackend".equals(action)) {
+			Map<String, Object> errorMsgs=new HashMap<String, Object>();
+			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+			Integer custId = Integer.valueOf(req.getParameter("custId").trim());
+			System.out.println(custId);
+			
+			String custName = req.getParameter("custName");
+//			String compNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+			if (custName == null || custName.trim().length() == 0) {
+				errorMsgs.put("wrongName","會員名稱: 請勿空白");
+			} 
+			System.out.println(custName);
+//			else if (!compName.trim().matches(compNameReg)) { // 以下練習正則(規)表示式(regular-expression)
+//				errorMsgs.put("wrongName","公司名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+//			}
+			
+			Integer custGender = Integer.valueOf(req.getParameter("custGender"));
+			System.out.println(custGender);
+			
+			String custAccount = req.getParameter("custAccount");
+//			String compAccountReg = "^[(a-zA-Z0-9_)]{2,10}$";
+			if (custAccount == null || custAccount.trim().length() == 0) {
+				errorMsgs.put("wrongAccount","會員帳號: 請勿空白");
+			} 
+			System.out.println(custAccount);
+//			else if (!compAccount.trim().matches(compAccountReg)) { // 以下練習正則(規)表示式(regular-expression)
+//				errorMsgs.put("wrongAccount","公司帳號: 只能是英文字母、數字和_ , 且長度必需在2到10之間");
+//			}
+			
+			String custMail = req.getParameter("custMail");
+//			String compMailReg = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";//網路上查的Email正規表達式
+			if (custMail == null || custMail.trim().length() == 0) {
+				errorMsgs.put("wrongMail","會員信箱: 請勿空白");
+			} 
+			System.out.println(custMail);
+//			else if (!compMail.trim().matches(compMailReg)) { // 以下練習正則(規)表示式(regular-expression)
+//				errorMsgs.put("wrongMail","公司信箱: 格式錯誤");
+//			}
+			
+			String custPhone = req.getParameter("custPhone").trim();
+//			String compPhoneReg = "^0[(0-9)]{1,2}-[(0-9)]{8}$";
+			if (custPhone == null || custPhone.trim().length() == 0) {
+				errorMsgs.put("wrongPhone","會員電話: 請勿空白");
+			} 
+			System.out.println(custPhone);
+//			else if (!compPhone.trim().matches(compPhoneReg)) { // 以下練習正則(規)表示式(regular-expression)
+//				errorMsgs.put("wrongPhone","公司電話: 格式錯誤");
+//			}
+			
+			String custAddress = req.getParameter("custAddress").trim();
+//			String compAddressReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)]$";
+			if (custAddress == null || custAddress.trim().length() == 0) {
+				errorMsgs.put("wrongAddress","會員地址: 請勿空白");
+			} 
+			System.out.println(custAddress);
+//			else if (!compAddress.trim().matches(compAddressReg)) { // 以下練習正則(規)表示式(regular-expression)
+//				errorMsgs.put("wrongAddress","公司地址: 只能是中、英文字母、數字");
+//			}
+			
+			if (!errorMsgs.isEmpty()) {
+//				RequestDispatcher failureView = req.getRequestDispatcher(req.getContextPath()+"ken/com_mem.jsp");
+//				failureView.forward(req, res);
+				errorMsgs.put("custId", custId);
+				errorMsgs.put("custName", custName);
+				errorMsgs.put("custGender", custGender);
+				errorMsgs.put("custAccount", custAccount);
+				errorMsgs.put("custMail", custMail);
+				errorMsgs.put("custPhone", custPhone);
+				errorMsgs.put("custAddress", custAddress);
+				errorMsgs.put("status", "Failed");
+				
+				Gson gson =new Gson();
+				String json=gson.toJson(errorMsgs);
+				
+				PrintWriter out = res.getWriter();
+				out.println(json);
+				System.out.println(json);
+				out.close();
+				
+				return;// 程式中斷
+			}
+
+			ConsumerServiceHibernate consumerSvc = new ConsumerServiceHibernate();
+			consumerSvc.updFromBackend(custId, custName, custAccount, custMail, custPhone, custAddress, custGender);
+			Consumer consumer=consumerSvc.getOneCus(custId);
+			
+			Map<String, Object> cusMap=new HashMap<String, Object>();
+			cusMap.put("custId", consumer.getCusId());
+			cusMap.put("custName", consumer.getCusName());
+			cusMap.put("custAddress", consumer.getCusAddress());
+			cusMap.put("custPhone", consumer.getCusPhone());
+			cusMap.put("custMail", consumer.getCusMail());
+			cusMap.put("custGender", consumer.getCusSex());
+			cusMap.put("custAccount", consumer.getCusAccount());
+			cusMap.put("status", "Success");
+			
+			Gson gson =new Gson();
+			String json=gson.toJson(cusMap);
+			
+			PrintWriter out = res.getWriter();
+			out.println(json);
+//			System.out.println(json);
+			out.close();
 		}
 
 		if ("add".equals(action)) { // 來自addEmp.jsp的請求
