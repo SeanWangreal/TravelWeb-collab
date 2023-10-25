@@ -17,23 +17,20 @@ response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setDateHeader("Expires", 0);
 
 session.setAttribute("roomId", 1);
-session.setAttribute("roomOrdId", 11);
 Integer roomId =(Integer)session.getAttribute("roomId");
-Integer roomOrdId =(Integer)session.getAttribute("roomOrdId");
+
 
 Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
-RoomServiceHibernate TSH = new RoomServiceHibernate();
+RoomServiceHibernate RSH = new RoomServiceHibernate();
 CompanyService CS = new CompanyService();
-pageContext.setAttribute("room1", ROSH.gettripIdComment(roomId));
-
-Integer compId = ROSH.getRoomOrd(roomOrdId).getCompId();
-pageContext.setAttribute("comp_name",CS.getComp(compId).getCompName());
+pageContext.setAttribute("room1", ROSH.gettripIdComment(roomId)); //map物件
+pageContext.setAttribute("comp_name",CS.getComp(RSH.getRoom(roomId).getCompId()).getCompName()); //房型大標題
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>住客評語</title>
+    <title>飯店評語</title>
     <style>
         /* 基本頁面樣式 */
         body {
@@ -133,8 +130,7 @@ pageContext.setAttribute("comp_name",CS.getComp(compId).getCompName());
     <div class="comment-container">
     	<h1 style="text-decoration: underline; color: blue;">${comp_name}</h1>
     	<h2>客人評語</h2>
-<%--     		<%@ include file="page1.file" %>  --%>
-        <c:forEach var="roomVo1" items="${room1.keySet()}">
+        <c:forEach var="roomVo1" items="${room1.keySet()}" >
 		<hr>
 		 <div class="comment" style="display: flex; height: 45px;">
             <div style="font-size: 20px;">
@@ -155,100 +151,7 @@ pageContext.setAttribute("comp_name",CS.getComp(compId).getCompName());
         </div>
 		</c:forEach>
         <hr>
-<%-- 		<%@ include file="page2.file" %> --%>
-        <div class="comment-form">
-            <br>
-            <br>
-            <h3>新增評論</h3>
-            
-            <form action="${pageContext.request.contextPath}/Hotel_ordComment" method="post">
-            
-                <label>評分：</label>
-                <div class="stars" data-rating="0">
-                    <span class="star" data-value="1">★</span>
-                    <span class="star" data-value="2">★</span>
-                    <span class="star" data-value="3">★</span>
-                    <span class="star" data-value="4">★</span>
-                    <span class="star" data-value="5">★</span>
-                </div>
-                <p>你的評分是: <span id="rating">0</span> 顆星</p>
-                
-                <input type="hidden" id="ratingInput" name="score" value="0"> 
-                
-                <br>
-                <label for="comment-text">評論內容 (不超過200字)：</label>
-                <textarea id="comment-text" name="comment" rows="4" required style="width: 100%; max-width: 400px;"></textarea>               
-                <p style="color: gray;">最大字數: <span id="charCount">200</span>/200<span></span></p>
-                <button type="submit">發表評論</button>
-                <input type="hidden" id="submitButtonClicked" name="submitButtonClicked" value="false">
-                
-            </form>
-        </div>
-        
-  
-        <button class="leave-button" id="leaveButton">離開</button>
-    </div>
+	
 
-    <script>
-        const stars = document.querySelectorAll('.star');
-        const ratingElement = document.getElementById('rating');
-        const starsContainer = document.querySelector('.stars');
-        const commentText = document.getElementById('comment-text');
-        const charCountElement = document.getElementById('charCount');
-
-        starsContainer.addEventListener('click', (event) => {
-            if (event.target.classList.contains('star')) {
-                const rating = event.target.getAttribute('data-value');
-                ratingElement.textContent = rating;
-                updateStars(rating);
-            }
-        });
-
-        commentText.addEventListener('input', () => {
-            const text = commentText.value;
-            const charCount = text.length;
-            const remainingChars = 200 - charCount;
-            charCountElement.textContent = remainingChars;
-
-            if (charCount > 200) {
-                commentText.value = text.substring(0, 200); // 截斷文本以限制字數
-                charCountElement.textContent = 0;
-            }
-        });
-
-        function updateStars(rating) {
-            stars.forEach(star => {
-                if (star.getAttribute('data-value') <= rating) {
-                    star.classList.add('active');
-                } else {
-                    star.classList.remove('active');
-                }
-            });
-        }
-        
-        
-        
-//         計算點選的星數方便傳值給後端
-        const ratingInput = document.getElementById('ratingInput');
-        starsContainer.addEventListener('click', (event) => {
-            if (event.target.classList.contains('star')) {
-                const rating = event.target.getAttribute('data-value');
-                ratingElement.textContent = rating;
-                ratingInput.value = rating; // 更新隱藏的輸入元素的值
-                updateStars(rating);
-            }
-        });
-//      計算點選的星數方便傳值給後端
-
-// 確認評論發表的按鈕有按
-		const submitButton = document.querySelector('button[type="submit"]');
-		const submitButtonClickedInput = document.getElementById('submitButtonClicked');
-		
-		submitButton.addEventListener('click', () => {
-		    submitButtonClickedInput.value = "true"; // 將值設置為 "true" 表示按鈕已被單擊
-		});
-// 確認評論發表的按鈕有按		
-
-    </script>
 </body>
 </html>

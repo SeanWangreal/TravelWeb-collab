@@ -171,7 +171,7 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 			getSession().beginTransaction();
 			@SuppressWarnings("unchecked")
 			NativeQuery<Room_ord> query1 = getSession().createNativeQuery(
-			"select * from room_ord where room_id = :room_id and comments is not null",Room_ord.class);
+			"select * from room_ord where room_id = :room_id and ord_status =1 and comments is not null",Room_ord.class);
 			query1.setParameter("room_id", RoomId);
 			List<Room_ord> list1 = query1.list();
 			

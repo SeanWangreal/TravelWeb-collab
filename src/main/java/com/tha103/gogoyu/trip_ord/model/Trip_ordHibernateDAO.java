@@ -99,13 +99,14 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 		return null;
 	}
 
+	
 	@Override
 	public Map<Trip_ord, List<String>> gettripIdComment(Integer tripId) {
 		try {
 			getSession().beginTransaction();
 			@SuppressWarnings("unchecked")
 			NativeQuery<Trip_ord> query1 = getSession().createNativeQuery(
-			"select * from trip_ord where trip_id = :trip_id and comments is not null",Trip_ord.class);
+			"select * from trip_ord where trip_id = :trip_id and ord_status =1 and comments is not null",Trip_ord.class);
 			query1.setParameter("trip_id", tripId);
 			List<Trip_ord> list1 = query1.list();
 			
@@ -126,6 +127,9 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 		return null;
 	}
 
+	
+	
+	
 	
 	@Override
 	public Map<Trip_ord, List<String>> getTripOrdVo(Integer cartId, Integer cusId) {

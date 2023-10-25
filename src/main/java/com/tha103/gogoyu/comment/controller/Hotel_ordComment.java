@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.tha103.gogoyu.room_ord.model.Room_ord;
 import com.tha103.gogoyu.room_ord.model.Room_ordServiceHibernate;
 import com.tha103.gogoyu.room.model.RoomServiceHibernate;
 import java.sql.Timestamp;
@@ -24,31 +26,35 @@ public class Hotel_ordComment extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8"); // 接收請求參數的編碼設定
-
+		HttpSession session = req.getSession();
 		String leaveAMessageButton = req.getParameter("submitButtonClicked");
-		Integer roomOrd = 11; // 先列個假資料(後面要用訂單資訊拿值 要跟jsp同步)
-
+		
+		Integer roomOrdId = Integer.valueOf(req.getParameter("roomOrdId"));  //由前端jsp 147取得
+		Integer roomId = Integer.valueOf(req.getParameter("roomId"));//由前端jsp 148取得
+		
 		
 		if (leaveAMessageButton.equals("true")) { // 按下發表評論後
 			Room_ordServiceHibernate ROSH1 = new Room_ordServiceHibernate();
-//			if (TOSH1.getOneTrip(tripOrd).getComments() == null) {
+			Room_ord roomOrdObj = ROSH1.getBycusID(roomOrdId);
+			if (roomOrdObj.getComments() == null) {
 
-				String comment = req.getParameter("comment"); 
+				String comment = req.getParameter("comment");
 				Integer score = Integer.valueOf(req.getParameter("score"));
 				Timestamp commentsTime = Timestamp.valueOf(LocalDateTime.now());
-				Room_ordServiceHibernate TOSH2 = new Room_ordServiceHibernate();
-				Integer updateOrd = TOSH2.updateCommentAndScore(roomOrd, score, comment, commentsTime);
+
+				Room_ordServiceHibernate ROSH2 = new Room_ordServiceHibernate();
+				Integer updateOrd = ROSH2.updateCommentAndScore(roomOrdId, score, comment, commentsTime);
+
 				
-				String url = "/chu/commentArea(hotel).jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
-				successView.forward(req, res);	
-				
-			} 
-//			else {
-//				//代表已經有評論過了(錯誤驗證)
-//			}
-		
-		
-		
+				res.sendRedirect(req.getContextPath() + "/chu/commentArea(hotel).jsp");//跳到
+
+			} else {
+				req.setAttribute("errorMessage", "親愛的會員您好，您已經評論過囉~再次輸入將會覆蓋之前的回覆內容!");
+				String url = "/chu/AfterBookingComment(hotel).jsp";
+				RequestDispatcher dispatcher = req.getRequestDispatcher(url);
+				dispatcher.forward(req, res);
+			}
+
+		}
 	}
 }
