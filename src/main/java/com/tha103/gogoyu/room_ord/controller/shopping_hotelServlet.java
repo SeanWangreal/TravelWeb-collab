@@ -11,7 +11,6 @@ import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import com.tha103.gogoyu.room_ord.model.ShoppingCartHotel;
 import com.tha103.gogoyu.trip_ord.model.Trip_ord;
 import com.tha103.gogoyu.consumer.model.Consumer;
 import com.tha103.gogoyu.planning.model.*;
@@ -34,13 +33,13 @@ public class shopping_hotelServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8"); // 接收請求參數的編碼設定
 
 		HttpSession session = req.getSession();
-		
+//		session.setAttribute("cart_id", 5);
 		session.setAttribute("trip_id", 1);
 		session.setAttribute("cus_id", 1);
 		session.setAttribute("room_id", 1);
 
 	
-		
+//		Integer cart_Id = (Integer) session.getAttribute("cart_id"); // 抓車號
 		Integer cusId = (Integer) session.getAttribute("cus_id"); // 抓會員id
 		
 		//roomId最後要放回去房間新增裡的if!!
@@ -70,17 +69,19 @@ public class shopping_hotelServlet extends HttpServlet {
 			
 			if (cusId != null) {// 如果session有cus_id資料代表有人登入
 				Integer cartId = Integer.valueOf(req.getParameter("cart_id")); //透過js給值抓購物車號(name value)
+//				System.out.println(cartId +"哈哈");
 				RoomServiceHibernate RSH = new RoomServiceHibernate();
 				Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
 				PlanningServiceHibernate PSH = new PlanningServiceHibernate();// 創造出SERVICE
 				
-				Integer plan_id = PSH.getPlanId(cusId, cartId); //得到1.他是誰   2.是哪台車 
-				
+				Integer plan_id = PSH.getPlanId(cartId, cusId); //得到1.他是誰   2.是哪台車 
+				System.out.println(plan_id);
+				Integer compId =  RSH.getRoom(roomId).getCompId();
 				
 			//跟room_ord 從room拿price
 				
 				BigDecimal totalPrice = RSH.getRoom(roomId).getPrice().setScale(0, RoundingMode.HALF_UP);
-			System.out.println(totalPrice);
+			
 				//comm = price *10%
 				BigDecimal commission =  totalPrice.multiply(new BigDecimal(0.1)).setScale(0, RoundingMode.HALF_UP);
 			//profit = price - comm
@@ -91,7 +92,7 @@ public class shopping_hotelServlet extends HttpServlet {
 				
 			// check in  out 時間由明翰搜尋的結果得知
 				
-				Integer newRoomOrder = ROSH.addFromShopping(plan_id,roomId,cusId,roomAmount,totalPrice,commission, profit , people ,checkInTime, checkOutTime,1);
+				Integer newRoomOrder = ROSH.addFromShopping(compId ,plan_id,roomId,cusId,roomAmount,totalPrice,commission, profit , people ,checkInTime, checkOutTime,1);
 				
 				
 				String url = "/chu/shopping(hotel).jsp";
@@ -101,7 +102,6 @@ public class shopping_hotelServlet extends HttpServlet {
 			} else { // 導回登入
 				session.setAttribute("location", req.getRequestURI()); // 如果沒登入先記錄現在的位置(網址)
 				res.sendRedirect(req.getContextPath() + "/chu/bookingList(trip).jsp");// 然後導回登入頁面(等到有login.jsp再改路徑)
-				System.out.println(cusId);
 			}
 
 		}

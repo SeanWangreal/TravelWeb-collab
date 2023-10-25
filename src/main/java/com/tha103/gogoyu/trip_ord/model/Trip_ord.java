@@ -2,6 +2,7 @@ package com.tha103.gogoyu.trip_ord.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -28,8 +29,8 @@ public class Trip_ord implements Serializable {
 	private Integer tripOrdId;
 
 	@Column(name = "trip_id")
-	private Integer tripId;  
-	
+	private Integer tripId;
+
 	@Column(name = "comp_id")
 	private Integer compId;
 
@@ -49,6 +50,12 @@ public class Trip_ord implements Serializable {
 	private BigDecimal profit;
 	@Column(name = "ord_status")
 	private Integer ordStatus;
+	
+	@Column(name = "start_time")
+	private Date startTime;
+	@Column(name = "end_time")
+	private Date endTime;
+	
 	@Column(name = "ord_time")
 	private Timestamp ordTime;
 	@Column(name = "remark")
@@ -81,6 +88,31 @@ public class Trip_ord implements Serializable {
 		this.score = score;
 		this.comments = comments;
 		this.commentsTime = commentsTime;
+	}
+
+	
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public Integer getCompId() {
+		return compId;
+	}
+
+	public void setCompId(Integer compId) {
+		this.compId = compId;
 	}
 
 	public Integer getTripOrdId() {
@@ -147,7 +179,6 @@ public class Trip_ord implements Serializable {
 		this.commission = commission;
 	}
 
-	
 	public Integer getOrdStatus() {
 		return ordStatus;
 	}

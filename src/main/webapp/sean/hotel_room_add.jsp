@@ -137,10 +137,12 @@ button.left_btn:hover {
 				<i class="fa-regular fa-bell icon"
 					style="color: black; font-size: 30px; width: 30px; background-color: transparent;"></i>
 			</button>
-			<button type="menu" class="head_btn" id="">
-				<i class="fa-solid fa-store icon"
+			<button type="button" class="head_btn" id="">
+			<a class="profile"
+					href="${pageContext.request.contextPath}/sean/hotel_room_all.jsp">
+				<i class="fa-solid fa-store"
 					style="color: #000000; font-size: 30px; width: 30px; background-color: transparent;"></i>
-
+			</a>
 			</button>
 			<button type="button" class="head_btn">
 				<a class="profile" href="#"> <i class="fa-solid fa-user"
@@ -169,11 +171,16 @@ button.left_btn:hover {
 			<div class="mem-data">
 				<a href="${pageContext.request.contextPath}/sean/hotel_room_all.jsp"
 					class="left_btn" style="color: #FCC416"> <i
-					class="fa-solid fa-hotel" style="color: #000000;"></i> 我的房間
+					class="fa-solid fa-hotel" style="color: black;"></i> 我的房間
 				</a>
 			</div>
 			<div class="mem-data">
-				<a href="" class="left_btn"> <i class="fa-regular fa-comment"
+				<a href="${pageContext.request.contextPath}/sean/hotel_com_ord.jsp" class="left_btn" style="color: #000000"> <i
+					class="fa-solid fa-file-invoice" style="color: black;"></i> 訂單資訊
+				</a>
+			</div>
+			<div class="mem-data">
+				<a href="${pageContext.request.contextPath}/sean/hotel_room_review.jsp" class="left_btn"> <i class="fa-regular fa-comment"
 					style="color: #000000;"></i> 匿名評論
 				</a>
 			</div>
@@ -309,8 +316,13 @@ button.left_btn:hover {
 						<br> <span>TWD </span><span id="profit"><%=profitS%></span><span>您的收益(四捨五入之結果)</span>
 					</div>
 					<hr>
-					<c:if test="${room.mainPhoto == null}">
+					<c:if test="${room == null}">
 						<input type="hidden" name="action" value="addRoom">
+					</c:if>
+					<c:if test="${room != null}">
+						<input type="hidden" name="action" value="updateRoom">
+					</c:if>
+					<c:if test="${room.mainPhoto == null}">
 						<input type="hidden" name="roomId" value="${room.roomId}">
 						<input type="hidden" name="id" value="${room.roomId}">
 						<h2>上傳房型照片</h2>
@@ -320,7 +332,6 @@ button.left_btn:hover {
 						<div class="drag"></div>
 					</c:if>
 					<c:if test="${room.mainPhoto != null}">
-						<input type="hidden" name="action" value="updateRoom">
 						<input type="hidden" name="roomId" value="${room.roomId}">
 						<input type="hidden" name="id" value="${room.roomId}">
 						<h2>上傳房型照片</h2>
