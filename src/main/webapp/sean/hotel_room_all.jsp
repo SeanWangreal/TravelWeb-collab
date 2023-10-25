@@ -244,6 +244,11 @@ input {
 				</a>
 			</div>
 			<div class="mem-data">
+				<a href="${pageContext.request.contextPath}/sean/hotel_com_ord.jsp" class="left_btn" style="color: #000000"> <i
+					class="fa-solid fa-file-invoice" style="color: black;"></i> 訂單資訊
+				</a>
+			</div>
+			<div class="mem-data">
 				<a href="${pageContext.request.contextPath}/sean/hotel_room_review.jsp" 
 				class="left_btn"> <i class="fa-regular fa-comment"
 					style="color: #000000;"></i> 匿名評論
@@ -264,6 +269,10 @@ input {
 					RoomService roomSvc = new RoomServiceHibernate();
 					RoomStockService roomStockSvc = new RoomStockServiceHibernate();
 					Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId"));
+					if (compId == null ){
+						response.sendRedirect(request.getContextPath() + "/sean/select_page.jsp");
+						return;
+					}
 					roomList = roomSvc.getRoomByCompId(compId);
 					for (Room room : roomList) {
 						Set<Room_photo> roomPhoto = roomSvc.getAllPhoto(room.getRoomId());
@@ -282,7 +291,6 @@ input {
 								<span class="product-status${room.roomStatus==1?'-on':'-off'}">
 									${room.roomStatus==1?'上架中':'下架中'}</span> <span class="room-name">${room.roomName}</span>
 								<div class="do">
-									<button class="pictures">圖庫</button>
 									<form
 										action="${pageContext.request.contextPath}/sean/RoomStockServlet"
 										method="post" style="display: inline-block">

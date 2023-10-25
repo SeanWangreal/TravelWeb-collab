@@ -45,10 +45,7 @@ response.setDateHeader("Expires", 0);
                         <label for="orderId">訂單編號:<i style="color: blue;margin-left:30px">${TripOrd.tripOrdId}</i></label>
                     </div>
                     <hr>
-                    <div class="order-item">
-                        <label for="cusId">會員編號:<i style="color: blue;margin-left:30px">${TripOrd.cusId}</i></label>
-                    </div>
-                    <hr>
+                    
                     <div class="order-item">
                         <label for="tripName">行程名稱:<i style="color: blue;margin-left:30px">${TripOrd.tripName}</i></label>
                     </div>
@@ -58,7 +55,19 @@ response.setDateHeader("Expires", 0);
                     </div>
                     <hr>
                     <div class="order-item">
-                        <label for="amount">數量:<i style="color: blue;margin-left:30px">${TripOrd.amount}</i></label>
+                        <label for="amount">數量:
+                        	<i style="color: blue;margin-left:30px">
+                        			<FORM METHOD="post" ACTION="${pageContext.request.contextPath}/shopping_hotelServlet" >
+      										<select size="1" name="trip">
+       												<c:forEach begin="1" end="${TripOrd.store}" var="i"> 
+       										   				<option value="${i}">${i}
+       											  	</c:forEach>  
+       										</select>
+									       <input type="hidden" name="action" value="getOne_For_Display">
+									       <input type="submit" value="送出">
+     								</FORM>
+                        	</i>
+                        </label>
                     </div>
                     <hr>
                     <div class="order-item">

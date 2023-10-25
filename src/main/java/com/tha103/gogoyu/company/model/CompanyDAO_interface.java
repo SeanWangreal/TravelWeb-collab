@@ -20,4 +20,8 @@ public interface CompanyDAO_interface {
 	List<Company> getByCheckStatus();
 
 	void updChkStatus(Integer compId, Integer checkStatus);
+	
+	Company updFromBackend(Integer comp_id, String comp_name, String comp_address,
+			String comp_phone, String principal_name, String principal_phone, 
+			String comp_account, String comp_mail);
 }

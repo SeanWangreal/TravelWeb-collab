@@ -32,49 +32,49 @@ public class Room_ord implements Serializable {
 
 	@Column(name = "room_id")
 	private Integer roomId;
-	
+
 	@Column(name = "comp_id")
 	private Integer compId;
-	
+
 	@Column(name = "cus_id")
 	private Integer cusId;
 
 	@Column(name = "amount")
 	private Integer amount;
-	
+
 	@Column(name = "total_price")
 	private BigDecimal totalPrice;
-	
+
 	@Column(name = "commission")
 	private BigDecimal commission;
-	
+
 	@Column(name = "profit")
 	private BigDecimal profit;
-	
+
 	@Column(name = "people")
 	private Integer people;
-	
-	@Column(name = "check_in_time", insertable = false, updatable = false)
+
+	@Column(name = "check_in_time")
 	private Date checkInTime;
-	
-	@Column(name = "check_out_time", insertable = false, updatable = false)
+
+	@Column(name = "check_out_time")
 	private Date checkOutTime;
-	
+
 	@Column(name = "ord_status")
 	private Integer ordStatus;
-	
+
 	@Column(name = "ord_time", insertable = false, updatable = false)
 	private Timestamp ordTime;
-	
+
 	@Column(name = "remark")
 	private String remark;
-	
+
 	@Column(name = "score")
 	private Integer score;
-	
+
 	@Column(name = "comments", columnDefinition = "longtext")
 	private String comments;
-	
+
 	@Column(name = "comments_time", insertable = false, updatable = false)
 	private Timestamp commentsTime;
 
@@ -103,6 +103,14 @@ public class Room_ord implements Serializable {
 		this.score = score;
 		this.comments = comments;
 		this.commentsTime = commentsTime;
+	}
+
+	public Integer getCompId() {
+		return compId;
+	}
+
+	public void setCompId(Integer compId) {
+		this.compId = compId;
 	}
 
 	public Integer getRoomOrdId() {
