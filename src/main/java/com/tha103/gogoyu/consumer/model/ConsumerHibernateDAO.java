@@ -9,6 +9,8 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.tha103.gogoyu.company.model.Company;
+
 import util.HibernateUtil;
 import util.Util;
 
@@ -57,7 +59,16 @@ public class ConsumerHibernateDAO implements ConsumerDAO_interface {
 
 	@Override
 	public Consumer findByPK(Integer cusId) {
-		return getSession().get(Consumer.class, cusId);
+		try {
+			getSession().beginTransaction();
+			Consumer cus= getSession().get(Consumer.class, cusId);
+			getSession().getTransaction().commit();
+			return cus;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
 	}
 
 	@Override

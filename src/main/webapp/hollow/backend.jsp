@@ -128,7 +128,6 @@
         
         <div class="task_add_block">
         	<form action="${pageContext.request.contextPath}/CompanyServlet">
-        		<input type="hidden" name="action"	value="updChkStat">
 	            <input type="text" class="task_name comp_search_value" placeholder="輸入查詢事項…">
 	            <button type="button" class="task_add task_comp_search">查詢</button>
         	</form>
@@ -150,12 +149,12 @@
         <h1 class="title1">會員查詢</h1>
         
         <div class="task_add_block">
-            <input type="text" class="task_name" placeholder="輸入查詢事項…">
-            <button type="button" class="task_add">查詢</button>
+            <input type="text" class="task_name cust_search_value" placeholder="輸入查詢事項…">
+            <button type="button" class="task_add task_cust_search">查詢</button>
         </div>
         
         <div class="task_list_parent">
-            <ul class="list">
+            <ul class="list list_consumer">
                 <li>                    
                     <div class="">
                         <table class="table table-striped">
