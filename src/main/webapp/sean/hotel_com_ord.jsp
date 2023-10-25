@@ -88,11 +88,12 @@
 	 Map<Room_ord,List<String>> roomOrdMap = (Map<Room_ord,List<String>>) request.getAttribute("roomOrdMap");
 	if (roomOrdMap == null) {
 		Room_ordServiceHibernate roomOrdSvc = new Room_ordServiceHibernate();
-		Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId"));
-		if (compId == null ){
+		String compString = (String) request.getSession().getAttribute("compId");
+		if (compString == null ){
 			response.sendRedirect(request.getContextPath() + "/sean/select_page.jsp");
 			return;
 		}
+		Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId"));
 		roomOrdMap = roomOrdSvc.getRoomOrdByCompId(compId);
 	}
 	;

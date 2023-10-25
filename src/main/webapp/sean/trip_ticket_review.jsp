@@ -119,11 +119,13 @@
 	<script>
 				$(document).ready(function() {
 // 					var compId = 2;
-					console.log(location.origin);
+					var path = window.location.pathname;
+	        	 	var webCtx = path.substring(0, path.indexOf('/', 1));
+	        	 	var url = location.origin+webCtx+"/sean/TripOrdServlet"
 					var totalReview = 0 ;
 					var avgScore = 0 ;
 					$.ajax({
-						url : "/TravelWeb-collab/sean/TripOrdServlet",
+						url : url,
 						type : "POST", // GET | POST | PUT | DELETE | PATCH
 						data : {
 							"action" : "allReview",

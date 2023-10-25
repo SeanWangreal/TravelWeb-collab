@@ -121,11 +121,14 @@
 	<script src="../static/sean_js/btn4com_review.js"></script>
 	<script>
 				$(document).ready(function() {
+					var path = window.location.pathname;
+	        	 	var webCtx = path.substring(0, path.indexOf('/', 1));
+	        	 	var url = location.origin+webCtx+"/sean/RoomOrdServlet"
 // 					var compId = 2;
 					var totalReview = 0 ;
 					var avgScore = 0 ;
 					$.ajax({
-						url : "/TravelWeb-collab/sean/RoomOrdServlet",
+						url : url,
 						type : "POST", // GET | POST | PUT | DELETE | PATCH
 						data : {
 							"action" : "allReview",

@@ -100,11 +100,12 @@
 	Map<Trip_ord, List<String>> tripOrdMap = (Map<Trip_ord, List<String>>) request.getAttribute("tripOrdMap");
 	if (tripOrdMap == null) {
 		Trip_ordServiceHibernate tripStockSvc = new Trip_ordServiceHibernate();
-		Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId"));
-		if (compId == null ){
+		String compString = (String) request.getSession().getAttribute("compId");
+		if (compString == null ){
 			response.sendRedirect(request.getContextPath() + "/sean/select_page.jsp");
 			return;
 		}
+		Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId"));
 		tripOrdMap = tripStockSvc.getTripOrdByCompId(compId);
 	};
 	request.setAttribute("tripOrdMap", tripOrdMap);
@@ -115,6 +116,7 @@
 				<div id="searching">
 					<i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i>
 					<input type="search" placeholder="輸入訂單編號" id="ord-search">
+					<%@ include file="page1.file" %>
 				</div>
 				<c:forEach var="tripOrd" items="${tripOrdMap.keySet()}">
 					<div class="ord">
@@ -143,11 +145,11 @@
 								</label> 
 								<label for=""
 									class="l_long ord-label">開始日期<br>
-								<span class="long">${tripOrd.totalPrice}</span>
+								<span class="long">${tripOrd.startTime}</span>
 								</label> 
 								<label for=""
 									class="l_long ord-label">結束日期<br>
-								<span class="long">${tripOrd.totalPrice}</span>
+								<span class="long">${tripOrd.endTime}</span>
 								</label>
 							</div>
 							<div class="remark-block">
@@ -158,6 +160,7 @@
 						</div>
 					</div>
 				</c:forEach>
+				<%@ include file="page2.file" %>
 			</div>
 		</main>
 	</div>
