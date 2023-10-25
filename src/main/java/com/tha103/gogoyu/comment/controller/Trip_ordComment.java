@@ -1,4 +1,4 @@
-package com.tha103.gogoyu.room_ord.controller;
+package com.tha103.gogoyu.comment.controller;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

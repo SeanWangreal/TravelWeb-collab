@@ -11,6 +11,7 @@ import com.tha103.gogoyu.room.model.Room;
 import com.tha103.gogoyu.room.model.RoomDAO_interface;
 import com.tha103.gogoyu.room.model.RoomHibernateDAO;
 import com.tha103.gogoyu.room.model.RoomServiceHibernate;
+import com.tha103.gogoyu.trip_ord.model.Trip_ord;
 
 import util.HibernateUtil;
 
@@ -97,6 +98,7 @@ public class Room_ordServiceHibernate {
 		return dao.findByPK(room_ordId);
 	}
 
+	
 	public Room_ord getBycusID(Integer room_ordId) { 
 		return dao.findByPK(room_ordId);
 	}
@@ -112,5 +114,12 @@ public class Room_ordServiceHibernate {
 	public  Map<Room_ord,List<String>> getRoomOrdByCompId(Integer compId){
 		return dao.getRoomOrdByCompId(compId);
 	}
-
+	public Map<Room_ord,List<String>> gettripIdComment(Integer roomId){
+		return dao.gettripIdComment(roomId);
+	}
+	
+	public Integer updateCommentAndScore(Integer roomOrd , Integer score , String comment ,Timestamp commentsTime) {
+		
+		return dao.updateCommentAndScore(roomOrd,score,comment, commentsTime);
+	}	
 }

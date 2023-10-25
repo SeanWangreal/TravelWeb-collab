@@ -1,9 +1,11 @@
 package com.tha103.gogoyu.room_ord.model;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.*;
 
 import com.tha103.gogoyu.room.model.Room;
+import com.tha103.gogoyu.trip_ord.model.Trip_ord;
  
 
 public interface Room_ordDAO_interface {
@@ -19,4 +21,6 @@ public interface Room_ordDAO_interface {
 	List<Room_ord> getAll();
 	public Map <Room_ord , List<String>> getRoomOrdVo(Integer cartId , Integer cusId);
 	public  Map<Room_ord,List<String>> getRoomOrdByCompId(Integer compId);
+	public Map<Room_ord,List<String>> gettripIdComment(Integer roomId);
+	public Integer updateCommentAndScore(Integer roomOrd , Integer score , String comment ,Timestamp commentsTime);
 }

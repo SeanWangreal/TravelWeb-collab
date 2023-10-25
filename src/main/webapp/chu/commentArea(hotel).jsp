@@ -5,7 +5,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!-- jsp使用  el語法註冊-->
 <%@ page import="java.util.*"%>
 <%@ page import="com.tha103.gogoyu.room_ord.model.*"%>
+<%@ page import="com.tha103.gogoyu.room.model.*"%>
 <%@ page import="com.tha103.gogoyu.consumer.model.*"%>
+<%@ page import="com.tha103.gogoyu.company.model.*"%>
 <%@ page import="com.tha103.gogoyu.planning.model.*"%>
 <%@ page import="com.tha103.gogoyu.planning.model.*"%>
 <!-- 以下三行預防快取 -->
@@ -14,14 +16,18 @@ response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
 response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setDateHeader("Expires", 0);
 
-session.setAttribute("tripId", 3);
-Integer tripId =(Integer)session.getAttribute("tripId");
+session.setAttribute("roomId", 1);
+session.setAttribute("roomOrdId", 11);
+Integer roomId =(Integer)session.getAttribute("roomId");
+Integer roomOrdId =(Integer)session.getAttribute("roomOrdId");
 
-Trip_ordServiceHibernate TOSH = new Trip_ordServiceHibernate();
-TripServiceHibernate TSH = new TripServiceHibernate();
-pageContext.setAttribute("trip1", TOSH.gettripIdComment(tripId));
-// String tripName = TSH.getTrip(tripId).getTripName();
-pageContext.setAttribute("trip_name",TSH.getTrip(tripId).getTripName());
+Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
+RoomServiceHibernate TSH = new RoomServiceHibernate();
+CompanyService CS = new CompanyService();
+pageContext.setAttribute("room1", ROSH.gettripIdComment(roomId));
+
+Integer compId = ROSH.getRoomOrd(roomOrdId).getCompId();
+pageContext.setAttribute("comp_name",CS.getComp(compId).getCompName());
 %>
 
 <!DOCTYPE html>
@@ -125,30 +131,31 @@ pageContext.setAttribute("trip_name",TSH.getTrip(tripId).getTripName());
 <body>
     
     <div class="comment-container">
-    	<h1 style="text-decoration: underline; color: blue;">${trip_name}</h1>
+    	<h1 style="text-decoration: underline; color: blue;">${comp_name}</h1>
     	<h2>客人評語</h2>
-        <c:forEach var="tripVo1" items="${trip1.keySet()}">
+<%--     		<%@ include file="page1.file" %>  --%>
+        <c:forEach var="roomVo1" items="${room1.keySet()}">
 		<hr>
 		 <div class="comment" style="display: flex; height: 45px;">
             <div style="font-size: 20px;">
-                <span class="author" >會員編號: ${tripVo1.cusId}</span>
+                <span class="author" >會員編號: ${roomVo1.cusId}</span>
                 <br>
-                <div >${trip1.get(tripVo1).get(1)}</div>
+                <div >${room1.get(roomVo1).get(1)}</div>
                 <br>    
-                <img src="${pageContext.request.contextPath}/PictureServlet?cusId=${tripVo1.cusId}"  style="width: 130px; height: 140px; ">
+                <img src="${pageContext.request.contextPath}/PictureServlet?cusId=${roomVo1.cusId}"  style="width: 130px; height: 140px; ">
             </div>
             <div style="height: 20%; position: relative; left:200px; display: flex;font-size: 18px;">
-                <i style="position: relative; right: 100px;width: 100px;">評論時間:</i><i style="position: relative; right: 100px;width: 200px;">${tripVo1.commentsTime}</i>
-                <span >${tripVo1.score}</span><span class="star" style="color: gold; position: relative;bottom: 7px;">★</span>
+                <i style="position: relative; right: 100px;width: 100px;">評論時間:</i><i style="position: relative; right: 100px;width: 200px;">${roomVo1.commentsTime}</i>
+                <span >${roomVo1.score}</span><span class="star" style="color: gold; position: relative;bottom: 7px;">★</span>
             </div>
            
         </div>
         <div class="comment-text" style="position:relative ; bottom:20px;left: 100px;">
-            ${tripVo1.comments}
+            ${roomVo1.comments}
         </div>
 		</c:forEach>
         <hr>
-
+<%-- 		<%@ include file="page2.file" %> --%>
         <div class="comment-form">
             <br>
             <br>

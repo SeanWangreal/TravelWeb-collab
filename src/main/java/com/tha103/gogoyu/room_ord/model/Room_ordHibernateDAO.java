@@ -1,17 +1,23 @@
 package com.tha103.gogoyu.room_ord.model;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.persistence.Query;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
 import com.tha103.gogoyu.consumer.model.Consumer;
 import com.tha103.gogoyu.room.model.Room;
 import com.tha103.gogoyu.room_photo.model.Room_photo;
+import com.tha103.gogoyu.trip.model.Trip;
+import com.tha103.gogoyu.trip_ord.model.Trip_ord;
 import com.tha103.gogoyu.company.model.Company;
 import util.HibernateUtil;
 
@@ -159,7 +165,51 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 	
 	}
 	
+	@Override
+	public Map<Room_ord, List<String>> gettripIdComment(Integer RoomId) {
+		try {
+			getSession().beginTransaction();
+			@SuppressWarnings("unchecked")
+			NativeQuery<Room_ord> query1 = getSession().createNativeQuery(
+			"select * from room_ord where room_id = :room_id and comments is not null",Room_ord.class);
+			query1.setParameter("room_id", RoomId);
+			List<Room_ord> list1 = query1.list();
+			
+			Map<Room_ord,List<String>> map  = new LinkedHashMap<Room_ord,List<String>>();
+			for (Room_ord ord: list1) {
+				List<String> info = new ArrayList<String>();
+					info.add(getSession().get(Company.class, ord.getCompId()).getCompName());//String compName
+					info.add(getSession().get(Consumer.class, ord.getCusId()).getCusName());//String cusName					
+					map.put(ord,info);
+			}
+			
+			getSession().getTransaction().commit();
+			return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
 	
+	public Integer updateCommentAndScore(Integer roomOrd , Integer score , String comment ,Timestamp commentsTime) {
+		try {
+			getSession().beginTransaction();
+			Query query = getSession().createQuery("UPDATE Room_ord SET score = :score, comments = :comments  , commentsTime = :commentsTime WHERE roomOrdId = :roomOrdId");
+			query.setParameter("comments", comment);
+			query.setParameter("score", score);
+			query.setParameter("roomOrdId", roomOrd);
+			query.setParameter("commentsTime", commentsTime);
+			query.executeUpdate();
+			
+			getSession().getTransaction().commit();
+			return 1 ;
+		}catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return -1 ;
+	}
 	
 //	public List<Room_ord> getRoomOrdVo(Integer cartId, Integer cusId) {
 //
