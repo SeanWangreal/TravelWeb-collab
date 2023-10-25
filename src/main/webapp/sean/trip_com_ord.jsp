@@ -118,7 +118,7 @@
 					<input type="search" placeholder="輸入訂單編號" id="ord-search">
 					<%@ include file="page1.file" %>
 				</div>
-				<c:forEach var="tripOrd" items="${tripOrdMap.keySet()}">
+				<c:forEach var="tripOrd" items="${tripOrdMap.keySet()}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 					<div class="ord">
 						<div class="ord-head">
 							<label for="">訂單編號:</label><span>${tripOrd.tripOrdId}</span>
@@ -165,4 +165,9 @@
 		</main>
 	</div>
 	<script src="../static/sean_js/btn4com.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			
+		})
+	</script>
 </html>

@@ -2,26 +2,20 @@
 
   <%if (rowsPerPage<rowNumber) {%>
     <%if(pageIndex>=rowsPerPage){%>
-        <a href="<%=request.getRequestURI()%>?whichPage=1">至第一頁</a>&nbsp;
-        <a href="<%=request.getRequestURI()%>?whichPage=<%=whichPage-1%>">上一頁 </a>&nbsp;
+        <a href="<%=request.getRequestURI()%>?whichPage=1" style="font-size:14px">至第一頁</a>&nbsp;
+        <a href="<%=request.getRequestURI()%>?whichPage=<%=whichPage-1%>" style="font-size:14px">上一頁 </a>&nbsp;
     <%}%>
   
     <%if(pageIndex<pageIndexArray[pageNumber-1]){%>
-        <A href="<%=request.getRequestURI()%>?whichPage=<%=whichPage+1%>">下一頁 </A>&nbsp;
-        <A href="<%=request.getRequestURI()%>?whichPage=<%=pageNumber%>">至最後一頁</A>&nbsp;
+        <A href="<%=request.getRequestURI()%>?whichPage=<%=whichPage+1%>" style="font-size:14px">下一頁 </A>&nbsp;
+        <A href="<%=request.getRequestURI()%>?whichPage=<%=pageNumber%>" style="font-size:14px">至最後一頁</A>&nbsp;
     <%}%>
   <%}%>  
 
 <br><br>
 
   <%if (pageNumber>1) {%>
-    <FORM METHOD="post" ACTION="<%=request.getRequestURI()%>">   
-       <select size="1" name="whichPage">
-         <%for (int i=1; i<=pageNumber; i++){%>
-            <option value="<%=i%>">跳至第<%=i%>頁
+  		<%for (int i=1; i<=pageNumber; i++){%>
+         	<a href="<%=request.getRequestURI()%>?whichPage=<%= i%>" style="font-size:14px"><%= i%>頁</a>
          <%}%> 
-       </select>
-       <input type="submit" value="確定" >  
-    </FORM>
   <%}%>
-  <b>符 合 查 詢 條 件 如 下 所 示: 共<font color=red><%=rowNumber%></font>筆</b>
