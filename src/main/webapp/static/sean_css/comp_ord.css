@@ -174,6 +174,7 @@ a.left_btn:hover {
 }
 
 .ord {
+	margin: 10px;
     padding: 10px 20px;
     color: black;
     background-color: white;
@@ -263,4 +264,16 @@ span.long {
 
 .on {
     display: block;
+}
+#page {
+	padding:10px;
+}
+#page >*{
+	 border: none;
+	 background-color: transparent;
+	 color :#0078D4;
+	  margin-right: 5px;
+}
+.where{
+	color: orange ! important;
 }

@@ -165,7 +165,7 @@ button.left_btn:hover {
     background-color: white;
     width: calc(100% - 360px - 70px);
     color: black;
-    min-height: calc(100vh - 125px);
+    min-height: calc(100vh - 225px);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     padding: 10px 40px;
 }
@@ -286,3 +286,22 @@ a.left_btn:hover {
 
     margin-right: 10px;
 }      
+#page{
+	position: relative;
+    left: 360px;
+    font-family: "粉圓";
+    font-size: 20px;
+    background-color: white;
+    width: calc(100% - 360px - 70px);
+    color: blue;
+    padding: 10px 40px;
+}
+#page >*{
+	 border: none;
+	 background-color: white;
+	 color :#0078D4;
+	 margin-right: 5px;
+}
+.where {
+    color: orange ! important;
+}
