@@ -3,22 +3,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.math.*"%>
-<%@ page import="com.tha103.gogoyu.room_ord.model.*"%>
+<%@ page import="com.tha103.gogoyu.trip_ord.model.*"%>
 
 <%
 request.getSession().setAttribute("cusId", 1);//假設user為1
-Map<Room_ord, List<String>> roomOrdMap = (Map<Room_ord, List<String>>) request.getAttribute("roomOrdMap");
-if (roomOrdMap == null) {
-	Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
+Map<Trip_ord, List<String>> tripOrdMap = (Map<Trip_ord, List<String>>) request.getAttribute("tripOrdMap");
+if (tripOrdMap  == null) {
+	Trip_ordServiceHibernate TOSH = new Trip_ordServiceHibernate();
 	Integer cusId = (Integer) request.getSession().getAttribute("cusId"); //取得session的cusId
 	if (cusId == null) { //假如沒有登入會員
 		response.sendRedirect(request.getContextPath() + "/sean/select_page.jsp");
 		return;
 	}
-	roomOrdMap = ROSH.getRoomOrdByCusId(cusId);
+	tripOrdMap = TOSH.getTripOrdByCusId(cusId);
 }
 ;
-request.setAttribute("roomOrdMap", roomOrdMap);
+request.setAttribute("tripOrdMap", tripOrdMap);
 %>
 
 
@@ -142,39 +142,37 @@ request.setAttribute("roomOrdMap", roomOrdMap);
 					<i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i>
 					<input type="search" placeholder="輸入訂單編號" id="ord-search">
 				</div>
-				<c:forEach var="roomOrd" items="${roomOrdMap.keySet()}">
+				<c:forEach var="tripOrd" items="${tripOrdMap.keySet()}">
 					<div class="ord">
 						<div>
-							<label class="ord-head">訂單編號:<span name="ord_id">${roomOrd.roomOrdId}</span></label>
-							<label class="ord-head">飯店名稱:<span name="room_name">${roomOrdMap.get(roomOrd).get(3)}</span></label>
-							<label class="ord-head">房間名稱:<span name="room_name">${roomOrdMap.get(roomOrd).get(0)}</span></label>
-							<label class="ord-head">訂單狀態:<span name="room_name">${roomOrd.ordStatus == 1?"已成立":"已退款"}</span></label>
-							<form action="${pageContext.request.contextPath}/Hotel_ordCommentServlet" method="post">
+							<label class="ord-head">訂單編號:<span name="ord_id">${tripOrd.tripOrdId}</span></label>
+							<label class="ord-head">行程名稱:<span name="trip_name">${tripOrdMap.get(tripOrd).get(0)}</span></label>
+							<label class="ord-head">訂單狀態:<span name="trip_status">${tripOrd.ordStatus == 1?"已成立":"已退款"}</span></label>
+								<form action="${pageContext.request.contextPath}/Trip_ordCommentServlet" method="post">
 										<input type="hidden" name="action" value="goToComment">
-										<input type="hidden" name="roomOrdId" value="${roomOrd.roomOrdId}">
-										<input type="hidden" name="roomId" value="${roomOrd.roomId}">
+										<input type="hidden" name="tripOrdId" value="${tripOrd.tripOrdId}">
+										<input type="hidden" name="tripId" value="${tripOrd.tripId}">
 										<button class="b remove" type="submit" style = "position :absolute ; left :90%;top:35%">評論去</button>
 								</form>
 						</div>
 						<div class="all-info">
 							<div>
-							<label for="" class="l_long ord-label">顧客名稱<br> <span
-									class="long" name="customer_name">${roomOrdMap.get(roomOrd).get(2)}</span></label>
-								
-								<label for="" class="l_long ord-label">房型<br> <span
-									class="long" name="room_type">${roomOrdMap.get(roomOrd).get(1)}人房</span></label>
-								<label for="" class="l_long ord-label">房數<br> <span
-									class="long" name="room_num">${roomOrd.amount}</span></label> <label
+								<label for="" class="l_long ord-label">顧客名稱<br> <span
+									class="long" name="customer_name">${tripOrdMap.get(tripOrd).get(1)}</span></label>
+								<label for="" class="l_long ord-label">數量<br> <span
+									class="long" name="amount">${tripOrd.amount}</span></label>
+								<label for="" class="l_long ord-label">總人數<br> <span
+									class="long" name="total_amount">${tripOrdMap.get(tripOrd).get(2)}人</span></label> <label
 									for="" class="l_long ord-label">總金額<br> <span
-									class="long" name="total_money">${roomOrd.totalPrice.intValue()}</span><span>元</span></label>
-								<label for="" class="l_long ord-label">入住日期<br> <span
-									class="long" name="check_in">${roomOrd.checkInTime}</span></label> <label
-									for="" class="l_long ord-label">退房日期<br> <span
-									class="long" name="check_out">${roomOrd.checkOutTime}</span></label>
+									class="long" name="total_money">${tripOrd.totalPrice.intValue()}</span><span>元</span></label>
+								<label for="" class="l_long ord-label">開始日期<br> <span
+									class="long" name="staet_time">${tripOrd.startTime}</span></label> <label
+									for="" class="l_long ord-label">結束日期<br> <span
+									class="long" name="end_time">${tripOrd.endTime}</span></label>
 							</div>
 							<div class="remark-block">
 								<label for="" class="remark">備註:</label>
-								<p class="remark-info" name="remark">${roomOrd.remark}</p>
+								<p class="remark-info" name="remark">${tripOrd.remark}</p>
 							</div>
 						</div>
 					</div>

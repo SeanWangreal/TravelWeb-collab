@@ -269,6 +269,42 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 		return null;
 	}
 
+	
+	
+	
+	public Map<Trip_ord, List<String>> getTripOrdByCusId(Integer cusId) {
+		try {
+			getSession().beginTransaction();
+			NativeQuery<Trip_ord> query = getSession().createNativeQuery(
+						"select * from trip_ord where cus_id = :cusId and ord_status = 1 order by ord_time desc" ,
+						Trip_ord.class);
+				query.setParameter("cusId", cusId);
+			List<Trip_ord> list = query.list();
+			Map<Trip_ord, List<String>> map = new LinkedHashMap<Trip_ord, List<String>>();
+
+			for (Trip_ord ord : list) {
+				List<String> info = new ArrayList<String>();
+				Trip trip = getSession().get(Trip.class, ord.getTripId());
+				Consumer consumer = getSession().get(Consumer.class, ord.getCusId());
+				String totalAmount =String.valueOf(ord.getAmount()*trip.getAmount());
+				info.add(trip.getTripName());
+				info.add(consumer.getCusName());
+				info.add(totalAmount);
+				map.put(ord, info);
+			}
+			getSession().getTransaction().commit();
+			return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+	
+	
+	
+	
+	
 	// insert
 //		Trip_ord tripOrd1 = new Trip_ord();
 

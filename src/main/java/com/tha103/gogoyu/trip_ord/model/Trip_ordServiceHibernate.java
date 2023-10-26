@@ -123,4 +123,11 @@ public class Trip_ordServiceHibernate implements Trip_ordService {
 	public Map<Trip_ord,List<String>> gettripIdComment(Integer tripId){
 		return dao.gettripIdComment(tripId);
 	}
+	
+	public Map<Trip_ord, List<String>> getTripOrdByCusId(Integer cusId){
+		return dao.getTripOrdByCusId(cusId);
+	}
+	
+	
+	
 }

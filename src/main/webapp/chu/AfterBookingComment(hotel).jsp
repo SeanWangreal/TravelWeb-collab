@@ -15,6 +15,8 @@
 response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
 response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setDateHeader("Expires", 0);
+
+
 %>
 
 <!DOCTYPE html>
@@ -119,7 +121,7 @@ response.setDateHeader("Expires", 0);
             <br>
             <h3>新增評論</h3>
             
-            <form action="${pageContext.request.contextPath}/Hotel_ordComment" method="post">
+            <form action="${pageContext.request.contextPath}/Hotel_ordCommentServlet" method="post">
             
                 <label>評分：</label>
                 <div class="stars" data-rating="0">
@@ -142,13 +144,16 @@ response.setDateHeader("Expires", 0);
                 <p style="color: gray;">最大字數: <span id="charCount">200</span>/200<span></span></p>
                 <button type="submit">發表評論</button>
                 <input type="hidden" id="submitButtonClicked" name="submitButtonClicked" value="false">
-	            <input type="hidden" name="roomOrdId" value="11">  <!--訂單編號透過訂單明細取得(req.attr)  -->
-	            <input type="hidden" name="roomId" value="1">			<!--商品編號透過訂單明細取得(req.attr)  -->
+	            <input type="hidden" name="roomOrdId" value="${roomOrdId}">  <!--訂單編號透過訂單明細取得(req.attr)  -->
+	            <input type="hidden" name="roomId" value="${roomId}">			<!--商品編號透過訂單明細取得(req.attr)  -->
             </form>
         </div>
         
   
-        <button class="leave-button" id="leaveButton">離開</button>
+         <form action="${pageContext.request.contextPath}/Hotel_ordCommentServlet" method="post">
+        	<button class="leave-button" id="leaveButton">離開</button>
+        	<input type="hidden" name="action" value="leaveComment">	
+        </form>
     </div>
 
     <script>

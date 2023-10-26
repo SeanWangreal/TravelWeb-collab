@@ -120,7 +120,7 @@ response.setDateHeader("Expires", 0);
             <br>
             <h3>新增評論</h3>
             
-            <form action="${pageContext.request.contextPath}/Trip_ordComment" method="post">
+            <form action="${pageContext.request.contextPath}/Trip_ordCommentServlet" method="post">
             
                 <label>評分：</label>
                 <div class="stars" data-rating="0">
@@ -141,17 +141,19 @@ response.setDateHeader("Expires", 0);
                 <label for="comment-text">評論內容 (不超過200字)：</label>
                 <textarea id="comment-text" name="comment" rows="4" required style="width: 100%; max-width: 400px;"></textarea>               
                 <p style="color: gray;">最大字數: <span id="charCount">200</span>/200<span></span></p>
-                <button type="submit">發表評論</button>
                 <input type="hidden" id="submitButtonClicked" name="submitButtonClicked" value="false">
-                <input type="hidden" name="tripOrdId" value="15">  <!--訂單編號透過訂單明細取得(req.attr)  -->
-	            <input type="hidden" name="tripId" value="1">			<!--商品編號透過訂單明細取得(req.attr)  -->
+                <input type="hidden" name="tripOrdId" value="${tripOrdId}">  
+	            <input type="hidden" name="tripId" value="${tripId}">			
+                <button type="submit">發表評論</button>
             </form>
         </div>
         
-  
-        <button class="leave-button" id="leaveButton">離開</button>
+  		 <form action="${pageContext.request.contextPath}/room_ordCommentServlet" method="post">
+        	<button class="leave-button" id="leaveButton">離開</button>
+        	<input type="hidden" name="action" value="leaveComment">	
+        </form>
     </div>
-
+<script src="${pageContext.request.contextPath}/vendors/jquery/jquery-3.7.1.min.js"></script>
     <script>
         const stars = document.querySelectorAll('.star');
         const ratingElement = document.getElementById('rating');
@@ -159,6 +161,8 @@ response.setDateHeader("Expires", 0);
         const commentText = document.getElementById('comment-text');
         const charCountElement = document.getElementById('charCount');
 
+
+        
         starsContainer.addEventListener('click', (event) => {
             if (event.target.classList.contains('star')) {
                 const rating = event.target.getAttribute('data-value');

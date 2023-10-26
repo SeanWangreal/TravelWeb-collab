@@ -146,7 +146,7 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 		try {
 			getSession().beginTransaction();
 			Map<Room_ord,List<String>> map = new LinkedHashMap<Room_ord, List<String>>();
-			List<Room_ord> list = getSession().createQuery("from Room_ord where cus_id = :CusId and ord_status != 0 order by ord_time desc", Room_ord.class)
+			List<Room_ord> list = getSession().createQuery("from Room_ord where cus_id = :CusId and ord_status = 1 order by ord_time desc", Room_ord.class)
 					.setParameter("CusId", CusId)
 					.list();
 			for (Room_ord ord : list) {
@@ -157,6 +157,7 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 				info.add(room.getRoomName());
 				info.add(room.getRoomType().toString());
 				info.add(consumer.getCusName());
+				info.add(company.getCompName());
 				map.put(ord, info);
 			}
 			getSession().getTransaction().commit();
