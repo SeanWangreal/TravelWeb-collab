@@ -134,7 +134,10 @@
 	        },
 	        dataType : "json", // 預期會接收到回傳資料的格式： json | xml | html
 	        success : function(data) { // request 成功取得回應後執行
-	            var	totalOrd = data[1][2];
+	            var	totalOrd = 0;
+	        	if (data.length != 0){
+	        		totalOrd = data[1][2];
+	        	}
 	            for (var i = 0; i < data.length;i+=2){
 	                console.log(data[i]);
 	                console.log(data[i+1]);
@@ -194,11 +197,17 @@
 	        })
 	        var htmlA=`<span>第</span>`;
 	        if (totalOrd <= 5){
-	            htmlA  += `<button type="button" class="at" data-whichpage="1">1頁</button>`
+	            htmlA  += `<button type="button" class="at" data-whichpage="1">1</button><span>頁</span>`
 	        } else {
-	            for (var i =1; i <= totalOrd/5+1;i++){
-	                htmlA += `<button type="button" class="at" data-whichpage=`+i+`>`+i+`頁</button>`
-	            }
+	        	if (totalOrd % 5 != 0){
+		            for (var i =1; i <= totalOrd/5+1;i++){
+		                htmlA += `<button type="button" class="at" data-whichpage=`+i+`>`+i+`</button><span>頁</span>`
+		            }
+	        	} else {
+	        		for (var i =1; i <= totalOrd/5;i++){
+		                htmlA += `<button type="button" class="at" data-whichpage=`+i+`>`+i+`</button><span>頁</span>`
+		            }
+	        	}
 	        }
 	        $("#page").html(htmlA);
 	        $(".at").eq(0).addClass("where");
@@ -256,11 +265,6 @@
 	                        totalReview++;
 	                        avgScore += data[i].score;
 	                        $("ul").append(html1+html2+html3);
-	                    }
-	                    if (avgScore === 0){
-	                        $("h1").text("尚無訂單");		
-	                    } else {
-	                        $("h1").text(Math.round(avgScore/totalReview*10)/10);						
 	                    }
 	                    $(".read").on('click',function(){
 	                        var p = $(this).closest(".review-block").find("p");

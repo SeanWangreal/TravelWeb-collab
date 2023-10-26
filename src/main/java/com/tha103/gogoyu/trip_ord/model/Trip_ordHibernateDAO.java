@@ -159,9 +159,9 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 			Map<Trip_ord,List<String>> map = new LinkedHashMap();
 			for (Trip_ord ord : list) {
 				List<String> info = new ArrayList<String>();
-				Trip room =getSession().get(Trip.class, ord.getTripId());
+				Trip trip =getSession().get(Trip.class, ord.getTripId());
 				Consumer consumer =getSession().get(Consumer.class, ord.getCusId());
-				info.add(room.getTripName());
+				info.add(trip.getTripName());
 				info.add(consumer.getCusName());
 				info.add(total.toString());
 				map.put(ord, info);
@@ -182,6 +182,37 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 //		Trip_ordDAO_Interface dao=new Trip_ordHibernateDAO();
 //		Date date = new Date();
 //		Timestamp nowTime = new Timestamp(date.getTime());
+
+	@Override
+	public Map<Trip_ord, List<String>> getTripOrdByCompIdOrdId(Integer tripOrdId, Integer compId) {
+		try {
+			getSession().beginTransaction();
+			NativeQuery<Trip_ord> query = getSession().createNativeQuery(
+						"select * from trip_ord where comp_id = :compId and ord_status != 0 and trip_ord_id = :tripOrdId",
+						Trip_ord.class);
+				query.setParameter("compId", compId);
+				query.setParameter("tripOrdId", tripOrdId);
+			List<Trip_ord> list = query.list();
+			Map<Trip_ord, List<String>> map = new LinkedHashMap<Trip_ord, List<String>>();
+//			List<Trip_ord> list = getSession().createQuery("from Trip_ord where comp_id = :compId and ord_status != 0 order by ord_time desc", Trip_ord.class)
+//					.setParameter("compId", compId)
+//					.list();
+			for (Trip_ord ord : list) {
+				List<String> info = new ArrayList<String>();
+				Trip trip = getSession().get(Trip.class, ord.getTripId());
+				Consumer consumer = getSession().get(Consumer.class, ord.getCusId());
+				info.add(trip.getTripName());
+				info.add(consumer.getCusName());
+				map.put(ord, info);
+			}
+			getSession().getTransaction().commit();
+			return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
 
 	// insert
 //		Trip_ord tripOrd1 = new Trip_ord();

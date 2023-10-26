@@ -71,6 +71,20 @@ public class TripOrdServlet extends HttpServlet {
 			str = gson.toJson(list);
 			out.write(str);
 			return;
+		case "OneTripOrd":
+			out  = res.getWriter();
+			gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
+			list = new ArrayList<Object>();
+			String tripOrdId = req.getParameter("tripOrdId");
+			Map<Trip_ord,List<String>> tripOrd = tripOrdSvc.getOneTripOrd(Integer.valueOf(tripOrdId),Integer.valueOf(compId));
+			for (Trip_ord ord :tripOrd.keySet()) {
+				List<String> info = tripOrd.get(ord);
+				list.add(ord);
+				list.add(info);
+			}
+			str = gson.toJson(list);
+			out.write(str);
+			return;
 		} 
 		
 		

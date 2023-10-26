@@ -291,17 +291,17 @@ a.left_btn:hover {
     left: 360px;
     font-family: "粉圓";
     font-size: 20px;
-    background-color: white;
+    background-color: transparent;
     width: calc(100% - 360px - 70px);
     color: blue;
     padding: 10px 40px;
 }
 #page >*{
 	 border: none;
-	 background-color: white;
-	 color :#0078D4;
+	 background-color: transparent;
+	 color :black;
 	 margin-right: 5px;
 }
 .where {
-    color: orange ! important;
+    color: #66BEE7 ! important;
 }

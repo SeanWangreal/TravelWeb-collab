@@ -271,9 +271,9 @@ span.long {
 #page >*{
 	 border: none;
 	 background-color: transparent;
-	 color :#0078D4;
+	 color :black;
 	  margin-right: 5px;
 }
 .where{
-	color: orange ! important;
+	color: #66BEE7 ! important;
 }
