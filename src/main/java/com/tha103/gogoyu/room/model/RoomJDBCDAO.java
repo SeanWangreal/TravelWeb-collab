@@ -359,15 +359,15 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 		return null;
 	}
 
-//	@Override
-//	public Map<Room, String> searchRoom(String comp_address, Date checkIn, Date checkOut, Integer number) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
 	@Override
-	public List<Room> searchRoom(String comp_address, Date checkIn, Date checkOut, Integer number) {
+	public Map<Room, String> searchRoom(String comp_address, Date checkIn, Date checkOut, Integer number) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+//	@Override
+//	public List<Room> searchRoom(String comp_address, Date checkIn, Date checkOut, Integer number) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 }

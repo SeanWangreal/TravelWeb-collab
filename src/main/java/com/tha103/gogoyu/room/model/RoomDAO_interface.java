@@ -20,8 +20,8 @@ public interface RoomDAO_interface {
 	int deleteAllPhoto(Integer roomId);
 	Set<Room_photo> getAllPhoto(Integer roomId);
 	List<Room> getHotRoom();
-	List<Room> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number);
-//	Map<Room, String> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number);
+//	List<Room> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number);
+	Map<Room, String> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number);
 	
 	
 }

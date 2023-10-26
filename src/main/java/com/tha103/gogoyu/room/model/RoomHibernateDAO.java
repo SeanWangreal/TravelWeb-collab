@@ -19,6 +19,7 @@ import org.hibernate.query.NativeQuery;
 
 import com.tha103.gogoyu.company.model.Company;
 import com.tha103.gogoyu.consumer.model.Consumer;
+import com.tha103.gogoyu.hotel_info.model.Hotel_info;
 import com.tha103.gogoyu.room_ord.model.Room_ord;
 import com.tha103.gogoyu.room_photo.model.Room_photo;
 
@@ -221,19 +222,16 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		return null;
 	}
 	
-//	public Map<Room, String> gotRoomProdutDetail(Integer roomId) {
+//	public Map<Room, Object> gotRoomProdutDetail(Integer roomId) {
 //	try {
 //		getSession().beginTransaction();
-//		Map<Room, String> map = new LinkedHashMap<Room, String>();
-////		@SuppressWarnings("unchecked")
-//		NativeQuery<Room> query1 = getSession().createNativeQuery(
-//				"SELECT * FROM room WHERE room_id IN "
-//				+ "(SELECT r.room_id FROM room r"
-//				+ " JOIN room_stock rs ON r.room_id = rs.room_id JOIN company c ON r.comp_id = c.comp_id WHERE (c.comp_address LIKE :comp_address) AND (rs.stock_date BETWEEN :checkIn AND :checkOut) AND (r.room_type <= :number) AND (rs.stock > 0) GROUP BY room_id)", Room.class)
-//		.setParameter("comp_address", "'%"+comp_address+"%'")
-//		.setParameter("checkIn", checkIn)
-//		.setParameter("checkOut", checkOut)
-//		.setParameter("number", number);
+//		Map<Room, Object> map = new LinkedHashMap<Room, Object>();
+//		Room room = getSession().get(Room.class, roomId);
+//		List<Room_photo> RoomPhotoList = getSession().createQuery("select * from Room_photo where room_id =:room_id", Room_photo.class)
+//				.setParameter("room_id", roomId).list();
+//		Company company = getSession().get(Company.class, roomId);
+//		Hotel_info hotelInfo = getSession().get(Hotel_info.class, company.getHotelInfo());
+//		
 //		List<Room> list = query1.list();
 //		for(Room room : list) {
 //			Company company = getSession().get(Company.class, room.getCompId());
@@ -249,60 +247,60 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 //	return null;
 //}
 	
-	public List<Room> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number) {
-		try {
-			getSession().beginTransaction();
-//			@SuppressWarnings("unchecked")
-			System.out.println( "'%"+comp_address+"%'");
-			System.out.println(checkIn);
-			System.out.println(checkOut);
-			System.out.println(number);
-			NativeQuery<Room> query1 = getSession().createNativeQuery(
-					"SELECT * FROM room WHERE room_id IN "
-					+ "(SELECT r.room_id FROM room r"
-					+ " JOIN room_stock rs ON r.room_id = rs.room_id JOIN company c ON r.comp_id = c.comp_id WHERE (c.comp_address LIKE :comp_address) AND (rs.stock_date BETWEEN :checkIn AND :checkOut) AND (r.room_type <= :number) AND (rs.stock > 0) GROUP BY room_id)", Room.class)
-			.setParameter("comp_address", "'%"+comp_address+"%'")
-			.setParameter("checkIn", checkIn)
-			.setParameter("checkOut", checkOut)
-			.setParameter("number", number);
-			List<Room> list = query1.list();
-			System.out.println(list);
-			getSession().getTransaction().commit();
-			return list;
-		} catch (Exception e) {
-			e.printStackTrace();
-			getSession().getTransaction().rollback();
-		}
-		return null;
-	}
-	
-//	public Map<Room, String> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number) {
+//	public List<Room> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number) {
 //		try {
 //			getSession().beginTransaction();
-//			Map<Room, String> map = new LinkedHashMap<Room, String>();
 ////			@SuppressWarnings("unchecked")
+//			System.out.println( "'%"+comp_address+"%'");
+//			System.out.println(checkIn);
+//			System.out.println(checkOut);
+//			System.out.println(number);
 //			NativeQuery<Room> query1 = getSession().createNativeQuery(
 //					"SELECT * FROM room WHERE room_id IN "
 //					+ "(SELECT r.room_id FROM room r"
 //					+ " JOIN room_stock rs ON r.room_id = rs.room_id JOIN company c ON r.comp_id = c.comp_id WHERE (c.comp_address LIKE :comp_address) AND (rs.stock_date BETWEEN :checkIn AND :checkOut) AND (r.room_type <= :number) AND (rs.stock > 0) GROUP BY room_id)", Room.class)
-//			.setParameter("comp_address", "'%"+comp_address+"%'")
+//			.setParameter("comp_address", "%"+comp_address+"%")
 //			.setParameter("checkIn", checkIn)
 //			.setParameter("checkOut", checkOut)
 //			.setParameter("number", number);
 //			List<Room> list = query1.list();
-//			for(Room room : list) {
-//				Company company = getSession().get(Company.class, room.getCompId());
-//				String compName = company.getCompName();
-//				map.put(room, compName);
-//			}
+//			System.out.println(list);
 //			getSession().getTransaction().commit();
-//			return map;
+//			return list;
 //		} catch (Exception e) {
 //			e.printStackTrace();
 //			getSession().getTransaction().rollback();
 //		}
 //		return null;
 //	}
+	
+	public Map<Room, String> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number) {
+		try {
+			getSession().beginTransaction();
+			Map<Room, String> map = new LinkedHashMap<Room, String>();
+//			@SuppressWarnings("unchecked")
+			NativeQuery<Room> query1 = getSession().createNativeQuery(
+					"SELECT * FROM room WHERE room_id IN "
+					+ "(SELECT r.room_id FROM room r"
+					+ " JOIN room_stock rs ON r.room_id = rs.room_id JOIN company c ON r.comp_id = c.comp_id WHERE (c.comp_address LIKE :comp_address) AND (rs.stock_date BETWEEN :checkIn AND :checkOut) AND (r.room_type <= :number) AND (rs.stock > 0) GROUP BY room_id)", Room.class)
+			.setParameter("comp_address", "%"+comp_address+"%")
+			.setParameter("checkIn", checkIn)
+			.setParameter("checkOut", checkOut)
+			.setParameter("number", number);
+			List<Room> list = query1.list();
+			for(Room room : list) {
+				Company company = getSession().get(Company.class, room.getCompId());
+				String compName = company.getCompName();
+				map.put(room, compName);
+			}
+			getSession().getTransaction().commit();
+			return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
 	
 	
 	

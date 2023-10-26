@@ -5,8 +5,8 @@
 <%@ page import="com.tha103.gogoyu.company.model.*"%>
 
 <%
-	List<Room> searchRoomResult = (List<Room>)request.getAttribute("searchRoomResult");
-	pageContext.setAttribute("roomList",searchRoomResult);
+	Map<Room, String> searchRoomResult = (Map<Room, String>)request.getAttribute("searchRoomResult");
+	pageContext.setAttribute("roomMap", searchRoomResult);
 %>
 
 <jsp:useBean id="CompSvc" scope="page" class="com.tha103.gogoyu.company.model.CompanyService" />
@@ -170,18 +170,18 @@
                         <!--搜尋結果-->
                         <div class="d-flex flex-column">
                             <!--hotel商品-->
-                            <div class="container border">
-                                <div class="row">
-	                                <c:forEach var="roomVO" items="${roomList}" >
+                             <c:forEach var="rMap" items="${roomMap}" >
+	                            <div class="container border">
+	                                <div class="row">
 	                                    <!--商品圖-->
 	                                    <div class="col ">
-	                                        <img src="MainPhotoPrintHServlet?room_id=${roomVO.RoomId} " class="d-block w-100" alt="...">
+	                                        <img src="MainPhotoPrintHServlet?room_id=${rMap.roomId} " class="d-block w-100" alt="...">
 	                                    </div>
 	                                    <!--商品名 細況-->
 	                                    <div class="col">
 	                                            <h3 class="">兄弟大飯店</h3><br>
-	                                            <div>${roomVO.RoomName}</div>
-	                                            <div>${roomVO.RoomType}人房</div><br>
+	                                            <div>${roomVO.roomName}</div>
+	                                            <div>${roomVO.roomType}人房</div><br>
 	                                            <a href="#" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">查看房型細況</a>
 	                                    </div>
 	                                    <!--聯絡 評等 價格-->
@@ -205,13 +205,13 @@
 	                                            <span class="book_price ms-4">價格(未含稅)</span>
 	                                                <i class="ms-4">TWD</i>
 	                                            <div class="ms-4">
-	                                                <i class="howmuch">${roomVO.Price}</i>
+	                                                <i class="howmuch">${roomVO.price}</i>
 	                                            </div>
 	                                        </div>
 	                                    </div>
-                                    </c:forEach>
                                 </div>
                             </div>
+                            </c:forEach>
                         </div>
                     </div>
                     

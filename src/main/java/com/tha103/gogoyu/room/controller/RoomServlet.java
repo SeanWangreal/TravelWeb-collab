@@ -289,7 +289,7 @@ public class RoomServlet extends HttpServlet {
 			}catch(NumberFormatException e){
 				number = 0;
 			}
-			List<Room> searchRoomResult = roomSvc.searchRoom(comp_address, checkIn, checkOut, number);
+			Map<Room, String> searchRoomResult = roomSvc.searchRoom(comp_address, checkIn, checkOut, number);
 			req.setAttribute("searchRoomResult", searchRoomResult); 
 			forwardPath = "/mhl/search_results.jsp";
 			break;
