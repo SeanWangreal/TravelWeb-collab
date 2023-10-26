@@ -104,7 +104,7 @@ public class CompanyServlet extends HttpServlet {
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			HttpSession session = req.getSession();
-		    session.setAttribute("compId", company.getCompId());
+		    session.setAttribute("compId", company.getCompId().toString());
 		    String url = null;
 			if (company.getCompType() == 0) {
 				System.out.println("wqdwq");
@@ -686,7 +686,7 @@ public class CompanyServlet extends HttpServlet {
 			CompanyService companySvc = new CompanyService();
 			Company company =  companySvc.addCompany(compType, compName, compAddress, compPhone, principalName,
 			principalPhone, compAccount, compPassword, compMail, compPhoto);
-			req.getSession().setAttribute("compId", company.getCompId());
+			req.getSession().setAttribute("compId", company.getCompId().toString());
 			String url =null;
 			if (compType == 0) {
 				url = "/ken/com_mem.jsp";				
