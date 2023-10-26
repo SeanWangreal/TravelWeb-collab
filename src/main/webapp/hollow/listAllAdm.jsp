@@ -6,7 +6,7 @@
 
 <%
 AdminService Adm_mebSvc = new AdminService();
-    List<Admin> list = Adm_mebSvc.getAll();
+    List<Adm_meb> list = Adm_mebSvc.getAll();
     pageContext.setAttribute("list",list);
 %>
 

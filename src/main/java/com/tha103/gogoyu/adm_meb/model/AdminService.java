@@ -9,9 +9,9 @@ public class AdminService {
 		dao = new AdminHibernateDAO();
 	}
 
-	public Admin addAdm(String adm_name, String adm_account, String adm_password) {
+	public Adm_meb addAdm(String adm_name, String adm_account, String adm_password) {
 
-		Admin admMeb = new Admin();
+		Adm_meb admMeb = new Adm_meb();
 
 		admMeb.setAdmName(adm_name);
 		admMeb.setAdmAccount(adm_account);
@@ -22,9 +22,9 @@ public class AdminService {
 		return admMeb;
 	}
 
-	public Admin updateAdm(Integer adm_id, String adm_name, String adm_account, String adm_password) {
+	public Adm_meb updateAdm(Integer adm_id, String adm_name, String adm_account, String adm_password) {
 
-		Admin admMeb = new Admin();
+		Adm_meb admMeb = new Adm_meb();
 
 		admMeb.setAdmId(adm_id);
 		admMeb.setAdmName(adm_name);
@@ -40,11 +40,15 @@ public class AdminService {
 		dao.delete(adm_id);
 	}
 
-	public Admin getOneAdm(Integer adm_id) {
+	public Adm_meb getOneAdm(Integer adm_id) {
 		return dao.findByPrimaryKey(adm_id);
 	}
+	
+	public Adm_meb getOneByAccount(String adm_account) {
+		return dao.findByAccount(adm_account);
+	}
 
-	public List<Admin> getAll() {
+	public List<Adm_meb> getAll() {
 		return dao.getAll();
 	}
 }

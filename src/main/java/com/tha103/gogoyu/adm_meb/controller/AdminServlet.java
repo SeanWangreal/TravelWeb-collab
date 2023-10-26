@@ -42,17 +42,18 @@ public class AdminServlet extends HttpServlet{
 			if (admAccount == null || (admAccount.trim()).length() == 0) {
 				errorMsgs.add("請輸入帳號");
 			}
+			System.out.println(admAccount);
 			
 			String admPassword = req.getParameter("admPassword");
 			if (admPassword == null || (admPassword.trim()).length() == 0) {
 				errorMsgs.add("請輸入密碼");
 			}
+			System.out.println(admPassword);
 			
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req.getRequestDispatcher("/hollow/backend_login.jsp");
 				failureView.forward(req, res);
-				
 				return;// 程式中斷
 			}
 
@@ -70,25 +71,32 @@ public class AdminServlet extends HttpServlet{
 //			}
 
 			/*************************** 2.開始查詢資料 *****************************************/
-			Integer account =  Integer.valueOf(admAccount);
-			Integer password = Integer.valueOf(admPassword);
-			CompanyService companySvc = new CompanyService();
-			Company company = companySvc.getOneCompany(account);
-			if (company == null) {
-				errorMsgs.add("查無資料");
+			AdminService adminySvc = new AdminService();
+			Adm_meb administrator = adminySvc.getOneByAccount(admAccount);
+			if (administrator == null) {
+				errorMsgs.add("帳號不存在");
+			}
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/hollow/backend_login.jsp");
+				failureView.forward(req, res);
+				return;// 程式中斷
+			}
+//			System.out.println(administrator.getAdmPassword());
+			if (!admPassword.equals(administrator.getAdmPassword())) {
+				errorMsgs.add("密碼錯誤");
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher(req.getContextPath()+"/ken/com_mem.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/hollow/backend_login.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-			System.out.println(company);
-			req.setAttribute("Company", company); // 資料庫取出的empVO物件,存入req
-			String url = "/ken/com_mem.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+			System.out.println(administrator);
+			req.setAttribute("admin", administrator); // 資料庫取出的empVO物件,存入req
+//			String url = req.getContextPath()+"/hollow/backend.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher("/hollow/backend.jsp"); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
 		}
 		
@@ -128,7 +136,7 @@ public class AdminServlet extends HttpServlet{
 				
 				/***************************2.開始查詢資料*****************************************/
 				AdminService admSvc = new AdminService();
-				Admin admVO = admSvc.getOneAdm(admId);
+				Adm_meb admVO = admSvc.getOneAdm(admId);
 				if (admVO == null) {
 					errorMsgs.add("查無資料");
 				}
@@ -160,7 +168,7 @@ public class AdminServlet extends HttpServlet{
 				
 				/***************************2.開始查詢資料****************************************/
 				AdminService empSvc = new AdminService();
-				Admin empVO = empSvc.getOneAdm(empno);
+				Adm_meb empVO = empSvc.getOneAdm(empno);
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("admVO", empVO);         // 資料庫取出的empVO物件,存入req
@@ -204,7 +212,7 @@ public class AdminServlet extends HttpServlet{
 							errorMsgs.add("管理員密碼: 只能是英文字母、數字和_ , 且長度必需在2到10之間");
 						}
 				
-				Admin admVO = new Admin();
+				Adm_meb admVO = new Adm_meb();
 				
 				admVO.setAdmId(admId);
 				admVO.setAdmName(admName);
@@ -263,7 +271,7 @@ req.setAttribute("admVO", admVO); // 含有輸入格式錯誤的empVO物件,也�
 						errorMsgs.add("管理員密碼: 只能是英文字母、數字和_ , 且長度必需在2到10之間");
 					}
 			
-				Admin admVO = new Admin();
+				Adm_meb admVO = new Adm_meb();
 
 				admVO.setAdmName(admName);
 				admVO.setAdmAccount(admAcc);

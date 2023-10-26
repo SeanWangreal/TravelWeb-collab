@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "adm_meb")
-public class Admin implements Serializable {
+public class Adm_meb implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +23,11 @@ public class Admin implements Serializable {
 	@Column(name = "adm_password")
 	private String admPassword;
 
-	public Admin() {
+	public Adm_meb() {
 		super();
 	}
 
-	public Admin(Integer adm_id, String adm_name, String adm_account, String adm_password) {
+	public Adm_meb(Integer adm_id, String adm_name, String adm_account, String adm_password) {
 		super();
 		this.admId = adm_id;
 		this.admName = adm_name;
