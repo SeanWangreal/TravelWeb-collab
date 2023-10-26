@@ -1,3 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="java.math.*"%>
+<%@ page import="com.tha103.gogoyu.company.model.*"%>
+
+<%
+//見com.emp.controller.EmpServlet.java第163行存入req的empVO物件 (此為從資料庫取出的empVO, 也可以是輸入格式有錯誤時的empVO物件)
+Company company = (Company) request.getAttribute("Company");
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,8 +19,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TravelMaker</title>
-    <link href="./dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./dist/css/head_and_font.css">
+    <link href="${pageContext.request.contextPath}/static/ken_css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/ken_css/head_and_font.css">
     <style>
         html {
             background-color: inherit;
@@ -90,10 +102,9 @@
                             <input type="password" class="form-control" id="floatingPassword">
                             <label for="floatingPassword">驗證碼</label>
                         </div>
-
-
-                        <button type="submit" class="btn btn-primary py-3 w-100 mb-4">下一步</button>
-
+						
+                        <button onclick="window.location.href='com_mem_signupinfo.jsp'" type="submit" class="btn btn-primary py-3 w-100 mb-4" >下一步</button>
+												
                     </div>
                 </div>
             </div>

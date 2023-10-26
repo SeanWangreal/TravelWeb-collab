@@ -104,6 +104,6 @@ nav.st {
   }
   @font-face {
     font-family: '粉圓';
-    src: url('/static/font/jf-openhuninn-2.0.ttf');
+    src: url('../font/jf-openhuninn-2.0.ttf');
     font-display: swap;
   }
