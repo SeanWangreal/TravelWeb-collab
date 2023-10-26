@@ -103,6 +103,11 @@
             </button>
             <button type="button" class="head_btn">
                 <a class="profile" href="#">
+                   <div style="color: black;">·~ªÌ</div>
+                </a>
+            </button>
+            <button type="button" class="head_btn">
+                <a class="profile" href="#">
                     <i class="fa-solid fa-user" style="color: black; font-size:30px;
                                 background-color:transparent;"></i>
                 </a>

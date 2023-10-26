@@ -61,6 +61,8 @@
         body{
             background-color: #F3F3F3;
         }
+     
+ 		
     </style>
 </head>
 
@@ -170,16 +172,16 @@
                         <!--搜尋結果-->
                         <div class="d-flex flex-column">
                             <!--hotel商品-->
-                             <c:forEach var="rMap" items="${roomMap}" >
+                             <c:forEach var="roomVO" items="${roomMap.keySet()}" >
 	                            <div class="container border">
 	                                <div class="row">
 	                                    <!--商品圖-->
-	                                    <div class="col ">
-	                                        <img src="MainPhotoPrintHServlet?room_id=${rMap.roomId} " class="d-block w-100" alt="...">
+	                                    <div class="col photoShell border">
+	                                        <img src="MainPhotoPrintHServlet?room_id=${roomVO.roomId} " class="d-block w-100" alt="...">
 	                                    </div>
 	                                    <!--商品名 細況-->
 	                                    <div class="col">
-	                                            <h3 class="">兄弟大飯店</h3><br>
+	                                            <h3 class="">${roomMap.get(roomVO)}</h3><br>
 	                                            <div>${roomVO.roomName}</div>
 	                                            <div>${roomVO.roomType}人房</div><br>
 	                                            <a href="#" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">查看房型細況</a>
