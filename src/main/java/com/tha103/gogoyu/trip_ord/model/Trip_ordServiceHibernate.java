@@ -100,4 +100,9 @@ public class Trip_ordServiceHibernate implements Trip_ordService {
 	public Map<Trip_ord,List<String>> getTripOrdByCompId(Integer compId, Integer begin, String ordOrReview){
 		return dao.getTripOrdByCompId(compId,begin, ordOrReview);
 	}
+
+	@Override
+	public Map<Trip_ord, List<String>> getOneTripOrd(Integer tripOrdId, Integer compId) {
+		return dao.getTripOrdByCompIdOrdId(tripOrdId, compId);
+	}
 }

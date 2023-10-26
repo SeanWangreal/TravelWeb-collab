@@ -177,9 +177,15 @@
             if (totalOrd <= 5){
                 htmlA  += `<button type="button" class="at where" data-whichpage="1">1頁</button>`
             } else {
-                for (var i =1; i <= totalOrd/5+1;i++){
-                    htmlA += `<button type="button" class="at" data-whichpage=`+i+`>`+i+`頁</button>`
-                }
+            	if (totalOrd % 5 != 0){
+		            for (var i =1; i <= totalOrd/5+1;i++){
+		                htmlA += `<button type="button" class="at" data-whichpage=`+i+`>`+i+`</button><span>頁</span>`
+		            }
+	        	} else {
+	        		for (var i =1; i <= totalOrd/5;i++){
+		                htmlA += `<button type="button" class="at" data-whichpage=`+i+`>`+i+`</button><span>頁</span>`
+		            }
+	        	}
             }
             $("#page").html(htmlA);
             $(".at").eq(0).addClass("where");
