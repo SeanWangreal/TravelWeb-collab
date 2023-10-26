@@ -33,7 +33,6 @@ public class TripOrdServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html; charset=UTF-8");
-		Trip room = null;
 		HttpSession session = req.getSession();
 		String compId = (String) session.getAttribute("compId");
 		if (compId == null ){
@@ -45,19 +44,34 @@ public class TripOrdServlet extends HttpServlet {
 		case "allReview":
 			PrintWriter out  = res.getWriter();
 			Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd HH:mm:ss").create();
-			Map<Trip_ord, List<String>>  map = tripOrdSvc.getTripOrdByCompId(Integer.parseInt(compId));
-			List list = new ArrayList();
+			String begin = req.getParameter("whichpage");
+			Integer startOrd = (Integer.parseInt(begin)-1)*5;
+			Map<Trip_ord, List<String>>  map = tripOrdSvc.getTripOrdByCompId(Integer.parseInt(compId), startOrd, "review");
+			List<Object> list = new ArrayList<Object>();
 			for (Trip_ord ord :map.keySet()) {
-				System.out.println(ord);
-				List info = map.get(ord);
+				List<String> info = map.get(ord);
 				list.add(ord);
 				list.add(info);
 			}
 			String str = gson.toJson(list);
-			System.out.println(str);
 			out.write(str);
 			return;
-		}
+		case "allOrd":
+			out  = res.getWriter();
+			gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
+			begin = req.getParameter("whichpage");
+			startOrd = (Integer.parseInt(begin)-1)*5;
+			map = tripOrdSvc.getTripOrdByCompId(Integer.parseInt(compId), startOrd, "ord");
+			list = new ArrayList<Object>();
+			for (Trip_ord ord :map.keySet()) {
+				List<String> info = map.get(ord);
+				list.add(ord);
+				list.add(info);
+			}
+			str = gson.toJson(list);
+			out.write(str);
+			return;
+		} 
 		
 		
 	}

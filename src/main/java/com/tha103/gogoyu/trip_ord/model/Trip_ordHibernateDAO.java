@@ -10,6 +10,8 @@ import org.hibernate.query.NativeQuery;
 import com.tha103.gogoyu.consumer.model.Consumer;
 import com.tha103.gogoyu.trip.model.Trip;
 
+import util.HibernateUtil;
+
 public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 	private SessionFactory factory;
 
@@ -126,12 +128,34 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 	}
 
 	@Override
-	public Map<Trip_ord,List<String>> getTripOrdByCompId(Integer compId) {
+	public Map<Trip_ord,List<String>> getTripOrdByCompId(Integer compId,Integer beginCount,String ordOrReview) {
 		try {
 			getSession().beginTransaction();
-			List<Trip_ord> list = getSession()
-					.createQuery("from Trip_ord where comp_id = :compId and ord_status != 0 order by ord_time desc", Trip_ord.class)
-					.setParameter("compId", compId).list();
+			List<Trip_ord> list = null;
+			Long total = null;
+			if ("ord".equals(ordOrReview)) {
+				NativeQuery<Trip_ord> query = getSession()
+						.createNativeQuery( "select * from trip_ord where comp_id = :compId and ord_status != 0 order by ord_time desc  limit :beginCount , 5 ", Trip_ord.class);
+				query.setParameter("compId", compId);
+				query.setParameter("beginCount", beginCount);
+				list = query.list();
+				total = getSession().createQuery("select count(*) from Trip_ord where comp_id = :compId and ord_status != 0", Long.class)
+						.setParameter("compId", compId)
+						.uniqueResult();
+			} else if ("review".equals(ordOrReview)) {
+				NativeQuery<Trip_ord> query = getSession()
+						.createNativeQuery( "select * from trip_ord where comp_id = :compId and ord_status != 0 and score is not null order by ord_time desc  limit :beginCount , 5 ", Trip_ord.class);
+				query.setParameter("compId", compId);
+				query.setParameter("beginCount", beginCount);
+				list = query.list();
+				total = getSession().createQuery("select count(*) from Trip_ord where comp_id = :compId and ord_status != 0 and score is not null", Long.class)
+						.setParameter("compId", compId)
+						.uniqueResult();
+			}
+//			System.out.println(total);
+//			List<Trip_ord> list = getSession()
+//					.createQuery("from Trip_ord  where comp_id = :compId and ord_status != 0 order by ord_time desc ", Trip_ord.class)
+//					.setParameter("compId", compId).list();
 			Map<Trip_ord,List<String>> map = new LinkedHashMap();
 			for (Trip_ord ord : list) {
 				List<String> info = new ArrayList<String>();
@@ -139,6 +163,7 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 				Consumer consumer =getSession().get(Consumer.class, ord.getCusId());
 				info.add(room.getTripName());
 				info.add(consumer.getCusName());
+				info.add(total.toString());
 				map.put(ord, info);
 			}
 			getSession().getTransaction().commit();
@@ -148,6 +173,10 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 			getSession().getTransaction().rollback();
 		}
 		return null;
+	}
+	public static void main(String[] args) {
+		Trip_ordDAO_Interface dao= new Trip_ordHibernateDAO(HibernateUtil.getSessionFactory());
+		dao.getTripOrdByCompId(7,0,"review");
 	}
 //	public static void main(String[] args) {
 //		Trip_ordDAO_Interface dao=new Trip_ordHibernateDAO();
