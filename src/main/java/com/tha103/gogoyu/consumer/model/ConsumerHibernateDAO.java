@@ -1,20 +1,16 @@
 package com.tha103.gogoyu.consumer.model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.SharedSessionContract;
 
 import com.tha103.gogoyu.trip_ord.model.Trip_ord;
 
 import util.HibernateUtil;
-import util.Util;
 
 public class ConsumerHibernateDAO implements ConsumerDAO_interface {
+
 	// SessionFactory �� thread-safe嚗��臬恐���箏惇�扯�隢�瘙��瑁�蝺����梁��
 	private SessionFactory factory;
 
@@ -30,45 +26,89 @@ public class ConsumerHibernateDAO implements ConsumerDAO_interface {
 		return factory.getCurrentSession();
 	}
 
+
 	@Override
 	public int add(Consumer consumer) {
-		return (Integer) getSession().save(consumer);
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			Integer id = (Integer) session.save(consumer);
+			session.getTransaction().commit();
+			return id;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		return -1;
 	}
 
 	@Override
 	public int update(Consumer consumer) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-			getSession().update(consumer);
+			session.beginTransaction();
+			session.update(consumer);
+			session.getTransaction().commit();
 			return 1;
 		} catch (Exception e) {
-			return -1;
+			e.printStackTrace();
+			session.getTransaction().rollback();
 		}
+		return -1;
 	}
 
 	@Override
 	public int delete(Integer cusId) {
-		Consumer cus = getSession().get(Consumer.class, cusId);
-		if (cus != null) {
-			getSession().delete(cus);
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			Consumer consumer = session.get(Consumer.class, cusId);
+			if (consumer != null) {
+				session.delete(consumer);
+			}
+			session.getTransaction().commit();
 			return 1;
-		} else {
-			return -1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
 		}
+		return -1;
 
 	}
 
 	@Override
 	public Consumer findByPK(Integer cusId) {
-		return getSession().get(Consumer.class, cusId);
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			Consumer consumer = session.get(Consumer.class, cusId);
+			session.getTransaction().commit();
+			return consumer;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		return null;
 	}
 
 	@Override
 	public List<Consumer> getAll() {
-		return getSession().createQuery("from consumer", Consumer.class).list();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			List<Consumer> list = session.createQuery("from Consumer", Consumer.class).list();
+			session.getTransaction().commit();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		return null;
 	}
 
 	@Override
 	public byte[] getPicture(Integer cusId) throws Exception {
+
 		
 		try {
 			getSession().beginTransaction();
@@ -87,6 +127,58 @@ public class ConsumerHibernateDAO implements ConsumerDAO_interface {
 			
 		
 		
+
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			byte[] cusPhoto = session.createQuery("select cusPhoto from Consumer where cus_id = :cus_id", byte[].class)
+					.setParameter("cus_id", cusId).uniqueResult();
+			session.getTransaction().commit();
+			return cusPhoto;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		return null;
+
+
 	}
 
+	@Override
+	public List<Consumer> getCusAccount(String cusAccount) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			List<Consumer> list = session
+					.createQuery("from Consumer where cus_account = :cusAccount", Consumer.class)
+					.setParameter("cusAccount", cusAccount).list();
+			session.getTransaction().commit();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		return null;
+	}
+	
+	@Override
+	public List<Consumer> getCusPassword(String cusPassword) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			List<Consumer> list = session
+					.createQuery("from Consumer where cus_password = :cusPassword", Consumer.class)
+					.setParameter("cusPassword", cusPassword).list();
+			session.getTransaction().commit();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		return null;
+	}
+
+	
+
+}
 

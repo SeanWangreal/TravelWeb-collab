@@ -178,7 +178,7 @@ h1{
 }
 .title-block{
     display: flex;
-    margin-left: 20px;
+/*     margin-left: 20px; */
     align-items: center;
 }
 .title-block>*{

@@ -42,6 +42,8 @@ public class ConsumerServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
+
 
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
@@ -76,9 +78,9 @@ public class ConsumerServlet extends HttpServlet {
 			}
 
 			/*************************** 2.開始查詢資料 *****************************************/
-			ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
-			Consumer cus = cusSvc.getOneCus(cusId);
-			if (cus == null) {
+//			ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
+			Consumer consumer = cusSvc.getOneCus(cusId);
+			if (consumer == null) {
 				errorMsgs.add("查無資料");
 			}
 			// Send the use back to the form, if there were errors
@@ -89,8 +91,8 @@ public class ConsumerServlet extends HttpServlet {
 			}
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("cus", cus); // 資料庫取出的empVO物件,存入req
-			String url = "/consumer/listOneEmp.jsp";
+			req.setAttribute("consumer", consumer); // 資料庫取出的empVO物件,存入req
+			String url = "/eric/listOneCus.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
 		}
@@ -103,15 +105,15 @@ public class ConsumerServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 ****************************************/
-			Integer cus_id = Integer.valueOf(req.getParameter("cus_id"));
+			Integer cusId = Integer.valueOf(req.getParameter("cusId"));
 
 			/*************************** 2.開始查詢資料 ****************************************/
-			ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
-			Consumer cus = cusSvc.getOneCus(cus_id);
+//			ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
+			Consumer consumer = cusSvc.getOneCus(cusId);
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-			req.setAttribute("cus", cus); // 資料庫取出的empVO物件,存入req
-			String url = "/consumer/update_emp_input.jsp";
+			req.setAttribute("consumer", consumer); // 資料庫取出的empVO物件,存入req
+			String url = "/eric/update_cus_input.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 			successView.forward(req, res);
 		}
@@ -202,44 +204,55 @@ public class ConsumerServlet extends HttpServlet {
 			    cusPhoto = byteArros.toByteArray();
 			    byteArros.close();
 			   } else {
-			    Consumer cusVO = new Consumer();
-			    ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
-			    cusVO = cusSvc.getOneCus(cusId);
-			    cusPhoto = cusVO.getCusPhoto();// 抓原本舊圖
+			    Consumer consumer = new Consumer();
+//			    ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
+			    consumer = cusSvc.getOneCus(cusId);
+			    cusPhoto = consumer.getCusPhoto();// 抓原本舊圖
 			   }
+			   
+//			Part part = req.getPart("cusPhoto");
+//			String str = String.valueOf(part).trim();
+//			byte[] cusPhoto = null;
+//			if (str == null || str.trim().length() == 0) {
+//				errorMsgs.add("圖片請勿空白");
+//			}else {
+//				BufferedInputStream bis = new BufferedInputStream(part.getInputStream());
+//				cusPhoto = bis.readAllBytes();
+//				System.out.println(cusPhoto +"吃大便");
+//			}
 
-			Consumer cus = new Consumer();
-			cus.setCusId(cusId);
-			cus.setCusName(cusName);
-			cus.setCusAccount(cusAccount);
-			cus.setCusPassword(cusPassword);
-			cus.setCusMail(cusMail);
-			cus.setCusPhone(cusPhone);
-			cus.setCusAddress(cusAddress);
-			cus.setCusSex(cusSex);
-			cus.setCusPhoto(cusPhoto);
+			Consumer consumer = new Consumer();
+			consumer.setCusId(cusId);
+			consumer.setCusName(cusName);
+			consumer.setCusAccount(cusAccount);
+			consumer.setCusPassword(cusPassword);
+			consumer.setCusMail(cusMail);
+			consumer.setCusPhone(cusPhone);
+			consumer.setCusAddress(cusAddress);
+			consumer.setCusSex(cusSex);
+			consumer.setCusPhoto(cusPhoto);
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("cus", cus); // 含有輸入格式錯誤的empVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("/eric/update_emp_input.jsp");
+				req.setAttribute("consumer", consumer); // 含有輸入格式錯誤的empVO物件,也存入req
+				RequestDispatcher failureView = req.getRequestDispatcher("/eric/update_cus_input.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
 
 			/*************************** 2.開始修改資料 *****************************************/
-			ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
-			cus = cusSvc.updateCus(cusId, cusName, cusAccount, cusPassword, cusMail, cusPhone, cusAddress,
+//			ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
+			consumer = cusSvc.updateCus(cusId, cusName, cusAccount, cusPassword, cusMail, cusPhone, cusAddress,
 					cusSex, cusPhoto);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("cus", cus); // 資料庫update成功後,正確的的empVO物件,存入req
-			String url = "/consumer/listOneEmp.jsp";
+			req.setAttribute("consumer", consumer); // 資料庫update成功後,正確的的empVO物件,存入req
+			String url = "/eric/listOneCus.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 			successView.forward(req, res);
 		}
 
-		if ("insert".equals(action)) { // 來自addEmp.jsp的請求
+		if ("add".equals(action)) { // 來自addEmp.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -247,7 +260,7 @@ public class ConsumerServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
-//			Integer cus_id = Integer.valueOf(req.getParameter("cus_id").trim());
+//			Integer cus_id = Integer.valueOf(req.getParameter("cusId").trim());
 
 			String cusName = req.getParameter("cusName");
 			String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
@@ -256,6 +269,7 @@ public class ConsumerServlet extends HttpServlet {
 			} else if (!cusName.trim().matches(nameReg)) { // 以下練習正則(規)表示式(regular-expression)
 				errorMsgs.add("姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 			}
+			
 
 			String cusAccount = req.getParameter("cusAccount").trim();
 			String accountReg = "^[(a-zA-Z0-9_)]{10,30}$";
@@ -265,6 +279,13 @@ public class ConsumerServlet extends HttpServlet {
 			} else if (!cusAccount.trim().matches(accountReg)) { // 以下練習正則(規)表示式(regular-expression)
 				errorMsgs.add("帳號: 只能是英文字母、數字和_ , 且長度必需在10到30之間");
 			}
+
+			boolean Duplicate = cusSvc.checkDuplicateAccount(cusAccount);
+
+		    if (Duplicate) {
+		       errorMsgs.add("帳號已重複");
+		    } 
+		    
 
 			String cusPassword = req.getParameter("cusPassword").trim();
 			String passwordReg = "^[(a-zA-Z0-9_)]{10,30}$";
@@ -301,7 +322,7 @@ public class ConsumerServlet extends HttpServlet {
 
 			Integer cusSex = null;
 			try {
-				cusSex = Integer.valueOf(req.getParameter("cus_sex").trim());
+				cusSex = Integer.valueOf(req.getParameter("cusSex").trim());
 			} catch (NumberFormatException e) {
 				cusSex = 0;
 				errorMsgs.add("請填數字.");
@@ -316,32 +337,54 @@ public class ConsumerServlet extends HttpServlet {
 				BufferedInputStream bis = new BufferedInputStream(part.getInputStream());
 				cusPhoto = bis.readAllBytes();
 			}
+			
+			  
+			
+//			Part part = req.getPart("cusPhoto");
+//			String str = String.valueOf(part).trim();
+//			byte[] cusPhoto = null;
+//
+//			if (str == null || str.trim().length() == 0) {
+//			    // 如果未收到有效的檔案上傳，則自動上傳 1.jpg
+//			    try {
+//			        InputStream inputStream = getServletContext().getResourceAsStream("/eric/images/good.jpg");
+//			        BufferedInputStream bis = new BufferedInputStream(inputStream);
+//			        cusPhoto = bis.readAllBytes();
+//			        System.out.println(part,"圖呢");
+//			    } catch (IOException e) {
+//			        e.printStackTrace();
+//			        // 處理錯誤，例如記錄錯誤訊息或其他動作
+//			    }
+//			} else {
+//			    BufferedInputStream bis = new BufferedInputStream(part.getInputStream());
+//			    cusPhoto = bis.readAllBytes();
+//			}
 
-			Consumer cus = new Consumer();
-			cus.setCusName(cusName);
-			cus.setCusAccount(cusAccount);
-			cus.setCusPassword(cusPassword);
-			cus.setCusMail(cusMail);
-			cus.setCusPhone(cusPhone);
-			cus.setCusAddress(cusAddress);
-			cus.setCusSex(cusSex);
-			cus.setCusPhoto(cusPhoto);
+			Consumer consumer = new Consumer();
+			consumer.setCusName(cusName);
+			consumer.setCusAccount(cusAccount);
+			consumer.setCusPassword(cusPassword);
+			consumer.setCusMail(cusMail);
+			consumer.setCusPhone(cusPhone);
+			consumer.setCusAddress(cusAddress);
+			consumer.setCusSex(cusSex);
+			consumer.setCusPhoto(cusPhoto);
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("cus", cus); // 含有輸入格式錯誤的empVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("/eric/addEmp.jsp");
+				req.setAttribute("consumer", consumer); // 含有輸入格式錯誤的empVO物件,也存入req
+				RequestDispatcher failureView = req.getRequestDispatcher("/eric/signup_info.jsp");
 				failureView.forward(req, res);
 				return;
 			}
 
 			/*************************** 2.開始新增資料 ***************************************/
-			ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
-			cus = cusSvc.addCus(cusName, cusAccount, cusPassword, cusMail, cusPhone, cusAddress,
+//			ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
+			consumer = cusSvc.addCus(cusName, cusAccount, cusPassword, cusMail, cusPhone, cusAddress,
 					cusSex, cusPhoto);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/consumer/listAllEmp.jsp";
+			String url = "/eric/listAllCus.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 		}
@@ -357,11 +400,11 @@ public class ConsumerServlet extends HttpServlet {
 			Integer cusId = Integer.valueOf(req.getParameter("cusId"));
 
 			/*************************** 2.開始刪除資料 ***************************************/
-			ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
+//			ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
 			cusSvc.deleteCus(cusId);
 
 			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-			String url = "/eric/listAllEmp.jsp";
+			String url = "/eric/listAllCus.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
 		}

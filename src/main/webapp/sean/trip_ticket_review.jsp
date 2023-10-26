@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.math.*"%>
-<%@ page import="com.tha103.gogoyu.room_ord.model.*"%>
+<%@ page import="com.tha103.gogoyu.trip_ord.model.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,11 +50,9 @@
 					style="color: black; font-size: 30px; width: 30px; background-color: transparent;"></i>
 			</button>
 			<button type="button" class="head_btn" id="">
-			<a class="profile"
-					href="${pageContext.request.contextPath}/sean/hotel_room_all.jsp">
-				<i class="fa-solid fa-store"
-					style="color: #000000; font-size: 30px; width: 30px; background-color: transparent;"></i>
-			</a>
+				<a class="profile" href="${pageContext.request.contextPath}/sean/trip_ticket_all.jsp">
+					<i class="fa-solid fa-store" style="color: #000000; font-size: 30px; width: 30px; background-color: transparent;"></i>
+							</a>
 			</button>
 			<button type="button" class="head_btn">
 				<a class="profile" href="#"> <i class="fa-solid fa-user icon"
@@ -81,21 +79,20 @@
 		<div id="shell"></div>
 		<aside class="left">
 			<div class="mem-data">
-				<a href="${pageContext.request.contextPath}/sean/hotel_room_all.jsp"
-					class="left_btn"> <i class="fa-solid fa-hotel"
-					style="color: #000000;"></i> 我的房間
+				<a
+					href="${pageContext.request.contextPath}/sean/trip_ticket_all.jsp"
+					class="left_btn" style="color: #000000"> <i
+					class="fa-solid fa-ticket" style="color: #000000;"></i> 我的行程
 				</a>
 			</div>
 			<div class="mem-data">
-				<a href="${pageContext.request.contextPath}/sean/hotel_com_ord.jsp" class="left_btn" style="color: #000000"> <i
-					class="fa-solid fa-file-invoice" style="color: black;"></i> 訂單資訊
+				<a href="${pageContext.request.contextPath}/sean/trip_com_ord.jsp" class="left_btn" style="color: #000000;"> <i class="fa-solid fa-file-invoice"
+					style="color: black;"></i> 訂單資訊
 				</a>
 			</div>
 			<div class="mem-data">
-				<a href="${pageContext.request.contextPath}/sean/hotel_room_review.jsp"
-					class="left_btn" style="color: #FCC416;"> 
-					<i class="fa-regular fa-comment" style="color: #000000;"></i> 匿名評論
-				</a>
+				<a href="${pageContext.request.contextPath}/sean/trip_ticket_review.jsp" 
+				class="left_btn" style="color: #FCC416;"><i class="fa-regular fa-comment" style="color: #000000;"></i> 匿名評論 </a>
 			</div>
 		</aside>
 	</nav>
@@ -122,10 +119,11 @@
 	<script>
 				$(document).ready(function() {
 // 					var compId = 2;
+					console.log(location.origin);
 					var totalReview = 0 ;
 					var avgScore = 0 ;
 					$.ajax({
-						url : "/TravelWeb-collab/sean/RoomOrdServlet",
+						url : "/TravelWeb-collab/sean/TripOrdServlet",
 						type : "POST", // GET | POST | PUT | DELETE | PATCH
 						data : {
 							"action" : "allReview",
@@ -133,7 +131,7 @@
 						},
 						dataType : "json", // 預期會接收到回傳資料的格式： json | xml | html
 						success : function(data) { // request 成功取得回應後執行
-// 							console.log(data);
+							console.log(data);
 						for (var i = 0; i < data.length;i+=2){
 							console.log(data[i]);
 							console.log(data[i+1]);
@@ -176,12 +174,12 @@
 							$("ul").append(html1+html2+html3);
 							
 						}
-					$("#total").text(totalReview);
-					if (avgScore === 0){
-						$("h1").text("尚無訂單");		
-					} else {
-						$("h1").text(Math.round(avgScore/totalReview*10)/10);						
-					}
+						$("#total").text(totalReview);
+						if (avgScore === 0){
+							$("h1").text("尚無訂單");		
+						} else {
+							$("h1").text(Math.round(avgScore/totalReview*10)/10);						
+						}
 					$(".read").on('click',function(){
 				        var p = $(this).closest(".review-block").find("p");
 				        p.toggleClass("zoom");

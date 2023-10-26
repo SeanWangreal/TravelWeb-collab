@@ -232,6 +232,18 @@ public class ConsumerJDBCDAO implements ConsumerDAO_interface {
         return picc;
 	}
 
+	@Override
+	public List<Consumer> getCusAccount(String cusAccount) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Consumer> getCusPassword(String cusPassword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 }

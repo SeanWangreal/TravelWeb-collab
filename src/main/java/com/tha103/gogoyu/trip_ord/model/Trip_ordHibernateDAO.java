@@ -39,7 +39,6 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 		}
 		return -1;
 	}
-
 	@Override
 	public Integer update(Trip_ord tripOrd) {
 		try {

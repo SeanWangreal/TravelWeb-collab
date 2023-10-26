@@ -63,7 +63,9 @@ response.setDateHeader("Expires", 0);
        										   				<option value="${i}">${i}
        											  	</c:forEach>  
        										</select>
-									       <input type="hidden" name="action" value="getOne_For_Display">
+									       <input type="hidden" name="action" value="countAmount">
+									       <input type="hidden" name="tripOrdIdPk" value="${TripOrd.tripOrdId}">
+<%-- 									       <input type="hidden" name="tripOrdProfit" value="${TripOrd.profit}">									        --%>
 									       <input type="submit" value="送出">
      								</FORM>
                         	</i>
@@ -106,17 +108,17 @@ response.setDateHeader("Expires", 0);
                 <div class="order-item" style="width: 100%;">
                     <div class="order_item_price">
                         <label class="price">價格:</label>
-    					 <label class="right_label2"><i>${TripOrd.profit}元</i></label>  
+    					 <label class="right_label2"><i>元</i></label>  
                     </div>
                     <hr>
                     <div class="order_item_price">
                         <label class="commission">稅額(10%):</label>
-                          <label class="right_label2"><i>${TripOrd.commission}元</i></label>  
+                          <label class="right_label2"><i>元</i></label>  
                     </div>
                     <hr>
                     <div class="order_item_price">
                         <label class="totalPrice">總價格:</label>
-                       <label class="right_label2"><i>${TripOrd.totalPrice}元</i></label>  
+                       <label class="right_label2"><i>元</i></label>  
                     </div>
                     <hr>
                 </div>

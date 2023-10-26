@@ -158,9 +158,10 @@ datalist {
 				<i class="fa-regular fa-bell icon"
 					style="color: black; font-size: 30px; width: 30px; background-color: transparent;"></i>
 			</button>
-			<button type="menu" class="head_btn" id="">
-				<i class="fa-solid fa-store icon"
-					style="color: #000000; font-size: 30px; width: 30px; background-color: transparent;"></i>
+			<button type="button" class="head_btn" id="">
+				<a class="profile" href="${pageContext.request.contextPath}/sean/trip_ticket_all.jsp">
+					<i class="fa-solid fa-store" style="color: #000000; font-size: 30px; width: 30px; background-color: transparent;"></i>
+							</a>
 
 			</button>
 			<button type="button" class="head_btn">
@@ -192,14 +193,18 @@ datalist {
 			<div class="mem-data">
 				<a
 					href="${pageContext.request.contextPath}/sean/trip_ticket_all.jsp"
-					class="left_btn"> <i class="fa-solid fa-ticket"
-					style="color: #000000;"></i> 我的行程
+					class="left_btn" style="color: #FCC416"> <i
+					class="fa-solid fa-ticket" style="color: #000000;"></i> 我的行程
 				</a>
 			</div>
 			<div class="mem-data">
-				<a href="" class="left_btn"> <i class="fa-solid fa-file-invoice"
-					style="color: black;"></i> 匿名評論
+				<a href="${pageContext.request.contextPath}/sean/trip_com_ord.jsp" class="left_btn" style="color: #000000;"> <i class="fa-solid fa-file-invoice"
+					style="color: black;"></i> 訂單資訊
 				</a>
+			</div>
+			<div class="mem-data">
+				<a href="${pageContext.request.contextPath}/sean/trip_ticket_review.jsp" 
+				class="left_btn"><i class="fa-regular fa-comment" style="color: #000000;"></i> 匿名評論 </a>
 			</div>
 		</aside>
 	</nav>

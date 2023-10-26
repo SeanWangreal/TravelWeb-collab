@@ -50,17 +50,14 @@
 				<i class="fa-regular fa-bell icon"
 					style="color: black; font-size: 30px; width: 30px; background-color: transparent;"></i>
 			</button>
-			<button type="menu" class="head_btn" id="">
-				<i class="fa-solid fa-store icon"
-					style="color: #000000; font-size: 30px; width: 30px; background-color: transparent;"></i>
-
+			<button type="button" class="head_btn" id="">
+				<a class="profile" href="${pageContext.request.contextPath}/sean/trip_ticket_all.jsp">
+					<i class="fa-solid fa-store" style="color: #000000; font-size: 30px; width: 30px; background-color: transparent;"></i>
+							</a>
 			</button>
-			<button type="button" class="head_btn" id="key">
-				<a class="profile" href="#" id="sign"> <i
-					class="fa-solid fa-key"
-					style="color: #000000; font-size: 30px; width: 30px; background-color: transparent;"></i>
-					Sign in
-				</a>
+			<button type="menu" class="head_btn" id="">
+				<i class="fa-solid fa-user icon"
+					style="color: black; font-size: 30px; background-color: transparent;"></i>
 			</button>
 		</div>
 		<aside class="msg all_side nothing" id="msg_side">
@@ -82,14 +79,20 @@
 		<div id="shell"></div>
 		<aside class="left">
 			<div class="mem-data">
-				<a href="" class="left_btn"> <i class="fa-regular fa-user"
-					style="color: black;"></i> 會員資料
+				<a
+					href="${pageContext.request.contextPath}/sean/trip_ticket_all.jsp"
+					class="left_btn" style="color: #000000"> <i
+					class="fa-solid fa-ticket" style="color: #000000;"></i> 我的行程
 				</a>
 			</div>
 			<div class="mem-data">
-				<a href="" class="left_btn"> <i class="fa-solid fa-file-invoice"
+				<a href="${pageContext.request.contextPath}/sean/trip_com_ord.jsp" class="left_btn" style="color: #FCC416;"> <i class="fa-solid fa-file-invoice"
 					style="color: black;"></i> 訂單資訊
 				</a>
+			</div>
+			<div class="mem-data">
+				<a href="${pageContext.request.contextPath}/sean/trip_ticket_review.jsp" 
+				class="left_btn" style="color: #000000;"><i class="fa-regular fa-comment" style="color: #000000;"></i> 匿名評論 </a>
 			</div>
 		</aside>
 	</nav>
@@ -98,6 +101,10 @@
 	if (tripOrdMap == null) {
 		Trip_ordServiceHibernate tripStockSvc = new Trip_ordServiceHibernate();
 		Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId"));
+		if (compId == null ){
+			response.sendRedirect(request.getContextPath() + "/sean/select_page.jsp");
+			return;
+		}
 		tripOrdMap = tripStockSvc.getTripOrdByCompId(compId);
 	};
 	request.setAttribute("tripOrdMap", tripOrdMap);
@@ -112,27 +119,40 @@
 				<c:forEach var="tripOrd" items="${tripOrdMap.keySet()}">
 					<div class="ord">
 						<div class="ord-head">
-							<label for="">訂單編號:</label><span>21214</span>
+							<label for="">訂單編號:</label><span>${tripOrd.tripOrdId}</span>
 							<label for="">訂單狀態:</label><span>${tripOrd.ordStatus == 1?"已成立":"已取消"}</span>
 						</div>
 						<div class="all-info">
 							<div>
+								<div style="display:flex">
 								<label for="" class="l_long ord-label">套票<br>
-								<span class="long">333</span></label> <label for=""
+								<span class="long">${tripOrdMap.get(tripOrd).get(0)}</span>
+								</label> 
+								<label for=""
 									class="l_long ord-label">張數<br>
-								<span class="long">333</span></label> <label for=""
+								<span class="long">${tripOrd.amount}</span>
+								</label> 
+								<label for=""
 									class="l_long ord-label">總金額<br>
-								<span class="long">333912193012</span></label> <label for=""
+								<span class="long">${tripOrd.totalPrice}</span></label> 
+								
+								</div>
+								<label for=""
 									class="l_long ord-label">顧客名稱<br>
-								<span class="long">333</span></label> <label for=""
+								<span class="long">${tripOrdMap.get(tripOrd).get(1)}</span>
+								</label> 
+								<label for=""
 									class="l_long ord-label">開始日期<br>
-								<span class="long">2024/05/30</span></label> <label for=""
+								<span class="long">${tripOrd.totalPrice}</span>
+								</label> 
+								<label for=""
 									class="l_long ord-label">結束日期<br>
-								<span class="long">2024/06/3</span></label>
+								<span class="long">${tripOrd.totalPrice}</span>
+								</label>
 							</div>
 							<div class="remark-block">
 								<label for="" class="remark">備註:</label>
-								<p class="remark-info">我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我
+								<p class="remark-info">${tripOrd.remark}
 								</p>
 							</div>
 						</div>

@@ -84,20 +84,7 @@
 			</div>
 		</aside>
 	</nav>
-	<%
-	 Map<Room_ord,List<String>> roomOrdMap = (Map<Room_ord,List<String>>) request.getAttribute("roomOrdMap");
-	if (roomOrdMap == null) {
-		Room_ordServiceHibernate roomOrdSvc = new Room_ordServiceHibernate();
-		Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId"));
-		if (compId == null ){
-			response.sendRedirect(request.getContextPath() + "/sean/select_page.jsp");
-			return;
-		}
-		roomOrdMap = roomOrdSvc.getRoomOrdByCompId(compId);
-	}
-	;
-	request.setAttribute("roomOrdMap", roomOrdMap);
-	%>
+
 	<div class="all">
 		<main class="main-content">
 			<div class="main-content-info">

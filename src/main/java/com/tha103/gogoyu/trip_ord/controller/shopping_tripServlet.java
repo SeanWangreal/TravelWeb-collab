@@ -138,7 +138,7 @@ if("removeTripOrder".equals(action)) {
 			TOL.setTotalPrice(trip_ord.getTotalPrice().setScale(3, RoundingMode.HALF_UP).intValue());
 		
 			
-			req.setAttribute( "TripOrd" , TOL);
+			session.setAttribute( "TripOrd" , TOL);
 			String url = "/chu/bookingList(trip).jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);	
@@ -148,12 +148,27 @@ if("removeTripOrder".equals(action)) {
 	
 		if("CancelTransaction".equals(action)) {
 			String url = "/chu/shopping(hotel).jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+			RequestDispatcher successView = req.getRequestDispatcher(url); 
 			successView.forward(req, res);	
 		}
 		
 		
-		
-		
+//=========================選擇數量===============================
+		 if ("countAmount".equals(action)) {
+			 Integer Amount = Integer.valueOf(req.getParameter("trip"));
+			 Integer tripOrdId = Integer.valueOf(req.getParameter("tripOrdIdPk"));
+			 Trip_ordServiceHibernate TOSH = new Trip_ordServiceHibernate();
+			 Trip_ord tripOrdObj = TOSH.getOneTrip(tripOrdId);
+			 BigDecimal newTotalPrice = tripOrdObj.getTotalPrice().multiply(new BigDecimal(Amount));
+			 BigDecimal newCommission = newTotalPrice.multiply(new BigDecimal(0.1));
+			 BigDecimal newProfit = newTotalPrice.divide(newCommission);
+			 
+			 
+			 
+//			 update trip_ord set total_price =? , commission =? , profit =? where trip_ord_id=
+			 
+			 
+		 }
+//=========================選擇數量===============================		
 	}
 }

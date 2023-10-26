@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
+
+import com.tha103.gogoyu.room_ord.model.Room_ord;
 import com.tha103.gogoyu.trip.model.Trip;
 
 import util.HibernateUtil;
@@ -67,6 +69,8 @@ public class Trip_ordServiceHibernate implements Trip_ordService {
 		return tripOrd;
 	}
 
+	
+	
 	public Trip_ord updateTrip(Integer tripId, Integer planId, Integer cusId, Integer amount, BigDecimal totalPrice,
 			BigDecimal commission, Integer ordStatus, Timestamp ordTime, String remark, Integer score, String comments,
 			Timestamp commentsTime, Integer tripOrdId) {

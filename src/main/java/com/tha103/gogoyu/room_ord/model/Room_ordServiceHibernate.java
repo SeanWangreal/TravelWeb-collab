@@ -64,7 +64,10 @@ public class Room_ordServiceHibernate {
 		dao.add(roomOrd);
 		return roomOrd;
 	}
+	
 
+	
+	
 	public Room_ord update(Integer planId, Integer roomId, Integer cusId, Integer amount, BigDecimal totalPrice,
 			BigDecimal commission, BigDecimal profit, Integer people, Date checkInTime, Date checkOutTime,
 			Integer ordStatus, String remark, Integer score, String comments, Timestamp commentsTime) {

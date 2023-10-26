@@ -1,16 +1,17 @@
 package com.tha103.gogoyu.consumer.model;
 
+import java.io.IOException;
 import java.util.List;
-
-import util.HibernateUtil;
+import java.io.FileInputStream;
 
 public class ConsumerServiceHibernate implements ConsumerService {
 
 	private ConsumerDAO_interface dao;
 	
 	public ConsumerServiceHibernate() {
-		dao = new ConsumerHibernateDAO(HibernateUtil.getSessionFactory());
+		dao = new ConsumerHibernateDAO();
 	}
+	
 	
 	@Override
 	public Consumer addCus(String cusName, String cusAccount, String cusPassword, String cusMail, String cusPhone,
@@ -23,8 +24,19 @@ public class ConsumerServiceHibernate implements ConsumerService {
 		cus.setCusPhone(cusPhone);
 		cus.setCusAddress(cusAddress);
 		cus.setCusSex(cusSex);
-		cus.setCusPhoto(cusPhoto);
+//		cus.setCusPhoto(cusPhoto);
+		 try {
+		    cusPhoto = writePicture("/eric/image/003.jpg");
+		   
+		    cus.setCusPhoto(cusPhoto);
+		   
 		
+		   } catch (IOException e) {
+		    e.printStackTrace();
+		   }
+		
+		
+		dao.add(cus);
 		return cus;
 	}
 
@@ -41,7 +53,7 @@ public class ConsumerServiceHibernate implements ConsumerService {
 		cus.setCusAddress(cusAddress);
 		cus.setCusSex(cusSex);
 		cus.setCusPhoto(cusPhoto);
-		
+		dao.update(cus);
 		return cus;
 	}
 
@@ -64,4 +76,28 @@ dao.delete(cusId);
 		return dao.getPicture(cusId);
 	}
 
+	@Override
+	public List<Consumer> getCusAccount(String cusAccount) {
+		return dao.getCusAccount(cusAccount);
+	}
+
+	@Override
+	public List<Consumer> getCusPassword(String cusPassword) {
+		return dao.getCusPassword(cusPassword);
+	}
+
+	@Override
+	public boolean checkDuplicateAccount(String cusAccount) {
+		 List<Consumer> existingConsumers = dao.getCusAccount(cusAccount);
+
+	        return !existingConsumers.isEmpty();	
+	        
+	}
+	public static byte[] writePicture(String path) throws IOException {
+		FileInputStream fis = new FileInputStream(path);
+		  byte[] buffer = fis.readAllBytes();
+		  fis.close();
+		  return buffer;
+		 }
+	
 }
