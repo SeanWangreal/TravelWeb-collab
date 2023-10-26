@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import util.Util;
@@ -357,6 +358,12 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+//	@Override
+//	public Map<Room, String> searchRoom(String comp_address, Date checkIn, Date checkOut, Integer number) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	@Override
 	public List<Room> searchRoom(String comp_address, Date checkIn, Date checkOut, Integer number) {

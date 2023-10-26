@@ -253,10 +253,7 @@
                     <div class="col-6 h-100 mt-2 mb-2">
                         <div>房型名稱：普通單人房</div>
                         <div>房型：單人房</div>
-                        <div>開始日期：2023-10-10</div>
-                        <div>結束日期：2023-10-13</div>
                         <div>金額：NTW 2000</div>
-                        <div>庫存：5</div>
                         <a class="" href="#">
                             <button type="button" class="btn btn-primary">
                                 收藏

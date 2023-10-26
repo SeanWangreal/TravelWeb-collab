@@ -179,7 +179,7 @@
 	                                    </div>
 	                                    <!--商品名 細況-->
 	                                    <div class="col">
-	                                            <h3 class="">compName</h3><br>
+	                                            <h3 class="">兄弟大飯店</h3><br>
 	                                            <div>${roomVO.RoomName}</div>
 	                                            <div>${roomVO.RoomType}人房</div><br>
 	                                            <a href="#" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">查看房型細況</a>

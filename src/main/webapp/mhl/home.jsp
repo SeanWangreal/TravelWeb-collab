@@ -124,7 +124,7 @@
         </aside>
     </nav>
 
-    <form id="background" action="./serching.html">
+    <form id="background" method="post" action="${pageContext.request.contextPath}/sean/RoomServlet">
         <img src="4621.png" alt="">
         <div id="search">
             <div id="btn_block">
@@ -136,7 +136,7 @@
                 <hr id="kk">
                 <div id="inside_form">
                     <div style="flex-basis: 20%;">
-                        <select class="form-select me-2 in" aria-label="Default select example">
+                        <select class="form-select me-2 in" name="comp_address" aria-label="Default select example">
                             <option value="Taipei_City">台北市</option>
                             <option value="NewTaipei_City">新北市</option>
                             <option value="Taoyuan_City">桃園市</option>
@@ -164,17 +164,17 @@
                     </div>
                     <div style="flex-basis: 20%;">
 
-                        <input class="in" id="date" type="text" placeholder="Check in..." onfocus="(this.type='date')"
+                        <input class="in" name="checkIn" id="date" type="text" placeholder="Check in..." onfocus="(this.type='date')"
                             onblur="(this.type='text')">
                     </div>
                     <div style="flex-basis: 20%;">
 
-                        <input class="in" id="date" type="text" placeholder="Check out..." onfocus="(this.type='date')"
+                        <input class="in" name="checkOut" id="date" type="text" placeholder="Check out..." onfocus="(this.type='date')"
                             onblur="(this.type='text')">
                     </div>
                     <div style="flex-basis: 20%;">
 
-                        <input class="in" id="people" type="search" placeholder="people...">
+                        <input class="in" name="number" id="people" type="search" placeholder="people...">
                     </div>
 
                     <button id="s" type="submit" style="flex-basis: 100px;">
@@ -203,7 +203,7 @@
                         </div>
                         <div class="carousel-inner ">
                             <div class="carousel-item active  ">
-	                            <a href="${pageContext.request.contextPath}/sean/RoomServlet?room_id=<%=(list.get(0)).getRoomId() %>" class="d-block w-100"   alt="...">
+	                            <a href="${pageContext.request.contextPath}/sean/RoomServlet?room_id=<%=(list.get(0)).getRoomId()%>&action=hotRoom" class="d-block w-100"   alt="...">
 	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=(list.get(0)).getRoomId() %>" class="d-block w-100"   alt="...">
 	                                <div class="carousel-caption d-none d-md-block">
 	                                    <h5 class="bg-light text-dark mb-0"><%=(list.get(0)).getRoomName() %></h5>

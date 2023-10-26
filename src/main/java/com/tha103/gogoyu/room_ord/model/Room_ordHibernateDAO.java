@@ -159,8 +159,6 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 	
 	}
 	
-	
-	
 //	public List<Room_ord> getRoomOrdVo(Integer cartId, Integer cusId) {
 //
 //		try {
@@ -197,6 +195,7 @@ public static void main(String[] args) {
 		System.out.println(lis.get(1));
 		System.out.println(lis.get(0));
 	}
+	
 }
 
 }

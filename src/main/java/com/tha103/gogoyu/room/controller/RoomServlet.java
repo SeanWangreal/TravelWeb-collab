@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
@@ -292,6 +293,9 @@ public class RoomServlet extends HttpServlet {
 			req.setAttribute("searchRoomResult", searchRoomResult); 
 			forwardPath = "/mhl/search_results.jsp";
 			break;
+		case "hotRoom":
+			Integer room_Id = Integer.valueOf(req.getParameter("room_id"));
+			
 		}
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 		dispatcher.forward(req, res);
