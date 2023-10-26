@@ -71,7 +71,7 @@ $(function() {
 				console.log(xhr);
 			},
 			complete: function(xhr) {      // request 完成之後執行(在 success / error 事件之後執行)
-				// console.log(xhr);
+				console.log(xhr);
 			}
 		});
 	})
@@ -115,6 +115,14 @@ $(function() {
 								<th>信箱</th>
 								<td><input type="text" class="text inp_compMail" value="${data.compMail}"></td>
 							</tr>
+							<tr>
+								<th>審核狀態</th>
+								<td>
+                                    <input type="radio" name="compChkStatus" class="" value="1" ${(data.compChkStatus)==1?"checked":""}>通過
+                                    <input type="radio" name="compChkStatus" class="" value="0" ${(data.compChkStatus)==0?"checked":""}>待審核
+                                    <input type="radio" name="compChkStatus" class="" value="-1" ${(data.compChkStatus)==-1?"checked":""}>未通過
+                                </td>
+							</tr>
 						</table>
 						<button class="btn_comp_update btn btn-outline-primary btn-lg">更新</button>
 					</div>                    
@@ -150,6 +158,7 @@ $(function() {
 		let principalPhone=($(this).closest("li").find("input.inp_principalPhone")).val().trim();
 		let compAccount=($(this).closest("li").find("input.inp_compAccount")).val().trim();
 		let compMail=($(this).closest("li").find("input.inp_compMail")).val().trim();
+		let compChkStatus=($(this).closest("li").find("[name=compChkStatus]:checked")).val();
 		
 		$.ajax({
 			url: compEndPointURL,           // 資料請求的網址
@@ -163,7 +172,8 @@ $(function() {
 			"principalName":principalName,
 			"principalPhone":principalPhone,
 			"compAccount":compAccount,
-			"compMail":compMail
+			"compMail":compMail,
+			"compChkStatus":compChkStatus
 			},                // 將物件資料(不用雙引號) 傳送到指定的 url
 			dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
 			beforeSend: function() {       // 在 request 發送之前執行
@@ -177,7 +187,7 @@ $(function() {
 				console.log(xhr);
 			},
 			complete: function(xhr) {      // request 完成之後執行(在 success / error 事件之後執行)
-				// console.log(xhr);
+				console.log(xhr);
 			}
 		});
 	})
@@ -222,6 +232,12 @@ $(function() {
 								<th>信箱</th>
 								<td><input type="text" class="text inp_compMail" value="${data.compMail}"></td>
 							</tr>
+								<th>審核狀態</th>
+								<td>
+                                    <input type="radio" name="compChkStatus" class="" value="1" ${(data.compChkStatus)==1?"checked":""}>通過
+                                    <input type="radio" name="compChkStatus" class="" value="0" ${(data.compChkStatus)==0?"checked":""}>待審核
+                                    <input type="radio" name="compChkStatus" class="" value="-1" ${(data.compChkStatus)==-1?"checked":""}>未通過
+                                </td>
 						</table>
 						<button class="btn_comp_update btn btn-outline-primary btn-lg">更新</button>
 					</div>                    
@@ -288,6 +304,12 @@ $(function() {
 									<input type="text" class="text inp_compMail" value="${data.compMail}">
 								</td>
 							</tr>
+								<th>審核狀態</th>
+								<td>
+                                    <input type="radio" name="compChkStatus" class="" value="1" ${(data.compChkStatus)==1?"checked":""}>通過
+                                    <input type="radio" name="compChkStatus" class="" value="0" ${(data.compChkStatus)==0?"checked":""}>待審核
+                                    <input type="radio" name="compChkStatus" class="" value="-1" ${(data.compChkStatus)==-1?"checked":""}>未通過
+                                </td>
 						</table>
 						<button class="btn_comp_update btn btn-outline-primary btn-lg">更新</button>
 					</div>                    
@@ -322,7 +344,7 @@ $(function() {
 				console.log(xhr);
 			},
 			complete: function(xhr) {      // request 完成之後執行(在 success / error 事件之後執行)
-				// console.log(xhr);
+				console.log(xhr);
 			}
 		});
 	})
@@ -419,7 +441,7 @@ $(function() {
 				console.log(xhr);
 			},
 			complete: function(xhr) {      // request 完成之後執行(在 success / error 事件之後執行)
-				// console.log(xhr);
+				console.log(xhr);
 			}
 		});
 	})

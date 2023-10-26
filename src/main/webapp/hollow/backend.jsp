@@ -25,6 +25,7 @@
 <body>
     <br>
     <header>GoGoYu後台
+    	<h3>${admin.admName} 你好</h3>
         <table class="main_btn">
             <tr>
                 <td>
@@ -43,9 +44,11 @@
                 </td>
             </tr>
             <tr>
+            <!-- 
                 <td>
                     <button type="button" class="main_btn_add_scene" data-bs-toggle="button" autocomplete="off">景點新增</button>
                 </td>
+             -->
             </tr>
         </table>
     </header>
@@ -167,13 +170,14 @@
         </div>
     </article>
 
+<!-- 
     <article class="art_add_scene">
         <h1 class="title1">景點新增</h1>
         
         <!-- <div class="task_add_block">
             <input type="text" class="task_name" placeholder="輸入待辦事項…">
             <button type="button" class="task_add">查詢</button>
-        </div> -->
+        </div>
         
         <div class="task_list_parent">
             <ul class="list">
@@ -222,6 +226,7 @@
             </ul>
         </div>
     </article>
+ -->
     
     <script src="${pageContext.request.contextPath}/vendors/jquery/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>

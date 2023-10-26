@@ -232,6 +232,7 @@ public class CompanyServlet extends HttpServlet {
 			cmpMap.put("principalPhone", company.getPrincipalPhone());
 			cmpMap.put("compAccount", company.getCompAccount());
 			cmpMap.put("compMail", company.getCompMail());
+			cmpMap.put("compChkStatus", company.getCheckStatus());
 			cmpMap.put("status", "Success");
 			
 			Gson gson =new Gson();
@@ -404,6 +405,8 @@ public class CompanyServlet extends HttpServlet {
 //				errorMsgs.put("wrongMail","公司信箱: 格式錯誤");
 //			}
 			
+			Integer compChkStatus = Integer.valueOf(req.getParameter("compChkStatus"));
+			
 			if (!errorMsgs.isEmpty()) {
 //				RequestDispatcher failureView = req.getRequestDispatcher(req.getContextPath()+"ken/com_mem.jsp");
 //				failureView.forward(req, res);
@@ -415,6 +418,7 @@ public class CompanyServlet extends HttpServlet {
 				errorMsgs.put("principalPhone", principalPhone);
 				errorMsgs.put("compAccount", compAccount);
 				errorMsgs.put("compMail", compMail);
+				errorMsgs.put("compChkStatus", compChkStatus);
 				errorMsgs.put("status", "Failed");
 				
 				Gson gson =new Gson();
@@ -435,10 +439,9 @@ public class CompanyServlet extends HttpServlet {
 			Integer compType=company.getCompType();
 			String compPassword=company.getCompPassword();
 			byte[] compPhoto=company.getCompPhoto();
-			Integer checkStatus=company.getCheckStatus();
 			
 			company = companySvc.updateCompany(compId, hotelInfoId, compType, compName, compAddress, compPhone, principalName,
-					principalPhone, compAccount, compPassword, compMail, compPhoto, checkStatus);
+					principalPhone, compAccount, compPassword, compMail, compPhoto, compChkStatus);
 			
 			Map<String, Object> cmpMap=new HashMap<String, Object>();
 			cmpMap.put("compId", company.getCompId());
@@ -449,6 +452,7 @@ public class CompanyServlet extends HttpServlet {
 			cmpMap.put("principalPhone", company.getPrincipalPhone());
 			cmpMap.put("compAccount", company.getCompAccount());
 			cmpMap.put("compMail", company.getCompMail());
+			cmpMap.put("compChkStatus", company.getCheckStatus());
 			cmpMap.put("status", "Success");
 			
 			Gson gson =new Gson();

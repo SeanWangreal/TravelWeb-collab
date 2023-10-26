@@ -363,7 +363,7 @@ public class ConsumerServlet extends HttpServlet {
 //			}
 			
 			Integer cusGender = Integer.valueOf(req.getParameter("custGender"));
-			System.out.println(cusGender);
+//			System.out.println(cusGender);
 			
 			String cusAccount = req.getParameter("custAccount");
 //			String compAccountReg = "^[(a-zA-Z0-9_)]{2,10}$";
