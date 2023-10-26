@@ -7,6 +7,16 @@
 
 <%
 Company company = (Company) request.getAttribute("Company"); //Servlet.java(Concroller), 存入req的Company物件
+if (company == null){
+	String compString = (String) request.getSession().getAttribute("compId");
+	if (compString == null ){
+		response.sendRedirect(request.getContextPath() + "/ken/com_mem_signin.jsp");
+		return;
+	}
+	Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId"));
+	CompanyService companySvc = new CompanyService();
+	company = companySvc.getOneCompany(compId);
+}
 %>
 
 <!DOCTYPE html>
@@ -137,7 +147,7 @@ Company company = (Company) request.getAttribute("Company"); //Servlet.java(Conc
 					style="color: black; font-size: 30px; width: 30px; background-color: transparent;"></i>
 			</button>
 			<button type="button" class="head_btn" id="">
-				   <a class="profile"  href="${pageContext.request.contextPath}/sean/hotel_room_all.jsp">
+				   <a class="profile "  href="${pageContext.request.contextPath}/sean/hotel_room_all.jsp">
 				    <i class="fa-solid fa-store"
 				     style="color: #000000; font-size: 30px; width: 30px; background-color: transparent;"></i>
 				   </a>

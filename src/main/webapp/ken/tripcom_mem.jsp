@@ -7,6 +7,16 @@
 
 <%
 Company company = (Company) request.getAttribute("Company"); //Servlet.java(Concroller), 存入req的Company物件
+if (company == null){
+	String compString = (String) request.getSession().getAttribute("compId");
+	if (compString == null ){
+		response.sendRedirect(request.getContextPath() + "/ken/com_mem_signin.jsp");
+		return;
+	}
+	Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId"));
+	CompanyService companySvc = new CompanyService();
+	company = companySvc.getOneCompany(compId);
+}
 %>
 
 <!DOCTYPE html>
@@ -137,13 +147,14 @@ Company company = (Company) request.getAttribute("Company"); //Servlet.java(Conc
 				<i class="fa-regular fa-bell icon"
 					style="color: black; font-size: 30px; width: 30px; background-color: transparent;"></i>
 			</button>
-			<button type="menu" class="head_btn" id="">
-				<i class="fa-solid fa-store icon"
-					style="color: #000000; font-size: 30px; width: 30px; background-color: transparent;"></i>
-
+			<button type="button" class="head_btn" id="">
+				   <a class="profile "  href="${pageContext.request.contextPath}/sean/trip_ticket_all.jsp">
+				    <i class="fa-solid fa-store"
+				     style="color: #000000; font-size: 30px; width: 30px; background-color: transparent;"></i>
+				   </a>
 			</button>
 			<button type="button" class="head_btn">
-				<a class="profile" href="#"> <i class="fa-solid fa-user"
+				<a class="profile" href="${pageContext.request.contextPath}/sean/tripcom_mem.jsp"> <i class="fa-solid fa-user"
 					style="color: black; font-size: 30px; background-color: transparent;"></i>
 				</a>
 			</button>
@@ -189,8 +200,6 @@ Company company = (Company) request.getAttribute("Company"); //Servlet.java(Conc
 				<br> <label class="">信箱&ensp;<span><%= company.getCompMail()%></span></label>
 				<br> <label class="">廠商別&ensp;<span><%= company.getCompType()%></span></label>
 				<br>
-				<button onclick="window.location.href='.jsp'" type="button" class="hotel-btn">查看飯店資訊</button>
-				<button onclick="window.location.href='.jsp'" type="button" class="hotel-btn">新增飯店資訊</button>
 			</div>
 			<FORM METHOD="post" ACTION="CompanyServlet" >
 <!-- 				<div id="change_pass"> -->
@@ -208,88 +217,8 @@ Company company = (Company) request.getAttribute("Company"); //Servlet.java(Conc
 				<div style="border: 1px solid grey; height: 200px; width: 200px; position: relative; right: 0px; margin-top: 10px;">
 					<img src="" alt="">
 				</div>
-				<div style=" display: flex; width: 600px; background-color:yellow; ">
-					<div>
-						<span> 
-							<input type="checkbox" id="restaurant" name="detail" class="info" value="restaurant" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="restaurant">餐廳</label>
-						</span>
-						<br>
-						<span> 
-							<input type="checkbox" id="tissue" name="detail" class="info" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="tissue">客房服務</label>
-						</span>
-						<br>
-						<span> 
-							<input type="checkbox" id="tissue" name="detail" class="info" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="tissue">24小時接待櫃檯</label>
-						</span>
-					</div>
-				
-					<div>
-						<span> 
-							<input type="checkbox" id="tissue" name="detail" class="info" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="tissue">SPA</label>
-						</span>
-						<br>
-						<span> 
-							<input type="checkbox" id="tissue" name="detail" class="info" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="tissue">健身中心</label>
-						</span>
-						<br>
-						<span> 
-							<input type="checkbox" id="tissue" name="detail" class="info" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="tissue">花園</label>
-						</span>
-					</div>
-					<br>
-					<div>
-						<span> 
-							<input type="checkbox" id="tissue" name="detail" class="info" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="tissue">露臺</label>
-						</span>
-						<br>
-						<span> 
-							<input type="checkbox" id="tissue" name="detail" class="info" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="tissue">禁菸客房</label>
-						</span>
-						<br>
-						<span> 
-							<input type="checkbox" id="tissue" name="detail" class="info" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="tissue">免費無線網路</label>
-						</span>
-					</div>
-					<br>
-					<div>
-						<span> 
-							<input type="checkbox" id="tissue" name="detail" class="info" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="tissue">暖氣</label>
-						</span>
-						<br>
-						<span> 
-							<input type="checkbox" id="tissue" name="detail" class="info" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="tissue">海灘</label>
-						</span>
-						<br>
-						<span> 
-							<input type="checkbox" id="tissue" name="detail" class="info" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="tissue">泳池</label>
-						</span>
-					</div>
-					<br>
-					<div>
-					<span> 
-						<input type="checkbox" id="tissue" name="detail" class="info" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-						<label for="tissue">電動車充電站</label>
-					</span>
-					<br>
-					<span> 
-						<input type="checkbox" id="tissue" name="detail" class="info" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-						<label for="tissue">停車場</label>
-					</span>
-					</div>
-					</div>
 			</div>
+				
 		</main>
 	</div>
 	<div id="detail" style="display: none;">123</div>
