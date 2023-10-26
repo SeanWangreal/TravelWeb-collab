@@ -3,8 +3,7 @@ package com.tha103.gogoyu.trip_ord.model;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
-
-import com.tha103.gogoyu.room.model.Room;
+import java.util.Map;
 import com.tha103.gogoyu.trip.model.Trip;
 
 public interface Trip_ordService {
@@ -19,4 +18,5 @@ public interface Trip_ordService {
 	public void deleteTrip(Integer tripOrdId);
 	public Trip_ord getOneTrip(Integer tripOrdId);
 	public List<Trip_ord> getAll();
+	public  Map<Trip_ord,List<String>> getOneTripOrd(Integer tripOrdId, Integer compId);
 }

@@ -205,11 +205,12 @@ article {
 					map = new LinkedHashMap<Trip, Set<Trip_photo>>();
 					TripService tripSrc = new TripServiceHibernate();
 					itineraryMap = new LinkedHashMap<Trip, Set<Itinerary>>();
-					Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId"));
-					if (compId == null ){
+					String compString = (String) request.getSession().getAttribute("compId");
+					if (compString == null ){
 						response.sendRedirect(request.getContextPath() + "/sean/select_page.jsp");
 						return;
 					}
+					Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId"));
 					tripList = tripSrc.getTripByCompId(compId);
 					for (Trip li : tripList) {
 						Set<Itinerary> itinerary= tripSrc.getItineraryByTripId(li.getTripId());
@@ -225,6 +226,7 @@ article {
 				// 				request.setAttribute("backHere", request.getRequestURL());
 				// 				System.out.print(request.getRequestURI());
 				%>
+<%-- 				<%@ include file="page1.file" %>  --%>
 				<c:forEach var="trip" items="${map.keySet()}">
 					<c:if test="${trip.state!=-1}">
 						<section class="one-product">
@@ -475,72 +477,75 @@ article {
 	<script
 		src="${pageContext.request.contextPath}/static/sean_js/btn4com.js"></script>
 	<script>
-		$(".detail").on("click", function() {
-			let trip = $(this).closest("section.one-product");
-			$("body").css("overflow", "hidden");
-			let alert_bg = $(trip).find(".alert_bg").eq(0);
-			alert_bg.addClass("on");
-			let watch = $(trip).find(".watch");
-			watch.addClass("on");
-
-			$(".no").on("click", function() {
-				$("body").css("overflow", "auto");
-				alert_bg.removeClass("on");
-				watch.removeClass("on");
-			})
-		})
-		$(".renewStatus").on("click", function() {
-			let trip = $(this).closest("section.one-product");
-			$("body").css("overflow", "hidden");
-			let alert_bg = $(trip).find(".alert_bg").eq(1);
-			alert_bg.addClass("on");
-			let al = $(trip).find(".alert").eq(0);
-			al.addClass("on");
-			$(".yes").on("click", function() {
-				trip.remove();
-				$("body").css("overflow", "auto");
-				alert_bg.removeClass("on");
-				al.removeClass("on");
-			})
-			$(".no").on("click", function() {
-				$("body").css("overflow", "auto");
-				alert_bg.removeClass("on");
-				al.removeClass("on");
-			})
-		})
-		var delete_btn = document.querySelectorAll(".delete");
-		$(".delete").on("click", function() {
-			let trip = $(this).closest("section.one-product");
-			let alert_bg = $(trip).find(".alert_bg").last();
-			let al = $(trip).find(".alert").last();
-
-			if (trip.find("span").hasClass("product-status-on")) {
-				alert("請先下架再刪除!!");
-			} else {
+		$(document).ready(function(){
+			$(".detail").on("click", function() {
+				let trip = $(this).closest("section.one-product");
 				$("body").css("overflow", "hidden");
+				let alert_bg = $(trip).find(".alert_bg").eq(0);
 				alert_bg.addClass("on");
+				let watch = $(trip).find(".watch");
+				watch.addClass("on");
+	
+				$(".no").on("click", function() {
+					$("body").css("overflow", "auto");
+					alert_bg.removeClass("on");
+					watch.removeClass("on");
+				})
+			})
+			$(".renewStatus").on("click", function() {
+				let trip = $(this).closest("section.one-product");
+				$("body").css("overflow", "hidden");
+				let alert_bg = $(trip).find(".alert_bg").eq(1);
+				alert_bg.addClass("on");
+				let al = $(trip).find(".alert").eq(0);
 				al.addClass("on");
-			}
-			$(".yes").on("click", function() {
-				trip.remove();
-				$("body").css("overflow", "auto");
-				alert_bg.removeClass("on");
-				al.removeClass("on");
+				$(".yes").on("click", function() {
+					trip.remove();
+					$("body").css("overflow", "auto");
+					alert_bg.removeClass("on");
+					al.removeClass("on");
+				})
+				$(".no").on("click", function() {
+					$("body").css("overflow", "auto");
+					alert_bg.removeClass("on");
+					al.removeClass("on");
+				})
 			})
-			$(".no").on("click", function() {
-				$("body").css("overflow", "auto");
-				alert_bg.removeClass("on");
-				al.removeClass("on");
+			var delete_btn = document.querySelectorAll(".delete");
+			$(".delete").on("click", function() {
+				let trip = $(this).closest("section.one-product");
+				let alert_bg = $(trip).find(".alert_bg").last();
+				let al = $(trip).find(".alert").last();
+	
+				if (trip.find("span").hasClass("product-status-on")) {
+					alert("請先下架再刪除!!");
+				} else {
+					$("body").css("overflow", "hidden");
+					alert_bg.addClass("on");
+					al.addClass("on");
+				}
+				$(".yes").on("click", function() {
+					trip.remove();
+					$("body").css("overflow", "auto");
+					alert_bg.removeClass("on");
+					al.removeClass("on");
+				})
+				$(".no").on("click", function() {
+					$("body").css("overflow", "auto");
+					alert_bg.removeClass("on");
+					al.removeClass("on");
+				})
 			})
-		})
-
-		$(".change").on("click", function() {
-			let trip = $(this).closest(".one-product");
-			if (trip.find("span").hasClass("product-status-off")) {
-				$(this).closest("form").find(".go").click();
-			} else {
-				alert("請先下架再修改");
-			}
+	
+			$(".change").on("click", function() {
+				let trip = $(this).closest(".one-product");
+				if (trip.find("span").hasClass("product-status-off")) {
+					$(this).closest("form").find(".go").click();
+				} else {
+					alert("請先下架再修改");
+				}
+			})
+			
 		})
 	</script>
 </body>
