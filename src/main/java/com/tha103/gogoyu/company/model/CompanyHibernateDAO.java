@@ -95,6 +95,23 @@ public class CompanyHibernateDAO implements CompanyDAO_interface {
 		return null;
 	}
 	
+	@Override
+	public List<Company> findByPassword(String compPassword) {
+		
+		try {
+			getSession().beginTransaction();
+			List<Company> list = getSession()
+					.createQuery("from Company where comp_password = :compPassword", Company.class)
+					.setParameter("compPassword", compPassword).list();
+			getSession().getTransaction().commit();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+	
 
 	@Override
 	public Company findByPK(Integer compId) {

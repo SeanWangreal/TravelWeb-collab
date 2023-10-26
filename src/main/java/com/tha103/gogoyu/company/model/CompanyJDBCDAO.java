@@ -267,4 +267,11 @@ public class CompanyJDBCDAO implements CompanyDAO_interface {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Company> findByPassword(String compPassword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }
