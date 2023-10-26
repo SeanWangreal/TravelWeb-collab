@@ -203,21 +203,23 @@
                         </div>
                         <div class="carousel-inner ">
                             <div class="carousel-item active  ">
-                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=((Room)list.get(0)).getRoomId() %>" class="d-block w-100"   alt="...">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5 class="bg-light text-dark mb-0"><%=(list.get(0)).getRoomName() %></h5>
-                                    <p class="bg-light text-dark">TWD <%=(list.get(0)).getPrice().intValue() %></p>
-                                </div>
+	                            <a href="${pageContext.request.contextPath}/sean/RoomServlet?room_id=<%=(list.get(0)).getRoomId() %>" class="d-block w-100"   alt="...">
+	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=(list.get(0)).getRoomId() %>" class="d-block w-100"   alt="...">
+	                                <div class="carousel-caption d-none d-md-block">
+	                                    <h5 class="bg-light text-dark mb-0"><%=(list.get(0)).getRoomName() %></h5>
+	                                    <p class="bg-light text-dark">TWD <%=(list.get(0)).getPrice().intValue() %></p>
+	                                </div>
+	                            </a>
                             </div>
                             <div class="carousel-item ">
-                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=((Room)list.get(1)).getRoomId() %>" class="d-block w-100"  alt="...">
+                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=(list.get(1)).getRoomId() %>" class="d-block w-100"  alt="...">
                                 <div class="carousel-caption d-none d-md-block">
                                     <h5 class="bg-light text-dark mb-0"><%=(list.get(1)).getRoomName() %></h5>
                                     <p class="bg-light text-dark">TWD <%=(list.get(1)).getPrice().intValue() %></p>
                                 </div>
                             </div>
                             <div class="carousel-item  ">
-                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=((Room)list.get(2)).getRoomId() %>" class="d-block w-100"  alt="...">
+                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=(list.get(2)).getRoomId() %>" class="d-block w-100"  alt="...">
                                 <div class="carousel-caption d-none d-md-block">
                                     <h5 class="bg-light text-dark mb-0"><%=(list.get(2)).getRoomName() %></h5>
                                     <p class="bg-light text-dark">TWD <%=(list.get(2)).getPrice().intValue() %></p>
