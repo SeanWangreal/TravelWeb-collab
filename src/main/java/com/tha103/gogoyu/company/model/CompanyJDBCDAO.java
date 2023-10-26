@@ -258,9 +258,20 @@ public class CompanyJDBCDAO implements CompanyDAO_interface {
 	}
 
 	@Override
+	public List<Company> findByAccount(String compAccount) {
+		return null;
+	}
 	public Company updFromBackend(Integer comp_id, String comp_name, String comp_address, String comp_phone,
 			String principal_name, String principal_phone, String comp_account, String comp_mail) {
+
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Company> findByPassword(String compPassword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }

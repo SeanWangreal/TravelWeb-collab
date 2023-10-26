@@ -13,12 +13,11 @@ public class CompanyService {
 			dao = new CompanyHibernateDAO(HibernateUtil.getSessionFactory());
 		}
 
-		public Company addCompany(Integer compId, Integer hotelInfoId, Integer compType, String compName, String compAddress, String compPhone, String principalName,
-				String principalPhone, String compAccount, String compPassword, String compMail, byte[] compPhoto , Integer checkStatus) {
+		public Company addCompany(Integer compType, String compName, String compAddress, String compPhone, String principalName,
+				String principalPhone, String compAccount, String compPassword, String compMail, byte[] compPhoto) {
 
 			Company company = new Company();
-			company.setCompId(compId);
-			company.setHotelInfoId(hotelInfoId);
+			
 			company.setCompType(compType);
 			company.setCompName(compName);
 			company.setCompAddress(compAddress);
@@ -29,7 +28,7 @@ public class CompanyService {
 			company.setCompPassword(compPassword);
 			company.setCompMail(compMail);
 			company.setCompPhoto(compPhoto);
-			company.setCheckStatus(checkStatus);
+			company.setCheckStatus(0);
 			dao.add(company);
 			return company;
 		}
@@ -56,6 +55,14 @@ public class CompanyService {
 		}
 		public void deleteCompany(Integer compId) {
 			dao.delete(compId);
+		}
+		
+		public List<Company> getOneAccount(String compAccount) {
+			return dao.findByAccount(compAccount);
+		}
+		
+		public List<Company> getOnePassword(String compPassword) {
+			return dao.findByPassword(compPassword);
 		}
 
 		public Company getOneCompany(Integer compId) {

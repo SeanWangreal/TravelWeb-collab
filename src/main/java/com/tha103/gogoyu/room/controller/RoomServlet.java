@@ -52,6 +52,10 @@ public class RoomServlet extends HttpServlet {
 		Room room = null;
 		String roomId = req.getParameter("roomId");
 		String compId = req.getParameter("compId");
+		if (compId == null) {
+			res.sendRedirect(req.getContextPath() + "/sean/select_page.jsp");
+			return;
+		}
 		HttpSession session = req.getSession();
 		System.out.println((String)session.getAttribute("compId"));
 		String forwardPath = "";
