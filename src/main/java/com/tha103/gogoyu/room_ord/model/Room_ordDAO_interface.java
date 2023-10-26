@@ -23,4 +23,6 @@ public interface Room_ordDAO_interface {
 	public  Map<Room_ord,List<String>> getRoomOrdByCompId(Integer compId);
 	public Map<Room_ord,List<String>> gettripIdComment(Integer roomId);
 	public Integer updateCommentAndScore(Integer roomOrd , Integer score , String comment ,Timestamp commentsTime);
+	public Map<Room_ord,List<String>> getRoomOrdByCusId(Integer CusId);
+
 }

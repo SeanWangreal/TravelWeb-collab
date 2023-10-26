@@ -3,15 +3,12 @@ package com.tha103.gogoyu.consumer.model;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.hibernate.SharedSessionContract;
-
-import com.tha103.gogoyu.trip_ord.model.Trip_ord;
+import org.hibernate.SessionFactory;
 
 import util.HibernateUtil;
 
 public class ConsumerHibernateDAO implements ConsumerDAO_interface {
 
-	// SessionFactory �� thread-safe嚗��臬恐���箏惇�扯�隢�瘙��瑁�蝺����梁��
 	private SessionFactory factory;
 
 	public ConsumerHibernateDAO(SessionFactory factory) {
@@ -20,8 +17,7 @@ public class ConsumerHibernateDAO implements ConsumerDAO_interface {
 
 
 
-	// Session �� not thread-safe嚗���隞交迨�寞��典����憓��芣�寞�交�寞�鋆∪�澆��
-	// 隞仿�踹��隢�瘙��瑁�蝺��梁�其����� Session
+
 	private Session getSession() {
 		return factory.getCurrentSession();
 	}
@@ -106,28 +102,10 @@ public class ConsumerHibernateDAO implements ConsumerDAO_interface {
 		return null;
 	}
 
+
+	
 	@Override
-	public byte[] getPicture(Integer cusId) throws Exception {
-
-		
-		try {
-			getSession().beginTransaction();
-			Consumer consumer = getSession().get(Consumer.class, cusId);	
-			getSession().getTransaction().commit();
-			return consumer.getCusPhoto();
-		} catch (Exception e) {
-			e.printStackTrace();
-			getSession().getTransaction().rollback();
-		}
-		return null;
-	}
-		
-		
-		
-			
-		
-		
-
+	public byte[] getPicture(Integer cusId) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();

@@ -4,10 +4,28 @@
 <%@ page import="java.util.*"%>
 <%@ page import="java.math.*"%>
 <%@ page import="com.tha103.gogoyu.room_ord.model.*"%>
+
+<%
+  	 request.getSession().setAttribute("cusId",1);//
+	 Map<Room_ord,List<String>> roomOrdMap = (Map<Room_ord,List<String>>) request.getAttribute("roomOrdMap");
+	if (roomOrdMap == null) {
+		Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
+		Integer cusId = (Integer)request.getSession().getAttribute("cusId"); //取得session的cusId
+		if (cusId == null ){ //假如沒有登入會員
+			response.sendRedirect(request.getContextPath() + "/sean/select_page.jsp");
+			return;
+		}
+		roomOrdMap = ROSH.getRoomOrdByCusId(cusId);
+	}
+	;
+	request.setAttribute("roomOrdMap", roomOrdMap);
+%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insert title here</title>
+<title>住客訂單明細</title>
 <head>
 <script src="https://kit.fontawesome.com/b4c50f14e1.js"
 	crossorigin="anonymous"></script>
@@ -96,8 +114,9 @@
 					<div class="ord">
 						<div>
 							<label class="ord-head">訂單編號:<span name="ord_id">${roomOrd.roomOrdId}</span></label>
+							<label class="ord-head">飯店名稱:<span name="room_name">${roomOrdMap.get(roomOrd).get(3)}</span></label>
 							<label class="ord-head">房間名稱:<span name="room_name">${roomOrdMap.get(roomOrd).get(0)}</span></label>
-							<label class="ord-head">訂單狀態:<span name="room_name">${roomOrd.ordStatus == 1?"已成立":"已取消"}</span></label>
+							<label class="ord-head">訂單狀態:<span name="room_name">${roomOrd.ordStatus == 1?"已成立":"已退款"}</span></label>
 						</div>
 						<div class="all-info">
 							<div>
@@ -106,7 +125,7 @@
 									class="l_long ord-label">房數<br>
 								<span class="long" name="room_num">${roomOrd.amount}</span></label> <label for=""
 									class="l_long ord-label">總金額<br>
-								<span class="long" name="total_money">${roomOrd.totalPrice}</span><span>元</span></label>
+								<span class="long" name="total_money">${roomOrd.totalPrice.intValue()}</span><span>元</span></label>
 								<label for="" class="l_long ord-label">顧客名稱<br>
 								<span class="long" name="customer_name">${roomOrdMap.get(roomOrd).get(2)}</span></label> <label for=""
 									class="l_long ord-label">入住日期<br>

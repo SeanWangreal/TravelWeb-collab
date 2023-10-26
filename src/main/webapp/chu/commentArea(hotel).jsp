@@ -138,7 +138,7 @@ pageContext.setAttribute("comp_name",CS.getComp(RSH.getRoom(roomId).getCompId())
                 <br>
                 <div >${room1.get(roomVo1).get(1)}</div>
                 <br>    
-                <img src="${pageContext.request.contextPath}/PictureServlet?cusId=${roomVo1.cusId}"  style="width: 130px; height: 140px; ">
+                <img src="${pageContext.request.contextPath}/eric/PictureServlet?cus_id=${roomVo1.cusId}"  style="width: 130px; height: 140px; ">
             </div>
             <div style="height: 20%; position: relative; left:200px; display: flex;font-size: 18px;">
                 <i style="position: relative; right: 100px;width: 100px;">評論時間:</i><i style="position: relative; right: 100px;width: 200px;">${roomVo1.commentsTime}</i>

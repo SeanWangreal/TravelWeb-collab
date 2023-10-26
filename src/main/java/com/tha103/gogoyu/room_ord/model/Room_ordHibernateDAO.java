@@ -165,6 +165,54 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 	
 	}
 	
+	
+	
+	public Map<Room_ord,List<String>> getRoomOrdByCusId(Integer CusId){
+		try {
+			getSession().beginTransaction();
+			Map<Room_ord,List<String>> map = new LinkedHashMap<Room_ord, List<String>>();
+			List<Room_ord> list = getSession().createQuery("from Room_ord where cus_id = :CusId and ord_status != 0 order by ord_time desc", Room_ord.class)
+					.setParameter("CusId", CusId)
+					.list();
+			for (Room_ord ord : list) {
+				List<String> info = new ArrayList<String>();
+				Room room =getSession().get(Room.class, ord.getRoomId());
+				Consumer consumer =getSession().get(Consumer.class, ord.getCusId());
+				Company company = getSession().get(Company.class , ord.getCompId());
+				info.add(room.getRoomName());
+				info.add(room.getRoomType().toString());
+				info.add(consumer.getCusName());
+				info.add(company.getCompName());
+				map.put(ord, info);
+			}
+			getSession().getTransaction().commit();
+			return map; 
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null; 
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public Map<Room_ord, List<String>> gettripIdComment(Integer RoomId) {
 		try {

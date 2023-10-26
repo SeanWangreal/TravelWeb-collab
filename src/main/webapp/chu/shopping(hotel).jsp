@@ -138,16 +138,6 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 
 
 	<div class="plan_tab">
-<!-- 		<div class="selectColumn"> -->
-<!-- 			<li style="list-style: none"> -->
-<!-- 				<FORM METHOD="post" ACTION="emp.do"> -->
-<!-- 					<b>請輸入欲查詢的訂單編號:</b> <input type="text" name="Scene"> <input -->
-<!-- 						type="hidden" name="action" value="getOne_For_Display"> <input -->
-<!-- 						type="submit" value="送出"> -->
-<!-- 				</FORM> -->
-<!-- 			</li> -->
-<!-- 		</div> -->
-
 
 		<div class="tab_list_block">
 			<ul class="tab_list">
@@ -201,9 +191,9 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 									</div>
 								</div>
 							</div>
-							<span class="book_price" >豪華二人房</span> <i class="howmuch_nt">TWD</i>
+							<span class="book_price" >價格(未含稅)</span> <i class="howmuch_nt">TWD</i>
 							<div class="price_set">
-								<i class="howmuch">${roomVo1.totalPrice}</i>
+								<i class="howmuch">${roomVo1.totalPrice.intValue()}</i>
 							</div>
 							<div class="pay_btn" style = "margin-top:20px"> 
 
@@ -272,7 +262,7 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 										</div>
 										<span class="book_price">價格(含稅)</span> <i class="howmuch_nt">TWD</i>
 										<div class="price_set">
-											<i class="howmuch">${tripVo1.totalPrice}</i>
+											<i class="howmuch">${tripVo1.totalPrice.intValue()}</i>
 										</div>
 										<div class="pay_btn" style = "margin-top:20px"> 
 				                            <button class="b list">詳細商品資訊</button>
@@ -339,7 +329,7 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 							</div>
 							<span class="book_price">價格(含稅)</span> <i class="howmuch_nt">TWD</i>
 							<div class="price_set">
-								<i class="howmuch">${roomVo2.totalPrice}</i>
+								<i class="howmuch">${roomVo2.totalPrice.intValue()}</i>
 							</div>
 							<div class="pay_btn" style = "margin-top:20px"> 
 
@@ -410,7 +400,7 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 										</div>
 										<span class="book_price">價格(含稅)</span> <i class="howmuch_nt">TWD</i>
 										<div class="price_set">
-											<i class="howmuch">${tripVo2.totalPrice}</i>
+											<i class="howmuch">${tripVo2.totalPrice.intValue()}</i>
 										</div>
 										<div class="pay_btn" style = "margin-top:20px"> 
 				                            <button class="b list">詳細商品資訊</button>
@@ -476,7 +466,7 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 							</div>
 							<span class="book_price">價格(含稅)</span> <i class="howmuch_nt">TWD</i>
 							<div class="price_set">
-								<i class="howmuch">${roomVo3.totalPrice}</i>
+								<i class="howmuch">${roomVo3.totalPrice.intValue()}</i>
 							</div>
 							<div class="pay_btn" style = "margin-top:20px"> 
 
@@ -546,7 +536,7 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 										</div>
 										<span class="book_price">價格(含稅)</span> <i class="howmuch_nt">TWD</i>
 										<div class="price_set">
-											<i class="howmuch">${tripVo3.totalPrice}</i>
+											<i class="howmuch">${tripVo3.totalPrice.intValue()}</i>
 										</div>
 										<div class="pay_btn" style = "margin-top:20px"> 
 				                            <button class="b list">詳細商品資訊</button>
@@ -609,7 +599,7 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 							</div>
 							<span class="book_price">價格(含稅)</span> <i class="howmuch_nt">TWD</i>
 							<div class="price_set">
-								<i class="howmuch">${roomVo4.totalPrice}</i>
+								<i class="howmuch">${roomVo4.totalPrice.intValue()}</i>
 							</div>
 							<div class="pay_btn" style = "margin-top:20px"> 
 
@@ -677,7 +667,7 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 										</div>
 										<span class="book_price">價格(含稅)</span> <i class="howmuch_nt">TWD</i>
 										<div class="price_set">
-											<i class="howmuch">${tripVo4.totalPrice}</i>
+											<i class="howmuch">${tripVo4.totalPrice.intValue()}</i>
 										</div>
 										<div class="pay_btn" style = "margin-top:20px"> 
 				                            <button class="b list">詳細商品資訊</button>
@@ -739,7 +729,7 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 							</div>
 							<span class="book_price">價格(含稅)</span> <i class="howmuch_nt">TWD</i>
 							<div class="price_set">
-								<i class="howmuch">${roomVo5.totalPrice}</i>
+								<i class="howmuch">${roomVo5.totalPrice.intValue()}</i>
 							</div>
 							<div class="pay_btn" style = "margin-top:20px"> 
 
@@ -806,7 +796,7 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 										</div>
 										<span class="book_price">價格(含稅)</span> <i class="howmuch_nt">TWD</i>
 										<div class="price_set">
-											<i class="howmuch">${tripVo5.totalPrice}</i>
+											<i class="howmuch">${tripVo5.totalPrice.intValue()}</i>
 										</div>
 										<div class="pay_btn" style = "margin-top:20px"> 
 				                            <button class="b list">詳細商品資訊</button>

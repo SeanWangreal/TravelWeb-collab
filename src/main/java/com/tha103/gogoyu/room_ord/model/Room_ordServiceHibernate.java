@@ -121,6 +121,11 @@ public class Room_ordServiceHibernate {
 		return dao.gettripIdComment(roomId);
 	}
 	
+	public  Map<Room_ord,List<String>> getRoomOrdByCusId(Integer CusId){
+		return dao.getRoomOrdByCusId(CusId);
+	}
+	
+	
 	public Integer updateCommentAndScore(Integer roomOrd , Integer score , String comment ,Timestamp commentsTime) {
 		
 		return dao.updateCommentAndScore(roomOrd,score,comment, commentsTime);

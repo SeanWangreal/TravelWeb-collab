@@ -33,7 +33,7 @@ public class shopping_hotelServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8"); // 接收請求參數的編碼設定
 
 		HttpSession session = req.getSession();
-//		session.setAttribute("cart_id", 5);
+
 		session.setAttribute("trip_id", 1);
 		session.setAttribute("cus_id", 1);
 		session.setAttribute("room_id", 1);
@@ -46,7 +46,7 @@ public class shopping_hotelServlet extends HttpServlet {
 		Integer roomId = (Integer) session.getAttribute("room_id"); // 抓房間id  最後會用getparameter(name value)
 	
 		//roomAmount最後要放回去房間新增裡的if!!
-		Integer roomAmount= 1;//Integer.valueOf(req.getParameter("amount")); //抓數量amount(name value)
+	
 		
 		String Timestart= "2023-10-21"; // 示例日期字符串
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -88,11 +88,12 @@ public class shopping_hotelServlet extends HttpServlet {
 				BigDecimal profit = totalPrice.subtract(commission);
 			//people = 數量 (明翰提供) * room_type
 				Integer RoomType = RSH.getRoom(roomId).getRoomType();
+				Integer roomAmount= 1; //固定給他1(預設，後續可以到結帳前面去更改數量)
 				Integer people = roomAmount * RoomType;
 				
 			// check in  out 時間由明翰搜尋的結果得知
 				
-				Integer newRoomOrder = ROSH.addFromShopping(compId ,plan_id,roomId,cusId,roomAmount,totalPrice,commission, profit , people ,checkInTime, checkOutTime,1);
+				Integer newRoomOrder = ROSH.addFromShopping(compId ,plan_id,roomId,cusId,roomAmount,totalPrice,commission, profit , people ,checkInTime, checkOutTime,0);
 				
 				
 				String url = "/chu/shopping(hotel).jsp";

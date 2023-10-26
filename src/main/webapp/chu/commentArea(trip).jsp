@@ -14,7 +14,7 @@ response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
 response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setDateHeader("Expires", 0);
 
-session.setAttribute("tripId", 1);
+session.setAttribute("tripId", 5);
 Integer tripId =(Integer)session.getAttribute("tripId");
 
 Trip_ordServiceHibernate TOSH = new Trip_ordServiceHibernate();
@@ -136,7 +136,7 @@ pageContext.setAttribute("trip_name",TSH.getTrip(tripId).getTripName());
                 <br>
                 <div >${trip1.get(tripVo1).get(1)}</div>
                 <br>    
-                <img src="${pageContext.request.contextPath}/PictureServlet?cusId=${tripVo1.cusId}"  style="width: 130px; height: 140px; ">
+                <img src="${pageContext.request.contextPath}/eric/PictureServlet?cus_id=${tripVo1.cusId}"  style="width: 130px; height: 140px; ">
             </div>
             <div style="height: 20%; position: relative; left:200px; display: flex;font-size: 18px;">
                 <i style="position: relative; right: 100px;width: 100px;">評論時間:</i><i style="position: relative; right: 100px;width: 200px;">${tripVo1.commentsTime}</i>
