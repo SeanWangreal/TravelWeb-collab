@@ -114,87 +114,175 @@
 				<ul>
 
 				</ul>
+				</div>
+			<div id="page">
 			</div>
 		</main>
 
 	</div>
 	<script src="../static/sean_js/btn4com_review.js"></script>
 	<script>
-				$(document).ready(function() {
-// 					var compId = 2;
-					var totalReview = 0 ;
-					var avgScore = 0 ;
-					$.ajax({
-						url : "/TravelWeb-collab/sean/RoomOrdServlet",
-						type : "POST", // GET | POST | PUT | DELETE | PATCH
-						data : {
-							"action" : "allReview",
-// 							"compId" : compId
-						},
-						dataType : "json", // 預期會接收到回傳資料的格式： json | xml | html
-						success : function(data) { // request 成功取得回應後執行
-// 							console.log(data);
-						for (var i = 0; i < data.length;i+=2){
-							console.log(data[i]);
-							console.log(data[i+1]);
-							var html1 = `<li class="one-review">
-											<div class="title-block">
-												<div>
-													投稿日期:<span class="year">`+data[i].commentsTime+`</span>
-												</div>
-												<div class="star">
-										`;
-										console.log(data[i].score);
-							var html2 = ``;
-							
-							
-							for(var j = 0; j< data[i].score; j++){
-							html2 += `<span class="star" data-star="1"> <i
-										class="fa-solid fa-star" style="color: #e7ea43;"></i>
-										</span>`;
-								
-							}
-							for(var j = 0; j< 5-data[i].score; j++){
-							html2 += `<span class="star" data-star="1">
-										<i class="fa-solid fa-star" style="color: #000000;"></i>
-											</span>`;
-								
-							}
-							var html3 = `
-									</div>
-								</div>
-								<div class="review-block">
-									<p>`+data[i].comments+`</p>
-									<div class="read-block">
-										<button class="read">查看全部</button>
-									</div>
-								</div>
-								<hr>
-							</li>`;
-							totalReview++;
-							avgScore += data[i].score;
-							$("ul").append(html1+html2+html3);
-							
-						}
-					$("#total").text(totalReview);
-					if (avgScore === 0){
-						$("h1").text("尚無訂單");		
-					} else {
-						$("h1").text(Math.round(avgScore/totalReview*10)/10);						
-					}
-					$(".read").on('click',function(){
-				        var p = $(this).closest(".review-block").find("p");
-				        p.toggleClass("zoom");
-				        if (p.hasClass('zoom')){
-				            $(this).text("收回")
-				        } else{
-				            $(this).text("查看全部")
-				        }
-				    })
+		$(document).ready(function() {
+			var path = window.location.pathname;
+       	 	var webCtx = path.substring(0, path.indexOf('/', 1));
+       	 	var url = location.origin+webCtx+"/sean/RoomOrdServlet"
+			var totalReview = 0 ;
+			var avgScore = 0 ;
+			$.ajax({
+				url : url,
+				type : "POST", // GET | POST | PUT | DELETE | PATCH
+				data : {
+					"action" : "allReview",
+ 						"whichpage" : 1
+				},
+				dataType : "json", // 預期會接收到回傳資料的格式： json | xml | html
+				success : function(data) { // request 成功取得回應後執行
+				console.log(data);
+				var	totalOrd = 0;
+	        	if (data.length != 0){
+	        		totalOrd = data[1][3];
+	        	}
+				for (var i = 0; i < data.length;i+=2){
+					var html1 = `<li class="one-review">
+									<div class="title-block">
+										<div>
+											投稿日期:<span class="year">`+data[i].commentsTime+`</span>
+										</div>
+										<div class="star">
+								`;
+								console.log(data[i].score);
+					var html2 = ``;
+					
+					
+					for(var j = 0; j< data[i].score; j++){
+					html2 += `<span class="star" data-star="1"> <i
+								class="fa-solid fa-star" style="color: #e7ea43;"></i>
+								</span>`;
 						
-						}
-					});
-				})
+					}
+					for(var j = 0; j< 5-data[i].score; j++){
+					html2 += `<span class="star" data-star="1">
+								<i class="fa-solid fa-star" style="color: #000000;"></i>
+									</span>`;
+						
+					}
+					var html3 = `
+							</div>
+						</div>
+						<div class="review-block">
+							<p>`+data[i].comments+`</p>
+							<div class="read-block">
+								<button class="read">查看全部</button>
+							</div>
+						</div>
+						<hr>
+					</li>`;
+					totalReview++;
+					avgScore += data[i].score;
+					$("ul").append(html1+html2+html3);
+					
+				}
+			$("#total").text(totalOrd);
+			if (avgScore === 0){
+				$("h1").text("尚無訂單");		
+			} else {
+				$("h1").text(Math.round(avgScore/totalReview*10)/10);						
+			}
+			$(".read").on('click',function(){
+		        var p = $(this).closest(".review-block").find("p");
+		        p.toggleClass("zoom");
+		        if (p.hasClass('zoom')){
+		            $(this).text("收回")
+		        } else{
+		            $(this).text("查看全部")
+		        }
+		    })
+		    var htmlA=`<span>第</span>`;
+	        if (totalOrd <= 5){
+	            htmlA  += `<button type="button" class="at" data-whichpage="1">1</button><span>頁</span>`
+	        } else {
+	        	if (totalOrd % 5 != 0){
+		            for (var i =1; i <= totalOrd/5+1;i++){
+		                htmlA += `<button type="button" class="at" data-whichpage=`+i+`>`+i+`</button><span>頁</span>`
+		            }
+	        	} else {
+	        		for (var i =1; i <= totalOrd/5;i++){
+		                htmlA += `<button type="button" class="at" data-whichpage=`+i+`>`+i+`</button><span>頁</span>`
+		            }
+	        	}
+	        }
+	        $("#page").html(htmlA);
+	        $(".at").eq(0).addClass("where");
+	        $(".at").on('click',function(){
+	        	$(".at").removeClass("where");
+            	$(this).addClass("where");
+	            var whichpage = $(this).attr("data-whichpage");
+	            var path = window.location.pathname;
+	            var webCtx = path.substring(0, path.indexOf('/', 1));
+	            var url = location.origin+webCtx+"/sean/RoomOrdServlet"
+	            var totalReview = 0 ;
+	            var avgScore = 0 ;
+	            $.ajax({
+	                url : url,
+	                type : "POST", // GET | POST | PUT | DELETE | PATCH
+	                data : {
+	                    "action" : "allReview",
+	                    "whichpage" : whichpage
+	                },
+	                dataType : "json", // 預期會接收到回傳資料的格式： json | xml | html
+	                success : function(data) {
+	                    $("ul").html("");
+	                    for (var i = 0; i < data.length;i+=2){
+	                        var html1 = `<li class="one-review">
+	                            <div class="title-block">
+	                                <div>
+	                                    投稿日期:<span class="year">`+data[i].commentsTime+`</span>
+	                                </div>
+	                                <div class="star">
+	                        `;
+	                        console.log(data[i].score);
+	                        var html2 = ``;
+	                        for(var j = 0; j< data[i].score; j++){
+	                        html2 += `<span class="star" data-star="1"> <i
+	                                    class="fa-solid fa-star" style="color: #e7ea43;"></i>
+	                                    </span>`;
+	                        }
+	                        for(var j = 0; j< 5-data[i].score; j++){
+	                        html2 += `<span class="star" data-star="1">
+	                                    <i class="fa-solid fa-star" style="color: #000000;"></i>
+	                                        </span>`;
+	                            
+	                        }
+	                        var html3 = `
+	                                </div>
+	                            </div>
+	                            <div class="review-block">
+	                                <p>`+data[i].comments+`</p>
+	                                <div class="read-block">
+	                                    <button class="read">查看全部</button>
+	                                </div>
+	                            </div>
+	                            <hr>
+	                        </li>`;
+	                        totalReview++;
+	                        avgScore += data[i].score;
+	                        $("ul").append(html1+html2+html3);
+	                    }
+	                    $(".read").on('click',function(){
+	                        var p = $(this).closest(".review-block").find("p");
+	                        p.toggleClass("zoom");
+	                        if (p.hasClass('zoom')){
+	                            $(this).text("收回")
+	                        } else{
+	                            $(this).text("查看全部")
+	                        }
+	                    })
+	                }
+	            })
+	        })
+	        }
+	        });
+			    })
 	</script>
 </body>
 

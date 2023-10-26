@@ -165,7 +165,7 @@ a.left_btn:hover {
     padding-bottom: 50px;
     font-family: "粉圓";
     font-size: 20px;
-    width:fit-content;
+    width:60%;
 }
 
 .main-content-info>* {
@@ -174,9 +174,11 @@ a.left_btn:hover {
 }
 
 .ord {
+	margin: 10px;
     padding: 10px 20px;
     color: black;
     background-color: white;
+    width:100%;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
@@ -193,6 +195,9 @@ a.left_btn:hover {
 }
 .all-info{
     display: flex;
+}
+.all-info>*{
+	flex-grow : 1;
 }
 input#ord-search {
     border-radius: 30px;
@@ -250,7 +255,7 @@ span.long {
     font-size: 16px;
 }
 .remark-info{
-    width: 250px;
+/*     width: 250px; */
     height: 75px;
     overflow-y: scroll;
     font-size: 16px;
@@ -259,4 +264,16 @@ span.long {
 
 .on {
     display: block;
+}
+#page {
+	padding:10px;
+}
+#page >*{
+	 border: none;
+	 background-color: transparent;
+	 color :black;
+	  margin-right: 5px;
+}
+.where{
+	color: #66BEE7 ! important;
 }
