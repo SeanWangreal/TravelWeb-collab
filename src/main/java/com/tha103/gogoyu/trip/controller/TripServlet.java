@@ -105,6 +105,9 @@ public class TripServlet extends HttpServlet {
 			Set<Itinerary> itinerary = null;
 			for (Trip li : tripList) {
 				itinerary = tripSvc.getItineraryByTripId(li.getTripId());
+				for (Itinerary it: itinerary) {
+					System.out.println(it.getBeginTime());
+				}
 				tripPhoto = tripSvc.getAllPhoto(li.getTripId());
 				map.put(li, tripPhoto);
 				itineraryMap.put(li, itinerary);

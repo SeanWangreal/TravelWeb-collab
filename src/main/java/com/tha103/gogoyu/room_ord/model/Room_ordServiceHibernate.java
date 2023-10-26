@@ -114,9 +114,10 @@ public class Room_ordServiceHibernate {
 		return dao.getRoomOrdVo(cartId , cusId);
 	}
 	
-	public  Map<Room_ord,List<String>> getRoomOrdByCompId(Integer compId){
-		return dao.getRoomOrdByCompId(compId);
+	public  Map<Room_ord,List<String>> getRoomOrdByCompId(Integer compId,Integer beginCount,String ordOrReview){
+		return dao.getRoomOrdByCompId(compId,beginCount,ordOrReview);
 	}
+
 	public Map<Room_ord,List<String>> gettripIdComment(Integer roomId){
 		return dao.gettripIdComment(roomId);
 	}
@@ -130,4 +131,8 @@ public class Room_ordServiceHibernate {
 		
 		return dao.updateCommentAndScore(roomOrd,score,comment, commentsTime);
 	}	
+	
+	public  Map<Room_ord,List<String>> getOneRoomOrd(Integer roomOrdId, Integer compId){
+		return dao.getRoomOrdByCompIdOrdId(roomOrdId, compId);
+	}
 }

@@ -182,7 +182,6 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 				info.add(room.getRoomName());
 				info.add(room.getRoomType().toString());
 				info.add(consumer.getCusName());
-				info.add(company.getCompName());
 				map.put(ord, info);
 			}
 			getSession().getTransaction().commit();
@@ -289,12 +288,96 @@ public static void main(String[] args) {
 //		System.out.println(a1.getCommission());
 //		
 //	}
-	Map<Room_ord,List<String>> map = n.getRoomOrdByCompId(1);
-	for (Room_ord ord :map.keySet()) {
-		List lis =map.get(ord);
-		System.out.println(lis.get(1));
-		System.out.println(lis.get(0));
+//	Map<Room_ord,List<String>> map = n.getRoomOrdByCompId(1);
+//	for (Room_ord ord :map.keySet()) {
+//		List lis =map.get(ord);
+//		System.out.println(lis.get(1));
+//		System.out.println(lis.get(0));
+//	}
+}
+
+@Override
+public Map<Room_ord, List<String>> getRoomOrdByCompId(Integer compId, Integer beginCount, String ordOrReview) {
+	try {
+		getSession().beginTransaction();
+		List<Room_ord> list = null;
+		Long total = null;
+		if ("ord".equals(ordOrReview)) {
+			NativeQuery<Room_ord> query = getSession().createNativeQuery(
+					"select * from room_ord where comp_id = :compId and ord_status != 0 order by ord_time desc  limit :beginCount , 5 ",
+					Room_ord.class);
+			query.setParameter("compId", compId);
+			query.setParameter("beginCount", beginCount);
+			list = query.list();
+			total = getSession()
+					.createQuery("select count(*) from Room_ord where comp_id = :compId and ord_status != 0",
+							Long.class)
+					.setParameter("compId", compId).uniqueResult();
+		} else if ("review".equals(ordOrReview)) {
+			NativeQuery<Room_ord> query = getSession().createNativeQuery(
+					"select * from room_ord where comp_id = :compId and ord_status != 0 and score is not null order by ord_time desc  limit :beginCount , 5 ",
+					Room_ord.class);
+			query.setParameter("compId", compId);
+			query.setParameter("beginCount", beginCount);
+			list = query.list();
+			total = getSession().createQuery(
+					"select count(*) from Room_ord where comp_id = :compId and ord_status != 0 and score is not null",
+					Long.class).setParameter("compId", compId).uniqueResult();
+		}
+
+		Map<Room_ord, List<String>> map = new LinkedHashMap<Room_ord, List<String>>();
+//		List<Room_ord> list = getSession().createQuery("from Room_ord where comp_id = :compId and ord_status != 0 order by ord_time desc", Room_ord.class)
+//				.setParameter("compId", compId)
+//				.list();
+		for (Room_ord ord : list) {
+			List<String> info = new ArrayList<String>();
+			Room room = getSession().get(Room.class, ord.getRoomId());
+			Consumer consumer = getSession().get(Consumer.class, ord.getCusId());
+			info.add(room.getRoomName());
+			info.add(room.getRoomType().toString());
+			info.add(consumer.getCusName());
+			info.add(total.toString());
+			map.put(ord, info);
+		}
+		getSession().getTransaction().commit();
+		return map;
+	} catch (Exception e) {
+		e.printStackTrace();
+		getSession().getTransaction().rollback();
 	}
+	return null;
+}
+
+@Override
+public Map<Room_ord, List<String>> getRoomOrdByCompIdOrdId(Integer roomOrdId, Integer compId) {
+	try {
+		getSession().beginTransaction();
+		NativeQuery<Room_ord> query = getSession().createNativeQuery(
+					"select * from room_ord where comp_id = :compId and ord_status != 0 and room_ord_id = :roomOrdId",
+					Room_ord.class);
+			query.setParameter("compId", compId);
+			query.setParameter("roomOrdId", roomOrdId);
+		List<Room_ord> list = query.list();
+		Map<Room_ord, List<String>> map = new LinkedHashMap<Room_ord, List<String>>();
+//		List<Room_ord> list = getSession().createQuery("from Room_ord where comp_id = :compId and ord_status != 0 order by ord_time desc", Room_ord.class)
+//				.setParameter("compId", compId)
+//				.list();
+		for (Room_ord ord : list) {
+			List<String> info = new ArrayList<String>();
+			Room room = getSession().get(Room.class, ord.getRoomId());
+			Consumer consumer = getSession().get(Consumer.class, ord.getCusId());
+			info.add(room.getRoomName());
+			info.add(room.getRoomType().toString());
+			info.add(consumer.getCusName());
+			map.put(ord, info);
+		}
+		getSession().getTransaction().commit();
+		return map;
+	} catch (Exception e) {
+		e.printStackTrace();
+		getSession().getTransaction().rollback();
+	}
+	return null;
 }
 
 }
