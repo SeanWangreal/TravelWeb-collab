@@ -222,7 +222,6 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 //	}
 	}
 
-
 	@Override
 	public Map<Room_ord, List<String>> getRoomOrdByCompIdOrdId(Integer roomOrdId, Integer compId) {
 		try {
@@ -254,6 +253,5 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 		}
 		return null;
 	}
-
 
 }
