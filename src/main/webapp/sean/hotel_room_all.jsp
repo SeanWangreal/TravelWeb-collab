@@ -213,7 +213,7 @@ input {
 			</button>
 			<button type="button" class="head_btn">
 				<a class="profile"
-					href="${pageContext.request.contextPath}/sean/select_page.jsp">
+					href="${pageContext.request.contextPath}/ken/com_mem.jsp">
 					<i class="fa-solid fa-user icon"
 					style="color: black; font-size: 30px; background-color: transparent;"></i>
 				</a>

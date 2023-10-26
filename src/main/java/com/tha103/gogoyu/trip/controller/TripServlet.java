@@ -56,6 +56,10 @@ public class TripServlet extends HttpServlet {
 		Trip trip = null;
 		String tripId = req.getParameter("tripId");
 		String compId = req.getParameter("compId");
+		if (compId == null) {
+			res.sendRedirect(req.getContextPath() + "/sean/select_page.jsp");
+			return;
+		}
 		HttpSession session = req.getSession();
 		System.out.println((String) session.getAttribute("compId"));
 		String forwardPath = "";
