@@ -104,9 +104,14 @@ public class CompanyServlet extends HttpServlet {
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			HttpSession session = req.getSession();
-		    session.setAttribute("compId", req.getParameter("account"));
-			
-			String url = "/ken/com_mem.jsp";
+		    session.setAttribute("compId", company.getCompId());
+		    String url = null;
+			if (company.getCompType() == 0) {
+				System.out.println("wqdwq");
+				url = "/ken/com_mem.jsp";
+			}else {
+				url = "/ken/tripcom_mem.jsp";
+			}
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 /ken/com_mem.jsp
 			successView.forward(req, res);
 			return;
@@ -679,12 +684,16 @@ public class CompanyServlet extends HttpServlet {
 
 			/*************************** 2.開始新增資料 ***************************************/
 			CompanyService companySvc = new CompanyService();
-			companySvc.addCompany(compType, compName, compAddress, compPhone, principalName,
+			Company company =  companySvc.addCompany(compType, compName, compAddress, compPhone, principalName,
 			principalPhone, compAccount, compPassword, compMail, compPhoto);
-			
-			
+			req.getSession().setAttribute("compId", company.getCompId());
+			String url =null;
+			if (compType == 0) {
+				url = "/ken/com_mem.jsp";				
+			} else {
+				url = "/ken/tripcom_mem.jsp";
+			}
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/ken/com_mem.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 		}

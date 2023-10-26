@@ -128,6 +128,7 @@ Company company = (Company) request.getAttribute("Company"); //Servlet.java(Conc
 	<nav class="st">
 		<!-- <a class="word" id="home" href="#">Home</a> -->
 		<div class="head">
+			</button>
 			<button type="menu" class="head_btn" id="msg">
 				<i class="fa-regular fa-message icon"
 					style="color: black; font-size: 30px; background-color: transparent;"></i>
@@ -136,11 +137,10 @@ Company company = (Company) request.getAttribute("Company"); //Servlet.java(Conc
 				<i class="fa-regular fa-bell icon"
 					style="color: black; font-size: 30px; width: 30px; background-color: transparent;"></i>
 			</button>
-			<button type="button" class="head_btn" id="">
-				   <a class="profile"  href="${pageContext.request.contextPath}/sean/hotel_room_all.jsp">
-				    <i class="fa-solid fa-store"
-				     style="color: #000000; font-size: 30px; width: 30px; background-color: transparent;"></i>
-				   </a>
+			<button type="menu" class="head_btn" id="">
+				<i class="fa-solid fa-store icon"
+					style="color: #000000; font-size: 30px; width: 30px; background-color: transparent;"></i>
+
 			</button>
 			<button type="button" class="head_btn">
 				<a class="profile" href="#"> <i class="fa-solid fa-user"
@@ -167,12 +167,12 @@ Company company = (Company) request.getAttribute("Company"); //Servlet.java(Conc
 		<div id="shell"></div>
 		<aside class="left">
 			<div class="mem-data">
-				<a class="left_btn" href="${pageContext.request.contextPath}/ken/com_mem.jsp"> <i class="fa-regular fa-user"
+				<a class="left_btn"> <i class="fa-regular fa-user"
 					style="color: black;"></i> 會員資料
 				</a>
 			</div>
 			<div class="mem-data">
-				<a class="left_btn" href=""> <i class="fa-solid fa-file-invoice"
+				<a class="left_btn"> <i class="fa-solid fa-file-invoice"
 					style="color: black;"></i> 訂單資訊
 				</a>
 			</div>
