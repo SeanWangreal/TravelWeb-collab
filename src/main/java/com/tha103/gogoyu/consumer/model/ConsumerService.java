@@ -13,5 +13,7 @@ public interface ConsumerService {
 	public Consumer checkDuplicateAccount(String cusAccount);
 	List<Consumer> getPassword(String cusPassword);
 	
+	public void updFromBackend(Integer cusId, String cusName,String cusAccount ,String cusMail ,String cusPhone ,String cusAddress , Integer cusSex);
+
 	
 }

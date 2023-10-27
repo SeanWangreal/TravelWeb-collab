@@ -85,14 +85,16 @@ dao.delete(cusId);
 	}
 	public static byte[] writePicture(String path) throws IOException {
 		FileInputStream fis = new FileInputStream(path);
+
 		  byte[] buffer = fis.readAllBytes();
 		  fis.close();
 		  return buffer;
 		 }
 
-
-
-
-	
+	@Override
+	public void updFromBackend(Integer cusId, String cusName, String cusAccount, String cusMail, String cusPhone,
+			String cusAddress, Integer cusSex) {
+		dao.updFromBackend(cusId, cusName, cusAccount, cusMail, cusPhone, cusAddress, cusSex);
+	}
 	
 }

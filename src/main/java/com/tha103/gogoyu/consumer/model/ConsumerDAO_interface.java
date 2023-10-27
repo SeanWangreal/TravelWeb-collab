@@ -19,5 +19,8 @@ public interface ConsumerDAO_interface {
 	public Consumer getCusAccount(String cusAccount);
 	public List<Consumer> getCusPassword(String cusPassword);
 
+	public void updFromBackend(Integer cusId, String cusName, String cusAccount, String cusMail, String cusPhone,
+			String cusAddress, Integer cusSex);
+
 
 }
