@@ -474,7 +474,7 @@ input {
 								<div class="alert">
 									<div>
 										確定刪除嗎? <br> <a class="other-btn yes"
-											href="${pageContext.request.contextPath}/sean/RoomServlet?action=delete2&roomId=${room.roomId}">Yes</a>
+											href="${pageContext.request.contextPath}/sean/RoomServlet?action=delete&roomId=${room.roomId}">Yes</a>
 										<button type="button" class="other-btn no">No</button>
 									</div>
 								</div>
@@ -619,11 +619,17 @@ input {
 		               for (let i = 1; i < firstDay; i++) {
 		                   str += "<li></li>"; //为起始日之前的日期创建空白节点
 		               }
+						var month = '';
+	           		   	if (my_month+1 <10){
+	           		   		month = '0'+(my_month+1)
+	           		   	} else {
+	           		   		month = my_month+1;
+	           		   	}
 		               for (let i = 1; i <= totalDay; i++) {
 		            	   if (i < 10){
-		            	   		var thisDay = my_year+'-'+(my_month+1)+'-0'+i;		            		   
+		            	   		var thisDay = my_year+'-'+(month)+'-0'+i;		            		   
 		            	   } else{
-		            		   var thisDay = my_year+'-'+(my_month+1)+'-'+i;		            		   
+		            		   var thisDay = my_year+'-'+(month)+'-'+i;		            		   
 		            	   }
 		                   if ((i < my_day && my_year == my_date.getFullYear() && my_month == my_date.getMonth()) || my_year < my_date.getFullYear() || (my_year == my_date.getFullYear() && my_month < my_date.getMonth())) {
 		                       myclass = 'lightgrey'; //当该日期在今天之前时，以浅灰色字体显示
@@ -647,7 +653,7 @@ input {
 		               for (let key in data){
 		            	   for (let i = 0; i<p_num; i++){
 		            	  		 if (data[key].stockDate ==  targetObj.find("p").eq(i).attr("data-date")){
-		            	  			targetObj.find("p").eq(i).text(data[key].stock);
+		            	  			targetObj.find("p").eq(i).text(data[key].stock+"間");
 		            	  		 }
 		            	   }
 		               }
