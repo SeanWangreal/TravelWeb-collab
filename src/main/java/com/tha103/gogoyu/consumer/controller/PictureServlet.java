@@ -13,20 +13,23 @@ public class PictureServlet extends HttpServlet {
 
 		res.setContentType("image/gif");
 		ServletOutputStream out = res.getOutputStream();
-
+	
 		try {
 			ConsumerServiceHibernate conreader = new ConsumerServiceHibernate();
 			String pic =req.getParameter("cus_id").trim(); //p60 p105
-			Integer intpic =Integer.parseInt(pic);
-			byte[] picGet = conreader.getOnePicture(intpic);
-			if (picGet == null) {
-				picGet = new byte[0];
+			if(pic==null || "".equals(pic.trim())) {
+				return ;
 			}
-			out.write(picGet);				
-			
-			
+				Integer intpic =Integer.parseInt(pic);
+				byte[] picGet = conreader.getOnePicture(intpic);
+				if (picGet == null) {
+					picGet = new byte[0];
+				}
+				out.write(picGet);	
+		
+					
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
 	}
 
