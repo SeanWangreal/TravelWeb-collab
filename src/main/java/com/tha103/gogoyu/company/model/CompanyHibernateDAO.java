@@ -11,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.tha103.gogoyu.itinerary.model.Itinerary;
+import com.tha103.gogoyu.room.model.Room;
 import com.tha103.gogoyu.trip_ord.model.Trip_ord;
 import com.tha103.gogoyu.trip_ord.model.Trip_ordDAO_Interface;
 import com.tha103.gogoyu.trip_ord.model.Trip_ordHibernateDAO;
@@ -76,6 +77,41 @@ public class CompanyHibernateDAO implements CompanyDAO_interface {
 		}
 		return -1;
 	}
+	 
+	@Override
+	public List<Company> findByAccount(String compAccount) {
+		
+		try {
+			getSession().beginTransaction();
+			List<Company> list = getSession()
+					.createQuery("from Company where comp_account = :compAccount", Company.class)
+					.setParameter("compAccount", compAccount).list();
+			getSession().getTransaction().commit();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+	
+	@Override
+	public List<Company> findByPassword(String compPassword) {
+		
+		try {
+			getSession().beginTransaction();
+			List<Company> list = getSession()
+					.createQuery("from Company where comp_password = :compPassword", Company.class)
+					.setParameter("compPassword", compPassword).list();
+			getSession().getTransaction().commit();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+	
 
 	@Override
 	public Company findByPK(Integer compId) {

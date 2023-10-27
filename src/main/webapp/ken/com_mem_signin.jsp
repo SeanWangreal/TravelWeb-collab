@@ -13,13 +13,13 @@ Company company = (Company) request.getAttribute("Company"); //Servlet.java(Conc
 <html lang="en">
 
 <head>
-    <script src="./vendors/jquery/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+    <script src="${pageContext.request.contextPath}/vendors/jquery/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/b4c50f14e1.js" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TravelMaker</title>
-    <link href="../static/ken_css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../static/ken_css/head_and_font.css">
+    <link href="${pageContext.request.contextPath}/static/ken_css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/ken_css/head_and_font.css">
     <style>
         
     </style>
@@ -71,36 +71,51 @@ Company company = (Company) request.getAttribute("Company"); //Servlet.java(Conc
     </nav>
     <jsp:useBean id="companySvc" scope="page" class="com.tha103.gogoyu.company.model.CompanyService" />
     
-    <form METHOD="post" ACTION="<%=request.getContextPath()%>/CompanyServlet">
+    <c:if test="${not empty errorMsgs}">
+		<font style="color:red">請修正以下錯誤:</font>
+			<ul>
+			    <c:forEach var="message" items="${errorMsgs}">
+					<li style="color:red">${message}</li>
+				</c:forEach>
+			</ul>
+	</c:if>
+    
+   
         <div class="container-fluid" style="background-color: #d9d2c5;">
             <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;" >
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4" >
                     <div class >
+                    
+                    	<form METHOD="post" ACTION="${pageContext.request.contextPath}/CompanyServlet">
+                    
                         <div class="d-flex align-items-center justify-content-between mb-3" >
                             <h3>登入帳號</h3>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" value="abca1">
+                            <input type="text" class="form-control" id="floatingInput" value="abcda1" name="account">
                             <label for="floatingInput">帳號</label>
                         </div>
                         <div class="form-floating mb-4">
-                            <input type="password" class="form-control" id="floatingPassword" value="a2341">
+                            <input type="password" class="form-control" id="floatingPassword" value="a12341" name="password">
                             <label for="floatingPassword">密碼</label>
                         </div>
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <a href="">Forgot Password</a>
                         </div>
                         <button type="submit" class="btn btn-primary py-3 w-100 mb-4">登入</button>
-                        <p class="text-center mb-0">沒有帳號嗎? <a href="">點此註冊</a></p>
+                       <input type="hidden" name="action" value="signIn">
+<!--        	<input type="submit" value="送出"> -->
+                        </form>
+                        
+                        <p class="text-center mb-0">沒有帳號嗎? <a href='com_mem_signup.jsp'>點此註冊</a></p>
+                                        
                     </div>
                 </div>
             </div>
         </div>
         <!-- Sign In End -->
-    </div>
-     	<input type="hidden" name="action" value="signIn">
-       	<input type="submit" value="送出">
-    </form>
+     	
+    
    
   
    

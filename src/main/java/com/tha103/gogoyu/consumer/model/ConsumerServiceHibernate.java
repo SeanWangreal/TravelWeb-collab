@@ -68,10 +68,6 @@ dao.delete(cusId);
 		return dao.getPicture(cusId);
 	}
 
-	@Override
-	public List<Consumer> getAccount(String cusAccount) {
-		return dao.getCusAccount(cusAccount);
-	}
 
 	@Override
 	public List<Consumer> getPassword(String cusPassword) {
@@ -79,10 +75,12 @@ dao.delete(cusId);
 	}
 
 	@Override
-	public boolean checkDuplicateAccount(String cusAccount) {
-		 List<Consumer> existingConsumers = dao.getCusAccount(cusAccount);
+	public Consumer checkDuplicateAccount(String cusAccount) {
+//		 List<Consumer> existingConsumers = dao.getCusAccount(cusAccount);
+		 Consumer existingConsumers = dao.getCusAccount(cusAccount);
 
-	        return !existingConsumers.isEmpty();	
+//	        return !existingConsumers.isEmpty();	
+	        return existingConsumers;	
 	        
 	}
 	public static byte[] writePicture(String path) throws IOException {
@@ -91,6 +89,8 @@ dao.delete(cusId);
 		  fis.close();
 		  return buffer;
 		 }
+
+
 
 
 	

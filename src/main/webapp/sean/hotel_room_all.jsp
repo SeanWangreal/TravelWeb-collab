@@ -213,7 +213,7 @@ input {
 			</button>
 			<button type="button" class="head_btn">
 				<a class="profile"
-					href="${pageContext.request.contextPath}/sean/select_page.jsp">
+					href="${pageContext.request.contextPath}/ken/com_mem.jsp">
 					<i class="fa-solid fa-user icon"
 					style="color: black; font-size: 30px; background-color: transparent;"></i>
 				</a>
@@ -268,11 +268,12 @@ input {
 					mapStock = new LinkedHashMap<Room, List<Room_stock>>();
 					RoomService roomSvc = new RoomServiceHibernate();
 					RoomStockService roomStockSvc = new RoomStockServiceHibernate();
-					Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId"));
-					if (compId == null ){
+					String compString = (String) request.getSession().getAttribute("compId");
+					if (compString == null ){
 						response.sendRedirect(request.getContextPath() + "/sean/select_page.jsp");
 						return;
 					}
+					Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId"));
 					roomList = roomSvc.getRoomByCompId(compId);
 					for (Room room : roomList) {
 						Set<Room_photo> roomPhoto = roomSvc.getAllPhoto(room.getRoomId());
@@ -597,8 +598,11 @@ input {
                 }
             }
             function refreshDate(roomId,  targetObj) {
+           	 	var path = window.location.pathname;
+        	 	var webCtx = path.substring(0, path.indexOf('/', 1));
+        	 	var url = location.origin+webCtx+"/sean/RoomStockServlet"
             	$.ajax({
-            		  url: "/TravelWeb-collab/sean/RoomStockServlet",
+            		  url: url,
             		  type: "POST",                  // GET | POST | PUT | DELETE | PATCH
             		  data: {
             			  "action" : "showStocks",

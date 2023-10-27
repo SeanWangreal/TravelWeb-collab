@@ -109,8 +109,10 @@ public class Room_ordServiceHibernate {
 		return dao.getRoomOrdVo(cartId , cusId);
 	}
 	
-	public  Map<Room_ord,List<String>> getRoomOrdByCompId(Integer compId){
-		return dao.getRoomOrdByCompId(compId);
+	public  Map<Room_ord,List<String>> getRoomOrdByCompId(Integer compId,Integer beginCount,String ordOrReview){
+		return dao.getRoomOrdByCompId(compId,beginCount,ordOrReview);
 	}
-
+	public  Map<Room_ord,List<String>> getOneRoomOrd(Integer roomOrdId, Integer compId){
+		return dao.getRoomOrdByCompIdOrdId(roomOrdId, compId);
+	}
 }

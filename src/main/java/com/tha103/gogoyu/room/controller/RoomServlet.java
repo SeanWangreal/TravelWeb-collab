@@ -51,9 +51,12 @@ public class RoomServlet extends HttpServlet {
 		res.setContentType("text/html; charset=UTF-8");
 		Room room = null;
 		String roomId = req.getParameter("roomId");
-		String compId = req.getParameter("compId");
 		HttpSession session = req.getSession();
-		System.out.println((String)session.getAttribute("compId"));
+		String compId = (String) session.getAttribute("compId");
+		if (compId == null) {
+			res.sendRedirect(req.getContextPath() + "/sean/ken/com_mem_signin.jsp");
+			return;
+		}
 		String forwardPath = "";
 		String action = req.getParameter("action");
 		if (action == null) {

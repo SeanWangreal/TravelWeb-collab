@@ -120,15 +120,15 @@ public class ConsumerServlet extends HttpServlet {
 				return;// 程式中斷
 			}
 			/*************************** 2.開始查詢資料 *****************************************/
-			boolean Duplicate = cusSvc.checkDuplicateAccount(str);
+			Consumer consumer  = cusSvc.checkDuplicateAccount(str);
 
-		    if (!Duplicate) {
+		    if (consumer == null) {
 		       errorMsgs.add("查無重複");
 		    } 
 				// Send the use back to the form, if there were errors
 			  if (!errorMsgs.isEmpty()) {
 				    req.setAttribute("errorMsgs", errorMsgs);
-				    RequestDispatcher failureView = req.getRequestDispatcher("/eric/personal_detial.jsp");
+				    RequestDispatcher failureView = req.getRequestDispatcher("/eric/signin.jsp");
 				    failureView.forward(req, res);
 				   }
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
@@ -149,7 +149,6 @@ public class ConsumerServlet extends HttpServlet {
 			Integer cusId = Integer.valueOf(req.getParameter("cusId"));
 
 			/*************************** 2.開始查詢資料 ****************************************/
-//			ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
 			Consumer consumer = cusSvc.getOneCus(cusId);
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/

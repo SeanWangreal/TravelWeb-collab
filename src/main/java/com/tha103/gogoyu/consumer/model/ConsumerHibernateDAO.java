@@ -106,15 +106,15 @@ public class ConsumerHibernateDAO implements ConsumerDAO_interface {
 	}
 
 	@Override
-	public List<Consumer> getCusAccount(String cusAccount) {
+	public Consumer getCusAccount(String cusAccount) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			List<Consumer> list = session
+			Consumer consumer = session
 					.createQuery("from Consumer where cus_account = :cusAccount", Consumer.class)
-					.setParameter("cusAccount", cusAccount).list();
+					.setParameter("cusAccount", cusAccount).uniqueResult();
 			session.getTransaction().commit();
-			return list;
+			return consumer;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
