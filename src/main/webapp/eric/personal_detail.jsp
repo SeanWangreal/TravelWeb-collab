@@ -48,6 +48,10 @@ Consumer consumer = (Consumer) request.getAttribute("consumer"); //EmpServlet.ja
                 height: 60vh;
             }
         }
+        img{
+        width:200px;
+        height:200px;
+        }
     </style>
 </head>
 
@@ -132,10 +136,9 @@ Consumer consumer = (Consumer) request.getAttribute("consumer"); //EmpServlet.ja
                 <br>
                 <!-- 會員您好 -->
                 <section class="item" style="width:800px">
-                    <h1 style="border: 0px solid">${consumer.cusName},您好!</h1>
+                    <h1 style="border: 0px solid">${consumer.cusName},${cusId}您好!</h1>
                     <br>
-                    <button typ="summit" class="logoutbtn" style="float: right;" name="action" value="Logout">按此登出</button>
-                    <span style=" font-size:21px ;float: right">( 不是 CHENG YAN CHEN 嗎? )</span>
+                    <button type="summit" class="logoutbtn" style="float: right;" name="action" value="Logout">按此登出</button>
                     
                 </section>
                 <br>
@@ -145,7 +148,7 @@ Consumer consumer = (Consumer) request.getAttribute("consumer"); //EmpServlet.ja
                 <h5 style="font-weight:bolder">會員資料</h5>
                     <span style="float: left">在個人資料中更新最新資訊並確認<span>
                             <div class="memBtn" id="memBtn"style="text-decoration: none; text-align: right; padding-right:120px; font-size:16px; font-family: 粉圓">
-                                <p>編輯</p>
+                                <a href="personal_detail_update.jsp">編輯</a>
                             </div>
                             <div class="circle">C</div>
                             <br>
@@ -176,7 +179,7 @@ Consumer consumer = (Consumer) request.getAttribute("consumer"); //EmpServlet.ja
                                     <input class="mem" id="mem"  value="${consumer.cusSex}"
                                         readonly></input><br><br>
 
-                                    <img src="${pageContext.request.contextPath}/eric/PictureServlet?cus_id=${consumer.cusId}">                                        value="北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北" readonly></input><br><br>
+                                    <img src="${pageContext.request.contextPath}/eric/PictureServlet?cus_id=${consumer.cusId}"> 
 
                                 </div>
                             </div>

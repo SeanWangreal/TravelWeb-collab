@@ -81,7 +81,7 @@
                             <a href="">Forgot Password</a>
                         </div>
                         <button type="submit" class="btn btn-primary py-3 w-100 mb-4" name="action" value="getOne_For_Login">登入</button>
-                        <p class="text-center mb-0">沒有帳號嗎? <a href="">點此註冊</a></p>
+                        <p class="text-center mb-0">沒有帳號嗎? <a href="signup_info.jsp">點此註冊</a></p>
                     </div>
                 </div>
             </div>
