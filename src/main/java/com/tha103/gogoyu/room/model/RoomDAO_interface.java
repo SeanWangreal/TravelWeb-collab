@@ -22,6 +22,6 @@ public interface RoomDAO_interface {
 	List<Room> getHotRoom();
 //	List<Room> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number);
 	Map<Room, String> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number);
-	
+	List<Object> getRoomProdutDetail(Integer roomId);
 	
 }

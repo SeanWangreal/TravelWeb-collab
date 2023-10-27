@@ -22,6 +22,7 @@ import com.tha103.gogoyu.consumer.model.Consumer;
 import com.tha103.gogoyu.hotel_info.model.Hotel_info;
 import com.tha103.gogoyu.room_ord.model.Room_ord;
 import com.tha103.gogoyu.room_photo.model.Room_photo;
+import com.tha103.gogoyu.hotel_info.model.Hotel_infoServiceHibernate;
 
 import util.HibernateUtil;
 
@@ -222,30 +223,29 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		return null;
 	}
 	
-//	public Map<Room, Object> gotRoomProdutDetail(Integer roomId) {
-//	try {
-//		getSession().beginTransaction();
-//		Map<Room, Object> map = new LinkedHashMap<Room, Object>();
-//		Room room = getSession().get(Room.class, roomId);
-//		List<Room_photo> RoomPhotoList = getSession().createQuery("select * from Room_photo where room_id =:room_id", Room_photo.class)
-//				.setParameter("room_id", roomId).list();
-//		Company company = getSession().get(Company.class, roomId);
-//		Hotel_info hotelInfo = getSession().get(Hotel_info.class, company.getHotelInfo());
-//		
-//		List<Room> list = query1.list();
-//		for(Room room : list) {
-//			Company company = getSession().get(Company.class, room.getCompId());
-//			String compName = company.getCompName();
-//			map.put(room, compName);
-//		}
-//		getSession().getTransaction().commit();
-//		return map;
-//	} catch (Exception e) {
-//		e.printStackTrace();
-//		getSession().getTransaction().rollback();
-//	}
-//	return null;
-//}
+	public List<Object> getRoomProdutDetail(Integer roomId) {
+	try {
+		getSession().beginTransaction();
+		List<Object> list = new ArrayList<Object>();
+		Room room = getSession().get(Room.class, roomId);
+		List<Integer> RoomPhotoIdList = getSession().createQuery("select room_photo_id from Room_photo where room_id =:room_id", Integer.class)
+				.setParameter("room_id", roomId).list();
+		Company company = getSession().get(Company.class, roomId);
+		Integer hotel_info_id = company.getHotelInfoId();
+		Hotel_infoServiceHibernate hotelInfoSvc = new Hotel_infoServiceHibernate();
+		List<String> hotelInfoList = hotelInfoSvc.getHotelInfoList(hotel_info_id);
+		list.add(room);
+		list.add(RoomPhotoIdList);
+		list.add(company);
+		list.add(hotelInfoList);
+		getSession().getTransaction().commit();
+		return list;
+	} catch (Exception e) {
+		e.printStackTrace();
+		getSession().getTransaction().rollback();
+	}
+	return null;
+}
 	
 //	public List<Room> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number) {
 //		try {
@@ -305,9 +305,12 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 	
 	
 	public static void main(String[] args) {
-		RoomHibernateDAO dao = new RoomHibernateDAO(HibernateUtil.getSessionFactory());
-		System.out.println(dao.getAllPhoto(6));
+//		RoomHibernateDAO dao = new RoomHibernateDAO(HibernateUtil.getSessionFactory());
+//		System.out.println(dao.getAllPhoto(6));
+		
+		
+		
 	}
-
+		
 
 }

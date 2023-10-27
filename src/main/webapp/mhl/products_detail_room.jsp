@@ -1,6 +1,20 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
+<%@ page import="com.tha103.gogoyu.room.model.*" %>
+<%@ page import="com.tha103.gogoyu.room.model.*" %>
+<%@ page import="com.tha103.gogoyu.room_photo.model.*" %>
+<%@ page import="com.tha103.gogoyu.company.model.*" %>
+<%@ page import="com.tha103.gogoyu.hotel_info.model.*" %>
+
+<%
+	List<Object> list = (List<Object>)request.getAttribute("productDetailRoom");
+	Room room = (Room)list.get(0);
+	List<Integer> RoomPhotoIdList = (List<Integer>)list.get(1);
+	Company company = (Company)list.get(2);
+	List<String> hotelInfoList = (List<String>)list.get(3);
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -154,11 +168,11 @@
             <h2 class="mx-auto">¥S§Ì¤j¶º©±</h2>
             <!--¤Û¿O¤ù-->
             <div id="carouseltrip" class="carousel slide border mx-auto" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                  <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                  <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                  <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
+<!--                 <div class="carousel-indicators"> -->
+<!--                   <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button> -->
+<!--                   <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="1" aria-label="Slide 2"></button> -->
+<!--                   <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="2" aria-label="Slide 3"></button> -->
+<!--                 </div> -->
                 <div class="carousel-inner h-100">
                   <div class="carousel-item active">
                     <img src="https://picsum.photos/2800/1600?random=1" class="d-block w-100 h-100" alt="...">
@@ -166,9 +180,7 @@
                   <div class="carousel-item">
                     <img src="https://picsum.photos/2800/1600?random=2" class="d-block w-100 h-100" alt="...">
                   </div>
-                  <div class="carousel-item">
-                    <img src="https://picsum.photos/2800/1600?random=3" class="d-block w-100 h-100" alt="...">
-                  </div>
+                  
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouseltrip" data-bs-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>

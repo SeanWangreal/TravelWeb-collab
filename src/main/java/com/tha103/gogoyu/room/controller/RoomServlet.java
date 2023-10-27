@@ -296,9 +296,11 @@ public class RoomServlet extends HttpServlet {
 			req.setAttribute("searchRoomResult", searchRoomResult); 
 			forwardPath = "/mhl/search_results.jsp";
 			break;
-		case "hotRoom":
+		case "getProductDetailRoom":
 			Integer room_Id = Integer.valueOf(req.getParameter("room_id"));
-			
+			List<Object> list = roomSvc.getRoomProdutDetail(room_Id);
+			req.setAttribute("productDetailRoom", list);
+			forwardPath = "/mhl/products_detail_room.jsp";
 		}
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 		dispatcher.forward(req, res);

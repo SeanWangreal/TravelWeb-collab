@@ -25,4 +25,5 @@ public interface RoomService {
 	public List<Room> getHotRoom();
 //	public List<Room> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number);
 	public Map<Room, String> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number);
+	public List<Object> getRoomProdutDetail(Integer roomId);
 }

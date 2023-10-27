@@ -106,6 +106,10 @@ public class RoomServiceHibernate implements RoomService{
 		return dao.searchRoom(comp_address, checkIn, checkOut, number);
 	}
 	
+	public List<Object> getRoomProdutDetail(Integer roomId){
+		return dao.getRoomProdutDetail(roomId);
+	}
+	
 	public static void main(String[] args) {
 		RoomServiceHibernate hi = new RoomServiceHibernate();
 		System.out.println(hi.getAll());

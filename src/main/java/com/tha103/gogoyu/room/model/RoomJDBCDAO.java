@@ -365,6 +365,12 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 		return null;
 	}
 
+	@Override
+	public List<Object> getRoomProdutDetail(Integer roomId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 //	@Override
 //	public List<Room> searchRoom(String comp_address, Date checkIn, Date checkOut, Integer number) {
 //		// TODO Auto-generated method stub
