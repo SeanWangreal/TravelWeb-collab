@@ -146,6 +146,8 @@ if ((Integer) request.getSession().getAttribute("cusId") == null) {
 							<p>½s¿è</p>
 						</div>
 						<div class="circle">C</div> <br>
+													<form>
+						
 						<div class="mem_detal">
 								<div class="personal_item"
 									style="width: 30%; font-weight: bolder; font-family: ¯»¶ê; border: none">
@@ -171,8 +173,9 @@ if ((Integer) request.getSession().getAttribute("cusId") == null) {
 								</div>
 								<button>°e¥X</button>
 
-							</form>
 						</div> <br> <br> <br> <br> <br> <br> <br>
+													</form>
+						
 						<br>
 			</div>
 		</main>
