@@ -161,5 +161,8 @@ public class ConsumerHibernateDAO implements ConsumerDAO_interface {
 			session.getTransaction().rollback();
 		}
 	}
-
+	public static void main(String[] args) {
+		ConsumerHibernateDAO dao = new ConsumerHibernateDAO();
+		dao.findByPK(10);
+	}
 }

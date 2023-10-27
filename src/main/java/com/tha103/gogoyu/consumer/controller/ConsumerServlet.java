@@ -235,21 +235,24 @@ public class ConsumerServlet extends HttpServlet {
 		}
 
 		if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
-
+			System.out.println("testssss");
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 ****************************************/
-			Integer cusId = Integer.valueOf(req.getParameter("cusId"));
+//			Integer cusId = Integer.valueOf(req.getParameter("cusId"));
+			Integer cusId = (Integer) req.getSession().getAttribute("cusId");
+			System.out.println(cusId);
 
 			/*************************** 2.開始查詢資料 ****************************************/
 			Consumer consumer = cusSvc.getOneCus(cusId);
 
+			System.out.println("consumer = " + consumer);
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			req.setAttribute("consumer", consumer); // 資料庫取出的empVO物件,存入req
-			String url = "/eric/update_cus_input.jsp";
+			String url = "/eric/personal_detail_update.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 			successView.forward(req, res);
 		}
@@ -321,6 +324,7 @@ public class ConsumerServlet extends HttpServlet {
 			try {
 				cusSex = Integer.valueOf(req.getParameter("cusSex").trim());
 			} catch (NumberFormatException e) {
+				e.printStackTrace();
 				cusSex = 0;
 				errorMsgs.add("獎金請填數字.");
 			}
@@ -563,6 +567,7 @@ public class ConsumerServlet extends HttpServlet {
 			try {
 				cusSex = Integer.valueOf(req.getParameter("cusSex").trim());
 			} catch (NumberFormatException e) {
+				e.printStackTrace();
 				cusSex = 0;
 				errorMsgs.add("請填數字.");
 			}
