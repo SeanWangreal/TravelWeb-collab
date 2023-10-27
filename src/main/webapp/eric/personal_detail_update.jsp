@@ -139,6 +139,8 @@ if ((Integer) request.getSession().getAttribute("cusId") == null) {
 
 				</section>
 				<br> <br> <br> <br>
+				<form>
+				
 				<h5 style="font-weight: bolder">會員資料,${consumer.cusId}</h5>
 				<span style="float: left">在個人資料中更新最新資訊並確認<span>
 						<div class="memBtn" id="memBtn"
@@ -146,7 +148,6 @@ if ((Integer) request.getSession().getAttribute("cusId") == null) {
 							<p>編輯</p>
 						</div>
 						<div class="circle">C</div> <br>
-													<form>
 						
 						<div class="mem_detal">
 								<div class="personal_item"
@@ -167,17 +168,18 @@ if ((Integer) request.getSession().getAttribute("cusId") == null) {
 										value="${consumer.cusPhone}"></input><br> <br> <input
 										class="mem" id="mem" value="${consumer.cusAddress}"></input><br>
 									<br> <input class="mem" id="mem"
-										value="${consumer.cusSex}"></input><br> <br> <img
-										src="${pageContext.request.contextPath}/eric/PictureServlet?cus_id=${consumer.cusId}">
-									<input type="file" name="cusPhoto" style="width:200px">
+										value="${consumer.cusSex}" ></input><br> <br> <img
+										src="${pageContext.request.contextPath}/eric/PictureServlet?cus_id=${consumer.cusId}" style="height:200px>
+									<input type="file" name="cusPhoto" ">
 								</div>
 								<button>送出</button>
 
 						</div> <br> <br> <br> <br> <br> <br> <br>
-													</form>
+													
 						
 						<br>
 			</div>
+			</form>
 		</main>
 	</div>
 
