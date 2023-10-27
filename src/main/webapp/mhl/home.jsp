@@ -83,7 +83,7 @@
 
 <body>
     <nav class="st">
-        <a class="logo" id="home" href="#">GO<i class="fa-solid fa-location-dot" style="color: #ffbf1c;"></i>GOYU</a>
+        <a class="logo" id="home" href="${pageContext.request.contextPath}/mhl/home.jsp">GO<i class="fa-solid fa-location-dot" style="color: #ffbf1c;"></i>GOYU</a>
         <a class="word" id="hotel" href="#">HOT<i class="fa-solid fa-fire"
                 style="color: #ff9500; background-color:transparent;"></i>Hotel</a>
         <a class="word" id="journel" href="#">HOT<i class="fa-solid fa-fire"
@@ -102,12 +102,12 @@
                             background-color:transparent;"></i>
             </button>
             <button type="button" class="head_btn">
-                <a class="profile" href="/ken/com_mem_signin.jsp">
+                <a class="profile" href="${pageContext.request.contextPath}/ken/com_mem_signin.jsp">
                    <div style="color: black;">業者</div>
                 </a>
             </button>
             <button type="button" class="head_btn">
-                <a class="profile" href="#">
+                <a class="profile" href="${pageContext.request.contextPath}/eric/personal_detail.jsp">
                     <i class="fa-solid fa-user" style="color: black; font-size:30px;
                                 background-color:transparent;"></i>
                 </a>
@@ -129,7 +129,8 @@
         </aside>
     </nav>
 
-    <form id="background" method="post" action="${pageContext.request.contextPath}/sean/RoomServlet">
+    <form id="background" method="post" action="${pageContext.request.contextPath}/sean/SearchServlet">
+    	<input type="hidden" value="roomSearch" name="action">
         <img src="4621.png" alt="">
         <div id="search">
             <div id="btn_block">
@@ -142,29 +143,29 @@
                 <div id="inside_form">
                     <div style="flex-basis: 20%;">
                         <select class="form-select me-2 in" name="comp_address" aria-label="Default select example">
-                            <option value="Taipei_City">台北市</option>
-                            <option value="NewTaipei_City">新北市</option>
-                            <option value="Taoyuan_City">桃園市</option>
-                            <option value="Taichung_City">台中市</option>
-                            <option value="Tainan_City">台南市</option>
-                            <option value="Kaohsiung_City">高雄市</option>
-                            <option value="Hsinchu_County">新竹縣</option>
-                            <option value="Miaoli_County">新北市</option>
-                            <option value="Changhua_County">苗栗縣</option>
-                            <option value="Nantou_County">彰化縣</option>
-                            <option value="Nantou_County">南投縣</option>
-                            <option value="Yunlin_County">雲林縣</option>
-                            <option value="Chiayi_County">嘉義縣</option>
-                            <option value="Pingtung_County">屏東縣</option>
-                            <option value="Yilan_City">宜蘭市</option>
-                            <option value="Hualien_City">花蓮市</option>
-                            <option value="Taitung_County">台東縣</option>
-                            <option value="Kinmen_County">金門縣</option>
-                            <option value="Lienchiang_County">連江縣</option>
-                            <option value="Keelung_City">基隆市</option>
-                            <option value="Hsinchu_City">新竹市</option>
-                            <option value="Chiayi_City">嘉義市</option>
-                            <option value="Penghu_County">澎湖縣</option>
+                            <option value="台北市">台北市</option>
+                            <option value="新北市">新北市</option>
+                            <option value="桃園市">桃園市</option>
+                            <option value="台中市">台中市</option>
+                            <option value="台南市">台南市</option>
+                            <option value="高雄市">高雄市</option>
+                            <option value="新竹縣">新竹縣</option>
+                            <option value="新北市">新北市</option>
+                            <option value="苗栗縣">苗栗縣</option>
+                            <option value="彰化縣">彰化縣</option>
+                            <option value="南投縣">南投縣</option>
+                            <option value="雲林縣">雲林縣</option>
+                            <option value="嘉義縣">嘉義縣</option>
+                            <option value="屏東縣">屏東縣</option>
+                            <option value="宜蘭市">宜蘭市</option>
+                            <option value="花蓮市">花蓮市</option>
+                            <option value="台東縣">台東縣</option>
+                            <option value="金門縣">金門縣</option>
+                            <option value="連江縣">連江縣</option>
+                            <option value="基隆市">基隆市</option>
+                            <option value="新竹市">新竹市</option>
+                            <option value="嘉義市">嘉義市</option>
+                            <option value="澎湖縣">澎湖縣</option>
                         </select>
                     </div>
                     <div style="flex-basis: 20%;">
