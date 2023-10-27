@@ -59,21 +59,21 @@ public class RoomServlet extends HttpServlet {
 		}
 		String forwardPath = "";
 		String action = req.getParameter("action");
-		if (action == null) {
-			action = "";
-		} else {
-			action = action.strip();
-			String correctAction = "";
-			if (action.contains(" ")) {
-				for (int i = 0; i < action.length(); i++) {
-					if (action.charAt(i) != (char) ' ') {
-						correctAction += action.charAt(i);
-					}
-				}
-				action = correctAction;
-			}
-			System.out.println(action);
-		}
+//		if (action == null) {
+//			action = "";
+//		} else {
+//			action = action.strip();
+//			String correctAction = "";
+//			if (action.contains(" ")) {
+//				for (int i = 0; i < action.length(); i++) {
+//					if (action.charAt(i) != (char) ' ') {
+//						correctAction += action.charAt(i);
+//					}
+//				}
+//				action = correctAction;
+//			}
+//			System.out.println(action);
+//		}
 		switch (action) {
 		case "add":
 			forwardPath = "/sean/hotel_room_add.jsp";
