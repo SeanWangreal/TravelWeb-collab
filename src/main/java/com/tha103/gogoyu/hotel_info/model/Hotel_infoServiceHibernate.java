@@ -1,4 +1,5 @@
 package com.tha103.gogoyu.hotel_info.model;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.tha103.gogoyu.company.model.Company;
@@ -78,9 +79,14 @@ public class Hotel_infoServiceHibernate {
 			return dao.getAll();
 		}
 		
+		public List<String> getHotelInfoList(Integer hoteInfoId){
+			return dao.hotelInfoList(hoteInfoId);
+		}
+		
 		public static void main(String[] args) {
 			Hotel_infoServiceHibernate hi = new Hotel_infoServiceHibernate();
-			System.out.println(hi.getAllHotel_info());
+//			System.out.println(hi.getAllHotel_info());
+			
 		}
 	}
 

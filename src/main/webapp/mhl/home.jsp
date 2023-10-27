@@ -103,6 +103,11 @@
             </button>
             <button type="button" class="head_btn">
                 <a class="profile" href="#">
+                   <div style="color: black;">業者</div>
+                </a>
+            </button>
+            <button type="button" class="head_btn">
+                <a class="profile" href="#">
                     <i class="fa-solid fa-user" style="color: black; font-size:30px;
                                 background-color:transparent;"></i>
                 </a>
@@ -124,7 +129,7 @@
         </aside>
     </nav>
 
-    <form id="background" action="./serching.html">
+    <form id="background" method="post" action="${pageContext.request.contextPath}/sean/RoomServlet">
         <img src="4621.png" alt="">
         <div id="search">
             <div id="btn_block">
@@ -136,21 +141,45 @@
                 <hr id="kk">
                 <div id="inside_form">
                     <div style="flex-basis: 20%;">
-                        <input class="in" id="where" type="search" placeholder="Destination...">
+                        <select class="form-select me-2 in" name="comp_address" aria-label="Default select example">
+                            <option value="Taipei_City">台北市</option>
+                            <option value="NewTaipei_City">新北市</option>
+                            <option value="Taoyuan_City">桃園市</option>
+                            <option value="Taichung_City">台中市</option>
+                            <option value="Tainan_City">台南市</option>
+                            <option value="Kaohsiung_City">高雄市</option>
+                            <option value="Hsinchu_County">新竹縣</option>
+                            <option value="Miaoli_County">新北市</option>
+                            <option value="Changhua_County">苗栗縣</option>
+                            <option value="Nantou_County">彰化縣</option>
+                            <option value="Nantou_County">南投縣</option>
+                            <option value="Yunlin_County">雲林縣</option>
+                            <option value="Chiayi_County">嘉義縣</option>
+                            <option value="Pingtung_County">屏東縣</option>
+                            <option value="Yilan_City">宜蘭市</option>
+                            <option value="Hualien_City">花蓮市</option>
+                            <option value="Taitung_County">台東縣</option>
+                            <option value="Kinmen_County">金門縣</option>
+                            <option value="Lienchiang_County">連江縣</option>
+                            <option value="Keelung_City">基隆市</option>
+                            <option value="Hsinchu_City">新竹市</option>
+                            <option value="Chiayi_City">嘉義市</option>
+                            <option value="Penghu_County">澎湖縣</option>
+                        </select>
                     </div>
                     <div style="flex-basis: 20%;">
 
-                        <input class="in" id="date" type="text" placeholder="Check in..." onfocus="(this.type='date')"
+                        <input class="in" name="checkIn" id="date" type="text" placeholder="Check in..." onfocus="(this.type='date')"
                             onblur="(this.type='text')">
                     </div>
                     <div style="flex-basis: 20%;">
 
-                        <input class="in" id="date" type="text" placeholder="Check out..." onfocus="(this.type='date')"
+                        <input class="in" name="checkOut" id="date" type="text" placeholder="Check out..." onfocus="(this.type='date')"
                             onblur="(this.type='text')">
                     </div>
                     <div style="flex-basis: 20%;">
 
-                        <input class="in" id="people" type="search" placeholder="people...">
+                        <input class="in" name="number" id="people" type="search" placeholder="people...">
                     </div>
 
                     <button id="s" type="submit" style="flex-basis: 100px;">
@@ -179,21 +208,23 @@
                         </div>
                         <div class="carousel-inner ">
                             <div class="carousel-item active  ">
-                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=((Room)list.get(0)).getRoomId() %>" class="d-block w-100"   alt="...">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5 class="bg-light text-dark mb-0"><%=(list.get(0)).getRoomName() %></h5>
-                                    <p class="bg-light text-dark">TWD <%=(list.get(0)).getPrice().intValue() %></p>
-                                </div>
+	                            <a href="${pageContext.request.contextPath}/sean/RoomServlet?room_id=<%=(list.get(0)).getRoomId()%>&action=hotRoom" class="d-block w-100"   alt="...">
+	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=(list.get(0)).getRoomId() %>" class="d-block w-100"   alt="...">
+	                                <div class="carousel-caption d-none d-md-block">
+	                                    <h5 class="bg-light text-dark mb-0"><%=(list.get(0)).getRoomName() %></h5>
+	                                    <p class="bg-light text-dark">TWD <%=(list.get(0)).getPrice().intValue() %></p>
+	                                </div>
+	                            </a>
                             </div>
                             <div class="carousel-item ">
-                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=((Room)list.get(1)).getRoomId() %>" class="d-block w-100"  alt="...">
+                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=(list.get(1)).getRoomId() %>" class="d-block w-100"  alt="...">
                                 <div class="carousel-caption d-none d-md-block">
                                     <h5 class="bg-light text-dark mb-0"><%=(list.get(1)).getRoomName() %></h5>
                                     <p class="bg-light text-dark">TWD <%=(list.get(1)).getPrice().intValue() %></p>
                                 </div>
                             </div>
                             <div class="carousel-item  ">
-                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=((Room)list.get(2)).getRoomId() %>" class="d-block w-100"  alt="...">
+                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=(list.get(2)).getRoomId() %>" class="d-block w-100"  alt="...">
                                 <div class="carousel-caption d-none d-md-block">
                                     <h5 class="bg-light text-dark mb-0"><%=(list.get(2)).getRoomName() %></h5>
                                     <p class="bg-light text-dark">TWD <%=(list.get(2)).getPrice().intValue() %></p>

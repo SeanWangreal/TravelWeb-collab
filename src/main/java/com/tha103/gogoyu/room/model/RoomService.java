@@ -3,6 +3,7 @@ package com.tha103.gogoyu.room.model;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.tha103.gogoyu.room_photo.model.Room_photo;
@@ -22,5 +23,7 @@ public interface RoomService {
 	public Set<Room_photo> getAllPhoto(Integer roomId);
 	public Room getRoom(Integer roomId);
 	public List<Room> getHotRoom();
-	public List<Room> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number);
+//	public List<Room> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number);
+	public Map<Room, String> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number);
+	public List<Object> getRoomProdutDetail(Integer roomId);
 }

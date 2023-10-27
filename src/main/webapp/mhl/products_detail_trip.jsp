@@ -1,3 +1,6 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,7 +37,7 @@
             position: relative;
             left: 360px;
             padding-bottom: 50px;
-            font-family: "Á≤âÂúì";
+            font-family: "Øª∂Í";
             font-size: 16px;
             background-color: white;
             width: calc(100% - 360px - 70px);
@@ -108,21 +111,48 @@
             <br>shop<br>shop<br>shop<br>shop<br>shop<br>shop
         </aside>
     </nav>    
-        <div class="d-flex flex-column">
-            <!--ÊêúÂ∞ãÊ¨Ñ-->
+        <div class="d-flex flex-column mb-4">
+            <!--∑j¥MƒÊ-->
             <nav class="navbar navbar-light bg-light">
                 <div class="container-fluid justify-content-center">
                   <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="ÈñãÂßãÊôÇÈñì" aria-label="Search">
-                    <input class="form-control me-2" type="search" placeholder="ÁµêÊùüÊôÇÈñì" aria-label="Search">
-                    <input class="form-control me-2" type="search" placeholder="ÂπæÂÄãÂ§ß‰∫∫Â∞èÂ≠©" aria-label="Search">
+                    <select class="form-select me-2" aria-label="Default select example">
+                        <option value="Taipei_City">•x•_•´</option>
+                        <option value="NewTaipei_City">∑s•_•´</option>
+                        <option value="Taoyuan_City">ÆÁ∂È•´</option>
+                        <option value="Taichung_City">•x§§•´</option>
+                        <option value="Tainan_City">•x´n•´</option>
+                        <option value="Kaohsiung_City">∞™∂Ø•´</option>
+                        <option value="Hsinchu_County">∑s¶Àø§</option>
+                        <option value="Miaoli_County">∑s•_•´</option>
+                        <option value="Changhua_County">≠]Æﬂø§</option>
+                        <option value="Nantou_County">π¸§∆ø§</option>
+                        <option value="Nantou_County">´nßÎø§</option>
+                        <option value="Yunlin_County">∂≥™Lø§</option>
+                        <option value="Chiayi_County">π≈∏qø§</option>
+                        <option value="Pingtung_County">´Ã™Fø§</option>
+                        <option value="Yilan_City">©yƒı•´</option>
+                        <option value="Hualien_City">™·Ω¨•´</option>
+                        <option value="Taitung_County">•x™Fø§</option>
+                        <option value="Kinmen_County">™˜™˘ø§</option>
+                        <option value="Lienchiang_County">≥s¶øø§</option>
+                        <option value="Keelung_City">∞Ú∂©•´</option>
+                        <option value="Hsinchu_City">∑s¶À•´</option>
+                        <option value="Chiayi_City">π≈∏q•´</option>
+                        <option value="Penghu_County">ºÍ¥Úø§</option>
+                    </select>
+                    <input class="form-control me-2" type="text" placeholder="∂}©l§È¥¡..." aria-label="Search" onfocus="(this.type='date')"
+                    onblur="(this.type='text')">
+                    <input class="form-control me-2" type="text" placeholder="µ≤ßÙ§È¥¡..." aria-label="Search" onfocus="(this.type='date')"
+                    onblur="(this.type='text')">
+                    <input class="form-control me-2" type="text" placeholder="§Hº∆..." aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                   </form>
                 </div>
             </nav>
-            <!--ÂïÜÂìÅÂêç-->
-            <h2 class="mx-auto">ÈáéÊü≥‰∫åÂ§©‰∏ÄÂ§ú</h2>
-            <!--ÂπªÁáàÁâá-->
+            <!--∞”´~¶W-->
+            <h2 class="mx-auto">≥•¨h§G§—§@©]</h2>
+            <!--§€øO§˘-->
             <div id="carouseltrip" class="carousel slide border mx-auto" data-bs-ride="carousel">
                 <div class="carousel-indicators">
                   <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -149,43 +179,85 @@
                   <span class="visually-hidden">Next</span>
                 </button>
             </div>
-            <!--Âú∞Âúñ ‰ΩçÁΩÆ ÊôØÈªû ËÅØÁµ° Ë©ïÂÉπ-->
-            <div class="container mt-2 border" id="content1">
+            <!--¶aπœ ©“¶bø§•´ ¥∫¬I ¡pµ∏ µ˚ª˘-->
+            <div class="container mt-2 border h-100" id="content1">
                 <div class="row justify-content-center align-items-center h-100">
-                    <!--Âú∞Âúñ-->
-                    <div class="col-4 border h-100">
+                    <!--¶aπœ-->
+                    <div class="col-4 h-100 mt-2 mb-2">
                         <a href="#">
                             <i class="fa-solid fa-map-location-dot h-100" id="map"></i>
                         </a>
                     </div>
-                    <!-- ‰ΩçÁΩÆ ÊôØÈªû -->
-                    <div class="col-4 border h-100">
-                        <span class="badge bg-secondary">Êñ∞ÂåóÂ∏Ç</span>
-                        <span class="badge bg-primary">Â•≥ÁéãÈ†≠</span>
-                        <span class="badge bg-primary">‰ªôÂ•≥Èûã</span>
-                        <span class="badge bg-primary">ÈáëÂ±±ËÄÅË°ó</span>
-                        <span class="badge bg-primary">Â•≥ÁéãÈ†≠</span>
-                        <span class="badge bg-primary">‰ªôÂ•≥Èûã</span>
-                        <span class="badge bg-primary">ÈáëÂ±±ËÄÅË°ó</span>
-                        <span class="badge bg-primary">Â•≥ÁéãÈ†≠</span>
-                        <span class="badge bg-primary">‰ªôÂ•≥Èûã</span>
-                        <span class="badge bg-primary">ÈáëÂ±±ËÄÅË°ó</span>
+                    <!-- ©“¶bø§•´ ¥∫¬I -->
+                    <div class="col-4 h-100 mt-2 mb-2">
+                        <span class="badge bg-secondary">∑s•_•´</span>
+                        <span class="badge bg-primary">§k§˝¿Y</span>
+                        <span class="badge bg-primary">•P§kæc</span>
+                        <span class="badge bg-primary">™˜§s¶—µÛ</span>
+                        <span class="badge bg-primary">§k§˝¿Y</span>
+                        <span class="badge bg-primary">•P§kæc</span>
+                        <span class="badge bg-primary">™˜§s¶—µÛ</span>
+                        <span class="badge bg-primary">§k§˝¿Y</span>
+                        <span class="badge bg-primary">•P§kæc</span>
+                        <span class="badge bg-primary">™˜§s¶—µÛ</span>
                     </div>
-                    <!-- ËÅØÁµ° Ë©ïÂÉπ -->
-                    <div class="col-4 border h-100">
+                    <!-- ¡pµ∏ µ˚ª˘ -->
+                    <div class="col-4 h-100 mt-2 mb-2">
                         <a href="#">
                             <button type="button" class="btn btn-primary mb-3">
                                 <i class="fa-solid fa-message"></i>
-                                ËÅØÁπ´Ê•≠ËÄÖ
+                                ¡p√¥∑~™Ã
                             </button>
                         </a>
                         <a href="#">
                             <button type="button" class="btn btn-primary">
                                 <i class="fa-solid fa-message"></i>
-                                Êü•ÁúãÂåøÂêçË©ïÂÉπ
+                                ¨d¨›∞Œ¶Wµ˚ª˘
                             </button>
                         </a>
-                        
+                    </div>
+                </div>
+            </div>
+            <!-- ¶Êµ{ƒ›© 1 -->
+            <div class="container border h-100" id="content1" >
+                <div class="row  align-items-center h-100">
+                    <!--§Hº∆°B∂}©lÆ…∂°°Bµ≤ßÙÆ…∂°°B™˜√B°BÆw¶s°B¶¨¬√-->
+                    <div class="col-6 h-100 mt-2 mb-2 ">
+                        <div>§Hº∆°G2</div>
+                        <div>∂}©l§È¥¡°G2023-10-10</div>
+                        <div>µ≤ßÙ§È¥¡°G2023-10-13</div>
+                        <div>™˜√B°GNTW 2000</div>
+                        <div>Æw¶s°G5</div>
+                        <a class="" href="#">
+                            <button type="button" class="btn btn-primary">
+                                ¶¨¬√
+                            </button>
+                        </a>
+                    </div>
+                    <!--•[§J¡ ™´®Æ-->
+                    <div class="col-6 h-100">
+                        <form class="" method="" action="" >
+                            <div>•˝•[§J¡ ™´®Æ°Aµ≤±bÆ…¶AøÔº∆∂q</div>
+                            <div>Ω–øÔæ‹¡ ™´®Æ°G
+                            </div>
+                            <select class="form-select me-2 mb-2" aria-label="Default select example" name="">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                            <input type="submit" class="btn btn-primary"  value="•[§J¡ ™´®Æ">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="container border h-100" id="content1" >
+                <div class="row align-items-center h-100">
+                    <!--¨°∞ §∫Æe-->
+                    <div class="col border h-100">
+                        <div class="item h-100">
+                            <h3 class="mt-2">¨°∞ §∫Æe</h3>
+                            <p class="text-wrap">¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe</p>
+                        </div> 
                     </div>
                 </div>
             </div>
