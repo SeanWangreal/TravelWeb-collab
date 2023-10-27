@@ -13,9 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.tha103.gogoyu.adm_meb.model.*;
+import com.tha103.gogoyu.company.model.Company;
+import com.tha103.gogoyu.company.model.CompanyService;
 
 @WebServlet("/hollow/AdmServlet")
-public class Adm_memServlet extends HttpServlet{
+public class AdminServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -23,12 +25,80 @@ public class Adm_memServlet extends HttpServlet{
 		doPost(req, res);
 	}
 
-	public void doPost(HttpServletRequest req, HttpServletResponse res)
-			throws ServletException, IOException {
-
+	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		res.setContentType("text/plain; charset=UTF-8");
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		
+		if ("backendLogin".equals(action)) { // 來自select_page.jsp的請求
+//			System.out.println("signIn");
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+			String admAccount = req.getParameter("admAccount");
+			if (admAccount == null || (admAccount.trim()).length() == 0) {
+				errorMsgs.add("請輸入帳號");
+			}
+			System.out.println(admAccount);
+			
+			String admPassword = req.getParameter("admPassword");
+			if (admPassword == null || (admPassword.trim()).length() == 0) {
+				errorMsgs.add("請輸入密碼");
+			}
+			System.out.println(admPassword);
+			
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/hollow/backend_login.jsp");
+				failureView.forward(req, res);
+				return;// 程式中斷
+			}
+
+//			Integer compId = null;
+//			try {
+//				compId = Integer.valueOf(compAccount);
+//			} catch (Exception e) {
+//				errorMsgs.add("員工編號格式不正確");
+//			}
+//			// Send the use back to the form, if there were errors
+//			if (!errorMsgs.isEmpty()) {
+//				RequestDispatcher failureView = req.getRequestDispatcher("/ken/com_mem.jsp");
+//				failureView.forward(req, res);
+//				return;// 程式中斷
+//			}
+
+			/*************************** 2.開始查詢資料 *****************************************/
+			AdminService adminySvc = new AdminService();
+			Adm_meb administrator = adminySvc.getOneByAccount(admAccount);
+			if (administrator == null) {
+				errorMsgs.add("帳號不存在");
+			}
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/hollow/backend_login.jsp");
+				failureView.forward(req, res);
+				return;// 程式中斷
+			}
+//			System.out.println(administrator.getAdmPassword());
+			if (!admPassword.equals(administrator.getAdmPassword())) {
+				errorMsgs.add("密碼錯誤");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/hollow/backend_login.jsp");
+				failureView.forward(req, res);
+				return;// 程式中斷
+			}
+
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+			System.out.println(administrator);
+			req.setAttribute("admin", administrator); // 資料庫取出的empVO物件,存入req
+//			String url = req.getContextPath()+"/hollow/backend.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher("/hollow/backend.jsp"); // 成功轉交 listOneEmp.jsp
+			successView.forward(req, res);
+		}
 		
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
@@ -65,7 +135,7 @@ public class Adm_memServlet extends HttpServlet{
 				}
 				
 				/***************************2.開始查詢資料*****************************************/
-				Adm_mebService admSvc = new Adm_mebService();
+				AdminService admSvc = new AdminService();
 				Adm_meb admVO = admSvc.getOneAdm(admId);
 				if (admVO == null) {
 					errorMsgs.add("查無資料");
@@ -97,7 +167,7 @@ public class Adm_memServlet extends HttpServlet{
 				Integer empno = Integer.valueOf(req.getParameter("admId"));
 				
 				/***************************2.開始查詢資料****************************************/
-				Adm_mebService empSvc = new Adm_mebService();
+				AdminService empSvc = new AdminService();
 				Adm_meb empVO = empSvc.getOneAdm(empno);
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
@@ -159,7 +229,7 @@ req.setAttribute("admVO", admVO); // 含有輸入格式錯誤的empVO物件,也�
 				}
 				
 				/***************************2.開始修改資料*****************************************/
-				Adm_mebService empSvc = new Adm_mebService();
+				AdminService empSvc = new AdminService();
 				admVO = empSvc.updateAdm(admId, admName, admAcc, admPass);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
@@ -217,7 +287,7 @@ req.setAttribute("admVO", admVO); // 含有輸入格式錯誤的empVO物件,也�
 				}
 				
 				/***************************2.開始新增資料***************************************/
-				Adm_mebService empSvc = new Adm_mebService();
+				AdminService empSvc = new AdminService();
 				admVO = empSvc.addAdm(admName, admAcc, admPass);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
@@ -238,7 +308,7 @@ req.setAttribute("admVO", admVO); // 含有輸入格式錯誤的empVO物件,也�
 				Integer admId = Integer.valueOf(req.getParameter("admId"));
 				
 				/***************************2.開始刪除資料***************************************/
-				Adm_mebService empSvc = new Adm_mebService();
+				AdminService empSvc = new AdminService();
 				empSvc.deleteAdm(admId);
 				
 				/***************************3.�R������,�ǳ����(Send the Success view)***********/								
