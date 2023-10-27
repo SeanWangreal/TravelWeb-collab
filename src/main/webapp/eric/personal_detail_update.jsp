@@ -158,7 +158,7 @@ Consumer consumer = (Consumer) request.getAttribute("consumer"); //EmpServlet.ja
 							
 								<div class="personal_item"
 									style="width: 70%; border: none white; padding-left: 0px">
-									<input class="mem" id="mem" value="${consumer.cusName}" readonly></input><br>
+									<input class="mem" id="mem" value="${cusName}" readonly></input><br>
 									<br> <input class="mem" id="mem" value="cusAccount"
 										readonly></input><br>
 									<br> <input class="mem" id="mem" value="${cusMail}"></input><br>
