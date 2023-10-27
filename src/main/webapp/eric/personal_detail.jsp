@@ -14,7 +14,7 @@ Consumer consumer = (Consumer) request.getAttribute("consumer"); //EmpServlet.ja
     <title>個人資訊</title>
     <link href="../dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
-    <link rel="stylesheet" href="../dist/css/ordinf.css">
+    <link rel="stylesheet" href="../static/eric_css/ordinf.css">
     <link rel="stylesheet" href="">
 
     </script>
@@ -134,7 +134,7 @@ Consumer consumer = (Consumer) request.getAttribute("consumer"); //EmpServlet.ja
                 <section class="item" style="width:800px">
                     <h1 style="border: 0px solid">${consumer.cusName},您好!</h1>
                     <br>
-                    <a class="logoutbtn" style="float: right;">按此登出</a>
+                    <button typ="summit" class="logoutbtn" style="float: right;" name="action" value="Logout">按此登出</button>
                     <span style=" font-size:21px ;float: right">( 不是 CHENG YAN CHEN 嗎? )</span>
                     
                 </section>
