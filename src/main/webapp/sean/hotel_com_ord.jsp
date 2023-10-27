@@ -131,7 +131,10 @@
         },
         dataType : "json", // 預期會接收到回傳資料的格式： json | xml | html
         success : function(data) { // request 成功取得回應後執行
-            var	totalOrd = data[1][3];
+        	var	totalOrd = 0;
+        	if (data.length != 0){
+        		totalOrd = data[1][3];
+        	}
             var html =``;
             for (var i = 0; i < data.length;i+=2){
                 console.log(data[i]);
@@ -275,40 +278,44 @@
 		   	                	$("#allOrd").html("");
 		   	                	console.log(data);
 		   	                	var word = "";
-		   	                    if (data[0].ordStatus == 1){
-		   	                        word = "已成立";
-		   	                    } else{
-		   	                        word = "已取消";
-		   	                    }
-		   	                   var html =`<div class="ord">
-		   							<div>
-		   								<label class="ord-head">訂單編號:<span name="ord_id">`+data[0].roomOrdId+`</span></label>
-		   								<label class="ord-head">房間名稱:<span name="room_name">`+data[1][0]+`</span></label>
-		   								<label class="ord-head">訂單狀態:<span name="room_name">`+word+`</span></label>
-		   							</div>
-		   							<div class="all-info">
-		   								<div>
-		   									<label for="" class="l_long ord-label">房型<br>
-		   									<span class="long" name="room_type">`+data[1][1]+`人房</span></label> <label for=""
-		   										class="l_long ord-label">房數<br>
-		   									<span class="long" name="room_num">`+data[0].amount+`</span></label> <label for=""
-		   										class="l_long ord-label">總金額<br>
-		   									<span class="long" name="total_money">`+data[0].totalPrice+`</span><span>元</span></label>
-		   									<label for="" class="l_long ord-label">顧客名稱<br>
-		   									<span class="long" name="customer_name">`+data[1][2]+`</span></label> <label for=""
-		   										class="l_long ord-label">入住日期<br>
-		   									<span class="long" name="check_in">`+data[0].checkInTime+`</span></label> <label for=""
-		   										class="l_long ord-label">退房日期<br>
-		   									<span class="long" name="check_out">`+data[0].checkOutTime+`</span></label>
-		   								</div>
-		   								<div class="remark-block">
-		   									<label for="" class="remark">備註:</label>
-		   									<p class="remark-info" name="remark">`+data[0].remark+`
-		   									</p>
-		   								</div>
-		   							</div>
-		   						</div>`
-		   	                        $("#allOrd").html(html);
+		   	                	if (data.length != 0){
+			   	                    if (data[0].ordStatus == 1){
+			   	                        word = "已成立";
+			   	                    } else{
+			   	                        word = "已取消";
+			   	                    }
+			   	                   var html =`<div class="ord">
+			   							<div>
+			   								<label class="ord-head">訂單編號:<span name="ord_id">`+data[0].roomOrdId+`</span></label>
+			   								<label class="ord-head">房間名稱:<span name="room_name">`+data[1][0]+`</span></label>
+			   								<label class="ord-head">訂單狀態:<span name="room_name">`+word+`</span></label>
+			   							</div>
+			   							<div class="all-info">
+			   								<div>
+			   									<label for="" class="l_long ord-label">房型<br>
+			   									<span class="long" name="room_type">`+data[1][1]+`人房</span></label> <label for=""
+			   										class="l_long ord-label">房數<br>
+			   									<span class="long" name="room_num">`+data[0].amount+`</span></label> <label for=""
+			   										class="l_long ord-label">總金額<br>
+			   									<span class="long" name="total_money">`+data[0].totalPrice+`</span><span>元</span></label>
+			   									<label for="" class="l_long ord-label">顧客名稱<br>
+			   									<span class="long" name="customer_name">`+data[1][2]+`</span></label> <label for=""
+			   										class="l_long ord-label">入住日期<br>
+			   									<span class="long" name="check_in">`+data[0].checkInTime+`</span></label> <label for=""
+			   										class="l_long ord-label">退房日期<br>
+			   									<span class="long" name="check_out">`+data[0].checkOutTime+`</span></label>
+			   								</div>
+			   								<div class="remark-block">
+			   									<label for="" class="remark">備註:</label>
+			   									<p class="remark-info" name="remark">`+data[0].remark+`
+			   									</p>
+			   								</div>
+			   							</div>
+			   						</div>`
+			   	                        $("#allOrd").html(html);
+		   	                	} else {
+		      	                	 $("#allOrd").text("查無資料");
+		      	                	}
 		   	                 }
 		   	             });
 		   	            	

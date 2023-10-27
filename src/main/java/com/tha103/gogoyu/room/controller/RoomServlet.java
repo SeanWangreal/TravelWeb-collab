@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
@@ -51,50 +52,32 @@ public class RoomServlet extends HttpServlet {
 		res.setContentType("text/html; charset=UTF-8");
 		Room room = null;
 		String roomId = req.getParameter("roomId");
-		String compId = req.getParameter("compId");
+		HttpSession session = req.getSession();
+		String compId = (String) session.getAttribute("compId");
 		if (compId == null) {
-			res.sendRedirect(req.getContextPath() + "/sean/select_page.jsp");
+			res.sendRedirect(req.getContextPath() + "/ken/com_mem_signin.jsp");
 			return;
 		}
-		HttpSession session = req.getSession();
-		System.out.println((String)session.getAttribute("compId"));
 		String forwardPath = "";
 		String action = req.getParameter("action");
-		if (action == null) {
-			action = "";
-		} else {
-			action = action.strip();
-			String correctAction = "";
-			if (action.contains(" ")) {
-				for (int i = 0; i < action.length(); i++) {
-					if (action.charAt(i) != (char) ' ') {
-						correctAction += action.charAt(i);
-					}
-				}
-				action = correctAction;
-			}
-			System.out.println(action);
-		}
+//		if (action == null) {
+//			action = "";
+//		} else {
+//			action = action.strip();
+//			String correctAction = "";
+//			if (action.contains(" ")) {
+//				for (int i = 0; i < action.length(); i++) {
+//					if (action.charAt(i) != (char) ' ') {
+//						correctAction += action.charAt(i);
+//					}
+//				}
+//				action = correctAction;
+//			}
+//			System.out.println(action);
+//		}
 		switch (action) {
 		case "add":
 			forwardPath = "/sean/hotel_room_add.jsp";
-			break;
-		case "getOne_For_Display":
-			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-			if (roomId == null || (roomId.trim()).length() == 0) {
-				errorMsgs.add("請輸入房間編號");
-			}
-			// Send the use back to the form, if there were errors
-			if (!errorMsgs.isEmpty()) {
-				forwardPath = "/sean/select_page.jsp";
-				RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
-				dispatcher.forward(req, res);
-			} else {
-				room = roomSvc.getOneRoom(Integer.parseInt(roomId));
-				req.setAttribute("room", room);
-				forwardPath = "/sean/hotel_room.jsp";
-			}
 			break;
 		case "getAllRoom":
 			session.setAttribute("compId", compId);
@@ -247,7 +230,7 @@ public class RoomServlet extends HttpServlet {
 			}
 			forwardPath = "/sean/hotel_room_all.jsp";
 			break;
-		case "delete2":
+		case "delete":
 			compId = (String) session.getAttribute("compId");
 			roomList = roomSvc.getRoomByCompId(Integer.parseInt(compId));
 			req.setAttribute("roomList", roomList);
@@ -279,6 +262,28 @@ public class RoomServlet extends HttpServlet {
 				forwardPath = "/sean/hotel_room_all.jsp";
 			}
 			break;
+		case "roomSearch":
+			String comp_address = null;
+			comp_address = req.getParameter("comp_address");
+			Date checkIn = null;
+			checkIn = java.sql.Date.valueOf(req.getParameter("checkIn"));
+			Date checkOut = null;
+			checkOut = java.sql.Date.valueOf(req.getParameter("checkOut"));
+			Integer number = null;
+			try {
+				number = Integer.valueOf(req.getParameter("number").trim());
+			}catch(NumberFormatException e){
+				number = 0;
+			}
+			Map<Room, String> searchRoomResult = roomSvc.searchRoom(comp_address, checkIn, checkOut, number);
+			req.setAttribute("searchRoomResult", searchRoomResult); 
+			forwardPath = "/mhl/search_results.jsp";
+			break;
+		case "getProductDetailRoom":
+			Integer room_Id = Integer.valueOf(req.getParameter("room_id"));
+			List<Object> list = roomSvc.getRoomProdutDetail(room_Id);
+			req.setAttribute("productDetailRoom", list);
+			forwardPath = "/mhl/products_detail_room.jsp";
 		}
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 		dispatcher.forward(req, res);

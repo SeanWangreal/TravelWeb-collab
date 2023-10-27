@@ -105,6 +105,8 @@
 	                    </div>                    
 	                </li>
 				</c:forEach>
+			</ul>
+		</div>
     </article>
 
     <article class="art_client_msg">
@@ -128,7 +130,6 @@
         
         <div class="task_add_block">
         	<form action="${pageContext.request.contextPath}/CompanyServlet">
-        		<input type="hidden" name="action"	value="updChkStat">
 	            <input type="text" class="task_name comp_search_value" placeholder="輸入查詢事項…">
 	            <button type="button" class="task_add task_comp_search">查詢</button>
         	</form>
@@ -150,55 +151,16 @@
         <h1 class="title1">會員查詢</h1>
         
         <div class="task_add_block">
-            <input type="text" class="task_name" placeholder="輸入查詢事項…">
-            <button type="button" class="task_add">查詢</button>
+            <input type="text" class="task_name cust_search_value" placeholder="輸入查詢事項…">
+            <button type="button" class="task_add task_cust_search">查詢</button>
         </div>
         
         <div class="task_list_parent">
-            <ul class="list">
+            <ul class="list list_consumer">
                 <li>                    
                     <div class="">
                         <table class="table table-striped">
-                            <tr>
-                                <th>會員ID</th>
-                                <td>2</td>
-                            </tr>
-                            <tr>
-                                <th>姓名</th>
-                                <td><input type="text" class="text" value="張家航"></td>
-                            </tr>
-                            <tr>
-                                <th>帳號</th>
-                                <td><input type="text" class="text" value="asiagodtone"></td>
-                            </tr>
-                            <tr>
-                                <th>信箱</th>
-                                <td><input type="text" class="text" value="asiagodtone@abc.com"></td>
-                            </tr>
-                            <tr>
-                                <th>電話</th>
-                                <td><input type="text" class="text" value="0912-345678"></td>
-                            </tr>
-                            <tr>
-                                <th>住址</th>
-                                <td><input type="text" class="text" value="張家公園"></td>
-                            </tr>
-                            <tr>
-                                <th>性別</th>
-                                <td>
-                                    <input type="radio" name="gender" value="male" checked>男
-                                    <input type="radio" name="gender" value="female">女
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>照片</th>
-                                <td><input type="file" value="照片在這"></td>
-                            </tr>
-                        </table>
-                        <div id="preview">
-                            <span class="text">預覽圖</span>
-                        </div><br>
-                        <button class="btn_update btn btn-outline-primary btn-lg">更新</button>                    
+                        </table>      
                     </div>
                 </li>
             </ul>

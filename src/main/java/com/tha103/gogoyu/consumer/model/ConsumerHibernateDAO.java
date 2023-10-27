@@ -2,9 +2,10 @@ package com.tha103.gogoyu.consumer.model;
 
 import java.util.List;
 
+import javax.persistence.Query;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
 import util.HibernateUtil;
 
 public class ConsumerHibernateDAO implements ConsumerDAO_interface {
@@ -123,15 +124,15 @@ public class ConsumerHibernateDAO implements ConsumerDAO_interface {
 	}
 
 	@Override
-	public List<Consumer> getCusAccount(String cusAccount) {
+	public Consumer getCusAccount(String cusAccount) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			List<Consumer> list = session
+			Consumer consumer = session
 					.createQuery("from Consumer where cus_account = :cusAccount", Consumer.class)
-					.setParameter("cusAccount", cusAccount).list();
+					.setParameter("cusAccount", cusAccount).uniqueResult();
 			session.getTransaction().commit();
-			return list;
+			return consumer;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
@@ -156,7 +157,27 @@ public class ConsumerHibernateDAO implements ConsumerDAO_interface {
 		return null;
 	}
 
-	
+	public void updFromBackend(Integer cusId, String cusName, String cusAccount, String cusMail, String cusPhone,
+			String cusAddress, Integer cusSex) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			Query query=session.createQuery("update Consumer set cusName=?0, cusAccount=?1, cusMail=?2, cusPhone=?3, "
+					+ "cusAddress=?4, cusSex=?5 where cusId=?6");
+			query.setParameter(0, cusName);
+			query.setParameter(1, cusAccount);
+			query.setParameter(2, cusMail);
+			query.setParameter(3, cusPhone);
+			query.setParameter(4, cusAddress);
+			query.setParameter(5, cusSex);
+			query.setParameter(6, cusId);
+			query.executeUpdate();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+	}
 
 }
 

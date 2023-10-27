@@ -9,9 +9,9 @@ public class Util {
 	public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 	public static final String URL = "jdbc:mysql://localhost:3306/tha103_g2_db?serverTimezone=Asia/Taipei";
 	public static final String USER = "root";
-	public static final String PASSWORD = "12345678";
+	public static final String PASSWORD = "adsl123123";
 	//for picture
-	public static final String getBinary = "SELECT photo from trip_photo where trip_photo_id = ?";
+//	public static final String getBinary = "SELECT photo from trip_photo where trip_photo_id = ?";
 	
 	public static void closeResources(Connection con, PreparedStatement pstmt, ResultSet rs) {
 		if (con!=null) {

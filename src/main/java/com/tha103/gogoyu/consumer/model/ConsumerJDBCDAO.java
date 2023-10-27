@@ -233,7 +233,7 @@ public class ConsumerJDBCDAO implements ConsumerDAO_interface {
 	}
 
 	@Override
-	public List<Consumer> getCusAccount(String cusAccount) {
+	public Consumer getCusAccount(String cusAccount) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -242,6 +242,13 @@ public class ConsumerJDBCDAO implements ConsumerDAO_interface {
 	public List<Consumer> getCusPassword(String cusPassword) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void updFromBackend(Integer cusId, String cusName, String cusAccount, String cusMail, String cusPhone,
+			String cusAddress, Integer cusSex) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

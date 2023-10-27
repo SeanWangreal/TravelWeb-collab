@@ -1,5 +1,6 @@
 package com.tha103.gogoyu.hotel_info.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -70,11 +71,11 @@ public class Hotel_infoHibernateDAO implements Hotel_infoDAO_interface {
 	}
 
 	@Override
-	public Hotel_info findByPK(Integer hoteInfoIid) {
+	public Hotel_info findByPK(Integer hoteInfoId) {
 		
 		try {
 			getSession().beginTransaction();
-			Hotel_info hotelInfo = getSession().get(Hotel_info.class, hoteInfoIid);
+			Hotel_info hotelInfo = getSession().get(Hotel_info.class, hoteInfoId);
 			getSession().getTransaction().commit();
 			return hotelInfo;
 		} catch (Exception e) {
@@ -98,5 +99,62 @@ public class Hotel_infoHibernateDAO implements Hotel_infoDAO_interface {
 		}
 		return null;
 	}
-
+	
+	public List<String> hotelInfoList(Integer hoteInfoId){
+		try {
+			Hotel_info hotel_info = findByPK(hoteInfoId);
+			List<String> hotelInfoList = new ArrayList();
+			if(hotel_info.getRestaurant() == (byte)1) {
+				hotelInfoList.add("餐廳");
+			}
+			if(hotel_info.getRoomService() == (byte)1) {
+				hotelInfoList.add("客房服務");
+			}
+			if(hotel_info.getAlldayCounter() == (byte)1) {
+				hotelInfoList.add("24小時接待櫃檯");
+			}
+			if(hotel_info.getSpa() == (byte)1) {
+				hotelInfoList.add("SPA");
+			}
+			if(hotel_info.getGym() == (byte)1) {
+				hotelInfoList.add("健身中心");
+			}
+			if(hotel_info.getGarden() == (byte)1) {
+				hotelInfoList.add("花園");
+			}
+			if(hotel_info.getTerrace() == (byte)1) {
+				hotelInfoList.add("露臺");
+			}
+			if(hotel_info.getNoSmoking() == (byte)1) {
+				hotelInfoList.add("禁菸客房");
+			}
+			if(hotel_info.getFreewifi() == (byte)1) {
+				hotelInfoList.add("免費無線網路");
+			}
+			if(hotel_info.getHeater() == (byte)1) {
+				hotelInfoList.add("暖氣");
+			}
+			if(hotel_info.getBeach() == (byte)1) {
+				hotelInfoList.add("海灘");
+			}
+			if(hotel_info.getPool() == (byte)1) {
+				hotelInfoList.add("泳池");
+			}
+			if(hotel_info.getChargingstation() == (byte)1) {
+				hotelInfoList.add("電動車充電站");
+			}
+			if(hotel_info.getParking() == (byte)1) {
+				hotelInfoList.add("停車場");
+			}
+			return hotelInfoList;
+		} catch(Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+	
+	public static void main (String[] args) {
+		
+	}
 }

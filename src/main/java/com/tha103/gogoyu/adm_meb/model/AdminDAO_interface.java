@@ -2,7 +2,7 @@ package com.tha103.gogoyu.adm_meb.model;
 
 import java.util.List;
 
-public interface Adm_mebDAO_interface {
+public interface AdminDAO_interface {
 //	          int insert(Adm_meb admMeb);
 	          public int update(Adm_meb admMeb);
 	          public int delete(Integer admId);
@@ -11,6 +11,7 @@ public interface Adm_mebDAO_interface {
 	          //萬用複合查詢(傳入參數型態Map)(回傳 List)
 //	        public List<EmpVO> getAll(Map<String, String[]> map); 
 			int add(Adm_meb admMeb);
+			public Adm_meb findByAccount(String adm_account);
 	
 	}
 
