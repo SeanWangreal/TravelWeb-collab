@@ -54,7 +54,7 @@ public class RoomServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		String compId = (String) session.getAttribute("compId");
 		if (compId == null) {
-			res.sendRedirect(req.getContextPath() + "/sean/ken/com_mem_signin.jsp");
+			res.sendRedirect(req.getContextPath() + "/ken/com_mem_signin.jsp");
 			return;
 		}
 		String forwardPath = "";
@@ -77,23 +77,6 @@ public class RoomServlet extends HttpServlet {
 		switch (action) {
 		case "add":
 			forwardPath = "/sean/hotel_room_add.jsp";
-			break;
-		case "getOne_For_Display":
-			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-			if (roomId == null || (roomId.trim()).length() == 0) {
-				errorMsgs.add("請輸入房間編號");
-			}
-			// Send the use back to the form, if there were errors
-			if (!errorMsgs.isEmpty()) {
-				forwardPath = "/sean/select_page.jsp";
-				RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
-				dispatcher.forward(req, res);
-			} else {
-				room = roomSvc.getOneRoom(Integer.parseInt(roomId));
-				req.setAttribute("room", room);
-				forwardPath = "/sean/hotel_room.jsp";
-			}
 			break;
 		case "getAllRoom":
 			session.setAttribute("compId", compId);
@@ -246,7 +229,7 @@ public class RoomServlet extends HttpServlet {
 			}
 			forwardPath = "/sean/hotel_room_all.jsp";
 			break;
-		case "delete2":
+		case "delete":
 			compId = (String) session.getAttribute("compId");
 			roomList = roomSvc.getRoomByCompId(Integer.parseInt(compId));
 			req.setAttribute("roomList", roomList);
