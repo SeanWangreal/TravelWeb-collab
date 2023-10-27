@@ -139,8 +139,12 @@ request.setAttribute("tripOrdMap", tripOrdMap);
 		<main class="main-content">
 			<div class="main-content-info">
 				<div id="searching">
-					<i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i>
-					<input type="search" placeholder="輸入訂單編號" id="ord-search">
+						<form action="${pageContext.request.contextPath}/Trip_ordCommentServlet" method="post">
+							<i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i>
+							<input type="search" placeholder="輸入關鍵字" id="ord-search" name ="keyWord">
+							<button type = "submit">搜尋</button>
+							<input type="hidden" name="action" value="searchBtn">
+						</form>
 				</div>
 				<c:forEach var="tripOrd" items="${tripOrdMap.keySet()}">
 					<div class="ord">

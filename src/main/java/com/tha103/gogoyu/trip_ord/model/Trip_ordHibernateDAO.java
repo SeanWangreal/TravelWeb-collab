@@ -12,6 +12,7 @@ import org.hibernate.query.NativeQuery;
 
 import com.tha103.gogoyu.consumer.model.Consumer;
 import com.tha103.gogoyu.trip.model.Trip;
+import com.tha103.gogoyu.company.model.Company;
 
 import util.HibernateUtil;
 
@@ -101,6 +102,103 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 	}
 
 	
+	
+	
+	
+	
+	
+	
+	public Map <Trip_ord , List <Object>> getTripOrdList(Integer tripOrdId){
+		try {
+			System.out.println(tripOrdId);
+			getSession().beginTransaction();
+			Map<Trip_ord,List<Object>> map  = new LinkedHashMap<Trip_ord,List<Object>>();
+			@SuppressWarnings("unchecked")
+			NativeQuery<Trip_ord> query1 = getSession().createNativeQuery("select * from Trip_ord where trip_ord_id = :tripOrdId", Trip_ord.class)
+																.setParameter("tripOrdId", tripOrdId);
+										List<Trip_ord> list1 = query1.list();
+			
+			System.out.println(list1);
+			for(Trip_ord Trip :  list1) {
+				List<Object> info = new ArrayList<Object>();
+					info.add(getSession().get(Trip.class, Trip.getTripId()).getTripName());//String tripName
+					Integer people = getSession().get(Trip.class, Trip.getTripId()).getPeople()*Trip.getAmount();
+					info.add(people);//Integer people
+					info.add(getSession().get(Trip.class, Trip.getTripId()).getAmount());//Ineger amount(庫存)
+					info.add(getSession().get(Consumer.class, Trip.getCusId()).getCusName());//String cusName					
+					info.add(getSession().get(Company.class, Trip.getCompId()).getPrincipalName());//String Principalname
+					info.add(getSession().get(Company.class, Trip.getCompId()).getPrincipalPhone());//String PrincipalPhone	
+					info.add(getSession().get(Trip.class, Trip.getTripId()).getStartTime());
+					info.add(getSession().get(Trip.class, Trip.getTripId()).getEndTime());
+					
+					
+					BigDecimal profit =getSession().get(Trip.class, Trip.getTripId()).getPrice().multiply(new BigDecimal(Trip.getAmount()));
+					info.add(profit);
+					BigDecimal commission =profit.multiply(new BigDecimal(0.1));
+					info.add(commission);
+					BigDecimal totalPrice =profit.add(commission);
+					info.add(totalPrice);
+					
+
+					
+					map.put(Trip,info);
+			}
+			System.out.println(map);
+			getSession().getTransaction().commit();
+			return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+	
+	
+	
+	public Integer updateStatusAndRemark(String remark , Integer tripOrdId  , BigDecimal profit , BigDecimal commission , BigDecimal totalPrice) {
+		try {
+			getSession().beginTransaction();
+			Query query = getSession().createQuery("update Trip_ord set ordStatus =1 , remark = :remark , profit = :profit , commission = :commission , totalPrice = :totalPrice where tripOrdId = :tripOrdId");
+			query.setParameter("remark", remark);
+			query.setParameter("tripOrdId", tripOrdId);
+			query.setParameter("profit", profit);
+			query.setParameter("commission", commission);
+			query.setParameter("totalPrice", totalPrice);
+
+			query.executeUpdate();
+			
+			getSession().getTransaction().commit();
+			return 1 ;
+		}catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return -1 ;
+	}
+
+	public Integer updateAmountAndPrice(Integer amount ,Integer tripOrdId) {
+		
+		System.out.println(amount);
+		try {
+			getSession().beginTransaction();
+			Query query = getSession().createQuery("update Trip_ord set amount = :amount  where tripOrdId = :tripOrdId");
+			query.setParameter("tripOrdId", tripOrdId);
+			query.setParameter("amount", amount);
+
+			query.executeUpdate();
+			
+			getSession().getTransaction().commit();
+			return 1 ;
+		}catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return -1 ;
+	}
+	
+	
+	
+	
 	@Override
 	public Map<Trip_ord, List<String>> gettripIdComment(Integer tripId) {
 		try {
@@ -135,10 +233,12 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 	@Override
 	public Map<Trip_ord, List<String>> getTripOrdVo(Integer cartId, Integer cusId) {
 		try {
+			
+			System.out.println(cusId);
 			getSession().beginTransaction();
 			@SuppressWarnings("unchecked")
 			NativeQuery<Trip_ord> query1 = getSession().createNativeQuery(
-					"SELECT * from trip_ord where plan_id in (select plan_id from planning where cart_id= :cartId and cus_id = :cusId)",
+					"SELECT * from trip_ord where plan_id in (select plan_id from planning where cart_id= :cartId and cus_id = :cusId) and ord_status = 0",
 					Trip_ord.class);
 			query1.setParameter("cartId", cartId);
 			query1.setParameter("cusId", cusId);
@@ -147,9 +247,20 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 			Map<Trip_ord,List<String>> map  = new LinkedHashMap<Trip_ord,List<String>>();
 			for (Trip_ord ord: list1) {
 				List<String> info = new ArrayList<String>();
-//				Trip trip = getSession().get(Trip.class, ord.getTripId());
-					info.add(getSession().get(Trip.class, ord.getTripId()).getTripName());//String tripName
-					map.put(ord,info);
+				Trip trip = getSession().get(Trip.class, ord.getTripId());
+					Double avgScore = getSession().createQuery("select avg(score) from Trip_ord where tripId = :tripId " , Double.class)
+									.setParameter("tripId", trip.getTripId())
+									.uniqueResult();
+				info.add(trip.getTripName());//String tripName	
+					
+				if(avgScore !=null) {
+					Double averageScore= Math.round(avgScore  * 10.0) / 10.0;
+					info.add(averageScore.toString());
+				}else {
+					info.add("N/A");
+				}
+				
+				map.put(ord,info);
 			}
 						
 			getSession().getTransaction().commit();

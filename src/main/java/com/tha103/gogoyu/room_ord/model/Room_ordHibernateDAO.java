@@ -48,6 +48,8 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 
 	}
 
+	
+
 	@Override
 	public int update(Room_ord roomOrd) { // 此傳入的是"有"pk的(這樣才能更新)
 		try {
@@ -115,7 +117,7 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 			getSession().beginTransaction();
 			@SuppressWarnings("unchecked")
 			NativeQuery<Room_ord> query1 = getSession().createNativeQuery(
-					"SELECT * from room_ord where plan_id in (select plan_id from Planning where cart_id= :cartId and cus_id = :cusId)", Room_ord.class);
+					"SELECT * from room_ord where plan_id in (select plan_id from Planning where cart_id= :cartId and cus_id = :cusId) and ord_status = 0", Room_ord.class);
 						query1.setParameter("cartId", cartId);
 						query1.setParameter("cusId", cusId);
 			List<Room_ord> list1 = query1.list();
@@ -125,7 +127,9 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 				List<String> info = new ArrayList<String>();
 //				Trip trip = getSession().get(Trip.class, ord.getTripId());
 				Integer compId =getSession().get(Room.class, ord.getRoomId()).getCompId();
+				String roomId =getSession().get(Room.class, ord.getRoomId()).getRoomName();
 					info.add(getSession().get(Company.class, compId).getCompName());//String compName
+					info.add(roomId);
 					map.put(ord,info);
 			}
 			
@@ -234,7 +238,23 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 		return -1 ;
 	}
 	
+	public Integer updateStatusAndRemark(String remark , Integer roomOrdId) {
+		try {
+			getSession().beginTransaction();
+			Query query = getSession().createQuery("update Room_ord set ordStatus =1 , remark = :remark where roomOrdId = :roomOrdId");
+			query.setParameter("remark", remark);
+			query.setParameter("roomOrdId", roomOrdId);
 
+			query.executeUpdate();
+			
+			getSession().getTransaction().commit();
+			return 1 ;
+		}catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return -1 ;
+	}
 
 
 

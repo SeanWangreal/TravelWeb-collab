@@ -35,7 +35,9 @@ response.setDateHeader("Expires", 0);
     <div class="outside_div">
         <div class="inside_left_div">
         
-        
+        	<c:if test="${not empty errorMessage}">
+					    <div class="error-message" style = "color :red ; font-size:20px"><i>*${errorMessage}</i></div>
+				</c:if>
         
        				<br>
                     <i class="payment-title" style = "margin-top : 100px;">訂單資訊[飯店]</i>
@@ -83,10 +85,10 @@ response.setDateHeader("Expires", 0);
                      
                     <hr>
 <!--                     結帳後才會存入"備註" -->
+				<form action="${pageContext.request.contextPath}/shopping_hotelServlet"  method="post">			
                     <div class="order-item" style = "margin-left : 10px;">
                         <label for="remark">備註:</label>
-                    	<input type ="textarea"  placeholder="請輸入您要的內容"  style = "width:80%">
-                       <input type="hidden" name="remark" > 
+                    	<input type ="textarea"  placeholder="請輸入您要的內容"  style = "width:80%" name ="remark" required>
                     </div>
                    
 
@@ -118,10 +120,11 @@ response.setDateHeader("Expires", 0);
 			  
 <!--                 <div class="pay_button" > -->
                 
-                 	<form action="${pageContext.request.contextPath}/shopping_hotelServlet"  method="post">			
+                 	
                     	 <button type="submit" class="payment-button"  style ="margin-top:20px">前往付款頁面</button>
                    		 <input type="hidden" name="action" value = "ConnectToECPAY">
-					</form>
+                   		 <input type="hidden" name="roomOrdId" value = "54">
+                     </form>
 					<form action="${pageContext.request.contextPath}/shopping_hotelServlet"  method="post"   >			
                      	 <button type="submit" class="Cancel-button" >取消本次交易</button>
                        	 <input type="hidden" name="action" value = "CancelTransaction">

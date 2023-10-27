@@ -77,11 +77,10 @@ $(function () {//domcontentloaded event
 
 
     // 移除訂單start
-//    $("div.pay_btn button.b.remove").on("click", function (e) {
+//    $("button.b.remove").on("click", function (e) {
 //        var rem = confirm("是否確定要移除訂單?");
-
+//
 //        if (rem) {
-//            $(this).closest("div.plan_tab_1.list").remove();
 //            if ($("div.plan_tab_1.list").length == 0 ) {
 //                $("#tab_plan1").append('<div class="no-items">暫無商品</div>');
 //                

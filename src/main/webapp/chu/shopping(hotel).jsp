@@ -10,29 +10,24 @@
 <%@ page import="com.tha103.gogoyu.planning.model.*"%>
 <!-- 以下三行預防快取 -->
 <%
-// response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
-// response.setHeader("Pragma", "no-cache"); //HTTP 1.0
-// response.setDateHeader("Expires", 0);
+response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
+response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+response.setDateHeader("Expires", 0);
 
-session.setAttribute("trip_id", 1);
-session.setAttribute("cus_id", 1);
-session.setAttribute("room_id", 1);
+Integer cusId = (Integer) request.getSession().getAttribute("cusId");
+if (cusId != null) {
 
-int cusId = (int) session.getAttribute("cus_id");
-Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
-Trip_ordServiceHibernate TOSH = new Trip_ordServiceHibernate();
+	Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
+	Trip_ordServiceHibernate TOSH = new Trip_ordServiceHibernate();
 
-
-pageContext.setAttribute("room1", ROSH.getRoomOrdVo(1, cusId));
-pageContext.setAttribute("room2", ROSH.getRoomOrdVo(2, cusId));
-pageContext.setAttribute("room3", ROSH.getRoomOrdVo(3, cusId));
-pageContext.setAttribute("room4", ROSH.getRoomOrdVo(4, cusId));
-pageContext.setAttribute("room5", ROSH.getRoomOrdVo(5, cusId));
-pageContext.setAttribute("trip1", TOSH.getTripOrdVo(1, cusId));
-pageContext.setAttribute("trip2", TOSH.getTripOrdVo(2, cusId));
-pageContext.setAttribute("trip3", TOSH.getTripOrdVo(3, cusId));
-pageContext.setAttribute("trip4", TOSH.getTripOrdVo(4, cusId));
-pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
+	for (int i = 1; i <= 5; i++) {
+		pageContext.setAttribute("room" + i, ROSH.getRoomOrdVo(i, cusId));
+		pageContext.setAttribute("trip" + i, TOSH.getTripOrdVo(i, cusId));
+	}
+} else {
+	response.sendRedirect(request.getContextPath() + "/sean/select_page.jsp");
+	return;
+}
 %>
 
 
@@ -57,8 +52,11 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 </head>
 
 <body>
-
-
+	<script
+			src="${pageContext.request.contextPath}/vendors/jquery/jquery-3.7.1.min.js"></script>
+		<script
+			src="${pageContext.request.contextPath}/static/chu_js/shopping.js"></script>
+	
 
 	<nav class="st">
 		<!-- <a class="word" id="home" href="#">Home</a> -->
@@ -140,6 +138,15 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 	<div class="plan_tab">
 
 		<div class="tab_list_block">
+<!-- 			<ul class="tab_list"> -->
+<!-- 				<li><button data-target="plan1" class="tab -on">規劃一</button></li>  -->
+<!-- 				<li><button data-target="plan2" class="tab ">規劃一</button></li>  -->
+<!-- 				<li><button data-target="plan3" class="tab ">規劃一</button></li>  -->
+<!-- 				<li><button data-target="plan4" class="tab ">規劃一</button></li>  -->
+<!-- 				<li><button data-target="plan5" class="tab ">規劃一</button></li>  -->
+		
+		
+<!-- 			</ul> -->
 			<ul class="tab_list">
 				<li><a href="#" data-target="plan1" class="tab -on">規劃一</a></li>
 				<li><a href="#" data-target="plan2" class="tab ">規劃二</a></li>
@@ -159,64 +166,68 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 
 
 
-			<div class="tab plan1 -on" id="tab_plan1" >
-<!-- 				<div class="no-items">暫無商品</div> -->
+			<div class="tab plan1 -on" id="tab_plan1">
+				<!-- 				<div class="no-items">暫無商品</div> -->
 				<!-- ==============裡面的list=============== -->
 				<c:forEach var="roomVo1" items="${room1.keySet()}">
-				
-	
+
+
 					<div class="plan_tab_1 list">
-							
+
 						<div class="plan_tab_1_left">
 
-							<img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${roomVo1.roomId}">
+							<img
+								src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${roomVo1.roomId}">
 
 						</div>
 						<div class="plan_tab_1_right">
 							<div class="right_side_first_row">
-								<div class="title_set" style = "margin-top:13px; width :210px  ">
+								<div class="title_set" style="margin-top: 13px; width: 210px">
 									<span class="mark_for_type_hotel">飯</span> <i
 										id="named_of_title">${room1.get(roomVo1).get(0)}</i>
-									
+
 								</div>
-<!-- 					</form> -->
-								<div class="comment_set"  >
-									<div class="comment_message" style = "position:absolute;right: 100px;" >
-										<a href="#"  > <i class="fa-solid fa-message"></i>
+								<!-- 					</form> -->
+								<div class="comment_set">
+									<div class="comment_message"
+										style="position: absolute; right: 100px;">
+										<a href="#"> <i class="fa-solid fa-message"></i>
 										</a>
 									</div>
 									<div class="count_star">
-									<a href="#"><i class="fa-solid fa-star" style =" width:85px;">8.7</i>
-										</a>
+										<a href="#"><i class="fa-solid fa-star"
+											style="width: 85px;">8.7</i> </a>
 									</div>
 								</div>
 							</div>
-							<span class="book_price" >價格(未含稅)</span> <i class="howmuch_nt">TWD</i>
+							<span class="book_price" style = "font-size :25px">${room1.get(roomVo1).get(1)}</span> <i class="howmuch_nt">TWD</i>
 							<div class="price_set">
 								<i class="howmuch">${roomVo1.totalPrice.intValue()}</i>
 							</div>
-							<div class="pay_btn" style = "margin-top:20px"> 
+							<div class="pay_btn" style="margin-top: 20px">
 
-							
-									<button class="b infos">詳細商品資訊</button>
 
-								
-							
-									<form
-										action="${pageContext.request.contextPath}/shopping_hotelServlet"
-										method="post">
-										<input type="hidden" name="action" value="hotelcheckOut">
-										<input type="hidden" name="roomOrdId" value="${roomVo1.roomOrdId}">
-										<button class="b pay" type="submit" style = "width:170px">前往付款作業</button>
-									</form>
-									<form
-										action="${pageContext.request.contextPath}/shopping_hotelServlet"
-										method="post">
-										<input type="hidden" name="action" value="removeHotelOrder">
-										<input type="hidden" name="roomOrdId" value="${roomVo1.roomOrdId}">
-										<button class="b remove" type="submit" style = "width:170px">移除此商品</button>
-									</form>
-								
+								<button class="b infos">詳細商品資訊</button>
+
+
+
+								<form
+									action="${pageContext.request.contextPath}/shopping_hotelServlet"
+									method="post">
+									<input type="hidden" name="action" value="hotelcheckOut">
+									<input type="hidden" name="roomOrdId"
+										value="${roomVo1.roomOrdId}">
+									<button class="b pay" type="submit" style="width: 170px">前往付款作業</button>
+								</form>
+								<form
+									action="${pageContext.request.contextPath}/shopping_hotelServlet"
+									method="post">
+									<input type="hidden" name="action" value="removeHotelOrder">
+									<input type="hidden" name="roomOrdId"
+										value="${roomVo1.roomOrdId}">
+									<button class="b remove" type="submit" style="width: 170px">移除此商品</button>
+								</form>
+
 							</div>
 						</div>
 
@@ -230,129 +241,140 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 
 
 
-<!-- 				==============裡面的list=============== -->
-<!-- 								<div class="no-items n1">暫無商品</div> -->
-					<c:forEach var="tripVo1" items="${trip1.keySet()}">
-			
-								<div class="plan_tab_1 list">
+				<!-- 				==============裡面的list=============== -->
+				<!-- 								<div class="no-items n1">暫無商品</div> -->
+				<c:forEach var="tripVo1" items="${trip1.keySet()}">
 
-									<div class="plan_tab_1_left">
+					<div class="plan_tab_1 list">
 
-										<img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${tripVo1.tripId}">
+						<div class="plan_tab_1_left">
 
-									</div>
-									<div class="plan_tab_1_right">
-										<div class="right_side_first_row" >
-											<div class="title_set" style = "margin-top:13px; width :210px  ">
-												<span class="mark_for_type_hotel" >旅</span> <i
-													id="named_of_title" >${trip1.get(tripVo1).get(0)} </i> 
-												
-											</div>
+							<img
+								src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${tripVo1.tripId}">
 
-											<div class="comment_set" >
-												<div class="comment_message">
-													<a href="#"> <i class="fa-solid fa-message"></i>
-													</a>
-												</div>
-												<div class="count_star">
-													<a href="#"><i class="fa-solid fa-star" style =" width:85px;">8.7</i>
-													</a>
-												</div>
-											</div>
-										</div>
-										<span class="book_price">價格(含稅)</span> <i class="howmuch_nt">TWD</i>
-										<div class="price_set">
-											<i class="howmuch">${tripVo1.totalPrice.intValue()}</i>
-										</div>
-										<div class="pay_btn" style = "margin-top:20px"> 
-				                            <button class="b list">詳細商品資訊</button>
+						</div>
+						<div class="plan_tab_1_right">
+							<div class="right_side_first_row">
+								<div class="title_set" style="margin-top: 13px; width: 210px">
+									<span class="mark_for_type_hotel">旅</span> <i
+										id="named_of_title" >${trip1.get(tripVo1).get(0)} </i>
 
-
-										
-											<form action="${pageContext.request.contextPath}/shopping_tripServlet" method="post">
-												<input type="hidden" name="action" value="TripCheckOut">
-												<input type="hidden" name="TripOrdId"  value="${tripVo1.tripOrdId}">
-												<button class="b pay" type="submit" style = "width:170px">前往付款作業</button>
-											</form>
-											<form action="${pageContext.request.contextPath}/shopping_tripServlet" method="post">
-												<input type="hidden" name="action" value="removeTripOrder">
-												<input type="hidden" name="TripOrdId"  value="${tripVo1.tripOrdId}">
-												<button class="b remove" type="submit" style = "width:170px">移除此商品</button>
-											</form>
-										
-									</div>
 								</div>
 
+								<div class="comment_set">
+									<div class="comment_message">
+										<a href="#"> <i class="fa-solid fa-message"></i>
+										</a>
+									</div>
+									<div class="count_star">
+										<a href="#"><i class="fa-solid fa-star"
+											style="width: 85px;">${trip1.get(tripVo1).get(1)}</i> </a>
+									</div>
+								</div>
+							</div>
+							<span class="book_price">價格(含稅)</span> <i class="howmuch_nt">TWD</i>
+							<div class="price_set">
+								<i class="howmuch">${tripVo1.totalPrice.intValue()}</i>
+							</div>
+							<div class="pay_btn" style="margin-top: 20px">
+								<button class="b list">詳細商品資訊</button>
+
+
+
+								<form
+									action="${pageContext.request.contextPath}/shopping_tripServlet"
+									method="post">
+									<input type="hidden" name="action" value="TripCheckOut">
+									<input type="hidden" name="TripOrdId"
+										value="${tripVo1.tripOrdId}">
+									<button class="b pay" type="submit" style="width: 170px">前往付款作業</button>
+								</form>
+								<form
+									action="${pageContext.request.contextPath}/shopping_tripServlet"
+									method="post">
+									<input type="hidden" name="action" value="removeTripOrder">
+									<input type="hidden" name="TripOrdId"
+										value="${tripVo1.tripOrdId}">
+									<button class="b remove" type="submit" style="width: 170px">移除此商品</button>
+								</form>
 
 							</div>
+						</div>
 
-					</c:forEach>
+
 					</div>
-				<!--    =============================foreachForList(trip)======================================              -->
+
+				</c:forEach>
+			</div>
+			<!--    =============================foreachForList(trip)======================================              -->
 
 
 
 
 
 
-			
+
 			<div class="tab plan2">
 				<div class="no-items">暫無商品</div>
 				<!-- ==============裡面的list=============== -->
 				<c:forEach var="roomVo2" items="${room2.keySet()}">
-				
-	
+
+
 					<div class="plan_tab_1 list">
-							
+
 						<div class="plan_tab_1_left">
 
-						<img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${roomVo2.roomId}">
+							<img
+								src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${roomVo2.roomId}">
 						</div>
 						<div class="plan_tab_1_right">
 							<div class="right_side_first_row">
-								<div class="title_set" style = "margin-top:13px; width :210px  ">
+								<div class="title_set" style="margin-top: 13px; width: 210px">
 									<span class="mark_for_type_hotel">飯</span> <i
 										id="named_of_title">${room2.get(roomVo2).get(0)}</i>
-									
+
 								</div>
-<!-- 					</form> -->
-								<div class="comment_set"  >
-									<div class="comment_message" style = "position:absolute;right: 100px;" >
-										<a href="#"  > <i class="fa-solid fa-message"></i>
+								<!-- 					</form> -->
+								<div class="comment_set">
+									<div class="comment_message"
+										style="position: absolute; right: 100px;">
+										<a href="#"> <i class="fa-solid fa-message"></i>
 										</a>
 									</div>
 									<div class="count_star">
-									<a href="#"><i class="fa-solid fa-star" style =" width:85px;">8.7</i>
-										</a>
+										<a href="#"><i class="fa-solid fa-star"
+											style="width: 85px;">8.7</i> </a>
 									</div>
 								</div>
 							</div>
-							<span class="book_price">價格(含稅)</span> <i class="howmuch_nt">TWD</i>
+							<span class="book_price" style = "font-size :25px">${room2.get(roomVo2).get(1)}</span> <i class="howmuch_nt">TWD</i>
 							<div class="price_set">
 								<i class="howmuch">${roomVo2.totalPrice.intValue()}</i>
 							</div>
-							<div class="pay_btn" style = "margin-top:20px"> 
+							<div class="pay_btn" style="margin-top: 20px">
 
-							
-									<button class="b infos">詳細商品資訊</button>
 
-								
-							
-									<form
-										action="${pageContext.request.contextPath}/shopping_hotelServlet"
-										method="post">
-										<input type="hidden" name="action" value="hotelcheckOut">
-										<input type="hidden" name="roomOrdId" value="${roomVo2.roomOrdId}">
-										<button class="b pay" type="submit" style = "width:170px">前往付款作業</button>
-									</form>
-									<form
-										action="${pageContext.request.contextPath}/shopping_hotelServlet"
-										method="post">
-										<input type="hidden" name="action" value="removeHotelOrder">
-										<input type="hidden" name="roomOrdId" value="${roomVo2.roomOrdId}">
-										<button class="b remove" type="submit" style = "width:170px">移除此商品</button>
-									</form>
-								
+								<button class="b infos">詳細商品資訊</button>
+
+
+
+								<form
+									action="${pageContext.request.contextPath}/shopping_hotelServlet"
+									method="post">
+									<input type="hidden" name="action" value="hotelcheckOut">
+									<input type="hidden" name="roomOrdId"
+										value="${roomVo2.roomOrdId}">
+									<button class="b pay" type="submit" style="width: 170px">前往付款作業</button>
+								</form>
+								<form
+									action="${pageContext.request.contextPath}/shopping_hotelServlet"
+									method="post">
+									<input type="hidden" name="action" value="removeHotelOrder">
+									<input type="hidden" name="roomOrdId"
+										value="${roomVo2.roomOrdId}">
+									<button class="b remove" type="submit" style="width: 170px">移除此商品</button>
+								</form>
+
 							</div>
 						</div>
 
@@ -362,134 +384,145 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 
 				</c:forEach>
 
-				
-			
-							<!--    =============================foreachForList(trip)======================================              -->
 
 
-
-<!-- 				==============裡面的list=============== -->
-							
-					<c:forEach var="tripVo2" items="${trip2.keySet()}">
-			
-								<div class="plan_tab_1 list">
-
-									<div class="plan_tab_1_left">
-
-									<img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${tripVo2.tripId}">
-
-									</div>
-									<div class="plan_tab_1_right">
-										<div class="right_side_first_row" >
-											<div class="title_set" style = "margin-top:13px; width :210px  ">
-												<span class="mark_for_type_hotel" >旅</span> <i
-													id="named_of_title" >${trip2.get(tripVo2).get(0)} </i> 
-												
-											</div>
-
-											<div class="comment_set" >
-												<div class="comment_message">
-													<a href="#"> <i class="fa-solid fa-message"></i>
-													</a>
-												</div>
-												<div class="count_star">
-													<a href="#"><i class="fa-solid fa-star" style =" width:85px;">8.7</i>
-													</a>
-												</div>
-											</div>
-										</div>
-										<span class="book_price">價格(含稅)</span> <i class="howmuch_nt">TWD</i>
-										<div class="price_set">
-											<i class="howmuch">${tripVo2.totalPrice.intValue()}</i>
-										</div>
-										<div class="pay_btn" style = "margin-top:20px"> 
-				                            <button class="b list">詳細商品資訊</button>
-
-
-										
-											<form action="${pageContext.request.contextPath}/shopping_tripServlet" method="post">
-												<input type="hidden" name="action" value="TripCheckOut">
-												<input type="hidden" name="TripOrdId"  value="${tripVo2.tripOrdId}">
-												<button class="b pay" type="submit" style = "width:170px">前往付款作業</button>
-											</form>
-											<form action="${pageContext.request.contextPath}/shopping_tripServlet" method="post">
-												<input type="hidden" name="action" value="removeTripOrder">
-												<input type="hidden" name="TripOrdId"  value="${tripVo2.tripOrdId}">
-												<button class="b remove" type="submit" style = "width:170px">移除此商品</button>
-											</form>
-										
-									</div>
-								</div>
-
-
-							</div>
-
-					</c:forEach>
-					</div>
 				<!--    =============================foreachForList(trip)======================================              -->
 
-			
-			
-			
-			
+
+
+				<!-- 				==============裡面的list=============== -->
+
+				<c:forEach var="tripVo2" items="${trip2.keySet()}">
+
+					<div class="plan_tab_1 list">
+
+						<div class="plan_tab_1_left">
+
+							<img
+								src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${tripVo2.tripId}">
+
+						</div>
+						<div class="plan_tab_1_right">
+							<div class="right_side_first_row">
+								<div class="title_set" style="margin-top: 13px; width: 210px">
+									<span class="mark_for_type_hotel">旅</span> <i
+										id="named_of_title">${trip2.get(tripVo2).get(0)} </i>
+
+								</div>
+
+								<div class="comment_set">
+									<div class="comment_message">
+										<a href="#"> <i class="fa-solid fa-message"></i>
+										</a>
+									</div>
+									<div class="count_star">
+										<a href="#"><i class="fa-solid fa-star"
+											style="width: 85px;">8.7</i> </a>
+									</div>
+								</div>
+							</div>
+							<span class="book_price">價格(含稅)</span> <i class="howmuch_nt">TWD</i>
+							<div class="price_set">
+								<i class="howmuch">${tripVo2.totalPrice.intValue()}</i>
+							</div>
+							<div class="pay_btn" style="margin-top: 20px">
+								<button class="b list">詳細商品資訊</button>
+
+
+
+								<form
+									action="${pageContext.request.contextPath}/shopping_tripServlet"
+									method="post">
+									<input type="hidden" name="action" value="TripCheckOut">
+									<input type="hidden" name="TripOrdId"
+										value="${tripVo2.tripOrdId}">
+									<button class="b pay" type="submit" style="width: 170px">前往付款作業</button>
+								</form>
+								<form
+									action="${pageContext.request.contextPath}/shopping_tripServlet"
+									method="post">
+									<input type="hidden" name="action" value="removeTripOrder">
+									<input type="hidden" name="TripOrdId"
+										value="${tripVo2.tripOrdId}">
+									<button class="b remove" type="submit" style="width: 170px">移除此商品</button>
+								</form>
+
+							</div>
+						</div>
+
+
+					</div>
+
+				</c:forEach>
+			</div>
+			<!--    =============================foreachForList(trip)======================================              -->
+
+
+
+
+
 			<div class="tab plan3 ">
 				<div class="no-items">暫無商品</div>
 				<!-- ==============裡面的list=============== -->
 				<c:forEach var="roomVo3" items="${room3.keySet()}">
-				
-	
+
+
 					<div class="plan_tab_1 list">
-							
+
 						<div class="plan_tab_1_left">
 
-					<img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${roomVo3.roomId}">
+							<img
+								src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${roomVo3.roomId}">
 
 						</div>
 						<div class="plan_tab_1_right">
 							<div class="right_side_first_row">
-								<div class="title_set" style = "margin-top:13px; width :210px  ">
+								<div class="title_set" style="margin-top: 13px; width: 210px">
 									<span class="mark_for_type_hotel">飯</span> <i
 										id="named_of_title">${room3.get(roomVo3).get(0)}</i>
-									
+
 								</div>
-<!-- 					</form> -->
-								<div class="comment_set"  >
-									<div class="comment_message" style = "position:absolute;right: 100px;" >
-										<a href="#"  > <i class="fa-solid fa-message"></i>
+								<!-- 					</form> -->
+								<div class="comment_set">
+									<div class="comment_message"
+										style="position: absolute; right: 100px;">
+										<a href="#"> <i class="fa-solid fa-message"></i>
 										</a>
 									</div>
 									<div class="count_star">
-									<a href="#"><i class="fa-solid fa-star" style =" width:85px;">8.7</i>
-										</a>
+										<a href="#"><i class="fa-solid fa-star"
+											style="width: 85px;">8.7</i> </a>
 									</div>
 								</div>
 							</div>
-							<span class="book_price">價格(含稅)</span> <i class="howmuch_nt">TWD</i>
+							<span class="book_price" style = "font-size :25px">${room3.get(roomVo3).get(1)}</span> <i class="howmuch_nt">TWD</i>
 							<div class="price_set">
 								<i class="howmuch">${roomVo3.totalPrice.intValue()}</i>
 							</div>
-							<div class="pay_btn" style = "margin-top:20px"> 
+							<div class="pay_btn" style="margin-top: 20px">
 
-							
-									<button class="b infos">詳細商品資訊</button>
 
-								
-							
-									<form
-										action="${pageContext.request.contextPath}/shopping_hotelServlet"
-										method="post">
-										<input type="hidden" name="action" value="hotelcheckOut">
-										<input type="hidden" name="roomOrdId" value="${roomVo3.roomOrdId}">
-										<button class="b pay" type="submit" style = "width:170px">前往付款作業</button>
-									</form>
-									<form
-										action="${pageContext.request.contextPath}/shopping_hotelServlet"
-										method="post">
-										<input type="hidden" name="action" value="removeHotelOrder">
-										<input type="hidden" name="roomOrdId" value="${roomVo3.roomOrdId}">
-										<button class="b remove" type="submit" style = "width:170px">移除此商品</button>
-									</form>
-								
+								<button class="b infos">詳細商品資訊</button>
+
+
+
+								<form
+									action="${pageContext.request.contextPath}/shopping_hotelServlet"
+									method="post">
+									<input type="hidden" name="action" value="hotelcheckOut">
+									<input type="hidden" name="roomOrdId"
+										value="${roomVo3.roomOrdId}">
+									<button class="b pay" type="submit" style="width: 170px">前往付款作業</button>
+								</form>
+								<form
+									action="${pageContext.request.contextPath}/shopping_hotelServlet"
+									method="post">
+									<input type="hidden" name="action" value="removeHotelOrder">
+									<input type="hidden" name="roomOrdId"
+										value="${roomVo3.roomOrdId}">
+									<button class="b remove" type="submit" style="width: 170px">移除此商品</button>
+								</form>
+
 							</div>
 						</div>
 
@@ -499,130 +532,141 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 
 				</c:forEach>
 
-				
-							<!--    =============================foreachForList(trip)======================================              -->
 
-
-
-<!-- 				==============裡面的list=============== -->
-							
-								<c:forEach var="tripVo3" items="${trip3.keySet()}">
-			
-								<div class="plan_tab_1 list">
-
-									<div class="plan_tab_1_left">
-
-								<img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${tripVo3.tripId}">
-
-									</div>
-									<div class="plan_tab_1_right">
-										<div class="right_side_first_row" >
-											<div class="title_set" style = "margin-top:13px; width :210px  ">
-												<span class="mark_for_type_hotel" >旅</span> <i
-													id="named_of_title" >${trip3.get(tripVo3).get(0)} </i> 
-												
-											</div>
-
-											<div class="comment_set" >
-												<div class="comment_message">
-													<a href="#"> <i class="fa-solid fa-message"></i>
-													</a>
-												</div>
-												<div class="count_star">
-													<a href="#"><i class="fa-solid fa-star" style =" width:85px;">8.7</i>
-													</a>
-												</div>
-											</div>
-										</div>
-										<span class="book_price">價格(含稅)</span> <i class="howmuch_nt">TWD</i>
-										<div class="price_set">
-											<i class="howmuch">${tripVo3.totalPrice.intValue()}</i>
-										</div>
-										<div class="pay_btn" style = "margin-top:20px"> 
-				                            <button class="b list">詳細商品資訊</button>
-
-
-										
-											<form action="${pageContext.request.contextPath}/shopping_tripServlet" method="post">
-												<input type="hidden" name="action" value="TripCheckOut">
-												<input type="hidden" name="TripOrdId"  value="${tripVo3.tripOrdId}">
-												<button class="b pay" type="submit" style = "width:170px">前往付款作業</button>
-											</form>
-											<form action="${pageContext.request.contextPath}/shopping_tripServlet" method="post">
-												<input type="hidden" name="action" value="removeTripOrder">
-												<input type="hidden" name="TripOrdId"  value="${tripVo3.tripOrdId}">
-												<button class="b remove" type="submit" style = "width:170px">移除此商品</button>
-											</form>
-										
-									</div>
-								</div>
-
-
-							</div>
-
-					</c:forEach>
-					</div>
 				<!--    =============================foreachForList(trip)======================================              -->
 
-			
+
+
+				<!-- 				==============裡面的list=============== -->
+
+				<c:forEach var="tripVo3" items="${trip3.keySet()}">
+
+					<div class="plan_tab_1 list">
+
+						<div class="plan_tab_1_left">
+
+							<img
+								src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${tripVo3.tripId}">
+
+						</div>
+						<div class="plan_tab_1_right">
+							<div class="right_side_first_row">
+								<div class="title_set" style="margin-top: 13px; width: 210px">
+									<span class="mark_for_type_hotel">旅</span> <i
+										id="named_of_title">${trip3.get(tripVo3).get(0)} </i>
+
+								</div>
+
+								<div class="comment_set">
+									<div class="comment_message">
+										<a href="#"> <i class="fa-solid fa-message"></i>
+										</a>
+									</div>
+									<div class="count_star">
+										<a href="#"><i class="fa-solid fa-star"
+											style="width: 85px;">8.7</i> </a>
+									</div>
+								</div>
+							</div>
+							<span class="book_price">價格(含稅)</span> <i class="howmuch_nt">TWD</i>
+							<div class="price_set">
+								<i class="howmuch">${tripVo3.totalPrice.intValue()}</i>
+							</div>
+							<div class="pay_btn" style="margin-top: 20px">
+								<button class="b list">詳細商品資訊</button>
+
+
+
+								<form
+									action="${pageContext.request.contextPath}/shopping_tripServlet"
+									method="post">
+									<input type="hidden" name="action" value="TripCheckOut">
+									<input type="hidden" name="TripOrdId"
+										value="${tripVo3.tripOrdId}">
+									<button class="b pay" type="submit" style="width: 170px">前往付款作業</button>
+								</form>
+								<form
+									action="${pageContext.request.contextPath}/shopping_tripServlet"
+									method="post">
+									<input type="hidden" name="action" value="removeTripOrder">
+									<input type="hidden" name="TripOrdId"
+										value="${tripVo3.tripOrdId}">
+									<button class="b remove" type="submit" style="width: 170px">移除此商品</button>
+								</form>
+
+							</div>
+						</div>
+
+
+					</div>
+
+				</c:forEach>
+			</div>
+			<!--    =============================foreachForList(trip)======================================              -->
+
+
 			<div class="tab plan4">
 				<div class="no-items">暫無商品</div>
 				<!-- ==============裡面的list=============== -->
-					<c:forEach var="roomVo4" items="${room4.keySet()}">
-				
-	
+				<c:forEach var="roomVo4" items="${room4.keySet()}">
+
+
 					<div class="plan_tab_1 list">
-							
+
 						<div class="plan_tab_1_left">
 
-							<img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${roomVo4.roomId}">
+							<img
+								src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${roomVo4.roomId}">
 
 						</div>
 						<div class="plan_tab_1_right">
 							<div class="right_side_first_row">
-								<div class="title_set" style = "margin-top:13px; width :210px  ">
+								<div class="title_set" style="margin-top: 13px; width: 210px">
 									<span class="mark_for_type_hotel">飯</span> <i
 										id="named_of_title">${room4.get(roomVo4).get(0)}</i>
-									
+
 								</div>
-<!-- 					</form> -->
-								<div class="comment_set"  >
-									<div class="comment_message" style = "position:absolute;right: 100px;" >
-										<a href="#"  > <i class="fa-solid fa-message"></i>
+								<!-- 					</form> -->
+								<div class="comment_set">
+									<div class="comment_message"
+										style="position: absolute; right: 100px;">
+										<a href="#"> <i class="fa-solid fa-message"></i>
 										</a>
 									</div>
 									<div class="count_star">
-									<a href="#"><i class="fa-solid fa-star" style =" width:85px;">8.7</i>
-										</a>
+										<a href="#"><i class="fa-solid fa-star"
+											style="width: 85px;">8.7</i> </a>
 									</div>
 								</div>
 							</div>
-							<span class="book_price">價格(含稅)</span> <i class="howmuch_nt">TWD</i>
+							<span class="book_price" style = "font-size :25px">${room4.get(roomVo4).get(1)}</span> <i class="howmuch_nt">TWD</i>
 							<div class="price_set">
 								<i class="howmuch">${roomVo4.totalPrice.intValue()}</i>
 							</div>
-							<div class="pay_btn" style = "margin-top:20px"> 
+							<div class="pay_btn" style="margin-top: 20px">
 
-							
-									<button class="b infos">詳細商品資訊</button>
 
-								
-							
-									<form
-										action="${pageContext.request.contextPath}/shopping_hotelServlet"
-										method="post">
-										<input type="hidden" name="action" value="hotelcheckOut">
-										<input type="hidden" name="roomOrdId" value="${roomVo4.roomOrdId}">
-										<button class="b pay" type="submit" style = "width:170px">前往付款作業</button>
-									</form>
-									<form
-										action="${pageContext.request.contextPath}/shopping_hotelServlet"
-										method="post">
-										<input type="hidden" name="action" value="removeHotelOrder">
-										<input type="hidden" name="roomOrdId" value="${roomVo4.roomOrdId}">
-										<button class="b remove" type="submit" style = "width:170px">移除此商品</button>
-									</form>
-								
+								<button class="b infos">詳細商品資訊</button>
+
+
+
+								<form
+									action="${pageContext.request.contextPath}/shopping_hotelServlet"
+									method="post">
+									<input type="hidden" name="action" value="hotelcheckOut">
+									<input type="hidden" name="roomOrdId"
+										value="${roomVo4.roomOrdId}">
+									<button class="b pay" type="submit" style="width: 170px">前往付款作業</button>
+								</form>
+								<form
+									action="${pageContext.request.contextPath}/shopping_hotelServlet"
+									method="post">
+									<input type="hidden" name="action" value="removeHotelOrder">
+									<input type="hidden" name="roomOrdId"
+										value="${roomVo4.roomOrdId}">
+									<button class="b remove" type="submit" style="width: 170px">移除此商品</button>
+								</form>
+
 							</div>
 						</div>
 
@@ -632,127 +676,138 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 
 				</c:forEach>
 
-					<!--    =============================foreachForList(trip)======================================              -->
-
-
-
-<!-- 				==============裡面的list=============== -->
-								<c:forEach var="tripVo4" items="${trip4.keySet()}">
-			
-								<div class="plan_tab_1 list">
-
-									<div class="plan_tab_1_left">
-
-								<img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${tripVo4.tripId}">
-
-									</div>
-									<div class="plan_tab_1_right">
-										<div class="right_side_first_row" >
-											<div class="title_set" style = "margin-top:13px; width :210px  ">
-												<span class="mark_for_type_hotel" >旅</span> <i
-													id="named_of_title" >${trip4.get(tripVo4).get(0)} </i> 
-												
-											</div>
-
-											<div class="comment_set" >
-												<div class="comment_message">
-													<a href="#"> <i class="fa-solid fa-message"></i>
-													</a>
-												</div>
-												<div class="count_star">
-													<a href="#"><i class="fa-solid fa-star" style =" width:85px;">8.7</i>
-													</a>
-												</div>
-											</div>
-										</div>
-										<span class="book_price">價格(含稅)</span> <i class="howmuch_nt">TWD</i>
-										<div class="price_set">
-											<i class="howmuch">${tripVo4.totalPrice.intValue()}</i>
-										</div>
-										<div class="pay_btn" style = "margin-top:20px"> 
-				                            <button class="b list">詳細商品資訊</button>
-
-
-										
-											<form action="${pageContext.request.contextPath}/shopping_tripServlet" method="post">
-												<input type="hidden" name="action" value="TripCheckOut">
-												<input type="hidden" name="TripOrdId"  value="${tripVo4.tripOrdId}">
-												<button class="b pay" type="submit" style = "width:170px">前往付款作業</button>
-											</form>
-											<form action="${pageContext.request.contextPath}/shopping_tripServlet" method="post">
-												<input type="hidden" name="action" value="removeTripOrder">
-												<input type="hidden" name="TripOrdId"  value="${tripVo4.tripOrdId}">
-												<button class="b remove" type="submit" style = "width:170px">移除此商品</button>
-											</form>
-										
-									</div>
-								</div>
-
-
-							</div>
-
-					</c:forEach>
-					</div>
 				<!--    =============================foreachForList(trip)======================================              -->
 
-					<div class="tab plan5">
-						<div class="no-items">暫無商品</div>
-				<!-- ==============裡面的list=============== -->
-					<c:forEach var="roomVo5" items="${room5.keySet()}">
-				
-	
+
+
+				<!-- 				==============裡面的list=============== -->
+				<c:forEach var="tripVo4" items="${trip4.keySet()}">
+
 					<div class="plan_tab_1 list">
-							
+
 						<div class="plan_tab_1_left">
 
-							<img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${roomVo5.roomId}">
+							<img
+								src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${tripVo4.tripId}">
 
 						</div>
 						<div class="plan_tab_1_right">
 							<div class="right_side_first_row">
-								<div class="title_set" style = "margin-top:13px; width :210px  ">
-									<span class="mark_for_type_hotel">飯</span> <i
-										id="named_of_title">${room5.get(roomVo5).get(0)}</i>
-									
+								<div class="title_set" style="margin-top: 13px; width: 210px">
+									<span class="mark_for_type_hotel">旅</span> <i
+										id="named_of_title">${trip4.get(tripVo4).get(0)} </i>
+
 								</div>
-<!-- 					</form> -->
-								<div class="comment_set"  >
-									<div class="comment_message" style = "position:absolute;right: 100px;" >
-										<a href="#"  > <i class="fa-solid fa-message"></i>
+
+								<div class="comment_set">
+									<div class="comment_message">
+										<a href="#"> <i class="fa-solid fa-message"></i>
 										</a>
 									</div>
 									<div class="count_star">
-									<a href="#"><i class="fa-solid fa-star" style =" width:85px;">8.7</i>
-										</a>
+										<a href="#"><i class="fa-solid fa-star"
+											style="width: 85px;">8.7</i> </a>
 									</div>
 								</div>
 							</div>
 							<span class="book_price">價格(含稅)</span> <i class="howmuch_nt">TWD</i>
 							<div class="price_set">
+								<i class="howmuch">${tripVo4.totalPrice.intValue()}</i>
+							</div>
+							<div class="pay_btn" style="margin-top: 20px">
+								<button class="b list">詳細商品資訊</button>
+
+
+
+								<form
+									action="${pageContext.request.contextPath}/shopping_tripServlet"
+									method="post">
+									<input type="hidden" name="action" value="TripCheckOut">
+									<input type="hidden" name="TripOrdId"
+										value="${tripVo4.tripOrdId}">
+									<button class="b pay" type="submit" style="width: 170px">前往付款作業</button>
+								</form>
+								<form
+									action="${pageContext.request.contextPath}/shopping_tripServlet"
+									method="post">
+									<input type="hidden" name="action" value="removeTripOrder">
+									<input type="hidden" name="TripOrdId"
+										value="${tripVo4.tripOrdId}">
+									<button class="b remove" type="submit" style="width: 170px">移除此商品</button>
+								</form>
+
+							</div>
+						</div>
+
+
+					</div>
+
+				</c:forEach>
+			</div>
+			<!--    =============================foreachForList(trip)======================================              -->
+
+			<div class="tab plan5">
+				<div class="no-items">暫無商品</div>
+				<!-- ==============裡面的list=============== -->
+				<c:forEach var="roomVo5" items="${room5.keySet()}">
+
+
+					<div class="plan_tab_1 list">
+
+						<div class="plan_tab_1_left">
+
+							<img
+								src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${roomVo5.roomId}">
+
+						</div>
+						<div class="plan_tab_1_right">
+							<div class="right_side_first_row">
+								<div class="title_set" style="margin-top: 13px; width: 210px">
+									<span class="mark_for_type_hotel">飯</span> <i
+										id="named_of_title">${room5.get(roomVo5).get(0)}</i>
+
+								</div>
+								<!-- 					</form> -->
+								<div class="comment_set">
+									<div class="comment_message"
+										style="position: absolute; right: 100px;">
+										<a href="#"> <i class="fa-solid fa-message"></i>
+										</a>
+									</div>
+									<div class="count_star">
+										<a href="#"><i class="fa-solid fa-star"
+											style="width: 85px;">8.7</i> </a>
+									</div>
+								</div>
+							</div>
+							<span class="book_price" style = "font-size :25px">${room5.get(roomVo5).get(1)}</span> <i class="howmuch_nt">TWD</i>
+							<div class="price_set">
 								<i class="howmuch">${roomVo5.totalPrice.intValue()}</i>
 							</div>
-							<div class="pay_btn" style = "margin-top:20px"> 
+							<div class="pay_btn" style="margin-top: 20px">
 
-							
-									<button class="b infos">詳細商品資訊</button>
 
-								
-							
-									<form
-										action="${pageContext.request.contextPath}/shopping_hotelServlet"
-										method="post">
-										<input type="hidden" name="action" value="hotelcheckOut">
-										<input type="hidden" name="roomOrdId" value="${roomVo5.roomOrdId}">
-										<button class="b pay" type="submit" style = "width:170px">前往付款作業</button>
-									</form>
-									<form
-										action="${pageContext.request.contextPath}/shopping_hotelServlet"
-										method="post">
-										<input type="hidden" name="action" value="removeHotelOrder">
-										<input type="hidden" name="roomOrdId" value="${roomVo5.roomOrdId}">
-										<button class="b remove" type="submit" style = "width:170px">移除此商品</button>
-									</form>
-								
+								<button class="b infos">詳細商品資訊</button>
+
+
+
+								<form
+									action="${pageContext.request.contextPath}/shopping_hotelServlet"
+									method="post">
+									<input type="hidden" name="action" value="hotelcheckOut">
+									<input type="hidden" name="roomOrdId"
+										value="${roomVo5.roomOrdId}">
+									<button class="b pay" type="submit" style="width: 170px">前往付款作業</button>
+								</form>
+								<form
+									action="${pageContext.request.contextPath}/shopping_hotelServlet"
+									method="post">
+									<input type="hidden" name="action" value="removeHotelOrder">
+									<input type="hidden" name="roomOrdId"
+										value="${roomVo5.roomOrdId}">
+									<button class="b remove" type="submit" style="width: 170px">移除此商品</button>
+								</form>
+
 							</div>
 						</div>
 
@@ -762,77 +817,79 @@ pageContext.setAttribute("trip5", TOSH.getTripOrdVo(5, cusId));
 
 				</c:forEach>
 
-					
 
 
-<!-- 				==============裡面的list=============== -->
-									<c:forEach var="tripVo5" items="${trip5.keySet()}">
-			
-								<div class="plan_tab_1 list">
 
-									<div class="plan_tab_1_left">
+				<!-- 				==============裡面的list=============== -->
+				<c:forEach var="tripVo5" items="${trip5.keySet()}">
 
-										<img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${tripVo5.tripId}">
+					<div class="plan_tab_1 list">
 
-									</div>
-									<div class="plan_tab_1_right">
-										<div class="right_side_first_row" >
-											<div class="title_set" style = "margin-top:13px; width :210px  ">
-												<span class="mark_for_type_hotel" >旅</span> <i
-													id="named_of_title" >${trip5.get(tripVo5).get(0)} </i> 
-												
-											</div>
+						<div class="plan_tab_1_left">
 
-											<div class="comment_set" >
-												<div class="comment_message">
-													<a href="#"> <i class="fa-solid fa-message"></i>
-													</a>
-												</div>
-												<div class="count_star">
-													<a href="#"><i class="fa-solid fa-star" style =" width:85px;">8.7</i>
-													</a>
-												</div>
-											</div>
-										</div>
-										<span class="book_price">價格(含稅)</span> <i class="howmuch_nt">TWD</i>
-										<div class="price_set">
-											<i class="howmuch">${tripVo5.totalPrice.intValue()}</i>
-										</div>
-										<div class="pay_btn" style = "margin-top:20px"> 
-				                            <button class="b list">詳細商品資訊</button>
+							<img
+								src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${tripVo5.tripId}">
 
+						</div>
+						<div class="plan_tab_1_right">
+							<div class="right_side_first_row">
+								<div class="title_set" style="margin-top: 13px; width: 210px">
+									<span class="mark_for_type_hotel">旅</span> <i
+										id="named_of_title">${trip5.get(tripVo5).get(0)} </i>
 
-										
-											<form action="${pageContext.request.contextPath}/shopping_tripServlet" method="post">
-												<input type="hidden" name="action" value="TripCheckOut">
-												<input type="hidden" name="TripOrdId"  value="${tripVo5.tripOrdId}">
-												<button class="b pay" type="submit" style = "width:170px">前往付款作業</button>
-											</form>
-											<form action="${pageContext.request.contextPath}/shopping_tripServlet" method="post">
-												<input type="hidden" name="action" value="removeTripOrder">
-												<input type="hidden" name="TripOrdId"  value="${tripVo5.tripOrdId}">
-												<button class="b remove" type="submit" style = "width:170px">移除此商品</button>
-											</form>
-										
-									</div>
 								</div>
 
+								<div class="comment_set">
+									<div class="comment_message">
+										<a href="#"> <i class="fa-solid fa-message"></i>
+										</a>
+									</div>
+									<div class="count_star">
+										<a href="#"><i class="fa-solid fa-star"
+											style="width: 85px;">8.7</i> </a>
+									</div>
+								</div>
+							</div>
+							<span class="book_price">價格(含稅)</span> <i class="howmuch_nt">TWD</i>
+							<div class="price_set">
+								<i class="howmuch">${tripVo5.totalPrice.intValue()}</i>
+							</div>
+							<div class="pay_btn" style="margin-top: 20px">
+								<button class="b list">詳細商品資訊</button>
+
+
+
+								<form
+									action="${pageContext.request.contextPath}/shopping_tripServlet"
+									method="post">
+									<input type="hidden" name="action" value="TripCheckOut">
+									<input type="hidden" name="TripOrdId"
+										value="${tripVo5.tripOrdId}">
+									<button class="b pay" type="submit" style="width: 170px">前往付款作業</button>
+								</form>
+								<form
+									action="${pageContext.request.contextPath}/shopping_tripServlet"
+									method="post">
+									<input type="hidden" name="action" value="removeTripOrder">
+									<input type="hidden" name="TripOrdId"
+										value="${tripVo5.tripOrdId}">
+									<button class="b remove" type="submit" style="width: 170px">移除此商品</button>
+								</form>
 
 							</div>
+						</div>
 
-					</c:forEach>
+
 					</div>
-				<!--    =============================foreachForList(trip)======================================              -->
 
+				</c:forEach>
 			</div>
+			<!--    =============================foreachForList(trip)======================================              -->
 
-			<!-- =======================main_content===================== -->
+		</div>
 
+		<!-- =======================main_content===================== -->
 
-
-<script src="${pageContext.request.contextPath}/vendors/jquery/jquery-3.7.1.min.js"></script>
-		<script src="${pageContext.request.contextPath}/static/chu_js/shopping.js"></script>
-	
 
 
 		

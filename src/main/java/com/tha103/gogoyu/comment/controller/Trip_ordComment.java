@@ -47,6 +47,13 @@ public class Trip_ordComment extends HttpServlet {
 		}
 
 		
+		if ("searchBtn".equals(action)) {
+			String keyWords = req.getParameter("keyWord"); 
+			System.out.println(keyWords);
+			return;
+		}
+		
+		
 		
 		
 		

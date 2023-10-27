@@ -1,5 +1,6 @@
 package com.tha103.gogoyu.trip_ord.model;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
@@ -18,5 +19,8 @@ public interface Trip_ordDAO_Interface {
     public Map<Trip_ord,List<String>> getTripOrdByCompId(Integer compId,Integer beginCount, String ordOrReview);
     public  Map<Trip_ord,List<String>> getTripOrdByCompIdOrdId(Integer tripOrdId, Integer compId);
 	public Map<Trip_ord, List<String>> getTripOrdByCusId(Integer cusId);
+	public Map <Trip_ord , List <Object>> getTripOrdList(Integer tripOrdId);
+	public Integer updateStatusAndRemark(String remark , Integer tripOrdId  ,BigDecimal profit , BigDecimal commission , BigDecimal totalPrice);
+	public Integer updateAmountAndPrice(Integer amount  ,Integer tripOrdId); 
 }
 
