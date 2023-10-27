@@ -266,4 +266,10 @@ public class Hotel_infoJDBCDAO implements Hotel_infoDAO_interface {
 			System.out.println("---------------------");
 		}
 	}
+
+	@Override
+	public List<String> hotelInfoList(Integer hoteInfoId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
@@ -261,6 +262,28 @@ public class RoomServlet extends HttpServlet {
 				forwardPath = "/sean/hotel_room_all.jsp";
 			}
 			break;
+		case "roomSearch":
+			String comp_address = null;
+			comp_address = req.getParameter("comp_address");
+			Date checkIn = null;
+			checkIn = java.sql.Date.valueOf(req.getParameter("checkIn"));
+			Date checkOut = null;
+			checkOut = java.sql.Date.valueOf(req.getParameter("checkOut"));
+			Integer number = null;
+			try {
+				number = Integer.valueOf(req.getParameter("number").trim());
+			}catch(NumberFormatException e){
+				number = 0;
+			}
+			Map<Room, String> searchRoomResult = roomSvc.searchRoom(comp_address, checkIn, checkOut, number);
+			req.setAttribute("searchRoomResult", searchRoomResult); 
+			forwardPath = "/mhl/search_results.jsp";
+			break;
+		case "getProductDetailRoom":
+			Integer room_Id = Integer.valueOf(req.getParameter("room_id"));
+			List<Object> list = roomSvc.getRoomProdutDetail(room_Id);
+			req.setAttribute("productDetailRoom", list);
+			forwardPath = "/mhl/products_detail_room.jsp";
 		}
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 		dispatcher.forward(req, res);
