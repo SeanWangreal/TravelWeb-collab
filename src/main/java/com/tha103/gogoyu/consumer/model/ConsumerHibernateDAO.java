@@ -179,7 +179,7 @@ public class ConsumerHibernateDAO implements ConsumerDAO_interface {
 		}
 	}
 	public static void main(String[] args) {
-		ConsumerHibernateDAO dao = new ConsumerHibernateDAO();
+		ConsumerHibernateDAO dao = new ConsumerHibernateDAO(HibernateUtil.getSessionFactory());
 		dao.findByPK(10);
 	}
 }
