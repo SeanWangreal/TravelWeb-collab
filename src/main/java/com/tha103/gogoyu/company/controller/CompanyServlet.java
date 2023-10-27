@@ -117,8 +117,19 @@ public class CompanyServlet extends HttpServlet {
 			return;
 		}
 		
-	
+		if ("signout".equals(action)) { // 來自select_page.jsp的請求
+			HttpSession session = req.getSession();
+		        // 清除資料
+			if (session != null) {
+			    session.invalidate(); // 使会话无效
+			    String url = "/ken/com_mem_signin.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+				successView.forward(req, res);
+			}	System.out.print("您已成功登出退出系統!");
+		        System.out.close();
+		    }
 		
+
 		if ("getOne".equals(action)) { // 來自select_page.jsp的請求
 			System.out.println("getOne");
 			List<String> errorMsgs = new LinkedList<String>();
@@ -674,6 +685,9 @@ public class CompanyServlet extends HttpServlet {
 					compPhoto = is.readAllBytes();
 				}
 			}
+			
+			
+			
 			System.out.println(errorMsgs);
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
