@@ -10,8 +10,9 @@ public interface ConsumerService {
 	public void deleteCus(Integer cusId);
 	public Consumer getOneCus(Integer cusId);
 	public List<Consumer> getAll();
-	public List<Consumer> getCusAccount(String cusAccount);
-	public List<Consumer> getCusPassword(String cusPassword);
 	public boolean checkDuplicateAccount(String cusAccount);
+	List<Consumer> getAccount(String cusAccount);
+	List<Consumer> getPassword(String cusPassword);
+	
 	
 }

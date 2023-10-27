@@ -24,16 +24,8 @@ public class ConsumerServiceHibernate implements ConsumerService {
 		cus.setCusPhone(cusPhone);
 		cus.setCusAddress(cusAddress);
 		cus.setCusSex(cusSex);
-//		cus.setCusPhoto(cusPhoto);
-		 try {
-		    cusPhoto = writePicture("/eric/image/003.jpg");
-		   
-		    cus.setCusPhoto(cusPhoto);
-		   
+		cus.setCusPhoto(cusPhoto);
 		
-		   } catch (IOException e) {
-		    e.printStackTrace();
-		   }
 		
 		
 		dao.add(cus);
@@ -77,12 +69,12 @@ dao.delete(cusId);
 	}
 
 	@Override
-	public List<Consumer> getCusAccount(String cusAccount) {
+	public List<Consumer> getAccount(String cusAccount) {
 		return dao.getCusAccount(cusAccount);
 	}
 
 	@Override
-	public List<Consumer> getCusPassword(String cusPassword) {
+	public List<Consumer> getPassword(String cusPassword) {
 		return dao.getCusPassword(cusPassword);
 	}
 
@@ -99,5 +91,8 @@ dao.delete(cusId);
 		  fis.close();
 		  return buffer;
 		 }
+
+
+	
 	
 }

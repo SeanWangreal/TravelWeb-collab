@@ -19,7 +19,6 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.tha103.gogoyu.consumer.model.Consumer;
-import com.tha103.gogoyu.consumer.model.ConsumerService;
 import com.tha103.gogoyu.consumer.model.ConsumerServiceHibernate;
 
 
@@ -45,55 +44,97 @@ public class ConsumerServlet extends HttpServlet {
 		ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
 
 
-		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
+//		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
+//
+//			List<String> errorMsgs = new LinkedList<String>();
+//			// Store this set in the request scope, in case we need to
+//			// send the ErrorPage view.
+//			req.setAttribute("errorMsgs", errorMsgs);
+//
+//			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+//			String str = req.getParameter("cusId");
+//			if (str == null || (str.trim()).length() == 0) {
+//				errorMsgs.add("請輸入會員編號");
+//			}
+//			// Send the use back to the form, if there were errors
+//			if (!errorMsgs.isEmpty()) {
+//				RequestDispatcher failureView = req.getRequestDispatcher("/eric/select_page.jsp");
+//				failureView.forward(req, res);
+//				return;// 程式中斷
+//			}
+//
+//			Integer cusId = null;
+//			try {
+//				cusId = Integer.valueOf(str);
+//			} catch (Exception e) {
+//				errorMsgs.add("員工編號格式不正確");
+//			}
+//			// Send the use back to the form, if there were errors
+//			if (!errorMsgs.isEmpty()) {
+//				RequestDispatcher failureView = req.getRequestDispatcher("/eric/select_page.jsp");
+//				failureView.forward(req, res);
+//				return;// 程式中斷
+//			}
+//
+//			/*************************** 2.開始查詢資料 *****************************************/
+////			ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
+//			Consumer consumer = cusSvc.getOneCus(cusId);
+//			if (consumer == null) {
+//				errorMsgs.add("查無資料");
+//			}
+//			// Send the use back to the form, if there were errors
+//			if (!errorMsgs.isEmpty()) {
+//				RequestDispatcher failureView = req.getRequestDispatcher("/eric/select_page.jsp");
+//				failureView.forward(req, res);
+//				return;// 程式中斷
+//			}
+//
+//			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+//			req.setAttribute("consumer", consumer); // 資料庫取出的empVO物件,存入req
+//			String url = "/eric/listOneCus.jsp";
+//			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+//			successView.forward(req, res);
+//		}
+		
+		if ("getOne_For_Login".equals(action)) { // 來自select_page.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-			String str = req.getParameter("cusId");
+			String str = req.getParameter("cusAccount");
 			if (str == null || (str.trim()).length() == 0) {
-				errorMsgs.add("請輸入會員編號");
+				errorMsgs.add("請輸入帳號");
+			}
+			
+			String str2 = req.getParameter("cusPassword");
+
+			if (str2 != null && str2== null||(str2.trim()).length() == 0) {
+				errorMsgs.add("請輸入密碼");
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/eric/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/eric/signin.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
-
-			Integer cusId = null;
-			try {
-				cusId = Integer.valueOf(str);
-			} catch (Exception e) {
-				errorMsgs.add("員工編號格式不正確");
-			}
-			// Send the use back to the form, if there were errors
-			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/eric/select_page.jsp");
-				failureView.forward(req, res);
-				return;// 程式中斷
-			}
-
 			/*************************** 2.開始查詢資料 *****************************************/
-//			ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
-			Consumer consumer = cusSvc.getOneCus(cusId);
-			if (consumer == null) {
-				errorMsgs.add("查無資料");
-			}
-			// Send the use back to the form, if there were errors
-			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/eric/select_page.jsp");
-				failureView.forward(req, res);
-				return;// 程式中斷
-			}
+			boolean Duplicate = cusSvc.checkDuplicateAccount(str);
 
+		    if (!Duplicate) {
+		       errorMsgs.add("查無重複");
+		    } 
+				// Send the use back to the form, if there were errors
+			  if (!errorMsgs.isEmpty()) {
+				    req.setAttribute("errorMsgs", errorMsgs);
+				    RequestDispatcher failureView = req.getRequestDispatcher("/eric/personal_detial.jsp");
+				    failureView.forward(req, res);
+				   }
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("consumer", consumer); // 資料庫取出的empVO物件,存入req
-			String url = "/eric/listOneCus.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+			req.setAttribute("consumer", str); // 資料庫取出的empVO物件,存入req
+			String url = "/eric/personal_detail.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 jsp
 			successView.forward(req, res);
 		}
 
@@ -330,13 +371,16 @@ public class ConsumerServlet extends HttpServlet {
 
 			Part part = req.getPart("cusPhoto");
 			String str = String.valueOf(part).trim();
+
 			byte[] cusPhoto = null;
 			if (str == null || str.trim().length() == 0) {
 				errorMsgs.add("哈");
+				
 			} else {
 				BufferedInputStream bis = new BufferedInputStream(part.getInputStream());
 				cusPhoto = bis.readAllBytes();
 			}
+			
 			
 			  
 			
@@ -369,7 +413,8 @@ public class ConsumerServlet extends HttpServlet {
 			consumer.setCusAddress(cusAddress);
 			consumer.setCusSex(cusSex);
 			consumer.setCusPhoto(cusPhoto);
-
+			
+				
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("consumer", consumer); // 含有輸入格式錯誤的empVO物件,也存入req
@@ -379,7 +424,6 @@ public class ConsumerServlet extends HttpServlet {
 			}
 
 			/*************************** 2.開始新增資料 ***************************************/
-//			ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
 			consumer = cusSvc.addCus(cusName, cusAccount, cusPassword, cusMail, cusPhone, cusAddress,
 					cusSex, cusPhoto);
 
@@ -400,7 +444,6 @@ public class ConsumerServlet extends HttpServlet {
 			Integer cusId = Integer.valueOf(req.getParameter("cusId"));
 
 			/*************************** 2.開始刪除資料 ***************************************/
-//			ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
 			cusSvc.deleteCus(cusId);
 
 			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
