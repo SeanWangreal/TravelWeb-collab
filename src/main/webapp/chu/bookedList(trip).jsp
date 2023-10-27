@@ -156,7 +156,7 @@ request.setAttribute("tripOrdMap", tripOrdMap);
 										<input type="hidden" name="action" value="goToComment">
 										<input type="hidden" name="tripOrdId" value="${tripOrd.tripOrdId}">
 										<input type="hidden" name="tripId" value="${tripOrd.tripId}">
-										<button class="b remove" type="submit" style = "position :absolute ; left :90%;top:35%">評論去</button>
+										<button class="b remove" type="submit" style = "position :relative ; left :90%;top:35%">評論去</button>
 								</form>
 						</div>
 						<div class="all-info">

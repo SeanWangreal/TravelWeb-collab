@@ -15,7 +15,6 @@ response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setDateHeader("Expires", 0);
 
 Integer tripOrd = (Integer)request.getAttribute("tripOrdId");
-System.out.println(tripOrd+"aaaaaaaaaaaaaaaaaaaaa");
 Trip_ordServiceHibernate TOSH = new Trip_ordServiceHibernate();
 
 System.out.println(TOSH.getTripOrdList(tripOrd));

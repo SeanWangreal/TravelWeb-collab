@@ -25,7 +25,7 @@ if (cusId != null) {
 		pageContext.setAttribute("trip" + i, TOSH.getTripOrdVo(i, cusId));
 	}
 } else {
-	response.sendRedirect(request.getContextPath() + "/sean/select_page.jsp");
+	response.sendRedirect(request.getContextPath() + "/eric/signin.jsp");
 	return;
 }
 %>
