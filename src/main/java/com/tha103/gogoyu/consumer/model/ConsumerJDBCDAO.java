@@ -233,7 +233,7 @@ public class ConsumerJDBCDAO implements ConsumerDAO_interface {
 	}
 
 	@Override
-	public List<Consumer> getCusAccount(String cusAccount) {
+	public Consumer getCusAccount(String cusAccount) {
 		// TODO Auto-generated method stub
 		return null;
 	}

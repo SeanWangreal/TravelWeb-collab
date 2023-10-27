@@ -24,16 +24,8 @@ public class ConsumerServiceHibernate implements ConsumerService {
 		cus.setCusPhone(cusPhone);
 		cus.setCusAddress(cusAddress);
 		cus.setCusSex(cusSex);
-//		cus.setCusPhoto(cusPhoto);
-		 try {
-		    cusPhoto = writePicture("/eric/image/003.jpg");
-		   
-		    cus.setCusPhoto(cusPhoto);
-		   
+		cus.setCusPhoto(cusPhoto);
 		
-		   } catch (IOException e) {
-		    e.printStackTrace();
-		   }
 		
 		
 		dao.add(cus);
@@ -76,30 +68,28 @@ dao.delete(cusId);
 		return dao.getPicture(cusId);
 	}
 
-	@Override
-	public List<Consumer> getCusAccount(String cusAccount) {
-		return dao.getCusAccount(cusAccount);
-	}
 
 	@Override
-	public List<Consumer> getCusPassword(String cusPassword) {
+	public List<Consumer> getPassword(String cusPassword) {
 		return dao.getCusPassword(cusPassword);
 	}
 
 	@Override
-	public boolean checkDuplicateAccount(String cusAccount) {
-		 List<Consumer> existingConsumers = dao.getCusAccount(cusAccount);
+	public Consumer checkDuplicateAccount(String cusAccount) {
+//		 List<Consumer> existingConsumers = dao.getCusAccount(cusAccount);
+		 Consumer existingConsumers = dao.getCusAccount(cusAccount);
 
-	        return !existingConsumers.isEmpty();	
+//	        return !existingConsumers.isEmpty();	
+	        return existingConsumers;	
 	        
 	}
 	public static byte[] writePicture(String path) throws IOException {
 		FileInputStream fis = new FileInputStream(path);
-		byte[] buffer = fis.readAllBytes();
-		fis.close();
-		return buffer;
-		}
 
+		  byte[] buffer = fis.readAllBytes();
+		  fis.close();
+		  return buffer;
+		 }
 
 	@Override
 	public void updFromBackend(Integer cusId, String cusName, String cusAccount, String cusMail, String cusPhone,
