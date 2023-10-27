@@ -177,7 +177,7 @@
 	                                <div class="row">
 	                                    <!--商品圖-->
 	                                    <div class="col photoShell border">
-	                                        <img src="MainPhotoPrintHServlet?room_id=${roomVO.roomId} " class="d-block w-100" alt="...">
+	                                        <img src="MainPhotoPrintHServlet?room_id=${roomVO.roomId}" class="d-block w-100" alt="...">
 	                                    </div>
 	                                    <!--商品名 細況-->
 	                                    <div class="col">

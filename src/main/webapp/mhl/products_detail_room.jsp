@@ -10,9 +10,10 @@
 <%
 	List<Object> list = (List<Object>)request.getAttribute("productDetailRoom");
 	Room room = (Room)list.get(0);
-	List<Integer> RoomPhotoIdList = (List<Integer>)list.get(1);
-	Company company = (Company)list.get(2);
-	List<String> hotelInfoList = (List<String>)list.get(3);
+	List<Integer> roomPhotoIdList = (List<Integer>)list.get(1);
+	List<String> roomFacilities = (List<String>)list.get(2);
+	Company company = (Company)list.get(3);
+	List<String> hotelInfoList = (List<String>)list.get(4);
 %>
 
 <!DOCTYPE html>
@@ -129,43 +130,44 @@
             <!--搜尋欄-->
             <nav class="navbar navbar-light bg-light">
                 <div class="container-fluid justify-content-center">
-                  <form class="d-flex">
-                    <select class="form-select me-2" aria-label="Default select example">
-                        <option value="Taipei_City">台北市</option>
-                        <option value="NewTaipei_City">新北市</option>
-                        <option value="Taoyuan_City">桃園市</option>
-                        <option value="Taichung_City">台中市</option>
-                        <option value="Tainan_City">台南市</option>
-                        <option value="Kaohsiung_City">高雄市</option>
-                        <option value="Hsinchu_County">新竹縣</option>
-                        <option value="Miaoli_County">新北市</option>
-                        <option value="Changhua_County">苗栗縣</option>
-                        <option value="Nantou_County">彰化縣</option>
-                        <option value="Nantou_County">南投縣</option>
-                        <option value="Yunlin_County">雲林縣</option>
-                        <option value="Chiayi_County">嘉義縣</option>
-                        <option value="Pingtung_County">屏東縣</option>
-                        <option value="Yilan_City">宜蘭市</option>
-                        <option value="Hualien_City">花蓮市</option>
-                        <option value="Taitung_County">台東縣</option>
-                        <option value="Kinmen_County">金門縣</option>
-                        <option value="Lienchiang_County">連江縣</option>
-                        <option value="Keelung_City">基隆市</option>
-                        <option value="Hsinchu_City">新竹市</option>
-                        <option value="Chiayi_City">嘉義市</option>
-                        <option value="Penghu_County">澎湖縣</option>
+                  <form class="d-flex" method="post" action="${pageContext.request.contextPath}/sean/RoomServlet">
+                    <select class="form-select me-2" name="comp_address" aria-label="Default select example">
+                        <option value="台北市">台北市</option>
+                        <option value="新北市">新北市</option>
+                        <option value="桃園市">桃園市</option>
+                        <option value="台中市">台中市</option>
+                        <option value="台南市">台南市</option>
+                        <option value="高雄市">高雄市</option>
+                        <option value="新竹縣">新竹縣</option>
+                        <option value="新北市">新北市</option>
+                        <option value="苗栗縣">苗栗縣</option>
+                        <option value="彰化縣">彰化縣</option>
+                        <option value="南投縣">南投縣</option>
+                        <option value="雲林縣">雲林縣</option>
+                        <option value="嘉義縣">嘉義縣</option>
+                        <option value="屏東縣">屏東縣</option>
+                        <option value="宜蘭市">宜蘭市</option>
+                        <option value="花蓮市">花蓮市</option>
+                        <option value="台東縣">台東縣</option>
+                        <option value="金門縣">金門縣</option>
+                        <option value="連江縣">連江縣</option>
+                        <option value="基隆市">基隆市</option>
+                        <option value="新竹市">新竹市</option>
+                        <option value="嘉義市">嘉義市</option>
+                        <option value="澎湖縣">澎湖縣</option>
                     </select>
-                    <input class="form-control me-2" type="text" placeholder="入住日期..." aria-label="Search" onfocus="(this.type='date')"
-                    onblur="(this.type='text')">
-                    <input class="form-control me-2" type="text" placeholder="退房日期..." aria-label="Search" onfocus="(this.type='date')"
-                    onblur="(this.type='text')">
-                    <input class="form-control me-2" type="text" placeholder="人數..." aria-label="Search">
+                    <input class="form-control me-2" name="checkIn" type="text" placeholder="入住日期..." aria-label="Search" onfocus="(this.type='date')"
+                    	onblur="(this.type='text')">
+                    <input class="form-control me-2" name="checkOut" type="text" placeholder="退房日期..." aria-label="Search" onfocus="(this.type='date')"
+                    	onblur="(this.type='text')">
+                    <input class="form-control me-2" name="number" type="text" placeholder="人數..." aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
+                    <input type="hidden" name="action" value="roomSearch">
                   </form>
                 </div>
             </nav>
-            <!--商品名-->
-            <h2 class="mx-auto">兄弟大飯店</h2>
+            <!--飯店名-->
+            <h2 class="mx-auto">${company.compName}</h2>
             <!--幻燈片-->
             <div id="carouseltrip" class="carousel slide border mx-auto" data-bs-ride="carousel">
 <!--                 <div class="carousel-indicators"> -->
@@ -175,12 +177,13 @@
 <!--                 </div> -->
                 <div class="carousel-inner h-100">
                   <div class="carousel-item active">
-                    <img src="https://picsum.photos/2800/1600?random=1" class="d-block w-100 h-100" alt="...">
+                    <img src="MainPhotoPrintHServlet?room_id=${room.roomId}" class="d-block w-100 h-100" alt="...">
                   </div>
+                  <c:forEach var="roomPhotoId" items="<%=roomPhotoIdList%>" >
                   <div class="carousel-item">
-                    <img src="https://picsum.photos/2800/1600?random=2" class="d-block w-100 h-100" alt="...">
+                    <img src="RoomPhotoPrintHServlet?room_id=${roomPhotoId}" class="d-block w-100 h-100" alt="...">
                   </div>
-                  
+                  </c:forEach>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouseltrip" data-bs-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>

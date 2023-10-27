@@ -228,14 +228,49 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		getSession().beginTransaction();
 		List<Object> list = new ArrayList<Object>();
 		Room room = getSession().get(Room.class, roomId);
-		List<Integer> RoomPhotoIdList = getSession().createQuery("select room_photo_id from Room_photo where room_id =:room_id", Integer.class)
+		List<Integer> roomPhotoIdList = getSession().createQuery("select room_photo_id from Room_photo where room_id =:room_id", Integer.class)
 				.setParameter("room_id", roomId).list();
 		Company company = getSession().get(Company.class, roomId);
 		Integer hotel_info_id = company.getHotelInfoId();
 		Hotel_infoServiceHibernate hotelInfoSvc = new Hotel_infoServiceHibernate();
 		List<String> hotelInfoList = hotelInfoSvc.getHotelInfoList(hotel_info_id);
+		List<String> roomFacilities = new ArrayList();
+		if(room.getTissue() == (byte)1) {
+			roomFacilities.add("衛生紙");
+		}
+		if(room.getShower() == (byte)1) {
+			roomFacilities.add("淋浴間");
+		}
+		if(room.getBathroom() == (byte)1) {
+			roomFacilities.add("廁所");
+		}
+		if(room.getDryer() == (byte)1) {
+			roomFacilities.add("吹風機");
+		}
+		if(room.getTub() == (byte)1) {
+			roomFacilities.add("浴缸");
+		}
+		if(room.getFreetoiletries() == (byte)1) {
+			roomFacilities.add("免費盥洗用品");
+		}
+		if(room.getFlushseat() == (byte)1) {
+			roomFacilities.add("沖洗座");
+		}
+		if(room.getSlippers() == (byte)1) {
+			roomFacilities.add("拖鞋");
+		}
+		if(room.getBathrobe() == (byte)1) {
+			roomFacilities.add("浴袍");
+		}
+		if(room.getSpatub() == (byte)1) {
+			roomFacilities.add("SPA浴缸");
+		}
+		if(room.getElectricKettle() == (byte)1) {
+			roomFacilities.add("電熱水壺");
+		}
 		list.add(room);
-		list.add(RoomPhotoIdList);
+		list.add(roomPhotoIdList);
+		list.add(roomFacilities);
 		list.add(company);
 		list.add(hotelInfoList);
 		getSession().getTransaction().commit();

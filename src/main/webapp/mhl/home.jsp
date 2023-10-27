@@ -102,7 +102,7 @@
                             background-color:transparent;"></i>
             </button>
             <button type="button" class="head_btn">
-                <a class="profile" href="#">
+                <a class="profile" href="/ken/com_mem_signin.jsp">
                    <div style="color: black;">·~ªÌ</div>
                 </a>
             </button>
@@ -208,8 +208,8 @@
                         </div>
                         <div class="carousel-inner ">
                             <div class="carousel-item active  ">
-	                            <a href="${pageContext.request.contextPath}/sean/RoomServlet?room_id=<%=(list.get(0)).getRoomId()%>&action=hotRoom" class="d-block w-100"   alt="...">
-	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=(list.get(0)).getRoomId() %>" class="d-block w-100"   alt="...">
+	                            <a href="${pageContext.request.contextPath}/sean/RoomServlet?room_id=<%=(list.get(0)).getRoomId()%>&action=getProductDetailRoom" class="d-block w-100"   alt="...">
+	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=(list.get(0)).getRoomId()%>" class="d-block w-100"   alt="...">
 	                                <div class="carousel-caption d-none d-md-block">
 	                                    <h5 class="bg-light text-dark mb-0"><%=(list.get(0)).getRoomName() %></h5>
 	                                    <p class="bg-light text-dark">TWD <%=(list.get(0)).getPrice().intValue() %></p>
