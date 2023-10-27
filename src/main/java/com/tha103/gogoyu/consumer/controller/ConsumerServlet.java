@@ -320,9 +320,9 @@ public class ConsumerServlet extends HttpServlet {
 				errorMsgs.add("帳號: 只能是英文字母、數字和_ , 且長度必需在10到30之間");
 			}
 
-			boolean Duplicate = cusSvc.checkDuplicateAccount(cusAccount);
+			Consumer Duplicate = cusSvc.checkDuplicateAccount(cusAccount);
 
-		    if (Duplicate) {
+		    if (Duplicate != null) {
 		       errorMsgs.add("帳號已重複");
 		    } 
 		    
