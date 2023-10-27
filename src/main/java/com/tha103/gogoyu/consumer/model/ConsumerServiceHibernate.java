@@ -2,6 +2,9 @@ package com.tha103.gogoyu.consumer.model;
 
 import java.io.IOException;
 import java.util.List;
+
+import util.HibernateUtil;
+
 import java.io.FileInputStream;
 
 public class ConsumerServiceHibernate implements ConsumerService {
@@ -9,7 +12,7 @@ public class ConsumerServiceHibernate implements ConsumerService {
 	private ConsumerDAO_interface dao;
 	
 	public ConsumerServiceHibernate() {
-		dao = new ConsumerHibernateDAO();
+		dao = new ConsumerHibernateDAO(HibernateUtil.getSessionFactory());
 	}
 	
 	

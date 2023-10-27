@@ -11,6 +11,7 @@ import com.tha103.gogoyu.room.model.Room;
 import com.tha103.gogoyu.room.model.RoomDAO_interface;
 import com.tha103.gogoyu.room.model.RoomHibernateDAO;
 import com.tha103.gogoyu.room.model.RoomServiceHibernate;
+import com.tha103.gogoyu.trip_ord.model.Trip_ord;
 
 import util.HibernateUtil;
 
@@ -21,9 +22,9 @@ public class Room_ordServiceHibernate {
 		dao = new Room_ordHibernateDAO(HibernateUtil.getSessionFactory());
 	}
 
-	public Integer addFromShopping(Integer compId , Integer planId, Integer roomId, Integer cusId, Integer amount, BigDecimal totalPrice,
-			BigDecimal commission, BigDecimal profit, Integer people, Date checkInTime, Date checkOutTime,
-			Integer ordStatus) {
+	public Integer addFromShopping(Integer compId, Integer planId, Integer roomId, Integer cusId, Integer amount,
+			BigDecimal totalPrice, BigDecimal commission, BigDecimal profit, Integer people, Date checkInTime,
+			Date checkOutTime, Integer ordStatus) {
 
 		Room_ord roomOrd = new Room_ord();
 		roomOrd.setCompId(compId);
@@ -97,22 +98,40 @@ public class Room_ordServiceHibernate {
 		return dao.findByPK(room_ordId);
 	}
 
-	public Room_ord getBycusID(Integer room_ordId) { 
+	public Room_ord getBycusID(Integer room_ordId) {
 		return dao.findByPK(room_ordId);
 	}
 
 	public List<Room_ord> getAll() {
 		return dao.getAll();
 	}
-	
-	public Map <Room_ord , List<String>> getRoomOrdVo(Integer cartId , Integer cusId){
-		return dao.getRoomOrdVo(cartId , cusId);
+
+	public Map<Room_ord, List<String>> getRoomOrdVo(Integer cartId, Integer cusId) {
+		return dao.getRoomOrdVo(cartId, cusId);
 	}
-	
-	public  Map<Room_ord,List<String>> getRoomOrdByCompId(Integer compId,Integer beginCount,String ordOrReview){
-		return dao.getRoomOrdByCompId(compId,beginCount,ordOrReview);
+
+	public Map<Room_ord, List<String>> getRoomOrdByCompId(Integer compId, Integer beginCount, String ordOrReview) {
+		return dao.getRoomOrdByCompId(compId, beginCount, ordOrReview);
 	}
-	public  Map<Room_ord,List<String>> getOneRoomOrd(Integer roomOrdId, Integer compId){
+
+	public Map<Room_ord, List<String>> gettripIdComment(Integer roomId) {
+		return dao.gettripIdComment(roomId);
+	}
+
+	public Map<Room_ord, List<String>> getRoomOrdByCusId(Integer CusId) {
+		return dao.getRoomOrdByCusId(CusId);
+	}
+
+	public void updateStatusAndRemark(String remark, Integer roomOrdId) {
+		dao.updateStatusAndRemark(remark, roomOrdId);
+	}
+
+	public Integer updateCommentAndScore(Integer roomOrd, Integer score, String comment, Timestamp commentsTime) {
+
+		return dao.updateCommentAndScore(roomOrd, score, comment, commentsTime);
+	}
+
+	public Map<Room_ord, List<String>> getOneRoomOrd(Integer roomOrdId, Integer compId) {
 		return dao.getRoomOrdByCompIdOrdId(roomOrdId, compId);
 	}
 }

@@ -13,7 +13,7 @@ response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
 response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setDateHeader("Expires", 0);
 
-
+request.getSession().setAttribute("cusId",1); 
 
 
 %> 
@@ -221,6 +221,7 @@ response.setDateHeader("Expires", 0);
 							 
 									<button  href="#" class="b pay"  style = "border: 1px solid blcak ; background-color: blue; color:black;">加入購物車</button>
 									<input type = "hidden"  name ="action" value ="room_goShopping">
+									<input type = "hidden"  name ="roomId" value ="1">
 								</form>
 							
 							
@@ -301,14 +302,14 @@ response.setDateHeader("Expires", 0);
 														
 													        <option value="1">
 													      <input type="hidden" name="cart_id" value="1">
-
+													
 
 							       </select>
-							       <form action="shopping_hotelServlet" method="post">
+
 									<button  href="#" class="b pay"  style = "border: 1px solid blcak ; background-color: blue; color:black;">加入購物車</button>
 									<input type = "hidden"  name ="action" value ="trip_goShopping">
-								</form>
-							
+										<input type="hidden" name="tripId" value="2">
+						</form>
 							
 							
 							

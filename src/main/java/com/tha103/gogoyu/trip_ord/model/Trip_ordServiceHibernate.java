@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
+
+import com.tha103.gogoyu.room_ord.model.Room_ord;
 import com.tha103.gogoyu.trip.model.Trip;
 
 import util.HibernateUtil;
@@ -15,7 +17,23 @@ public class Trip_ordServiceHibernate implements Trip_ordService {
 	public Trip_ordServiceHibernate() {
 		dao = new Trip_ordHibernateDAO(HibernateUtil.getSessionFactory());
 	}
-
+	
+	public void updateAmountAndPrice(Integer amount , Integer tripOrdId) { 
+	
+	dao.updateAmountAndPrice(amount , tripOrdId); 
+}
+	
+	
+	public Integer updateCommentAndScore(Integer tripOrd , Integer score , String comment ,Timestamp commentsTime) {
+	
+		return dao.updateCommentAndScore(tripOrd,score,comment, commentsTime);
+	}	
+		
+	public void updateStatusAndRemark(String remark , Integer tripOrdId ,BigDecimal profit , BigDecimal commission , BigDecimal totalPrice) {
+		dao.updateStatusAndRemark(remark, tripOrdId , profit , commission , totalPrice);
+	}
+	
+	
 	public Integer addFromShopping(Integer compId , Integer tripId, Integer planId, Integer cusId, Integer amount, BigDecimal totalPrice,
 			BigDecimal commission, BigDecimal profit, Date startTime , Date endTime ,Integer ordStatus) {
 
@@ -57,6 +75,8 @@ public class Trip_ordServiceHibernate implements Trip_ordService {
 		return tripOrd;
 	}
 
+	
+	
 	public Trip_ord updateTrip(Integer tripId, Integer planId, Integer cusId, Integer amount, BigDecimal totalPrice,
 			BigDecimal commission, Integer ordStatus, Timestamp ordTime, String remark, Integer score, String comments,
 			Timestamp commentsTime, Integer tripOrdId) {
@@ -80,6 +100,12 @@ public class Trip_ordServiceHibernate implements Trip_ordService {
 
 		return tripOrd;
 	}
+	
+	public Map <Trip_ord , List <Object>> getTripOrdList(Integer tripOrdId){
+		return dao.getTripOrdList(tripOrdId);
+	}
+	
+	
 	
 	public Map<Trip_ord, List<String>> getTripOrdVo(Integer cartId , Integer cusId){
 		return dao.getTripOrdVo(cartId , cusId);
@@ -105,4 +131,15 @@ public class Trip_ordServiceHibernate implements Trip_ordService {
 	public Map<Trip_ord, List<String>> getOneTripOrd(Integer tripOrdId, Integer compId) {
 		return dao.getTripOrdByCompIdOrdId(tripOrdId, compId);
 	}
+	
+	public Map<Trip_ord,List<String>> gettripIdComment(Integer tripId){
+		return dao.gettripIdComment(tripId);
+	}
+	
+	public Map<Trip_ord, List<String>> getTripOrdByCusId(Integer cusId){
+		return dao.getTripOrdByCusId(cusId);
+	}
+	
+	
+	
 }

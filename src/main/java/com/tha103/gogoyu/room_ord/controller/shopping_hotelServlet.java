@@ -33,21 +33,7 @@ public class shopping_hotelServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8"); // 接收請求參數的編碼設定
 
 		HttpSession session = req.getSession();
-//		session.setAttribute("cart_id", 5);
-		session.setAttribute("trip_id", 1);
-		session.setAttribute("cus_id", 1);
-		session.setAttribute("room_id", 1);
-
 	
-//		Integer cart_Id = (Integer) session.getAttribute("cart_id"); // 抓車號
-		Integer cusId = (Integer) session.getAttribute("cus_id"); // 抓會員id
-		
-		//roomId最後要放回去房間新增裡的if!!
-		Integer roomId = (Integer) session.getAttribute("room_id"); // 抓房間id  最後會用getparameter(name value)
-	
-		//roomAmount最後要放回去房間新增裡的if!!
-		Integer roomAmount= 1;//Integer.valueOf(req.getParameter("amount")); //抓數量amount(name value)
-		
 		String Timestart= "2023-10-21"; // 示例日期字符串
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date checkInTime = Date.valueOf(Timestart);
@@ -59,17 +45,14 @@ public class shopping_hotelServlet extends HttpServlet {
 		
 		
 		String action = req.getParameter("action");
-		
-		
-		
-		
+	
 		
 //=========================購物車(飯店)新增===============================
 		if ("room_goShopping".equals(action)) { 
-			
+			Integer cusId = (Integer) session.getAttribute("cusId");
 			if (cusId != null) {// 如果session有cus_id資料代表有人登入
-				Integer cartId = Integer.valueOf(req.getParameter("cart_id")); //透過js給值抓購物車號(name value)
-//				System.out.println(cartId +"哈哈");
+				Integer cartId = Integer.valueOf(req.getParameter("cart_id")); 
+				Integer roomId = Integer.valueOf(req.getParameter("roomId")); 
 				RoomServiceHibernate RSH = new RoomServiceHibernate();
 				Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
 				PlanningServiceHibernate PSH = new PlanningServiceHibernate();// 創造出SERVICE
@@ -88,20 +71,22 @@ public class shopping_hotelServlet extends HttpServlet {
 				BigDecimal profit = totalPrice.subtract(commission);
 			//people = 數量 (明翰提供) * room_type
 				Integer RoomType = RSH.getRoom(roomId).getRoomType();
+				Integer roomAmount= 1; //固定給他1(預設，後續可以到結帳前面去更改數量)
 				Integer people = roomAmount * RoomType;
 				
 			// check in  out 時間由明翰搜尋的結果得知
 				
-				Integer newRoomOrder = ROSH.addFromShopping(compId ,plan_id,roomId,cusId,roomAmount,totalPrice,commission, profit , people ,checkInTime, checkOutTime,1);
+				Integer newRoomOrder = ROSH.addFromShopping(compId ,plan_id,roomId,cusId,roomAmount,totalPrice,commission, profit , people ,checkInTime, checkOutTime,0);
 				
 				
 				String url = "/chu/shopping(hotel).jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
-				successView.forward(req, res);	
+				res.sendRedirect(req.getContextPath() + url);
+				return;
 
 			} else { // 導回登入
 				session.setAttribute("location", req.getRequestURI()); // 如果沒登入先記錄現在的位置(網址)
-				res.sendRedirect(req.getContextPath() + "/chu/bookingList(trip).jsp");// 然後導回登入頁面(等到有login.jsp再改路徑)
+				res.sendRedirect(req.getContextPath() + "/eric/signin.jsp");// 然後導回登入頁面(等到有login.jsp再改路徑)
+				return;
 			}
 
 		}
@@ -118,19 +103,44 @@ public class shopping_hotelServlet extends HttpServlet {
 			ROSH.delete(roomOrdId);
 	
 			
-			String url = "/chu/shopping(hotel).jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
-			successView.forward(req, res);	
+			res.sendRedirect(req.getContextPath() + "/chu/shopping(hotel).jsp");
+			return;
 
 		}
 //=========================購物車(飯店)刪除===============================
 	
 		
+		
+//=========================訂單頁面取消===============================
+		
+		if("CancelTransaction".equals(action)) {
+			res.sendRedirect(req.getContextPath() + "/chu/shopping(hotel).jsp");
+			return;
+		}
+//=========================訂單頁面取消===============================
 	
+		
+		
+//=========================訂單頁面結帳===============================
+
+		if("ConnectToECPAY".equals(action)) {
+			Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
+			Integer roomOrdId =Integer.valueOf(req.getParameter("roomOrdId"));
+			String remark = req.getParameter("remark");
+			ROSH.updateStatusAndRemark(remark , roomOrdId);
+			res.sendRedirect(req.getContextPath() + "/chu/payForSuccess.jsp");
+			return;
+			
+		}
+//=========================訂單頁面結帳===============================
+		
 		
 //=========================購物車(飯店)結帳===============================
 		if("hotelcheckOut".equals(action)) { 
 			Integer roomOrderId  = Integer.valueOf(req.getParameter("roomOrdId"));
+			
+			
+			
 			Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
 			RoomServiceHibernate RSH = new RoomServiceHibernate();
 			CompanyService CSH = new CompanyService();

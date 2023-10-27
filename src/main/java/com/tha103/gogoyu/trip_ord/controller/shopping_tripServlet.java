@@ -36,32 +36,20 @@ public class shopping_tripServlet extends HttpServlet {
 
 		HttpSession session = req.getSession();
 
-		session.setAttribute("trip_id", 1);
-		session.setAttribute("cus_id", 1);
-		session.setAttribute("room_id", 1);
-
-		Integer cusId = (Integer) session.getAttribute("cus_id"); // 抓會員id
-
-		// tripId最後要放回去行程新增裡的if!!
-		Integer tripId = (Integer) session.getAttribute("trip_id"); // 抓行程 id 最後getparameter(name value)
-
-		// tripAmount最後要放回去行程新增裡的if!!
-		Integer tripAmount = 1;// Integer.valueOf(req.getParameter("amount")); //抓數量amount(name value)
-
 		String action = req.getParameter("action");
 		
 		
-//=========================購物車(飯店)新增===============================
+//=========================shoppingcart新增===============================
 		if ("trip_goShopping".equals(action)) { // trip區塊加入購物車時(新增)
-
+			Integer cusId = (Integer) session.getAttribute("cusId"); // 抓會員id
 			if (cusId != null) {// 如果session有cus_id資料代表有人登入
-				Integer cartId = Integer.valueOf(req.getParameter("cart_id")); // 透過js給值抓購物車號(name value)
-
+				Integer cartId = Integer.valueOf(req.getParameter("cart_id")); 
+				Integer tripId = Integer.valueOf(req.getParameter("tripId"));
 				PlanningServiceHibernate PSH = new PlanningServiceHibernate();// 創造出planning SERVICE
 				Integer planId = PSH.getPlanId(cusId, cartId); // 得到1.他是誰 2.是哪台車
 			
 				// 透過取得的trip_id去找到該物件的屬性
-
+				Integer tripAmount= 1; //固定給他1(預設，後續可以到結帳前面去更改數量)
 				Trip_ordServiceHibernate TOSH = new Trip_ordServiceHibernate();
 				TripServiceHibernate TSH = new TripServiceHibernate();
 			    Integer compId = TSH.getTrip(tripId).getCompId();
@@ -74,25 +62,24 @@ public class shopping_tripServlet extends HttpServlet {
 				BigDecimal commission = totalPrice.multiply(new BigDecimal(0.1));
 //			//profit = price - comm
 				BigDecimal profit = totalPrice.subtract(commission);
-				
-		
+
 				TOSH.addFromShopping(compId,tripId, planId, cusId, tripAmount, totalPrice, commission, profit, startTime,endTime ,0);
 
 				String url = "/chu/shopping(hotel).jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
-				successView.forward(req, res);
+				res.sendRedirect(req.getContextPath() + url);
+				return;
 
 			} else { // 導回登入
 				session.setAttribute("location", req.getRequestURI()); // 如果沒登入先記錄現在的位置(網址)
-				res.sendRedirect(req.getContextPath() + "/chu/bookingList(trip).jsp");// 然後導回登入頁面(等到有login.jsp再改路徑)
+				res.sendRedirect(req.getContextPath() +"/eric/signin.jsp");// 然後導回登入頁面(等到有login.jsp再改路徑)
 
 			}
 
 		}
-//=========================購物車(旅行)新增===============================
+//=========================shoppingcart新增===============================
 		
 		
-//=========================購物車(旅行)刪除===============================
+//=========================shoppingcart刪除===============================
 	
 if("removeTripOrder".equals(action)) { 
 			
@@ -100,60 +87,81 @@ if("removeTripOrder".equals(action)) {
 			Trip_ordServiceHibernate ROSH = new Trip_ordServiceHibernate();
 			ROSH.deleteTrip(roomOrdId);
 	
-			
 			String url = "/chu/shopping(hotel).jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
-			successView.forward(req, res);	
-
+			res.sendRedirect(req.getContextPath() + url);
+			return;
 		}
-//=========================購物車(飯店)刪除===============================
-//=========================購物車(飯店)結帳===============================
+//=========================shoppingcart刪除===============================
+
+
+
+
+
+//=========================bookingList更改數量===============================
+
+if("countAmount".equals(action)) {
+	Integer tripOrdId = Integer.valueOf(req.getParameter("tripOrdIdPk"));//tripOrdId
+		
+	Integer amount =Integer.valueOf(req.getParameter("tripAmount"));
+	Trip_ordServiceHibernate TOSH = new Trip_ordServiceHibernate();
+	TOSH.updateAmountAndPrice(amount ,tripOrdId);//更新數量
+	req.setAttribute("tripOrdId", tripOrdId);
+	String url = "/chu/bookingList(trip).jsp";
+	RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+	successView.forward(req, res);	
+	
+}
+//=========================bookingList更改數量===============================
+
+//=========================bookingList進入payforsuccess===============================
+
+		if("ConnectToECPAY".equals(action)) {
+			
+			Trip_ordServiceHibernate TOSH = new Trip_ordServiceHibernate();
+			Integer tripOrdId =Integer.valueOf(req.getParameter("tripOrdId"));
+			BigDecimal profit = new BigDecimal(req.getParameter("profit"));
+			BigDecimal commission = new BigDecimal(req.getParameter("commission"));
+			BigDecimal  totalPrice  = new BigDecimal(req.getParameter("totalPrice"));
+			String remark = req.getParameter("remark");
+			
+			System.out.println(profit);
+			TOSH.updateStatusAndRemark(remark , tripOrdId , profit , commission , totalPrice);
+			res.sendRedirect(req.getContextPath() + "/chu/payForSuccess.jsp");
+			return;
+			
+		}
+//=========================bookingList進入payforsuccess===============================
+
+
+
+
+
+
+
+
+
+
+//=========================進入bookingList===============================
 		if("TripCheckOut".equals(action)) { 
 			//取得TripOrderId
-			Integer TripOrderId  = Integer.valueOf(req.getParameter("TripOrdId"));
-			Trip_ordServiceHibernate TOSH = new Trip_ordServiceHibernate();
-			TripServiceHibernate TSH = new TripServiceHibernate();
-			CompanyService CSH = new CompanyService();
+			Integer tripOrderId  = Integer.valueOf(req.getParameter("TripOrdId"));
 			
-			Trip_ord trip_ord =TOSH.getOneTrip(TripOrderId); //取得trip_ord物件
-			Integer TripId = trip_ord.getTripId();//取得tripId
-			Trip trip  = TSH.getTrip(TripId);//取得trip物件
-			
-			Integer compId = trip.getCompId();
-		
-			Trip_ordList TOL = new Trip_ordList();
-			TOL.setTripOrdId(TripOrderId);
-			TOL.setTripName(trip.getTripName());
-			TOL.setCusId(trip_ord.getCusId());
-			TOL.setCompName(CSH.getComp(compId).getCompName());
-			TOL.setPeople(trip.getPeople());
-			TOL.setStore(trip.getAmount());
-			TOL.setAmount(trip_ord.getAmount());
-			TOL.setPrincipalName(CSH.getComp(compId).getPrincipalName());
-			TOL.setPrincipalPhone(CSH.getComp(compId).getPrincipalPhone());
-			TOL.setStartTime(trip.getStartTime()); 
-			TOL.setEndTime(trip.getEndTime());
-			TOL.setProfit(trip_ord.getProfit().setScale(3, RoundingMode.HALF_UP).intValue());
-			TOL.setCommission(trip_ord.getCommission().setScale(3, RoundingMode.HALF_UP).intValue());
-			TOL.setTotalPrice(trip_ord.getTotalPrice().setScale(3, RoundingMode.HALF_UP).intValue());
-		
-			
-			req.setAttribute( "TripOrd" , TOL);
+
+			req.setAttribute("tripOrdId",tripOrderId);
 			String url = "/chu/bookingList(trip).jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);	
 			
 		}		
-//=========================購物車(飯店)結帳===============================
+//=========================進入bookingList===============================
 	
 		if("CancelTransaction".equals(action)) {
 			String url = "/chu/shopping(hotel).jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
-			successView.forward(req, res);	
+			res.sendRedirect(req.getContextPath() + url);
+			return;
 		}
 		
 		
-		
-		
+
 	}
 }

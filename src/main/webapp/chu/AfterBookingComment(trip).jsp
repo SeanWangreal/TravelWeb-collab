@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ page import="com.tha103.gogoyu.trip_ord.model.*"%>
+<%@ page import="com.tha103.gogoyu.trip.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!-- jsp使用  el語法註冊-->
 <%@ page import="java.util.*"%>
 <%@ page import="com.tha103.gogoyu.room_ord.model.*"%>
 <%@ page import="com.tha103.gogoyu.consumer.model.*"%>
+<%@ page import="com.tha103.gogoyu.planning.model.*"%>
 <%@ page import="com.tha103.gogoyu.planning.model.*"%>
 <!-- 以下三行預防快取 -->
 <%
@@ -16,7 +18,7 @@ response.setDateHeader("Expires", 0);
 <!DOCTYPE html>
 <html>
 <head>
-    <title>住客評語</title>
+    <title>遊客評語</title>
     <style>
         /* 基本頁面樣式 */
         body {
@@ -113,30 +115,13 @@ response.setDateHeader("Expires", 0);
 </head>
 <body>
     
-    <div class="comment-container">
-        
-        <h1 style="text-decoration: underline; color: blue;">統神大戲院</h1>
-        <h2>客人評語</h2>
-        <hr>
-        <div class="comment" style="display: flex;">
-            <div style="font-size: 20px;">
-                <span class="author" >會員編號: 11</span>
-                <div style="margin-top: 10px;">asiagodtone</div>
-                <br>                
-                <span style="margin-left: 30px;">8.7</span><span class="star" style="color: gold">★</span>
-            </div>
-            <div class="comment-text">
-                這是一個示例評論這是一個示例評論這是一個示例評論。這是一個示例評論。這是一個示例評論。這是一個示例評論。這是一個示例評論。這是一個示例評論。這是一個示例評論。這是一個示例評論。這是一個示例評論。這是一個示例評論。這是一個示例評論。
-            </div>
-        </div>
-        <hr>
-        
-
-        <div class="comment-form">
+        <div class="comment-form" style = " position : relative ; left :30%">
             <br>
             <br>
             <h3>新增評論</h3>
-            <form>
+            
+            <form action="${pageContext.request.contextPath}/Trip_ordCommentServlet" method="post">
+            
                 <label>評分：</label>
                 <div class="stars" data-rating="0">
                     <span class="star" data-value="1">★</span>
@@ -145,19 +130,30 @@ response.setDateHeader("Expires", 0);
                     <span class="star" data-value="4">★</span>
                     <span class="star" data-value="5">★</span>
                 </div>
-                <p>你的評分是: <span id="rating">0</span> 颗星</p>
+                <p>你的評分是: <span id="rating">0</span> 顆星</p>
+                
+                <input type="hidden" id="ratingInput" name="score" value="0"> 
+                
                 <br>
-                <label for="comment-text">評論內容 (不超過100字)：</label>
-                <textarea id="comment-text" name="comment-text" rows="4" required style="width: 100%; max-width: 400px;"></textarea>
-                <p style="color: gray;">最大字數: <span id="charCount">100</span>/100<span></span></p>
+                 <c:if test="${not empty errorMessage}">
+					    <div class="error-message" style = "color :red ; font-size:20px"><i>*${errorMessage}</i></div>
+				</c:if>
+                <label for="comment-text">評論內容 (不超過200字)：</label>
+                <textarea id="comment-text" name="comment" rows="4" required style="width: 100%; max-width: 400px;"></textarea>               
+                <p style="color: gray;">最大字數: <span id="charCount">200</span>/200<span></span></p>
+                <input type="hidden" id="submitButtonClicked" name="submitButtonClicked" value="false">
+                <input type="hidden" name="tripOrdId" value="${tripOrdId}">  
+	            <input type="hidden" name="tripId" value="${tripId}">			
                 <button type="submit">發表評論</button>
             </form>
         </div>
         
-        <!-- 離開按鈕 -->
-        <button class="leave-button" id="leaveButton">離開</button>
+  		 <form action="${pageContext.request.contextPath}/room_ordCommentServlet" method="post">
+        	<button class="leave-button" id="leaveButton">離開</button>
+        	<input type="hidden" name="action" value="leaveComment">	
+        </form>
     </div>
-
+<script src="${pageContext.request.contextPath}/vendors/jquery/jquery-3.7.1.min.js"></script>
     <script>
         const stars = document.querySelectorAll('.star');
         const ratingElement = document.getElementById('rating');
@@ -165,6 +161,8 @@ response.setDateHeader("Expires", 0);
         const commentText = document.getElementById('comment-text');
         const charCountElement = document.getElementById('charCount');
 
+
+        
         starsContainer.addEventListener('click', (event) => {
             if (event.target.classList.contains('star')) {
                 const rating = event.target.getAttribute('data-value');
@@ -176,11 +174,11 @@ response.setDateHeader("Expires", 0);
         commentText.addEventListener('input', () => {
             const text = commentText.value;
             const charCount = text.length;
-            const remainingChars = 100 - charCount;
+            const remainingChars = 200 - charCount;
             charCountElement.textContent = remainingChars;
 
-            if (charCount > 100) {
-                commentText.value = text.substring(0, 100); // 截斷文本以限制字數
+            if (charCount > 200) {
+                commentText.value = text.substring(0, 200); // 截斷文本以限制字數
                 charCountElement.textContent = 0;
             }
         });
@@ -194,6 +192,30 @@ response.setDateHeader("Expires", 0);
                 }
             });
         }
+        
+        
+        
+//         計算點選的星數方便傳值給後端
+        const ratingInput = document.getElementById('ratingInput');
+        starsContainer.addEventListener('click', (event) => {
+            if (event.target.classList.contains('star')) {
+                const rating = event.target.getAttribute('data-value');
+                ratingElement.textContent = rating;
+                ratingInput.value = rating; // 更新隱藏的輸入元素的值
+                updateStars(rating);
+            }
+        });
+//      計算點選的星數方便傳值給後端
+
+// 確認評論發表的按鈕有按
+		const submitButton = document.querySelector('button[type="submit"]');
+		const submitButtonClickedInput = document.getElementById('submitButtonClicked');
+		
+		submitButton.addEventListener('click', () => {
+		    submitButtonClickedInput.value = "true"; // 將值設置為 "true" 表示按鈕已被單擊
+		});
+// 確認評論發表的按鈕有按		
+
     </script>
 </body>
 </html>

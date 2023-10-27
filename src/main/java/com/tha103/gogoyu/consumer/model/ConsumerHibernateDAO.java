@@ -5,10 +5,24 @@ import java.util.List;
 import javax.persistence.Query;
 
 import org.hibernate.Session;
-
+import org.hibernate.SessionFactory;
 import util.HibernateUtil;
 
 public class ConsumerHibernateDAO implements ConsumerDAO_interface {
+
+	private SessionFactory factory;
+
+	public ConsumerHibernateDAO(SessionFactory factory) {
+		this.factory = factory;
+	}
+
+
+
+
+	private Session getSession() {
+		return factory.getCurrentSession();
+	}
+
 
 	@Override
 	public int add(Consumer consumer) {
@@ -89,8 +103,10 @@ public class ConsumerHibernateDAO implements ConsumerDAO_interface {
 		return null;
 	}
 
+
+	
 	@Override
-	public byte[] getPicture(Integer cusId) throws Exception {
+	public byte[] getPicture(Integer cusId) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
@@ -103,6 +119,7 @@ public class ConsumerHibernateDAO implements ConsumerDAO_interface {
 			session.getTransaction().rollback();
 		}
 		return null;
+
 
 	}
 
@@ -162,7 +179,8 @@ public class ConsumerHibernateDAO implements ConsumerDAO_interface {
 		}
 	}
 	public static void main(String[] args) {
-		ConsumerHibernateDAO dao = new ConsumerHibernateDAO();
+		ConsumerHibernateDAO dao = new ConsumerHibernateDAO(HibernateUtil.getSessionFactory());
 		dao.findByPK(10);
 	}
 }
+
