@@ -5,6 +5,7 @@ import java.util.List;
 import com.tha103.gogoyu.company.model.Company;
 import com.tha103.gogoyu.company.model.CompanyDAO_interface;
 import com.tha103.gogoyu.company.model.CompanyHibernateDAO;
+import com.tha103.gogoyu.room.model.Room;
 import com.tha103.gogoyu.room.model.RoomServiceHibernate;
 
 import util.HibernateUtil;
@@ -81,6 +82,10 @@ public class Hotel_infoServiceHibernate {
 		
 		public List<String> getHotelInfoList(Integer hoteInfoId){
 			return dao.hotelInfoList(hoteInfoId);
+		}
+		
+		public int updFromComp(Hotel_info hotel_info) {
+			return dao.update(hotel_info);
 		}
 		
 		public static void main(String[] args) {
