@@ -6,6 +6,8 @@ import java.util.List;
 import util.HibernateUtil;
 
 import java.io.FileInputStream;
+import com.tha103.gogoyu.planning.model.*;
+
 
 public class ConsumerServiceHibernate implements ConsumerService {
 
@@ -14,6 +16,7 @@ public class ConsumerServiceHibernate implements ConsumerService {
 	public ConsumerServiceHibernate() {
 		dao = new ConsumerHibernateDAO(HibernateUtil.getSessionFactory());
 	}
+	
 	
 	
 	@Override
@@ -36,17 +39,13 @@ public class ConsumerServiceHibernate implements ConsumerService {
 	}
 
 	@Override
-	public Consumer updateCus(Integer cusId, String cusName, String cusAccount, String cusPassword, String cusMail,
-			String cusPhone, String cusAddress, Integer cusSex, byte[] cusPhoto) {
-		Consumer cus = new Consumer();
-		cus.setCusId(cusId);
-		cus.setCusName(cusName);
-		cus.setCusAccount(cusAccount);
+	public Consumer updateCus(Integer cusId,String cusName,String cusAccount,  String cusPassword, String cusMail,
+			String cusPhone, String cusAddress,Integer cusSex,  byte[] cusPhoto) {
+		Consumer cus = this.getOneCus(cusId);
 		cus.setCusPassword(cusPassword);
 		cus.setCusMail(cusAddress);
 		cus.setCusPhone(cusPhone);
 		cus.setCusAddress(cusAddress);
-		cus.setCusSex(cusSex);
 		cus.setCusPhoto(cusPhoto);
 		dao.update(cus);
 		return cus;
@@ -99,5 +98,11 @@ dao.delete(cusId);
 			String cusAddress, Integer cusSex) {
 		dao.updFromBackend(cusId, cusName, cusAccount, cusMail, cusPhone, cusAddress, cusSex);
 	}
+//	public Planning addPlannig(Integer cusId,Integer cartId) {
+//		Planning plan = new Planning();
+//		plan.setCusId(cusId);
+//		plan.setCartId(cartId);
+//		dao.addPlan(plan);
+//	}
 	
 }

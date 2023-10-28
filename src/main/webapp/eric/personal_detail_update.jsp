@@ -52,6 +52,10 @@ if ((Integer) request.getSession().getAttribute("cusId") == null) {
 	}
 }
 
+img {
+	width: 200px;
+	height: 200px;
+}
 </style>
 </head>
 
@@ -139,42 +143,48 @@ if ((Integer) request.getSession().getAttribute("cusId") == null) {
 
 				</section>
 				<br> <br> <br> <br>
-				<h5 style="font-weight: bolder">會員資料,${consumer.cusId}</h5>
-				<span style="float: left">在個人資料中更新最新資訊並確認<span>
-						<div class="memBtn" id="memBtn"
-							style="text-decoration: none; text-align: right; padding-right: 120px; font-size: 16px; font-family: 粉圓">
-							<p>編輯</p>
-						</div>
-						<div class="circle">C</div> <br>
-						<div class="mem_detal">
+				<form METHOD="post"
+					ACTION="<%=request.getContextPath()%>/eric/ConsumerServlet"
+					name="form1" enctype="multipart/form-data">
+
+					<h5 style="font-weight: bolder">會員資料</h5>
+					<span style="float: left">在個人資料中更新最新資訊並確認<span>
+							<div class="memBtn" id="memBtn"
+								style="text-decoration: none; text-align: right; padding-right: 120px; font-size: 16px; font-family: 粉圓">
+
+							</div>
+					
+
+							<div class="mem_detal">
 								<div class="personal_item"
 									style="width: 30%; font-weight: bolder; font-family: 粉圓; border: none">
-									<span>姓名</span><br> <br> <span>帳號</span><br> <br>
+								
+								
 									<span>信箱 </span><br> <br> <span>電話</span><br> <br>
-									<span>住址</span><br> <br> <span>性別</span><br> <br>
-									<span>照片</span><br>
+									<span>住址</span><br> <br>	<span>密碼</span><br>
+									 <span>照片</span><br>
+									
 								</div>
 
 								<div class="personal_item"
 									style="width: 70%; border: none white; padding-left: 0px">
-									<input class="mem" id="mem" value="${consumer.cusName}"
-										readonly></input><br> <br> <input class="mem"
-										id="mem" value="cusAccount" readonly></input><br> <br>
-									<input class="mem" id="mem" value="${consumer.cusMail}"></input><br>
-									<br> <input class="mem" id="mem"
-										value="${consumer.cusPhone}"></input><br> <br> <input
-										class="mem" id="mem" value="${consumer.cusAddress}"></input><br>
-									<br> <input class="mem" id="mem"
-										value="${consumer.cusSex}"></input><br> <br> <img
-										src="${pageContext.request.contextPath}/eric/PictureServlet?cus_id=${consumer.cusId}">
-									<input type="file" name="cusPhoto" style="width:200px">
-								</div>
-								<button>送出</button>
 
-							</form>
-						</div> <br> <br> <br> <br> <br> <br> <br>
-						<br>
+									<input class="mem" id="mem" name="cusMail" value="${consumer.cusMail}"></input><br><br>
+									<input class="mem" id="mem" name="cusPhone" value="${consumer.cusPhone}"></input><br><br>
+									<input class="mem" id="mem" name="cusAddress"value="${consumer.cusAddress}"></input><br> <br>
+									<input class="mem" id="mem" name="cusPassword"value="${consumer.cusPassword}"></input><br> <br>
+									<img src="${pageContext.request.contextPath}/eric/PictureServlet?cus_id=${consumer.cusId}">
+									<input type="file" name="cusPhoto">
+								</div>
+								<button name="action" value="update">送出</button>
+
+							</div> <br> <br> <br> <br> <br> <br> <br>
+
+
+							<br>
+				</form>
 			</div>
+
 		</main>
 	</div>
 

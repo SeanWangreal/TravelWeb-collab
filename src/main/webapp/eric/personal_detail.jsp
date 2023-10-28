@@ -155,7 +155,6 @@ if ((Integer)request.getSession().getAttribute("cusId") == null){
                             <div class="memBtn" id="memBtn"style="text-decoration: none; text-align: right; padding-right:120px; font-size:16px; font-family: ¯»¶ê">
                                 <a href="${pageContext.request.contextPath}/eric/ConsumerServlet?action=getOne_For_Update">½s¿è</a>
                             </div>
-                            <div class="circle">C</div>
                             <br>
                             <div class="mem_detal">
                                 <div class="personal_item" style="width:30%; font-weight:bolder; font-family: ¯»¶ê; border:none ">
