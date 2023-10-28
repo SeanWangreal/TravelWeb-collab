@@ -189,10 +189,6 @@ public class ConsumerHibernateDAO implements ConsumerDAO_interface {
 
 
 
-	@Override
-	public int addPlan(Planning planning) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 }
 
