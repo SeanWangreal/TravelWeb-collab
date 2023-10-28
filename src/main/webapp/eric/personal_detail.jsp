@@ -22,18 +22,7 @@ if ((Integer)request.getSession().getAttribute("cusId") == null){
     <link rel="stylesheet" href="../static/eric_css/ordinf.css">
     <link rel="stylesheet" href="">
 
-    </script>
     <style>
-        :root {
-            --ifm-font-family-base: "粉圓";
-        }
-
-        @font-face {
-            font-family: '粉圓';
-            src: url('/static/font/jf-openhuninn-2.0.ttf');
-            font-display: swap;
-        }
-
         @media (min-height: 500px) and (max-height: 1300px) {
             .shop {
                 height: 60vh;
@@ -57,6 +46,7 @@ if ((Integer)request.getSession().getAttribute("cusId") == null){
         width:200px;
         height:200px;
         }
+        
     </style>
 </head>
 
@@ -65,24 +55,23 @@ if ((Integer)request.getSession().getAttribute("cusId") == null){
 
     <nav class="st">
         <!-- <a class="word" id="home" href="#">Home</a> -->
-        <div class="head">
+        <a class="logo" id="home" href="${pageContext.request.contextPath}/mhl/home.jsp">GO<i class="fa-solid fa-location-dot" style="color: #ffbf1c;"></i>GOYU</a>
+         <div class="head">
+            <button type="menu" class="head_btn" aria-label="規劃行程" id="shop">
+                <i class="fa-solid fa-suitcase-rolling icon" style="color: black; font-size:30px;
+                            background-color:transparent;"></i>
             </button>
             <button type="menu" class="head_btn" id="msg">
                 <i class="fa-regular fa-message icon" style="color: black; font-size:30px; 
                             background-color:transparent;"></i>
             </button>
             <button type="menu" class="head_btn" id="info">
-                <i class="fa-regular fa-bell icon" style="color: black;font-size:30px; width: 30px;
+                <i class="fa-regular fa-bell  icon" style="color: black;font-size:30px; width: 30px;
                             background-color:transparent;"></i>
             </button>
-            <button type="menu" class="head_btn" id="">
-                <i class="fa-solid fa-store" style="color: #000000;font-size:30px; width: 30px;
-                background-color:transparent;"></i>
-
-            </button>
             <button type="button" class="head_btn">
-                <a class="profile" href="#">
-                    <i class="fa-solid fa-user icon" style="color: black; font-size:30px;
+                <a class="profile" href="${pageContext.request.contextPath}/eric/personal_detail.jsp">
+                    <i class="fa-solid fa-user" style="color: black; font-size:30px;
                                 background-color:transparent;"></i>
                 </a>
             </button>
@@ -106,17 +95,17 @@ if ((Integer)request.getSession().getAttribute("cusId") == null){
         <div id="shell"></div>
         <aside class="left">
             <div class="mem-data">
-                <a class="left_btn">
+                <a class="left_btn"  href="${pageContext.request.contextPath}/chu/shopping(hotel).jsp">
                     <i class="fa-solid fa-cart-shopping" style="color: black;"></i> 制定規劃
                 </a>
             </div>
             <div class="mem-data">
-                <a class="left_btn" href="personal_detail.html">
+                <a class="left_btn" href="${pageContext.request.contextPath}/eric/personal_detail.jsp">
                     <i class="fa-regular fa-user" style="color: black;"></i> 會員資料
                 </a>
             </div>
             <div class="mem-data">
-                <a class="left_btn" href="ordinf.html">
+                <a class="left_btn" href="${pageContext.request.contextPath}/chu/bookedList(hotel).jsp">
                     <i class="fa-solid fa-file-invoice" style="color: black;"></i> 訂單資訊
                 </a>
             </div>
@@ -143,7 +132,7 @@ if ((Integer)request.getSession().getAttribute("cusId") == null){
                 <section class="item" style="width:800px">
                     <h1 style="border: 0px solid">${consumer.cusName},${cusId}您好!</h1>
                     <br>
-                    <button type="summit" class="logoutbtn" style="float: right;" name="action" value="Logout">按此登出</button>
+                    <a href="${pageContext.request.contextPath}/eric/ConsumerServlet?action=Logout" class="logoutbtn">按此登出</a>
                     
                 </section>
                 <br>
@@ -151,7 +140,7 @@ if ((Integer)request.getSession().getAttribute("cusId") == null){
                 <br>
                 <br>
                 <h5 style="font-weight:bolder">會員資料</h5>
-                    <span style="float: left">在個人資料中更新最新資訊並確認<span>
+                    <span style="float: left">在個人資料中更新最新資訊並確認</span>
                             <div class="memBtn" id="memBtn"style="text-decoration: none; text-align: right; padding-right:120px; font-size:16px; font-family: 粉圓">
                                 <a href="${pageContext.request.contextPath}/eric/ConsumerServlet?action=getOne_For_Update">編輯</a>
                             </div>
@@ -203,7 +192,7 @@ if ((Integer)request.getSession().getAttribute("cusId") == null){
 
 
     <!-- <script src="btn4com_review.js"></script> -->
-    <script src="ordinf.js"></script>
+    <script src="${pageContext.request.contextPath}/static/eric_js/ordinf.js"></script>
 
 
 

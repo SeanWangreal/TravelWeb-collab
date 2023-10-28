@@ -112,6 +112,9 @@ public class CompanyServlet extends HttpServlet {
 			}else {
 				url = "/ken/tripcom_mem.jsp";
 			}
+			Hotel_infoServiceHibernate hotelInfoSvc = new Hotel_infoServiceHibernate();
+			Hotel_info hotelInfo = hotelInfoSvc.getOneHotel_info(company.getHotelInfoId());
+			req.setAttribute("hotelinfo", hotelInfo);
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 /ken/com_mem.jsp
 			successView.forward(req, res);
 			return;

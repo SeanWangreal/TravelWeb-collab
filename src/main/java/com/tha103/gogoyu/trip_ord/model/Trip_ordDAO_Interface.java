@@ -22,5 +22,6 @@ public interface Trip_ordDAO_Interface {
 	public Map <Trip_ord , List <Object>> getTripOrdList(Integer tripOrdId);
 	public Integer updateStatusAndRemark(String remark , Integer tripOrdId  ,BigDecimal profit , BigDecimal commission , BigDecimal totalPrice ,Timestamp ordTime);
 	public Integer updateAmountAndPrice(Integer amount  ,Integer tripOrdId); 
+	public Integer updateCartNum(Integer planId , Integer tripOrdId);
 }
 

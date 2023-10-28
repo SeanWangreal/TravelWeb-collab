@@ -6,7 +6,6 @@
 <%@ page import="com.tha103.gogoyu.trip_ord.model.*"%>
 
 <%
-request.getSession().setAttribute("cusId", 1);//假設user為1
 Map<Trip_ord, List<String>> tripOrdMap = (Map<Trip_ord, List<String>>) request.getAttribute("tripOrdMap");
 if (tripOrdMap  == null) {
 	Trip_ordServiceHibernate TOSH = new Trip_ordServiceHibernate();

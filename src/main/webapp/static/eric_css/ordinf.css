@@ -10,7 +10,17 @@ nav {
     display: flex;
 
 }
-
+a.logo{
+    font-size: 30px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: black;
+    border-radius: 35px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    /* -webkit-text-stroke: 1px black; */
+}
 nav a.word {
     -webkit-text-stroke: 1px black;
     font-size: 30px;
@@ -119,7 +129,7 @@ nav.st {
     width: 265px;
     position: relative;
     top: 105px;
-    left: 60px;
+    left: 20px;
     display: flex;
     flex-direction: column;
     z-index: 3;

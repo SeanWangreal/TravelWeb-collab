@@ -6,7 +6,6 @@ import com.tha103.gogoyu.planning.model.Planning;
 
 public interface ConsumerDAO_interface {
 	public int add(Consumer consumer);
-	public int addPlan(Planning planning);
 	public int update(Consumer consumer);
 
 	public int delete(Integer cusId);

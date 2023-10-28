@@ -1,7 +1,6 @@
 package com.tha103.gogoyu.consumer.model;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
