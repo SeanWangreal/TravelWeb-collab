@@ -2,6 +2,8 @@ package com.tha103.gogoyu.company.model;
 
 import java.util.*;
 
+import com.tha103.gogoyu.hotel_info.model.Hotel_info;
+
 import util.Util;
 
 import java.sql.*;
@@ -272,6 +274,12 @@ public class CompanyJDBCDAO implements CompanyDAO_interface {
 	public List<Company> findByPassword(String compPassword) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int add(Company Company, Hotel_info hotelInfo) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }

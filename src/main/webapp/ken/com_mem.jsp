@@ -221,85 +221,85 @@ if (company == null){
 					<img src="" alt="">
 				</div>
 				<br><br>
-				<div style=" display: flex; ">
-					<div style="display: table-cell; margin-right: 80px;">
-						<span> 
-							<input type="checkbox" id="restaurant" name="detail" class="hotelinfo" value="restaurant" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="restaurant">餐廳</label>
-						</span>
-						<br>
-						<span> 
-							<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="tissue">客房服務</label>
-						</span>
-						<br>
-						<span> 
-							<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="tissue">24小時接待櫃檯</label>
-						</span>
-						<br>
-						<span> 
-							<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="tissue">SPA</label>
-						</span>
-						<br>
-						<span> 
-							<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="tissue">健身中心</label>
-						</span>
+					<form>
+						<div style=" display: flex; ">
+						<div style="display: table-cell; margin-right: 80px;">
+							<span> 
+								<input type="checkbox" id="restaurant" name="detail" class="hotelinfo" value="restaurant" ${(room.tissue== 1) ? "checked" : ""}> 
+								<label for="restaurant">餐廳</label>
+							</span>
+							<br>
+							<span> 
+								<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="roomService" ${(room.tissue== 1) ? "checked" : ""}> 
+								<label for="tissue">客房服務</label>
+							</span>
+							<br>
+							<span> 
+								<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="alldayCounter ${(room.tissue== 1) ? "checked" : ""}> 
+								<label for="tissue">24小時接待櫃檯</label>
+							</span>
+							<br>
+							<span> 
+								<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="spa" ${(room.tissue== 1) ? "checked" : ""}> 
+								<label for="tissue">SPA</label>
+							</span>
+							<br>
+							<span> 
+								<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="gym" ${(room.tissue== 1) ? "checked" : ""}> 
+								<label for="tissue">健身中心</label>
+							</span>
+						</div>
+						<div style="display: table-cell; margin-right: 80px;">
+							<span> 
+								<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="garden" ${(room.tissue== 1) ? "checked" : ""}> 
+								<label for="tissue">花園</label>
+							</span>
+							<br>
+							<span> 
+								<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="terrace" ${(room.tissue== 1) ? "checked" : ""}> 
+								<label for="tissue">露臺</label>
+							</span>
+							<br>
+							<span> 
+								<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="noSmoking" ${(room.tissue== 1) ? "checked" : ""}> 
+								<label for="tissue">禁菸客房</label>
+							</span>
+							<br>
+							<span> 
+								<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="freewifi" ${(room.tissue== 1) ? "checked" : ""}> 
+								<label for="tissue">免費無線網路</label>
+							</span>
+							<br>
+							<span> 
+								<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="heater" ${(room.tissue== 1) ? "checked" : ""}> 
+								<label for="tissue">暖氣</label>
+							</span>
+						</div>
+						<div style="display: table-cell; margin-right: 10px;">
+							<span> 
+								<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="beach" ${(room.tissue== 1) ? "checked" : ""}> 
+								<label for="tissue">海灘</label>
+							</span>
+							<br>
+							<span> 
+								<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="pool" ${(room.tissue== 1) ? "checked" : ""}> 
+								<label for="tissue">泳池</label>
+							</span>
+							<br>
+							<span> 
+								<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="chargingstation" ${(room.tissue== 1) ? "checked" : ""}> 
+								<label for="tissue">電動車充電站</label>
+							</span>
+							<br>
+							<span> 
+								<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="parking" ${(room.tissue== 1) ? "checked" : ""}> 
+								<label for="tissue">停車場</label>
+							</span>
+						</div>
 					</div>
-					<div style="display: table-cell; margin-right: 80px;">
-						<span> 
-							<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="tissue">花園</label>
-						</span>
-						<br>
-						<span> 
-							<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="tissue">露臺</label>
-						</span>
-						<br>
-						<span> 
-							<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="tissue">禁菸客房</label>
-						</span>
-						<br>
-						<span> 
-							<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="tissue">免費無線網路</label>
-						</span>
-						<br>
-						<span> 
-							<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="tissue">暖氣</label>
-						</span>
-					</div>
-					<div style="display: table-cell; margin-right: 10px;">
-						<span> 
-							<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="tissue">海灘</label>
-						</span>
-						<br>
-						<span> 
-							<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="tissue">泳池</label>
-						</span>
-						<br>
-						<span> 
-							<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="tissue">電動車充電站</label>
-						</span>
-						<br>
-						<span> 
-							<input type="checkbox" id="tissue" name="detail" class="hotelinfo" value="tissue" ${(room.tissue== 1) ? "checked" : ""}> 
-							<label for="tissue">停車場</label>
-						</span>
-					</div>
-				</div>
-				<br><br><a href="" type="button" class="hotel-btn">修改飯店資訊</a>
+						<br><br><button type="submit" class="hotel-btn">修改飯店資訊</button>
+					</form>
 			</div>
-			
-			
 		</main>
 	</div>
 	<div id="detail" style="display: none;">123</div>

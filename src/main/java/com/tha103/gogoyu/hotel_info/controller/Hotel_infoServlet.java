@@ -115,74 +115,74 @@ public class Hotel_infoServlet extends HttpServlet {
 			Integer hotelInfoId = Integer.valueOf(req.getParameter("hotelInfoId").trim());
 
 			Byte restaurant = Byte.valueOf(req.getParameter("restaurant").trim());
-			if (restaurant == null || restaurant == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (restaurant == null || restaurant == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte roomService = Byte.valueOf(req.getParameter("roomService").trim());
-			if (roomService == null || roomService == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (roomService == null || roomService == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte alldayCounter = Byte.valueOf(req.getParameter("alldayCounter").trim());
-			if (alldayCounter == null || alldayCounter == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (alldayCounter == null || alldayCounter == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte spa = Byte.valueOf(req.getParameter("spa").trim());
-			if (spa == null || spa == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (spa == null || spa == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte gym = Byte.valueOf(req.getParameter("gym").trim());
-			if (gym == null || gym == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (gym == null || gym == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte garden = Byte.valueOf(req.getParameter("garden").trim());
-			if (garden == null || garden == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (garden == null || garden == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte terrace = Byte.valueOf(req.getParameter("terrace").trim());
-			if (terrace == null || terrace == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (terrace == null || terrace == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte noSmoking = Byte.valueOf(req.getParameter("noSmoking").trim());
-			if (noSmoking == null || noSmoking == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (noSmoking == null || noSmoking == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte freewifi = Byte.valueOf(req.getParameter("freewifi").trim());
-			if (freewifi == null || freewifi == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (freewifi == null || freewifi == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte heater = Byte.valueOf(req.getParameter("heater").trim());
-			if (heater == null || heater == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (heater == null || heater == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte beach = Byte.valueOf(req.getParameter("beach").trim());
-			if (beach == null || beach == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (beach == null || beach == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte pool = Byte.valueOf(req.getParameter("pool").trim());
-			if (pool == null || pool == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (pool == null || pool == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte chargingstation = Byte.valueOf(req.getParameter("chargingstation").trim());
-			if (chargingstation == null || chargingstation == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (chargingstation == null || chargingstation == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte parking = Byte.valueOf(req.getParameter("parking").trim());
-			if (parking == null || parking == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (parking == null || parking == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 		
 
 //Integer hotelInfoId = Integer.valueOf(req.getParameter("hotelInfoId").trim());
