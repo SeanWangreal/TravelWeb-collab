@@ -25,7 +25,6 @@ import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 import com.tha103.gogoyu.consumer.model.Consumer;
-import com.tha103.gogoyu.planning.model.Planning;
 import com.tha103.gogoyu.consumer.model.ConsumerServiceHibernate;
 import com.tha103.gogoyu.planning.model.PlanningServiceHibernate;
 
@@ -116,14 +115,12 @@ public class ConsumerServlet extends HttpServlet {
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-			String str = req.getParameter("cusAccount");
-			if (str == null || (str.trim()).length() == 0) {
+			String account = req.getParameter("cusAccount");
+			if (account == null || (account.trim()).length() == 0) {
 				errorMsgs.add("請輸入帳號");
 			}
-
-			String str2 = req.getParameter("cusPassword");
-
-			if (str2 != null && str2 == null || (str2.trim()).length() == 0) {
+			String password = req.getParameter("cusPassword");
+			if (password != null && password == null || (password.trim()).length() == 0) {
 				errorMsgs.add("請輸入密碼");
 			}
 			// Send the use back to the form, if there were errors
@@ -133,12 +130,11 @@ public class ConsumerServlet extends HttpServlet {
 				return;// 程式中斷
 			}
 			/*************************** 2.開始查詢資料 *****************************************/
-			Consumer consumer = cusSvc.checkDuplicateAccount(str);
-
+			Consumer consumer = cusSvc.checkDuplicateAccount(account);
 			if (consumer == null) {
-				errorMsgs.add("查無重複");
+				errorMsgs.add("查無帳號");
 			}
-			if (!str2.equals(consumer.getCusPassword())) {
+			if (!password.equals(consumer.getCusPassword())) {
 				errorMsgs.add("密碼錯誤");
 			}
 			// Send the use back to the form, if there were errors
@@ -361,7 +357,6 @@ public class ConsumerServlet extends HttpServlet {
 
 			Consumer consumer = null;
 			/*************************** 2.開始修改資料 *****************************************/
-//			ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
 			consumer = cusSvc.updateCus(cusId,null,null, cusPassword, cusMail, cusPhone, cusAddress, 
 					null,cusPhoto);
 
@@ -485,8 +480,6 @@ public class ConsumerServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
-//			Integer cus_id = Integer.valueOf(req.getParameter("cusId").trim());
-
 			String cusName = req.getParameter("cusName");
 			String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 			if (cusName == null || cusName.trim().length() == 0) {
@@ -555,7 +548,6 @@ public class ConsumerServlet extends HttpServlet {
 			String str = String.valueOf(part).trim();
 
 			byte[] cusPhoto = null;
-			
 			if (str == null || str.trim().length() == 0) {
 				InputStream bisDefault = getPictureStream("eric/img/001.jpg");
 				cusPhoto = bisDefault.readAllBytes();
@@ -565,9 +557,8 @@ public class ConsumerServlet extends HttpServlet {
 				cusPhoto = bis.readAllBytes();
 			}
 			
-	
 		    List<Integer> cartIds = new ArrayList<>();
-		    for (int i = 0; i < 5; i++) {
+		    for (int i = 1; i < 6; i++) {			//增加五個cartid
 		        cartIds.add(i);
 		    }
 
@@ -599,55 +590,18 @@ public class ConsumerServlet extends HttpServlet {
 			consumer.setCusAddress(cusAddress);
 			consumer.setCusSex(cusSex);
 			consumer.setCusPhoto(cusPhoto);
-			consumer = cusSvc.addCus(cusName, cusAccount, cusPassword, cusMail, cusPhone, cusAddress, cusSex, cusPhoto);
-
-		    PlanningServiceHibernate planningSvc = new PlanningServiceHibernate();
-
-		    for (Integer cartId : cartIds) {
-		        // Add the consumer and planning entry
-//		        consumer = cusSvc.addCus(cusName, cusAccount, cusPassword, cusMail, cusPhone, cusAddress, cusSex, cusPhoto);
-		        planningSvc.add(consumer.getCusId(), cartId); // Add the planning entry
-		    }
-			
-		
-			
-			// Send the use back to the form, if there were errors
-			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("consumer", consumer); // 含有輸入格式錯誤的empVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("/eric/signup_info.jsp");
-				failureView.forward(req, res);
-				return;
-			}
-
 			/*************************** 2.開始新增資料 ***************************************/
+
 			consumer = cusSvc.addCus(cusName, cusAccount, cusPassword, cusMail, cusPhone, cusAddress, cusSex, cusPhoto);
-//			req.setAttribute("pic", pic);
+		    PlanningServiceHibernate planningSvc = new PlanningServiceHibernate();
+		    for (Integer cartId : cartIds) {
+		        planningSvc.add(consumer.getCusId(), cartId); // 把cartid存進去
+		    }
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/eric/listAllCus.jsp";
 //			req.getSession().setAttribute("cusId", consumer.getCusId());
 			res.sendRedirect(req.getContextPath() + "/mhl/home.jsp");
 			return;
 		}
-
-		if ("delete".equals(action)) { // 來自listAllEmp.jsp
-
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			/*************************** 1.接收請求參數 ***************************************/
-			Integer cusId = Integer.valueOf(req.getParameter("cusId"));
-
-			/*************************** 2.開始刪除資料 ***************************************/
-			cusSvc.deleteCus(cusId);
-
-			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-			String url = "/eric/listAllCus.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
-			successView.forward(req, res);
-		}
-		
 		if ("Logout".equals(action)) { // 來自select_page.jsp的請求
 			HttpSession session = req.getSession();
 		        // 清除資料
@@ -659,6 +613,27 @@ public class ConsumerServlet extends HttpServlet {
 			}	System.out.print("您已成功登出退出系統!");
 		        System.out.close();
 		    }
+
+//		if ("delete".equals(action)) { // 來自listAllEmp.jsp
+//
+//			List<String> errorMsgs = new LinkedList<String>();
+//			// Store this set in the request scope, in case we need to
+//			// send the ErrorPage view.
+//			req.setAttribute("errorMsgs", errorMsgs);
+//
+//			/*************************** 1.接收請求參數 ***************************************/
+//			Integer cusId = Integer.valueOf(req.getParameter("cusId"));
+//
+//			/*************************** 2.開始刪除資料 ***************************************/
+//			cusSvc.deleteCus(cusId);
+//
+//			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
+//			String url = "/eric/listAllCus.jsp";
+//			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+//			successView.forward(req, res);
+//		}
+		
+	
 		
 	}
 }
