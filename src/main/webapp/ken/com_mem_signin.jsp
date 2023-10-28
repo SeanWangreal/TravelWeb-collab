@@ -107,7 +107,7 @@ Company company = (Company) request.getAttribute("Company"); //Servlet.java(Conc
 <!--        	<input type="submit" value="送出"> -->
                         </form>
                         
-                        <p class="text-center mb-0">沒有帳號嗎? <a href='com_mem_signup.jsp'>點此註冊</a></p>
+                        <p class="text-center mb-0">沒有帳號嗎? <a href='com_mem_signupinfo.jsp'>點此註冊</a></p>
                                         
                     </div>
                 </div>
