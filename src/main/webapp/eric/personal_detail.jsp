@@ -22,18 +22,7 @@ if ((Integer)request.getSession().getAttribute("cusId") == null){
     <link rel="stylesheet" href="../static/eric_css/ordinf.css">
     <link rel="stylesheet" href="">
 
-    </script>
     <style>
-        :root {
-            --ifm-font-family-base: "粉圓";
-        }
-
-        @font-face {
-            font-family: '粉圓';
-            src: url('/static/font/jf-openhuninn-2.0.ttf');
-            font-display: swap;
-        }
-
         @media (min-height: 500px) and (max-height: 1300px) {
             .shop {
                 height: 60vh;
@@ -106,17 +95,17 @@ if ((Integer)request.getSession().getAttribute("cusId") == null){
         <div id="shell"></div>
         <aside class="left">
             <div class="mem-data">
-                <a class="left_btn">
+                <a class="left_btn"  href="${pageContext.request.contextPath}/chu/shopping(hotel).jsp">
                     <i class="fa-solid fa-cart-shopping" style="color: black;"></i> 制定規劃
                 </a>
             </div>
             <div class="mem-data">
-                <a class="left_btn" href="personal_detail.html">
+                <a class="left_btn" href="${pageContext.request.contextPath}/eric/personal_detail.jsp">
                     <i class="fa-regular fa-user" style="color: black;"></i> 會員資料
                 </a>
             </div>
             <div class="mem-data">
-                <a class="left_btn" href="ordinf.html">
+                <a class="left_btn" href="${pageContext.request.contextPath}/chu/bookedList(hotel).jsp">
                     <i class="fa-solid fa-file-invoice" style="color: black;"></i> 訂單資訊
                 </a>
             </div>
@@ -151,7 +140,7 @@ if ((Integer)request.getSession().getAttribute("cusId") == null){
                 <br>
                 <br>
                 <h5 style="font-weight:bolder">會員資料</h5>
-                    <span style="float: left">在個人資料中更新最新資訊並確認<span>
+                    <span style="float: left">在個人資料中更新最新資訊並確認</span>
                             <div class="memBtn" id="memBtn"style="text-decoration: none; text-align: right; padding-right:120px; font-size:16px; font-family: 粉圓">
                                 <a href="${pageContext.request.contextPath}/eric/ConsumerServlet?action=getOne_For_Update">編輯</a>
                             </div>
@@ -203,7 +192,7 @@ if ((Integer)request.getSession().getAttribute("cusId") == null){
 
 
     <!-- <script src="btn4com_review.js"></script> -->
-    <script src="../static/eric_js/ordinf.js"></script>
+    <script src="${pageContext.request.contextPath}/static/eric_js/ordinf.js"></script>
 
 
 

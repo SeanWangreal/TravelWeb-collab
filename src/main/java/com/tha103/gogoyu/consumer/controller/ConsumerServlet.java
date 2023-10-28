@@ -132,9 +132,16 @@ public class ConsumerServlet extends HttpServlet {
 			/*************************** 2.開始查詢資料 *****************************************/
 			Consumer consumer = cusSvc.checkDuplicateAccount(account);
 			if (consumer == null) {
+				System.out.println("沒帳號");
 				errorMsgs.add("查無帳號");
 			}
-			if (!password.equals(consumer.getCusPassword())) {
+			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("errorMsgs", errorMsgs);
+				RequestDispatcher failureView = req.getRequestDispatcher("/eric/signin.jsp");
+				failureView.forward(req, res);
+			}
+			if (consumer != null&&!password.equals(consumer.getCusPassword())) {
+				System.out.println("密碼錯了");
 				errorMsgs.add("密碼錯誤");
 			}
 			// Send the use back to the form, if there were errors
@@ -543,44 +550,25 @@ public class ConsumerServlet extends HttpServlet {
 				cusSex = 0;
 				errorMsgs.add("請填數字.");
 			}
-
-			Part part = req.getPart("cusPhoto");
-			String str = String.valueOf(part).trim();
-
-			byte[] cusPhoto = null;
-			if (str == null || str.trim().length() == 0) {
-				InputStream bisDefault = getPictureStream("eric/img/001.jpg");
-				cusPhoto = bisDefault.readAllBytes();
-
-			} else {
-				BufferedInputStream bis = new BufferedInputStream(part.getInputStream());
-				cusPhoto = bis.readAllBytes();
-			}
 			
 		    List<Integer> cartIds = new ArrayList<>();
 		    for (int i = 1; i < 6; i++) {			//增加五個cartid
 		        cartIds.add(i);
 		    }
+		    byte[] cusPhoto = null;
 
-//			Part part = req.getPart("cusPhoto");
-//			String str = String.valueOf(part).trim();
-//			byte[] cusPhoto = null;
-//
-//			if (str == null || str.trim().length() == 0) {
-//			    // 如果未收到有效的檔案上傳，則自動上傳 1.jpg
-//			    try {
-//			        InputStream inputStream = getServletContext().getResourceAsStream("/eric/images/good.jpg");
-//			        BufferedInputStream bis = new BufferedInputStream(inputStream);
-//			        cusPhoto = bis.readAllBytes();
-//			    } catch (IOException e) {
-//			        e.printStackTrace();
-//			        // 處理錯誤，例如記錄錯誤訊息或其他動作
-//			    }
-//			} else {
-//			    BufferedInputStream bis = new BufferedInputStream(part.getInputStream());
-//			    cusPhoto = bis.readAllBytes();
-//			}
-
+			Part part = req.getPart("cusPhoto");
+			if (part == null || part.getSize()== 0) {
+				try {
+					FileInputStream fis = new FileInputStream(req.getContextPath()+"/eric/img/001.jpg");
+					BufferedInputStream bis = new BufferedInputStream(fis);
+					cusPhoto = bis.readAllBytes();
+					System.out.println("有嗎");
+				} catch (IOException e) {
+					e.printStackTrace();
+					// 處理錯誤，例如記錄錯誤訊息或其他動作
+				}
+			}
 			Consumer consumer = new Consumer();
 			consumer.setCusName(cusName);
 			consumer.setCusAccount(cusAccount);
