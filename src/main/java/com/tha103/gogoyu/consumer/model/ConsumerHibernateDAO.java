@@ -6,6 +6,9 @@ import javax.persistence.Query;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
+import com.tha103.gogoyu.planning.model.Planning;
+
 import util.HibernateUtil;
 
 public class ConsumerHibernateDAO implements ConsumerDAO_interface {
@@ -182,5 +185,10 @@ public class ConsumerHibernateDAO implements ConsumerDAO_interface {
 		ConsumerHibernateDAO dao = new ConsumerHibernateDAO(HibernateUtil.getSessionFactory());
 		dao.findByPK(10);
 	}
+
+
+
+
+
 }
 

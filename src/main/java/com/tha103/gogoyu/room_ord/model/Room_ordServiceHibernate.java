@@ -143,4 +143,9 @@ public class Room_ordServiceHibernate {
 	public void updateAmount(Integer amount ,Integer roomOrdId) {
 		 dao.updateAmount( amount ,roomOrdId);
 	}
+	public void updateCartNum(Integer plan_id , Integer roomOrdId) {
+		dao.updateCartNum(plan_id ,roomOrdId);
+	}
+	
+	
 }

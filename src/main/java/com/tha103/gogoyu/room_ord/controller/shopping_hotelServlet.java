@@ -59,8 +59,7 @@ public class shopping_hotelServlet extends HttpServlet {
 				Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
 				PlanningServiceHibernate PSH = new PlanningServiceHibernate();// 創造出SERVICE
 				
-				Integer plan_id = PSH.getPlanId(cartId, cusId); //得到1.他是誰   2.是哪台車 
-				System.out.println(plan_id+"aaaaaaaaaaaaa");
+				Integer plan_id = PSH.getPlanId(cartId, cusId); //得到1.他是誰   2.是哪台車
 				Integer compId =  RSH.getRoom(roomId).getCompId();
 				
 			//跟room_ord 從room拿price
@@ -113,6 +112,40 @@ public class shopping_hotelServlet extends HttpServlet {
 	
 		
 		
+//=========================購物車(飯店)更改車號===============================
+		
+		if("changeHotelCart".equals(action)) {
+				
+			
+			Integer changeCartId = Integer.valueOf(req.getParameter("changeCartId"));
+			Integer roomOrdId = Integer.valueOf(req.getParameter("roomOrdId"));
+			Integer cusId = (Integer) session.getAttribute("cusId");
+			PlanningServiceHibernate PSH = new PlanningServiceHibernate();// 創造出SERVICE
+			Integer planId = PSH.getPlanId(changeCartId, cusId); //得到1.他是誰   2.是哪台車
+			Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
+			ROSH.updateCartNum(planId ,roomOrdId);
+			
+			res.sendRedirect(req.getContextPath() + "/chu/shopping(hotel).jsp");
+			return;
+			
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+//=========================購物車(飯店)更改車號===============================			
+		
+		
+		
 //=========================訂單頁面取消===============================
 		
 		if("CancelTransaction".equals(action)) {
@@ -142,6 +175,10 @@ public class shopping_hotelServlet extends HttpServlet {
 		
 		
 		
+				
+				
+				
+				
 		
 		
 		
