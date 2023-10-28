@@ -14,18 +14,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TravelMaker</title>
-<link href="../dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="../static/sean_css/comp_ord.css">
+<link href="${pageContext.request.contextPath}/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/sean_css/comp_ord.css">
 <style>
 </style>
 </head>
 
 <body>
-	<script src="../vendors/jquery/jquery-3.7.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/vendors/jquery/jquery-3.7.1.min.js"></script>
 	<nav class="st">
 		<!-- <a class="word" id="home" href="#">Home</a> -->
 		<div class="head">
-			</button>
 			<button type="menu" class="head_btn" id="msg">
 				<i class="fa-regular fa-message icon"
 					style="color: black; font-size: 30px; background-color: transparent;"></i>
@@ -114,7 +113,7 @@
 			</div>
 		</main>
 	</div>
-	<script src="../static/sean_js/btn4com.js"></script>
+	<script src="${pageContext.request.contextPath}/static/sean_js/btn4com.js"></script>
 	<script>
     $(document).ready(function() {
 	var path = window.location.pathname;
