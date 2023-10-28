@@ -396,7 +396,7 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 				List<String> info = new ArrayList<String>();
 				Trip trip = getSession().get(Trip.class, ord.getTripId());
 				Consumer consumer = getSession().get(Consumer.class, ord.getCusId());
-				String totalAmount =String.valueOf(ord.getAmount()*trip.getAmount());
+				String totalAmount =String.valueOf(ord.getAmount()*trip.getPeople());
 				info.add(trip.getTripName());
 				info.add(consumer.getCusName());
 				info.add(totalAmount);
@@ -411,7 +411,25 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 		return null;
 	}
 	
-	
+	public Integer updateCartNum(Integer planId, Integer tripOrdId) {
+		try {
+			getSession().beginTransaction();
+			Query query = getSession()
+					.createQuery("update Trip_ord set planId = :planId  where tripOrdId = :tripOrdId");
+			query.setParameter("tripOrdId", tripOrdId);
+			query.setParameter("planId", planId);
+
+			query.executeUpdate();
+
+			getSession().getTransaction().commit();
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return -1;
+	}
+
 	
 	
 	

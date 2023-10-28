@@ -75,14 +75,14 @@ public class Trip_ordComment extends HttpServlet {
 					Integer updateOrd = TOSH2.updateCommentAndScore(tripOrdId, score, comment, commentsTime);
 
 					req.setAttribute("errorMessage", "評論完成!");
-					String url = "/chu/bookedList(trip).jsp";
+					String url = "/chu/bookedList(hotel).jsp";
 					RequestDispatcher dispatcher = req.getRequestDispatcher(url);
 					dispatcher.forward(req, res);
 				}
 				 else {
 				req.setAttribute("tripOrdId", tripOrdId); 
 				req.setAttribute("errorMessage", "親愛的會員您好，您已經評論過囉");
-				String url = "/chu/AfterBookingComment(trip).jsp";
+				String url = "/chu/AfterBookingComment(hotel).jsp";
 				RequestDispatcher dispatcher = req.getRequestDispatcher(url);
 				dispatcher.forward(req, res);
 			}
