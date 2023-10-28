@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.tha103.gogoyu.room.model.*" %>
@@ -52,7 +52,7 @@
             position: relative;
             left: 360px;
             padding-bottom: 50px;
-            font-family: "¯»¶ê";
+            font-family: "ç²‰åœ“";
             font-size: 16px;
             background-color: white;
             width: calc(100% - 360px - 70px);
@@ -88,7 +88,7 @@
     <nav class="st">
          <a class="logo" id="home" href="${pageContext.request.contextPath}/mhl/home.jsp">GO<i class="fa-solid fa-location-dot" style="color: #ffbf1c;"></i>GOYU</a>
          <div class="head">
-            <button type="menu" class="head_btn" aria-label="³W¹º¦æµ{" id="shop">
+            <button type="menu" class="head_btn" aria-label="è¦åŠƒè¡Œç¨‹" id="shop">
                 <i class="fa-solid fa-suitcase-rolling icon" style="color: black; font-size:30px;
                             background-color:transparent;"></i>
             </button>
@@ -102,7 +102,7 @@
             </button>
             <button type="button" class="head_btn">
                 <a class="profile" href="${pageContext.request.contextPath}/ken/com_mem_signin.jsp">
-                   <div style="color: black;">·~ªÌ</div>
+                   <div style="color: black;">æ¥­è€…</div>
                 </a>
             </button>
             <button type="button" class="head_btn">
@@ -130,48 +130,48 @@
         </aside>
     </nav>    
         <div class="d-flex flex-column mb-4">
-            <!--·j´MÄæ-->
+            <!--æœå°‹æ¬„-->
             <nav class="navbar navbar-light bg-light">
                 <div class="container-fluid justify-content-center">
                   <form class="d-flex" method="post" action="${pageContext.request.contextPath}/sean/SearchServlet">
                     <select class="form-select me-2" name="comp_address" aria-label="Default select example">
-                        <option value="¥x¥_¥«">¥x¥_¥«</option>
-                        <option value="·s¥_¥«">·s¥_¥«</option>
-                        <option value="®ç¶é¥«">®ç¶é¥«</option>
-                        <option value="¥x¤¤¥«">¥x¤¤¥«</option>
-                        <option value="¥x«n¥«">¥x«n¥«</option>
-                        <option value="°ª¶¯¥«">°ª¶¯¥«</option>
-                        <option value="·s¦Ë¿¤">·s¦Ë¿¤</option>
-                        <option value="·s¥_¥«">·s¥_¥«</option>
-                        <option value="­]®ß¿¤">­]®ß¿¤</option>
-                        <option value="¹ü¤Æ¿¤">¹ü¤Æ¿¤</option>
-                        <option value="«n§ë¿¤">«n§ë¿¤</option>
-                        <option value="¶³ªL¿¤">¶³ªL¿¤</option>
-                        <option value="¹Å¸q¿¤">¹Å¸q¿¤</option>
-                        <option value="«ÌªF¿¤">«ÌªF¿¤</option>
-                        <option value="©yÄõ¥«">©yÄõ¥«</option>
-                        <option value="ªá½¬¥«">ªá½¬¥«</option>
-                        <option value="¥xªF¿¤">¥xªF¿¤</option>
-                        <option value="ª÷ªù¿¤">ª÷ªù¿¤</option>
-                        <option value="³s¦¿¿¤">³s¦¿¿¤</option>
-                        <option value="°ò¶©¥«">°ò¶©¥«</option>
-                        <option value="·s¦Ë¥«">·s¦Ë¥«</option>
-                        <option value="¹Å¸q¥«">¹Å¸q¥«</option>
-                        <option value="¼ê´ò¿¤">¼ê´ò¿¤</option>
+                        <option value="å°åŒ—å¸‚">å°åŒ—å¸‚</option>
+                        <option value="æ–°åŒ—å¸‚">æ–°åŒ—å¸‚</option>
+                        <option value="æ¡ƒåœ’å¸‚">æ¡ƒåœ’å¸‚</option>
+                        <option value="å°ä¸­å¸‚">å°ä¸­å¸‚</option>
+                        <option value="å°å—å¸‚">å°å—å¸‚</option>
+                        <option value="é«˜é›„å¸‚">é«˜é›„å¸‚</option>
+                        <option value="æ–°ç«¹ç¸£">æ–°ç«¹ç¸£</option>
+                        <option value="æ–°åŒ—å¸‚">æ–°åŒ—å¸‚</option>
+                        <option value="è‹—æ —ç¸£">è‹—æ —ç¸£</option>
+                        <option value="å½°åŒ–ç¸£">å½°åŒ–ç¸£</option>
+                        <option value="å—æŠ•ç¸£">å—æŠ•ç¸£</option>
+                        <option value="é›²æ—ç¸£">é›²æ—ç¸£</option>
+                        <option value="å˜‰ç¾©ç¸£">å˜‰ç¾©ç¸£</option>
+                        <option value="å±æ±ç¸£">å±æ±ç¸£</option>
+                        <option value="å®œè˜­å¸‚">å®œè˜­å¸‚</option>
+                        <option value="èŠ±è“®å¸‚">èŠ±è“®å¸‚</option>
+                        <option value="å°æ±ç¸£">å°æ±ç¸£</option>
+                        <option value="é‡‘é–€ç¸£">é‡‘é–€ç¸£</option>
+                        <option value="é€£æ±Ÿç¸£">é€£æ±Ÿç¸£</option>
+                        <option value="åŸºéš†å¸‚">åŸºéš†å¸‚</option>
+                        <option value="æ–°ç«¹å¸‚">æ–°ç«¹å¸‚</option>
+                        <option value="å˜‰ç¾©å¸‚">å˜‰ç¾©å¸‚</option>
+                        <option value="æ¾æ¹–ç¸£">æ¾æ¹–ç¸£</option>
                     </select>
-                    <input class="form-control me-2" name="checkIn" type="text" placeholder="¤J¦í¤é´Á..." aria-label="Search" onfocus="(this.type='date')"
+                    <input class="form-control me-2" name="checkIn" type="text" placeholder="å…¥ä½æ—¥æœŸ..." aria-label="Search" onfocus="(this.type='date')"
                     	onblur="(this.type='text')" value="${searchCheckIn}">
-                    <input class="form-control me-2" name="checkOut" type="text" placeholder="°h©Ğ¤é´Á..." aria-label="Search" onfocus="(this.type='date')"
+                    <input class="form-control me-2" name="checkOut" type="text" placeholder="é€€æˆ¿æ—¥æœŸ..." aria-label="Search" onfocus="(this.type='date')"
                     	onblur="(this.type='text')" value="${searchCheckOut}">
-                    <input class="form-control me-2" value="${people}" name="number" type="text" placeholder="¤H¼Æ..." aria-label="Search">
+                    <input class="form-control me-2" value="${people}" name="number" type="text" placeholder="äººæ•¸..." aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                     <input type="hidden" name="action" value="roomSearch">
                   </form>
                 </div>
             </nav>
-            <!--¶º©±¦W-->
+            <!--é£¯åº—å-->
             <h2 class="mx-auto"><%=company.getCompName()%></h2>
-            <!--¤Û¿O¤ù-->
+            <!--å¹»ç‡ˆç‰‡-->
             <div id="carouseltrip" class="carousel slide border mx-auto" data-bs-ride="carousel">
 <!--                 <div class="carousel-indicators"> -->
 <!--                   <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button> -->
@@ -183,9 +183,9 @@
                     <img src="MainPhotoPrintHServlet?room_id=${room.roomId}" class="d-block w-100 h-100" alt="...">
                   </div>
                   <c:forEach var="roomPhotoId" items="<%=roomPhotoIdList%>" >
-                  <div class="carousel-item">
-                    <img src="RoomPhotoPrintHServlet?room_id=${roomPhotoId}" class="d-block w-100 h-100" alt="...">
-                  </div>
+	                  <div class="carousel-item">
+	                    <img src="RoomPhotoPrintHServlet?room_id=${roomPhotoId}" class="d-block w-100 h-100" alt="...">
+	                  </div>
                   </c:forEach>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouseltrip" data-bs-slide="prev">
@@ -197,12 +197,12 @@
                   <span class="visually-hidden">Next</span>
                 </button>
             </div>
-            <!-- ¶º©±¸ê°T -->
+            <!-- é£¯åº—è³‡è¨Š -->
             <div class="container mt-2 border h-100" id="content1" >
                 <div class="row align-items-center justify-content-center h-100">
                     <div class="col h-100">
                         <div class="item h-100">
-                            <h3 class="mt-2">¶º©±¸ê°T</h3>
+                            <h3 class="mt-2">é£¯åº—è³‡è¨Š</h3>
                             <div class="col-4 h-100 w-100 mb-2">
                              <c:forEach var="hotelInfo" items="<%=hotelInfoList%>" >
                                 <span class="badge bg-primary">${hotelInfo}</span>
@@ -212,21 +212,21 @@
                     </div>
                 </div>
             </div>
-            <!--¦a¹Ï ©Ğ«¬³]³Æ Ápµ¸ µû»ù-->
+            <!--åœ°åœ– æˆ¿å‹è¨­å‚™ è¯çµ¡ è©•åƒ¹-->
             <div class="container border h-100" id="content1">
                 <div class="row justify-content-center align-items-center h-100">
-                    <!--¦a¹Ï-->
+                    <!--åœ°åœ–-->
                     <div class="col-4 h-100 mt-2 mb-2">
                         <div class="container">
                             <div class="row">
                                 <div class="col-6">
-                                    <div class="">¦ì¸m</div>
+                                    <div class="">ä½ç½®</div>
                                     <a href="#">
                                         <i class="fa-solid fa-map-location-dot h-100" id="map"></i>
                                     </a>
                                 </div>
                                 <div class="col-6">
-                                    <div>ªşªñ´ºÂI</div>
+                                    <div>é™„è¿‘æ™¯é»</div>
                                     <a href="#">
                                         <i class="fa-solid fa-map-location-dot h-100" id="map"></i>
                                     </a>
@@ -234,60 +234,59 @@
                             </div>
                         </div>
                     </div>
-                    <!-- ©Ğ«¬³]³Æ -->
+                    <!-- æˆ¿å‹è¨­å‚™ -->
                     <div class="col-4 h-100 mt-2 mb-2">
                         <c:forEach var="facility" items="<%=roomFacilities%>" >
                                 <span class="badge bg-primary">${facility}</span>
                              </c:forEach>
                     </div>
-                    <!-- Ápµ¸ µû»ù -->
+                    <!-- è¯çµ¡ è©•åƒ¹ -->
                     <div class="col-4 h-100 mt-2 mb-2">
                         <a href="#">
                             <button type="button" class="btn btn-primary mb-3">
                                 <i class="fa-solid fa-message"></i>
-                                ÁpÃ´·~ªÌ
+                                è¯ç¹«æ¥­è€…
                             </button>
                         </a>
                         <a href="#">
                             <button type="button" class="btn btn-primary">
                                 <i class="fa-solid fa-message"></i>
-                                ¬d¬İ°Î¦Wµû»ù
+                                æŸ¥çœ‹åŒ¿åè©•åƒ¹
                             </button>
                         </a>
                     </div>
                 </div>
             </div>
-            <!-- ©Ğ«¬Äİ©Ê1 -->
+            <!-- æˆ¿å‹å±¬æ€§1 -->
             <div class="container border h-100" id="content1" >
                 <div class="row  align-items-center h-100">
-                    <!--©Ğ«¬¦WºÙ¡B©Ğ«¬¡B¶}©l®É¶¡¡Bµ²§ô®É¶¡¡Bª÷ÃB¡B®w¦s¡B¦¬ÂÃ-->
+                    <!--æˆ¿å‹åç¨±ã€æˆ¿å‹ã€é–‹å§‹æ™‚é–“ã€çµæŸæ™‚é–“ã€é‡‘é¡ã€åº«å­˜ã€æ”¶è—-->
                     <div class="col-4 h-100 mt-2 mb-2">
-                    	<h4><%=company.getCompName()%></h4>
-                        <div>©Ğ«¬¦WºÙ¡G<%=room.getRoomName()%></div>
-                        <div>©Ğ«¬¡G<%=room.getRoomType()%>¤H©Ğ</div>
-                        <div>ª÷ÃB¡GNTW <%=room.getPrice().intValue()%></div>
+                        <div>æˆ¿å‹åç¨±ï¼š<%=room.getRoomName()%></div>
+                        <div>æˆ¿å‹ï¼š<%=room.getRoomType()%>äººæˆ¿</div>
+                        <div>é‡‘é¡ï¼šNTW <%=room.getPrice().intValue()%></div>
                         <a class="" href="#">
                             <button type="button" class="btn btn-primary">
-                                ¦¬ÂÃ
+                                æ”¶è—
                             </button>
                         </a>
                     </div>
-                    <!--¬d¸ß¬O§_¦³®w¦s-->
+                    <!--æŸ¥è©¢æ˜¯å¦æœ‰åº«å­˜-->
                     <div class="col-4 h-100 mt-2 mb-2">
-                            <div>®w¦s¬d¸ß¡G</div>
-                            <input class="form-control me-2 checkIn" type="text" placeholder="¤J¦í¤é´Á..." aria-label="Search" onfocus="(this.type='date')"
+                            <div>åº«å­˜æŸ¥è©¢ï¼š</div>
+                            <input class="form-control me-2 stockCheckIn" type="text" placeholder="å…¥ä½æ—¥æœŸ..." aria-label="Search" onfocus="(this.type='date')"
                                 onblur="(this.type='text')">
-                            <input class="form-control me-2 checkOut" type="text" placeholder="°h©Ğ¤é´Á..." aria-label="Search" onfocus="(this.type='date')"
+                            <input class="form-control me-2 stockCheckOut" type="text" placeholder="é€€æˆ¿æ—¥æœŸ..." aria-label="Search" onfocus="(this.type='date')"
                                 onblur="(this.type='text')">
-                            <input class="detailPageRoomId" type="hidden" name="detailPageRoomId" value="1">
-                            <div>®w¦s¡G</div>
-                            <button type="button" class="btn btn-primary stockSearch">¬d¸ß</button>
+                            <input class="detailPageRoomId" type="hidden" name="detailPageRoomId" value=<%=room.getRoomId()%>>
+                            <div>åº«å­˜ï¼š<span id="stock"></span></div>
+                            <button type="button" class="btn btn-primary" id="stockSearch">æŸ¥è©¢</button>
                     </div>
-                    <!--¥[¤JÁÊª«¨®-->
+                    <!--åŠ å…¥è³¼ç‰©è»Š-->
                     <div class="col-4 h-100 mt-2 mb-2">
                         <form class="" method="post" action="${pageContext.request.contextPath}/shopping_hotelServlet" >
-                            <div>¥ı¥[¤JÁÊª«¨®¡Aµ²±b®É¦A¿ï¼Æ¶q</div>
-                            <div>½Ğ¿ï¾ÜÁÊª«¨®¡G
+                            <div>å…ˆåŠ å…¥è³¼ç‰©è»Šï¼Œçµå¸³æ™‚å†é¸æ•¸é‡</div>
+                            <div>è«‹é¸æ“‡è³¼ç‰©è»Šï¼š
                             </div>
                             <select class="form-select me-2 mb-2" aria-label="Default select example" name="cart_id">
                                 <option value="1">1</option>
@@ -296,14 +295,14 @@
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                             </select>
-                            <input class="form-control me-2" type="text" placeholder="¤J¦í¤é´Á..." aria-label="Search" onfocus="(this.type='date')"
-                                onblur="(this.type='text')" value="${searchCheckIn}">
-                            <input class="form-control me-2" type="text" placeholder="°h©Ğ¤é´Á..." aria-label="Search" onfocus="(this.type='date')"
+                            <input class="form-control me-2" type="text" placeholder="å…¥ä½æ—¥æœŸ..." aria-label="Search" onfocus="(this.type='date')"
+                                onblur="(this.type='text')" value="${searchCheckIn}" >
+                            <input class="form-control me-2" type="text" placeholder="é€€æˆ¿æ—¥æœŸ..." aria-label="Search" onfocus="(this.type='date')"
                                 onblur="(this.type='text')" value="${searchCheckOut}">
                             <input type="hidden" name="roomId" value=<%=room.getRoomId()%>>
                             <input type="hidden" name="action" value="room_goShopping">
                             <button type="submit" class="btn btn-primary">
-                                ¥[¤JÁÊª«¨®
+                                åŠ å…¥è³¼ç‰©è»Š
                             </button>
                         </form>
                     </div>
@@ -311,10 +310,10 @@
             </div>
             <div class="container border h-100" id="content1" >
                 <div class="row align-items-center h-100">
-                    <!--¤¶²Ğ-->
+                    <!--ä»‹ç´¹-->
                     <div class="col border h-100">
                         <div class="item h-100 ">
-                            <h3 class="mt-2">¤¶²Ğ</h3>
+                            <h3 class="mt-2">ä»‹ç´¹</h3>
                             <p class="text-wrap"><%=room.getIntro()%></p>
                         </div> 
                     </div>
@@ -324,32 +323,36 @@
 
     <script src="${pageContext.request.contextPath}/static/mhl_js/btn4com_review.js"></script>
     <script src="${pageContext.request.contextPath}/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="${pageContext.request.contextPath}/vendors/jquery/jquery-3.7.1.min.js"></script>
     <script type="text/javascript">
-    $("#stockSearch").on("click",function(e){
-        var checkIn = $(".checkIn").val();
-        var checkOut = $(".checkOut").val();
-        var number = $(".number").val();
+    $("#stockSearch").on("click",function(){
+        var checkIn = $(".stockCheckIn").val();
+        var checkOut = $(".stockCheckOut").val();
         var detailPageRoomId = $(".detailPageRoomId").val();
-	   	            	console.log(checkIn);
-                        console.log(checkOut);
-                        console.log(number);
-                        console.log(detailPageRoomId);
-	   	                var path = window.location.pathname;
-	   	                var webCtx = path.substring(0, path.indexOf('/', 1));
-	   	                var url = location.origin+webCtx+"/sean/searchServlet"
-	   	            	$.ajax({
-	   	                 url: url,
-	   	                 type: "POST", 
-	   	                 data: {
-	   	                	"action":"searchRoomStock",
-	   	                     "checkIn": checkIn,
-                             "checkOut": checkOut,
-                             "detailPageRoomId": detailPageRoomId
-	   	                 },            
-	   	                 dataType: "json", 
-	   	                 success: function(data) { 
-	   	                	console.log(data);
-                            }})
+        console.log(checkIn);
+        console.log(checkOut);
+        console.log(detailPageRoomId);
+        var path = window.location.pathname;
+        var webCtx = path.substring(0, path.indexOf('/', 1));
+        var url = location.origin+webCtx+"/sean/SearchServlet";
+        $.ajax({
+            url: url,
+            type: "POST", 
+            data: {
+               "action":"searchRoomStock",
+                "stockCheckIn": checkIn,
+             "stockCheckOut": checkOut,
+             "detailPageRoomId": detailPageRoomId
+            },            
+            dataType: "json", 
+            success: function(data) { 
+               console.log(data);
+               $("#stock").text(data.minStock);
+            }
+
+        })
+        
+})
     </script>
 </body>
 

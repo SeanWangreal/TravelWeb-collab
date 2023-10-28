@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.tha103.gogoyu.room.model.*"%>
@@ -89,7 +89,7 @@
         <a class="word" id="journel" href="#">HOT<i class="fa-solid fa-fire"
                 style="color: #ff9500; background-color:transparent;"></i>Journel</a>
         <div class="head">
-            <button type="menu" class="head_btn" aria-label="³W¹º¦æµ{" id="shop">
+            <button type="menu" class="head_btn" aria-label="è¦åŠƒè¡Œç¨‹" id="shop">
                 <i class="fa-solid fa-suitcase-rolling icon" style="color: black; font-size:30px;
                             background-color:transparent;"></i>
             </button>
@@ -103,7 +103,7 @@
             </button>
             <button type="button" class="head_btn">
                 <a class="profile" href="${pageContext.request.contextPath}/ken/com_mem_signin.jsp">
-                   <div style="color: black;">·~ªÌ</div>
+                   <div style="color: black;">æ¥­è€…</div>
                 </a>
             </button>
             <button type="button" class="head_btn">
@@ -115,23 +115,23 @@
         </div>
         <aside class="msg all_side nothing" id="msg_side">
             <div class="nothing">
-                4«h¥¼Åª°T®§<br>
-                <a class="btn btn-primary" href="#" role="button">¬d¬Ý§Y®É°T®§</a>
+                4å‰‡æœªè®€è¨Šæ¯<br>
+                <a class="btn btn-primary" href="#" role="button">æŸ¥çœ‹å³æ™‚è¨Šæ¯</a>
             </div>
         </aside>
         <aside class="info all_side nothing" id="info_side">
-            3«h­q³æ¤w§¹¦¨<br>
-            <a class="btn btn-primary" href="#" role="button">¬d¬Ý©Ò¦³­q³æ</a>
+            3å‰‡è¨‚å–®å·²å®Œæˆ<br>
+            <a class="btn btn-primary" href="#" role="button">æŸ¥çœ‹æ‰€æœ‰è¨‚å–®</a>
         </aside>
         <aside class="shop all_side nothing" id="shop_side">
-            3­Ó°Ó«~¦bÁÊª«¨®¤º<br>
-            <a class="btn btn-primary" href="#" role="button">¬d¬ÝÁÊª«¨®</a>
+            3å€‹å•†å“åœ¨è³¼ç‰©è»Šå…§<br>
+            <a class="btn btn-primary" href="#" role="button">æŸ¥çœ‹è³¼ç‰©è»Š</a>
         </aside>
     </nav>
 
     <form id="background" method="post" action="${pageContext.request.contextPath}/sean/SearchServlet">
     	<input type="hidden" value="roomSearch" name="action">
-        <img src="4621.png" alt="">
+        <img src="${pageContext.request.contextPath}/mhl/4621.png" alt="">
         <div id="search">
             <div id="btn_block">
                 <button type="button" class="choose_btn -on" id="Hotel">Hotel</button>
@@ -143,29 +143,29 @@
                 <div id="inside_form">
                     <div style="flex-basis: 20%;">
                         <select class="form-select me-2 in" name="comp_address" aria-label="Default select example">
-                            <option value="¥x¥_¥«">¥x¥_¥«</option>
-                            <option value="·s¥_¥«">·s¥_¥«</option>
-                            <option value="®ç¶é¥«">®ç¶é¥«</option>
-                            <option value="¥x¤¤¥«">¥x¤¤¥«</option>
-                            <option value="¥x«n¥«">¥x«n¥«</option>
-                            <option value="°ª¶¯¥«">°ª¶¯¥«</option>
-                            <option value="·s¦Ë¿¤">·s¦Ë¿¤</option>
-                            <option value="·s¥_¥«">·s¥_¥«</option>
-                            <option value="­]®ß¿¤">­]®ß¿¤</option>
-                            <option value="¹ü¤Æ¿¤">¹ü¤Æ¿¤</option>
-                            <option value="«n§ë¿¤">«n§ë¿¤</option>
-                            <option value="¶³ªL¿¤">¶³ªL¿¤</option>
-                            <option value="¹Å¸q¿¤">¹Å¸q¿¤</option>
-                            <option value="«ÌªF¿¤">«ÌªF¿¤</option>
-                            <option value="©yÄõ¥«">©yÄõ¥«</option>
-                            <option value="ªá½¬¥«">ªá½¬¥«</option>
-                            <option value="¥xªF¿¤">¥xªF¿¤</option>
-                            <option value="ª÷ªù¿¤">ª÷ªù¿¤</option>
-                            <option value="³s¦¿¿¤">³s¦¿¿¤</option>
-                            <option value="°ò¶©¥«">°ò¶©¥«</option>
-                            <option value="·s¦Ë¥«">·s¦Ë¥«</option>
-                            <option value="¹Å¸q¥«">¹Å¸q¥«</option>
-                            <option value="¼ê´ò¿¤">¼ê´ò¿¤</option>
+                            <option value="å°åŒ—å¸‚">å°åŒ—å¸‚</option>
+                            <option value="æ–°åŒ—å¸‚">æ–°åŒ—å¸‚</option>
+                            <option value="æ¡ƒåœ’å¸‚">æ¡ƒåœ’å¸‚</option>
+                            <option value="å°ä¸­å¸‚">å°ä¸­å¸‚</option>
+                            <option value="å°å—å¸‚">å°å—å¸‚</option>
+                            <option value="é«˜é›„å¸‚">é«˜é›„å¸‚</option>
+                            <option value="æ–°ç«¹ç¸£">æ–°ç«¹ç¸£</option>
+                            <option value="æ–°åŒ—å¸‚">æ–°åŒ—å¸‚</option>
+                            <option value="è‹—æ —ç¸£">è‹—æ —ç¸£</option>
+                            <option value="å½°åŒ–ç¸£">å½°åŒ–ç¸£</option>
+                            <option value="å—æŠ•ç¸£">å—æŠ•ç¸£</option>
+                            <option value="é›²æž—ç¸£">é›²æž—ç¸£</option>
+                            <option value="å˜‰ç¾©ç¸£">å˜‰ç¾©ç¸£</option>
+                            <option value="å±æ±ç¸£">å±æ±ç¸£</option>
+                            <option value="å®œè˜­å¸‚">å®œè˜­å¸‚</option>
+                            <option value="èŠ±è“®å¸‚">èŠ±è“®å¸‚</option>
+                            <option value="å°æ±ç¸£">å°æ±ç¸£</option>
+                            <option value="é‡‘é–€ç¸£">é‡‘é–€ç¸£</option>
+                            <option value="é€£æ±Ÿç¸£">é€£æ±Ÿç¸£</option>
+                            <option value="åŸºéš†å¸‚">åŸºéš†å¸‚</option>
+                            <option value="æ–°ç«¹å¸‚">æ–°ç«¹å¸‚</option>
+                            <option value="å˜‰ç¾©å¸‚">å˜‰ç¾©å¸‚</option>
+                            <option value="æ¾Žæ¹–ç¸£">æ¾Žæ¹–ç¸£</option>
                         </select>
                     </div>
                     <div style="flex-basis: 20%;">
@@ -218,18 +218,22 @@
 	                            </a>
                             </div>
                             <div class="carousel-item ">
-                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=(list.get(1)).getRoomId() %>" class="d-block w-100"  alt="...">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5 class="bg-light text-dark mb-0"><%=(list.get(1)).getRoomName() %></h5>
-                                    <p class="bg-light text-dark">TWD <%=(list.get(1)).getPrice().intValue() %></p>
-                                </div>
+	                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?room_id=<%=(list.get(1)).getRoomId()%>&action=getProductDetailRoom" class="d-block w-100"   alt="...">
+	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=(list.get(1)).getRoomId() %>" class="d-block w-100"  alt="...">
+	                                <div class="carousel-caption d-none d-md-block">
+	                                    <h5 class="bg-light text-dark mb-0"><%=(list.get(1)).getRoomName() %></h5>
+	                                    <p class="bg-light text-dark">TWD <%=(list.get(1)).getPrice().intValue() %></p>
+	                                </div>
+	                            </a>
                             </div>
                             <div class="carousel-item  ">
-                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=(list.get(2)).getRoomId() %>" class="d-block w-100"  alt="...">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5 class="bg-light text-dark mb-0"><%=(list.get(2)).getRoomName() %></h5>
-                                    <p class="bg-light text-dark">TWD <%=(list.get(2)).getPrice().intValue() %></p>
-                                </div>
+	                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?room_id=<%=(list.get(2)).getRoomId()%>&action=getProductDetailRoom" class="d-block w-100"   alt="...">
+	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=(list.get(2)).getRoomId() %>" class="d-block w-100"  alt="...">
+	                                <div class="carousel-caption d-none d-md-block">
+	                                    <h5 class="bg-light text-dark mb-0"><%=(list.get(2)).getRoomName() %></h5>
+	                                    <p class="bg-light text-dark">TWD <%=(list.get(2)).getPrice().intValue() %></p>
+	                                </div>
+	                            </a>
                             </div>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselTrip"
@@ -261,22 +265,22 @@
                             <div class="carousel-item active ">
                                 <img src="https://picsum.photos/2800/1600?random=1" class="d-block w-100" alt="...">
                                 <div class="carousel-caption d-none d-md-block">
-                                    <h5 class="bg-light text-dark mb-0">³¥¬h¤G¤Ñ¤@©]</h5>
-                                    <p class="bg-light text-dark">¨C¤HTWD 1,000°_</p>
+                                    <h5 class="bg-light text-dark mb-0">é‡ŽæŸ³äºŒå¤©ä¸€å¤œ</h5>
+                                    <p class="bg-light text-dark">æ¯äººTWD 1,000èµ·</p>
                                 </div>
                             </div>
                             <div class="carousel-item">
                                 <img src="https://picsum.photos/1400/800?random=2" class="d-block w-100" alt="...">
                                 <div class="carousel-caption d-none d-md-block">
-                                    <h5 class="bg-light text-dark mb-0">³¥¬h¤G¤Ñ¤@©]</h5>
-                                    <p class="bg-light text-dark">¨C¤HTWD 1,000°_</p>
+                                    <h5 class="bg-light text-dark mb-0">é‡ŽæŸ³äºŒå¤©ä¸€å¤œ</h5>
+                                    <p class="bg-light text-dark">æ¯äººTWD 1,000èµ·</p>
                                 </div>
                             </div>
                             <div class="carousel-item">
                                 <img src="https://picsum.photos/1400/800?random=3" class="d-block w-100" alt="...">
                                 <div class="carousel-caption d-none d-md-block">
-                                    <h5 class="bg-light text-dark mb-0">³¥¬h¤G¤Ñ¤@©]</h5>
-                                    <p class="bg-light text-dark">¨C¤HTWD 1,000°_</p>
+                                    <h5 class="bg-light text-dark mb-0">é‡ŽæŸ³äºŒå¤©ä¸€å¤œ</h5>
+                                    <p class="bg-light text-dark">æ¯äººTWD 1,000èµ·</p>
                                 </div>
                             </div>
                         </div>

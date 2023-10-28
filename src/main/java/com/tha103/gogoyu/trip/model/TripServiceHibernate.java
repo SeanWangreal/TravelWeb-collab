@@ -157,4 +157,12 @@ public class TripServiceHibernate implements TripService {
 		dao.updateAmount(amount , tripId);
 	}
 	
+	public List<Trip> searchTrip(String site, Date startTime, Date endTime, Integer number){
+		return dao.searchTrip(site, startTime, endTime, number);
+	}
+	
+	public static void main (String[] args ) {
+
+	}
+	
 }

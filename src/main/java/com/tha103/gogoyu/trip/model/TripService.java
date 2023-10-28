@@ -34,4 +34,5 @@ public interface TripService {
 	public Trip updateStatus(Integer tripid, Integer status);
 	public Set<Itinerary> getItineraryByTripId(Integer tripId);
 	int deleteAllPhoto(Integer tripId);
+	public List<Trip> searchTrip(String site, Date startTime, Date endTime, Integer number);
 }

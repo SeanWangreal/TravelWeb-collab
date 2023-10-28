@@ -1,18 +1,25 @@
 package com.tha103.gogoyu.trip.model;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.Query;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.NativeQuery;
 
+import com.tha103.gogoyu.company.model.Company;
 import com.tha103.gogoyu.itinerary.model.Itinerary;
+import com.tha103.gogoyu.room.model.Room;
 import com.tha103.gogoyu.trip_photo.model.Trip_photo;
+import com.tha103.gogoyu.trip.model.TripServiceHibernate;
 
 
 public class TripHibernateDAO implements TripDAO_interface{
@@ -214,5 +221,33 @@ public class TripHibernateDAO implements TripDAO_interface{
 		}
 		return -1 ;
 	}
-
+	
+	public List<Trip> searchTrip(String site, Date startTime, Date endTime, Integer number) {
+		try {
+			getSession().beginTransaction();
+//			@SuppressWarnings("unchecked")
+			NativeQuery<Trip> query1 = getSession().createNativeQuery(
+					"SELECT * FROM trip WHERE :site = 1 AND start_time >= :startTime AND end_time <= :endTime AND people <= :number", Trip.class)
+			.setParameter("site", site)
+			.setParameter("startTime", startTime)
+			.setParameter("endTime", endTime)
+			.setParameter("number", number);
+			List<Trip> list = query1.list();
+			getSession().getTransaction().commit();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+	
+	public static void main (String[] args ) {
+		String site = "newTaipei_city";
+		Date startTime = java.sql.Date.valueOf("2023-10-04");
+		Date endTime = java.sql.Date.valueOf("2023-10-04");
+		Integer number = 3;
+		TripServiceHibernate svc = new TripServiceHibernate();
+		System.out.println(svc.searchTrip(site, startTime, endTime, number));
+	}
 }
