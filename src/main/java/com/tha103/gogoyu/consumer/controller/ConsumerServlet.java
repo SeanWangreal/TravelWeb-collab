@@ -7,10 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List.*;
 import java.util.List;
 import java.util.Map;
 
@@ -567,8 +565,11 @@ public class ConsumerServlet extends HttpServlet {
 				cusPhoto = bis.readAllBytes();
 			}
 			
-			Integer cusId= Integer.valueOf(req.getParameter("cusId").trim());
-			Integer cartId = null;
+	
+		    List<Integer> cartIds = new ArrayList<>();
+		    for (int i = 0; i < 5; i++) {
+		        cartIds.add(i);
+		    }
 
 //			Part part = req.getPart("cusPhoto");
 //			String str = String.valueOf(part).trim();
@@ -598,11 +599,15 @@ public class ConsumerServlet extends HttpServlet {
 			consumer.setCusAddress(cusAddress);
 			consumer.setCusSex(cusSex);
 			consumer.setCusPhoto(cusPhoto);
-			
-			Planning planning = new Planning();
-			planning.setCusId(cusId);
-			planning.setCartId(cartId);
+			consumer = cusSvc.addCus(cusName, cusAccount, cusPassword, cusMail, cusPhone, cusAddress, cusSex, cusPhoto);
 
+		    PlanningServiceHibernate planningSvc = new PlanningServiceHibernate();
+
+		    for (Integer cartId : cartIds) {
+		        // Add the consumer and planning entry
+//		        consumer = cusSvc.addCus(cusName, cusAccount, cusPassword, cusMail, cusPhone, cusAddress, cusSex, cusPhoto);
+		        planningSvc.add(consumer.getCusId(), cartId); // Add the planning entry
+		    }
 			
 		
 			
@@ -616,9 +621,6 @@ public class ConsumerServlet extends HttpServlet {
 
 			/*************************** 2.開始新增資料 ***************************************/
 			consumer = cusSvc.addCus(cusName, cusAccount, cusPassword, cusMail, cusPhone, cusAddress, cusSex, cusPhoto);
-			PlanningServiceHibernate planningSvc = new PlanningServiceHibernate();
-			planning = planningSvc.add(cusId, cartId);
-
 //			req.setAttribute("pic", pic);
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/eric/listAllCus.jsp";

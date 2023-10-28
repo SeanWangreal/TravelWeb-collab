@@ -6,7 +6,6 @@ import java.util.List;
 import util.HibernateUtil;
 
 import java.io.FileInputStream;
-import com.tha103.gogoyu.planning.model.*;
 
 
 public class ConsumerServiceHibernate implements ConsumerService {
@@ -98,11 +97,5 @@ dao.delete(cusId);
 			String cusAddress, Integer cusSex) {
 		dao.updFromBackend(cusId, cusName, cusAccount, cusMail, cusPhone, cusAddress, cusSex);
 	}
-//	public Planning addPlannig(Integer cusId,Integer cartId) {
-//		Planning plan = new Planning();
-//		plan.setCusId(cusId);
-//		plan.setCartId(cartId);
-//		dao.addPlan(plan);
-//	}
-	
+
 }

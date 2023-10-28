@@ -203,7 +203,7 @@ if ((Integer)request.getSession().getAttribute("cusId") == null){
 
 
     <!-- <script src="btn4com_review.js"></script> -->
-    <script src="ordinf.js"></script>
+    <script src="../static/eric_js/ordinf.js"></script>
 
 
 
