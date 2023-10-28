@@ -204,7 +204,6 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 
 	public Map<Room_ord, List<Object>> getRoomOrdList(Integer roomOrdId) {
 		try {
-			System.out.println(roomOrdId);
 			getSession().beginTransaction();
 			Map<Room_ord, List<Object>> map = new LinkedHashMap<Room_ord, List<Object>>();
 			@SuppressWarnings("unchecked")
@@ -245,6 +244,17 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 				info.add(commission);
 				BigDecimal profit = totalPrice.subtract(commission);
 				info.add(profit);
+				
+				
+//				Room room = getSession().get(Room.class, ord.getRoomId());
+//				Integer roomstore = getSession()
+//						.createQuery("select min(stock) from room_stock (where checkInTime = ?? and checkOutTime = :checkOutTime ) and roomId = :roomId ", Integer.class)
+//						.setParameter("roomId", room.getRoomId()).uniqueResult();
+				
+				
+				
+				
+				
 
 				map.put(Room, info);
 			}

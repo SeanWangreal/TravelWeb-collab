@@ -61,23 +61,23 @@ if (cusId != null) {
 
 	<nav class="st">
 		<!-- <a class="word" id="home" href="#">Home</a> -->
+		<a class="logo" id="home" href="${pageContext.request.contextPath}/mhl/home.jsp">GO<i class="fa-solid fa-location-dot" style="color: #ffbf1c;"></i>GOYU</a>
 		<div class="head">
-			<button type="menu" class="head_btn" id="msg">
+			<button type="menu" class="head_btn" aria-label="規劃行程" id="shop">
+                <i class="fa-solid fa-suitcase-rolling icon" style="color: black; font-size:30px;
+                            background-color:transparent;"></i>
+            </button>
+            <button type="menu" class="head_btn" id="msg">
                 <i class="fa-regular fa-message icon" style="color: black; font-size:30px; 
                             background-color:transparent;"></i>
             </button>
             <button type="menu" class="head_btn" id="info">
-                <i class="fa-regular fa-bell icon" style="color: black;font-size:30px; width: 30px;
+                <i class="fa-regular fa-bell  icon" style="color: black;font-size:30px; width: 30px;
                             background-color:transparent;"></i>
             </button>
-            <button type="menu" class="head_btn" id="">
-                <i class="fa-solid fa-store" style="color: #000000;font-size:30px; width: 30px;
-                background-color:transparent;"></i>
-
-            </button>
             <button type="button" class="head_btn">
-                <a class="journey" href="#">
-                    <i class="fa-solid fa-user icon" style="color: black; font-size:30px;
+                <a class="profile" href="${pageContext.request.contextPath}/eric/personal_detail.jsp">
+                    <i class="fa-solid fa-user" style="color: black; font-size:30px;
                                 background-color:transparent;"></i>
                 </a>
             </button>
