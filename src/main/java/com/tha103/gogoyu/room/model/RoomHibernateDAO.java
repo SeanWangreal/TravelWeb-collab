@@ -322,7 +322,7 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 			NativeQuery<Room> query1 = getSession().createNativeQuery(
 					"SELECT * FROM room WHERE room_id IN "
 					+ "(SELECT r.room_id FROM room r"
-					+ " JOIN room_stock rs ON r.room_id = rs.room_id JOIN company c ON r.comp_id = c.comp_id WHERE (c.comp_address LIKE :comp_address) AND (rs.stock_date BETWEEN :checkIn AND :checkOut) AND (r.room_type <= :number) AND (rs.stock > 0) GROUP BY room_id)", Room.class)
+					+ " JOIN room_stock rs ON r.room_id = rs.room_id JOIN company c ON r.comp_id = c.comp_id WHERE (c.comp_address LIKE :comp_address) AND (rs.stock_date BETWEEN :checkIn AND :checkOut) AND (r.room_type >= :number) AND (rs.stock > 0) AND (r.room_status = 1)GROUP BY room_id) ORDER BY comp_id, room_type, beds", Room.class)
 			.setParameter("comp_address", "%"+comp_address+"%")
 			.setParameter("checkIn", checkIn)
 			.setParameter("checkOut", newDate)

@@ -180,11 +180,11 @@
 <!--                 </div> -->
                 <div class="carousel-inner h-100">
                   <div class="carousel-item active">
-                    <img src="MainPhotoPrintHServlet?room_id=${room.roomId}" class="d-block w-100 h-100" alt="...">
+                    <img src="MainPhotoPrintHServlet?room_id=<%=room.getRoomId()%>" class="d-block w-100 h-100" alt="...">
                   </div>
                   <c:forEach var="roomPhotoId" items="<%=roomPhotoIdList%>" >
 	                  <div class="carousel-item">
-	                    <img src="RoomPhotoPrintHServlet?room_id=${roomPhotoId}" class="d-block w-100 h-100" alt="...">
+	                    <img src="RoomPhotoPrintHServlet?room_photo_id=${roomPhotoId}" class="d-block w-100 h-100" alt="...">
 	                  </div>
                   </c:forEach>
                 </div>
