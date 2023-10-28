@@ -182,11 +182,6 @@ if (company == null){
 					style="color: black;"></i> 會員資料
 				</a>
 			</div>
-			<div class="mem-data">
-				<a class="left_btn" href=""> <i class="fa-solid fa-file-invoice"
-					style="color: black;"></i> 訂單資訊
-				</a>
-			</div>
 		</aside>
 	</nav>
 	<div class="all" >
@@ -201,7 +196,7 @@ if (company == null){
 				<br> <label class="">廠商別&ensp;<span><%= company.getCompType()%></span></label>
 				<br>
 				<a href="" type="button" class="hotel-btn">查看飯店資訊</a>
-				<FORM METHOD="post" ACTION="${${pageContext.request.contextPath}/CompanyServlet" >
+				<FORM METHOD="post" ACTION="${pageContext.request.contextPath}/CompanyServlet" >
 					<button type = "submit" class="hotel-btn">登出</button>
 					<input type="hidden" name="action" value="signout">
 				</FORM>
