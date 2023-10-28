@@ -132,12 +132,12 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 					info.add(getSession().get(Trip.class, Trip.getTripId()).getEndTime());
 					
 					
-					BigDecimal profit =getSession().get(Trip.class, Trip.getTripId()).getPrice().multiply(new BigDecimal(Trip.getAmount()));
-					info.add(profit);
-					BigDecimal commission =profit.multiply(new BigDecimal(0.1));
-					info.add(commission);
-					BigDecimal totalPrice =profit.add(commission);
+					BigDecimal totalPrice =getSession().get(Trip.class, Trip.getTripId()).getPrice().multiply(new BigDecimal(Trip.getAmount()));
 					info.add(totalPrice);
+					BigDecimal commission =totalPrice.multiply(new BigDecimal(0.1));
+					info.add(commission);
+					BigDecimal profit =totalPrice.subtract(commission);
+					info.add(profit);
 					
 
 					
@@ -155,15 +155,16 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 	
 	
 	
-	public Integer updateStatusAndRemark(String remark , Integer tripOrdId  , BigDecimal profit , BigDecimal commission , BigDecimal totalPrice) {
+	public Integer updateStatusAndRemark(String remark , Integer tripOrdId  , BigDecimal profit , BigDecimal commission , BigDecimal totalPrice ,Timestamp ordTime) {
 		try {
 			getSession().beginTransaction();
-			Query query = getSession().createQuery("update Trip_ord set ordStatus =1 , remark = :remark , profit = :profit , commission = :commission , totalPrice = :totalPrice where tripOrdId = :tripOrdId");
+			Query query = getSession().createQuery("update Trip_ord set ordStatus =1 , remark = :remark , profit = :profit , commission = :commission , totalPrice = :totalPrice  , ordTime = :ordTime where tripOrdId = :tripOrdId");
 			query.setParameter("remark", remark);
 			query.setParameter("tripOrdId", tripOrdId);
 			query.setParameter("profit", profit);
 			query.setParameter("commission", commission);
 			query.setParameter("totalPrice", totalPrice);
+			query.setParameter("ordTime", ordTime);
 
 			query.executeUpdate();
 			
@@ -195,8 +196,6 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 		}
 		return -1 ;
 	}
-	
-	
 	
 	
 	@Override

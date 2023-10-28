@@ -110,6 +110,30 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 		return null; // 如果該table沒有東西就回傳null
 	}
 
+	
+public Integer updateAmount(Integer amount ,Integer roomOrdId) {
+		
+		System.out.println(amount);
+		try {
+			getSession().beginTransaction();
+			Query query = getSession().createQuery("update Room_ord set amount = :amount  where roomOrdId = :roomOrdId");
+			query.setParameter("roomOrdId", roomOrdId);
+			query.setParameter("amount", amount);
+
+			query.executeUpdate();
+			
+			getSession().getTransaction().commit();
+			return 1 ;
+		}catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return -1 ;
+	}
+	
+	
+	
+	
 
 	public Map <Room_ord , List<String>> getRoomOrdVo(Integer cartId, Integer cusId) {
 
@@ -130,7 +154,21 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 				String roomId =getSession().get(Room.class, ord.getRoomId()).getRoomName();
 					info.add(getSession().get(Company.class, compId).getCompName());//String compName
 					info.add(roomId);
-					map.put(ord,info);
+					
+					Room room = getSession().get(Room.class, ord.getRoomId());
+					Double avgScore = getSession().createQuery("select avg(score) from Room_ord where roomId = :roomId " , Double.class)
+							.setParameter("roomId", room.getRoomId())
+							.uniqueResult();
+							
+						if(avgScore !=null) {
+							Double averageScore= Math.round(avgScore  * 10.0) / 10.0;
+							info.add(averageScore.toString());
+						}else {
+							info.add("N/A");
+						}
+						
+						
+						map.put(ord, info);
 			}
 			
 			
@@ -176,6 +214,66 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 	
 	
 	
+	
+	
+	public Map <Room_ord , List <Object>> getRoomOrdList(Integer roomOrdId){
+		try {
+			System.out.println(roomOrdId);
+			getSession().beginTransaction();
+			Map<Room_ord,List<Object>> map  = new LinkedHashMap<Room_ord,List<Object>>();
+			@SuppressWarnings("unchecked")
+			NativeQuery<Room_ord> query1 = getSession().createNativeQuery("select * from Room_ord where room_ord_id = :roomOrdId", Room_ord.class)
+																.setParameter("roomOrdId", roomOrdId);
+										List<Room_ord> list1 = query1.list();
+			
+			System.out.println(list1);
+			for(Room_ord Room :  list1) {
+				List<Object> info = new ArrayList<Object>();
+					info.add(getSession().get(Company.class , Room.getCompId()).getCompName());//String compName
+					info.add(getSession().get(Room.class, Room.getRoomId()).getRoomName());//String 房型名
+						String room = null ;
+					Integer roomType = getSession().get(Room.class, Room.getRoomId()).getRoomType();
+					switch( roomType ) {
+					case 1:
+						room = "單人房";
+						break;
+					case 2:
+						room = "雙人房";
+						break;
+					case 3:
+						room = "三人房";
+						break;
+					case 4:
+						room = "四人房";
+						break;
+					}
+					info.add(room);//String 房型
+					info.add(getSession().get(Company.class, Room.getCompId()).getPrincipalName());//String Principalname
+					info.add(getSession().get(Company.class, Room.getCompId()).getPrincipalPhone());//String PrincipalPhone	
+//						
+					BigDecimal totalPrice =getSession().get(Room.class, Room.getRoomId()).getPrice().multiply(new BigDecimal(Room.getAmount()));
+					info.add(totalPrice);
+					BigDecimal commission =totalPrice.multiply(new BigDecimal(0.1));
+					info.add(commission);
+					BigDecimal profit =totalPrice.subtract(commission);
+					info.add(profit);
+					
+					
+					
+
+
+					
+					map.put(Room,info);
+			}
+			System.out.println(map);
+			getSession().getTransaction().commit();
+			return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
 	
 	
 	
@@ -238,13 +336,18 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 		return -1 ;
 	}
 	
-	public Integer updateStatusAndRemark(String remark , Integer roomOrdId) {
+	public Integer updateStatusAndRemark(String remark , Integer roomOrdId , BigDecimal profit , BigDecimal commission , BigDecimal totalPrice ,Timestamp ordTime , Integer people) {
 		try {
 			getSession().beginTransaction();
-			Query query = getSession().createQuery("update Room_ord set ordStatus =1 , remark = :remark where roomOrdId = :roomOrdId");
+			Query query = getSession().createQuery("update Room_ord set ordStatus =1 , remark = :remark , profit = :profit , commission = :commission , totalPrice = :totalPrice  , ordTime = :ordTime  , people = :people where roomOrdId = :roomOrdId");
 			query.setParameter("remark", remark);
 			query.setParameter("roomOrdId", roomOrdId);
-
+			query.setParameter("profit", profit);
+			query.setParameter("commission", commission);
+			query.setParameter("totalPrice", totalPrice);
+			query.setParameter("ordTime", ordTime);
+			query.setParameter("people", people);
+			
 			query.executeUpdate();
 			
 			getSession().getTransaction().commit();

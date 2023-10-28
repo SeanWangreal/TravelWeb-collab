@@ -18,5 +18,6 @@ public interface TripDAO_interface {
 	Set<Itinerary> getItineraryByTripId(Integer tripId);
 	int deleteAllPhoto(Integer tripId);
 	byte[] getMainPhoto(Integer tripId);
+	public Integer updateAmount(Integer amount , Integer tripId) ;
 
 }

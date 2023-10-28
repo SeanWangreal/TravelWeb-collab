@@ -13,7 +13,7 @@ response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
 response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setDateHeader("Expires", 0);
 
-request.getSession().setAttribute("cusId",1); 
+request.getSession().setAttribute("cusId",5); 
 
 
 %> 
@@ -308,7 +308,7 @@ request.getSession().setAttribute("cusId",1);
 
 									<button  href="#" class="b pay"  style = "border: 1px solid blcak ; background-color: blue; color:black;">加入購物車</button>
 									<input type = "hidden"  name ="action" value ="trip_goShopping">
-										<input type="hidden" name="tripId" value="2">
+										<input type="hidden" name="tripId" value="3">
 						</form>
 							
 							
