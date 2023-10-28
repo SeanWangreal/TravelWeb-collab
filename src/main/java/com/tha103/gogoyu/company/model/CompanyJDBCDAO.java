@@ -2,6 +2,8 @@ package com.tha103.gogoyu.company.model;
 
 import java.util.*;
 
+import com.tha103.gogoyu.hotel_info.model.Hotel_info;
+
 import util.Util;
 
 import java.sql.*;
@@ -30,7 +32,7 @@ public class CompanyJDBCDAO implements CompanyDAO_interface {
 			+ "comp_password = ? ,comp_mail = ? ,comp_photo = ?,check_status = ?  " + "where comp_id = ?";
 
 	@Override
-	public int add(Company Company) {
+	public int add(Company Company, Hotel_info hotelInfo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -273,5 +275,6 @@ public class CompanyJDBCDAO implements CompanyDAO_interface {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	
 }
