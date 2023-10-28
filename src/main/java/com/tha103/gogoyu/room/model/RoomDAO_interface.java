@@ -1,6 +1,7 @@
 package com.tha103.gogoyu.room.model;
 
 import java.sql.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -10,7 +11,7 @@ import com.tha103.gogoyu.room_photo.model.Room_photo;
 
 
 public interface RoomDAO_interface {
-	int add(Room room);
+	int add(Room room, LinkedList<byte[]> allPhoto);
 	int update(Room room);
 	int delete(Integer roomId);
 	Room findByPK(Integer roomId);

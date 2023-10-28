@@ -1,5 +1,6 @@
 package com.tha103.gogoyu.trip.model;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -22,10 +23,20 @@ public class TripHibernateDAO implements TripDAO_interface{
 	}
 	
 	@Override
-	public int add(Trip trip) {
+	public int add(Trip trip,LinkedList<byte[]> allPhoto,List<Itinerary> itineraryList) {
 		try {
 			getSession().beginTransaction();
 			Integer id = (Integer) getSession().save(trip);
+			for (int i = 0; i < allPhoto.size();i++) {
+				Trip_photo tripPhoto = new Trip_photo();
+				tripPhoto.setTripId(id);
+				tripPhoto.setPhoto(allPhoto.get(i));
+				getSession().save(tripPhoto);
+			}
+			for (Itinerary it: itineraryList) {
+				it.setTripId(id);
+				getSession().save(it);
+			}
 			getSession().getTransaction().commit();
 			return id;
 		} catch (Exception e) {

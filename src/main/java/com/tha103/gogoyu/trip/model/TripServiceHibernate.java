@@ -2,6 +2,7 @@ package com.tha103.gogoyu.trip.model;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -23,7 +24,7 @@ public class TripServiceHibernate implements TripService {
 			byte miaoliCounty, byte changhuaCounty, byte nantouCounty, byte yunlinCounty, byte chiayiCounty,
 			byte pingtungCounty, byte yilanCity, byte hualienCity, byte taitungCounty, byte kinmenCounty,
 			byte lienchiangCounty, byte keelungCity, byte hsinchuCity, byte chiayiCity, byte penghuCounty,
-			byte[] mainPhoto) {
+			byte[] mainPhoto,LinkedList<byte[]> allPhoto,List<Itinerary> itineraryList) {
 		Trip trip = new Trip();
 		trip.setCompId(compId);
 		trip.setTripName(tripName);
@@ -57,8 +58,7 @@ public class TripServiceHibernate implements TripService {
 		trip.setChiayiCity(chiayiCity);
 		trip.setPenghuCounty(penghuCounty);
 		trip.setMainPhoto(mainPhoto);
-		dao.add(trip);
-		return trip;
+		return this.getOneTrip(dao.add(trip, allPhoto, itineraryList));
 	}
 	@Override
 	public Trip updateTrip(Integer tripId,Integer compId, String tripName, Integer amount, BigDecimal price, Integer people,

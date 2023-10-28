@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -41,7 +42,7 @@ public class TripJDBCDAO implements TripDAO_interface {
 			+ "	chiayi_city = ? ,penghu_county = ? ,main_photo = ? where trip_id = ? ";
 
 	@Override
-	public int add(Trip trip) {
+	public int add(Trip trip,LinkedList<byte[]> allPhoto,List<Itinerary> itineraryList) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
