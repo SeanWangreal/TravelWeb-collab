@@ -10,9 +10,10 @@
 <%
 	List<Object> list = (List<Object>)request.getAttribute("productDetailRoom");
 	Room room = (Room)list.get(0);
-	List<Integer> RoomPhotoIdList = (List<Integer>)list.get(1);
-	Company company = (Company)list.get(2);
-	List<String> hotelInfoList = (List<String>)list.get(3);
+	List<Integer> roomPhotoIdList = (List<Integer>)list.get(1);
+	List<String> roomFacilities = (List<String>)list.get(2);
+	Company company = (Company)list.get(3);
+	List<String> hotelInfoList = (List<String>)list.get(4);
 %>
 
 <!DOCTYPE html>
@@ -85,25 +86,28 @@
 <body>
     <script src="${pageContext.request.contextPath}/vendors/jquery/jquery-3.7.1.min.js"></script>
     <nav class="st">
-        <!-- <a class="word" id="hotel" href="#">hotel</a> -->
-        <div class="head">
+         <a class="logo" id="home" href="${pageContext.request.contextPath}/mhl/home.jsp">GO<i class="fa-solid fa-location-dot" style="color: #ffbf1c;"></i>GOYU</a>
+         <div class="head">
+            <button type="menu" class="head_btn" aria-label="規劃行程" id="shop">
+                <i class="fa-solid fa-suitcase-rolling icon" style="color: black; font-size:30px;
+                            background-color:transparent;"></i>
             </button>
             <button type="menu" class="head_btn" id="msg">
                 <i class="fa-regular fa-message icon" style="color: black; font-size:30px; 
                             background-color:transparent;"></i>
             </button>
             <button type="menu" class="head_btn" id="info">
-                <i class="fa-regular fa-bell icon" style="color: black;font-size:30px; width: 30px;
+                <i class="fa-regular fa-bell  icon" style="color: black;font-size:30px; width: 30px;
                             background-color:transparent;"></i>
             </button>
-            <button type="menu" class="head_btn" id="">
-                <i class="fa-solid fa-store" style="color: #000000;font-size:30px; width: 30px;
-                background-color:transparent;"></i>
-
+            <button type="button" class="head_btn">
+                <a class="profile" href="${pageContext.request.contextPath}/ken/com_mem_signin.jsp">
+                   <div style="color: black;">業者</div>
+                </a>
             </button>
             <button type="button" class="head_btn">
-                <a class="journey" href="#">
-                    <i class="fa-solid fa-user icon" style="color: black; font-size:30px;
+                <a class="profile" href="${pageContext.request.contextPath}/eric/personal_detail.jsp">
+                    <i class="fa-solid fa-user" style="color: black; font-size:30px;
                                 background-color:transparent;"></i>
                 </a>
             </button>
@@ -129,43 +133,44 @@
             <!--搜尋欄-->
             <nav class="navbar navbar-light bg-light">
                 <div class="container-fluid justify-content-center">
-                  <form class="d-flex">
-                    <select class="form-select me-2" aria-label="Default select example">
-                        <option value="Taipei_City">台北市</option>
-                        <option value="NewTaipei_City">新北市</option>
-                        <option value="Taoyuan_City">桃園市</option>
-                        <option value="Taichung_City">台中市</option>
-                        <option value="Tainan_City">台南市</option>
-                        <option value="Kaohsiung_City">高雄市</option>
-                        <option value="Hsinchu_County">新竹縣</option>
-                        <option value="Miaoli_County">新北市</option>
-                        <option value="Changhua_County">苗栗縣</option>
-                        <option value="Nantou_County">彰化縣</option>
-                        <option value="Nantou_County">南投縣</option>
-                        <option value="Yunlin_County">雲林縣</option>
-                        <option value="Chiayi_County">嘉義縣</option>
-                        <option value="Pingtung_County">屏東縣</option>
-                        <option value="Yilan_City">宜蘭市</option>
-                        <option value="Hualien_City">花蓮市</option>
-                        <option value="Taitung_County">台東縣</option>
-                        <option value="Kinmen_County">金門縣</option>
-                        <option value="Lienchiang_County">連江縣</option>
-                        <option value="Keelung_City">基隆市</option>
-                        <option value="Hsinchu_City">新竹市</option>
-                        <option value="Chiayi_City">嘉義市</option>
-                        <option value="Penghu_County">澎湖縣</option>
+                  <form class="d-flex" method="post" action="${pageContext.request.contextPath}/sean/SearchServlet">
+                    <select class="form-select me-2" name="comp_address" aria-label="Default select example">
+                        <option value="台北市">台北市</option>
+                        <option value="新北市">新北市</option>
+                        <option value="桃園市">桃園市</option>
+                        <option value="台中市">台中市</option>
+                        <option value="台南市">台南市</option>
+                        <option value="高雄市">高雄市</option>
+                        <option value="新竹縣">新竹縣</option>
+                        <option value="新北市">新北市</option>
+                        <option value="苗栗縣">苗栗縣</option>
+                        <option value="彰化縣">彰化縣</option>
+                        <option value="南投縣">南投縣</option>
+                        <option value="雲林縣">雲林縣</option>
+                        <option value="嘉義縣">嘉義縣</option>
+                        <option value="屏東縣">屏東縣</option>
+                        <option value="宜蘭市">宜蘭市</option>
+                        <option value="花蓮市">花蓮市</option>
+                        <option value="台東縣">台東縣</option>
+                        <option value="金門縣">金門縣</option>
+                        <option value="連江縣">連江縣</option>
+                        <option value="基隆市">基隆市</option>
+                        <option value="新竹市">新竹市</option>
+                        <option value="嘉義市">嘉義市</option>
+                        <option value="澎湖縣">澎湖縣</option>
                     </select>
-                    <input class="form-control me-2" type="text" placeholder="入住日期..." aria-label="Search" onfocus="(this.type='date')"
-                    onblur="(this.type='text')">
-                    <input class="form-control me-2" type="text" placeholder="退房日期..." aria-label="Search" onfocus="(this.type='date')"
-                    onblur="(this.type='text')">
-                    <input class="form-control me-2" type="text" placeholder="人數..." aria-label="Search">
+                    <input class="form-control me-2" name="checkIn" type="text" placeholder="入住日期..." aria-label="Search" onfocus="(this.type='date')"
+                    	onblur="(this.type='text')" value="${searchCheckIn}">
+                    <input class="form-control me-2" name="checkOut" type="text" placeholder="退房日期..." aria-label="Search" onfocus="(this.type='date')"
+                    	onblur="(this.type='text')" value="${searchCheckOut}">
+                    <input class="form-control me-2" value="${people}" name="number" type="text" placeholder="人數..." aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
+                    <input type="hidden" name="action" value="roomSearch">
                   </form>
                 </div>
             </nav>
-            <!--商品名-->
-            <h2 class="mx-auto">兄弟大飯店</h2>
+            <!--飯店名-->
+            <h2 class="mx-auto"><%=company.getCompName()%></h2>
             <!--幻燈片-->
             <div id="carouseltrip" class="carousel slide border mx-auto" data-bs-ride="carousel">
 <!--                 <div class="carousel-indicators"> -->
@@ -175,12 +180,13 @@
 <!--                 </div> -->
                 <div class="carousel-inner h-100">
                   <div class="carousel-item active">
-                    <img src="https://picsum.photos/2800/1600?random=1" class="d-block w-100 h-100" alt="...">
+                    <img src="MainPhotoPrintHServlet?room_id=${room.roomId}" class="d-block w-100 h-100" alt="...">
                   </div>
+                  <c:forEach var="roomPhotoId" items="<%=roomPhotoIdList%>" >
                   <div class="carousel-item">
-                    <img src="https://picsum.photos/2800/1600?random=2" class="d-block w-100 h-100" alt="...">
+                    <img src="RoomPhotoPrintHServlet?room_id=${roomPhotoId}" class="d-block w-100 h-100" alt="...">
                   </div>
-                  
+                  </c:forEach>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouseltrip" data-bs-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -191,28 +197,16 @@
                   <span class="visually-hidden">Next</span>
                 </button>
             </div>
-            <!-- 飯店設施 -->
+            <!-- 飯店資訊 -->
             <div class="container mt-2 border h-100" id="content1" >
                 <div class="row align-items-center justify-content-center h-100">
                     <div class="col h-100">
                         <div class="item h-100">
-                            <h3 class="mt-2">飯店設施</h3>
+                            <h3 class="mt-2">飯店資訊</h3>
                             <div class="col-4 h-100 w-100 mb-2">
-                                <span class="badge bg-primary">餐廳</span>
-                                <span class="badge bg-primary">客房服務</span>
-                                <span class="badge bg-primary">24小時接待櫃檯</span>
-                                <span class="badge bg-primary">SPA</span>
-                                <span class="badge bg-primary">健身中心</span>
-                                <span class="badge bg-primary">花園</span>
-                                <span class="badge bg-primary">露臺</span>
-                                <span class="badge bg-primary">禁菸客房</span>
-                                <span class="badge bg-primary">免費無線網路</span>
-                                <span class="badge bg-primary">金山老街</span>
-                                <span class="badge bg-primary">暖氣</span>
-                                <span class="badge bg-primary">海灘</span>
-                                <span class="badge bg-primary">泳池</span>
-                                <span class="badge bg-primary">電動車充電站</span>
-                                <span class="badge bg-primary">停車場</span>
+                             <c:forEach var="hotelInfo" items="<%=hotelInfoList%>" >
+                                <span class="badge bg-primary">${hotelInfo}</span>
+                             </c:forEach>
                             </div>
                         </div> 
                     </div>
@@ -223,23 +217,28 @@
                 <div class="row justify-content-center align-items-center h-100">
                     <!--地圖-->
                     <div class="col-4 h-100 mt-2 mb-2">
-                        <a href="#">
-                            <i class="fa-solid fa-map-location-dot h-100" id="map"></i>
-                        </a>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="">位置</div>
+                                    <a href="#">
+                                        <i class="fa-solid fa-map-location-dot h-100" id="map"></i>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <div>附近景點</div>
+                                    <a href="#">
+                                        <i class="fa-solid fa-map-location-dot h-100" id="map"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- 房型設備 -->
                     <div class="col-4 h-100 mt-2 mb-2">
-                        <span class="badge bg-primary">衛生紙</span>
-                        <span class="badge bg-primary">淋浴間</span>
-                        <span class="badge bg-primary">廁所</span>
-                        <span class="badge bg-primary">吹風機</span>
-                        <span class="badge bg-primary">浴缸</span>
-                        <span class="badge bg-primary">免費盥洗用品</span>
-                        <span class="badge bg-primary">沖洗座</span>
-                        <span class="badge bg-primary">拖鞋</span>
-                        <span class="badge bg-primary">浴袍</span>
-                        <span class="badge bg-primary">SPA浴缸</span>
-                        <span class="badge bg-primary">電熱水壺</span>
+                        <c:forEach var="facility" items="<%=roomFacilities%>" >
+                                <span class="badge bg-primary">${facility}</span>
+                             </c:forEach>
                     </div>
                     <!-- 聯絡 評價 -->
                     <div class="col-4 h-100 mt-2 mb-2">
@@ -262,28 +261,50 @@
             <div class="container border h-100" id="content1" >
                 <div class="row  align-items-center h-100">
                     <!--房型名稱、房型、開始時間、結束時間、金額、庫存、收藏-->
-                    <div class="col-6 h-100 mt-2 mb-2">
-                        <div>房型名稱：普通單人房</div>
-                        <div>房型：單人房</div>
-                        <div>金額：NTW 2000</div>
+                    <div class="col-4 h-100 mt-2 mb-2">
+                    	<h4><%=company.getCompName()%></h4>
+                        <div>房型名稱：<%=room.getRoomName()%></div>
+                        <div>房型：<%=room.getRoomType()%>人房</div>
+                        <div>金額：NTW <%=room.getPrice().intValue()%></div>
                         <a class="" href="#">
                             <button type="button" class="btn btn-primary">
                                 收藏
                             </button>
                         </a>
                     </div>
+                    <!--查詢是否有庫存-->
+                    <div class="col-4 h-100 mt-2 mb-2">
+                            <div>庫存查詢：</div>
+                            <input class="form-control me-2 checkIn" type="text" placeholder="入住日期..." aria-label="Search" onfocus="(this.type='date')"
+                                onblur="(this.type='text')">
+                            <input class="form-control me-2 checkOut" type="text" placeholder="退房日期..." aria-label="Search" onfocus="(this.type='date')"
+                                onblur="(this.type='text')">
+                            <input class="detailPageRoomId" type="hidden" name="detailPageRoomId" value="1">
+                            <div>庫存：</div>
+                            <button type="button" class="btn btn-primary stockSearch">查詢</button>
+                    </div>
                     <!--加入購物車-->
-                    <div class="col-6 h-100 mt-2 mb-2">
-                        <form class="" method="" action="" >
+                    <div class="col-4 h-100 mt-2 mb-2">
+                        <form class="" method="post" action="${pageContext.request.contextPath}/shopping_hotelServlet" >
                             <div>先加入購物車，結帳時再選數量</div>
                             <div>請選擇購物車：
                             </div>
-                            <select class="form-select me-2 mb-2" aria-label="Default select example" name="">
+                            <select class="form-select me-2 mb-2" aria-label="Default select example" name="cart_id">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
                             </select>
-                            <input type="submit" class="btn btn-primary" value="加入購物車">
+                            <input class="form-control me-2" type="text" placeholder="入住日期..." aria-label="Search" onfocus="(this.type='date')"
+                                onblur="(this.type='text')" value="${searchCheckIn}">
+                            <input class="form-control me-2" type="text" placeholder="退房日期..." aria-label="Search" onfocus="(this.type='date')"
+                                onblur="(this.type='text')" value="${searchCheckOut}">
+                            <input type="hidden" name="roomId" value=<%=room.getRoomId()%>>
+                            <input type="hidden" name="action" value="room_goShopping">
+                            <button type="submit" class="btn btn-primary">
+                                加入購物車
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -294,7 +315,7 @@
                     <div class="col border h-100">
                         <div class="item h-100 ">
                             <h3 class="mt-2">介紹</h3>
-                            <p class="text-wrap">活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容</p>
+                            <p class="text-wrap"><%=room.getIntro()%></p>
                         </div> 
                     </div>
                 </div>
@@ -303,6 +324,33 @@
 
     <script src="${pageContext.request.contextPath}/static/mhl_js/btn4com_review.js"></script>
     <script src="${pageContext.request.contextPath}/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+    $("#stockSearch").on("click",function(e){
+        var checkIn = $(".checkIn").val();
+        var checkOut = $(".checkOut").val();
+        var number = $(".number").val();
+        var detailPageRoomId = $(".detailPageRoomId").val();
+	   	            	console.log(checkIn);
+                        console.log(checkOut);
+                        console.log(number);
+                        console.log(detailPageRoomId);
+	   	                var path = window.location.pathname;
+	   	                var webCtx = path.substring(0, path.indexOf('/', 1));
+	   	                var url = location.origin+webCtx+"/sean/searchServlet"
+	   	            	$.ajax({
+	   	                 url: url,
+	   	                 type: "POST", 
+	   	                 data: {
+	   	                	"action":"searchRoomStock",
+	   	                     "checkIn": checkIn,
+                             "checkOut": checkOut,
+                             "detailPageRoomId": detailPageRoomId
+	   	                 },            
+	   	                 dataType: "json", 
+	   	                 success: function(data) { 
+	   	                	console.log(data);
+                            }})
+    </script>
 </body>
 
 </html>

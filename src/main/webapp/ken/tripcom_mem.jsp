@@ -154,7 +154,7 @@ if (company == null){
 				   </a>
 			</button>
 			<button type="button" class="head_btn">
-				<a class="profile" href="${pageContext.request.contextPath}/sean/tripcom_mem.jsp"> <i class="fa-solid fa-user"
+				<a class="profile" href="${pageContext.request.contextPath}/ken/tripcom_mem.jsp"> <i class="fa-solid fa-user"
 					style="color: black; font-size: 30px; background-color: transparent;"></i>
 				</a>
 			</button>

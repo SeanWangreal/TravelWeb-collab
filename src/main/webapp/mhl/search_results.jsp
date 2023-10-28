@@ -69,25 +69,28 @@
 <body>
     <script src="${pageContext.request.contextPath}/vendors/jquery/jquery-3.7.1.min.js"></script>
     <nav class="st">
-        <!-- <a class="word" id="hotel" href="#">hotel</a> -->
+        <a class="logo" id="home" href="${pageContext.request.contextPath}/mhl/home.jsp">GO<i class="fa-solid fa-location-dot" style="color: #ffbf1c;"></i>GOYU</a>
         <div class="head">
+            <button type="menu" class="head_btn" aria-label="規劃行程" id="shop">
+                <i class="fa-solid fa-suitcase-rolling icon" style="color: black; font-size:30px;
+                            background-color:transparent;"></i>
             </button>
             <button type="menu" class="head_btn" id="msg">
                 <i class="fa-regular fa-message icon" style="color: black; font-size:30px; 
                             background-color:transparent;"></i>
             </button>
             <button type="menu" class="head_btn" id="info">
-                <i class="fa-regular fa-bell icon" style="color: black;font-size:30px; width: 30px;
+                <i class="fa-regular fa-bell  icon" style="color: black;font-size:30px; width: 30px;
                             background-color:transparent;"></i>
             </button>
-            <button type="menu" class="head_btn" id="">
-                <i class="fa-solid fa-store" style="color: #000000;font-size:30px; width: 30px;
-                background-color:transparent;"></i>
-
+            <button type="button" class="head_btn">
+                <a class="profile" href="${pageContext.request.contextPath}/ken/com_mem_signin.jsp">
+                   <div style="color: black;">業者</div>
+                </a>
             </button>
             <button type="button" class="head_btn">
-                <a class="journey" href="#">
-                    <i class="fa-solid fa-user icon" style="color: black; font-size:30px;
+                <a class="profile" href="${pageContext.request.contextPath}/eric/personal_detail.jsp">
+                    <i class="fa-solid fa-user" style="color: black; font-size:30px;
                                 background-color:transparent;"></i>
                 </a>
             </button>
@@ -130,7 +133,7 @@
                         <nav class="navbar navbar-light bg-light">
                             <div class="container">
                                 <div class="d-flex flex-wrap">
-                                    <form class="d-flex" method="post" action="${pageContext.request.contextPath}/sean/RoomServlet">
+                                    <form class="d-flex" method="post" action="${pageContext.request.contextPath}/sean/SearchServlet">
                                         <!-- <input class="form-control me-2" type="text" placeholder="地點..." aria-label="Search">
                                          -->
                                         <select class="form-select me-2" name="comp_address" aria-label="Default select example">
@@ -159,10 +162,10 @@
                                             <option value="澎湖縣">澎湖縣</option>
                                         </select>
                                         <input class="form-control me-2" name="checkIn" type="text" placeholder="入住日期..." aria-label="Search" onfocus="(this.type='date')"
-                                        onblur="(this.type='text')">
+                                        onblur="(this.type='text')" value="${searchCheckIn}">
                                         <input class="form-control me-2" name="checkOut" type="text" placeholder="退房日期..." aria-label="Search" onfocus="(this.type='date')"
-                                        onblur="(this.type='text')">
-                                        <input class="form-control me-2" name="number" type="text" placeholder="人數..." aria-label="Search">
+                                        onblur="(this.type='text')" value="${searchCheckOut}">
+                                        <input class="form-control me-2" value="${people}" name="number" type="text" placeholder="人數..." aria-label="Search">
                                         <button class="btn btn-outline-success" type="submit">Search</button>
                                         <input type="hidden" name="action" value="roomSearch">
                                     </form>
@@ -177,14 +180,14 @@
 	                                <div class="row">
 	                                    <!--商品圖-->
 	                                    <div class="col photoShell border">
-	                                        <img src="MainPhotoPrintHServlet?room_id=${roomVO.roomId} " class="d-block w-100" alt="...">
+	                                        <img src="MainPhotoPrintHServlet?room_id=${roomVO.roomId}" class="d-block w-100" alt="...">
 	                                    </div>
 	                                    <!--商品名 細況-->
 	                                    <div class="col">
 	                                            <h3 class="">${roomMap.get(roomVO)}</h3><br>
 	                                            <div>${roomVO.roomName}</div>
 	                                            <div>${roomVO.roomType}人房</div><br>
-	                                            <a href="#" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">查看房型細況</a>
+	                                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?action=getProductDetailRoom&room_id=${roomVO.roomId}&searchCheckIn=${searchCheckIn}&searchCheckOut=${searchCheckOut}&number=${people}" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">查看房型細況</a>
 	                                    </div>
 	                                    <!--聯絡 評等 價格-->
 	                                    <div class="col ">
@@ -313,6 +316,7 @@
     <script src="${pageContext.request.contextPath}/static/mhl_js/btn4com_review.js"></script>
     <script src="${pageContext.request.contextPath}/dist/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.request.contextPath}/static/mhl_js/btn4com.js"></script>
+    
 </body>
 
 </html>

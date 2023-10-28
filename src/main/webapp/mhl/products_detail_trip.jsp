@@ -71,25 +71,28 @@
 <body>
     <script src="${pageContext.request.contextPath}/vendors/jquery/jquery-3.7.1.min.js"></script>
     <nav class="st">
-        <!-- <a class="word" id="hotel" href="#">hotel</a> -->
+         <a class="logo" id="home" href="${pageContext.request.contextPath}/mhl/home.jsp">GO<i class="fa-solid fa-location-dot" style="color: #ffbf1c;"></i>GOYU</a>
         <div class="head">
+            <button type="menu" class="head_btn" aria-label="規劃行程" id="shop">
+                <i class="fa-solid fa-suitcase-rolling icon" style="color: black; font-size:30px;
+                            background-color:transparent;"></i>
             </button>
             <button type="menu" class="head_btn" id="msg">
                 <i class="fa-regular fa-message icon" style="color: black; font-size:30px; 
                             background-color:transparent;"></i>
             </button>
             <button type="menu" class="head_btn" id="info">
-                <i class="fa-regular fa-bell icon" style="color: black;font-size:30px; width: 30px;
+                <i class="fa-regular fa-bell  icon" style="color: black;font-size:30px; width: 30px;
                             background-color:transparent;"></i>
             </button>
-            <button type="menu" class="head_btn" id="">
-                <i class="fa-solid fa-store" style="color: #000000;font-size:30px; width: 30px;
-                background-color:transparent;"></i>
-
+           <button type="button" class="head_btn">
+                <a class="profile" href="${pageContext.request.contextPath}/ken/com_mem_signin.jsp">
+                   <div style="color: black;">業者</div>
+                </a>
             </button>
             <button type="button" class="head_btn">
-                <a class="journey" href="#">
-                    <i class="fa-solid fa-user icon" style="color: black; font-size:30px;
+                <a class="profile" href="${pageContext.request.contextPath}/eric/personal_detail.jsp">
+                    <i class="fa-solid fa-user" style="color: black; font-size:30px;
                                 background-color:transparent;"></i>
                 </a>
             </button>
@@ -115,7 +118,7 @@
             <!--搜尋欄-->
             <nav class="navbar navbar-light bg-light">
                 <div class="container-fluid justify-content-center">
-                  <form class="d-flex">
+                    <form class="d-flex" method="post" action="${pageContext.request.contextPath}/sean/SearchServlet">
                     <select class="form-select me-2" aria-label="Default select example">
                         <option value="Taipei_City">台北市</option>
                         <option value="NewTaipei_City">新北市</option>

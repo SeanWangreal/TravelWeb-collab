@@ -3,7 +3,12 @@
 
 <%
 Consumer consumer = (Consumer) request.getAttribute("consumer"); //EmpServlet.java(Concroller), 存入req的empVO物件
+
+if ((Integer)request.getSession().getAttribute("cusId") == null){
+	response.sendRedirect(request.getContextPath()+"/eric/signin.jsp");
+}
 %>    
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -148,9 +153,8 @@ Consumer consumer = (Consumer) request.getAttribute("consumer"); //EmpServlet.ja
                 <h5 style="font-weight:bolder">會員資料</h5>
                     <span style="float: left">在個人資料中更新最新資訊並確認<span>
                             <div class="memBtn" id="memBtn"style="text-decoration: none; text-align: right; padding-right:120px; font-size:16px; font-family: 粉圓">
-                                <a href="personal_detail_update.jsp">編輯</a>
+                                <a href="${pageContext.request.contextPath}/eric/ConsumerServlet?action=getOne_For_Update">編輯</a>
                             </div>
-                            <div class="circle">C</div>
                             <br>
                             <div class="mem_detal">
                                 <div class="personal_item" style="width:30%; font-weight:bolder; font-family: 粉圓; border:none ">
