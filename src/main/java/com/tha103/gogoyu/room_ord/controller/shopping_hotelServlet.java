@@ -5,13 +5,14 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.*;
 
 import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import com.tha103.gogoyu.trip_ord.model.Trip_ord;
+
 import com.tha103.gogoyu.consumer.model.Consumer;
 import com.tha103.gogoyu.planning.model.*;
 import com.tha103.gogoyu.room_ord.model.*;
@@ -20,6 +21,7 @@ import com.tha103.gogoyu.trip.model.*;
 import com.tha103.gogoyu.trip_ord.model.*;
 import com.tha103.gogoyu.company.model.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 
 @WebServlet("/shopping_hotelServlet")
 public class shopping_hotelServlet extends HttpServlet {
@@ -58,7 +60,7 @@ public class shopping_hotelServlet extends HttpServlet {
 				PlanningServiceHibernate PSH = new PlanningServiceHibernate();// 創造出SERVICE
 				
 				Integer plan_id = PSH.getPlanId(cartId, cusId); //得到1.他是誰   2.是哪台車 
-				System.out.println(plan_id);
+				System.out.println(plan_id+"aaaaaaaaaaaaa");
 				Integer compId =  RSH.getRoom(roomId).getCompId();
 				
 			//跟room_ord 從room拿price
@@ -120,14 +122,54 @@ public class shopping_hotelServlet extends HttpServlet {
 //=========================訂單頁面取消===============================
 	
 		
+		//=========================bookingList更改數量===============================
+
+				if ("countAmount".equals(action)) {
+					Integer roomOrdId = Integer.valueOf(req.getParameter("roomOrdIdPk"));// tripOrdId
+
+					Integer amount = Integer.valueOf(req.getParameter("roomAmount"));
+					Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
+					ROSH.updateAmount(amount, roomOrdId);// 更新數量
+					req.setAttribute("roomOrdId", roomOrdId);
+					String url = "/chu/bookingList(hotel).jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+					successView.forward(req, res);
+
+				}
+		//=========================bookingList更改數量===============================
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 //=========================訂單頁面結帳===============================
 
 		if("ConnectToECPAY".equals(action)) {
 			Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
+			RoomServiceHibernate RSH = new RoomServiceHibernate();
+			
 			Integer roomOrdId =Integer.valueOf(req.getParameter("roomOrdId"));
+		
+			BigDecimal profit = new BigDecimal(req.getParameter("profit"));
+			BigDecimal commission = new BigDecimal(req.getParameter("commission"));
+			BigDecimal totalPrice = new BigDecimal(req.getParameter("totalPrice"));
 			String remark = req.getParameter("remark");
-			ROSH.updateStatusAndRemark(remark , roomOrdId);
+			Timestamp ordTime = Timestamp.valueOf(LocalDateTime.now());
+			
+			Integer roomAmount = ROSH.getRoomOrd(roomOrdId).getAmount();
+			Integer roomType = RSH.getOneRoom(ROSH.getRoomOrd(roomOrdId).getRoomId()).getRoomType();
+			Integer people = roomAmount * roomType;
+			ROSH.updateStatusAndRemark(remark, roomOrdId, profit, commission, totalPrice, ordTime , people);
+			
+			
+			
+		
 			res.sendRedirect(req.getContextPath() + "/chu/payForSuccess.jsp");
 			return;
 			
@@ -140,60 +182,7 @@ public class shopping_hotelServlet extends HttpServlet {
 			Integer roomOrderId  = Integer.valueOf(req.getParameter("roomOrdId"));
 			
 			
-			
-			Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
-			RoomServiceHibernate RSH = new RoomServiceHibernate();
-			CompanyService CSH = new CompanyService();
-			
-			Room_ord RoomOrd =ROSH.getRoomOrd(roomOrderId);//取得該訂單pk的物件
-			
-			Date checkIn =RoomOrd.getCheckInTime();
-			Date checkOut =RoomOrd.getCheckOutTime();
-			Integer RoomId = RoomOrd.getRoomId();
-			Integer compId = RSH.getOneRoom(RoomId).getCompId();
-			
-			String compName=CSH.getComp(compId).getCompName();//抓房名
-			String principalName=CSH.getComp(compId).getPrincipalName();//抓聯絡人
-			String principalPhone=CSH.getComp(compId).getPrincipalPhone();//抓聯絡人電話
-			Integer profit = RoomOrd.getProfit().setScale(3, RoundingMode.HALF_UP).intValue();
-			Integer commission = RoomOrd.getCommission().setScale(3, RoundingMode.HALF_UP).intValue();
-			Integer totalPrice= RoomOrd.getTotalPrice().setScale(3, RoundingMode.HALF_UP).intValue();
-			String roomName = RSH.getRoom(RoomId).getRoomName();
-			Integer roomTypeId=RSH.getRoom(RoomId).getRoomType();
-			String roomType  = null ;//抓房型
-			switch (roomTypeId) {
-			case 1 :
-				roomType = "單人房";
-			break;
-			case 2 :
-				roomType = "雙人房";
-			break;
-			case 3 :
-				roomType = "三人房";
-			break;
-			case 4 :
-				roomType = "四人房";
-			break;
-			}
-			
-			
-			Room_ordList ROL = new Room_ordList();
-			ROL.setRoomName(roomName);
-			ROL.setRoomOrdId(RoomOrd.getRoomOrdId());
-			ROL.setCusId(RoomOrd.getCusId());
-			ROL.setCompName(compName);
-			ROL.setRoomType(roomType);
-			ROL.setAmount(RoomOrd.getAmount());
-			ROL.setPrincipalName(principalName);
-			ROL.setPrincipalPhone(principalPhone);
-			ROL.setStartTime(checkIn); 
-			ROL.setEndTime(checkOut);
-			ROL.setProfit(profit);
-			ROL.setCommission(commission);
-			ROL.setTotalPrice(totalPrice);
-			
-			
-			req.setAttribute( "RoomOrd" , ROL);
+			req.setAttribute( "roomOrdId" , roomOrderId);
 			String url = "/chu/bookingList(hotel).jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);	

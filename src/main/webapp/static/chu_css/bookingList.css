@@ -4,66 +4,66 @@
 }
 
 @font-face {
-    font-family: '蝎���';
+    font-family: '��嚙踝蕭嚙�';
     src: url('../font/jf-openhuninn-2.0.ttf');
     font-display: swap;
 }
 :root {
-    --ifm-font-family-base: '蝎���';
+    --ifm-font-family-base: '��嚙踝蕭嚙�';
 }
 
 
-/* �游��銵函��獢�start */
+/* 嚙賣虜嚙踝蕭�萄�踝蕭嚙賜�ｇ蕭start */
 .outside_div{
-    /* 撠��游��憭扯”蝵格�澆���港葉��銝虫�瘞游像���� */
+    /* ��嚙踝蕭皜賂蕭嚙賣�剜�胼���菜�潘蕭瞉�嚙踝蕭嚙賣葛��嚙踝蕭���恬蕭��皜詨��嚙踝蕭嚙踝蕭 */
     display: flex;
     position: absolute;
     top: 50%; 
     left: 50%; 
     transform: translate(-50%, -50%); 
     z-index: 1;
-    font-family: "蝎���";
-    /* 撠��游��憭扯”蝵格�澆���港葉��銝虫�瘞游像���� */
+    font-family: "��嚙踝蕭嚙�";
+    /* ��嚙踝蕭皜賂蕭嚙賣�剜�胼���菜�潘蕭瞉�嚙踝蕭嚙賣葛��嚙踝蕭���恬蕭��皜詨��嚙踝蕭嚙踝蕭 */
     box-shadow: 20px 20px 20px 0px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    width: 50%;/* 隤踵�游之獢�撖砍漲�箸�游��html��50% */
-    height: 90%;/* 隤踵�游之獢�擃�摨行�游��html��80% */ 
+    width: 50%;/* �方葭嚙賣虜銋��ｇ蕭����瞍莎蕭蝞賂蕭皜賂蕭嚙篁tml嚙踝蕭50% */
+    height: 90%;/* �方葭嚙賣虜銋��ｇ蕭��嚙賣�刻�嚙賣虜嚙踝蕭html嚙踝蕭80% */ 
     border-radius: 5px;   
-    backdrop-filter: blur(10px); /* 瘛餃��璅∠����� */
-    background: rgba(255, 255, 255, 0.5); /*瘛餃������摨�*/
+    backdrop-filter: blur(10px); /* ��擗�嚙踝蕭����嚙踝蕭嚙踝蕭嚙� */
+    background: rgba(255, 255, 255, 0.5); /*��擗�嚙踝蕭嚙踝蕭嚙踝蕭�剁蕭*/
 }
-/* �游��銵函��獢�end */
+/* 嚙賣虜嚙踝蕭�萄�踝蕭嚙賜�ｇ蕭end */
 
 
 
 
 
-/* 憭扯”獢�鋆⊿�Ｙ��"撌�"獢� start*/
+/* �剜�胼���ｇ蕭���選蕭嚗對蕭嚙�"��嚙�"�ｇ蕭 start*/
 .inside_left_div{
-    width:60%;/* 隤踵�游椰��獢�撖砍漲"�游��銵函��獢�"��40% */ 
-    height: 100%;/* 隤踵�游椰��獢�擃�摨�"�游��銵函��獢�"��100% */
-    border-bottom-left-radius: 5px; /*�芣����獢�撌血�湔����閫�摨�*/
-    border-right: 2px solid lightgray;/*�芣����獢��喲����蝺�*/
+    width:60%;/* �方葭嚙賣虜璊堆蕭嚙賜�ｇ蕭����瞍�"嚙賣虜嚙踝蕭�萄�踝蕭嚙賜�ｇ蕭"嚙踝蕭40% */ 
+    height: 100%;/* �方葭嚙賣虜璊堆蕭嚙賜�ｇ蕭��嚙賣�剁蕭"嚙賣虜嚙踝蕭�萄�踝蕭嚙賜�ｇ蕭"嚙踝蕭100% */
+    border-bottom-left-radius: 5px; /*嚙質��嚙踝蕭嚙踝蕭�ｇ蕭��銵�嚙賣�嚙踝蕭嚙踝蕭�恬蕭�剁蕭*/
+    border-right: 2px solid lightgray;/*嚙質��嚙踝蕭嚙踝蕭�ｇ蕭嚙賢�莎蕭嚙踝蕭嚙質�綽蕭*/
    
 }
-/* 憭扯”獢�鋆⊿�Ｙ��"撌�"獢� end*/
+/* �剜�胼���ｇ蕭���選蕭嚗對蕭嚙�"��嚙�"�ｇ蕭 end*/
 
 
 
 
 
 
-/* 憭扯”獢�鋆⊿�Ｙ��"��"獢� start*/
+/* �剜�胼���ｇ蕭���選蕭嚗對蕭嚙�"嚙踝蕭"�ｇ蕭 start*/
 .inside_right_div{
-    width: 40%;/* 隤踵�游椰��獢�撖砍漲"�游��銵函��獢�"��60% */ 
-    height:100%;/* 隤踵�游椰��獢�擃�摨�"�游��銵函��獢�"��100% */
-    border-radius: auto; /*�芣����獢�撌血�湔����閫�摨�*/
+    width: 40%;/* �方葭嚙賣虜璊堆蕭嚙賜�ｇ蕭����瞍�"嚙賣虜嚙踝蕭�萄�踝蕭嚙賜�ｇ蕭"嚙踝蕭60% */ 
+    height:100%;/* �方葭嚙賣虜璊堆蕭嚙賜�ｇ蕭��嚙賣�剁蕭"嚙賣虜嚙踝蕭�萄�踝蕭嚙賜�ｇ蕭"嚙踝蕭100% */
+    border-radius: auto; /*嚙質��嚙踝蕭嚙踝蕭�ｇ蕭��銵�嚙賣�嚙踝蕭嚙踝蕭�恬蕭�剁蕭*/
 /*     background-color: lightskyblue; */
     /* display: flex; */
     /* flex-direction: column;  */
     
 }
 
-/* 憭扯”獢�鋆⊿�Ｙ��"��"獢� end*/
+/* �剜�胼���ｇ蕭���選蕭嚗對蕭嚙�"嚙踝蕭"�ｇ蕭 end*/
 
 div.inside_right_div span.pay_button{
     margin-top: 1000px;
@@ -73,7 +73,7 @@ div.inside_right_div span.pay_button{
 
 
 
-/* 隞�甈暹����瘨������� */
+/* ��嚙賜���對蕭嚙踝蕭嚙賜�剁蕭嚙踝蕭嚙踝蕭嚙踝蕭 */
 button.payment-button , button.Cancel-button{
     position: relative;
     bottom:8px;
@@ -87,7 +87,7 @@ button.payment-button , button.Cancel-button{
 }
 
 
-/* 皛�曌�蝘餉�豚utton摮������� */
+/* ��嚙賣��嚙質��擗�嚙質�utton�殷蕭嚙踝蕭嚙踝蕭嚙踝蕭 */
 button.payment-button:hover{
   color:lightyellow;
 }
@@ -95,7 +95,7 @@ button.payment-button:hover{
 
 
 
-/* �寞�� */
+/* 嚙賢�嚙踝蕭 */
 div.inside_right_div div.order-item div.order_item_price label.price{
     position: absolute;
     top: 20px;
@@ -104,26 +104,26 @@ div.inside_right_div div.order-item div.order_item_price label.price{
     text-decoration: underline;
 }
 
-/* �剝�� */
-div.inside_right_div div.order-item div.order_item_price label.commission{
-    position: absolute;
-    top: 20px;
-    left: 80px;
-    font-size: 20px;
-    text-decoration: underline;
-}
+/* 嚙賢��嚙踝蕭 */
+/* div.inside_right_div div.order-item div.order_item_price label.commission{ */
+/*     position: absolute; */
+/*     top: 20px; */
+/*     left: 80px; */
+/*     font-size: 20px; */
+/*     text-decoration: underline; */
+/* } */
 
-/* 蝮賢�寞�� */
+/* �株郭嚙賢�嚙踝蕭 */
 div.inside_right_div div.order-item div.order_item_price label.totalPrice{
     position: absolute;
-    top: 20px;
-    left: 80px;
-    font-size: 20px;
+/*     top: 20px; */
+    left: 10%;
+/*     font-size: 20px; */
     text-decoration: underline;
 }
 
 
-/* 100(��憿�) */
+/* 100(嚙踝蕭�選蕭) */
 div.inside_right_div div.order-item div.order_item_price label.right_label2{
     position: absolute;
     bottom: 0px;
@@ -131,7 +131,7 @@ div.inside_right_div div.order-item div.order_item_price label.right_label2{
     font-size: 30px;
 }
 
-/* 100(��憿�)頝��寞�潛��憭吳iv */
+/* 100(嚙踝蕭�選蕭)��嚙踝蕭撖�嚙賣�嚙踝蕭�剖�赧v */
 div.inside_right_div div.order-item div.order_item_price{
     position: relative;
     height: 100px;
@@ -148,7 +148,7 @@ div.inside_right_div div.order-item div.order_item_price{
 
 
 
- /* ���航�瘚芸��   start */
+ /* 嚙踝蕭嚙質�迎蕭���賂蕭嚙�   start */
  body, html {
     height: 100%;
     margin: 0;
@@ -159,9 +159,9 @@ img.fullscreen {
     object-fit: cover;
     width: 100%;
     height: 100%;
-    z-index: 0; /* 閮剔蔭������z-index��0嚗�雿踹�嗅�典�嗡���蝝�銝��� */
+    z-index: 0; /* �桀���哨蕭嚙踝蕭嚙踝蕭嚙緲-index嚙踝蕭0��嚙賡�輯號嚙賢��嚙賢�賂蕭�∴蕭嚙踝蕭��嚙賡��嚙踝蕭嚙� */
 }
-/* ���航�瘚芸��    end*/
+/* 嚙踝蕭嚙質�迎蕭���賂蕭嚙�    end*/
 
 
 
@@ -176,7 +176,7 @@ img.fullscreen {
 
 .payment-title{
     font-weight: bold;
-    color:black; /* 霈曄蔭摮�雿�憸��� */
+    color:black; /* �����剜�殷蕭�選蕭�賂蕭嚙踝蕭 */
     margin: 20%;
     font-size: 30px; 
 }
@@ -184,7 +184,7 @@ img.fullscreen {
 
 
 
-/* orderitem鋆⊿�Ｗ��亙�批捆�瑕漲 */
+/* orderitem���選蕭嚗瘀蕭嚙賭�嚙賣�寞��嚙賜��瞍� */
 div.outside_div div.inside_left_div form div.order-details div.order-item{
 
     width: 100%;

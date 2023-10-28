@@ -2,6 +2,7 @@ package com.tha103.gogoyu.trip.model;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -15,7 +16,7 @@ public interface TripService {
 			byte miaoliCounty, byte changhuaCounty, byte nantouCounty, byte yunlinCounty, byte chiayiCounty,
 			byte pingtungCounty, byte yilanCity, byte hualienCity, byte taitungCounty, byte kinmenCounty,
 			byte lienchiangCounty, byte keelungCity, byte hsinchuCity, byte chiayiCity, byte penghuCounty,
-			byte[] mainPhoto) ;
+			byte[] mainPhoto,LinkedList<byte[]> allPhoto,List<Itinerary> itineraryList) ;
 	
 	public Trip updateTrip(Integer tripId,Integer compId, String tripName, Integer amount, BigDecimal price, Integer people,
 			Date startTime, Date endTime, String content, Integer state, byte taipeiCity, byte newtaipeiCity,

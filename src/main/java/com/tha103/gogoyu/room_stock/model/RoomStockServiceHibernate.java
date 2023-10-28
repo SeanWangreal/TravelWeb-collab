@@ -99,4 +99,9 @@ public class RoomStockServiceHibernate implements RoomStockService {
 
 	}
 
+	@Override
+	public Integer searchMinRoomStockByTime(Integer roomId, Date checkIn, Date checkOut) {
+		return dao.searchMinRoomStockByTime(roomId, checkIn, checkOut);
+	}
+
 }

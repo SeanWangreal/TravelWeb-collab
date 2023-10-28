@@ -15,6 +15,7 @@ response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setDateHeader("Expires", 0);
 
 Integer cusId = (Integer) request.getSession().getAttribute("cusId");
+System.out.println(cusId);
 if (cusId != null) {
 
 	Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
@@ -131,12 +132,14 @@ if (cusId != null) {
 
 	<!-- =======================上面是aside===================== -->
 	<!-- =======================下面是list===================== -->
-
+				
 
 
 
 	<div class="plan_tab">
-
+						<c:if test="${not empty errorMessage}">
+								<div class="error-message" style = "color :red ; font-size:25px ; top :15%; position : absolute ; left :50%"><i>*${errorMessage}</i></div>
+						</c:if>
 		<div class="tab_list_block">
 <!-- 			<ul class="tab_list"> -->
 <!-- 				<li><button data-target="plan1" class="tab -on">規劃一</button></li>  -->
@@ -196,19 +199,48 @@ if (cusId != null) {
 									</div>
 									<div class="count_star">
 										<a href="#"><i class="fa-solid fa-star"
-											style="width: 85px;">8.7</i> </a>
+											style="width: 85px;">${room1.get(roomVo1).get(2)}</i> </a>
 									</div>
 								</div>
 							</div>
-							<span class="book_price" style = "font-size :25px">${room1.get(roomVo1).get(1)}</span> <i class="howmuch_nt">TWD</i>
+							<span class="book_price" style = "font-size :22px">${room1.get(roomVo1).get(1)}</span> <i class="howmuch_nt">TWD</i>
 							<div class="price_set">
 								<i class="howmuch">${roomVo1.totalPrice.intValue()}</i>
 							</div>
 							<div class="pay_btn" style="margin-top: 20px">
 
+							<div style ="display : flex">
+								<button class="b infos">商品資訊</button>
+								
+								
+								<form action="shopping_hotelServlet" method="post">
+								
+								
+									<select size="1" name="ChangeCartId" style ="position : absolute ; left:140px ; top:5px"> 
+									        
+									          <option value="1" >1
+									          <option value="2" >2
+									          <option value="3" >3
+									          <option value="4" >4
+									          <option value="5" >5
+									      
+									       </select>
+										
 
-								<button class="b infos">詳細商品資訊</button>
-
+							 
+									<button  href="#" class="b pay"  style = "border: 1px solid blcak ; background-color: blue; color:black;">換車</button>
+									 
+									<input type = "hidden"  name ="action" value ="changeHotelCart">
+								</form>
+								</div>
+								
+								
+								
+								
+								
+								
+								
+								
 
 
 								<form
@@ -343,7 +375,7 @@ if (cusId != null) {
 									</div>
 									<div class="count_star">
 										<a href="#"><i class="fa-solid fa-star"
-											style="width: 85px;">8.7</i> </a>
+											style="width: 85px;">${room2.get(roomVo2).get(2)}</i> </a>
 									</div>
 								</div>
 							</div>
@@ -491,7 +523,7 @@ if (cusId != null) {
 									</div>
 									<div class="count_star">
 										<a href="#"><i class="fa-solid fa-star"
-											style="width: 85px;">8.7</i> </a>
+											style="width: 85px;">${room3.get(roomVo3).get(2)}</i> </a>
 									</div>
 								</div>
 							</div>
@@ -635,7 +667,7 @@ if (cusId != null) {
 									</div>
 									<div class="count_star">
 										<a href="#"><i class="fa-solid fa-star"
-											style="width: 85px;">8.7</i> </a>
+											style="width: 85px;">${room4.get(roomVo4).get(2)}</i> </a>
 									</div>
 								</div>
 							</div>
@@ -776,7 +808,7 @@ if (cusId != null) {
 									</div>
 									<div class="count_star">
 										<a href="#"><i class="fa-solid fa-star"
-											style="width: 85px;">8.7</i> </a>
+											style="width: 85px;">${room5.get(roomVo5).get(2)}</i> </a>
 									</div>
 								</div>
 							</div>

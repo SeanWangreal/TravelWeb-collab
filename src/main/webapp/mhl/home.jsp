@@ -209,7 +209,7 @@
                         </div>
                         <div class="carousel-inner ">
                             <div class="carousel-item active  ">
-	                            <a href="${pageContext.request.contextPath}/sean/RoomServlet?room_id=<%=(list.get(0)).getRoomId()%>&action=getProductDetailRoom" class="d-block w-100"   alt="...">
+	                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?room_id=<%=(list.get(0)).getRoomId()%>&action=getProductDetailRoom" class="d-block w-100"   alt="...">
 	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=(list.get(0)).getRoomId()%>" class="d-block w-100"   alt="...">
 	                                <div class="carousel-caption d-none d-md-block">
 	                                    <h5 class="bg-light text-dark mb-0"><%=(list.get(0)).getRoomName() %></h5>

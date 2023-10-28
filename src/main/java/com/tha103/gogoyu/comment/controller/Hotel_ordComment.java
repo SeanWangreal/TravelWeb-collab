@@ -73,7 +73,10 @@ public class Hotel_ordComment extends HttpServlet {
 				Integer updateOrd = ROSH2.updateCommentAndScore(roomOrdId, score, comment, commentsTime);
 
 				
-				res.sendRedirect(req.getContextPath() + "/chu/bookedList(hotel).jsp");//跳到
+				req.setAttribute("errorMessage", "評論完成!");
+				String url = "/chu/bookedList(hotel).jsp";
+				RequestDispatcher dispatcher = req.getRequestDispatcher(url);
+				dispatcher.forward(req, res);
 
 			} else {
 				req.setAttribute("roomOrdId", roomOrdId); 

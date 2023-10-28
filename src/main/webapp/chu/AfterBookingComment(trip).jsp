@@ -148,7 +148,7 @@ response.setDateHeader("Expires", 0);
             </form>
         </div>
         
-  		 <form action="${pageContext.request.contextPath}/room_ordCommentServlet" method="post">
+  		 <form action="${pageContext.request.contextPath}/Trip_ordCommentServlet" method="post">
         	<button class="leave-button" id="leaveButton">離開</button>
         	<input type="hidden" name="action" value="leaveComment">	
         </form>

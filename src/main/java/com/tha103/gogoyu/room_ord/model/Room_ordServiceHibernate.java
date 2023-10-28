@@ -122,8 +122,8 @@ public class Room_ordServiceHibernate {
 		return dao.getRoomOrdByCusId(CusId);
 	}
 
-	public void updateStatusAndRemark(String remark, Integer roomOrdId) {
-		dao.updateStatusAndRemark(remark, roomOrdId);
+	public void updateStatusAndRemark(String remark, Integer roomOrdId, BigDecimal profit , BigDecimal commission ,BigDecimal totalPrice ,Timestamp ordTime , Integer people ) {
+		dao.updateStatusAndRemark(remark, roomOrdId , profit , commission , totalPrice , ordTime ,people);
 	}
 
 	public Integer updateCommentAndScore(Integer roomOrd, Integer score, String comment, Timestamp commentsTime) {
@@ -133,5 +133,14 @@ public class Room_ordServiceHibernate {
 
 	public Map<Room_ord, List<String>> getOneRoomOrd(Integer roomOrdId, Integer compId) {
 		return dao.getRoomOrdByCompIdOrdId(roomOrdId, compId);
+	}
+	
+	
+	public Map <Room_ord , List <Object>> getRoomOrdList(Integer roomOrdId){
+		return	dao.getRoomOrdList(roomOrdId);
+	}
+	
+	public void updateAmount(Integer amount ,Integer roomOrdId) {
+		 dao.updateAmount( amount ,roomOrdId);
 	}
 }

@@ -15,5 +15,5 @@ public interface RoomStockService {
 	public void addFirstTime(Integer roomId,Date stockDate,Integer stock);
 	public void updateAllRoomStock(int roomId, Map<Integer, Integer> oldMap, List<Integer> deleteIdList,
 			Map<Date, Integer> newStockMap);
-	
+	public Integer searchMinRoomStockByTime(Integer roomId, Date checkIn, Date checkOut);
 }

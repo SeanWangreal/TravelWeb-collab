@@ -12,7 +12,7 @@ if (tripOrdMap  == null) {
 	Trip_ordServiceHibernate TOSH = new Trip_ordServiceHibernate();
 	Integer cusId = (Integer) request.getSession().getAttribute("cusId"); //取得session的cusId
 	if (cusId == null) { //假如沒有登入會員
-		response.sendRedirect(request.getContextPath() + "/sean/select_page.jsp");
+		response.sendRedirect(request.getContextPath() + "/eric/signin.jsp");
 		return;
 	}
 	tripOrdMap = TOSH.getTripOrdByCusId(cusId);
@@ -133,7 +133,7 @@ request.setAttribute("tripOrdMap", tripOrdMap);
 			</div>
 		</aside>
 	</nav>
-
+ 
 
 	<div class="all">
 		<main class="main-content">
@@ -146,6 +146,10 @@ request.setAttribute("tripOrdMap", tripOrdMap);
 							<input type="hidden" name="action" value="searchBtn">
 						</form>
 				</div>
+				
+				 <c:if test="${not empty errorMessage}">
+					    <div class="error-message" style = "color :red ; font-size:20px"><i>*${errorMessage}</i></div>
+				</c:if>
 				<c:forEach var="tripOrd" items="${tripOrdMap.keySet()}">
 					<div class="ord">
 						<div>

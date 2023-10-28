@@ -41,7 +41,7 @@ pageContext.setAttribute("tripOrdList",TOSH.getTripOrdList(tripOrd));
 <body>
     <!-- 背景衝浪圖 -->
     <img class="fullscreen" src="${pageContext.request.contextPath}/chu/4621.png" alt="Full Screen Image">
-
+ 
     <div class="outside_div">
         <div class="inside_left_div">
             <form action="#" method="get">
@@ -98,7 +98,7 @@ pageContext.setAttribute("tripOrdList",TOSH.getTripOrdList(tripOrd));
                     </div>
                     <hr>
                    
-                    <!--                     結帳後才會存入"備註" -->
+     
                  
                     
 
@@ -112,33 +112,40 @@ pageContext.setAttribute("tripOrdList",TOSH.getTripOrdList(tripOrd));
         		
             
                 <div class="order-item" style="width: 100%;">
+<!--                     <div class="order_item_price"> -->
+<!--                         <label class="price">價格:</label> -->
+<%--     					 <label class="right_label2"><i>${tripOrdList.get(trip).get(8).intValue()}元</i></label>   --%>
+<!--                     </div> -->
+<!--                     <hr> -->
+<!--                     <div class="order_item_price"> -->
+<!--                         <label class="commission">稅額(10%):</label> -->
+<%--                           <label class="right_label2"><i>${tripOrdList.get(trip).get(9).intValue()}元</i></label>   --%>
+<!--                     </div> -->
+<!--                     <hr> -->
+<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
                     <div class="order_item_price">
-                        <label class="price">價格:</label>
-    					 <label class="right_label2"><i>${tripOrdList.get(trip).get(8).intValue()}元</i></label>  
+                        <label class="totalPrice" style ="font-size :40px ">總價格:</label>
+                       <label class="right_label2" style ="font-size :40px "><i>${tripOrdList.get(trip).get(8).intValue()}元</i></label>  
                     </div>
-                    <hr>
-                    <div class="order_item_price">
-                        <label class="commission">稅額(10%):</label>
-                          <label class="right_label2"><i>${tripOrdList.get(trip).get(9).intValue()}元</i></label>  
-                    </div>
-                    <hr>
-                    <div class="order_item_price">
-                        <label class="totalPrice">總價格:</label>
-                       <label class="right_label2"><i>${tripOrdList.get(trip).get(10).intValue()}元</i></label>  
-                    </div>
-                    <hr>
+                
                 </div>
 			  
-<!--                 <div class="pay_button" > -->
+
                 
 					<form action="${pageContext.request.contextPath}/shopping_tripServlet"  method="post">		
                     	 <button type="submit" class="payment-button"  style =" position : absolute ; left :10%">前往付款頁面</button>
                    		 <input type="hidden" name="action" value = "ConnectToECPAY">
-						<input type="hidden" name="tripOrdId" value = "${trip.tripOrdId}">
-						<input type="hidden" name="amount" value = "${trip.amount}">
-						<input type="hidden" name="profit" value = "${tripOrdList.get(trip).get(8).intValue()}">
-						<input type="hidden" name="commission" value = "${tripOrdList.get(trip).get(9).intValue()}">
-						<input type="hidden" name="totalPrice" value = "${tripOrdList.get(trip).get(10).intValue()}">
+						 <input type="hidden" name="tripOrdId" value = "${trip.tripOrdId}">
+						 <input type="hidden" name="amount" value = "${trip.amount}">
+						 <input type="hidden" name="profit" value = "${tripOrdList.get(trip).get(10).intValue()}">
+						 <input type="hidden" name="commission" value = "${tripOrdList.get(trip).get(9).intValue()}">
+						 <input type="hidden" name="totalPrice" value = "${tripOrdList.get(trip).get(8).intValue()}">
 							<div class="order-item" style =" position : absolute ; top:80% ;right:5%">
 		                        <label for="remark" >備註:</label>
 		                    	<input type ="textarea"  placeholder="請輸入您要的內容"  style = "width:80%" name="remark"  required>
@@ -148,7 +155,7 @@ pageContext.setAttribute("tripOrdList",TOSH.getTripOrdList(tripOrd));
                      	 <button type="submit" class="Cancel-button" style =" position : absolute ; left :30%">取消本次交易</button>
                        	 <input type="hidden" name="action" value = "CancelTransaction">
     				</form>
-<!--                 </div> -->
+
            </c:forEach>
 
         </div>
