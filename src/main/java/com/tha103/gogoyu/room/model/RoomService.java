@@ -2,7 +2,9 @@ package com.tha103.gogoyu.room.model;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.tha103.gogoyu.room_photo.model.Room_photo;
@@ -10,7 +12,7 @@ import com.tha103.gogoyu.room_photo.model.Room_photo;
 public interface RoomService {
 	public int addRoom(Integer compId, Integer roomType, String roomName, Integer beds, BigDecimal price,
 			String intro, Integer roomStatus, byte tissue, byte shower, byte bathroom, byte dryer, byte tub,
-			byte freetoiletries, byte flushseat, byte slippers, byte bathrobe, byte spatub, byte electricKettle,byte[] mainPhoto);
+			byte freetoiletries, byte flushseat, byte slippers, byte bathrobe, byte spatub, byte electricKettle,byte[] mainPhoto, LinkedList<byte[]> allPhoto);
 	public Room updateStatus(Integer roomId,Integer roomStatus);
 	public int updateRoom(Room room);
 	public void deleteRoom(Integer roomId);
@@ -22,5 +24,7 @@ public interface RoomService {
 	public Set<Room_photo> getAllPhoto(Integer roomId);
 	public Room getRoom(Integer roomId);
 	public List<Room> getHotRoom();
-	public List<Room> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number);
+//	public List<Room> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number);
+	public Map<Room, String> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number);
+	public List<Object> getRoomProdutDetail(Integer roomId);
 }

@@ -184,7 +184,7 @@
 				}
 			$("#total").text(totalOrd);
 			if (avgScore === 0){
-				$("h1").text("尚無訂單");		
+				$("h1").text("尚無評論");		
 			} else {
 				$("h1").text(Math.round(avgScore/totalReview*10)/10);						
 			}

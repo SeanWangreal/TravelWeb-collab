@@ -294,7 +294,7 @@ a.left_btn:hover {
     background-color: transparent;
     width: calc(100% - 360px - 70px);
     color: blue;
-    padding: 10px 40px;
+    padding: 10px 0px;
 }
 #page >*{
 	 border: none;

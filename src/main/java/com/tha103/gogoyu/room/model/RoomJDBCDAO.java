@@ -2,7 +2,6 @@ package com.tha103.gogoyu.room.model;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -10,7 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import util.Util;
@@ -23,7 +24,7 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 	private static final String UPDATE = "UPDATE room set comp_id = ?,room_type = ?,room_name = ?,beds =?,price = ?,intro = ? ,room_status = ?,tissue = ?,shower = ?,bathroom = ?,dryer = ?,tub = ?,freetoiletries = ?,flushseat = ?,slippers = ?,bathrobe = ?,spatub = ?,electric_kettle = ?,main_photo=? where room_id = ?";
 
 	@Override
-	public int add(Room room) {
+	public int add(Room room, LinkedList<byte[]> allPhoto) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -359,8 +360,20 @@ public class RoomJDBCDAO implements RoomDAO_interface {
 	}
 
 	@Override
-	public List<Room> searchRoom(String comp_address, Date checkIn, Date checkOut, Integer number) {
+	public Map<Room, String> searchRoom(String comp_address, Date checkIn, Date checkOut, Integer number) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Object> getRoomProdutDetail(Integer roomId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+//	@Override
+//	public List<Room> searchRoom(String comp_address, Date checkIn, Date checkOut, Integer number) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 }

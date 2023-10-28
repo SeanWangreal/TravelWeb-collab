@@ -49,7 +49,7 @@
 </c:if>
 
 <ul>
-  <li><a href='${pageContext.request.contextPath}/eric/listAllEmp.jsp'>List</a> all Cus.  <br><br></li>
+  <li><a href='${pageContext.request.contextPath}/eric/listAllCus.jsp'>List</a> all Cus.  <br><br></li>
   
   
   <li>
@@ -77,7 +77,7 @@
   </li>
   
   <li>
-     <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/eric/RoomServlet" >
+     <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/eric/ConsumerServlet" >
        <b>選擇員工姓名:</b>
        <select size="1" name="cusName">
          <c:forEach var="cus" items="${cusSvc.all}" > 
@@ -94,7 +94,7 @@
 <h3>會員管理</h3>
 
 <ul>
-  <li><a href='${pageContext.request.contextPath}/eric/addEmp.jsp'>Add</a> a new Cus.</li>
+  <li><a href='${pageContext.request.contextPath}/eric/signup_info.jsp'>Add</a> a new Cus.</li>
 </ul>
 
 </body>

@@ -8,7 +8,7 @@ import java.util.*;
 import util.Util;
 import java.sql.*;
 
-public class Adm_mebJDBCDAO implements Adm_mebDAO_interface {
+public class AdminJDBCDAO implements AdminDAO_interface {
 	static {
 		try {
 			Class.forName(Util.DRIVER);
@@ -140,7 +140,7 @@ public class Adm_mebJDBCDAO implements Adm_mebDAO_interface {
 	}
 
 	public static void main(String[] args) {
-		Adm_mebJDBCDAO dao = new Adm_mebJDBCDAO();
+		AdminJDBCDAO dao = new AdminJDBCDAO();
 
 		// 新增
 //		Adm_meb Adm_meb = new Adm_meb();
@@ -177,6 +177,12 @@ public class Adm_mebJDBCDAO implements Adm_mebDAO_interface {
 			System.out.print(aAdm.getAdmPassword() + ",");
 			System.out.println();
 		}
+	}
+
+	@Override
+	public Adm_meb findByAccount(String adm_account) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

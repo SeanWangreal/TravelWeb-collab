@@ -2,11 +2,13 @@ package com.tha103.gogoyu.adm_meb.model;
 
 import java.util.List;
 
+import javax.persistence.Query;
+
 import org.hibernate.Session;
 
 import util.HibernateUtil;
 
-public class Adm_mebHibernateDAO implements Adm_mebDAO_interface {
+public class AdminHibernateDAO implements AdminDAO_interface {
 
 	@Override
 	public int add(Adm_meb admMeb) {
@@ -79,6 +81,24 @@ public class Adm_mebHibernateDAO implements Adm_mebDAO_interface {
 			List<Adm_meb> list = session.createQuery("from Adm_meb", Adm_meb.class).list();
 			session.getTransaction().commit();
 			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		return null;
+	}
+
+	@Override
+	public Adm_meb findByAccount(String adm_account) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+//			Adm_meb admMeb = session.get(Adm_meb.class, adm_account);
+			Query query = session.createQuery("from Adm_meb where admAccount = ?0", Adm_meb.class)
+													.setParameter(0, adm_account);
+			Adm_meb admMeb=(Adm_meb)query.getSingleResult();
+			session.getTransaction().commit();
+			return admMeb;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();

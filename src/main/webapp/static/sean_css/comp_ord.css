@@ -174,7 +174,7 @@ a.left_btn:hover {
 }
 
 .ord {
-	margin: 10px;
+	margin: 10px 0px;
     padding: 10px 20px;
     color: black;
     background-color: white;
@@ -266,7 +266,7 @@ span.long {
     display: block;
 }
 #page {
-	padding:10px;
+	padding: 10px 0px;
 }
 #page >*{
 	 border: none;
