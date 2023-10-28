@@ -74,7 +74,10 @@ public class Trip_ordComment extends HttpServlet {
 					Trip_ordServiceHibernate TOSH2 = new Trip_ordServiceHibernate();
 					Integer updateOrd = TOSH2.updateCommentAndScore(tripOrdId, score, comment, commentsTime);
 
-					res.sendRedirect(req.getContextPath() + "/chu/bookedList(trip).jsp");// 跳到
+					req.setAttribute("errorMessage", "評論完成!");
+					String url = "/chu/bookedList(trip).jsp";
+					RequestDispatcher dispatcher = req.getRequestDispatcher(url);
+					dispatcher.forward(req, res);
 				}
 				 else {
 				req.setAttribute("tripOrdId", tripOrdId); 

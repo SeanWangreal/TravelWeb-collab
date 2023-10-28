@@ -12,7 +12,7 @@ if (roomOrdMap == null) {
 	Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
 	Integer cusId = (Integer) request.getSession().getAttribute("cusId"); //取得session的cusId
 	if (cusId == null) { //假如沒有登入會員
-		response.sendRedirect(request.getContextPath() + "/sean/select_page.jsp");
+		response.sendRedirect(request.getContextPath() + "/eric/signin.jsp");
 		return;
 	}
 	roomOrdMap = ROSH.getRoomOrdByCusId(cusId);
@@ -142,6 +142,10 @@ request.setAttribute("roomOrdMap", roomOrdMap);
 					<i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i>
 					<input type="search" placeholder="輸入訂單編號" id="ord-search">
 				</div>
+				
+				 <c:if test="${not empty errorMessage}">
+					    <div class="error-message" style = "color :red ; font-size:20px"><i>*${errorMessage}</i></div>
+				</c:if>
 				<c:forEach var="roomOrd" items="${roomOrdMap.keySet()}">
 					<div class="ord">
 						<div>
@@ -153,7 +157,7 @@ request.setAttribute("roomOrdMap", roomOrdMap);
 										<input type="hidden" name="action" value="goToComment">
 										<input type="hidden" name="roomOrdId" value="${roomOrd.roomOrdId}">
 										<input type="hidden" name="roomId" value="${roomOrd.roomId}">
-										<button class="b remove" type="submit" style = "position :absolute ; left :90%;top:35%">評論去</button>
+										<button class="b remove" type="submit" style = "position :relative; left :90%;top:35%">評論去</button>
 								</form>
 						</div>
 						<div class="all-info">

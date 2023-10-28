@@ -1,7 +1,11 @@
 package com.tha103.gogoyu.trip.model;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
+
+import javax.persistence.Query;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -177,6 +181,27 @@ public class TripHibernateDAO implements TripDAO_interface{
 			getSession().getTransaction().rollback();
 		}
 		return null;
+	}
+	
+	
+	
+	public Integer updateAmount(Integer amount , Integer tripId) {
+		try {
+			getSession().beginTransaction();
+			Query query = getSession().createQuery("update Trip set  amount= :amount  where tripId = :tripId");
+			query.setParameter("tripId", tripId);
+			query.setParameter("amount", amount);
+	
+
+			query.executeUpdate();
+			
+			getSession().getTransaction().commit();
+			return 1 ;
+		}catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return -1 ;
 	}
 
 }

@@ -153,6 +153,8 @@ public class TripServiceHibernate implements TripService {
 	
 	
 	
-	
+	public void updateAmount(Integer amount , Integer tripId) {
+		dao.updateAmount(amount , tripId);
+	}
 	
 }

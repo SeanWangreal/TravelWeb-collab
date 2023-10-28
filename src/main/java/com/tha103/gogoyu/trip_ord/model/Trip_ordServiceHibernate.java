@@ -29,8 +29,8 @@ public class Trip_ordServiceHibernate implements Trip_ordService {
 		return dao.updateCommentAndScore(tripOrd,score,comment, commentsTime);
 	}	
 		
-	public void updateStatusAndRemark(String remark , Integer tripOrdId ,BigDecimal profit , BigDecimal commission , BigDecimal totalPrice) {
-		dao.updateStatusAndRemark(remark, tripOrdId , profit , commission , totalPrice);
+	public void updateStatusAndRemark(String remark , Integer tripOrdId ,BigDecimal profit , BigDecimal commission , BigDecimal totalPrice ,Timestamp ordTime) {
+		dao.updateStatusAndRemark(remark, tripOrdId , profit , commission , totalPrice ,ordTime);
 	}
 	
 	
