@@ -147,7 +147,7 @@
         success : function(data) { // request 成功取得回應後執行
         	var	totalOrd = 0;
         	if (data.length != 0){
-        		totalOrd = data[1][3];
+        		totalOrd = data[1][2];
         	}
             var html =``;
             for (var i = 0; i < data.length;i+=2){

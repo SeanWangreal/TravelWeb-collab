@@ -3,15 +3,10 @@ package com.tha103.gogoyu.room.model;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -24,6 +19,8 @@ import com.tha103.gogoyu.room_ord.model.Room_ord;
 import com.tha103.gogoyu.room_photo.model.Room_photo;
 
 import util.HibernateUtil;
+import com.tha103.gogoyu.hotel_info.model.Hotel_infoServiceHibernate;
+import com.tha103.gogoyu.room_photo.model.Room_photo;
 
 public class RoomHibernateDAO implements RoomDAO_interface {
 	// SessionFactory 為 thread-safe，可宣告為屬性讓請求執行緒們共用
@@ -38,10 +35,16 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 	}
 
 	@Override
-	public int add(Room room) {
+	public int add(Room room, LinkedList<byte[]> allPhoto) {
 		try {
 			getSession().getTransaction().begin();
 			Integer id = (Integer) getSession().save(room);
+			for (int i = 0; i < allPhoto.size(); i++) {
+				Room_photo roomPhoto = new Room_photo();
+				roomPhoto.setRoomId(id);
+				roomPhoto.setPhoto(allPhoto.get(i));
+				getSession().save(roomPhoto);
+			}
 			getSession().getTransaction().commit();
 			return id;
 		} catch (Exception e) {
@@ -116,7 +119,8 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		try {
 			getSession().beginTransaction();
 			List<Room> list = getSession()
-					.createQuery("from Room where comp_id = :comp_id order by room_status desc,room_id desc", Room.class)
+					.createQuery("from Room where comp_id = :comp_id order by room_status desc,room_id desc",
+							Room.class)
 					.setParameter("comp_id", compId).list();
 //			CriteriaBuilder builder = getSession().getCriteriaBuilder();
 //			CriteriaQuery<Object[]> criteria = builder.createQuery(Object[].class);
@@ -195,7 +199,7 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 //			}
 //			map.put((Room) rooms.get(0)[0], list);
 			Set<Room_photo> set = room.getRoomPhoto();
-			for (Room_photo rp: set) {
+			for (Room_photo rp : set) {
 				getSession().get(Room_photo.class, rp.getRoomPhotoId());
 			}
 			getSession().getTransaction().commit();
@@ -206,12 +210,14 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		}
 		return null;
 	}
-	
+
 	public List<Room> getHotRoom() {
 		try {
 			getSession().beginTransaction();
 			@SuppressWarnings("unchecked")
-			NativeQuery<Room> query1 = getSession().createNativeQuery("SELECT * FROM room WHERE room_id IN (SELECT room_id FROM (SELECT room_id, count(room_id) FROM room_ord GROUP BY room_id ORDER BY 2 DESC LIMIT 3) as xxx);", Room.class);
+			NativeQuery<Room> query1 = getSession().createNativeQuery(
+					"SELECT * FROM room WHERE room_id IN (SELECT room_id FROM (SELECT room_id, count(room_id) FROM room_ord GROUP BY room_id ORDER BY 2 DESC LIMIT 3) as xxx);",
+					Room.class);
 			List<Room> list = query1.list();
 			getSession().getTransaction().commit();
 			return list;
@@ -221,7 +227,7 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		}
 		return null;
 	}
-	
+
 	public List<Object> getRoomProdutDetail(Integer roomId) {
 	try {
 		getSession().beginTransaction();
@@ -231,52 +237,52 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 				.setParameter("room_id", roomId).list();
 		Company company = getSession().get(Company.class, roomId);
 		List<String> roomFacilities = new ArrayList();
-		if(room.getTissue() == (byte)1) {
-			roomFacilities.add("衛生紙");
+
+			if (room.getTissue() == (byte) 1) {
+				roomFacilities.add("衛生紙");
+			}
+			if (room.getShower() == (byte) 1) {
+				roomFacilities.add("淋浴間");
+			}
+			if (room.getBathroom() == (byte) 1) {
+				roomFacilities.add("廁所");
+			}
+			if (room.getDryer() == (byte) 1) {
+				roomFacilities.add("吹風機");
+			}
+			if (room.getTub() == (byte) 1) {
+				roomFacilities.add("浴缸");
+			}
+			if (room.getFreetoiletries() == (byte) 1) {
+				roomFacilities.add("免費盥洗用品");
+			}
+			if (room.getFlushseat() == (byte) 1) {
+				roomFacilities.add("沖洗座");
+			}
+			if (room.getSlippers() == (byte) 1) {
+				roomFacilities.add("拖鞋");
+			}
+			if (room.getBathrobe() == (byte) 1) {
+				roomFacilities.add("浴袍");
+			}
+			if (room.getSpatub() == (byte) 1) {
+				roomFacilities.add("SPA浴缸");
+			}
+			if (room.getElectricKettle() == (byte) 1) {
+				roomFacilities.add("電熱水壺");
+			}
+			list.add(room);
+			list.add(roomPhotoIdList);
+			list.add(roomFacilities);
+			list.add(company);
+			getSession().getTransaction().commit();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
 		}
-		if(room.getShower() == (byte)1) {
-			roomFacilities.add("淋浴間");
-		}
-		if(room.getBathroom() == (byte)1) {
-			roomFacilities.add("廁所");
-		}
-		if(room.getDryer() == (byte)1) {
-			roomFacilities.add("吹風機");
-		}
-		if(room.getTub() == (byte)1) {
-			roomFacilities.add("浴缸");
-		}
-		if(room.getFreetoiletries() == (byte)1) {
-			roomFacilities.add("免費盥洗用品");
-		}
-		if(room.getFlushseat() == (byte)1) {
-			roomFacilities.add("沖洗座");
-		}
-		if(room.getSlippers() == (byte)1) {
-			roomFacilities.add("拖鞋");
-		}
-		if(room.getBathrobe() == (byte)1) {
-			roomFacilities.add("浴袍");
-		}
-		if(room.getSpatub() == (byte)1) {
-			roomFacilities.add("SPA浴缸");
-		}
-		if(room.getElectricKettle() == (byte)1) {
-			roomFacilities.add("電熱水壺");
-		}
-		list.add(room);
-		list.add(roomPhotoIdList);
-		list.add(roomFacilities);
-		list.add(company);
-		getSession().getTransaction().commit();
-		return list;
-	} catch (Exception e) {
-		e.printStackTrace();
-		getSession().getTransaction().rollback();
+		return null;
 	}
-	return null;
-}
-	
 //	public List<Room> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number) {
 //		try {
 //			getSession().beginTransaction();
@@ -303,8 +309,8 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 //		}
 //		return null;
 //	}
-	
-	public Map<Room, String> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number) {
+
+	public Map<Room, String> searchRoom(String comp_address, Date checkIn, Date checkOut, Integer number) {
 		try {
 			getSession().beginTransaction();
 			Map<Room, String> map = new LinkedHashMap<Room, String>();
@@ -322,7 +328,7 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 			.setParameter("checkOut", newDate)
 			.setParameter("number", number);
 			List<Room> list = query1.list();
-			for(Room room : list) {
+			for (Room room : list) {
 				Company company = getSession().get(Company.class, room.getCompId());
 				String compName = company.getCompName();
 				map.put(room, compName);
@@ -335,16 +341,11 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		}
 		return null;
 	}
-	
-	
-	
+
 	public static void main(String[] args) {
 //		RoomHibernateDAO dao = new RoomHibernateDAO(HibernateUtil.getSessionFactory());
 //		System.out.println(dao.getAllPhoto(6));
-		
-		
-		
+
 	}
-		
 
 }
