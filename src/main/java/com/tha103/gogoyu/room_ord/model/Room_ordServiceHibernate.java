@@ -136,8 +136,8 @@ public class Room_ordServiceHibernate {
 	}
 	
 	
-	public Map <Room_ord , List <Object>> getRoomOrdList(Integer roomOrdId){
-		return	dao.getRoomOrdList(roomOrdId);
+	public Map <Room_ord , List <Object>> getRoomOrdList(Integer roomOrdId , Date checkInTime ,Date checkOutTime){
+		return	dao.getRoomOrdList(roomOrdId ,  checkInTime , checkOutTime);
 	}
 	
 	public void updateAmount(Integer amount ,Integer roomOrdId) {

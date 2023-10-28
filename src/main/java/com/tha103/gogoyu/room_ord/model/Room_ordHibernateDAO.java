@@ -202,7 +202,7 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 
 	}
 
-	public Map<Room_ord, List<Object>> getRoomOrdList(Integer roomOrdId) {
+	public Map<Room_ord, List<Object>> getRoomOrdList(Integer roomOrdId ,Date checkInTime ,Date checkOutTime ) {
 		try {
 			getSession().beginTransaction();
 			Map<Room_ord, List<Object>> map = new LinkedHashMap<Room_ord, List<Object>>();
@@ -246,12 +246,14 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 				info.add(profit);
 				
 				
-//				Room room = getSession().get(Room.class, ord.getRoomId());
-//				Integer roomstore = getSession()
-//						.createQuery("select min(stock) from room_stock (where checkInTime = ?? and checkOutTime = :checkOutTime ) and roomId = :roomId ", Integer.class)
-//						.setParameter("roomId", room.getRoomId()).uniqueResult();
+				Room roomId= getSession().get(Room.class, Room.getRoomId());
+				Integer roomstock = getSession()
+						.createQuery("select min(stock) from Room_stock where ( stockDate between :checkInTime and  :checkOutTime ) and roomId = :roomId ", Integer.class)
+						.setParameter("checkInTime",  checkInTime)
+						.setParameter("checkOutTime", checkOutTime)
+						.setParameter("roomId", roomId.getRoomId()).uniqueResult();
 				
-				
+				info.add(roomstock);
 				
 				
 				

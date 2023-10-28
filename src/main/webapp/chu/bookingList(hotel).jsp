@@ -6,6 +6,7 @@
 <%@ page import="com.tha103.gogoyu.room_ord.model.*"%>
 <%@ page import="com.tha103.gogoyu.consumer.model.*"%>
 <%@ page import="com.tha103.gogoyu.planning.model.*"%>
+<%@ page import="java.sql.Date"%>
 <!-- 以下三行預防快取 -->
 <%
 response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
@@ -16,10 +17,10 @@ response.setDateHeader("Expires", 0);
 
 Integer roomOrd = (Integer)request.getAttribute("roomOrdId");
 Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
-System.out.println(roomOrd);
-System.out.println(ROSH.getRoomOrdList(roomOrd));
+Date checkInTime = ROSH.getRoomOrd(roomOrd).getCheckInTime();
+Date checkOutTime = ROSH.getRoomOrd(roomOrd).getCheckOutTime();
 
-pageContext.setAttribute("roomOrdList",ROSH.getRoomOrdList(roomOrd));
+pageContext.setAttribute("roomOrdList",ROSH.getRoomOrdList(roomOrd , checkInTime , checkOutTime));
 
 %>
 <!DOCTYPE html>
@@ -74,7 +75,7 @@ pageContext.setAttribute("roomOrdList",ROSH.getRoomOrdList(roomOrd));
                         	<i style="position : absolute ; left :20%;">
                         			<FORM METHOD="post" ACTION="${pageContext.request.contextPath}/shopping_hotelServlet" >
       										<select size="1" name="roomAmount" >
-       												<c:forEach begin="1" end="2" var="i"> 
+       												<c:forEach begin="1" end="${roomOrdList.get(room).get(8)}" var="i"> 
        										   				<option value="${i}">${i}
        											  	</c:forEach>  
        										</select>

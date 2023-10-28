@@ -36,12 +36,12 @@ public class shopping_hotelServlet extends HttpServlet {
 
 		HttpSession session = req.getSession();
 	
-		String Timestart= "2023-10-21"; // 示例日期字符串
+		String Timestart= "2023-10-17"; // 示例日期字符串
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date checkInTime = Date.valueOf(Timestart);
 		
 		
-		String Timeend= "2023-10-22"; // 示例日期字符串
+		String Timeend= "2023-10-18"; // 示例日期字符串
 		Date checkOutTime =Date.valueOf(Timeend);
 		
 		
@@ -59,6 +59,9 @@ public class shopping_hotelServlet extends HttpServlet {
 				Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
 				PlanningServiceHibernate PSH = new PlanningServiceHibernate();// 創造出SERVICE
 				
+				
+				
+				req.getParameter("");
 				Integer plan_id = PSH.getPlanId(cartId, cusId); //得到1.他是誰   2.是哪台車
 				Integer compId =  RSH.getRoom(roomId).getCompId();
 				
