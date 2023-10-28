@@ -83,9 +83,9 @@ public class shopping_tripServlet extends HttpServlet {
 
 		if ("removeTripOrder".equals(action)) {
 
-			Integer roomOrdId = Integer.valueOf(req.getParameter("TripOrdId"));
+			Integer tripOrdId = Integer.valueOf(req.getParameter("TripOrdId"));
 			Trip_ordServiceHibernate ROSH = new Trip_ordServiceHibernate();
-			ROSH.deleteTrip(roomOrdId);
+			ROSH.deleteTrip(tripOrdId);
 
 			String url = "/chu/shopping(hotel).jsp";
 			res.sendRedirect(req.getContextPath() + url);
@@ -109,6 +109,42 @@ public class shopping_tripServlet extends HttpServlet {
 		}
 //=========================bookingList更改數量===============================
 
+		
+		
+//=========================購物車(飯店)更改車號===============================
+		
+				if("changeTripCart".equals(action)) {
+						
+					
+					Integer changeCartId = Integer.valueOf(req.getParameter("changeCartId"));
+					Integer tripOrdId = Integer.valueOf(req.getParameter("tripOrdId"));
+					Integer cusId = (Integer) session.getAttribute("cusId");
+					PlanningServiceHibernate PSH = new PlanningServiceHibernate();// 創造出SERVICE
+					Integer planId = PSH.getPlanId(changeCartId, cusId); //得到1.他是誰   2.是哪台車
+					Trip_ordServiceHibernate TOSH = new Trip_ordServiceHibernate();
+					TOSH.updateCartNum(planId ,tripOrdId);
+					
+					res.sendRedirect(req.getContextPath() + "/chu/shopping(hotel).jsp");
+					return;
+					
+					
+				}
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+//=========================購物車(飯店)更改車號===============================			
+		
+		
+		
 //=========================bookingList進入payforsuccess===============================
 
 		if ("ConnectToECPAY".equals(action)) {

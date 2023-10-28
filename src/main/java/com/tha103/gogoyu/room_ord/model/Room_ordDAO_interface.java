@@ -28,4 +28,5 @@ public interface Room_ordDAO_interface {
 	public Integer updateStatusAndRemark(String remark , Integer tripOrdId ,BigDecimal profit , BigDecimal commission ,BigDecimal totalPrice ,Timestamp ordTime , Integer people);
 	public Map <Room_ord , List <Object>> getRoomOrdList(Integer roomOrdId);
 	public Integer updateAmount(Integer amount ,Integer roomOrdId);
+	public Integer updateCartNum(Integer planId , Integer roomOrdId);
 }

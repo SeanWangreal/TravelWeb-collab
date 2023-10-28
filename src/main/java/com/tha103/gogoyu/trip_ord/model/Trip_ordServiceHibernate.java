@@ -140,6 +140,8 @@ public class Trip_ordServiceHibernate implements Trip_ordService {
 		return dao.getTripOrdByCusId(cusId);
 	}
 	
-	
+	public void updateCartNum(Integer plan_id , Integer tripOrdId) {
+		dao.updateCartNum(plan_id ,tripOrdId);
+	}
 	
 }

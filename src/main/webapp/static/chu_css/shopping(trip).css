@@ -7,7 +7,17 @@
 :root {
     --ifm-font-family-base: "蝎���";
 }
-
+a.logo{
+    font-size: 30px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: black;
+    border-radius: 35px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    /* -webkit-text-stroke: 1px black; */
+}
 nav {
     display: flex;
 
