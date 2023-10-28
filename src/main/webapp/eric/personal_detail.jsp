@@ -57,6 +57,7 @@ if ((Integer)request.getSession().getAttribute("cusId") == null){
         width:200px;
         height:200px;
         }
+        
     </style>
 </head>
 
@@ -65,24 +66,23 @@ if ((Integer)request.getSession().getAttribute("cusId") == null){
 
     <nav class="st">
         <!-- <a class="word" id="home" href="#">Home</a> -->
-        <div class="head">
+        <a class="logo" id="home" href="${pageContext.request.contextPath}/mhl/home.jsp">GO<i class="fa-solid fa-location-dot" style="color: #ffbf1c;"></i>GOYU</a>
+         <div class="head">
+            <button type="menu" class="head_btn" aria-label="規劃行程" id="shop">
+                <i class="fa-solid fa-suitcase-rolling icon" style="color: black; font-size:30px;
+                            background-color:transparent;"></i>
             </button>
             <button type="menu" class="head_btn" id="msg">
                 <i class="fa-regular fa-message icon" style="color: black; font-size:30px; 
                             background-color:transparent;"></i>
             </button>
             <button type="menu" class="head_btn" id="info">
-                <i class="fa-regular fa-bell icon" style="color: black;font-size:30px; width: 30px;
+                <i class="fa-regular fa-bell  icon" style="color: black;font-size:30px; width: 30px;
                             background-color:transparent;"></i>
             </button>
-            <button type="menu" class="head_btn" id="">
-                <i class="fa-solid fa-store" style="color: #000000;font-size:30px; width: 30px;
-                background-color:transparent;"></i>
-
-            </button>
             <button type="button" class="head_btn">
-                <a class="profile" href="#">
-                    <i class="fa-solid fa-user icon" style="color: black; font-size:30px;
+                <a class="profile" href="${pageContext.request.contextPath}/eric/personal_detail.jsp">
+                    <i class="fa-solid fa-user" style="color: black; font-size:30px;
                                 background-color:transparent;"></i>
                 </a>
             </button>
@@ -143,7 +143,7 @@ if ((Integer)request.getSession().getAttribute("cusId") == null){
                 <section class="item" style="width:800px">
                     <h1 style="border: 0px solid">${consumer.cusName},${cusId}您好!</h1>
                     <br>
-                    <button type="summit" class="logoutbtn" style="float: right;" name="action" value="Logout">按此登出</button>
+                    <a href="${pageContext.request.contextPath}/eric/ConsumerServlet?action=Logout" class="logoutbtn">按此登出</a>
                     
                 </section>
                 <br>
