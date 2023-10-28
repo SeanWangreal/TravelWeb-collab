@@ -218,5 +218,10 @@ public class Room_stockJDBCDAO implements Room_stockDAO_interface {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public Integer searchMinRoomStockByTime(Integer roomId, Date checkIn, Date checkOut) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

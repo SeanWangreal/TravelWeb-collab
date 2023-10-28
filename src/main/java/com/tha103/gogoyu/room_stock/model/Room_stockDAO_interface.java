@@ -17,4 +17,5 @@ public interface Room_stockDAO_interface {
 	List<Room_stock> getAllByToday(Integer roomId);
 	List<Room_stock> getStockByRoomId(Integer roomId);
 	void updateAll(List<Room_stock> oldRoomStock, List<Room_stock> deleteRoomStock, List<Room_stock> newRoomStock);
+	Integer searchMinRoomStockByTime(Integer roomId, Date checkIn, Date checkOut);
 }

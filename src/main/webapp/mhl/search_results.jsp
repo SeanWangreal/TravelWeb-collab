@@ -162,10 +162,10 @@
                                             <option value="澎湖縣">澎湖縣</option>
                                         </select>
                                         <input class="form-control me-2" name="checkIn" type="text" placeholder="入住日期..." aria-label="Search" onfocus="(this.type='date')"
-                                        onblur="(this.type='text')">
+                                        onblur="(this.type='text')" value="${searchCheckIn}">
                                         <input class="form-control me-2" name="checkOut" type="text" placeholder="退房日期..." aria-label="Search" onfocus="(this.type='date')"
-                                        onblur="(this.type='text')">
-                                        <input class="form-control me-2" name="number" type="text" placeholder="人數..." aria-label="Search">
+                                        onblur="(this.type='text')" value="${searchCheckOut}">
+                                        <input class="form-control me-2" value="${people}" name="number" type="text" placeholder="人數..." aria-label="Search">
                                         <button class="btn btn-outline-success" type="submit">Search</button>
                                         <input type="hidden" name="action" value="roomSearch">
                                     </form>
@@ -187,7 +187,7 @@
 	                                            <h3 class="">${roomMap.get(roomVO)}</h3><br>
 	                                            <div>${roomVO.roomName}</div>
 	                                            <div>${roomVO.roomType}人房</div><br>
-	                                            <a href="#" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">查看房型細況</a>
+	                                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?action=getProductDetailRoom&room_id=${roomVO.roomId}&searchCheckIn=${searchCheckIn}&searchCheckOut=${searchCheckOut}&number=${people}" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">查看房型細況</a>
 	                                    </div>
 	                                    <!--聯絡 評等 價格-->
 	                                    <div class="col ">
@@ -316,6 +316,7 @@
     <script src="${pageContext.request.contextPath}/static/mhl_js/btn4com_review.js"></script>
     <script src="${pageContext.request.contextPath}/dist/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.request.contextPath}/static/mhl_js/btn4com.js"></script>
+    
 </body>
 
 </html>
