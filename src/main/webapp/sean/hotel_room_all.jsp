@@ -270,7 +270,7 @@ input {
 					RoomStockService roomStockSvc = new RoomStockServiceHibernate();
 					String compString = (String) request.getSession().getAttribute("compId");
 					if (compString == null ){
-						response.sendRedirect(request.getContextPath() + "/sean/select_page.jsp");
+						response.sendRedirect(request.getContextPath() + "/ken/com_mem_signin.jsp");
 						return;
 					}
 					Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId"));

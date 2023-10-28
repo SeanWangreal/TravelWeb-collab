@@ -178,7 +178,7 @@
                     $("#total").text("總共"+totalOrd+"筆訂單")
             var htmlA=`<span>第</span>`;
             if (totalOrd <= 5){
-                htmlA  += `<button type="button" class="at where" data-whichpage="1">1頁</button>`
+                htmlA  += `<button type="button" class="at where" data-whichpage="1">1</button><span>頁</span>`
             } else {
             	if (totalOrd % 5 != 0){
 		            for (var i =1; i <= totalOrd/5+1;i++){
