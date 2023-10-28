@@ -137,6 +137,19 @@ public class Room_stockHibernateDAO implements Room_stockDAO_interface {
 			getSession().getTransaction().rollback();
 		}
 	}
+	
+	public Integer searchMinRoomStockByTime(Integer roomId, Date checkIn, Date checkOut){
+		getSession().beginTransaction();
+		Long out = checkOut.getTime();
+		out -= ONE_DAY;
+		Date newDate = new Date(out);
+		Integer minStock = getSession().createNativeQuery("SELECT MIN(stock) FROM room_stock WHERE (stock_date BETWEEN :checkIn AND :checkOut) AND room_id = :roomId;", Integer.class)
+					.setParameter("checkIn", checkIn)
+					.setParameter("checkOut", newDate)
+					.setParameter("roomId", roomId)
+					.uniqueResult();
+		return minStock;
+	}
 
 	public static void main(String[] args) {
 		Room_stockHibernateDAO dao = new Room_stockHibernateDAO(HibernateUtil.getSessionFactory());

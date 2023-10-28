@@ -22,7 +22,6 @@ import com.tha103.gogoyu.consumer.model.Consumer;
 import com.tha103.gogoyu.hotel_info.model.Hotel_info;
 import com.tha103.gogoyu.room_ord.model.Room_ord;
 import com.tha103.gogoyu.room_photo.model.Room_photo;
-import com.tha103.gogoyu.hotel_info.model.Hotel_infoServiceHibernate;
 
 import util.HibernateUtil;
 
@@ -228,12 +227,9 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		getSession().beginTransaction();
 		List<Object> list = new ArrayList<Object>();
 		Room room = getSession().get(Room.class, roomId);
-		List<Integer> roomPhotoIdList = getSession().createQuery("select room_photo_id from Room_photo where room_id =:room_id", Integer.class)
+		List<Integer> roomPhotoIdList = getSession().createQuery("select roomPhotoId from Room_photo where room_id =:room_id", Integer.class)
 				.setParameter("room_id", roomId).list();
 		Company company = getSession().get(Company.class, roomId);
-		Integer hotel_info_id = company.getHotelInfoId();
-		Hotel_infoServiceHibernate hotelInfoSvc = new Hotel_infoServiceHibernate();
-		List<String> hotelInfoList = hotelInfoSvc.getHotelInfoList(hotel_info_id);
 		List<String> roomFacilities = new ArrayList();
 		if(room.getTissue() == (byte)1) {
 			roomFacilities.add("衛生紙");
@@ -272,7 +268,6 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		list.add(roomPhotoIdList);
 		list.add(roomFacilities);
 		list.add(company);
-		list.add(hotelInfoList);
 		getSession().getTransaction().commit();
 		return list;
 	} catch (Exception e) {
@@ -314,13 +309,17 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 			getSession().beginTransaction();
 			Map<Room, String> map = new LinkedHashMap<Room, String>();
 //			@SuppressWarnings("unchecked")
+			Long out = checkOut.getTime();
+			long ONE_DAY = 1 * 24 * 60 * 60 * 1000L;
+			out -= ONE_DAY;
+			Date newDate = new Date(out);
 			NativeQuery<Room> query1 = getSession().createNativeQuery(
 					"SELECT * FROM room WHERE room_id IN "
 					+ "(SELECT r.room_id FROM room r"
 					+ " JOIN room_stock rs ON r.room_id = rs.room_id JOIN company c ON r.comp_id = c.comp_id WHERE (c.comp_address LIKE :comp_address) AND (rs.stock_date BETWEEN :checkIn AND :checkOut) AND (r.room_type <= :number) AND (rs.stock > 0) GROUP BY room_id)", Room.class)
 			.setParameter("comp_address", "%"+comp_address+"%")
 			.setParameter("checkIn", checkIn)
-			.setParameter("checkOut", checkOut)
+			.setParameter("checkOut", newDate)
 			.setParameter("number", number);
 			List<Room> list = query1.list();
 			for(Room room : list) {
