@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.tha103.gogoyu.hotel_info.model.Hotel_info;
-import com.tha103.gogoyu.hotel_info.model.Hotel_infoHibernateDAO;
 import com.tha103.gogoyu.hotel_info.model.Hotel_infoServiceHibernate;
 
 @WebServlet("/Hotel_infoServlet")
@@ -27,7 +26,8 @@ public class Hotel_infoServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		
+		HttpSession session = req.getSession();
+		String compId = (String) session.getAttribute("compId");
 		
 		
 		if ("getOne".equals(action)) { // 來自select_page.jsp的請求
@@ -115,74 +115,74 @@ public class Hotel_infoServlet extends HttpServlet {
 			Integer hotelInfoId = Integer.valueOf(req.getParameter("hotelInfoId").trim());
 
 			Byte restaurant = Byte.valueOf(req.getParameter("restaurant").trim());
-			if (restaurant == null || restaurant == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (restaurant == null || restaurant == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte roomService = Byte.valueOf(req.getParameter("roomService").trim());
-			if (roomService == null || roomService == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (roomService == null || roomService == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte alldayCounter = Byte.valueOf(req.getParameter("alldayCounter").trim());
-			if (alldayCounter == null || alldayCounter == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (alldayCounter == null || alldayCounter == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte spa = Byte.valueOf(req.getParameter("spa").trim());
-			if (spa == null || spa == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (spa == null || spa == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte gym = Byte.valueOf(req.getParameter("gym").trim());
-			if (gym == null || gym == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (gym == null || gym == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte garden = Byte.valueOf(req.getParameter("garden").trim());
-			if (garden == null || garden == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (garden == null || garden == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte terrace = Byte.valueOf(req.getParameter("terrace").trim());
-			if (terrace == null || terrace == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (terrace == null || terrace == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte noSmoking = Byte.valueOf(req.getParameter("noSmoking").trim());
-			if (noSmoking == null || noSmoking == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (noSmoking == null || noSmoking == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte freewifi = Byte.valueOf(req.getParameter("freewifi").trim());
-			if (freewifi == null || freewifi == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (freewifi == null || freewifi == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte heater = Byte.valueOf(req.getParameter("heater").trim());
-			if (heater == null || heater == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (heater == null || heater == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte beach = Byte.valueOf(req.getParameter("beach").trim());
-			if (beach == null || beach == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (beach == null || beach == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte pool = Byte.valueOf(req.getParameter("pool").trim());
-			if (pool == null || pool == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (pool == null || pool == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte chargingstation = Byte.valueOf(req.getParameter("chargingstation").trim());
-			if (chargingstation == null || chargingstation == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (chargingstation == null || chargingstation == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 			
 			Byte parking = Byte.valueOf(req.getParameter("parking").trim());
-			if (parking == null || parking == 0) {
-				errorMsgs.add("餐廳請勿空白");
-			}
+//			if (parking == null || parking == 0) {
+//				errorMsgs.add("餐廳請勿空白");
+//			}
 		
 
 //Integer hotelInfoId = Integer.valueOf(req.getParameter("hotelInfoId").trim());
@@ -220,6 +220,35 @@ public class Hotel_infoServlet extends HttpServlet {
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("Hotel_info", hotelInfo); // 資料庫update成功後,正確的的empVO物件,存入req
 			String url = "/ken/listOneHtel_info.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
+			successView.forward(req, res);
+		}
+		
+		if("updFromComp".equals(action)) {
+			Integer hotelInfoId = Integer.valueOf(req.getParameter("hotelInfoId").trim());
+			byte[] detail = getAllDetail(req, res);
+			
+			Hotel_infoServiceHibernate hotelInfoSvc = new Hotel_infoServiceHibernate();
+			Hotel_info hotelInfo = hotelInfoSvc.getOneHotel_info(hotelInfoId);
+			
+			hotelInfo.setRestaurant((byte) detail[0]);
+			hotelInfo.setRoomService((byte) detail[1]);
+			hotelInfo.setAlldayCounter((byte) detail[2]);
+			hotelInfo.setSpa((byte) detail[3]);
+			hotelInfo.setGym((byte) detail[4]);
+			hotelInfo.setGarden((byte) detail[5]);
+			hotelInfo.setTerrace((byte) detail[6]);
+			hotelInfo.setNoSmoking((byte) detail[7]);
+			hotelInfo.setFreewifi((byte) detail[8]);
+			hotelInfo.setHeater((byte) detail[9]);
+			hotelInfo.setBeach((byte) detail[10]);
+			hotelInfo.setPool((byte) detail[11]);
+			hotelInfo.setChargingstation((byte) detail[12]);
+			hotelInfo.setParking((byte) detail[13]);
+			
+			hotelInfoSvc.updFromComp(hotelInfo);
+			req.setAttribute("hotelinfo", hotelInfo);
+			String url = "/ken/com_mem.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 			successView.forward(req, res);
 		}
@@ -339,7 +368,7 @@ public class Hotel_infoServlet extends HttpServlet {
 					terrace, noSmoking, freewifi, heater, beach, pool, chargingstation, parking);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/ken/listAllHotelinfo.jsp";
+			String url = "/ken/com_mem.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 		}
@@ -363,6 +392,58 @@ public class Hotel_infoServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
 		}
+	}
+	
+	public byte[] getAllDetail(HttpServletRequest req, HttpServletResponse res) {
+		byte[] detail = new byte[14];
+		String[] allDetail = req.getParameterValues("detail");
+		for (String de : allDetail) {
+			switch (de) {
+			case "restaurant":
+				detail[0] = (byte) 1;
+				break;
+			case "roomService":
+				detail[1] = (byte) 1;
+				break;
+			case "alldayCounter":
+				detail[2] = (byte) 1;
+				break;
+			case "spa":
+				detail[3] = (byte) 1;
+				break;
+			case "gym":
+				detail[4] = (byte) 1;
+				break;
+			case "garden":
+				detail[5] = (byte) 1;
+				break;
+			case "terrace":
+				detail[6] = (byte) 1;
+				break;
+			case "noSmoking":
+				detail[7] = (byte) 1;
+				break;
+			case "freewifi":
+				detail[8] = (byte) 1;
+				break;
+			case "heater":
+				detail[9] = (byte) 1;
+				break;
+			case "beach":
+				detail[10] = (byte) 1;
+				break;
+			case "pool":
+				detail[11] = (byte) 1;
+				break;
+			case "chargingstation":
+				detail[12] = (byte) 1;
+				break;
+			case "parking":
+				detail[13] = (byte) 1;
+				break;
+			}
+		}
+		return detail;
 	}
 
 	public static void main(String[] args) {

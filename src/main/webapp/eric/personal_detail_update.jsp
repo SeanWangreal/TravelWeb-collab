@@ -30,7 +30,7 @@ if ((Integer) request.getSession().getAttribute("cusId") == null) {
 
 @font-face {
 	font-family: '粉圓';
-	src: url('/static/font/jf-openhuninn-2.0.ttf');
+	src: url('../font/jf-openhuninn-2.0.ttf');
 	font-display: swap;
 }
 
@@ -65,25 +65,31 @@ img {
 	<nav class="st">
 		<!-- <a class="word" id="home" href="#">Home</a> -->
 		<div class="head">
-			</button>
-			<button type="menu" class="head_btn" id="msg">
-				<i class="fa-regular fa-message icon"
-					style="color: black; font-size: 30px; background-color: transparent;"></i>
-			</button>
-			<button type="menu" class="head_btn" id="info">
-				<i class="fa-regular fa-bell icon"
-					style="color: black; font-size: 30px; width: 30px; background-color: transparent;"></i>
-			</button>
-			<button type="menu" class="head_btn" id="">
-				<i class="fa-solid fa-store"
-					style="color: #000000; font-size: 30px; width: 30px; background-color: transparent;"></i>
-
-			</button>
-			<button type="button" class="head_btn">
-				<a class="profile" href="#"> <i class="fa-solid fa-user icon"
-					style="color: black; font-size: 30px; background-color: transparent;"></i>
-				</a>
-			</button>
+			<div class="mem-data">
+                <a class="left_btn"  href="${pageContext.request.contextPath}/chu/shopping(hotel).jsp">
+                    <i class="fa-solid fa-cart-shopping" style="color: black;"></i> 制定規劃
+                </a>
+            </div>
+            <div class="mem-data">
+                <a class="left_btn" href="${pageContext.request.contextPath}/eric/personal_detail.jsp">
+                    <i class="fa-regular fa-user" style="color: black;"></i> 會員資料
+                </a>
+            </div>
+            <div class="mem-data">
+                <a class="left_btn" href="${pageContext.request.contextPath}/chu/bookedList(hotel).jsp">
+                    <i class="fa-solid fa-file-invoice" style="color: black;"></i> 訂單資訊
+                </a>
+            </div>
+            <div class="mem-data">
+                <a class="left_btn" href="">
+                    <i class="fa-solid fa-star" style="color: black;"></i> 我的蒐藏
+                </a>
+            </div>
+            <div class="mem-data">
+                <a class="left_btn" href="hotel_room_review.html">
+                    <i class="fa-regular fa-calendar-days" style="color: black;"></i> 行事曆
+                </a>
+            </div>
 		</div>
 		<aside class="msg all_side nothing" id="msg_side">
 			msg<br>msg<br>msg<br>msg<br>msg<br>msg<br>msg
@@ -138,8 +144,7 @@ img {
 				<section class="item" style="width: 800px">
 					<h1 style="border: 0px solid">${consumer.cusName},您好!</h1>
 					<br>
-					<button typ="summit" class="logoutbtn" style="float: right;"
-						name="action" value="Logout">按此登出</button>
+					<a href="${pageContext.request.contextPath}/eric/ConsumerServlet?action=Logout" class="logoutbtn">按此登出</a>
 
 				</section>
 				<br> <br> <br> <br>

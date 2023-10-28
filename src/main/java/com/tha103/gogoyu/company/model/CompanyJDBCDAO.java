@@ -1,10 +1,16 @@
 package com.tha103.gogoyu.company.model;
 
-import java.util.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.tha103.gogoyu.hotel_info.model.Hotel_info;
 
 import util.Util;
-
-import java.sql.*;
 
 public class CompanyJDBCDAO implements CompanyDAO_interface {
 	static {
@@ -30,7 +36,7 @@ public class CompanyJDBCDAO implements CompanyDAO_interface {
 			+ "comp_password = ? ,comp_mail = ? ,comp_photo = ?,check_status = ?  " + "where comp_id = ?";
 
 	@Override
-	public int add(Company Company) {
+	public int add(Company Company,Hotel_info hotelInfo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -273,5 +279,6 @@ public class CompanyJDBCDAO implements CompanyDAO_interface {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	
 }

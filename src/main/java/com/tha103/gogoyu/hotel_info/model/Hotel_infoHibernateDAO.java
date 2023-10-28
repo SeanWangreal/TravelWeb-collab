@@ -157,4 +157,5 @@ public class Hotel_infoHibernateDAO implements Hotel_infoDAO_interface {
 	public static void main (String[] args) {
 		
 	}
+
 }
