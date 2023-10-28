@@ -2,8 +2,10 @@ package com.tha103.gogoyu.company.model;
 
 import java.util.List;
 
+import com.tha103.gogoyu.hotel_info.model.Hotel_info;
+
 public interface CompanyDAO_interface {
-	int add(Company Company);
+	int add(Company Company,Hotel_info hotelInfo);
 
 	int update(Company Company);
 

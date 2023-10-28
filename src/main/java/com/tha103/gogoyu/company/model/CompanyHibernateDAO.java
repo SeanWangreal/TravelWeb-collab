@@ -10,6 +10,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.tha103.gogoyu.hotel_info.model.Hotel_info;
 import com.tha103.gogoyu.itinerary.model.Itinerary;
 import com.tha103.gogoyu.room.model.Room;
 import com.tha103.gogoyu.trip_ord.model.Trip_ord;
@@ -31,13 +32,16 @@ public class CompanyHibernateDAO implements CompanyDAO_interface {
 	}
 	
 	@Override
-	public int add(Company Company) {
+	public int add(Company company,Hotel_info hotelInfo) {
 		
 		try {
 			getSession().beginTransaction();
-			Integer id = (Integer) getSession().save(Company);
+			Integer id1 = (Integer) getSession().save(hotelInfo);
+			hotelInfo = getSession().get(Hotel_info.class,id1);
+			company.setHotelInfo(hotelInfo);
+			Integer id2 = (Integer) getSession().save(company);
 			getSession().getTransaction().commit();
-			return id;
+			return id2;
 		} catch (Exception e) {
 			e.printStackTrace();
 			getSession().getTransaction().rollback();
@@ -142,12 +146,15 @@ public class CompanyHibernateDAO implements CompanyDAO_interface {
 		}
 		return null;
 	}
-//	public static void main(String[] args) {
-//		SessionFactory factory = HibernateUtil.getSessionFactory();
-//		CompanyHibernateDAO dao= new CompanyHibernateDAO(factory);
-//		List<Company> list=dao.getAll();
-//		System.out.print(list.get(0));
-//	}
+	
+	
+	
+	public static void main(String[] args) {
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		CompanyHibernateDAO dao= new CompanyHibernateDAO(factory);
+		List<Company> list=dao.getAll();
+		System.out.print(list.get(0));
+	}
 
 	@Override
 	public List<Company> getByCheckStatus() {

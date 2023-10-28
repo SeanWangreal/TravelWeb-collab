@@ -185,13 +185,12 @@ button.left_btn:hover {
 			</div>
 		</aside>
 	</nav>
-
-	F
+	<FORM METHOD="post" ACTION="${pageContext.request.contextPath}/CompanyServlet">
 		<div class="all">
 
 			<main class="main-content">
-				<label class="main-content-info">請輸入新密碼 <input type="text"
-					name="compId" >
+				<label class="main-content-info">請輸入新密碼 <input type="text" name="password" >
+					<input type="hidden" name="action" value="getPSForUpdate"> 
 				</label>
 					<br>
 				<div>
@@ -201,7 +200,6 @@ button.left_btn:hover {
 				</div>
 			</main>
 		</div>
-	<FORM METHOD="post" ACTION="CompanyServlet">
 		<div class="alert_bg">
 			<div class="alert">
 				<div>確定更新嗎? 
@@ -210,8 +208,7 @@ button.left_btn:hover {
 					<!-- 				<button type="button" id="no" class="other-btn">No</button> -->
 					<br> 
 <%-- 					<a href="${pageContext.request.contextPath}/CompanyServlet?action=getPSForUpdate&compId=<%= company.getCompId()%>">送出修改</a> --%>
-					<input type="hidden" name="action" value="getPSForUpdate">
-					<input type="hidden" name="compId" value="<%=company.getCompId()%>">
+					
 					<input type="submit" value="送出修改">
 				</div>
 			</div>

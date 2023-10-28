@@ -153,8 +153,8 @@ Company company = (Company) request.getAttribute("Company");
                                 <input name="compMail" class="button_mem_info"  value="${company.compMail}" style="font-size:20px; padding:5px ;padding-left:51px ;">
                             </div>
            					<div class="input_container">
-                                <label>照片：</label>
-                                <input name="parts" type="file" class="button_mem_info"  value="${company.compPhoto}" style="font-size:20px; padding:5px ;padding-left:51px ;">
+                                <label>照片： </label>
+                                <input name="parts" type="file" class="button_mem_info"  value="${company.compPhoto}" style="font-size:20px; padding:5px ;padding-left:101px ;">
                             </div>
                             
                         </div>
