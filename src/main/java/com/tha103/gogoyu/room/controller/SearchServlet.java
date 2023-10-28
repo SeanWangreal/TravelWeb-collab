@@ -120,10 +120,19 @@ public class SearchServlet extends HttpServlet {
 			break;
 		case "searchRoomStock":
 			Date checkIn2 = null;
-			checkIn2 = java.sql.Date.valueOf(req.getParameter("checkIn"));
+			checkIn2 = java.sql.Date.valueOf(req.getParameter("stockCheckIn"));
+			System.out.println("-------------------------------------------------------------------");
+			System.out.println(checkIn2);
+			
 			Date checkOut2 = null;
-			checkOut1 = java.sql.Date.valueOf(req.getParameter("checkOut"));
+			checkOut2 = java.sql.Date.valueOf(req.getParameter("stockCheckOut"));
+			System.out.println("-------------------------------------------------------------------");
+			System.out.println(checkOut2);
+			
 			Integer detailPageRoomId = Integer.valueOf(req.getParameter("detailPageRoomId"));
+			System.out.println("-------------------------------------------------------------------");
+			System.out.println(detailPageRoomId);
+			
 			Integer minStock = roomStockSvc.searchMinRoomStockByTime(detailPageRoomId, checkIn2, checkOut2);
 			Map<String, Integer> stock = new HashMap<String, Integer>();
 			stock.put("minStock", minStock);
@@ -133,6 +142,28 @@ public class SearchServlet extends HttpServlet {
 			out.println(json);
 //			System.out.println(json);
 			out.close();
+			return;
+		case "tripSearch":
+//			String site = null;
+//			site = req.getParameter("site");
+//			Date checkIn3= null;
+//			checkIn3 = java.sql.Date.valueOf(req.getParameter("checkIn"));
+//			Date checkOut3 = null;
+//			checkOut3 = java.sql.Date.valueOf(req.getParameter("checkOut"));
+//			Integer number2 = null;
+//			try {
+//				number2 = Integer.valueOf(req.getParameter("number").trim());
+//			}catch(NumberFormatException e){
+//				number2 = 0;
+//			}
+//			System.out.println(checkIn.toString()+checkOut.toString()+number);
+//			Map<Room, String> searchRoomResult = roomSvc.searchRoom(comp_address, checkIn, checkOut, number);
+//			req.setAttribute("searchCheckIn", checkIn);
+//			req.setAttribute("searchCheckOut", checkOut);
+//			req.setAttribute("people", number);
+//			req.setAttribute("searchRoomResult", searchRoomResult);
+//			forwardPath = "/mhl/search_results.jsp";
+//			return;
 		}
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 		dispatcher.forward(req, res);
