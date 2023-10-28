@@ -72,8 +72,8 @@ public class CompanyService {
 			return dao.getAll();
 		}
 		public static void main(String[] args) {
-			CompanyService hi = new CompanyService();
-			System.out.println(hi.getAllCompany());
+//			CompanyService hi = new CompanyService();
+//			System.out.println(hi.getAllCompany());
 		}
 		
 		public List<Company> getByCheckStatus(){

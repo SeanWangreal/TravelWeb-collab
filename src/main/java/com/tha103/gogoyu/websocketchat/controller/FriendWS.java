@@ -32,7 +32,9 @@ public class FriendWS {
 		sessionsMap.put(userName, userSession);
 		/* Sends all the connected users to the new user */
 		Set<String> userNames = sessionsMap.keySet();
+		
 		State stateMessage = new State("open", userName, userNames);
+		
 		String stateMessageJson = gson.toJson(stateMessage);
 		Collection<Session> sessions = sessionsMap.values();
 		for (Session session : sessions) {
