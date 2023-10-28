@@ -105,12 +105,12 @@ $(".ordinf_btn").each(function() {
 
 
 // 編輯按鈕
-    $("#memBtn").on("click",function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        // $('.mem').removeAttr("readonly");
-        $(".mem").toggleClass("ch_mem2");
-        $("readonly").toggleAttr("default value");
-    });
+//    $("#memBtn").on("click",function(e){
+//        e.preventDefault();
+//        e.stopPropagation();
+//        // $('.mem').removeAttr("readonly");
+//        $(".mem").toggleClass("ch_mem2");
+////        $("readonly").toggleAttr("default value");
+//    });
 
 
