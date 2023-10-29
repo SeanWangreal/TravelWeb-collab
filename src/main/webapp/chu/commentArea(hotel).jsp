@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+j<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="com.tha103.gogoyu.trip_ord.model.*"%>
 <%@ page import="com.tha103.gogoyu.trip.model.*"%>

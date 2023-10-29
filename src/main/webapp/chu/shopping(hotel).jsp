@@ -64,8 +64,10 @@ if (cusId != null) {
 		<a class="logo" id="home" href="${pageContext.request.contextPath}/mhl/home.jsp">GO<i class="fa-solid fa-location-dot" style="color: #ffbf1c;"></i>GOYU</a>
 		<div class="head">
 			<button type="menu" class="head_btn" aria-label="規劃行程" id="shop">
-                <i class="fa-solid fa-suitcase-rolling icon" style="color: black; font-size:30px;
-                            background-color:transparent;"></i>
+				<a href="${pageContext.request.contextPath}/chu/shopping(hotel).jsp">
+               	 <i class="fa-solid fa-suitcase-rolling icon" style="color: black; font-size:30px;
+                           	 background-color:transparent;"></i>
+                 </a>
             </button>
             <button type="menu" class="head_btn" id="msg">
                 <i class="fa-regular fa-message icon" style="color: black; font-size:30px; 
@@ -102,17 +104,17 @@ if (cusId != null) {
 		<aside class="left">
 
 			<div class="mem-data">
-				<a class="left_btn"> <i class="fa-solid fa-cart-shopping"
+				<a class="left_btn" href="${pageContext.request.contextPath}/chu/shopping(hotel).jsp"> <i class="fa-solid fa-cart-shopping"
 					style="color: black;"></i> 制定規劃
 				</a>
 			</div>
 			<div class="mem-data">
-				<a class="left_btn"> <i class="fa-regular fa-user"
+				<a class="left_btn" href="${pageContext.request.contextPath}/eric/personal_detail.jsp"> <i class="fa-regular fa-user"
 					style="color: black;"></i> 會員資料
 				</a>
 			</div>
 			<div class="mem-data">
-				<a class="left_btn"> <i class="fa-solid fa-file-invoice"
+				<a class="left_btn"   href="${pageContext.request.contextPath}/chu/bookedList(hotel).jsp"> <i class="fa-solid fa-file-invoice"
 					style="color: black;"></i> 訂單資訊
 				</a>
 			</div>
@@ -122,7 +124,7 @@ if (cusId != null) {
 				</a>
 			</div>
 			<div class="mem-data">
-				<a class="left_btn"> <i class="fa-regular fa-calendar-days"
+				<a class="left_btn" href="${pageContext.request.contextPath}/eric/consumercalendar.jsp"> <i class="fa-regular fa-calendar-days"
 					style="color: black;"></i> 行事曆
 				</a>
 			</div>
@@ -142,15 +144,7 @@ if (cusId != null) {
 								<div class="error-message" style = "color :red ; font-size:25px ; top :15%; position : absolute ; left :50%"><i>*${errorMessage}</i></div>
 						</c:if>
 		<div class="tab_list_block">
-<!-- 			<ul class="tab_list"> -->
-<!-- 				<li><button data-target="plan1" class="tab -on">規劃一</button></li>  -->
-<!-- 				<li><button data-target="plan2" class="tab ">規劃一</button></li>  -->
-<!-- 				<li><button data-target="plan3" class="tab ">規劃一</button></li>  -->
-<!-- 				<li><button data-target="plan4" class="tab ">規劃一</button></li>  -->
-<!-- 				<li><button data-target="plan5" class="tab ">規劃一</button></li>  -->
-		
-		
-<!-- 			</ul> -->
+
 			<ul class="tab_list">
 				<li><a href="#" data-target="plan1" class="tab -on">規劃一</a></li>
 				<li><a href="#" data-target="plan2" class="tab ">規劃二</a></li>
@@ -244,7 +238,7 @@ if (cusId != null) {
 									<input type="hidden" name="action" value="removeHotelOrder">
 									<input type="hidden" name="roomOrdId"
 										value="${roomVo1.roomOrdId}">
-									<button class="b remove" type="submit" style="width: 170px">移除此商品</button>
+									<button class="b remove" type="submit" style="width: 170px" onclick ="return comfirmButton()">移除此商品</button>
 								</form>
 
 							</div>

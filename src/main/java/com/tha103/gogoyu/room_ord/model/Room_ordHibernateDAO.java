@@ -2,6 +2,7 @@ package com.tha103.gogoyu.room_ord.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -246,11 +247,16 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 				info.add(profit);
 				
 				
+					Long out = checkOutTime.getTime();
+				   long ONE_DAY = 1 * 24 * 60 * 60 * 1000L;
+				   out -= ONE_DAY;
+				   Date newDate = new Date(out);
+				  
 				Room roomId= getSession().get(Room.class, Room.getRoomId());
 				Integer roomstock = getSession()
 						.createQuery("select min(stock) from Room_stock where ( stockDate between :checkInTime and  :checkOutTime ) and roomId = :roomId ", Integer.class)
 						.setParameter("checkInTime",  checkInTime)
-						.setParameter("checkOutTime", checkOutTime)
+						.setParameter("checkOutTime", newDate)
 						.setParameter("roomId", roomId.getRoomId()).uniqueResult();
 				
 				info.add(roomstock);

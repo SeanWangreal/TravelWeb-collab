@@ -98,6 +98,17 @@ $(function () {//domcontentloaded event
 
 
 
+//	function comfirmButton(){
+//		var products = comfirm("確定要刪除嗎?");
+//		
+//		if ( products ) {
+//			return true ;
+//
+//	}
+
+
+
+
 
 
     let tab_title = $("ul.tab_list li a.tab");

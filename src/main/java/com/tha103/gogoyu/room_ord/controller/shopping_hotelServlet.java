@@ -37,14 +37,9 @@ public class shopping_hotelServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 	
 		String Timestart= "2023-10-17"; // 示例日期字符串
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date checkInTime = Date.valueOf(Timestart);
-		
-		
-		String Timeend= "2023-10-18"; // 示例日期字符串
+		String Timeend= "2023-10-20"; // 示例日期字符串
+		Date checkInTime =Date.valueOf(Timestart);
 		Date checkOutTime =Date.valueOf(Timeend);
-		
-		
 		
 		String action = req.getParameter("action");
 	
@@ -53,15 +48,15 @@ public class shopping_hotelServlet extends HttpServlet {
 		if ("room_goShopping".equals(action)) { 
 			Integer cusId = (Integer) session.getAttribute("cusId");
 			if (cusId != null) {// 如果session有cus_id資料代表有人登入
+//				Date checkInTime = Date.valueOf(req.getParameter("checkInTime"));
+//				Date checkOutTime = Date.valueOf(req.getParameter("checkOutTime"));
 				Integer cartId = Integer.valueOf(req.getParameter("cart_id")); 
 				Integer roomId = Integer.valueOf(req.getParameter("roomId")); 
 				RoomServiceHibernate RSH = new RoomServiceHibernate();
 				Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
 				PlanningServiceHibernate PSH = new PlanningServiceHibernate();// 創造出SERVICE
+
 				
-				
-				
-				req.getParameter("");
 				Integer plan_id = PSH.getPlanId(cartId, cusId); //得到1.他是誰   2.是哪台車
 				Integer compId =  RSH.getRoom(roomId).getCompId();
 				
@@ -135,15 +130,7 @@ public class shopping_hotelServlet extends HttpServlet {
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		
 //=========================購物車(飯店)更改車號===============================			
 		
@@ -158,21 +145,21 @@ public class shopping_hotelServlet extends HttpServlet {
 //=========================訂單頁面取消===============================
 	
 		
-		//=========================bookingList更改數量===============================
+//=========================bookingList更改數量===============================
 
-				if ("countAmount".equals(action)) {
-					Integer roomOrdId = Integer.valueOf(req.getParameter("roomOrdIdPk"));// tripOrdId
+		if ("countAmount".equals(action)) {
+			Integer roomOrdId = Integer.valueOf(req.getParameter("roomOrdIdPk"));// tripOrdId
 
-					Integer amount = Integer.valueOf(req.getParameter("roomAmount"));
-					Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
-					ROSH.updateAmount(amount, roomOrdId);// 更新數量
-					req.setAttribute("roomOrdId", roomOrdId);
-					String url = "/chu/bookingList(hotel).jsp";
-					RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
-					successView.forward(req, res);
+			Integer amount = Integer.valueOf(req.getParameter("roomAmount"));
+			Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
+			ROSH.updateAmount(amount, roomOrdId);// 更新數量
+			req.setAttribute("roomOrdId", roomOrdId);
+			String url = "/chu/bookingList(hotel).jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+			successView.forward(req, res);
 
-				}
-		//=========================bookingList更改數量===============================
+		}
+//=========================bookingList更改數量===============================
 
 		
 		
