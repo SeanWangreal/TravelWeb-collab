@@ -304,4 +304,10 @@ public class TripJDBCDAO implements TripDAO_interface {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Trip> searchTrip(String site, Date startTime, Date endTime, Integer number) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

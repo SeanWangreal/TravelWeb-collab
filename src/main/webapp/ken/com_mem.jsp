@@ -16,6 +16,7 @@ if (company == null){
 	Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId"));
 	CompanyService companySvc = new CompanyService();
 	company = companySvc.getOneCompany(compId);
+	request.setAttribute("company", company);
 }
 %>
 
@@ -153,7 +154,7 @@ if (company == null){
 				   </a>
 			</button>
 			<button type="button" class="head_btn">
-				<a class="profile" href="#"> <i class="fa-solid fa-user"
+				<a class="profile" href="${pageContext.request.contextPath}/ken/com_mem.jsp"> <i class="fa-solid fa-user"
 					style="color: black; font-size: 30px; background-color: transparent;"></i>
 				</a>
 			</button>
@@ -181,11 +182,6 @@ if (company == null){
 					style="color: black;"></i> 會員資料
 				</a>
 			</div>
-			<div class="mem-data">
-				<a class="left_btn" href=""> <i class="fa-solid fa-file-invoice"
-					style="color: black;"></i> 訂單資訊
-				</a>
-			</div>
 		</aside>
 	</nav>
 	<div class="all" >
@@ -200,7 +196,7 @@ if (company == null){
 				<br> <label class="">廠商別&ensp;<span><%= company.getCompType()%></span></label>
 				<br>
 				<a href="" type="button" class="hotel-btn">查看飯店資訊</a>
-				<FORM METHOD="post" ACTION="CompanyServlet" >
+				<FORM METHOD="post" ACTION="${pageContext.request.contextPath}/CompanyServlet" >
 					<button type = "submit" class="hotel-btn">登出</button>
 					<input type="hidden" name="action" value="signout">
 				</FORM>
@@ -235,7 +231,7 @@ if (company == null){
 							</span>
 							<br>
 							<span> 
-								<input type="checkbox" id="alldayCounter" name="detail" class="hotelinfo" value="alldayCounter ${(hotelinfo.alldayCounter== 1) ? "checked" : ""}> 
+								<input type="checkbox" id="alldayCounter" name="detail" class="hotelinfo" value="alldayCounter" ${(hotelinfo.alldayCounter== 1)? "checked" : ""}> 
 								<label for="alldayCounter">24小時接待櫃檯</label>
 							</span>
 							<br>

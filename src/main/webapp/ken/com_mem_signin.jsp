@@ -27,7 +27,7 @@ Company company = (Company) request.getAttribute("Company"); //Servlet.java(Conc
 
 <body>
     <nav class="st">
-        <a class="word" id="home" href="#">Home</a>
+        <a class="word" id="home" href="${pageContext.request.contextPath}/mhl/home.jsp">Home</a>
         <a class="word" id="hotel" href="#">HOT<i class="fa-solid fa-fire"
                 style="color: #ff9500; background-color:transparent;"></i>Hotel</a>
         <a class="word" id="journel" href="#">HOT<i class="fa-solid fa-fire"
