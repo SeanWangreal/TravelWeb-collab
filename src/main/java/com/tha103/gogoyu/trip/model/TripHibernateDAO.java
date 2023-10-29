@@ -224,14 +224,56 @@ public class TripHibernateDAO implements TripDAO_interface{
 	
 	public List<Trip> searchTrip(String site, Date startTime, Date endTime, Integer number) {
 		try {
+			String SQL = null;
 			getSession().beginTransaction();
 //			@SuppressWarnings("unchecked")
+			switch (site) {
+			case "台北市":SQL ="Taipei_City";break;
+			case "新北市":SQL ="NewTaipei_City";break;
+			case "桃園市":SQL ="Taoyuan_City";break;
+			case "台中市":SQL ="Taichung_City";break;
+			case "台南市":SQL ="Tainan_City";break;
+			case "高雄市":SQL ="Kaohsiung_City";break;
+			case "新竹縣":SQL ="Hsinchu_County";break;
+			case "苗栗縣":SQL ="Miaoli_County";break;
+			case "彰化縣":SQL ="Changhua_County";break;
+			case "南投縣":SQL ="Nantou_County";break;
+			case "雲林縣":SQL ="Yunlin_County";break;
+			case "嘉義縣":SQL ="Chiayi_County";break;
+			case "屏東縣":SQL ="Pingtung_County";break;
+			case "宜蘭市":SQL ="Yilan_City";break;
+			case "花蓮市":SQL ="Hualien_City";break;
+			case "台東縣":SQL ="Taitung_County";break;
+			case "金門縣":SQL ="Kinmen_County";break;
+			case "連江縣":SQL ="Lienchiang_County";break;
+			case "基隆市":SQL ="Keelung_City";break;
+			case "新竹市":SQL ="Hsinchu_City";break;
+			case "嘉義市":SQL ="Chiayi_City";break;
+			case "澎湖縣":SQL ="Penghu_County";break;
+			}
+			List<Trip> list = getSession().createQuery("from Trip where " 
+			+ SQL 
+			+ " = 1 AND start_time >= :startTime AND end_time <= :endTime AND people >= :number AND amount > 0 AND state = 1", Trip.class)
+					.setParameter("startTime", startTime)
+					.setParameter("endTime", endTime)
+					.setParameter("number", number)
+					.list();
+					getSession().getTransaction().commit();
+					return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+	
+	public List<Trip> getHotTrip() {
+		try {
+			getSession().beginTransaction();
+			@SuppressWarnings("unchecked")
 			NativeQuery<Trip> query1 = getSession().createNativeQuery(
-					"SELECT * FROM trip WHERE :site = 1 AND start_time >= :startTime AND end_time <= :endTime AND people <= :number", Trip.class)
-			.setParameter("site", site)
-			.setParameter("startTime", startTime)
-			.setParameter("endTime", endTime)
-			.setParameter("number", number);
+					"SELECT * FROM trip WHERE trip_id IN (SELECT trip_id FROM (SELECT trip_id, count(trip_id) FROM trip_ord GROUP BY trip_id ORDER BY 2 DESC LIMIT 3) as xxx);",
+					Trip.class);
 			List<Trip> list = query1.list();
 			getSession().getTransaction().commit();
 			return list;
@@ -243,11 +285,15 @@ public class TripHibernateDAO implements TripDAO_interface{
 	}
 	
 	public static void main (String[] args ) {
-		String site = "newTaipei_city";
+		String site = "新北市";
 		Date startTime = java.sql.Date.valueOf("2023-10-04");
-		Date endTime = java.sql.Date.valueOf("2023-10-04");
-		Integer number = 3;
+		Date endTime = java.sql.Date.valueOf("2023-10-05");
+		Integer number = 1;
 		TripServiceHibernate svc = new TripServiceHibernate();
-		System.out.println(svc.searchTrip(site, startTime, endTime, number));
+		List<Trip> list = svc.searchTrip(site, startTime, endTime, number);
+		for(Trip trip : list) {
+			System.out.println(trip.getTripName());
+		}
+		
 	}
 }

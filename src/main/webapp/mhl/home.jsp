@@ -2,13 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.tha103.gogoyu.room.model.*"%>
+<%@ page import="com.tha103.gogoyu.trip.model.*"%>
 <%
 	RoomServiceHibernate roomSvc = new RoomServiceHibernate();
-	List<Room> list = roomSvc.getHotRoom();
+	List<List> roomDetail = roomSvc.getHotRoomDetail();
+	List<Room> roomList = roomDetail.get(0);
+	List<String> compNameList = roomDetail.get(1);
 	
-// 	TripServiceHibernate tripSvc = new TripServiceHibernate();
-// 	List<Trip> list = roomSvc.getHotTrip();
-
+	TripServiceHibernate tripSvc = new TripServiceHibernate();
+	List<Trip> tripList = tripSvc.getHotTrip();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -130,19 +132,19 @@
     </nav>
 
     <form id="background" method="post" action="${pageContext.request.contextPath}/sean/SearchServlet">
-    	<input type="hidden" value="roomSearch" name="action">
+    	<input type="hidden" value="hotel" name="action" id="type">
         <img src="${pageContext.request.contextPath}/mhl/4621.png" alt="">
         <div id="search">
             <div id="btn_block">
                 <button type="button" class="choose_btn -on" id="Hotel">Hotel</button>
-                <input type="hidden" value="hotel" name="type" id="type">
+<!--                 <input type="hidden" value="hotel" name="type" id="type"> -->
                 <button type="button" class="choose_btn" id="Trip">Trip</button>
             </div>
             <div id="outer">
                 <hr id="kk">
                 <div id="inside_form">
                     <div style="flex-basis: 20%;">
-                        <select class="form-select me-2 in" name="comp_address" aria-label="Default select example">
+                        <select class="form-select me-2 in" name="site" aria-label="Default select example">
                             <option value="台北市">台北市</option>
                             <option value="新北市">新北市</option>
                             <option value="桃園市">桃園市</option>
@@ -150,7 +152,6 @@
                             <option value="台南市">台南市</option>
                             <option value="高雄市">高雄市</option>
                             <option value="新竹縣">新竹縣</option>
-                            <option value="新北市">新北市</option>
                             <option value="苗栗縣">苗栗縣</option>
                             <option value="彰化縣">彰化縣</option>
                             <option value="南投縣">南投縣</option>
@@ -195,7 +196,7 @@
         <main class="container ">
             <div class="row justify-content-center align-items-center ">
                 <div class="col-12 col-md-8 h-10">
-                    <h6 class="text-center">Hot Hotel</h6>
+                    <h2 class="text-center">Hot Hotel</h2>
                 </div>
                 <div class="col-12 col-md-8 h-40 mb-4">
                     <div id="carouselTrip" class="carousel slide ">
@@ -209,29 +210,32 @@
                         </div>
                         <div class="carousel-inner ">
                             <div class="carousel-item active  ">
-	                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?room_id=<%=(list.get(0)).getRoomId()%>&action=getProductDetailRoom" class="d-block w-100"   alt="...">
-	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=(list.get(0)).getRoomId()%>" class="d-block w-100"   alt="...">
+	                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?room_id=<%=(roomList.get(0)).getRoomId()%>&action=getProductDetailRoom" class="d-block w-100"   alt="...">
+	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=(roomList.get(0)).getRoomId()%>" class="d-block w-100"   alt="...">
 	                                <div class="carousel-caption d-none d-md-block">
-	                                    <h5 class="bg-light text-dark mb-0"><%=(list.get(0)).getRoomName() %></h5>
-	                                    <p class="bg-light text-dark">TWD <%=(list.get(0)).getPrice().intValue() %></p>
+	                                    <h5 class="bg-light text-dark mb-0"><%=compNameList.get(0) %></h5>
+	                                    <p class="bg-light text-dark mb-0"><%=(roomList.get(0)).getRoomName() %></p>
+	                                    <p class="bg-light text-dark"><%=(roomList.get(0)).getRoomType() %>人房 TWD <%=(roomList.get(0)).getPrice().intValue() %></p>
 	                                </div>
 	                            </a>
                             </div>
                             <div class="carousel-item ">
-	                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?room_id=<%=(list.get(1)).getRoomId()%>&action=getProductDetailRoom" class="d-block w-100"   alt="...">
-	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=(list.get(1)).getRoomId() %>" class="d-block w-100"  alt="...">
+	                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?room_id=<%=(roomList.get(1)).getRoomId()%>&action=getProductDetailRoom" class="d-block w-100"   alt="...">
+	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=(roomList.get(1)).getRoomId() %>" class="d-block w-100"  alt="...">
 	                                <div class="carousel-caption d-none d-md-block">
-	                                    <h5 class="bg-light text-dark mb-0"><%=(list.get(1)).getRoomName() %></h5>
-	                                    <p class="bg-light text-dark">TWD <%=(list.get(1)).getPrice().intValue() %></p>
+	                                    <h5 class="bg-light text-dark mb-0"><%=compNameList.get(1) %></h5>
+	                                    <p class="bg-light text-dark mb-0"><%=(roomList.get(1)).getRoomName() %></p>
+	                                    <p class="bg-light text-dark"><%=(roomList.get(1)).getRoomType() %>人房 TWD <%=(roomList.get(1)).getPrice().intValue() %></p>
 	                                </div>
 	                            </a>
                             </div>
                             <div class="carousel-item  ">
-	                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?room_id=<%=(list.get(2)).getRoomId()%>&action=getProductDetailRoom" class="d-block w-100"   alt="...">
-	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=(list.get(2)).getRoomId() %>" class="d-block w-100"  alt="...">
+	                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?room_id=<%=(roomList.get(2)).getRoomId()%>&action=getProductDetailRoom" class="d-block w-100"   alt="...">
+	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=(roomList.get(2)).getRoomId() %>" class="d-block w-100"  alt="...">
 	                                <div class="carousel-caption d-none d-md-block">
-	                                    <h5 class="bg-light text-dark mb-0"><%=(list.get(2)).getRoomName() %></h5>
-	                                    <p class="bg-light text-dark">TWD <%=(list.get(2)).getPrice().intValue() %></p>
+	                                    <h5 class="bg-light text-dark mb-0"><%=compNameList.get(2) %></h5>
+	                                    <p class="bg-light text-dark mb-0"><%=(roomList.get(2)).getRoomName() %></p>
+	                                    <p class="bg-light text-dark"><%=(roomList.get(2)).getRoomType() %>人房 TWD <%=(roomList.get(2)).getPrice().intValue() %></p>
 	                                </div>
 	                            </a>
                             </div>
@@ -249,7 +253,7 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-8 h-10">
-                    <h6 class="text-center">Hot Journey</h6>
+                    <h2 class="text-center">Hot Journey</h2>
                 </div>
                 <div class="col-12 col-md-8 h-40 mb-6">
                     <div id="carouselJourney" class="carousel slide ">
@@ -263,25 +267,31 @@
                         </div>
                         <div class="carousel-inner ">
                             <div class="carousel-item active ">
-                                <img src="https://picsum.photos/2800/1600?random=1" class="d-block w-100" alt="...">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5 class="bg-light text-dark mb-0">野柳二天一夜</h5>
-                                    <p class="bg-light text-dark">每人TWD 1,000起</p>
-                                </div>
+	                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?tripId=<%=(tripList.get(0)).getTripId()%>&action=getProductDetailTrip" class="d-block w-100"   alt="...">
+	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=<%=(tripList.get(0)).getTripId()%>" class="d-block w-100" alt="...">
+	                                <div class="carousel-caption d-none d-md-block">
+	                                    <h5 class="bg-light text-dark mb-0"><%=(tripList.get(0)).getTripName()%></h5>
+	                                    <p class="bg-light text-dark"><%=(tripList.get(0)).getPeople()%>人套票 TWD <%=(tripList.get(0)).getPrice().intValue()%></p>
+	                                </div>
+                                </a>
                             </div>
                             <div class="carousel-item">
-                                <img src="https://picsum.photos/1400/800?random=2" class="d-block w-100" alt="...">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5 class="bg-light text-dark mb-0">野柳二天一夜</h5>
-                                    <p class="bg-light text-dark">每人TWD 1,000起</p>
-                                </div>
+	                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?tripId=<%=(tripList.get(1)).getTripId()%>&action=getProductDetailTrip" class="d-block w-100"   alt="...">
+	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=<%=(tripList.get(1)).getTripId()%>" class="d-block w-100" alt="...">
+	                                <div class="carousel-caption d-none d-md-block">
+	                                    <h5 class="bg-light text-dark mb-0"><%=(tripList.get(1)).getTripName()%></h5>
+	                                    <p class="bg-light text-dark"><%=(tripList.get(1)).getPeople()%>人套票 TWD <%=(tripList.get(1)).getPrice().intValue()%></p>
+	                                </div>
+                                </a>
                             </div>
                             <div class="carousel-item">
-                                <img src="https://picsum.photos/1400/800?random=3" class="d-block w-100" alt="...">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5 class="bg-light text-dark mb-0">野柳二天一夜</h5>
-                                    <p class="bg-light text-dark">每人TWD 1,000起</p>
-                                </div>
+	                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?tripId=<%=(tripList.get(2)).getTripId()%>&action=getProductDetailTrip" class="d-block w-100"   alt="...">
+	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=<%=(tripList.get(2)).getTripId()%>" class="d-block w-100" alt="...">
+	                                <div class="carousel-caption d-none d-md-block">
+	                                    <h5 class="bg-light text-dark mb-0"><%=(tripList.get(2)).getTripName()%></h5>
+	                                    <p class="bg-light text-dark"><%=(tripList.get(2)).getPeople()%>人套票 TWD <%=(tripList.get(2)).getPrice().intValue()%></p>
+	                                </div>
+                                </a>
                             </div>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselJourney"

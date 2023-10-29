@@ -211,16 +211,28 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		return null;
 	}
 
-	public List<Room> getHotRoom() {
+	public List<List> getHotRoomDetail() {
 		try {
 			getSession().beginTransaction();
 			@SuppressWarnings("unchecked")
-			NativeQuery<Room> query1 = getSession().createNativeQuery(
+			List<Room> roomList = getSession().createNativeQuery(
 					"SELECT * FROM room WHERE room_id IN (SELECT room_id FROM (SELECT room_id, count(room_id) FROM room_ord GROUP BY room_id ORDER BY 2 DESC LIMIT 3) as xxx);",
-					Room.class);
-			List<Room> list = query1.list();
+					Room.class).list();
+			
+			List<String> compNameList = new ArrayList<String>();
+			for(Room room : roomList) {
+				Integer compId = room.getCompId();
+				Company company = getSession().get(Company.class, compId);
+				String compName = company.getCompName();
+				compNameList.add(compName);
+			}
+			
+			List<List> hotRoomDetailList = new ArrayList();
+			hotRoomDetailList.add(roomList);
+			hotRoomDetailList.add(compNameList);
+			
 			getSession().getTransaction().commit();
-			return list;
+			return hotRoomDetailList;
 		} catch (Exception e) {
 			e.printStackTrace();
 			getSession().getTransaction().rollback();

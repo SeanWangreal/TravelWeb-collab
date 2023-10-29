@@ -134,7 +134,7 @@
             <nav class="navbar navbar-light bg-light">
                 <div class="container-fluid justify-content-center">
                   <form class="d-flex" method="post" action="${pageContext.request.contextPath}/sean/SearchServlet">
-                    <select class="form-select me-2" name="comp_address" aria-label="Default select example">
+                    <select class="form-select me-2" name="site" aria-label="Default select example">
                         <option value="台北市">台北市</option>
                         <option value="新北市">新北市</option>
                         <option value="桃園市">桃園市</option>
@@ -142,7 +142,6 @@
                         <option value="台南市">台南市</option>
                         <option value="高雄市">高雄市</option>
                         <option value="新竹縣">新竹縣</option>
-                        <option value="新北市">新北市</option>
                         <option value="苗栗縣">苗栗縣</option>
                         <option value="彰化縣">彰化縣</option>
                         <option value="南投縣">南投縣</option>
@@ -160,12 +159,12 @@
                         <option value="澎湖縣">澎湖縣</option>
                     </select>
                     <input class="form-control me-2" name="checkIn" type="text" placeholder="入住日期..." aria-label="Search" onfocus="(this.type='date')"
-                    	onblur="(this.type='text')" value="${searchCheckIn}">
+                    	onblur="(this.type='text')" value="${searchRoomCheckIn}">
                     <input class="form-control me-2" name="checkOut" type="text" placeholder="退房日期..." aria-label="Search" onfocus="(this.type='date')"
-                    	onblur="(this.type='text')" value="${searchCheckOut}">
-                    <input class="form-control me-2" value="${people}" name="number" type="text" placeholder="人數..." aria-label="Search">
+                    	onblur="(this.type='text')" value="${searchRoomCheckOut}">
+                    <input class="form-control me-2" value="${roomPeople}" name="number" type="text" placeholder="人數..." aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
-                    <input type="hidden" name="action" value="roomSearch">
+                    <input type="hidden" name="action" value="hotel">
                   </form>
                 </div>
             </nav>
@@ -296,9 +295,9 @@
                                 <option value="5">5</option>
                             </select>
                             <input class="form-control me-2" type="text" placeholder="入住日期..." aria-label="Search" onfocus="(this.type='date')"
-                                onblur="(this.type='text')" value="${searchCheckIn}" >
+                                onblur="(this.type='text')" value="${searchRoomCheckIn}" >
                             <input class="form-control me-2" type="text" placeholder="退房日期..." aria-label="Search" onfocus="(this.type='date')"
-                                onblur="(this.type='text')" value="${searchCheckOut}">
+                                onblur="(this.type='text')" value="${searchRoomCheckOut}">
                             <input type="hidden" name="roomId" value=<%=room.getRoomId()%>>
                             <input type="hidden" name="action" value="room_goShopping">
                             <button type="submit" class="btn btn-primary">
