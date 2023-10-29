@@ -295,9 +295,9 @@
                                 <option value="5">5</option>
                             </select>
                             <input class="form-control me-2" type="text" placeholder="入住日期..." aria-label="Search" onfocus="(this.type='date')"
-                                onblur="(this.type='text')" value="${searchRoomCheckIn}" >
+                                onblur="(this.type='text')" value="${searchRoomCheckIn}" name="checkInTime">
                             <input class="form-control me-2" type="text" placeholder="退房日期..." aria-label="Search" onfocus="(this.type='date')"
-                                onblur="(this.type='text')" value="${searchRoomCheckOut}">
+                                onblur="(this.type='text')" value="${searchRoomCheckOut}" name="checkOutTime">
                             <input type="hidden" name="roomId" value=<%=room.getRoomId()%>>
                             <input type="hidden" name="action" value="room_goShopping">
                             <button type="submit" class="btn btn-primary">
