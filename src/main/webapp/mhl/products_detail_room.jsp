@@ -216,7 +216,7 @@
                     <!--地圖-->
                     <div class="col-4 h-100 mt-2 mb-2">
                         <div class="container">
-                            <div class="row">
+                            <div class="row justify-content-center">
                                 <div class="col-6">
                                 	<div class="">位置</div>
 										<!-- Button trigger modal -->
