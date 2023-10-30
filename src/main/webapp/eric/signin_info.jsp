@@ -123,7 +123,7 @@ div#search {
 						<div class="form-floating mb-3">
 							<input type="TEXT" class="form-control" id="floatingInput"
 								name="cusName"
-								value="<%=(consumer == null) ? "" : consumer.getCusName()%>"
+								value="<%=(consumer == null) ? "" : consumer.getCusName()%>" z
 								size="45"> <label>姓名</label>
 						</div>
 						<div class="form-floating mb-3">
@@ -178,7 +178,8 @@ div#search {
 							<input type="file" class="form-control" id="floatingPassword"
 								name="cusPhoto" size="45"> <label>照片</label>
 						</div>
-
+						<button type="submit" name="action" value="mail"
+							class="btn btn-primary py-3 w-100 mb-4">寄送驗證碼</button>
 
 						<button type="submit" name="action" value="add"
 							class="btn btn-primary py-3 w-100 mb-4">註冊!</button>
