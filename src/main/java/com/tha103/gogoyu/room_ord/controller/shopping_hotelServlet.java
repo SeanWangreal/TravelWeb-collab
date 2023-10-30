@@ -37,7 +37,7 @@ public class shopping_hotelServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 
 		String Timestart = "2023-10-17"; // 示例日期字符串
-		String Timeend = "2023-10-21"; // 示例日期字符串
+		String Timeend = "2023-10-23"; // 示例日期字符串
 		Date checkInTime = Date.valueOf(Timestart);
 		Date checkOutTime = Date.valueOf(Timeend);
 
@@ -100,9 +100,15 @@ public class shopping_hotelServlet extends HttpServlet {
 
 			Integer roomOrdId = Integer.valueOf(req.getParameter("roomOrdId"));
 			Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
+			PlanningServiceHibernate PSH = new PlanningServiceHibernate();
+			Integer carts = PSH.findCartByPlanning(ROSH.getRoomOrd(roomOrdId).getPlanId());
+			
 			ROSH.delete(roomOrdId);
-
-			res.sendRedirect(req.getContextPath() + "/chu/shopping(hotel).jsp");
+			
+			
+			
+			req.setAttribute("carts", carts );
+			returnForPage("/chu/shopping(hotel).jsp" , res ,req);
 			return;
 
 		}

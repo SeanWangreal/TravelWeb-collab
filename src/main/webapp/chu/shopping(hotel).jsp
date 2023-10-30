@@ -159,10 +159,10 @@ if (cusId != null) {
 		<div class="tab_list_block">
 
 			<ul class="tab_list">
-				<li><a href="#" data-target="plan1" class="tab -on">規劃一</a></li>
-				<li><a href="#" data-target="plan2" class="tab ">規劃二</a></li>
-				<li><a href="#" data-target="plan3" class="tab ">規劃三</a></li>
-				<li><a href="#" data-target="plan4" class="tab ">規劃四</a></li>
+				<li><a href="#" data-target="plan1" class="tab  -on">規劃一</a></li>
+				<li><a href="#" data-target="plan2" class="tab  ">規劃二</a></li>
+				<li><a href="#" data-target="plan3" class="tab  ">規劃三</a></li>
+				<li><a href="#" data-target="plan4" class="tab  ">規劃四</a></li>
 				<li><a href="#" data-target="plan5" class="tab ">規劃五</a></li>
 			</ul>
 		</div>
