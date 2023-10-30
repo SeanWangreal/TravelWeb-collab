@@ -421,14 +421,14 @@ article {
 										<c:if test="${trip.mainPhoto != null}">
 											<h2>行程搜尋照片</h2>
 											<div class="drag">
-												<img src="MainPhotoTripPrintServlet?tripId=${trip.tripId}"
+												<img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${trip.tripId}"
 													style="max-width: 100%">
 											</div>
 											<h2>行程詳細照片</h2>
 											<div class="multi-photo">
 												<c:forEach var="pics" items="${map.get(trip)}">
 													<img class="imgs"
-														src="TripPhotoPrintServlet?tripPhotoId=${pics.tripPhotoId}"
+														src="${pageContext.request.contextPath}/sean/TripPhotoPrintServlet?tripPhotoId=${pics.tripPhotoId}"
 														style="width: 23%">
 												</c:forEach>
 											</div>

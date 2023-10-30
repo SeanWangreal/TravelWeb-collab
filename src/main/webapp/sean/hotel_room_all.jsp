@@ -439,13 +439,13 @@ input {
 										<c:if test="${room.mainPhoto != null}">
 											<h2>客房搜尋照片</h2>
 											<div class="drag">
-												<img src="MainPhotoPrintHServlet?room_id=${room.roomId}"
+												<img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${room.roomId}"
 													style="max-width: 100%">
 											</div>
 											<h2>客房詳細照片</h2>
 											<div class="multi-photo">
 											<c:forEach var="pics" items="${mapPhoto.get(room)}">
-												<img class="imgs" src="RoomPhotoPrintHServlet?room_photo_id=${pics.roomPhotoId}"
+												<img class="imgs" src="${pageContext.request.contextPath}/sean/RoomPhotoPrintHServlet?room_photo_id=${pics.roomPhotoId}"
 													style="width: 23%">											
 											</c:forEach>
 											</div>
