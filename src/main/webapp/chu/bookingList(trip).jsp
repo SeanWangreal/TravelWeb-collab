@@ -139,7 +139,7 @@ pageContext.setAttribute("tripOrdList",TOSH.getTripOrdList(tripOrd));
 
                 
 					<form action="${pageContext.request.contextPath}/shopping_tripServlet"  method="post">		
-                    	 <button type="submit" class="payment-button"  style =" position : absolute ; left :10%">前往付款頁面</button>
+                    	 <button type="submit" class="payment-button"  style =" position : absolute ; left :10%" onclick="return confirmPayButton()" value="goToPay">前往付款頁面</button>
                    		 <input type="hidden" name="action" value = "ConnectToECPAY">
 						 <input type="hidden" name="tripOrdId" value = "${trip.tripOrdId}">
 						 <input type="hidden" name="amount" value = "${trip.amount}">
@@ -152,7 +152,7 @@ pageContext.setAttribute("tripOrdList",TOSH.getTripOrdList(tripOrd));
 		                    </div>
 					</form>
 					<form action="${pageContext.request.contextPath}/shopping_tripServlet"  method="post"   >			
-                     	 <button type="submit" class="Cancel-button" style =" position : absolute ; left :30%">取消本次交易</button>
+                     	 <button type="submit" class="Cancel-button" style =" position : absolute ; left :30%" onclick="return confirmButton()" value="delete">取消本次交易</button>
                        	 <input type="hidden" name="action" value = "CancelTransaction">
     				</form>
 
@@ -160,9 +160,30 @@ pageContext.setAttribute("tripOrdList",TOSH.getTripOrdList(tripOrd));
 
         </div>
 
-        <script>
-            
-        </script>
+        
+		<script>
+			//按下刪除後
+			function confirmButton() {
+				var buttonValue = $(".Cancel-button").val();
+				if (buttonValue === "delete") {
+					console.log($(".pay").val());
+					const confirmed = confirm("交易進行中，確定要取消嗎?");
+
+					return confirmed ? true : false;
+
+				}
+
+			}
+
+			function confirmPayButton() {
+				var buttonValue = $(".payment-button").val();
+				if (buttonValue === "goToPay") {
+					let confirmed = confirm("即將前往付款，確定要購買嗎?");
+					return confirmed ? true : false;
+
+				}
+			}
+		</script>
 </body>
 
 </html>

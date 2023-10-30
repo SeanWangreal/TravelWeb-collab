@@ -122,8 +122,9 @@ public class Room_ordServiceHibernate {
 		return dao.getRoomOrdByCusId(CusId);
 	}
 
-	public void updateStatusAndRemark(String remark, Integer roomOrdId, BigDecimal profit , BigDecimal commission ,BigDecimal totalPrice ,Timestamp ordTime , Integer people ) {
-		dao.updateStatusAndRemark(remark, roomOrdId , profit , commission , totalPrice , ordTime ,people);
+	public void updateStatusAndRemark(String remark, Integer roomOrdId, BigDecimal profit, BigDecimal commission,
+			BigDecimal totalPrice, Timestamp ordTime, Integer people) {
+		dao.updateStatusAndRemark(remark, roomOrdId, profit, commission, totalPrice, ordTime, people);
 	}
 
 	public Integer updateCommentAndScore(Integer roomOrd, Integer score, String comment, Timestamp commentsTime) {
@@ -134,18 +135,21 @@ public class Room_ordServiceHibernate {
 	public Map<Room_ord, List<String>> getOneRoomOrd(Integer roomOrdId, Integer compId) {
 		return dao.getRoomOrdByCompIdOrdId(roomOrdId, compId);
 	}
-	
-	
-	public Map <Room_ord , List <Object>> getRoomOrdList(Integer roomOrdId , Date checkInTime ,Date checkOutTime){
-		return	dao.getRoomOrdList(roomOrdId ,  checkInTime , checkOutTime);
+
+	public Map<Room_ord, List<Object>> getRoomOrdList(Integer roomOrdId, Date checkInTime, Date checkOutTime) {
+		return dao.getRoomOrdList(roomOrdId, checkInTime, checkOutTime);
 	}
-	
-	public void updateAmount(Integer amount ,Integer roomOrdId) {
-		 dao.updateAmount( amount ,roomOrdId);
+
+	public void updateAmount(Integer amount, Integer roomOrdId) {
+		dao.updateAmount(amount, roomOrdId);
 	}
-	public void updateCartNum(Integer plan_id , Integer roomOrdId) {
-		dao.updateCartNum(plan_id ,roomOrdId);
+
+	public void updateCartNum(Integer plan_id, Integer roomOrdId) {
+		dao.updateCartNum(plan_id, roomOrdId);
 	}
-	
-	
+
+	public Integer queryProduct(Integer roomId, Integer cusId, Date checkInTime, Date checkOutTime) {
+		return dao.queryProduct(roomId, cusId, checkInTime, checkOutTime);
+	}
+
 }

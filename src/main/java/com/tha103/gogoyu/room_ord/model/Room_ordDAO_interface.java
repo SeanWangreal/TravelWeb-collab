@@ -29,4 +29,5 @@ public interface Room_ordDAO_interface {
 	public Map <Room_ord , List <Object>> getRoomOrdList(Integer roomOrdIdDate , Date checkInTime ,Date checkOutTime);
 	public Integer updateAmount(Integer amount ,Integer roomOrdId);
 	public Integer updateCartNum(Integer planId , Integer roomOrdId);
+	public Integer queryProduct(Integer roomId , Integer cusId , Date checkInTime , Date checkOutTime); 
 }

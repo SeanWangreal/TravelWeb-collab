@@ -174,6 +174,37 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 		return null;
 	}
 
+	
+	
+	
+	public Integer queryProduct(Integer roomId , Integer cusId , Date checkInTime , Date checkOutTime) {
+		try {
+			getSession().beginTransaction();
+			Room_ord query = getSession().createQuery("from Room_ord where roomId = :roomId and cusId = :cusId and checkInTime = :checkInTime and checkOutTime = :checkOutTime  and ordStatus = 0" , Room_ord.class)
+													.setParameter("roomId", roomId)
+													.setParameter("cusId", cusId)
+													.setParameter("checkInTime", checkInTime)
+													.setParameter("checkOutTime", checkOutTime)
+													.uniqueResult();
+			
+			getSession().getTransaction().commit();
+		
+			return  query == null ? 1 : -1 ;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+			return -2 ;
+		}
+	
+	}
+	
+	
+	
+	
+	
+	
+	
 	public Map<Room_ord, List<String>> getRoomOrdByCusId(Integer CusId) {
 		try {
 			getSession().beginTransaction();
@@ -255,13 +286,13 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 				Room roomId= getSession().get(Room.class, Room.getRoomId());
 				Integer roomstock = getSession()
 						.createQuery("select min(stock) from Room_stock where ( stockDate between :checkInTime and  :checkOutTime ) and roomId = :roomId ", Integer.class)
-						.setParameter("checkInTime",  checkInTime)
-						.setParameter("checkOutTime", newDate)
+						.setParameter("checkInTime",  2023-11-17)
+						.setParameter("checkOutTime", 2023-11-18)
 						.setParameter("roomId", roomId.getRoomId()).uniqueResult();
 				
-				info.add(roomstock);
+				info.add(roomstock == null ? "暫無庫存"  :  roomstock );
 				
-				
+				System.out.println(roomstock);
 				
 
 				map.put(Room, info);
