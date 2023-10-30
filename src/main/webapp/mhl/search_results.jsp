@@ -189,7 +189,7 @@
 	                                            <h3 class="">${roomMap.get(roomVO)}</h3><br>
 	                                            <div>${roomVO.roomName}</div>
 	                                            <div>${roomVO.roomType}人房</div><br>
-	                                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?action=getProductDetailRoom&room_id=${roomVO.roomId}&searchCheckIn=${searchCheckIn}&searchCheckOut=${searchCheckOut}&number=${roomPeople}" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">查看房型細況</a>
+	                                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?action=getProductDetailRoom&room_id=${roomVO.roomId}&searchCheckIn=${searchRoomCheckIn}&searchCheckOut=${searchRoomCheckOut}&number=${roomPeople}" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">查看房型細況</a>
 	                                    </div>
 	                                    <!--聯絡 評等 價格-->
 	                                    <div class="col ">
@@ -281,7 +281,7 @@
                                         <div>開始時間:${tripVO.startTime}</div>
                                         <div>結束時間:${tripVO.endTime}</div>
                                         <div>人數:${tripVO.people}</div>
-                                        <a href="${pageContext.request.contextPath}/sean/SearchServlet?tripId=${tripVO.tripId}&action=getProductDetailTrip" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">查看行程細況</a>
+                                        <a href="${pageContext.request.contextPath}/sean/SearchServlet?tripId=${tripVO.tripId}&action=getProductDetailTrip&searchCheckIn=${searchTripCheckIn}&searchCheckOut=${searchTripCheckOut}&number=${tripPeople}" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">查看行程細況</a>
                                     </div>
                                     <!--聯絡 評等 價格-->
                                     <div class="col ">

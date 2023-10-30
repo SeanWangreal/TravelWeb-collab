@@ -36,4 +36,5 @@ public interface TripService {
 	int deleteAllPhoto(Integer tripId);
 	public List<Trip> searchTrip(String site, Date startTime, Date endTime, Integer number);
 	public List<Trip> getHotTrip();
+	public List<Object> getTripProdutDetail(Integer tripId);
 }

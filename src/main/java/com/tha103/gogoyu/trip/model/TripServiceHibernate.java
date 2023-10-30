@@ -165,6 +165,10 @@ public class TripServiceHibernate implements TripService {
 		return dao.getHotTrip();
 	}
 	
+	public List<Object> getTripProdutDetail(Integer tripId){
+		return dao.getTripProdutDetail(tripId);
+	}
+	
 	public static void main (String[] args ) {
 
 	}

@@ -316,4 +316,10 @@ public class TripJDBCDAO implements TripDAO_interface {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Object> getTripProdutDetail(Integer tripId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
