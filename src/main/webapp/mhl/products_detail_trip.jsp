@@ -1,6 +1,20 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
+<%@ page import="com.tha103.gogoyu.trip.model.*" %>
+<%@ page import="com.tha103.gogoyu.itinerary.model.*" %>
+<%@ page import="com.tha103.gogoyu.scene.model.*" %>
+
+<%
+	List<Object> list = (List<Object>)request.getAttribute("productDetailTrip");
+	Trip trip = (Trip)list.get(0);
+	List<Integer> tripPhotoIdList = (List<Integer>)list.get(1);
+	List<Itinerary> itineraryList = (List<Itinerary>)list.get(2);
+	List<Scene> sceneList = (List<Scene>)list.get(3);
+	String compName = (String)list.get(4);
+	List<String> siteList = (List<String>)list.get(5);
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -119,59 +133,58 @@
             <nav class="navbar navbar-light bg-light">
                 <div class="container-fluid justify-content-center">
                     <form class="d-flex" method="post" action="${pageContext.request.contextPath}/sean/SearchServlet">
-                    <select class="form-select me-2" aria-label="Default select example">
-                        <option value="Taipei_City">台北市</option>
-                        <option value="NewTaipei_City">新北市</option>
-                        <option value="Taoyuan_City">桃園市</option>
-                        <option value="Taichung_City">台中市</option>
-                        <option value="Tainan_City">台南市</option>
-                        <option value="Kaohsiung_City">高雄市</option>
-                        <option value="Hsinchu_County">新竹縣</option>
-                        <option value="Miaoli_County">新北市</option>
-                        <option value="Changhua_County">苗栗縣</option>
-                        <option value="Nantou_County">彰化縣</option>
-                        <option value="Nantou_County">南投縣</option>
-                        <option value="Yunlin_County">雲林縣</option>
-                        <option value="Chiayi_County">嘉義縣</option>
-                        <option value="Pingtung_County">屏東縣</option>
-                        <option value="Yilan_City">宜蘭市</option>
-                        <option value="Hualien_City">花蓮市</option>
-                        <option value="Taitung_County">台東縣</option>
-                        <option value="Kinmen_County">金門縣</option>
-                        <option value="Lienchiang_County">連江縣</option>
-                        <option value="Keelung_City">基隆市</option>
-                        <option value="Hsinchu_City">新竹市</option>
-                        <option value="Chiayi_City">嘉義市</option>
-                        <option value="Penghu_County">澎湖縣</option>
+                    <select class="form-select me-2" name="site" aria-label="Default select example">
+                        <option value="台北市">台北市</option>
+                        <option value="新北市">新北市</option>
+                        <option value="桃園市">桃園市</option>
+                        <option value="台中市">台中市</option>
+                        <option value="台南市">台南市</option>
+                        <option value="高雄市">高雄市</option>
+                        <option value="新竹縣">新竹縣</option>
+                        <option value="苗栗縣">苗栗縣</option>
+                        <option value="彰化縣">彰化縣</option>
+                        <option value="南投縣">南投縣</option>
+                        <option value="雲林縣">雲林縣</option>
+                        <option value="嘉義縣">嘉義縣</option>
+                        <option value="屏東縣">屏東縣</option>
+                        <option value="宜蘭市">宜蘭市</option>
+                        <option value="花蓮市">花蓮市</option>
+                        <option value="台東縣">台東縣</option>
+                        <option value="金門縣">金門縣</option>
+                        <option value="連江縣">連江縣</option>
+                        <option value="基隆市">基隆市</option>
+                        <option value="新竹市">新竹市</option>
+                        <option value="嘉義市">嘉義市</option>
+                        <option value="澎湖縣">澎湖縣</option>
                     </select>
-                    <input class="form-control me-2" type="text" placeholder="開始日期..." aria-label="Search" onfocus="(this.type='date')"
-                    onblur="(this.type='text')">
-                    <input class="form-control me-2" type="text" placeholder="結束日期..." aria-label="Search" onfocus="(this.type='date')"
-                    onblur="(this.type='text')">
-                    <input class="form-control me-2" type="text" placeholder="人數..." aria-label="Search">
+                    <input class="form-control me-2" name="checkIn" type="text" placeholder="入住日期..." aria-label="Search" onfocus="(this.type='date')"
+                    	onblur="(this.type='text')" value="${searchTripCheckIn}">
+                    <input class="form-control me-2" name="checkOut" type="text" placeholder="退房日期..." aria-label="Search" onfocus="(this.type='date')"
+                    	onblur="(this.type='text')" value="${searchTripCheckOut}">
+                    <input class="form-control me-2" value="${tripPeople}" name="number" type="text" placeholder="人數..." aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
+                    <input type="hidden" name="action" value="trip">
                   </form>
                 </div>
             </nav>
-            <!--商品名-->
-            <h2 class="mx-auto">野柳二天一夜</h2>
-            <!--幻燈片-->
+            <!--旅行社-->
+            <h2 class="mx-auto"><%=compName%></h2>
+            <!--幻燈片1 mainPhoto 行程圖片-->
             <div id="carouseltrip" class="carousel slide border mx-auto" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                  <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                  <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                  <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
+<!--                 <div class="carousel-indicators"> -->
+<!--                   <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button> -->
+<!--                   <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="1" aria-label="Slide 2"></button> -->
+<!--                   <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="2" aria-label="Slide 3"></button> -->
+<!--                 </div> -->
                 <div class="carousel-inner h-100">
                   <div class="carousel-item active">
-                    <img src="https://picsum.photos/2800/1600?random=1" class="d-block w-100 h-100" alt="...">
+                    <img src="MainPhotoTripPrintServlet?tripId=<%=trip.getTripId()%>" class="d-block w-100 h-100" alt="...">
                   </div>
-                  <div class="carousel-item">
-                    <img src="https://picsum.photos/2800/1600?random=2" class="d-block w-100 h-100" alt="...">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="https://picsum.photos/2800/1600?random=3" class="d-block w-100 h-100" alt="...">
-                  </div>
+                  <c:forEach var="tripPhotoId" items="<%=tripPhotoIdList%>" >
+	                  <div class="carousel-item">
+	                    <img src="TripPhotoPrintServlet?tripPhotoId=${tripPhotoId}" class="d-block w-100 h-100" alt="...">
+	                  </div>
+                  </c:forEach>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouseltrip" data-bs-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -182,27 +195,58 @@
                   <span class="visually-hidden">Next</span>
                 </button>
             </div>
+            <!--幻燈片2 景點圖片-->
+<!--             <div id="carouseltripScene" class="carousel slide border mx-auto h-100" data-bs-ride="carousel"> -->
+<!--                 <div class="carousel-indicators"> -->
+<!--                   <button type="button" data-bs-target="#carouseltripScene" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button> -->
+<!--                   <button type="button" data-bs-target="#carouseltripScene" data-bs-slide-to="1" aria-label="Slide 2"></button> -->
+<!--                   <button type="button" data-bs-target="#carouseltripScene" data-bs-slide-to="2" aria-label="Slide 3"></button> -->
+<!--                 </div> -->
+<!--                 <div class="carousel-inner h-100"> -->
+<!--                   <div class="carousel-item active"> -->
+<%--                     <img src="MainPhotoTripPrintServlet?tripId=<%=trip.getTripId()%>" class="d-block w-100 h-100" alt="..."> --%>
+<!--                   </div> -->
+<%--                   <c:forEach var="scene" items="<%=sceneList%>" > --%>
+<!-- 	                  <div class="carousel-item"> -->
+<!-- 	                    <img src="" class="d-block w-100 h-100" alt="..."> -->
+<!-- 	                  </div> -->
+<%--                   </c:forEach> --%>
+<!--                 </div> -->
+<!--                 <button class="carousel-control-prev" type="button" data-bs-target="#carouseltripScene" data-bs-slide="prev"> -->
+<!--                   <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
+<!--                   <span class="visually-hidden">Previous</span> -->
+<!--                 </button> -->
+<!--                 <button class="carousel-control-next" type="button" data-bs-target="#carouseltripScene" data-bs-slide="next"> -->
+<!--                   <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
+<!--                   <span class="visually-hidden">Next</span> -->
+<!--                 </button> -->
+<!--             </div> -->
             <!--地圖 所在縣市 景點 聯絡 評價-->
             <div class="container mt-2 border h-100" id="content1">
                 <div class="row justify-content-center align-items-center h-100">
                     <!--地圖-->
                     <div class="col-4 h-100 mt-2 mb-2">
-                        <a href="#">
-                            <i class="fa-solid fa-map-location-dot h-100" id="map"></i>
-                        </a>
+                    
+                   			<!-- Button trigger modal -->
+							<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+							  Launch static backdrop modal
+							</button>
+							
+							
+                    
+                    
+<!--                         <a href="#"> -->
+<!--                             <i class="fa-solid fa-map-location-dot h-100" id="map"></i> -->
+<!--                         </a> -->
                     </div>
                     <!-- 所在縣市 景點 -->
                     <div class="col-4 h-100 mt-2 mb-2">
-                        <span class="badge bg-secondary">新北市</span>
-                        <span class="badge bg-primary">女王頭</span>
-                        <span class="badge bg-primary">仙女鞋</span>
-                        <span class="badge bg-primary">金山老街</span>
-                        <span class="badge bg-primary">女王頭</span>
-                        <span class="badge bg-primary">仙女鞋</span>
-                        <span class="badge bg-primary">金山老街</span>
-                        <span class="badge bg-primary">女王頭</span>
-                        <span class="badge bg-primary">仙女鞋</span>
-                        <span class="badge bg-primary">金山老街</span>
+	                     <c:forEach var="site" items="<%=siteList%>" >
+	                        <span class="badge bg-secondary">${site}</span>
+                        </c:forEach>
+                        <c:forEach var="scene" items="<%=sceneList%>" >
+                        	<span class="badge bg-primary">${scene.sceneName} </span>
+                        </c:forEach>
                     </div>
                     <!-- 聯絡 評價 -->
                     <div class="col-4 h-100 mt-2 mb-2">
@@ -212,10 +256,10 @@
                                 聯繫業者
                             </button>
                         </a>
-                        <a href="#">
+                        <a href="${pageContext.request.contextPath}/chu/commentArea(trip).jsp?tripId=<%=trip.getTripId()%>">
                             <button type="button" class="btn btn-primary">
                                 <i class="fa-solid fa-message"></i>
-                                查看匿名評價
+                                查看評價
                             </button>
                         </a>
                     </div>
@@ -226,11 +270,11 @@
                 <div class="row  align-items-center h-100">
                     <!--人數、開始時間、結束時間、金額、庫存、收藏-->
                     <div class="col-6 h-100 mt-2 mb-2 ">
-                        <div>人數：2</div>
-                        <div>開始日期：2023-10-10</div>
-                        <div>結束日期：2023-10-13</div>
-                        <div>金額：NTW 2000</div>
-                        <div>庫存：5</div>
+                        <div>套票人數：<%=trip.getPeople()%></div>
+                        <div>開始日期：<%=trip.getStartTime()%></div>
+                        <div>結束日期：<%=trip.getEndTime()%></div>
+                        <div>價格：NTW <%=trip.getPrice().intValue()%></div>
+                        <div>庫存：<%=trip.getAmount()%></div>
                         <a class="" href="#">
                             <button type="button" class="btn btn-primary">
                                 收藏
@@ -239,17 +283,34 @@
                     </div>
                     <!--加入購物車-->
                     <div class="col-6 h-100">
-                        <form class="" method="" action="" >
+                        <form class="" method="post" action="${pageContext.request.contextPath}/shopping_tripServlet" >
                             <div>先加入購物車，結帳時再選數量</div>
                             <div>請選擇購物車：
                             </div>
-                            <select class="form-select me-2 mb-2" aria-label="Default select example" name="">
+                            <select class="form-select me-2 mb-2" aria-label="Default select example" name="cart_id">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
                             </select>
                             <input type="submit" class="btn btn-primary"  value="加入購物車">
+                            <input type="hidden" name="tripId" value=<%=trip.getTripId()%>>
+                            <input type="hidden" name="action" value="trip_goShopping">
                         </form>
+                    </div>
+                </div>
+            </div>
+            <div class="container border h-100" id="content1" >
+                <div class="row align-items-center h-100">
+                    <!--行程表-->
+                    <div class="col border h-100">
+                        <div class="item h-100">
+                            <h3 class="mt-2">行程表</h3>
+                            <c:forEach var="scene" items="<%=sceneList%>" >
+                            	<p class="text-wrap">${scene.sceneName}：${scene.openTime}</p><br>
+                            </c:forEach>
+                        </div> 
                     </div>
                 </div>
             </div>
@@ -259,7 +320,7 @@
                     <div class="col border h-100">
                         <div class="item h-100">
                             <h3 class="mt-2">活動內容</h3>
-                            <p class="text-wrap">活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容活動內容</p>
+                            <p class="text-wrap"><%=trip.getContent()%></p>
                         </div> 
                     </div>
                 </div>

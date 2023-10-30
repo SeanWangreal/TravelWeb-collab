@@ -1,12 +1,7 @@
-package com.tha103.gogoyu.room.controller;
+package com.tha103.gogoyu.company.controller;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.BufferedInputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -15,34 +10,33 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.tha103.gogoyu.room.model.RoomServiceHibernate;
+import com.tha103.gogoyu.company.model.CompanyService;
 
-import util.Util;
 
-@WebServlet("/sean/MainPhotoPrintHServlet")
-public class MainPhotoPrintHServlet extends HttpServlet {
+@WebServlet("/CompPhotoPrintHServlet")
+public class CompPhotoPrintHServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	RoomServiceHibernate roomSrc = null;
+	CompanyService compSrc = null;
 
 	public void init() throws ServletException {
-		roomSrc = new RoomServiceHibernate();
+		compSrc = new CompanyService();
 	}
 
 	public void destroy() {
-		roomSrc = null;
+		compSrc = null;
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		res.setContentType("image/gif");
 		ServletOutputStream out = res.getOutputStream();
 		byte[] photo = null;
-		String roomId = req.getParameter("room_id");
-		System.out.println(roomId);
-		if (roomId != null) {
-			photo = roomSrc.getMainPhoto(Integer.valueOf(roomId));
+		String compId = req.getParameter("comp_id");
+		System.out.printf("Company Id %s\n", compId);
+		if (compId != null) {
+			photo = compSrc.getCompPhoto(Integer.valueOf(compId));
 		}
 		out.write(photo);
-		out.close();
+
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

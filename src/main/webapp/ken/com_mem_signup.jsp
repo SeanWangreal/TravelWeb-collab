@@ -103,7 +103,7 @@ Company company = (Company) request.getAttribute("Company");
                             <label for="floatingPassword">驗證碼</label>
                         </div>
 						
-                        <button onclick="window.location.href='com_mem_signupinfo.jsp'" type="submit" class="btn btn-primary py-3 w-100 mb-4" >下一步</button>
+                        <a href="${pageContext.request.contextPath}/ken/com_mem_signupinfo.jsp" type="submit" class="btn btn-primary py-3 w-100 mb-4" >下一步</a>
 												
                     </div>
                 </div>

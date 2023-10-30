@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.tha103.gogoyu.room.model.*" %>
-<%@ page import="com.tha103.gogoyu.room.model.*" %>
 <%@ page import="com.tha103.gogoyu.room_photo.model.*" %>
 <%@ page import="com.tha103.gogoyu.company.model.*" %>
 <%@ page import="com.tha103.gogoyu.hotel_info.model.*" %>
@@ -62,13 +61,13 @@
             padding: 10px 40px;
         }
 
-        #carouseltrip {
+        #carouselRoom {
             height: 60vh;
             width: 60%;
         }
 
         #map {
-            font-size: 100px;
+/*             font-size: 100px; */
         }
 
         #content1{
@@ -134,7 +133,7 @@
             <nav class="navbar navbar-light bg-light">
                 <div class="container-fluid justify-content-center">
                   <form class="d-flex" method="post" action="${pageContext.request.contextPath}/sean/SearchServlet">
-                    <select class="form-select me-2" name="comp_address" aria-label="Default select example">
+                    <select class="form-select me-2" name="site" aria-label="Default select example">
                         <option value="台北市">台北市</option>
                         <option value="新北市">新北市</option>
                         <option value="桃園市">桃園市</option>
@@ -142,7 +141,6 @@
                         <option value="台南市">台南市</option>
                         <option value="高雄市">高雄市</option>
                         <option value="新竹縣">新竹縣</option>
-                        <option value="新北市">新北市</option>
                         <option value="苗栗縣">苗栗縣</option>
                         <option value="彰化縣">彰化縣</option>
                         <option value="南投縣">南投縣</option>
@@ -160,39 +158,39 @@
                         <option value="澎湖縣">澎湖縣</option>
                     </select>
                     <input class="form-control me-2" name="checkIn" type="text" placeholder="入住日期..." aria-label="Search" onfocus="(this.type='date')"
-                    	onblur="(this.type='text')" value="${searchCheckIn}">
+                    	onblur="(this.type='text')" value="${searchRoomCheckIn}">
                     <input class="form-control me-2" name="checkOut" type="text" placeholder="退房日期..." aria-label="Search" onfocus="(this.type='date')"
-                    	onblur="(this.type='text')" value="${searchCheckOut}">
-                    <input class="form-control me-2" value="${people}" name="number" type="text" placeholder="人數..." aria-label="Search">
+                    	onblur="(this.type='text')" value="${searchRoomCheckOut}">
+                    <input class="form-control me-2" value="${roomPeople}" name="number" type="text" placeholder="人數..." aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
-                    <input type="hidden" name="action" value="roomSearch">
+                    <input type="hidden" name="action" value="hotel">
                   </form>
                 </div>
             </nav>
             <!--飯店名-->
             <h2 class="mx-auto"><%=company.getCompName()%></h2>
             <!--幻燈片-->
-            <div id="carouseltrip" class="carousel slide border mx-auto" data-bs-ride="carousel">
+            <div id="carouselRoom" class="carousel slide border mx-auto" data-bs-ride="carousel">
 <!--                 <div class="carousel-indicators"> -->
-<!--                   <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button> -->
-<!--                   <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="1" aria-label="Slide 2"></button> -->
-<!--                   <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="2" aria-label="Slide 3"></button> -->
+<!--                   <button type="button" data-bs-target="#carouselRoom" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button> -->
+<!--                   <button type="button" data-bs-target="#carouselRoom" data-bs-slide-to="1" aria-label="Slide 2"></button> -->
+<!--                   <button type="button" data-bs-target="#carouselRoom" data-bs-slide-to="2" aria-label="Slide 3"></button> -->
 <!--                 </div> -->
                 <div class="carousel-inner h-100">
                   <div class="carousel-item active">
-                    <img src="MainPhotoPrintHServlet?room_id=${room.roomId}" class="d-block w-100 h-100" alt="...">
+                    <img src="MainPhotoPrintHServlet?room_id=<%=room.getRoomId()%>" class="d-block w-100 h-100" alt="...">
                   </div>
                   <c:forEach var="roomPhotoId" items="<%=roomPhotoIdList%>" >
 	                  <div class="carousel-item">
-	                    <img src="RoomPhotoPrintHServlet?room_id=${roomPhotoId}" class="d-block w-100 h-100" alt="...">
+	                    <img src="RoomPhotoPrintHServlet?room_photo_id=${roomPhotoId}" class="d-block w-100 h-100" alt="...">
 	                  </div>
                   </c:forEach>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouseltrip" data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselRoom" data-bs-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                   <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouseltrip" data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselRoom" data-bs-slide="next">
                   <span class="carousel-control-next-icon" aria-hidden="true"></span>
                   <span class="visually-hidden">Next</span>
                 </button>
@@ -218,12 +216,42 @@
                     <!--地圖-->
                     <div class="col-4 h-100 mt-2 mb-2">
                         <div class="container">
-                            <div class="row">
+                            <div class="row justify-content-center">
                                 <div class="col-6">
-                                    <div class="">位置</div>
-                                    <a href="#">
-                                        <i class="fa-solid fa-map-location-dot h-100" id="map"></i>
-                                    </a>
+                                	<div class="">位置</div>
+										<!-- Button trigger modal -->
+											<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+											  <i class="fa-solid fa-map-location-dot h-100" id="map"></i>
+											</button>
+											<!-- Modal -->
+											<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+											  <div class="modal-dialog modal-lg">
+											    <div class="modal-content">
+											      <div class="modal-header">
+											        <h5 class="modal-title" id="exampleModalLabel"><%=company.getCompName()%></h5>
+											        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+											      </div>
+											      <div class="modal-body ">
+											      <div class="container">
+											      	<div class="row justify-content-center">
+											      		<iframe
+													      width="750"
+													      height="350"
+													      style="border:0"
+													      loading="lazy"
+													      allowfullscreen
+													      referrerpolicy="no-referrer-when-downgrade"
+													      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAInnBRglvKKBNHyr2OIw4-4ySCv-enRUY
+													        &q=<%=company.getCompAddress()%>&zoom=15">
+													    </iframe>
+											      	</div>
+											      </div>
+											      </div>
+											      <div class="modal-footer">
+											      </div>
+											    </div>
+											  </div>
+											</div>
                                 </div>
                                 <div class="col-6">
                                     <div>附近景點</div>
@@ -237,8 +265,8 @@
                     <!-- 房型設備 -->
                     <div class="col-4 h-100 mt-2 mb-2">
                         <c:forEach var="facility" items="<%=roomFacilities%>" >
-                                <span class="badge bg-primary">${facility}</span>
-                             </c:forEach>
+                           <span class="badge bg-primary">${facility}</span>
+                        </c:forEach>
                     </div>
                     <!-- 聯絡 評價 -->
                     <div class="col-4 h-100 mt-2 mb-2">
@@ -248,10 +276,10 @@
                                 聯繫業者
                             </button>
                         </a>
-                        <a href="#">
+                        <a href="${pageContext.request.contextPath}/chu/commentArea(hotel).jsp?roomId=<%=room.getRoomId()%>">
                             <button type="button" class="btn btn-primary">
                                 <i class="fa-solid fa-message"></i>
-                                查看匿名評價
+                                查看評價
                             </button>
                         </a>
                     </div>
@@ -264,8 +292,8 @@
                     <div class="col-4 h-100 mt-2 mb-2">
                         <div>房型名稱：<%=room.getRoomName()%></div>
                         <div>房型：<%=room.getRoomType()%>人房</div>
-                        <div>金額：NTW <%=room.getPrice().intValue()%></div>
-                        <a class="" href="#">
+                        <div>價格：NTW <%=room.getPrice().intValue()%></div>
+                        <a class="" href="">
                             <button type="button" class="btn btn-primary">
                                 收藏
                             </button>
@@ -296,9 +324,9 @@
                                 <option value="5">5</option>
                             </select>
                             <input class="form-control me-2" type="text" placeholder="入住日期..." aria-label="Search" onfocus="(this.type='date')"
-                                onblur="(this.type='text')" value="${searchCheckIn}" >
+                                onblur="(this.type='text')" value="${searchRoomCheckIn}" name="checkInTime">
                             <input class="form-control me-2" type="text" placeholder="退房日期..." aria-label="Search" onfocus="(this.type='date')"
-                                onblur="(this.type='text')" value="${searchCheckOut}">
+                                onblur="(this.type='text')" value="${searchRoomCheckOut}" name="checkOutTime">
                             <input type="hidden" name="roomId" value=<%=room.getRoomId()%>>
                             <input type="hidden" name="action" value="room_goShopping">
                             <button type="submit" class="btn btn-primary">

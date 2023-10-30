@@ -270,7 +270,7 @@ input {
 					RoomStockService roomStockSvc = new RoomStockServiceHibernate();
 					String compString = (String) request.getSession().getAttribute("compId");
 					if (compString == null ){
-						response.sendRedirect(request.getContextPath() + "/sean/select_page.jsp");
+						response.sendRedirect(request.getContextPath() + "/ken/com_mem_signin.jsp");
 						return;
 					}
 					Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId"));
@@ -439,13 +439,13 @@ input {
 										<c:if test="${room.mainPhoto != null}">
 											<h2>客房搜尋照片</h2>
 											<div class="drag">
-												<img src="MainPhotoPrintHServlet?room_id=${room.roomId}"
+												<img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${room.roomId}"
 													style="max-width: 100%">
 											</div>
 											<h2>客房詳細照片</h2>
 											<div class="multi-photo">
 											<c:forEach var="pics" items="${mapPhoto.get(room)}">
-												<img class="imgs" src="RoomPhotoPrintHServlet?room_photo_id=${pics.roomPhotoId}"
+												<img class="imgs" src="${pageContext.request.contextPath}/sean/RoomPhotoPrintHServlet?room_photo_id=${pics.roomPhotoId}"
 													style="width: 23%">											
 											</c:forEach>
 											</div>
@@ -583,13 +583,11 @@ input {
         var my_year = my_date.getFullYear();
         var my_month = my_date.getMonth();
         var my_day = my_date.getDate();
-        //获取某年某月第一天是星期几
         $(function () {
             function dayStart(month, year) {
                 var tmpDate = new Date(year, month, 1);
                 return (tmpDate.getDay());
             }
-            //计算某年是不是闰年，通过求年份除以4的余数即可
             function daysMonth(month, year) {
                 if (year % 4 === 0 && year % 100 !== 0 || year % 400 === 0) {
                     return (month_leap[month]);
@@ -613,11 +611,11 @@ input {
             			var totalStock = data.length;
         				var countStock = 0;
 		               var str = "";
-		               var totalDay = daysMonth(my_month, my_year); //获取该月总天数
-		               var firstDay = dayStart(my_month, my_year); //获取该月第一天是星期几
+		               var totalDay = daysMonth(my_month, my_year); 
+		               var firstDay = dayStart(my_month, my_year);
 		               var myclass;
 		               for (let i = 1; i < firstDay; i++) {
-		                   str += "<li></li>"; //为起始日之前的日期创建空白节点
+		                   str += "<li></li>";
 		               }
 						var month = '';
 	           		   	if (my_month+1 <10){
@@ -632,13 +630,13 @@ input {
 		            		   var thisDay = my_year+'-'+(month)+'-'+i;		            		   
 		            	   }
 		                   if ((i < my_day && my_year == my_date.getFullYear() && my_month == my_date.getMonth()) || my_year < my_date.getFullYear() || (my_year == my_date.getFullYear() && my_month < my_date.getMonth())) {
-		                       myclass = 'lightgrey'; //当该日期在今天之前时，以浅灰色字体显示
+		                       myclass = 'lightgrey'; //日期在今天之前
 		                       str += `<li class=` + myclass + ` data-date=`+thisDay+`>` +i+ `<p></p></li>`;
 		                   } else if (i == my_day && my_year == my_date.getFullYear() && my_month == my_date.getMonth()) {
-		                       myclass = 'colorbox'; //当天日期以绿色背景突出显示
+		                       myclass = 'colorbox'; //當天日期
 	                    	   str += `<li class=` + myclass + `>` +i+ `<p class="today" data-date=`+thisDay+`></p></li>`;		  
 		                   } else {
-		                       myclass = 'darkgrey'; //当该日期在今天之后时，以深灰字体显示
+		                       myclass = 'darkgrey'; //日期在今天之後
  		                    str += `<li class=` + myclass + `>` +i+ `<p data-date=`+thisDay+`></p></li>`;
 		                   }
 		               }

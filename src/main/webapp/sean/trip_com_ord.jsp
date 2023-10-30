@@ -12,8 +12,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TravelMaker</title>
-<link href="../dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="../static/sean_css/comp_ord.css">
+<link href="${pageContext.request.contextPath}/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/sean_css/comp_ord.css">
 </script>
 <style>
 @media ( min-height : 500px) and (max-height: 1300px) {
@@ -128,7 +128,7 @@
 			</div>
 		</main>
 	</div>
-	<script src="../static/sean_js/btn4com.js"></script>
+	<script src="${pageContext.request.contextPath}/static/sean_js/btn4com.js"></script>
 	<script type="text/javascript">
     $(document).ready(function() {
 	var path = window.location.pathname;

@@ -42,22 +42,6 @@ public class RoomStockServlet extends HttpServlet {
 		res.setContentType("text/html; charset=UTF-8");
 		String action = req.getParameter("action");
 		String roomId = req.getParameter("roomId");
-		// ------------------------------------------------------------------------
-		if (action == null) {
-			action = "";
-		} else {
-			action = action.strip();
-			String correctAction = "";
-			if (action.contains(" ")) {
-				for (int i = 0; i < action.length(); i++) {
-					if (action.charAt(i) != (char) ' ')
-						correctAction += action.charAt(i);
-				}
-				action = correctAction;
-			}
-		}
-		System.out.println(action);
-		// ------------------------------------------------------------------------
 		String forwardPath = "";
 		switch (action) {
 		case "change":
@@ -101,8 +85,8 @@ public class RoomStockServlet extends HttpServlet {
 			List<Room_stock> stocks = roomStockSvc.getStockByTodayByRoomId(Integer.parseInt(roomId));
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			String str = gson.toJson(stocks);
-			System.out.println(str);
 			out.write(str);
+			out.close();
 			return;
 		}
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
