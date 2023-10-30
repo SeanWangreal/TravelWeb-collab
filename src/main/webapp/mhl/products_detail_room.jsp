@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.tha103.gogoyu.room.model.*" %>
-<%@ page import="com.tha103.gogoyu.room.model.*" %>
 <%@ page import="com.tha103.gogoyu.room_photo.model.*" %>
 <%@ page import="com.tha103.gogoyu.company.model.*" %>
 <%@ page import="com.tha103.gogoyu.hotel_info.model.*" %>
@@ -62,7 +61,7 @@
             padding: 10px 40px;
         }
 
-        #carouseltrip {
+        #carouselRoom {
             height: 60vh;
             width: 60%;
         }
@@ -171,11 +170,11 @@
             <!--飯店名-->
             <h2 class="mx-auto"><%=company.getCompName()%></h2>
             <!--幻燈片-->
-            <div id="carouseltrip" class="carousel slide border mx-auto" data-bs-ride="carousel">
+            <div id="carouselRoom" class="carousel slide border mx-auto" data-bs-ride="carousel">
 <!--                 <div class="carousel-indicators"> -->
-<!--                   <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button> -->
-<!--                   <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="1" aria-label="Slide 2"></button> -->
-<!--                   <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="2" aria-label="Slide 3"></button> -->
+<!--                   <button type="button" data-bs-target="#carouselRoom" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button> -->
+<!--                   <button type="button" data-bs-target="#carouselRoom" data-bs-slide-to="1" aria-label="Slide 2"></button> -->
+<!--                   <button type="button" data-bs-target="#carouselRoom" data-bs-slide-to="2" aria-label="Slide 3"></button> -->
 <!--                 </div> -->
                 <div class="carousel-inner h-100">
                   <div class="carousel-item active">
@@ -187,11 +186,11 @@
 	                  </div>
                   </c:forEach>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouseltrip" data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselRoom" data-bs-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                   <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouseltrip" data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselRoom" data-bs-slide="next">
                   <span class="carousel-control-next-icon" aria-hidden="true"></span>
                   <span class="visually-hidden">Next</span>
                 </button>
@@ -236,8 +235,8 @@
                     <!-- 房型設備 -->
                     <div class="col-4 h-100 mt-2 mb-2">
                         <c:forEach var="facility" items="<%=roomFacilities%>" >
-                                <span class="badge bg-primary">${facility}</span>
-                             </c:forEach>
+                           <span class="badge bg-primary">${facility}</span>
+                        </c:forEach>
                     </div>
                     <!-- 聯絡 評價 -->
                     <div class="col-4 h-100 mt-2 mb-2">
@@ -247,10 +246,10 @@
                                 聯繫業者
                             </button>
                         </a>
-                        <a href="#">
+                        <a href="${pageContext.request.contextPath}/chu/commentArea(hotel).jsp?roomId=<%=room.getRoomId()%>">
                             <button type="button" class="btn btn-primary">
                                 <i class="fa-solid fa-message"></i>
-                                查看匿名評價
+                                查看評價
                             </button>
                         </a>
                     </div>
@@ -263,8 +262,8 @@
                     <div class="col-4 h-100 mt-2 mb-2">
                         <div>房型名稱：<%=room.getRoomName()%></div>
                         <div>房型：<%=room.getRoomType()%>人房</div>
-                        <div>金額：NTW <%=room.getPrice().intValue()%></div>
-                        <a class="" href="#">
+                        <div>價格：NTW <%=room.getPrice().intValue()%></div>
+                        <a class="" href="">
                             <button type="button" class="btn btn-primary">
                                 收藏
                             </button>
