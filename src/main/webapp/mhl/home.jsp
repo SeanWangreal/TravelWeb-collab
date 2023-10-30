@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.tha103.gogoyu.room.model.*"%>
@@ -7,16 +7,17 @@
 	RoomServiceHibernate roomSvc = new RoomServiceHibernate();
 	List<List> roomDetail = roomSvc.getHotRoomDetail();
 	List<Room> roomList = roomDetail.get(0);
+
 	for (Room room:roomList){
 		System.out.println(room.getRoomId());
 	}
 	List<String> compNameList = roomDetail.get(1);
-	pageContext.setAttribute("roomList", roomList);
-	pageContext.setAttribute("compNameList", compNameList);
+	request.setAttribute("roomList", roomList);
+	request.setAttribute("compNameList", compNameList);
 
 	TripServiceHibernate tripSvc = new TripServiceHibernate();
 	List<Trip> tripList = tripSvc.getHotTrip();
-	pageContext.setAttribute("tripList", tripList);
+	request.setAttribute("tripList", tripList);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -215,7 +216,7 @@
                                 aria-label="Slide 3"></button>
                         </div>
                         <div class="carousel-inner ">
-                        <c:forEach var="room" items="roomList">
+                        <c:forEach var="room" items="${roomList}">
                         	<c:if test="${roomList.indexOf(room) == 0}">
                             <div class="carousel-item active  ">
 	                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?room_id=${room.roomId}&action=getProductDetailRoom" class="d-block w-100"   alt="...">
@@ -228,37 +229,20 @@
 	                            </a>
                             </div>
                         	</c:if>
-                        	<div class="carousel-item">
-	                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?room_id=${room.roomId}&action=getProductDetailRoom" class="d-block w-100"   alt="...">
-	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${room.roomId}" class="d-block w-100"   alt="...">
-	                                <div class="carousel-caption d-none d-md-block">
-	                                    <h5 class="bg-light text-dark mb-0">${compNameList.get(roomList.indexOf(room))}</h5>
-	                                    <p class="bg-light text-dark mb-0">${room.roomName}</p>
-	                                    <p class="bg-light text-dark">${room.roomType}人房 TWD ${room.price.intValue()}</p>
-	                                </div>
-	                            </a>
-                            </div>
+                        	<c:if test="${roomList.indexOf(room) != 0}">
+									<div class="carousel-item">
+										<a href="${pageContext.request.contextPath}/sean/SearchServlet?room_id=${room.roomId}&action=getProductDetailRoom" class="d-block w-100" alt="...">
+											<img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${room.roomId}" class="d-block w-100" alt="...">
+											<div class="carousel-caption d-none d-md-block">
+												<h5 class="bg-light text-dark mb-0">${compNameList.get(roomList.indexOf(room))}</h5>
+												<p class="bg-light text-dark mb-0">${room.roomName}</p>
+												<p class="bg-light text-dark">${room.roomType}人房TWD
+													${room.price.intValue()}</p>
+											</div>
+										</a>
+									</div>
+								</c:if>
                         </c:forEach>
-<!--                             <div class="carousel-item "> -->
-<%-- 	                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?room_id=<%=(roomList.get(1)).getRoomId()%>&action=getProductDetailRoom" class="d-block w-100"   alt="..."> --%>
-<%-- 	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=(roomList.get(1)).getRoomId() %>" class="d-block w-100"  alt="..."> --%>
-<!-- 	                                <div class="carousel-caption d-none d-md-block"> -->
-<%-- 	                                    <h5 class="bg-light text-dark mb-0"><%=compNameList.get(1) %></h5> --%>
-<%-- 	                                    <p class="bg-light text-dark mb-0"><%=(roomList.get(1)).getRoomName() %></p> --%>
-<%-- 	                                    <p class="bg-light text-dark"><%=(roomList.get(1)).getRoomType() %>人房 TWD <%=(roomList.get(1)).getPrice().intValue() %></p> --%>
-<!-- 	                                </div> -->
-<!-- 	                            </a> -->
-<!--                             </div> -->
-<!--                             <div class="carousel-item  "> -->
-<%-- 	                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?room_id=<%=(roomList.get(2)).getRoomId()%>&action=getProductDetailRoom" class="d-block w-100"   alt="..."> --%>
-<%-- 	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=(roomList.get(2)).getRoomId() %>" class="d-block w-100"  alt="..."> --%>
-<!-- 	                                <div class="carousel-caption d-none d-md-block"> -->
-<%-- 	                                    <h5 class="bg-light text-dark mb-0"><%=compNameList.get(2) %></h5> --%>
-<%-- 	                                    <p class="bg-light text-dark mb-0"><%=(roomList.get(2)).getRoomName() %></p> --%>
-<%-- 	                                    <p class="bg-light text-dark"><%=(roomList.get(2)).getRoomType() %>人房 TWD <%=(roomList.get(2)).getPrice().intValue() %></p> --%>
-<!-- 	                                </div> -->
-<!-- 	                            </a> -->
-<!--                             </div> -->
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselTrip"
                             data-bs-slide="prev">
@@ -285,35 +269,32 @@
                             <button type="button" data-bs-target="#carouselJourney" data-bs-slide-to="2"
                                 aria-label="Slide 3"></button>
                         </div>
-<!--                         <div class="carousel-inner "> -->
-<!--                             <div class="carousel-item active "> -->
-<%-- 	                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?tripId=<%=(tripList.get(0)).getTripId()%>&action=getProductDetailTrip" class="d-block w-100"   alt="..."> --%>
-<%-- 	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=<%=(tripList.get(0)).getTripId()%>" class="d-block w-100" alt="..."> --%>
-<!-- 	                                <div class="carousel-caption d-none d-md-block"> -->
-<%-- 	                                    <h5 class="bg-light text-dark mb-0"><%=(tripList.get(0)).getTripName()%></h5> --%>
-<%-- 	                                    <p class="bg-light text-dark"><%=(tripList.get(0)).getPeople()%>人套票 TWD <%=(tripList.get(0)).getPrice().intValue()%></p> --%>
-<!-- 	                                </div> -->
-<!--                                 </a> -->
-<!--                             </div> -->
-<!--                             <div class="carousel-item"> -->
-<%-- 	                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?tripId=<%=(tripList.get(1)).getTripId()%>&action=getProductDetailTrip" class="d-block w-100"   alt="..."> --%>
-<%-- 	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=<%=(tripList.get(1)).getTripId()%>" class="d-block w-100" alt="..."> --%>
-<!-- 	                                <div class="carousel-caption d-none d-md-block"> -->
-<%-- 	                                    <h5 class="bg-light text-dark mb-0"><%=(tripList.get(1)).getTripName()%></h5> --%>
-<%-- 	                                    <p class="bg-light text-dark"><%=(tripList.get(1)).getPeople()%>人套票 TWD <%=(tripList.get(1)).getPrice().intValue()%></p> --%>
-<!-- 	                                </div> -->
-<!--                                 </a> -->
-<!--                             </div> -->
-<!--                             <div class="carousel-item"> -->
-<%-- 	                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?tripId=<%=(tripList.get(2)).getTripId()%>&action=getProductDetailTrip" class="d-block w-100"   alt="..."> --%>
-<%-- 	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=<%=(tripList.get(2)).getTripId()%>" class="d-block w-100" alt="..."> --%>
-<!-- 	                                <div class="carousel-caption d-none d-md-block"> -->
-<%-- 	                                    <h5 class="bg-light text-dark mb-0"><%=(tripList.get(2)).getTripName()%></h5> --%>
-<%-- 	                                    <p class="bg-light text-dark"><%=(tripList.get(2)).getPeople()%>人套票 TWD <%=(tripList.get(2)).getPrice().intValue()%></p> --%>
-<!-- 	                                </div> -->
-<!--                                 </a> -->
-<!--                             </div> -->
-<!--                         </div> -->
+                        <div class="carousel-inner ">
+                        <c:forEach var="trip" items="${tripList}">
+                        	<c:if test="${tripList.indexOf(trip) == 0}">
+                        		<div class="carousel-item active ">
+	                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?tripId=${trip.tripId}&action=getProductDetailTrip" class="d-block w-100"   alt="...">
+	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${trip.tripId}" class="d-block w-100" alt="...">
+	                                <div class="carousel-caption d-none d-md-block">
+	                                    <h5 class="bg-light text-dark mb-0">${trip.tripName}</h5>
+	                                    <p class="bg-light text-dark">${trip.people}人套票 TWD ${trip.price.intValue()}</p>
+	                                </div>
+                                </a>
+                            </div>
+                        	</c:if>
+                        	<c:if test="${tripList.indexOf(trip) != 0}">
+                        	<div class="carousel-item">
+	                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?tripId=${trip.tripId}&action=getProductDetailTrip" class="d-block w-100"   alt="...">
+	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${trip.tripId}" class="d-block w-100" alt="...">
+	                                <div class="carousel-caption d-none d-md-block">
+	                                    <h5 class="bg-light text-dark mb-0">${trip.tripName}</h5>
+	                                    <p class="bg-light text-dark">${trip.people}人套票 TWD ${trip.price.intValue()}</p>
+	                                </div>
+                                </a>
+                            </div>
+                            </c:if>
+                        </c:forEach>
+                        </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselJourney"
                             data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>

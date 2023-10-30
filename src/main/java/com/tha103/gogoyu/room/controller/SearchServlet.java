@@ -193,7 +193,7 @@ public class SearchServlet extends HttpServlet {
 			req.setAttribute("searchTripCheckIn", checkIn3);
 			req.setAttribute("searchTripCheckOut", checkOut3);
 			req.setAttribute("tripPeople", number2);
-			req.setAttribute("searchTropResult", searchTripResult);
+			req.setAttribute("searchTripResult", searchTripResult);
 			forwardPath = "/mhl/search_results.jsp";
 			break;
 			

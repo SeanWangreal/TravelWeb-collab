@@ -1,3 +1,4 @@
+<%@page import="org.hibernate.internal.build.AllowSysOut"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
@@ -9,7 +10,10 @@
 	Map<Room, String> searchRoomResult = (Map<Room, String>)request.getAttribute("searchRoomResult");
 	pageContext.setAttribute("roomMap", searchRoomResult);
 	
-	List<Trip> searchTripResult = (List<Trip>)request.getAttribute("searchTropResult");
+	List<Trip> searchTripResult = (List<Trip>)request.getAttribute("searchTripResult");
+	
+	System.out.println(searchRoomResult);
+	System.out.println(searchTripResult);
 %>
 
 <jsp:useBean id="CompSvc" scope="page" class="com.tha103.gogoyu.company.model.CompanyService" />
@@ -71,6 +75,7 @@
 
 <body>
     <script src="${pageContext.request.contextPath}/vendors/jquery/jquery-3.7.1.min.js"></script>
+     <script src="${pageContext.request.contextPath}/dist/js/bootstrap.bundle.min.js"></script>
     <nav class="st">
         <a class="logo" id="home" href="${pageContext.request.contextPath}/mhl/home.jsp">GO<i class="fa-solid fa-location-dot" style="color: #ffbf1c;"></i>GOYU</a>
         <div class="head">
@@ -122,17 +127,17 @@
                 <!--頁籤-->
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="hotel-tab" data-bs-toggle="tab" data-bs-target="#hotel"
-                            type="button" role="tab" aria-controls="hotel" aria-selected="true">hotel</button>
+                        <button class="nav-link ${(searchRoomResult != null) ? active : ''}" id="hotel-tab" data-bs-toggle="tab" data-bs-target="#hotel"
+                            type="button" role="tab" aria-controls="hotel" aria-selected=${searchRoomResult != null ?"true" : "false"} ${searchRoomResult == null ? 'tabindex="-1"' : ""}>hotel</button>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="journey-tab" data-bs-toggle="tab" data-bs-target="#journey"
-                            type="button" role="tab" aria-controls="journey" aria-selected="false">journey</button>
+                    <li class="nav-item " role="presentation">
+                        <button class="nav-link ${(searchTripResult != null) ? "active" : ''}" id="journey-tab" data-bs-toggle="tab" data-bs-target="#journey"
+                            type="button" role="tab" aria-controls="journey" aria-selected=${searchTripResult != null ? "true" : "false"} ${searchTripResult == null ? 'tabindex="-1"' : ""}>journey</button>
                     </li>
                 </ul>
                 <div class="tab-content " id="myTabContent">
                     <!--hotel搜尋列-->
-                    <div class="tab-pane fade show active" id="hotel" role="tabpanel" aria-labelledby="hotel-tab">
+                    <div class="tab-pane fade ${searchRoomResult != null ? 'show active' : ''}" id="hotel" role="tabpanel" aria-labelledby="hotel-tab">
                         <nav class="navbar navbar-light bg-light">
                             <div class="container">
                                 <div class="d-flex flex-wrap">
@@ -223,7 +228,7 @@
                     </div>
                     
                     <!-- journey搜尋列 -->
-                    <div class="tab-pane fade" id="journey" role="tabpanel" aria-labelledby="journey-tab">
+                    <div class="tab-pane fade ${searchTripResult != null ? 'show active' : ''}" id="journey" role="tabpanel" aria-labelledby="journey-tab">
                         <nav class="navbar navbar-light bg-light">
                             <div class="container">
                                 <div class="d-flex flex-wrap">
@@ -319,7 +324,7 @@
     </div>
     
     <script src="${pageContext.request.contextPath}/static/mhl_js/btn4com_review.js"></script>
-    <script src="${pageContext.request.contextPath}/dist/js/bootstrap.bundle.min.js"></script>
+   
     <script src="${pageContext.request.contextPath}/static/mhl_js/btn4com.js"></script>
     
 </body>
