@@ -168,7 +168,8 @@ input {
 	text-align: center;
 	border: 2px white solid;
 }
-.multi-photo{
+
+.multi-photo {
 	position: relative;
 	/* border: 1px dashed gray; */
 	width: 100%;
@@ -176,6 +177,7 @@ input {
 	max-height: fit-content;
 	font-size: 0px;
 }
+
 .multi-photo>img.imgs {
 	margin-right: 2.6%;
 }
@@ -183,8 +185,9 @@ input {
 .multi-photo>img.imgs:nth-child(4n) {
 	margin-right: 0px;
 }
-.stocks{
-	border:none;
+
+.stocks {
+	border: none;
 	background-color: white;
 }
 </style>
@@ -205,16 +208,16 @@ input {
 					style="color: black; font-size: 30px; width: 30px; background-color: transparent;"></i>
 			</button>
 			<button type="button" class="head_btn" id="">
-			<a class="profile"
+				<a class="profile"
 					href="${pageContext.request.contextPath}/sean/hotel_room_all.jsp">
-				<i class="fa-solid fa-store"
+					<i class="fa-solid fa-store"
 					style="color: #000000; font-size: 30px; width: 30px; background-color: transparent;"></i>
-			</a>
+				</a>
 			</button>
 			<button type="button" class="head_btn">
 				<a class="profile"
-					href="${pageContext.request.contextPath}/ken/com_mem.jsp">
-					<i class="fa-solid fa-user icon"
+					href="${pageContext.request.contextPath}/ken/com_mem.jsp"> <i
+					class="fa-solid fa-user icon"
 					style="color: black; font-size: 30px; background-color: transparent;"></i>
 				</a>
 			</button>
@@ -244,13 +247,15 @@ input {
 				</a>
 			</div>
 			<div class="mem-data">
-				<a href="${pageContext.request.contextPath}/sean/hotel_com_ord.jsp" class="left_btn" style="color: #000000"> <i
+				<a href="${pageContext.request.contextPath}/sean/hotel_com_ord.jsp"
+					class="left_btn" style="color: #000000"> <i
 					class="fa-solid fa-file-invoice" style="color: black;"></i> 訂單資訊
 				</a>
 			</div>
 			<div class="mem-data">
-				<a href="${pageContext.request.contextPath}/sean/hotel_room_review.jsp" 
-				class="left_btn"> <i class="fa-regular fa-comment"
+				<a
+					href="${pageContext.request.contextPath}/sean/hotel_room_review.jsp"
+					class="left_btn"> <i class="fa-regular fa-comment"
 					style="color: #000000;"></i> 匿名評論
 				</a>
 			</div>
@@ -261,15 +266,16 @@ input {
 			<div class="main-content-info">
 				<%
 				LinkedHashMap<Room, Set<Room_photo>> mapPhoto = (LinkedHashMap<Room, Set<Room_photo>>) request.getAttribute("mapPhoto");
-				LinkedHashMap<Room, List<Room_stock>> mapStock = (LinkedHashMap<Room, List<Room_stock>>) request.getAttribute("mapStock");
+				LinkedHashMap<Room, List<Room_stock>> mapStock = (LinkedHashMap<Room, List<Room_stock>>) request
+						.getAttribute("mapStock");
 				List<Room> roomList = null;
-				if (mapPhoto == null || mapStock == null){
+				if (mapPhoto == null || mapStock == null) {
 					mapPhoto = new LinkedHashMap<Room, Set<Room_photo>>();
 					mapStock = new LinkedHashMap<Room, List<Room_stock>>();
 					RoomService roomSvc = new RoomServiceHibernate();
 					RoomStockService roomStockSvc = new RoomStockServiceHibernate();
 					String compString = (String) request.getSession().getAttribute("compId");
-					if (compString == null ){
+					if (compString == null) {
 						response.sendRedirect(request.getContextPath() + "/sean/select_page.jsp");
 						return;
 					}
@@ -281,9 +287,9 @@ input {
 						List<Room_stock> roomStock = roomStockSvc.getStockByTodayByRoomId(room.getRoomId());
 						mapStock.put(room, roomStock);
 					}
-					request.setAttribute("mapPhoto",mapPhoto);
-					request.setAttribute("mapStock",mapStock);
-				} 
+					request.setAttribute("mapPhoto", mapPhoto);
+					request.setAttribute("mapStock", mapStock);
+				}
 				%>
 				<c:forEach var="room" items="${mapPhoto.keySet()}">
 					<c:if test="${room.roomStatus!=-1}">
@@ -364,11 +370,14 @@ input {
 										<div class="details">
 											<h2>客房</h2>
 											<div style="">
-												<h5>房間名稱:</h5><label for="name" class="detail-label">${room.roomName}</label>
-												<h5>房型:</h5><label class="detail-label">${(room.roomType == 1) ? "單人房" : ""}
+												<h5>房間名稱:</h5>
+												<label for="name" class="detail-label">${room.roomName}</label>
+												<h5>房型:</h5>
+												<label class="detail-label">${(room.roomType == 1) ? "單人房" : ""}
 													${(room.roomType == 2) ? "雙人房" : ""} ${(room.roomType == 3) ? "三人房" : ""}
 													${(room.roomType == 4) ? "四人房" : ""}</label>
-												<h5>床位數:</h5> <label for="bed-num" class="detail-label">${room.beds}</label>
+												<h5>床位數:</h5>
+												<label for="bed-num" class="detail-label">${room.beds}</label>
 											</div>
 										</div>
 										<hr>
@@ -427,7 +436,7 @@ input {
 											<hr>
 											<h2>客房介紹</h2>
 											<article
-												style="width: 100%; border: 1px solid black; border-radius: 5px; padding: 5px;min-height:10vh; word-break:break-all; ">${room.intro}</article>
+												style="width: 100%; border: 1px solid black; border-radius: 5px; padding: 5px; min-height: 10vh; word-break: break-all;">${room.intro}</article>
 										</div>
 										<br>
 										<h2>客房每晚價格</h2>
@@ -444,10 +453,11 @@ input {
 											</div>
 											<h2>客房詳細照片</h2>
 											<div class="multi-photo">
-											<c:forEach var="pics" items="${mapPhoto.get(room)}">
-												<img class="imgs" src="RoomPhotoPrintHServlet?room_photo_id=${pics.roomPhotoId}"
-													style="width: 23%">											
-											</c:forEach>
+												<c:forEach var="pics" items="${mapPhoto.get(room)}">
+													<img class="imgs"
+														src="RoomPhotoPrintHServlet?room_photo_id=${pics.roomPhotoId}"
+														style="width: 23%">
+												</c:forEach>
 											</div>
 										</c:if>
 									</div>
@@ -494,210 +504,234 @@ input {
 	<script
 		src="${pageContext.request.contextPath}/static/sean_js/btn4com.js"></script>
 	<script>
-		$(".detail").on("click", function () {
-	        let room = $(this).closest("section.one-product");
-	        $("body").css("overflow", "hidden");
-	        let alert_bg = $(room).find(".alert_bg").eq(0);
-	        alert_bg.addClass("on");
-	        let watch = $(room).find(".watch");
-	        watch.addClass("on");
-	        
-	        $(".no").on("click", function () {
-	            $("body").css("overflow", "auto");
-	            alert_bg.removeClass("on");
-	            watch.removeClass("on");
-	        })
-	    })
-		$(".renewStatus").on("click", function () {
-	        let room = $(this).closest("section.one-product");
-	        $("body").css("overflow", "hidden");
-	        let alert_bg = $(room).find(".alert_bg").eq(1);
-	        alert_bg.addClass("on");
-	        let al = $(room).find(".alert").eq(0);
-	       	al.addClass("on");
-	        $(".yes").on("click", function () {
-	            room.remove();
-	            $("body").css("overflow", "auto");
-	            alert_bg.removeClass("on");
-	            al.removeClass("on");
-	        })
-	        $(".no").on("click", function () {
-	            $("body").css("overflow", "auto");
-	            alert_bg.removeClass("on");
-	            al.removeClass("on");
-	        })
-	    })
-        var delete_btn = document.querySelectorAll(".delete");
-        $(".delete").on("click", function () {
-            let room = $(this).closest("section.one-product");
-            let alert_bg = $(room).find(".alert_bg").last();
-            let al = $(room).find(".alert").last();
-        
-        	if(room.find("span").hasClass("product-status-on")){
-        		alert("請先下架再刪除!!");
-        	}else{
-            $("body").css("overflow", "hidden");
-            alert_bg.addClass("on");
-           	al.addClass("on");        		
-        	}
-            $(".yes").on("click", function () {
-                room.remove();
-                $("body").css("overflow", "auto");
-                alert_bg.removeClass("on");
-                al.removeClass("on");
-            })
-            $(".no").on("click", function () {
-                $("body").css("overflow", "auto");
-                alert_bg.removeClass("on");
-                al.removeClass("on");
-            })
-        })
-        
-        $(".change").on("click",function(){
-        	let room = $(this).closest(".one-product");
-        	if(room.find("span").hasClass("product-status-off")){
-        		$(this).closest("form").find(".go").click();        		
-        	} else{
-        		alert("請先下架再修改");
-        	}
-        })
-        $(".stocks").on("click",function(){
-        	let room = $(this).closest(".one-product");
-        	if(room.find("span").hasClass("product-status-off")){
-        		$(this).closest("form").find(".go").click();        		
-        	} else{
-        		alert("請先下架再調整庫存");
-        	}
-        })
-    </script>
-	<script>
-        var month_leap = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-        var month_normal = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-        var month_name = ["January", "Febrary", "March", "April", "May", "June", "July", "Auguest", "September", "October", "November", "December"];
-        var holder = document.getElementsByClassName("days");
-        var prev = document.getElementsByClassName("prev");
-        var next = document.getElementsByClassName("next");
-        var ctitle = document.getElementsByClassName("calendar-title");
-        var cyear = document.getElementsByClassName("calendar-year");
-        var my_date = new Date();
-        var my_year = my_date.getFullYear();
-        var my_month = my_date.getMonth();
-        var my_day = my_date.getDate();
-        //获取某年某月第一天是星期几
-        $(function () {
-            function dayStart(month, year) {
-                var tmpDate = new Date(year, month, 1);
-                return (tmpDate.getDay());
-            }
-            //计算某年是不是闰年，通过求年份除以4的余数即可
-            function daysMonth(month, year) {
-                if (year % 4 === 0 && year % 100 !== 0 || year % 400 === 0) {
-                    return (month_leap[month]);
-                } else {
-                    return (month_normal[month]);
-                }
-            }
-            function refreshDate(roomId,  targetObj) {
-           	 	var path = window.location.pathname;
-        	 	var webCtx = path.substring(0, path.indexOf('/', 1));
-        	 	var url = location.origin+webCtx+"/sean/RoomStockServlet"
-            	$.ajax({
-            		  url: url,
-            		  type: "POST",                  // GET | POST | PUT | DELETE | PATCH
-            		  data: {
-            			  "action" : "showStocks",
-            			  "roomId" : roomId
-            		  },
-            		  dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
-            		  success: function(data){      // request 成功取得回應後執行
-            			var totalStock = data.length;
-        				var countStock = 0;
-		               var str = "";
-		               var totalDay = daysMonth(my_month, my_year); //获取该月总天数
-		               var firstDay = dayStart(my_month, my_year); //获取该月第一天是星期几
-		               var myclass;
-		               for (let i = 1; i < firstDay; i++) {
-		                   str += "<li></li>"; //为起始日之前的日期创建空白节点
-		               }
-						var month = '';
-	           		   	if (my_month+1 <10){
-	           		   		month = '0'+(my_month+1)
-	           		   	} else {
-	           		   		month = my_month+1;
-	           		   	}
-		               for (let i = 1; i <= totalDay; i++) {
-		            	   if (i < 10){
-		            	   		var thisDay = my_year+'-'+(month)+'-0'+i;		            		   
-		            	   } else{
-		            		   var thisDay = my_year+'-'+(month)+'-'+i;		            		   
-		            	   }
-		                   if ((i < my_day && my_year == my_date.getFullYear() && my_month == my_date.getMonth()) || my_year < my_date.getFullYear() || (my_year == my_date.getFullYear() && my_month < my_date.getMonth())) {
-		                       myclass = 'lightgrey'; //当该日期在今天之前时，以浅灰色字体显示
-		                       str += `<li class=` + myclass + ` data-date=`+thisDay+`>` +i+ `<p></p></li>`;
-		                   } else if (i == my_day && my_year == my_date.getFullYear() && my_month == my_date.getMonth()) {
-		                       myclass = 'colorbox'; //当天日期以绿色背景突出显示
-	                    	   str += `<li class=` + myclass + `>` +i+ `<p class="today" data-date=`+thisDay+`></p></li>`;		  
-		                   } else {
-		                       myclass = 'darkgrey'; //当该日期在今天之后时，以深灰字体显示
- 		                    str += `<li class=` + myclass + `>` +i+ `<p data-date=`+thisDay+`></p></li>`;
-		                   }
-		               }
+		$(".detail").on("click", function() {
+			let room = $(this).closest("section.one-product");
+			$("body").css("overflow", "hidden");
+			let alert_bg = $(room).find(".alert_bg").eq(0);
+			alert_bg.addClass("on");
+			let watch = $(room).find(".watch");
+			watch.addClass("on");
 
-						targetObj.find(".days")[0].innerHTML = str;
-						targetObj.find(".calendar-title")[0].innerHTML = month_name[my_month];
-						targetObj.find(".calendar-year")[0].innerHTML = my_year;
-						let all_p = $("p").length;
-						console.log(all_p);
-		               let p_num =  targetObj.find("p").length;
-		   				console.log(p_num);
-		               for (let key in data){
-		            	   for (let i = 0; i<p_num; i++){
-		            	  		 if (data[key].stockDate ==  targetObj.find("p").eq(i).attr("data-date")){
-		            	  			targetObj.find("p").eq(i).text(data[key].stock+"間");
-		            	  		 }
-		            	   }
-		               }
-           		  }
-         		});
-            }
-            $(prev).on('click', function (e) {
-                e.preventDefault();
-                var roomId = $(this).attr("data-value");
-                var targetObj = $(this).closest(".one-product");
-                my_month--;
-                if (my_month < 0) {
-                    my_year--;
-                    my_month = 11;
-                }
-                refreshDate(roomId, targetObj);
-            })
-            $(next).on('click', function (e) {
-                e.preventDefault();
-                var roomId = $(this).attr("data-value");
-                var targetObj = $(this).closest(".one-product");
-                my_month++;
-                if (my_month > 11) {
-                    my_year++;
-                    my_month = 0;
-                }
-                refreshDate(roomId, targetObj);
-            })
-            $(".stock").on('click', function () {
-            	var roomId = $(this).attr("data-value");
-            	var targetObj = $(this).closest(".one-product");
-            	var all = $(".one-product").length;
-                $(this).closest(".one-product").find(".calendar").toggleClass("on");
-                refreshDate(roomId, targetObj);
-            })
-            $("h1").on("click", function () {
-            	var roomId = $(this).attr("data-value");
-                my_month = my_date.getMonth();
-                my_day = my_date.getDate();
-                my_year = my_date.getFullYear();
-                var targetObj = $(this).closest(".one-product");
-                refreshDate(roomId, targetObj)
-            })
-        })
-    </script>
+			$(".no").on("click", function() {
+				$("body").css("overflow", "auto");
+				alert_bg.removeClass("on");
+				watch.removeClass("on");
+			})
+		})
+		$(".renewStatus").on("click", function() {
+			let room = $(this).closest("section.one-product");
+			$("body").css("overflow", "hidden");
+			let alert_bg = $(room).find(".alert_bg").eq(1);
+			alert_bg.addClass("on");
+			let al = $(room).find(".alert").eq(0);
+			al.addClass("on");
+			$(".yes").on("click", function() {
+				room.remove();
+				$("body").css("overflow", "auto");
+				alert_bg.removeClass("on");
+				al.removeClass("on");
+			})
+			$(".no").on("click", function() {
+				$("body").css("overflow", "auto");
+				alert_bg.removeClass("on");
+				al.removeClass("on");
+			})
+		})
+		var delete_btn = document.querySelectorAll(".delete");
+		$(".delete").on("click", function() {
+			let room = $(this).closest("section.one-product");
+			let alert_bg = $(room).find(".alert_bg").last();
+			let al = $(room).find(".alert").last();
+
+			if (room.find("span").hasClass("product-status-on")) {
+				alert("請先下架再刪除!!");
+			} else {
+				$("body").css("overflow", "hidden");
+				alert_bg.addClass("on");
+				al.addClass("on");
+			}
+			$(".yes").on("click", function() {
+				room.remove();
+				$("body").css("overflow", "auto");
+				alert_bg.removeClass("on");
+				al.removeClass("on");
+			})
+			$(".no").on("click", function() {
+				$("body").css("overflow", "auto");
+				alert_bg.removeClass("on");
+				al.removeClass("on");
+			})
+		})
+
+		$(".change").on("click", function() {
+			let room = $(this).closest(".one-product");
+			if (room.find("span").hasClass("product-status-off")) {
+				$(this).closest("form").find(".go").click();
+			} else {
+				alert("請先下架再修改");
+			}
+		})
+		$(".stocks").on("click", function() {
+			let room = $(this).closest(".one-product");
+			if (room.find("span").hasClass("product-status-off")) {
+				$(this).closest("form").find(".go").click();
+			} else {
+				alert("請先下架再調整庫存");
+			}
+		})
+	</script>
+	<script>
+		var month_leap = [ 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+		var month_normal = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+		var month_name = [ "January", "Febrary", "March", "April", "May",
+				"June", "July", "Auguest", "September", "October", "November",
+				"December" ];
+		var holder = document.getElementsByClassName("days");
+		var prev = document.getElementsByClassName("prev");
+		var next = document.getElementsByClassName("next");
+		var ctitle = document.getElementsByClassName("calendar-title");
+		var cyear = document.getElementsByClassName("calendar-year");
+		var my_date = new Date();
+		var my_year = my_date.getFullYear();
+		var my_month = my_date.getMonth();
+		var my_day = my_date.getDate();
+		//获取某年某月第一天是星期几
+		$(function() {
+			function dayStart(month, year) {
+				var tmpDate = new Date(year, month, 1);
+				return (tmpDate.getDay());
+			}
+			//计算某年是不是闰年，通过求年份除以4的余数即可
+			function daysMonth(month, year) {
+				if (year % 4 === 0 && year % 100 !== 0 || year % 400 === 0) {
+					return (month_leap[month]);
+				} else {
+					return (month_normal[month]);
+				}
+			}
+			function refreshDate(roomId, targetObj) {
+				var path = window.location.pathname;
+				var webCtx = path.substring(0, path.indexOf('/', 1));
+				var url = location.origin + webCtx + "/sean/RoomStockServlet"
+				$
+						.ajax({
+							url : url,
+							type : "POST", // GET | POST | PUT | DELETE | PATCH
+							data : {
+								"action" : "showStocks",
+								"roomId" : roomId
+							},
+							dataType : "json", // 預期會接收到回傳資料的格式： json | xml | html
+							success : function(data) { // request 成功取得回應後執行
+								var totalStock = data.length;
+								var countStock = 0;
+								var str = "";
+								var totalDay = daysMonth(my_month, my_year); //获取该月总天数
+								var firstDay = dayStart(my_month, my_year); //获取该月第一天是星期几
+								var myclass;
+								for (let i = 1; i < firstDay; i++) {
+									str += "<li></li>"; //为起始日之前的日期创建空白节点
+								}
+								var month = '';
+								if (my_month + 1 < 10) {
+									month = '0' + (my_month + 1)
+								} else {
+									month = my_month + 1;
+								}
+								for (let i = 1; i <= totalDay; i++) {
+									if (i < 10) {
+										var thisDay = my_year + '-' + (month)
+												+ '-0' + i;
+									} else {
+										var thisDay = my_year + '-' + (month)
+												+ '-' + i;
+									}
+									if ((i < my_day
+											&& my_year == my_date.getFullYear() && my_month == my_date
+											.getMonth())
+											|| my_year < my_date.getFullYear()
+											|| (my_year == my_date
+													.getFullYear() && my_month < my_date
+													.getMonth())) {
+										myclass = 'lightgrey'; //当该日期在今天之前时，以浅灰色字体显示
+										str += `<li class=` + myclass + ` data-date=`+thisDay+`>`
+												+ i + `<p></p></li>`;
+									} else if (i == my_day
+											&& my_year == my_date.getFullYear()
+											&& my_month == my_date.getMonth()) {
+										myclass = 'colorbox'; //当天日期以绿色背景突出显示
+										str += `<li class=` + myclass + `>`
+												+ i
+												+ `<p class="today" data-date=`+thisDay+`></p></li>`;
+									} else {
+										myclass = 'darkgrey'; //当该日期在今天之后时，以深灰字体显示
+										str += `<li class=` + myclass + `>`
+												+ i
+												+ `<p data-date=`+thisDay+`></p></li>`;
+									}
+								}
+
+								targetObj.find(".days")[0].innerHTML = str;
+								targetObj.find(".calendar-title")[0].innerHTML = month_name[my_month];
+								targetObj.find(".calendar-year")[0].innerHTML = my_year;
+								let all_p = $("p").length;
+								console.log(all_p);
+								let p_num = targetObj.find("p").length;
+								console.log(p_num);
+								for ( let key in data) {
+									for (let i = 0; i < p_num; i++) {
+										if (data[key].stockDate == targetObj
+												.find("p").eq(i).attr(
+														"data-date")) {
+											targetObj.find("p").eq(i).text(
+													data[key].stock + "間");
+										}
+									}
+								}
+							}
+						});
+			}
+			$(prev).on('click', function(e) {
+				e.preventDefault();
+				var roomId = $(this).attr("data-value");
+				var targetObj = $(this).closest(".one-product");
+				my_month--;
+				if (my_month < 0) {
+					my_year--;
+					my_month = 11;
+				}
+				refreshDate(roomId, targetObj);
+			})
+			$(next).on('click', function(e) {
+				e.preventDefault();
+				var roomId = $(this).attr("data-value");
+				var targetObj = $(this).closest(".one-product");
+				my_month++;
+				if (my_month > 11) {
+					my_year++;
+					my_month = 0;
+				}
+				refreshDate(roomId, targetObj);
+			})
+			$(".stock").on(
+					'click',
+					function() {
+						var roomId = $(this).attr("data-value");
+						var targetObj = $(this).closest(".one-product");
+						var all = $(".one-product").length;
+						$(this).closest(".one-product").find(".calendar")
+								.toggleClass("on");
+						refreshDate(roomId, targetObj);
+					})
+			$("h1").on("click", function() {
+				var roomId = $(this).attr("data-value");
+				my_month = my_date.getMonth();
+				my_day = my_date.getDate();
+				my_year = my_date.getFullYear();
+				var targetObj = $(this).closest(".one-product");
+				refreshDate(roomId, targetObj)
+			})
+		})
+	</script>
 </body>
 </html>
