@@ -209,7 +209,7 @@ button.left_btn:hover {
 					<br> 
 <%-- 					<a href="${pageContext.request.contextPath}/CompanyServlet?action=getPSForUpdate&compId=<%= company.getCompId()%>">送出修改</a> --%>
 					
-					<input type="submit" value="送出修改">
+					<input type="submit" value="送出修改" >
 				</div>
 			</div>
 		</div>

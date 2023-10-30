@@ -18,6 +18,8 @@ public interface CompanyDAO_interface {
 	Company findByPK(Integer comp_id);
 
 	List<Company> getAll();
+	
+	byte[] getCompPhoto(Integer compId);
 	// 萬用複合查詢(傳入參數型態Map)(回傳 List)
 //	        public List<EmpVO> getAll(Map<String, String[]> map); 
 	
