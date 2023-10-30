@@ -9,6 +9,7 @@
 <%
 //見com.emp.controller.EmpServlet.java第238行存入req的empVO物件 (此為輸入格式有錯誤時的empVO物件)
 Consumer consumer = (Consumer) request.getAttribute("consumer");
+
 %>
 <html lang="en">
 
@@ -180,6 +181,11 @@ div#search {
 						</div>
 						<button type="submit" name="action" value="mail"
 							class="btn btn-primary py-3 w-100 mb-4">寄送驗證碼</button>
+						<div class="form-floating mb-3">
+							<input type="TEXT" class="form-control" id="floatingPassword"
+								name="CAPTCHA"
+								size="45"> <label>驗證碼</label>
+						</div>	
 
 						<button type="submit" name="action" value="add"
 							class="btn btn-primary py-3 w-100 mb-4">註冊!</button>

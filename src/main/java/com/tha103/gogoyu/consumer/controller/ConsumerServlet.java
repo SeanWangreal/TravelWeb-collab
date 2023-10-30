@@ -6,6 +6,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+
+import java.security.SecureRandom;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -32,10 +35,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import org.jboss.jandex.Main;
-
 import com.google.gson.Gson;
 import com.tha103.gogoyu.consumer.model.Consumer;
+import com.tha103.gogoyu.consumer.model.MailService;
 import com.tha103.gogoyu.consumer.model.ConsumerServiceHibernate;
 import com.tha103.gogoyu.planning.model.PlanningServiceHibernate;
 
@@ -43,57 +45,9 @@ import com.tha103.gogoyu.planning.model.PlanningServiceHibernate;
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class ConsumerServlet extends HttpServlet {
 	
-	public void sendMail(String to, String subject, String messageText) {
+//	String passrandom = null;
 
-		try {
-			// 設定使用SSL連線至 Gmail smtp Server
-			Properties props = new Properties();
-			props.put("mail.smtp.host", "smtp.gmail.com");
-			props.put("mail.smtp.socketFactory.port", "465");
-			props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-			props.put("mail.smtp.auth", "true");
-			props.put("mail.smtp.port", "465");
-
-	        // ●設定 gmail 的帳號 & 密碼 (將藉由你的Gmail來傳送Email)
-	        // ●1) 登入你的Gmail的: 
-	        // ●2) 點選【管理你的 Google 帳戶】
-	        // ●3) 點選左側的【安全性】
-	       
-	        // ●4) 完成【兩步驟驗證】的所有要求如下:
-	        //     ●4-1) (請自行依照步驟要求操作之.....)
-	       
-	        // ●5) 完成【應用程式密碼】的所有要求如下:
-	        //     ●5-1) 下拉式選單【選取應用程式】--> 選取【郵件】
-	        //     ●5-2) 下拉式選單【選取裝置】--> 選取【Windows 電腦】
-	        //     ●5-3) 最後按【產生】密碼
-			final String myGmail = "ixlogic.wu@gmail.com";
-			final String myGmail_password = "ddjomltcnypgcstn";
-			Session session = Session.getInstance(props, new Authenticator() {
-				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication(myGmail, myGmail_password);
-				}
-			});
-
-			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress(myGmail));
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-
-			// 設定信中的主旨
-			message.setSubject(subject);
-			// 設定信中的內容
-			message.setText(messageText);
-
-			Transport.send(message);
-			System.out.println("傳送成功!");
-		} catch (MessagingException e) {
-			System.out.println("傳送失敗!");
-			e.printStackTrace();
-		}
-	}
-	
-	
-	
-
+	//****************************圖片方法***************************//
 	public static byte[] getPictureByteArray(String path) throws IOException {
 		FileInputStream fis = new FileInputStream(path);
 		byte[] buffer = new byte[fis.available()];
@@ -101,7 +55,23 @@ public class ConsumerServlet extends HttpServlet {
 		fis.close();
 		return buffer;
 	}
+	//****************************驗證碼方法***************************//
+	private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	private static final SecureRandom random = new SecureRandom();
 
+	public static String generateVerificationCode() {
+		StringBuilder code = new StringBuilder(6);
+
+		for (int i = 0; i < 6; i++) {
+			int randomIndex = random.nextInt(CHARACTERS.length());
+			char randomChar = CHARACTERS.charAt(randomIndex);
+			code.append(randomChar);
+		}
+		return code.toString();
+	}
+
+	
+	
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
 	}
@@ -111,6 +81,7 @@ public class ConsumerServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
+		String passrandom = null;
 
 		if ("getOne_For_Login".equals(action)) { // 來自select_page.jsp的請求
 
@@ -161,7 +132,7 @@ public class ConsumerServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 jsp
 			successView.forward(req, res);
 		}
-		
+
 		if ("mail".equals(action)) { // 來自select_page.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -173,8 +144,8 @@ public class ConsumerServlet extends HttpServlet {
 			if (mail == null || (mail.trim()).length() == 0) {
 				errorMsgs.add("請輸入信箱");
 			}
-			String name = req.getParameter("cusName");
-			
+//			String name = req.getParameter("cusName");
+
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req.getRequestDispatcher("/eric/signin.jsp");
@@ -182,7 +153,19 @@ public class ConsumerServlet extends HttpServlet {
 				return;// 程式中斷
 			}
 			/*************************** 2.開始寄信資料 *****************************************/
+			MailService sentMail = new MailService();
+			String to = mail;
+			String subject = "歡迎註冊GOGOYU會員";
+//			String ch_name = name;
+			String passRandom = generateVerificationCode();
+			HttpSession session = req.getSession();
+			session.setAttribute("passRandom", passRandom);
+			System.out.println(passRandom);
 			
+			String messageText = " 您好!\n\n[" + passRandom + "]\n\n為您的驗證碼" + "\n";
+
+			new Thread(() -> sentMail.sendMail(to, subject, messageText)).start();
+
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			String url = "/eric/signin_info.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 jsp
@@ -489,6 +472,7 @@ public class ConsumerServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+			req.setAttribute("passrandom", passrandom);
 			String cusName = req.getParameter("cusName");
 			String nameReg = "^[(\u4e00-\u9fa5)]{2,10}$";
 			if (cusName == null || cusName.trim().length() == 0) {
@@ -572,6 +556,15 @@ public class ConsumerServlet extends HttpServlet {
 					// 處理錯誤，例如記錄錯誤訊息或其他動作
 				}
 			}
+			String passrandom2 =(String) req.getSession().getAttribute("passRandom");
+			String CAPTCHA = req.getParameter("CAPTCHA");
+			if (CAPTCHA.trim().length() == 0) {
+				errorMsgs.add("請填入驗證碼");
+			} else if (!CAPTCHA.equals(passrandom2)) {
+				errorMsgs.add("驗證碼錯誤");
+				System.out.println("驗證碼:" + passrandom2);
+			}
+
 			Consumer consumer = new Consumer();
 			consumer.setCusName(cusName);
 			consumer.setCusAccount(cusAccount);
@@ -581,7 +574,6 @@ public class ConsumerServlet extends HttpServlet {
 			consumer.setCusAddress(cusAddress);
 			consumer.setCusSex(cusSex);
 			consumer.setCusPhoto(cusPhoto);
-
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("Consumer", consumer); // 含有輸入格式錯誤的empVO物件,也存入req
 				RequestDispatcher failureView = req.getRequestDispatcher("/eric/signin_info.jsp");
