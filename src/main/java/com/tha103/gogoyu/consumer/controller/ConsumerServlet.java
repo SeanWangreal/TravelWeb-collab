@@ -277,13 +277,9 @@ public class ConsumerServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-//			Integer cusId = Integer.valueOf(req.getParameter("cusId").trim());
 			Integer cusId = (Integer) req.getSession().getAttribute("cusId");
-
-
-
-			String accountReg = "^[(a-zA-Z0-9_)]{10,30}$";
-
+			
+			
 			String cusPassword = req.getParameter("cusPassword").trim();
 			String passwordReg = "^[(a-zA-Z0-9_)]{10,30}$";
 
@@ -294,22 +290,21 @@ public class ConsumerServlet extends HttpServlet {
 			}
 
 			String cusMail = req.getParameter("cusMail").trim();
-//			String mailReg = "^[(a-zA-Z0-9_)]{10,30}$";
-
-//			if (cus_mail == null || cus_mail.trim().length() == 0) {
-//				errorMsgs.add("信箱: 請勿空白");
-//			} else if (!cus_mail.trim().matches(mailReg)) { // 以下練習正則(規)表示式(regular-expression)
-//				errorMsgs.add("格式錯誤");
-//			}
+			String mailReg = "^[(a-zA-Z0-9_)]{10,30}$";
+			if (cusMail == null || cusMail.trim().length() == 0) {
+				errorMsgs.add("信箱: 請勿空白");
+			} else if (!cusMail.trim().matches(mailReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.add("格式錯誤");
+			}
 
 			String cusPhone = req.getParameter("cusPhone").trim();
-//			String phoneReg = "^[(a-zA-Z0-9_)]{10,30}$";
-//
-//			if (cus_phone == null || cus_phone.trim().length() == 0) {
-//				errorMsgs.add("手機: 請勿空白");
-//			} else if (!cus_phone.trim().matches(phoneReg)) { // 以下練習正則(規)表示式(regular-expression)
-//				errorMsgs.add("手機格式錯誤");
-//			}
+			String phoneReg = "^[(a-zA-Z0-9_)]{10,30}$";
+
+			if (cusPhone == null || cusPhone.trim().length() == 0) {
+				errorMsgs.add("手機: 請勿空白");
+			} else if (!cusPhone.trim().matches(phoneReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.add("手機格式錯誤");
+			}
 
 			String cusAddress = req.getParameter("cusAddress").trim();
 			String addressReg = "^[\\u4e00-\\u9fa5\\w\\s()-,]+$";
@@ -337,30 +332,11 @@ public class ConsumerServlet extends HttpServlet {
 				byteArros.close();
 			} else {
 				Consumer consumer = new Consumer();
-//			    ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
 				consumer = cusSvc.getOneCus(cusId);
 				cusPhoto = consumer.getCusPhoto();// 抓原本舊圖
 			}
 
-//			Part part = req.getPart("cusPhoto");
-//			String str = String.valueOf(part).trim();
-//			byte[] cusPhoto = null;
-//			if (str == null || str.trim().length() == 0) {
-//				errorMsgs.add("圖片請勿空白");
-//			}else {
-//				BufferedInputStream bis = new BufferedInputStream(part.getInputStream());
-//				cusPhoto = bis.readAllBytes();
-//				System.out.println(cusPhoto +"吃大便");
-//			}
 
-
-			// Send the use back to the form, if there were errors
-//			if (!errorMsgs.isEmpty()) {
-//				req.setAttribute("consumer", consumer); // 含有輸入格式錯誤的empVO物件,也存入req
-//				RequestDispatcher failureView = req.getRequestDispatcher("/eric/personal_detail.jsp");
-//				failureView.forward(req, res);
-//				return; // 程式中斷
-//			}
 
 			Consumer consumer = null;
 			/*************************** 2.開始修改資料 *****************************************/
@@ -520,28 +496,28 @@ public class ConsumerServlet extends HttpServlet {
 			}
 
 			String cusMail = req.getParameter("cusMail").trim();
-//			String mailReg = "^[(a-zA-Z0-9_)]{10,30}$";
-//			if (cus_mail == null || cus_mail.trim().length() == 0) {
-//				errorMsgs.add("信箱: 請勿空白");
-//			} else if (!cus_mail.trim().matches(mailReg)) { // 以下練習正則(規)表示式(regular-expression)
-//				errorMsgs.add("格式錯誤");
-//			}
+			String mailReg = "^[(a-zA-Z0-9_)]{10,30}$";
+			if (cusMail == null || cusMail.trim().length() == 0) {
+				errorMsgs.add("信箱: 請勿空白");
+			} else if (!cusMail.trim().matches(mailReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.add("格式錯誤");
+			}
 
 			String cusPhone = req.getParameter("cusPhone").trim();
-//			String phoneReg = "^[(a-zA-Z0-9_)]{10,30}$";
-//			if (cus_phone == null || cus_phone.trim().length() == 0) {
-//				errorMsgs.add("手機: 請勿空白");
-//			} else if (!cus_phone.trim().matches(phoneReg)) { // 以下練習正則(規)表示式(regular-expression)
-//				errorMsgs.add("手機格式錯誤");
-//			}
+			String phoneReg = "^[(a-zA-Z0-9_)]{10,30}$";
+			if (cusPhone == null || cusPhone.trim().length() == 0) {
+				errorMsgs.add("手機: 請勿空白");
+			} else if (!cusPhone.trim().matches(phoneReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.add("手機格式錯誤");
+			}
 
 			String cusAddress = req.getParameter("cusAddress").trim();
-//			String addressReg = "^[\\u4e00-\\u9fa5\\w\\s()-,]+$";
-//			if (cus_address == null || cus_address.trim().length() == 0) {
-//				errorMsgs.add("地址: 請勿空白");
-//			} else if (!cus_address.trim().matches(addressReg)) { // 以下練習正則(規)表示式(regular-expression)
-//				errorMsgs.add("地址格式錯誤");
-//			}
+			String addressReg = "^[\\u4e00-\\u9fa5\\w\\s()-,]+$";
+			if (cusAddress == null || cusAddress.trim().length() == 0) {
+				errorMsgs.add("地址: 請勿空白");
+			} else if (!cusAddress.trim().matches(addressReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.add("地址格式錯誤");
+			}
 			Integer cusSex = null;
 			try {
 				cusSex = Integer.valueOf(req.getParameter("cusSex").trim());
