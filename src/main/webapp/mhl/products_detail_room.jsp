@@ -67,7 +67,7 @@
         }
 
         #map {
-            font-size: 100px;
+/*             font-size: 100px; */
         }
 
         #content1{
@@ -218,10 +218,40 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-6">
-                                    <div class="">位置</div>
-                                    <a href="#">
-                                        <i class="fa-solid fa-map-location-dot h-100" id="map"></i>
-                                    </a>
+                                	<div class="">位置</div>
+										<!-- Button trigger modal -->
+											<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+											  <i class="fa-solid fa-map-location-dot h-100" id="map"></i>
+											</button>
+											<!-- Modal -->
+											<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+											  <div class="modal-dialog modal-lg">
+											    <div class="modal-content">
+											      <div class="modal-header">
+											        <h5 class="modal-title" id="exampleModalLabel"><%=company.getCompName()%></h5>
+											        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+											      </div>
+											      <div class="modal-body ">
+											      <div class="container">
+											      	<div class="row justify-content-center">
+											      		<iframe
+													      width="750"
+													      height="350"
+													      style="border:0"
+													      loading="lazy"
+													      allowfullscreen
+													      referrerpolicy="no-referrer-when-downgrade"
+													      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAInnBRglvKKBNHyr2OIw4-4ySCv-enRUY
+													        &q=<%=company.getCompAddress()%>&zoom=15">
+													    </iframe>
+											      	</div>
+											      </div>
+											      </div>
+											      <div class="modal-footer">
+											      </div>
+											    </div>
+											  </div>
+											</div>
                                 </div>
                                 <div class="col-6">
                                     <div>附近景點</div>
