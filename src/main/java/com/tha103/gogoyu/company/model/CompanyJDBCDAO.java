@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.tha103.gogoyu.company.model;
 
 import java.util.*;
@@ -245,7 +244,6 @@ public class CompanyJDBCDAO implements CompanyDAO_interface {
 //			System.out.print(aComp.getCheckStatus() + ",");
 //			System.out.println(aComp.getHotelInfoId());
 //			System.out.println("---------------------");
-=======
 //package com.tha103.gogoyu.company.model;
 //
 //import java.sql.Connection;
@@ -295,6 +293,18 @@ public class CompanyJDBCDAO implements CompanyDAO_interface {
 
 	@Override
 	public List<Company> findByPassword(String compPassword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public byte[] getCompPhoto(Integer compId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Company getAccount(String compAccount) {
 		// TODO Auto-generated method stub
 		return null;
 	}
