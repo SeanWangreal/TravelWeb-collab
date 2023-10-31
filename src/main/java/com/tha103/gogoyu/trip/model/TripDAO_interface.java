@@ -3,6 +3,7 @@ package com.tha103.gogoyu.trip.model;
 import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.tha103.gogoyu.itinerary.model.Itinerary;
@@ -21,7 +22,7 @@ public interface TripDAO_interface {
 	int deleteAllPhoto(Integer tripId);
 	byte[] getMainPhoto(Integer tripId);
 	public Integer updateAmount(Integer amount , Integer tripId) ;
-	List<Trip> searchTrip(String site, Date startTime, Date endTime, Integer number);
+	Map<Trip, String> searchTrip(String site, Date startTime, Date endTime, Integer number);
 	List<Trip> getHotTrip();
 	List<Object> getTripProdutDetail(Integer tripId);
 	List<Scene> scenesMaps(Integer tripId);

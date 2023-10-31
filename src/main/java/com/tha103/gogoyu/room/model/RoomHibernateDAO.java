@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -356,6 +357,7 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 				} else {
 				    sCcN.add("N/A");
 				}
+				
 				sCcN.add(compName);
 				map.put(room, sCcN);
 			}
