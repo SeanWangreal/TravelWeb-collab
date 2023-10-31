@@ -150,19 +150,20 @@ if (cusId != null) {
 
 
 	<div class="plan_tab">
-		<c:if test="${not empty errorMessage}">
-			<div class="error-message"
-				style="color: red; font-size: 25px; top: 15%; position: absolute; left: 50%">
-				<i>*${errorMessage}</i>
+		<c:if test="${not empty errorMessages}">
+			<div class="error-message" style="color: red; font-size: 25px; top: 15%; position: absolute; left: 40%">
+				<c:forEach var="message" items="${errorMessages}">
+					<li style="color:red">${message}</li>
+				</c:forEach>
 			</div>
 		</c:if>
 		<div class="tab_list_block">
 
 			<ul class="tab_list">
-				<li><a href="#" data-target="plan1" class="tab -on">規劃一</a></li>
-				<li><a href="#" data-target="plan2" class="tab ">規劃二</a></li>
-				<li><a href="#" data-target="plan3" class="tab ">規劃三</a></li>
-				<li><a href="#" data-target="plan4" class="tab ">規劃四</a></li>
+				<li><a href="#" data-target="plan1" class="tab  -on">規劃一</a></li>
+				<li><a href="#" data-target="plan2" class="tab  ">規劃二</a></li>
+				<li><a href="#" data-target="plan3" class="tab  ">規劃三</a></li>
+				<li><a href="#" data-target="plan4" class="tab  ">規劃四</a></li>
 				<li><a href="#" data-target="plan5" class="tab ">規劃五</a></li>
 			</ul>
 		</div>
@@ -195,10 +196,10 @@ if (cusId != null) {
 							<div class="right_side_first_row">
 								<div class="title_set" style="margin-top: 13px; width: 210px">
 									<span class="mark_for_type_hotel">飯</span> <i
-										id="named_of_title">${room1.get(roomVo1).get(0)}</i>
+										id="named_of_title" style = "font-size :20px">${room1.get(roomVo1).get(0)}</i>
 
 								</div>
-								<!-- 					</form> -->
+								
 								<div class="comment_set">
 									<div class="comment_message"
 										style="position: absolute; right: 100px;">
@@ -212,6 +213,7 @@ if (cusId != null) {
 								</div>
 							</div>
 							<span class="book_price" style="font-size: 22px">${room1.get(roomVo1).get(1)}</span>
+							
 							<i class="howmuch_nt">TWD</i>
 							<div class="price_set">
 								<i class="howmuch">${roomVo1.totalPrice.intValue()}</i>
@@ -421,7 +423,7 @@ if (cusId != null) {
 									</div>
 								</div>
 							</div>
-							<span class="book_price" style="font-size: 25px">${room2.get(roomVo2).get(1)}</span>
+							<span class="book_price" style="font-size: 22px">${room2.get(roomVo2).get(1)}</span>
 							<i class="howmuch_nt">TWD</i>
 							<div class="price_set">
 								<i class="howmuch">${roomVo2.totalPrice.intValue()}</i>
@@ -629,7 +631,7 @@ if (cusId != null) {
 									</div>
 								</div>
 							</div>
-							<span class="book_price" style="font-size: 25px">${room3.get(roomVo3).get(1)}</span>
+							<span class="book_price" style="font-size: 22px">${room3.get(roomVo3).get(1)}</span>
 							<i class="howmuch_nt">TWD</i>
 							<div class="price_set">
 								<i class="howmuch">${roomVo3.totalPrice.intValue()}</i>
@@ -833,7 +835,7 @@ if (cusId != null) {
 									</div>
 								</div>
 							</div>
-							<span class="book_price" style="font-size: 25px">${room4.get(roomVo4).get(1)}</span>
+							<span class="book_price" style="font-size: 22px">${room4.get(roomVo4).get(1)}</span>
 							<i class="howmuch_nt">TWD</i>
 							<div class="price_set">
 								<i class="howmuch">${roomVo4.totalPrice.intValue()}</i>
@@ -1034,7 +1036,7 @@ if (cusId != null) {
 									</div>
 								</div>
 							</div>
-							<span class="book_price" style="font-size: 25px">${room5.get(roomVo5).get(1)}</span>
+							<span class="book_price" style="font-size: 22px">${room5.get(roomVo5).get(1)}</span>
 							<i class="howmuch_nt">TWD</i>
 							<div class="price_set">
 								<i class="howmuch">${roomVo5.totalPrice.intValue()}</i>
