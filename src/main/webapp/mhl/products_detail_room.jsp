@@ -134,28 +134,28 @@
                 <div class="container-fluid justify-content-center">
                   <form class="d-flex" method="post" action="${pageContext.request.contextPath}/sean/SearchServlet">
                     <select class="form-select me-2" name="site" aria-label="Default select example">
-                        <option value="台北市">台北市</option>
-                        <option value="新北市">新北市</option>
-                        <option value="桃園市">桃園市</option>
-                        <option value="台中市">台中市</option>
-                        <option value="台南市">台南市</option>
-                        <option value="高雄市">高雄市</option>
-                        <option value="新竹縣">新竹縣</option>
-                        <option value="苗栗縣">苗栗縣</option>
-                        <option value="彰化縣">彰化縣</option>
-                        <option value="南投縣">南投縣</option>
-                        <option value="雲林縣">雲林縣</option>
-                        <option value="嘉義縣">嘉義縣</option>
-                        <option value="屏東縣">屏東縣</option>
-                        <option value="宜蘭市">宜蘭市</option>
-                        <option value="花蓮市">花蓮市</option>
-                        <option value="台東縣">台東縣</option>
-                        <option value="金門縣">金門縣</option>
-                        <option value="連江縣">連江縣</option>
-                        <option value="基隆市">基隆市</option>
-                        <option value="新竹市">新竹市</option>
-                        <option value="嘉義市">嘉義市</option>
-                        <option value="澎湖縣">澎湖縣</option>
+                        <option value="台北市" ${searchRoomComp_address == "台北市" ? 'selected' : ""}>台北市</option>
+                        <option value="新北市" ${searchRoomComp_address == "新北市" ? 'selected' : ""}>新北市</option>
+                        <option value="桃園市" ${searchRoomComp_address == "桃園市" ? 'selected' : ""}>桃園市</option>
+                        <option value="台中市" ${searchRoomComp_address == "台中市" ? 'selected' : ""}>台中市</option>
+                        <option value="台南市" ${searchRoomComp_address == "台南市" ? 'selected' : ""}>台南市</option>
+                        <option value="高雄市" ${searchRoomComp_address == "高雄市" ? 'selected' : ""}>高雄市</option>
+                        <option value="新竹縣" ${searchRoomComp_address == "新竹縣" ? 'selected' : ""}>新竹縣</option>
+                        <option value="苗栗縣" ${searchRoomComp_address == "苗栗縣" ? 'selected' : ""}>苗栗縣</option>
+                        <option value="彰化縣" ${searchRoomComp_address == "彰化縣" ? 'selected' : ""}>彰化縣</option>
+                        <option value="南投縣" ${searchRoomComp_address == "南投縣" ? 'selected' : ""}>南投縣</option>
+                        <option value="雲林縣" ${searchRoomComp_address == "雲林縣" ? 'selected' : ""}>雲林縣</option>
+                        <option value="嘉義縣" ${searchRoomComp_address == "嘉義縣" ? 'selected' : ""}>嘉義縣</option>
+                        <option value="屏東縣" ${searchRoomComp_address == "屏東縣" ? 'selected' : ""}>屏東縣</option>
+                        <option value="宜蘭市" ${searchRoomComp_address == "宜蘭市" ? 'selected' : ""}>宜蘭市</option>
+                        <option value="花蓮市" ${searchRoomComp_address == "花蓮市" ? 'selected' : ""}>花蓮市</option>
+                        <option value="台東縣" ${searchRoomComp_address == "台東縣" ? 'selected' : ""}>台東縣</option>
+                        <option value="金門縣" ${searchRoomComp_address == "金門縣" ? 'selected' : ""}>金門縣</option>
+                        <option value="連江縣" ${searchRoomComp_address == "連江縣" ? 'selected' : ""}>連江縣</option>
+                        <option value="基隆市" ${searchRoomComp_address == "基隆市" ? 'selected' : ""}>基隆市</option>
+                        <option value="新竹市" ${searchRoomComp_address == "新竹市" ? 'selected' : ""}>新竹市</option>
+                        <option value="嘉義市" ${searchRoomComp_address == "嘉義市" ? 'selected' : ""}>嘉義市</option>
+                        <option value="澎湖縣" ${searchRoomComp_address == "澎湖縣" ? 'selected' : ""}>澎湖縣</option>
                     </select>
                     <input class="form-control me-2" name="checkIn" type="text" placeholder="入住日期..." aria-label="Search" onfocus="(this.type='date')"
                     	onblur="(this.type='text')" value="${searchRoomCheckIn}">
@@ -216,48 +216,79 @@
                     <!--地圖-->
                     <div class="col-4 h-100 mt-2 mb-2">
                         <div class="container">
-                            <div class="row justify-content-center">
+                            <div class="row ">
                                 <div class="col-6">
-                                	<div class="">位置</div>
+                                	<div class="">飯店位置</div>
 										<!-- Button trigger modal -->
-											<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-											  <i class="fa-solid fa-map-location-dot h-100" id="map"></i>
-											</button>
-											<!-- Modal -->
-											<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-											  <div class="modal-dialog modal-lg">
-											    <div class="modal-content">
-											      <div class="modal-header">
-											        <h5 class="modal-title" id="exampleModalLabel"><%=company.getCompName()%></h5>
-											        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-											      </div>
-											      <div class="modal-body ">
-											      <div class="container">
-											      	<div class="row justify-content-center">
-											      		<iframe
-													      width="750"
-													      height="350"
-													      style="border:0"
-													      loading="lazy"
-													      allowfullscreen
-													      referrerpolicy="no-referrer-when-downgrade"
-													      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAInnBRglvKKBNHyr2OIw4-4ySCv-enRUY
-													        &q=<%=company.getCompAddress()%>&zoom=15">
-													    </iframe>
-											      	</div>
-											      </div>
-											      </div>
-											      <div class="modal-footer">
-											      </div>
-											    </div>
-											  </div>
-											</div>
+									<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#siteModal">
+									  <i class="fa-solid fa-map-location-dot h-100" id="map"></i>
+									</button>
+									<!-- Modal -->
+									<div class="modal fade" id="siteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									  <div class="modal-dialog modal-lg">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <h5 class="modal-title" id="exampleModalLabel"><%=company.getCompName()%></h5>
+									        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									      </div>
+									      <div class="modal-body ">
+									      <div class="container">
+									      	<div class="row justify-content-center">
+									      		<iframe
+											      width="750"
+											      height="350"
+											      style="border:0"
+											      loading="lazy"
+											      allowfullscreen
+											      referrerpolicy="no-referrer-when-downgrade"
+											      src="https://www.google.com/maps/embed/v1/place?key=#
+											        &q=<%=company.getCompAddress()%>&zoom=15">
+											    </iframe>
+									      	</div>
+									      </div>
+									      </div>
+									      <div class="modal-footer">
+									      </div>
+									    </div>
+									  </div>
+									</div>
                                 </div>
                                 <div class="col-6">
-                                    <div>附近景點</div>
-                                    <a href="#">
-                                        <i class="fa-solid fa-map-location-dot h-100" id="map"></i>
-                                    </a>
+	                                <div class="">附近景點</div>
+											<!-- Button trigger modal -->
+												<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nearbyScene">
+												  <i class="fa-solid fa-map-location-dot h-100" id="map"></i>
+												</button>
+												<!-- Modal -->
+												<div class="modal fade" id="nearbyScene" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+												  <div class="modal-dialog modal-lg">
+												    <div class="modal-content">
+												      <div class="modal-header">
+												        <h5 class="modal-title" id="exampleModalLabel"><%=company.getCompName()%> 附近景點</h5>
+												        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+												      </div>
+												      <div class="modal-body ">
+												      <div class="container">
+												      	<div class="row justify-content-center">
+												      		<iframe
+														      width="600"
+														      height="450"
+														      style="border:0"
+														      loading="lazy"
+														      allowfullscreen
+														      referrerpolicy="no-referrer-when-downgrade"
+														      src="https://www.google.com/maps/embed/v1/search?key=#
+														      &q=<%=company.getCompAddress()%>附近休閒文藝景點">
+														    </iframe>
+												      	</div>
+												      </div>
+												      </div>
+												      <div class="modal-footer">
+												      </div>
+												    </div>
+												  </div>
+												</div>
+                                
                                 </div>
                             </div>
                         </div>
@@ -269,19 +300,25 @@
                         </c:forEach>
                     </div>
                     <!-- 聯絡 評價 -->
-                    <div class="col-4 h-100 mt-2 mb-2">
-                        <a href="#">
-                            <button type="button" class="btn btn-primary mb-3">
-                                <i class="fa-solid fa-message"></i>
-                                聯繫業者
-                            </button>
-                        </a>
-                        <a href="${pageContext.request.contextPath}/chu/commentArea(hotel).jsp?roomId=<%=room.getRoomId()%>">
-                            <button type="button" class="btn btn-primary">
-                                <i class="fa-solid fa-message"></i>
-                                查看評價
-                            </button>
-                        </a>
+                    <div class="col-4 h-100 mt-2 mb-2 ps-0 pe-0">
+                    	<div class="container ">
+                    		<div class="row align-items-center justify-content-center ">
+	                    		<div class="col ps-0 pe-0  ">
+				                        <a class="" href="#" >
+				                            <button type="button" class="btn btn-primary ">
+				                                <i class="fa-solid fa-message "> 聯繫業者</i>
+				                            </button>
+				                        </a>
+		                        </div>
+		                        <div class="col ps-0 pe-0 ">
+			                        <a class="" href="${pageContext.request.contextPath}/chu/commentArea(hotel).jsp?roomId=<%=room.getRoomId()%>">
+			                            <button type="button" class="btn btn-primary">
+			                                <i class="fa-solid fa-message"> 查看評價</i>
+			                            </button>
+			                        </a>
+		                        </div>
+	                        </div>
+                        </div>
                     </div>
                 </div>
             </div>
