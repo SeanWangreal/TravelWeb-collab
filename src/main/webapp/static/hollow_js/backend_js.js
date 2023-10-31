@@ -99,31 +99,52 @@ $(function() {
 							</tr>
 							<tr>
 								<th>公司名稱</th>
-								<td><input type="text" class="text inp_compName" value="${data.compName}"></td>
+								<td>
+									<span class="wrongName" style="color:red"></span>
+									<input type="text" class="text inp_compName" value="${data.compName}">
+								</td>
 							</tr>
 							<tr>
 								<th>公司地址</th>
-								<td><input type="text" class="text inp_compAddress" value="${data.compAddress}"></td>
+								<td>
+									<span class="wrongAddress" style="color:red"></span>
+									<input type="text" class="text inp_compAddress" value="${data.compAddress}">
+								</td>
 							</tr>
 							<tr>
 								<th>公司電話</th>
-								<td><input type="text" class="text inp_compPhone" value="${data.compPhone}"></td>
+								<td>
+									<span class="wrongPhone" style="color:red"></span>
+									<input type="text" class="text inp_compPhone" value="${data.compPhone}">
+								</td>
 							</tr>
 							<tr>
 								<th>負責人</th>
-								<td><input type="text" class="text inp_principalName" value="${data.principalName}"></td>
+								<td>
+									<span class="wrongPrincipalName" style="color:red"></span>
+									<input type="text" class="text inp_principalName" value="${data.principalName}">
+								</td>
 							</tr>
 							<tr>
 								<th>負責人電話</th>
-								<td><input type="text" class="text inp_principalPhone" value="${data.principalPhone}"></td>
+								<td>
+									<span class="wrongPrincipalPhone" style="color:red"></span>
+									<input type="text" class="text inp_principalPhone" value="${data.principalPhone}">
+								</td>
 							</tr>
 							<tr>
 								<th>帳號</th>
-								<td><input type="text" class="text inp_compAccount" value="${data.compAccount}"></td>
+								<td>
+									<span class="wrongAccount" style="color:red"></span>
+									<input type="text" class="text inp_compAccount" value="${data.compAccount}">
+								</td>
 							</tr>
 							<tr>
 								<th>信箱</th>
-								<td><input type="text" class="text inp_compMail" value="${data.compMail}"></td>
+								<td>
+									<span class="wrongMail" style="color:red"></span>
+									<input type="text" class="text inp_compMail" value="${data.compMail}">
+								</td>
 							</tr>
 							<tr>
 								<th>審核狀態</th>
@@ -286,6 +307,23 @@ $(function() {
 		if (data.status == "Success") {
 			alert("業者更新");
 			
+//			$("ul.list_company").find("span.wrongName").html("");
+//			$("ul.list_company").find("span.wrongAddress").html("");
+//			$("ul.list_company").find("span.wrongPhone").html("");
+//			$("ul.list_company").find("span.wrongPrincipalName").html("");
+//			$("ul.list_company").find("span.wrongprincipalPhone").html("");
+//			$("ul.list_company").find("span.wrongAccount").html("");
+//			$("ul.list_company").find("span.wrongMail").html("");
+
+			$("ul.list_company").find("span.wrongName").text("");
+			$("ul.list_company").find("span.wrongAddress").text("");
+			$("ul.list_company").find("span.wrongPhone").text("");
+			$("ul.list_company").find("span.wrongPrincipalName").text("");
+			$("ul.list_company").find("span.wrongprincipalPhone").text("");
+			$("ul.list_company").find("span.wrongAccount").text("");
+			$("ul.list_company").find("span.wrongMail").text("");
+			
+			/*
 			let list_html = "";
 			list_html += `
 				<li>
@@ -346,8 +384,9 @@ $(function() {
 			`;
 
 			$("ul.list_company").html(list_html);
-			
+			*/
 		} else {
+			
 			let list_html = "";
 			list_html += `
 				<li>
@@ -370,49 +409,49 @@ $(function() {
 							<tr>
 								<th>公司名稱</th>
 								<td>	
-									<span style="color:red">${(data.wrongName != null? data.wrongName:"")}</span>
+									<span class="wrongName" style="color:red">${(data.wrongName != null? data.wrongName:"")}</span>
 									<input type="text" class="text inp_compName" value="${data.compName}">
 								</td>
 							</tr>
 							<tr>
 								<th>公司地址</th>
 								<td>
-									<span style="color:red">${(data.wrongAddress != null? data.wrongAddress:"")}</span>
+									<span class="wrongAddress" style="color:red">${(data.wrongAddress != null? data.wrongAddress:"")}</span>
 									<input type="text" class="text inp_compAddress" value="${data.compAddress}">
 								</td>
 							</tr>
 							<tr>
 								<th>公司電話</th>
 								<td>
-									<span style="color:red">${(data.wrongPhone != null? data.wrongPhone:"")}</span>
+									<span class="wrongPhone" style="color:red">${(data.wrongPhone != null? data.wrongPhone:"")}</span>
 									<input type="text" class="text inp_compPhone" value="${data.compPhone}">
 								</td>
 							</tr>
 							<tr>
 								<th>負責人</th>
 								<td>
-									<span style="color:red">${(data.wrongPrincipalName != null? data.wrongPrincipalName:"")}</span>
+									<span class="wrongPrincipalName" style="color:red">${(data.wrongPrincipalName != null? data.wrongPrincipalName:"")}</span>
 									<input type="text" class="text inp_principalName" value="${data.principalName}">
 								</td>
 							</tr>
 							<tr>
 								<th>負責人電話</th>
 								<td>
-									<span style="color:red">${(data.wrongPrincipalPhone != null? data.wrongPrincipalPhone:"")}</span>
+									<span class="wrongPrincipalPhone" style="color:red">${(data.wrongPrincipalPhone != null? data.wrongPrincipalPhone:"")}</span>
 									<input type="text" class="text inp_principalPhone" value="${data.principalPhone}">
 								</td>
 							</tr>
 							<tr>
 								<th>帳號</th>
 								<td>
-									<span style="color:red">${(data.wrongAccount != null? data.wrongAccount:"")}</span>
+									<span class="wrongAccount" style="color:red">${(data.wrongAccount != null? data.wrongAccount:"")}</span>
 									<input type="text" class="text inp_compAccount" value="${data.compAccount}">
 								</td>
 							</tr>
 							<tr>
 								<th>信箱</th>
 								<td>
-									<span style="color:red">${(data.wrongMail != null? data.wrongMail:"")}</span>
+									<span class="wrongMail" style="color:red">${(data.wrongMail != null? data.wrongMail:"")}</span>
 									<input type="text" class="text inp_compMail" value="${data.compMail}">
 								</td>
 							</tr>
@@ -428,6 +467,7 @@ $(function() {
 				</li>
 			`;
 			$("ul.list_company").html(list_html);
+			
 		}
 	}
 

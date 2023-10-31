@@ -448,9 +448,10 @@ public class CompanyServlet extends HttpServlet {
 			String principalNameReg = "^[(\u4e00-\\u9fa5)(a-zA-Z)]$";
 			if (principalName == null || principalName.trim().length() == 0) {
 				errorMsgs.put("wrongPrincipalName","負責人名稱: 請勿空白");
-			}  else if (!principalName.trim().matches(principalNameReg)) { // 以下練習正則(規)表示式(regular-expression)
-				errorMsgs.put("wrongPrincipalName","負責人名稱: 只能是中、英文字母");
-			}
+			}  
+//			else if (!principalName.trim().matches(principalNameReg)) { // 以下練習正則(規)表示式(regular-expression)
+//				errorMsgs.put("wrongPrincipalName","負責人名稱: 只能是中、英文字母");
+//			}
 			
 			String principalPhone = req.getParameter("principalPhone").trim();
 //			String principalPhoneReg = "^0[(0-9)]{1,2}-[(0-9)]{8}$";
