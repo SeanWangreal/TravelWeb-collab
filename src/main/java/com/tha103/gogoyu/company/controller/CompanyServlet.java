@@ -5,8 +5,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.Collection;
 import java.util.Base64;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,15 +23,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import org.apache.logging.log4j.core.appender.rolling.action.IfAccumulatedFileCount;
-import org.springframework.util.ObjectUtils;
+import org.hibernate.internal.build.AllowSysOut;
 
 import com.google.gson.Gson;
 import com.tha103.gogoyu.company.model.Company;
-import com.tha103.gogoyu.company.model.MailService;
 import com.tha103.gogoyu.company.model.CompanyService;
+import com.tha103.gogoyu.company.model.MailService;
 import com.tha103.gogoyu.hotel_info.model.Hotel_info;
 import com.tha103.gogoyu.hotel_info.model.Hotel_infoServiceHibernate;
+
 @WebServlet("/CompanyServlet")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class CompanyServlet extends HttpServlet {
@@ -45,13 +45,12 @@ public class CompanyServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
-		
 		System.out.println(action);
 		if ("signIn".equals(action)) { // 來自select_page.jsp的請求
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
-			
+
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			String compAccount = req.getParameter("account");
 			System.out.println(compAccount);
@@ -62,26 +61,25 @@ public class CompanyServlet extends HttpServlet {
 //			else if(company==null ) {
 //				errorMsgs.add("此帳號不正確,請重新輸入");
 //			}
-				
-			
-		    CompanyService companySvc = new CompanyService();
+
+			CompanyService companySvc = new CompanyService();
 			List<Company> account = companySvc.getOneAccount(compAccount);
 //			System.out.println(account.get(0).getCompPassword());
 
-			Company company = account.size()==0?null:account.get(0);
+			Company company = account.size() == 0 ? null : account.get(0);
 //			String pass = company.getCompPassword();
 //			System.out.println("我是密碼:"+pass);
 
 //			System.out.println(company);
-			String pass = company==null?"":company.getCompPassword();
+			String pass = company == null ? "" : company.getCompPassword();
 			String compPassword = req.getParameter("password");
-			if(compPassword == null || (compPassword.trim()).length() == 0) {
+			if (compPassword == null || (compPassword.trim()).length() == 0) {
 				errorMsgs.add("請輸入會員密碼");
 				System.out.println(errorMsgs);
-			}else if(company==null||!compPassword.equals(pass) ) {
-				errorMsgs.add("此密碼不正確,請重新輸入");  
+			} else if (company == null || !compPassword.equals(pass)) {
+				errorMsgs.add("此密碼不正確,請重新輸入");
 			}
-		
+
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req.getRequestDispatcher("/ken/com_mem_signin.jsp");
@@ -90,7 +88,7 @@ public class CompanyServlet extends HttpServlet {
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
-			
+
 			/*************************** 2.開始查詢資料 *****************************************/
 
 //		    CompanyService companySvc = new CompanyService();
@@ -103,7 +101,7 @@ public class CompanyServlet extends HttpServlet {
 				req.setAttribute("Company", company); // 資料庫取出的empVO物件,存入req
 				System.out.println(pass);
 			}
-	
+
 			if (account.isEmpty()) {
 				errorMsgs.add("查無資料");
 			}
@@ -117,12 +115,12 @@ public class CompanyServlet extends HttpServlet {
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			HttpSession session = req.getSession();
-		    session.setAttribute("compId", company.getCompId().toString());
-		    String url = null;
+			session.setAttribute("compId", company.getCompId().toString());
+			String url = null;
 			if (company.getCompType() == 0) {
 				System.out.println("wqdwq");
 				url = "/ken/com_mem.jsp";
-			}else {
+			} else {
 				url = "/ken/tripcom_mem.jsp";
 			}
 			Hotel_infoServiceHibernate hotelInfoSvc = new Hotel_infoServiceHibernate();
@@ -132,19 +130,19 @@ public class CompanyServlet extends HttpServlet {
 			successView.forward(req, res);
 			return;
 		}
-		
+
 		if ("signout".equals(action)) { // 來自select_page.jsp的請求
 			HttpSession session = req.getSession();
-		        // 清除資料
+			// 清除資料
 			if (session != null) {
-			    session.invalidate(); // 使会话无效
-			    String url = "/ken/com_mem_signin.jsp";
+				session.invalidate(); // 使会话无效
+				String url = "/ken/com_mem_signin.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
-			}	System.out.print("您已成功登出退出系統!");
-		        System.out.close();
-		    }
-		
+			}
+			System.out.print("您已成功登出退出系統!");
+			System.out.close();
+		}
 
 		if ("getOne".equals(action)) { // 來自select_page.jsp的請求
 			System.out.println("getOne");
@@ -186,7 +184,7 @@ public class CompanyServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher(req.getContextPath()+"ken/com_mem.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher(req.getContextPath() + "ken/com_mem.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -198,7 +196,7 @@ public class CompanyServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
 		}
-		
+
 		if ("getOneJSON".equals(action)) { // 來自select_page.jsp的請求
 			Map<String, Object> errorMsgs = new HashMap<String, Object>();
 			// Store this set in the request scope, in case we need to
@@ -208,14 +206,14 @@ public class CompanyServlet extends HttpServlet {
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			String str = req.getParameter("compId");
 			if (str == null || (str.trim()).length() == 0) {
-				errorMsgs.put("noCompId","請輸入公司編號");
+				errorMsgs.put("noCompId", "請輸入公司編號");
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				errorMsgs.put("status","Failed");
-				Gson gson =new Gson();
-				String json=gson.toJson(errorMsgs);
-				
+				errorMsgs.put("status", "Failed");
+				Gson gson = new Gson();
+				String json = gson.toJson(errorMsgs);
+
 				PrintWriter out = res.getWriter();
 				out.println(json);
 				System.out.println(json);
@@ -227,21 +225,21 @@ public class CompanyServlet extends HttpServlet {
 			try {
 				compId = Integer.valueOf(str);
 			} catch (Exception e) {
-				errorMsgs.put("wrongId","公司編號格式不正確");
+				errorMsgs.put("wrongId", "公司編號格式不正確");
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 //				RequestDispatcher failureView = req.getRequestDispatcher("/hollow/backend.jsp");
 //				failureView.forward(req, res);
-				errorMsgs.put("status","Failed");
-				Gson gson =new Gson();
-				String json=gson.toJson(errorMsgs);
-				
+				errorMsgs.put("status", "Failed");
+				Gson gson = new Gson();
+				String json = gson.toJson(errorMsgs);
+
 				PrintWriter out = res.getWriter();
 				out.println(json);
 				System.out.println(json);
 				out.close();
-				
+
 				return;// 程式中斷
 			}
 
@@ -249,21 +247,21 @@ public class CompanyServlet extends HttpServlet {
 			CompanyService companySvc = new CompanyService();
 			Company company = companySvc.getOneCompany(compId);
 			if (company == null) {
-				errorMsgs.put("noData","查無資料");
+				errorMsgs.put("noData", "查無資料");
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 //				RequestDispatcher failureView = req.getRequestDispatcher(req.getContextPath()+"ken/com_mem.jsp");
 //				failureView.forward(req, res);
-				errorMsgs.put("status","Failed");
-				Gson gson =new Gson();
-				String json=gson.toJson(errorMsgs);
-				
+				errorMsgs.put("status", "Failed");
+				Gson gson = new Gson();
+				String json = gson.toJson(errorMsgs);
+
 				PrintWriter out = res.getWriter();
 				out.println(json);
 				System.out.println(json);
 				out.close();
-				
+
 				return;// 程式中斷
 			}
 
@@ -273,7 +271,7 @@ public class CompanyServlet extends HttpServlet {
 //			String url = "/ken/com_mem.jsp";
 //			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 //			successView.forward(req, res);
-			Map<String, Object> cmpMap=new HashMap<String, Object>();
+			Map<String, Object> cmpMap = new HashMap<String, Object>();
 			cmpMap.put("compId", company.getCompId());
 			cmpMap.put("compName", company.getCompName());
 			cmpMap.put("compAddress", company.getCompAddress());
@@ -284,17 +282,17 @@ public class CompanyServlet extends HttpServlet {
 			cmpMap.put("compMail", company.getCompMail());
 			cmpMap.put("compChkStatus", company.getCheckStatus());
 			cmpMap.put("status", "Success");
-			
-			Gson gson =new Gson();
-			String json=gson.toJson(cmpMap);
-			
+
+			Gson gson = new Gson();
+			String json = gson.toJson(cmpMap);
+
 			PrintWriter out = res.getWriter();
 			out.println(json);
 //			System.out.println(json);
 			out.close();
 		}
-		
-		//密碼修改
+
+		// 密碼修改
 		if ("getOneUpdate".equals(action)) { // 來自select_page.jsp的請求
 			System.out.println("getOneUpdate");
 			List<String> errorMsgs = new LinkedList<String>();
@@ -303,9 +301,9 @@ public class CompanyServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-			
+
 			String pass = req.getParameter("compId");
-			System.out.println(pass+"===========");
+			System.out.println(pass + "===========");
 			if (pass == null || (pass.trim()).length() == 0) {
 				errorMsgs.add("請輸入密碼");
 			}
@@ -337,7 +335,7 @@ public class CompanyServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher(req.getContextPath()+"/ken/com_mem.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher(req.getContextPath() + "/ken/com_mem.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -349,54 +347,52 @@ public class CompanyServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
 		}
-			
-		//密碼修改確認
+
+		// 密碼修改確認
 		if ("getPSForUpdate".equals(action)) { // 來自listAllEmp.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-			
-				/***************************1.接收請求參數****************************************/
-				Integer compId = Integer.parseInt((String) req.getSession().getAttribute("compId"));
-				
-				String compPassword = req.getParameter("password").trim();
-				if (compPassword == null || compPassword.trim().length() == 0) {
-					errorMsgs.add("密碼請勿空白");
-				}
-				
-				CompanyService companySvc = new CompanyService();
-				Company company = companySvc.getOneCompany(compId);
-				
-				Integer hotelInfoId=company.getHotelInfoId();
-				Integer compType=company.getCompType();
-				String compName=company.getCompName();
-				String compAddress=company.getCompAddress();
-				String compPhone=company.getCompPhone();
-				String principalName=company.getPrincipalName();
-				String principalPhone=company.getPrincipalPhone();
-				String compAccount=company.getCompAccount();
-				String compMail=company.getCompMail();
-				byte[] compPhoto=company.getCompPhoto();
-				Integer checkStatus=company.getCheckStatus();
-				
-				/***************************2.開始修改資料*****************************************/
-		
-				company = companySvc.updateCompany(compId, hotelInfoId, compType, compName, compAddress, compPhone, principalName,
-						principalPhone, compAccount, compPassword, compMail, compPhoto, checkStatus);
-				
-				/***************************3.查詢完成,準備轉交(Send the Success view)************/
-				String url = "/ken/com_mem.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
-				successView.forward(req, res);
+
+			/*************************** 1.接收請求參數 ****************************************/
+			Integer compId = Integer.parseInt((String) req.getSession().getAttribute("compId"));
+
+			String compPassword = req.getParameter("password").trim();
+			if (compPassword == null || compPassword.trim().length() == 0) {
+				errorMsgs.add("密碼請勿空白");
+			}
+
+			CompanyService companySvc = new CompanyService();
+			Company company = companySvc.getOneCompany(compId);
+
+			Integer hotelInfoId = company.getHotelInfoId();
+			Integer compType = company.getCompType();
+			String compName = company.getCompName();
+			String compAddress = company.getCompAddress();
+			String compPhone = company.getCompPhone();
+			String principalName = company.getPrincipalName();
+			String principalPhone = company.getPrincipalPhone();
+			String compAccount = company.getCompAccount();
+			String compMail = company.getCompMail();
+			byte[] compPhoto = company.getCompPhoto();
+			Integer checkStatus = company.getCheckStatus();
+
+			/*************************** 2.開始修改資料 *****************************************/
+
+			company = companySvc.updateCompany(compId, hotelInfoId, compType, compName, compAddress, compPhone,
+					principalName, principalPhone, compAccount, compPassword, compMail, compPhoto, checkStatus);
+
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+			String url = "/ken/com_mem.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
+			successView.forward(req, res);
 		}
-		
-		
+
 		if ("updChkStat".equals(action)) { // 來自update_emp_input.jsp的請求
 			Integer compId = Integer.valueOf(req.getParameter("compId").trim());
 			Integer checkStatus = Integer.valueOf(req.getParameter("chkStatus").trim());
-
 
 			/*************************** 2.開始修改資料 *****************************************/
 			CompanyService companySvc = new CompanyService();
@@ -407,84 +403,83 @@ public class CompanyServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 			successView.forward(req, res);
 		}
-		
-		if("updFromBackend".equals(action)) {
-			Map<String, Object> errorMsgs=new HashMap<String, Object>();
+
+		if ("updFromBackend".equals(action)) {
+			Map<String, Object> errorMsgs = new HashMap<String, Object>();
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			Integer compId = Integer.valueOf(req.getParameter("compId").trim());
 			System.out.println(compId);
-			
+
 			String compName = req.getParameter("compName");
 //			String compNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 			if (compName == null || compName.trim().length() == 0) {
-				errorMsgs.put("wrongName","公司名稱: 請勿空白");
-			} 
+				errorMsgs.put("wrongName", "公司名稱: 請勿空白");
+			}
 //			else if (!compName.trim().matches(compNameReg)) { // 以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.put("wrongName","公司名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 //			}
 			System.out.println(compName);
-			
+
 			String compAddress = req.getParameter("compAddress").trim();
 //			String compAddressReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)]$";
 			if (compAddress == null || compAddress.trim().length() == 0) {
-				errorMsgs.put("wrongAddress","公司地址: 請勿空白");
-			} 
+				errorMsgs.put("wrongAddress", "公司地址: 請勿空白");
+			}
 //			else if (!compAddress.trim().matches(compAddressReg)) { // 以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.put("wrongAddress","公司地址: 只能是中、英文字母、數字");
 //			}
 			System.out.println(compAddress);
-			
+
 			String compPhone = req.getParameter("compPhone").trim();
 //			String compPhoneReg = "^0[(0-9)]{1,2}-[(0-9)]{8}$";
 			if (compPhone == null || compPhone.trim().length() == 0) {
-				errorMsgs.put("wrongPhone","公司電話: 請勿空白");
-			} 
+				errorMsgs.put("wrongPhone", "公司電話: 請勿空白");
+			}
 //			else if (!compPhone.trim().matches(compPhoneReg)) { // 以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.put("wrongPhone","公司電話: 格式錯誤");
 //			}
 			System.out.println(compPhone);
-			
+
 			String principalName = req.getParameter("principalName").trim();
 			String principalNameReg = "^[(\u4e00-\\u9fa5)(a-zA-Z)]$";
 			if (principalName == null || principalName.trim().length() == 0) {
-				errorMsgs.put("wrongPrincipalName","負責人名稱: 請勿空白");
-			}  
-//			else if (!principalName.trim().matches(principalNameReg)) { // 以下練習正則(規)表示式(regular-expression)
-//				errorMsgs.put("wrongPrincipalName","負責人名稱: 只能是中、英文字母");
-//			}
-			
+				errorMsgs.put("wrongPrincipalName", "負責人名稱: 請勿空白");
+			} else if (!principalName.trim().matches(principalNameReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.put("wrongPrincipalName", "負責人名稱: 只能是中、英文字母");
+			}
+
 			String principalPhone = req.getParameter("principalPhone").trim();
 //			String principalPhoneReg = "^0[(0-9)]{1,2}-[(0-9)]{8}$";
 			if (principalPhone == null || principalPhone.trim().length() == 0) {
-				errorMsgs.put("wrongPrincipalPhone","負責人電話: 請勿空白");
-			} 
+				errorMsgs.put("wrongPrincipalPhone", "負責人電話: 請勿空白");
+			}
 //			else if (!principalPhone.trim().matches(principalPhoneReg)) { // 以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.put("wrongPrincipalPhone","負責人電話: 格式錯誤");
 //			}
 			System.out.println(principalPhone);
-			
+
 			String compAccount = req.getParameter("compAccount");
 //			String compAccountReg = "^[(a-zA-Z0-9_)]{2,10}$";
 			if (compAccount == null || compAccount.trim().length() == 0) {
-				errorMsgs.put("wrongAccount","公司帳號: 請勿空白");
-			} 
+				errorMsgs.put("wrongAccount", "公司帳號: 請勿空白");
+			}
 //			else if (!compAccount.trim().matches(compAccountReg)) { // 以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.put("wrongAccount","公司帳號: 只能是英文字母、數字和_ , 且長度必需在2到10之間");
 //			}
 			System.out.println(compAccount);
-			
+
 			String compMail = req.getParameter("compMail");
 //			String compMailReg = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";//網路上查的Email正規表達式
 			if (compMail == null || compMail.trim().length() == 0) {
-				errorMsgs.put("wrongMail","公司信箱: 請勿空白");
-			} 
+				errorMsgs.put("wrongMail", "公司信箱: 請勿空白");
+			}
 //			else if (!compMail.trim().matches(compMailReg)) { // 以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.put("wrongMail","公司信箱: 格式錯誤");
 //			}
 			System.out.println(compMail);
-			
+
 			Integer compChkStatus = Integer.valueOf(req.getParameter("compChkStatus"));
-			
+
 			if (!errorMsgs.isEmpty()) {
 //				RequestDispatcher failureView = req.getRequestDispatcher(req.getContextPath()+"ken/com_mem.jsp");
 //				failureView.forward(req, res);
@@ -499,44 +494,43 @@ public class CompanyServlet extends HttpServlet {
 				errorMsgs.put("compChkStatus", compChkStatus);
 //				errorMsgs.put("compPhoto64", compPhoto64);
 				errorMsgs.put("status", "Failed");
-				
-				Gson gson =new Gson();
-				String json=gson.toJson(errorMsgs);
-				
+
+				Gson gson = new Gson();
+				String json = gson.toJson(errorMsgs);
+
 				PrintWriter out = res.getWriter();
 				out.println(json);
 				System.out.println(json);
 				out.close();
-				
+
 				return;// 程式中斷
 			}
 
 			CompanyService companySvc = new CompanyService();
 			Company company = companySvc.getOneCompany(compId);
-			
-			
-			String compPhoto64=req.getParameter("compPhoto64");
-			
-			byte[] compPhotoByte=null;
-			
-			if(!compPhoto64.equals("")) {
-				String compPhotoStr=compPhoto64.substring(23);
+
+			String compPhoto64 = req.getParameter("compPhoto64");
+
+			byte[] compPhotoByte = null;
+
+			if (!compPhoto64.equals("")) {
+				String compPhotoStr = compPhoto64.substring(23);
 //			InputStream is=compPhoto64.getInputStream();
 //			byte[] compPhotoByte=is.readAllBytes();
 //				System.out.println(compPhotoStr);
-				compPhotoByte=Base64.getDecoder().decode(compPhotoStr);				
-			}else {
-				 compPhotoByte=company.getCompPhoto();
+				compPhotoByte = Base64.getDecoder().decode(compPhotoStr);
+			} else {
+				compPhotoByte = company.getCompPhoto();
 			}
-			
-			Integer hotelInfoId=company.getHotelInfoId();
-			Integer compType=company.getCompType();
-			String compPassword=company.getCompPassword();
-			
-			company = companySvc.updateCompany(compId, hotelInfoId, compType, compName, compAddress, compPhone, principalName,
-					principalPhone, compAccount, compPassword, compMail, compPhotoByte, compChkStatus);			
-			
-			Map<String, Object> cmpMap=new HashMap<String, Object>();
+
+			Integer hotelInfoId = company.getHotelInfoId();
+			Integer compType = company.getCompType();
+			String compPassword = company.getCompPassword();
+
+			company = companySvc.updateCompany(compId, hotelInfoId, compType, compName, compAddress, compPhone,
+					principalName, principalPhone, compAccount, compPassword, compMail, compPhotoByte, compChkStatus);
+
+			Map<String, Object> cmpMap = new HashMap<String, Object>();
 			cmpMap.put("compId", company.getCompId());
 			cmpMap.put("compName", company.getCompName());
 			cmpMap.put("compAddress", company.getCompAddress());
@@ -548,10 +542,10 @@ public class CompanyServlet extends HttpServlet {
 			cmpMap.put("compChkStatus", company.getCheckStatus());
 //			cmpMap.put("compPhoto64", compPhoto64);
 			cmpMap.put("status", "Success");
-			
-			Gson gson =new Gson();
-			String json=gson.toJson(cmpMap);
-			
+
+			Gson gson = new Gson();
+			String json = gson.toJson(cmpMap);
+
 			PrintWriter out = res.getWriter();
 			out.println(json);
 //			System.out.println(json);
@@ -667,8 +661,8 @@ public class CompanyServlet extends HttpServlet {
 
 			/*************************** 2.開始修改資料 *****************************************/
 			CompanyService companySvc = new CompanyService();
-			company = companySvc.updateCompany(compId, hotelInfoId, compType, compName, compAddress, compPhone, principalName,
-					principalPhone, compAccount, compPassword, compMail, compPhoto, checkStatus);
+			company = companySvc.updateCompany(compId, hotelInfoId, compType, compName, compAddress, compPhone,
+					principalName, principalPhone, compAccount, compPassword, compMail, compPhoto, checkStatus);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("Company", company); // 資料庫update成功後,正確的的empVO物件,存入req
@@ -685,7 +679,7 @@ public class CompanyServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
-			
+
 			Integer compType = Integer.valueOf(req.getParameter("compType").trim());
 			System.out.println(compType);
 			if (compType == null) {
@@ -699,8 +693,11 @@ public class CompanyServlet extends HttpServlet {
 			} else if (!compName.trim().matches(compNameReg)) { // 以下練習正則(規)表示式(regular-expression)
 				errorMsgs.add("公司姓名: 只能是中、英文字母、數字 , 且長度必需在2到10之間");
 			}
-
-			String compAddress = req.getParameter(""+"compAddress").trim();
+			
+			String city = req.getParameter("city").trim();
+			String address = req.getParameter("address").trim();
+			String compAddress = city + address;
+			System.out.println(compAddress);
 			String compAddressReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)]+$";
 			if (compAddress == null || compAddress.trim().length() == 0) {
 				errorMsgs.add("公司地址請勿空白");
@@ -713,20 +710,21 @@ public class CompanyServlet extends HttpServlet {
 				compPhone = String.valueOf(req.getParameter("compPhone").trim());
 			} catch (NumberFormatException e) {
 				errorMsgs.add("公司電話請填數字.");
-			} 
-				
+			}
+
 			String compPhoneReg = "^[(0-9)]{10}$";
 			if (!compPhone.trim().matches(compPhoneReg)) {
 				errorMsgs.add("公司電話格式錯誤.");
 			}
-			
+
 			String principalName = req.getParameter("principalName").trim();
-			String principalNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z)]+$";
+//			String principalNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z)]+$";
 			if (principalName == null || principalName.trim().length() == 0) {
 				errorMsgs.add("負責人姓名請勿空白");
-			}else if (!principalName.trim().matches(principalNameReg)) { // 以下練習正則(規)表示式(regular-expression)
-				errorMsgs.add("負責人姓名: 只能是中文,英文");
-			}
+			} 
+//			else if (!principalName.trim().matches(principalNameReg)) { // 以下練習正則(規)表示式(regular-expression)
+//				errorMsgs.add("負責人姓名: 只能是中文,英文");
+//			}
 
 			String principalPhone = null;
 			try {
@@ -734,7 +732,7 @@ public class CompanyServlet extends HttpServlet {
 			} catch (NumberFormatException e) {
 				errorMsgs.add("負責人電話請填數字.");
 			}
-			
+
 			String principalPhoneReg = "^[(0-9)]{10}$";
 			if (!principalPhone.trim().matches(principalPhoneReg)) {
 				errorMsgs.add("負責人電話格式錯誤.");
@@ -742,15 +740,15 @@ public class CompanyServlet extends HttpServlet {
 
 			String compAccount = req.getParameter("compAccount").trim();
 			if (compAccount == null || compAccount.trim().length() == 0) {
-				errorMsgs.add("帳號請勿空白");	
+				errorMsgs.add("帳號請勿空白");
 			}
 
 			CompanyService companySvc = new CompanyService();
 			Company compAccount1 = companySvc.getAccount(compAccount);
 			if (compAccount1 != null) {
-			    errorMsgs.add("帳號已重複");
-			   }
-	
+				errorMsgs.add("帳號已重複");
+			}
+
 			String compPassword = req.getParameter("compPassword").trim();
 			if (compPassword == null || compPassword.trim().length() == 0) {
 				errorMsgs.add("密碼請勿空白");
@@ -767,33 +765,33 @@ public class CompanyServlet extends HttpServlet {
 				if (part.getContentType() != null && part.getSize() != 0) {
 					InputStream is = part.getInputStream();
 					compPhoto = is.readAllBytes();
-				}else if (part.getContentType() == null && part.getSize() != 0) {
+				} else if (part.getContentType() == null && part.getSize() != 0) {
 					ServletContext context = getServletContext();
-				     String img = context.getRealPath("/ken/img/face.jpg");
-				     FileInputStream fis = new FileInputStream(img);
-				     BufferedInputStream bis = new BufferedInputStream(fis);
-				     compPhoto = bis.readAllBytes();
+					String img = context.getRealPath("/ken/img/face.jpg");
+					FileInputStream fis = new FileInputStream(img);
+					BufferedInputStream bis = new BufferedInputStream(fis);
+					compPhoto = bis.readAllBytes();
 				}
-				
+
 			}
 //		    -------------------------------------hotelinfo----------------------------------
 			Hotel_info hotelInfo = null;
 			if (compType == 0) {
 				hotelInfo = new Hotel_info();
-				hotelInfo.setRestaurant((byte)0);
-				hotelInfo.setRoomService((byte)0);
-				hotelInfo.setAlldayCounter((byte)0);
-				hotelInfo.setSpa((byte)0);
-				hotelInfo.setGym((byte)0);
-				hotelInfo.setGarden((byte)0);
-				hotelInfo.setTerrace((byte)0);
-				hotelInfo.setNoSmoking((byte)0);
-				hotelInfo.setFreewifi((byte)0);
-				hotelInfo.setHeater((byte)0);
-				hotelInfo.setBeach((byte)0);
-				hotelInfo.setPool((byte)0);
-				hotelInfo.setChargingstation((byte)0);
-				hotelInfo.setParking((byte)0);
+				hotelInfo.setRestaurant((byte) 0);
+				hotelInfo.setRoomService((byte) 0);
+				hotelInfo.setAlldayCounter((byte) 0);
+				hotelInfo.setSpa((byte) 0);
+				hotelInfo.setGym((byte) 0);
+				hotelInfo.setGarden((byte) 0);
+				hotelInfo.setTerrace((byte) 0);
+				hotelInfo.setNoSmoking((byte) 0);
+				hotelInfo.setFreewifi((byte) 0);
+				hotelInfo.setHeater((byte) 0);
+				hotelInfo.setBeach((byte) 0);
+				hotelInfo.setPool((byte) 0);
+				hotelInfo.setChargingstation((byte) 0);
+				hotelInfo.setParking((byte) 0);
 			}
 			System.out.println(errorMsgs);
 			// Send the use back to the form, if there were errors
@@ -805,12 +803,11 @@ public class CompanyServlet extends HttpServlet {
 
 			/*************************** 2.開始新增資料 ***************************************/
 			companySvc = new CompanyService();
-			Company company =  companySvc.addCompany(compType, compName, compAddress, compPhone, principalName,
-			principalPhone, compAccount, compPassword, compMail, compPhoto,hotelInfo);
-			
-			
-			String url ="/ken/com_mem_signin.jsp";
-	
+			Company company = companySvc.addCompany(compType, compName, compAddress, compPhone, principalName,
+					principalPhone, compAccount, compPassword, compMail, compPhoto, hotelInfo);
+
+			String url = "/ken/com_mem_signin.jsp";
+
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
@@ -835,7 +832,7 @@ public class CompanyServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
 		}
-		
+
 		if ("mail".equals(action)) { // 來自listAllEmp.jsp
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -847,61 +844,69 @@ public class CompanyServlet extends HttpServlet {
 			String mail = req.getParameter("compmail");
 
 			/*************************** 2.開始刪除資料 ***************************************/
-			//發送驗證 mail 
-			  MailService msv = new MailService();
-			  String to =  mail;
-			  String subject = "gogoyu:驗證碼通知";
-			  String passRandom = msv.genAuthCode();
-			  
-			  HttpSession session = req.getSession();
-			  session.setAttribute(to, passRandom);
-			  
+			// 發送驗證 mail
+			MailService msv = new MailService();
+			String to = mail;
+			String subject = "gogoyu:驗證碼通知";
+			String passRandom = msv.genAuthCode();
+
+			HttpSession session = req.getSession();
+			session.setAttribute(to, passRandom);
+
 //			  String passRandom = "gogoyu";
-			  String messageText = " 您好!\n\n["+ passRandom +"]\n\n為您在(gogoyu)的驗證碼，請於10分鐘內輸入" +"\n" ;
-			
-			  MailService mailService = new MailService();
-			  new Thread(()->mailService.sendMail(to, subject, messageText)).start(); 
+			String messageText = " 您好!\n\n[" + passRandom + "]\n\n為您在(gogoyu)的驗證碼，請於10分鐘內輸入" + "\n";
+
+			MailService mailService = new MailService();
+			new Thread(() -> mailService.sendMail(to, subject, messageText)).start();
 
 			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-			
-		if (mail == null || (mail.trim()).length() == 0) {
-			 errorMsgs.add("請輸入驗證碼");
-			 System.out.println(errorMsgs);	 
-		}
-			  
+
+			if (mail == null || (mail.trim()).length() == 0) {
+				errorMsgs.add("請輸入驗證碼");
+				System.out.println(errorMsgs);
+			}
+
 			String url = "/ken/com_mem_signup.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
 		}
-		
-			System.out.println(action);
+
+		System.out.println(action);
 		if ("genAuthCode".equals(action)) { // 來自select_page.jsp的請求
 			List<String> errorMsgs = new LinkedList<String>();
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			String mail = req.getParameter("compmail");
 			String genAuthCode = req.getParameter("genAuthCode");
 			HttpSession session = req.getSession();
-			String authCode = session.getAttribute(mail).toString();
+			String authCode = null;
+			
+		if (session.getAttribute(mail) != null) {
+			authCode = (String) session.getAttribute(mail);
+			}
 			System.out.println(genAuthCode);
 			
-		if (genAuthCode == null || (genAuthCode.trim()).length() == 0) {
+		if (genAuthCode == null || authCode == null || (genAuthCode.trim()).length() == 0) {
 			errorMsgs.add("請輸入驗證碼");
 			System.out.println(errorMsgs);
+			
 			/*************************** 2.開始查詢資料 *****************************************/
 			
+			req.setAttribute("errorMsgs", errorMsgs);
+			req.setAttribute("compmail", mail);
+			System.out.println(mail);
 			String url = "/ken/com_mem_signup.jsp";
-//			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
-//			successView.forward(req, res);
-		}
+			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+			successView.forward(req, res);
 			
-		if (!authCode.isEmpty() && authCode.equals(genAuthCode)) {
+			} else if (!authCode.isEmpty() && authCode.equals(genAuthCode)) {	
 			System.out.println("驗證成功");
 			session.removeAttribute(mail);
 			String url = "/ken/com_mem_signupinfo.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
 			}
-		} 
+
+		}
 
 	}
 }

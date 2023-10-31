@@ -193,7 +193,7 @@ if (company == null){
 				<br> <label class="">負責人&ensp;<span><%= company.getPrincipalName()%></span></label>
 				<br> <label class="">負責人電話&ensp;<span><%= company.getCompPhone()%></span></label>
 				<br> <label class="">信箱&ensp;<span><%= company.getCompMail()%></span></label>
-				<br> <label class="">廠商別&ensp;<span>${company.compType == 0 ? "旅行業" : "飯店業"}</span></label>
+				<br> <label class="">廠商別&ensp;<span>飯店業</span></label>
 				<br>
 				<a href="" type="button" class="hotel-btn">查看飯店資訊</a>
 				<FORM METHOD="post" ACTION="${pageContext.request.contextPath}/CompanyServlet" >
