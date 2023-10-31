@@ -36,9 +36,11 @@ public class CompanyHibernateDAO implements CompanyDAO_interface {
 		
 		try {
 			getSession().beginTransaction();
-			Integer id1 = (Integer) getSession().save(hotelInfo);
-			hotelInfo = getSession().get(Hotel_info.class,id1);
-			company.setHotelInfo(hotelInfo);
+			if (company.getCompType() == 0) {
+				Integer id1 = (Integer) getSession().save(hotelInfo);
+				hotelInfo = getSession().get(Hotel_info.class,id1);
+				company.setHotelInfo(hotelInfo);
+			}
 			Integer id2 = (Integer) getSession().save(company);
 			getSession().getTransaction().commit();
 			return id2;
@@ -91,6 +93,7 @@ public class CompanyHibernateDAO implements CompanyDAO_interface {
 					.createQuery("from Company where comp_account = :compAccount", Company.class)
 					.setParameter("compAccount", compAccount).list();
 			getSession().getTransaction().commit();
+			
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -140,6 +143,22 @@ public class CompanyHibernateDAO implements CompanyDAO_interface {
 			List<Company> list = getSession().createQuery("from Company", Company.class).list();
 			getSession().getTransaction().commit();
 			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+	
+	@Override
+	public byte[] getCompPhoto(Integer compId) {
+		try {
+			getSession().beginTransaction();
+			byte[] compPhoto = getSession()
+					.createQuery("select compPhoto from Company where comp_id = :comp_id", byte[].class)
+					.setParameter("comp_id", compId).uniqueResult();
+			getSession().getTransaction().commit();
+			return compPhoto;
 		} catch (Exception e) {
 			e.printStackTrace();
 			getSession().getTransaction().rollback();

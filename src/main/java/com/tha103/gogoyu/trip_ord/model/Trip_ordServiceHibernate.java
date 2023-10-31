@@ -107,6 +107,10 @@ public class Trip_ordServiceHibernate implements Trip_ordService {
 	
 	
 	
+	public Integer queryProduct(Integer cusId , Integer tripId) {
+		return dao.queryProduct(tripId, cusId);
+	}
+	
 	public Map<Trip_ord, List<String>> getTripOrdVo(Integer cartId , Integer cusId){
 		return dao.getTripOrdVo(cartId , cusId);
 	}

@@ -96,8 +96,8 @@ public class RoomServiceHibernate implements RoomService {
 		return dao.getAllPhoto(roomId);
 	}
 
-	public List<Room> getHotRoom() {
-		return dao.getHotRoom();
+	public List<List> getHotRoomDetail() {
+		return dao.getHotRoomDetail();
 	}
 
 //	public List<Room> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number){

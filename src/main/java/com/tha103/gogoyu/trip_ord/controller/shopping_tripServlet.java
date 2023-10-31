@@ -43,33 +43,43 @@ public class shopping_tripServlet extends HttpServlet {
 //=========================shoppingcart新增===============================
 		if ("trip_goShopping".equals(action)) { // trip區塊加入購物車時(新增)
 			Integer cusId = (Integer) session.getAttribute("cusId"); // 抓會員id
+			Integer cartId = Integer.valueOf(req.getParameter("cart_id"));
+			Trip_ordServiceHibernate TOSH = new Trip_ordServiceHibernate();
+			Integer tripId = Integer.valueOf(req.getParameter("tripId"));
 			if (cusId != null) {// 如果session有cus_id資料代表有人登入
-				Integer cartId = Integer.valueOf(req.getParameter("cart_id"));
-				Integer tripId = Integer.valueOf(req.getParameter("tripId"));
-				PlanningServiceHibernate PSH = new PlanningServiceHibernate();// 創造出planning SERVICE
-				Integer planId = PSH.getPlanId(cartId, cusId); // 得到1.他是誰 2.是哪台車
-				// 透過取得的trip_id去找到該物件的屬性
-				Integer tripAmount = 1; // 固定給他1(預設，後續可以到結帳前面去更改數量)
-				Trip_ordServiceHibernate TOSH = new Trip_ordServiceHibernate();
-				TripServiceHibernate TSH = new TripServiceHibernate();
-				Integer compId = TSH.getTrip(tripId).getCompId();
-				// 改成dateformat
-				Date startTime = TSH.getOneTrip(tripId).getStartTime(); // 透過tripservicehibernate取得(等翔哥)
-				Date endTime = TSH.getOneTrip(tripId).getEndTime(); // 透過tripservicehibernate取得(等翔哥)
-
-				BigDecimal totalPrice = TSH.getOneTrip(tripId).getPrice();
-//			//comm = price *10%
-				BigDecimal commission = totalPrice.multiply(new BigDecimal(0.1));
-//			//profit = price - comm
-				BigDecimal profit = totalPrice.subtract(commission);
-
-				TOSH.addFromShopping(compId, tripId, planId, cusId, tripAmount, totalPrice, commission, profit,
-						startTime, endTime, 0);
-
-				String url = "/chu/shopping(hotel).jsp";
-				res.sendRedirect(req.getContextPath() + url);
-				return;
-
+					Integer product = TOSH.queryProduct(cusId, tripId);
+					System.out.println(product+"Aaaaaaaaaaaaaaaaaaaaaaaa");
+							if(product == 1) {
+								PlanningServiceHibernate PSH = new PlanningServiceHibernate();// 創造出planning SERVICE
+								Integer planId = PSH.getPlanId(cartId, cusId); // 得到1.他是誰 2.是哪台車
+								// 透過取得的trip_id去找到該物件的屬性
+								Integer tripAmount = 1; // 固定給他1(預設，後續可以到結帳前面去更改數量)
+								TripServiceHibernate TSH = new TripServiceHibernate();
+								Integer compId = TSH.getTrip(tripId).getCompId();
+								// 改成dateformat
+								Date startTime = TSH.getOneTrip(tripId).getStartTime(); 
+								Date endTime = TSH.getOneTrip(tripId).getEndTime(); 
+				
+								BigDecimal totalPrice = TSH.getOneTrip(tripId).getPrice();
+				//			//comm = price *10%
+								BigDecimal commission = totalPrice.multiply(new BigDecimal(0.1));
+				//			//profit = price - comm
+								BigDecimal profit = totalPrice.subtract(commission);
+				
+								TOSH.addFromShopping(compId, tripId, planId, cusId, tripAmount, totalPrice, commission, profit,
+										startTime, endTime, 0);
+				
+								String url = "/chu/shopping(hotel).jsp";
+								res.sendRedirect(req.getContextPath() + url);
+								return;
+							
+							}else {
+								req.setAttribute("errorMessage", "<i style = 'font-size :30px'>購物車已有此商品!</i>");
+								String url = "/chu/shopping(hotel).jsp";
+								RequestDispatcher successView = req.getRequestDispatcher(url);
+								successView.forward(req, res);
+								return;
+							}
 			} else { // 導回登入
 				session.setAttribute("location", req.getRequestURI()); // 如果沒登入先記錄現在的位置(網址)
 				res.sendRedirect(req.getContextPath() + "/eric/signin.jsp");// 然後導回登入頁面(等到有login.jsp再改路徑)

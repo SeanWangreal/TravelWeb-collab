@@ -92,11 +92,11 @@ Company company = (Company) request.getAttribute("Company"); //Servlet.java(Conc
                             <h3>登入帳號</h3>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" value="abcda1" name="account">
+                            <input type="text" class="form-control" id="floatingInput" name="account">
                             <label for="floatingInput">帳號</label>
                         </div>
                         <div class="form-floating mb-4">
-                            <input type="password" class="form-control" id="floatingPassword" value="a12341" name="password">
+                            <input type="password" class="form-control" id="floatingPassword" name="password">
                             <label for="floatingPassword">密碼</label>
                         </div>
                         <div class="d-flex align-items-center justify-content-between mb-4">
@@ -107,7 +107,7 @@ Company company = (Company) request.getAttribute("Company"); //Servlet.java(Conc
 <!--        	<input type="submit" value="送出"> -->
                         </form>
                         
-                        <p class="text-center mb-0">沒有帳號嗎? <a href='com_mem_signupinfo.jsp'>點此註冊</a></p>
+                        <p class="text-center mb-0">沒有帳號嗎? <a href='${pageContext.request.contextPath}/ken/com_mem_signupinfo.jsp'>點此註冊</a></p>
                                         
                     </div>
                 </div>

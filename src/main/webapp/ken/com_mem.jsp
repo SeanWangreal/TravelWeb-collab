@@ -208,13 +208,14 @@ if (company == null){
 <%-- 				<input type="hidden" name="compId" value="${company.CompId}"> --%>
 <!-- 				<input type="hidden" name="action" value="getOneUpdate"> -->
 				<div id="change_pass"> 
-					<a href="${pageContext.request.contextPath}/ken/com_mem_renewpass.jsp">修改密碼</a>
+					<a href="${pageContext.request.contextPath}/ken/com_mem_renewpass.jsp" >修改密碼</a>
  				</div> 
 <!-- 			</FORM> -->
 			
 			<div style="display: table-cell;" >
-				<div style="border: 1px solid grey; height: 200px; width: 200px; position: relative; right: 0px; margin-top: 10px;">
-					<img src="" alt="">
+			
+				<div style="border: 0px solid grey; height: 200px; width: 200px; position: relative; right: 0px; margin-top: 10px;">
+					<img width="200" height="200" class="imgs" src="CompPhotoPrintHServlet?comp_id=<%= company.getCompId()%>" >
 				</div>
 				<br><br>
 					<form  METHOD="post" ACTION="${pageContext.request.contextPath}/Hotel_infoServlet" >

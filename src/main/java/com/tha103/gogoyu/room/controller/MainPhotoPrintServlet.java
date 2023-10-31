@@ -57,6 +57,7 @@ public class MainPhotoPrintServlet extends HttpServlet {
 				}
 			} 
 			out.write(pic);
+			out.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

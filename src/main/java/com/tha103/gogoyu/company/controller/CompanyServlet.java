@@ -1,5 +1,7 @@
 package com.tha103.gogoyu.company.controller;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -10,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +27,6 @@ import com.tha103.gogoyu.company.model.Company;
 import com.tha103.gogoyu.company.model.CompanyService;
 import com.tha103.gogoyu.hotel_info.model.Hotel_info;
 import com.tha103.gogoyu.hotel_info.model.Hotel_infoServiceHibernate;
-
 @WebServlet("/CompanyServlet")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class CompanyServlet extends HttpServlet {
@@ -689,7 +691,15 @@ public class CompanyServlet extends HttpServlet {
 			String compAccount = req.getParameter("compAccount").trim();
 			if (compAccount == null || compAccount.trim().length() == 0) {
 				errorMsgs.add("帳號請勿空白");
+				
 			}
+			
+//			CompanyService companySvc1 = new CompanyService();
+//			List<Company> Duplicate = companySvc1.getOneAccount(compAccount);
+//
+//			   if (Duplicate != null) {
+//			    errorMsgs.add("帳號已重複");
+//			   }
 
 			String compPassword = req.getParameter("compPassword").trim();
 			if (compPassword == null || compPassword.trim().length() == 0) {
@@ -707,28 +717,34 @@ public class CompanyServlet extends HttpServlet {
 				if (part.getContentType() != null && part.getSize() != 0) {
 					InputStream is = part.getInputStream();
 					compPhoto = is.readAllBytes();
+				}else if (part.getContentType() == null && part.getSize() != 0) {
+					ServletContext context = getServletContext();
+				     String img = context.getRealPath("/ken/img/face.jpg");
+				     FileInputStream fis = new FileInputStream(img);
+				     BufferedInputStream bis = new BufferedInputStream(fis);
+				     compPhoto = bis.readAllBytes();
 				}
+				
 			}
 //		    -------------------------------------hotelinfo----------------------------------
-			
-			Hotel_info hotelInfo = new Hotel_info();
-			hotelInfo.setRestaurant((byte)0);
-			hotelInfo.setRoomService((byte)0);
-			hotelInfo.setAlldayCounter((byte)0);
-			hotelInfo.setSpa((byte)0);
-			hotelInfo.setGym((byte)0);
-			hotelInfo.setGarden((byte)0);
-			hotelInfo.setTerrace((byte)0);
-			hotelInfo.setNoSmoking((byte)0);
-			hotelInfo.setFreewifi((byte)0);
-			hotelInfo.setHeater((byte)0);
-			hotelInfo.setBeach((byte)0);
-			hotelInfo.setPool((byte)0);
-			hotelInfo.setChargingstation((byte)0);
-			hotelInfo.setParking((byte)0);
-			
-			
-			
+			Hotel_info hotelInfo = null;
+			if (compType == 0) {
+				hotelInfo = new Hotel_info();
+				hotelInfo.setRestaurant((byte)0);
+				hotelInfo.setRoomService((byte)0);
+				hotelInfo.setAlldayCounter((byte)0);
+				hotelInfo.setSpa((byte)0);
+				hotelInfo.setGym((byte)0);
+				hotelInfo.setGarden((byte)0);
+				hotelInfo.setTerrace((byte)0);
+				hotelInfo.setNoSmoking((byte)0);
+				hotelInfo.setFreewifi((byte)0);
+				hotelInfo.setHeater((byte)0);
+				hotelInfo.setBeach((byte)0);
+				hotelInfo.setPool((byte)0);
+				hotelInfo.setChargingstation((byte)0);
+				hotelInfo.setParking((byte)0);
+			}
 			System.out.println(errorMsgs);
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
@@ -742,9 +758,6 @@ public class CompanyServlet extends HttpServlet {
 			Company company =  companySvc.addCompany(compType, compName, compAddress, compPhone, principalName,
 			principalPhone, compAccount, compPassword, compMail, compPhoto,hotelInfo);
 			
-//			Hotel_infoServiceHibernate hotelInfoSvc = new Hotel_infoServiceHibernate();
-//			hotelInfo = hotelInfoSvc.addHotel_info(hotelInfoId, restaurant, roomService, alldayCounter, spa, gym, garden,
-//			terrace, noSmoking, freewifi, heater, beach, pool, chargingstation, parking);
 			
 			String url ="/ken/com_mem_signin.jsp";
 	
@@ -772,5 +785,17 @@ public class CompanyServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
 		}
+	
+//		 //發送驗證 mail 
+//		  MailService msv = new MailService();
+//		  String to =  req.getRequestDispatcher(compmail);
+//		  String subject = "廚藝實驗室:驗證碼通知";
+//		  String ch_name = nickname;
+//		  String passRandom = msv.genAuthCode();
+//		  String messageText =  ch_name +" 您好!\n\n["+ passRandom +"]\n\n為您在廚藝實驗室(CookLab)的驗證碼，請於10分鐘內輸入" +"\n" ;
+//		
+//		  MailService mailService = new MailService();
+//		  new Thread(()->mailService.sendMail(to, subject, messageText)).start(); 
+
 	}
 }

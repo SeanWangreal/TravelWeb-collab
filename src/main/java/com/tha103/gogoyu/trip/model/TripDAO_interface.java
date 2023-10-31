@@ -21,4 +21,6 @@ public interface TripDAO_interface {
 	byte[] getMainPhoto(Integer tripId);
 	public Integer updateAmount(Integer amount , Integer tripId) ;
 	List<Trip> searchTrip(String site, Date startTime, Date endTime, Integer number);
+	List<Trip> getHotTrip();
+	List<Object> getTripProdutDetail(Integer tripId);
 }

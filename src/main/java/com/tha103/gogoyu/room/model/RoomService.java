@@ -23,7 +23,7 @@ public interface RoomService {
 	public int deleteAllPhoto(Integer roomId);
 	public Set<Room_photo> getAllPhoto(Integer roomId);
 	public Room getRoom(Integer roomId);
-	public List<Room> getHotRoom();
+	public List<List> getHotRoomDetail();
 //	public List<Room> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number);
 	public Map<Room, String> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number);
 	public List<Object> getRoomProdutDetail(Integer roomId);
