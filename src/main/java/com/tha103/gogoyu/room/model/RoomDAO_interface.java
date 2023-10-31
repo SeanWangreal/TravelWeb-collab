@@ -22,7 +22,7 @@ public interface RoomDAO_interface {
 	Set<Room_photo> getAllPhoto(Integer roomId);
 	List<List> getHotRoomDetail();
 //	List<Room> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number);
-	Map<Room, String> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number);
+	Map<Room, List<String>> searchRoom(String comp_address,Date checkIn,Date checkOut,Integer number);
 	List<Object> getRoomProdutDetail(Integer roomId);
 	
 }
