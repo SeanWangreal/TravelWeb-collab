@@ -204,6 +204,13 @@ public class ConsumerServlet extends HttpServlet {
 				System.out.println("沒帳號");
 				errorMsgs.add("查無帳號");
 			}
+			
+			if (consumer != null && !mail.equals(consumer.getCusMail())) {
+				System.out.println("密碼錯了");
+				errorMsgs.add("此帳號不是對應到此信箱");
+			}
+			
+			
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req.getRequestDispatcher("/eric/forgotpassword.jsp");
 				failureView.forward(req, res);
@@ -221,7 +228,7 @@ public class ConsumerServlet extends HttpServlet {
 			new Thread(() -> sentMail.sendMail(to, subject, messageText)).start();
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-			String url = "/eric/signin_info.jsp";
+			String url = "/eric/signin.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 jsp
 			successView.forward(req, res);
 		}
@@ -360,7 +367,8 @@ public class ConsumerServlet extends HttpServlet {
 			String mailReg = "\\w[-\\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\\.)+[A-Za-z]{2,14}";
 			if (cusMail == null || cusMail.trim().length() == 0) {
 				errorMsgs.add("信箱: 請勿空白");
-			} else if (!cusMail.trim().matches(mailReg)) { // 以下練習正則(規)表示式(regular-expression)
+			} 
+			else if (!cusMail.trim().matches(mailReg)) { // 以下練習正則(規)表示式(regular-expression)
 				errorMsgs.add("信箱格式錯誤 範例XXXX@XXX.XXX");
 			}
 
@@ -402,6 +410,14 @@ public class ConsumerServlet extends HttpServlet {
 			}
 
 			Consumer consumer = null;
+			
+			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("Consumer", consumer); // 含有輸入格式錯誤的empVO物件,也存入req
+				RequestDispatcher failureView = req.getRequestDispatcher("/eric/personal_detail_update.jsp");
+				failureView.forward(req, res);
+
+				return;
+			}
 			/*************************** 2.開始修改資料 *****************************************/
 			consumer = cusSvc.updateCus(cusId, null, null, cusPassword, cusMail, cusPhone, cusAddress, null, cusPhoto);
 
@@ -651,7 +667,7 @@ public class ConsumerServlet extends HttpServlet {
 			res.sendRedirect(req.getContextPath() + "/mhl/home.jsp");
 			return;
 		}
-		if ("verify".equals(action)) { // 來自addEmp.jsp的請求
+		if ("verify".equals(action)) { // 
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to

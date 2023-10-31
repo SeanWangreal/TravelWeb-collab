@@ -125,7 +125,7 @@ div#search {
 						<div class="form-floating mb-3">
 							<input type="TEXT" class="form-control" id="floatingInput"
 								name="cusName"
-								value="<%=(consumer == null) ? "" : consumer.getCusName()%>" z
+								value="<%=(consumer == null) ? "" : consumer.getCusName()%>" 
 								size="45"> <label>姓名</label>
 						</div>
 						<div class="form-floating mb-3">

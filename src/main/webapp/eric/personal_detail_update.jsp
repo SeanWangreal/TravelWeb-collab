@@ -1,18 +1,24 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.tha103.gogoyu.consumer.model.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 
 <%
 Consumer consumer = (Consumer) request.getAttribute("consumer"); //EmpServlet.java(Concroller), 存入req的empVO物件
 if ((Integer) request.getSession().getAttribute("cusId") == null) {
 	response.sendRedirect(request.getContextPath() + "/eric/signin.jsp");
 }
+Integer cusId = (Integer) request.getSession().getAttribute("cusId");
+ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
+consumer = cusSvc.getOneCus(cusId);
+request.setAttribute("consumer", consumer);
 %>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-<script src="https://kit.fontawesome.com/b4c50f14e1.js"
-	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/b4c50f14e1.js" crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>修改個人資訊</title>
@@ -20,9 +26,7 @@ if ((Integer) request.getSession().getAttribute("cusId") == null) {
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/eric_css/ordinf.css">
-<link rel="stylesheet" href="">
 
-</script>
 <style>
 @media ( min-height : 500px) and (max-height: 1300px) {
 	.shop {
@@ -54,30 +58,35 @@ img {
 
 	<nav class="st">
 		<!-- <a class="word" id="home" href="#">Home</a> -->
-		        <a class="logo" id="home" href="${pageContext.request.contextPath}/mhl/home.jsp">GO<i class="fa-solid fa-location-dot" style="color: #ffbf1c;"></i>GOYU</a>
-		
+		<a class="logo" id="home"
+			href="${pageContext.request.contextPath}/mhl/home.jsp">GO<i
+			class="fa-solid fa-location-dot" style="color: #ffbf1c;"></i>GOYU
+		</a>
 		<div class="head">
 			<button type="menu" class="head_btn" aria-label="規劃行程" id="shop">
-				<a class="" href="${pageContext.request.contextPath}/chu/shopping(hotel).jsp">
-				<i class="fa-solid fa-suitcase-rolling icon" style="color: black; font-size: 30px; background-color: transparent;"></i>
+				<a class=""
+					href="${pageContext.request.contextPath}/chu/shopping(hotel).jsp">
+					<i class="fa-solid fa-suitcase-rolling icon"
+					style="color: black; font-size: 30px; background-color: transparent;"></i>
 				</a>
 			</button>
+
 			<button type="menu" class="head_btn" id="msg">
 				<i class="fa-regular fa-message icon"
 					style="color: black; font-size: 30px; background-color: transparent;"></i>
 			</button>
+
 			<button type="menu" class="head_btn" id="info">
 				<i class="fa-regular fa-bell  icon"
 					style="color: black; font-size: 30px; width: 30px; background-color: transparent;"></i>
 			</button>
-			<button type="button" class="head_btn">
-				<a 
-					href="${pageContext.request.contextPath}/eric/personal_detail.jsp">
 
+			<button type="button" class="head_btn">
+				<a class="profile"
+					href="${pageContext.request.contextPath}/eric/personal_detail.jsp">
 					<img
 					src="${pageContext.request.contextPath}/eric/PictureServlet?cus_id=${consumer.cusId}"
 					style="width: 30px; height: 30px">
-
 				</a>
 			</button>
 
@@ -104,18 +113,22 @@ img {
 		<div id="shell"></div>
 		<aside class="left">
 			<div class="mem-data">
-				<a class="left_btn" href="${pageContext.request.contextPath}/chu/shopping(hotel).jsp"> <i class="fa-solid fa-cart-shopping"
-					style="color: black;"></i> 制定規劃
+				<a class="left_btn"
+					href="${pageContext.request.contextPath}/chu/shopping(hotel).jsp">
+					<i class="fa-solid fa-cart-shopping" style="color: black;"></i>
+					制定規劃
 				</a>
 			</div>
 			<div class="mem-data">
-				<a class="left_btn" href="personal_detail.jsp"> <i
-					class="fa-regular fa-user" style="color: black;"></i> 會員資料
+				<a class="left_btn"
+					href="${pageContext.request.contextPath}/eric/personal_detail.jsp">
+					<i class="fa-regular fa-user" style="color: black;"></i> 會員資料
 				</a>
 			</div>
 			<div class="mem-data">
-				<a class="left_btn" href="ordinf.html"> <i
-					class="fa-solid fa-file-invoice" style="color: black;"></i> 訂單資訊
+				<a class="left_btn"
+					href="${pageContext.request.contextPath}/chu/bookedList(hotel).jsp">
+					<i class="fa-solid fa-file-invoice" style="color: black;"></i> 訂單資訊
 				</a>
 			</div>
 			<div class="mem-data">
@@ -136,17 +149,24 @@ img {
 
 				<section class="item" style="width: 800px">
 					<br>
-					<h1 style="border: 0px solid">${consumer.cusName},您好!</h1>
+					<h1 style="border: 0px solid">${consumer.cusName}，你好</h1>
 					<br> <a
 						href="${pageContext.request.contextPath}/eric/ConsumerServlet?action=Logout"
 						class="logoutbtn">按此登出</a>
 
 				</section>
 				<br>
-				<form METHOD="post"
-					ACTION="<%=request.getContextPath()%>/eric/ConsumerServlet"
-					name="form1" enctype="multipart/form-data"
-					style="text-algin: justify">
+				
+				<c:if test="${not empty errorMsgs}">
+					<font style="color: red">請修正以下錯誤:</font>
+						<ul>
+							<c:forEach var="message" items="${errorMsgs}">
+								<li style="color: red">${message}</li>
+							</c:forEach>
+						</ul>
+				</c:if>
+				
+			
 
 					<h5 style="font-weight: bolder; text-align: center">會員資料</h5>
 					<span style="float: left">在個人資料中更新最新資訊並確認</span>
@@ -155,47 +175,47 @@ img {
 
 							</div>
 
-
+	<form METHOD="post"
+					ACTION="<%=request.getContextPath()%>/eric/ConsumerServlet"
+					name="form1" enctype="multipart/form-data"
+					style="text-algin: justify">
 							<div class="mem_detal">
 								<div class="personal_item"
 									style="width: 30%; font-weight: bolder; font-family: 粉圓; border: none;">
 
 
-									<span>信箱 </span><br> <br> <span>電話</span><br> <br>
-									<span>住址</span><br> <br> <span>密碼</span><br> <span>照片</span><br>
+									<span>信箱</span><br> <br> 
+									<span>電話</span><br> <br>
+									<span>住址</span><br> <br> 
+									<span>密碼</span><br> 
+									<span>照片</span><br>
 
 								</div>
 
 								<div class="personal_item"
 									style="width: 70%; border: none white; padding-left: 0px">
 
-									<input class="mem" id="mem" name="cusMail"
-										value="${consumer.cusMail}"></input><br>
-									<br> <input class="mem" id="mem" name="cusPhone"
-										value="${consumer.cusPhone}"></input><br>
-									<br> <input class="mem" id="mem" name="cusAddress"
-										value="${consumer.cusAddress}"></input><br> <br> <input
-										class="mem" id="mem" name="cusPassword"
-										value="${consumer.cusPassword}"></input><br> <br> <img
-										src="${pageContext.request.contextPath}/eric/PictureServlet?cus_id=${consumer.cusId}">
+									<input class="mem" id="mem" name="cusMail" value="${consumer.cusMail}"></input><br><br>
+									<input class="mem" id="mem" name="cusPhone" value="${consumer.cusPhone}"></input><br><br>
+									<input class="mem" id="mem" name="cusAddress" value="${consumer.cusAddress}"></input><br> <br>
+									<input class="mem" id="mem" name="cusPassword" value="${consumer.cusPassword}"></input><br> <br>
+									<img src="${pageContext.request.contextPath}/eric/PictureServlet?cus_id=${consumer.cusId}">
 									<input type="file" name="cusPhoto">
 								</div>
 								<button name="action" value="update">送出</button>
+							
 
-							</div> <br> <br> <br> <br> <br> <br> <br>
+							</div>				</form>
+							 <br> <br> <br> <br> <br> <br> <br>
 
 
 							<br>
-				</form>
+						
 			</div>
 
 		</main>
 	</div>
-
-
-	<!-- <script src="btn4com_review.js"></script> -->
-	<script
-		src="${pageContext.request.contextPath}/static/eric_js/ordinf.js"></script>
+	<script src="${pageContext.request.contextPath}/static/eric_js/ordinf.js"></script>
 
 
 

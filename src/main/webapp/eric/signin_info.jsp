@@ -134,18 +134,6 @@ div#search {
 								size="45"> <label>電子郵箱</label>
 						</div>
 
-						
-
-
-
-
-						
-
-						
-
-
-
-						
 						<button type="submit" name="action" value="mail" id="mailButton"
 							class="btn btn-primary py-3 w-100 mb-4">寄送驗證碼</button>
 						<div class="form-floating mb-3">

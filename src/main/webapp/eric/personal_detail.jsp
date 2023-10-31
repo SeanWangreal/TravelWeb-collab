@@ -12,12 +12,14 @@ ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
 consumer = cusSvc.getOneCus(cusId);
 request.setAttribute("consumer", consumer);
 %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-<script src="https://kit.fontawesome.com/b4c50f14e1.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/b4c50f14e1.js"
+	crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>個人資訊</title>
@@ -67,22 +69,29 @@ img {
 		</a>
 		<div class="head">
 			<button type="menu" class="head_btn" aria-label="規劃行程" id="shop">
-				<a class="" href="${pageContext.request.contextPath}/chu/shopping(hotel).jsp">
-				<i class="fa-solid fa-suitcase-rolling icon" style="color: black; font-size: 30px; background-color: transparent;"></i>
+				<a class=""
+					href="${pageContext.request.contextPath}/chu/shopping(hotel).jsp">
+					<i class="fa-solid fa-suitcase-rolling icon"
+					style="color: black; font-size: 30px; background-color: transparent;"></i>
 				</a>
 			</button>
 
 			<button type="menu" class="head_btn" id="msg">
-				<i class="fa-regular fa-message icon"style="color: black; font-size: 30px; background-color: transparent;"></i>
+				<i class="fa-regular fa-message icon"
+					style="color: black; font-size: 30px; background-color: transparent;"></i>
 			</button>
 
 			<button type="menu" class="head_btn" id="info">
-				<i class="fa-regular fa-bell  icon"style="color: black; font-size: 30px; width: 30px; background-color: transparent;"></i>
+				<i class="fa-regular fa-bell  icon"
+					style="color: black; font-size: 30px; width: 30px; background-color: transparent;"></i>
 			</button>
 
 			<button type="button" class="head_btn">
-				<a class="profile" href="${pageContext.request.contextPath}/eric/personal_detail.jsp">
-				<img src="${pageContext.request.contextPath}/eric/PictureServlet?cus_id=${consumer.cusId}" style="width: 30px; height: 30px">
+				<a class="profile"
+					href="${pageContext.request.contextPath}/eric/personal_detail.jsp">
+					<img
+					src="${pageContext.request.contextPath}/eric/PictureServlet?cus_id=${consumer.cusId}"
+					style="width: 30px; height: 30px">
 				</a>
 			</button>
 
@@ -151,6 +160,8 @@ img {
 						class="logoutbtn">按此登出</a>
 
 				</section>
+				
+				
 
 				<br>
 				<h5 style="font-weight: bolder">會員資料</h5>
@@ -164,28 +175,21 @@ img {
 				<div class="mem_detal">
 					<div class="personal_item"
 						style="width: 30%; font-weight: bolder; font-family: 粉圓; border: none">
-						<span>姓名</span><br>
-						<br> <span>帳號</span><br>
-						<br> <span>信箱 </span><br>
-						<br> <span>電話</span><br>
-						<br> <span>住址</span><br>
-						<br> <span>性別</span><br>
-						<br> <span>照片</span><br>
+						<span>姓名</span><br> <br> <span>帳號</span><br> <br>
+						<span>信箱 </span><br> <br> <span>電話</span><br> <br>
+						<span>住址</span><br> <br> <span>性別</span><br> <br>
+						<span>照片</span><br>
 
 					</div>
 					<div class="personal_item"
 						style="width: 70%; border: none white; padding-left: 0px">
-						<input class="mem" id="mem" value="${consumer.cusName}" readonly></input><br>
-						<br> <input class="mem" id="mem"
-							value="${consumer.cusAccount}" readonly></input><br>
-						<br> <input class="mem" id="mem" value="${consumer.cusMail}"
-							readonly></input><br>
-						<br> <input class="mem" id="mem" value="${consumer.cusPhone}"
-							readonly></input><br>
-						<br> <input class="mem" id="mem"
-							value="${consumer.cusAddress}" readonly></input><br>
-						<br> <input class="mem" id="mem" value="${consumer.cusSex}"
-							readonly></input><br>
+						<input class="mem" id="mem" value="${consumer.cusName}" readonly></input><br><br> 
+						<input class="mem" id="mem"value="${consumer.cusAccount}" readonly></input><br> <br>
+						<input class="mem" id="mem" value="${consumer.cusMail}" readonly></input><br><br> 
+						<input class="mem" id="mem" value="${consumer.cusPhone}"readonly></input><br> <br> 
+						<input class="mem" id="mem" value="${consumer.cusAddress}" readonly></input><br> <br>
+						<input class="memsex" id="memsex" value="${consumer.cusSex}" readonly></input><br>
+
 						<br> <img
 							src="${pageContext.request.contextPath}/eric/PictureServlet?cus_id=${consumer.cusId}">
 
@@ -200,6 +204,17 @@ img {
 	<!-- <script src="btn4com_review.js"></script> -->
 	<script
 		src="${pageContext.request.contextPath}/static/eric_js/ordinf.js"></script>
+	<script>
+    window.onload = function () {
+        var input = document.getElementById("memsex");
+        var value = input.value;
+        if (value === "0") {
+            input.value = "男性";
+        } else if (value === "1") {
+            input.value = "女性";
+        }
+    };
+</script>
 
 
 

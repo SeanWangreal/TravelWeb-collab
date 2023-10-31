@@ -25,7 +25,7 @@ public class ConsumerServiceHibernate implements ConsumerService {
 		cus.setCusName(cusName);
 		cus.setCusAccount(cusAccount);
 		cus.setCusPassword(cusPassword);
-		cus.setCusMail(cusAddress);
+		cus.setCusMail(cusMail);
 		cus.setCusPhone(cusPhone);
 		cus.setCusAddress(cusAddress);
 		cus.setCusSex(cusSex);
@@ -42,7 +42,7 @@ public class ConsumerServiceHibernate implements ConsumerService {
 			String cusPhone, String cusAddress,Integer cusSex,  byte[] cusPhoto) {
 		Consumer cus = this.getOneCus(cusId);
 		cus.setCusPassword(cusPassword);
-		cus.setCusMail(cusAddress);
+		cus.setCusMail(cusMail);
 		cus.setCusPhone(cusPhone);
 		cus.setCusAddress(cusAddress);
 		cus.setCusPhoto(cusPhoto);
