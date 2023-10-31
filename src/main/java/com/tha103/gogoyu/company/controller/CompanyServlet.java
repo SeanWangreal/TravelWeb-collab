@@ -22,8 +22,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import org.apache.logging.log4j.core.appender.rolling.action.IfAccumulatedFileCount;
+import org.springframework.util.ObjectUtils;
+
 import com.google.gson.Gson;
 import com.tha103.gogoyu.company.model.Company;
+import com.tha103.gogoyu.company.model.MailService;
 import com.tha103.gogoyu.company.model.CompanyService;
 import com.tha103.gogoyu.hotel_info.model.Hotel_info;
 import com.tha103.gogoyu.hotel_info.model.Hotel_infoServiceHibernate;
@@ -54,6 +58,10 @@ public class CompanyServlet extends HttpServlet {
 				errorMsgs.add("請輸入會員帳號");
 				System.out.println(errorMsgs);
 			}
+//			else if(company==null ) {
+//				errorMsgs.add("此帳號不正確,請重新輸入");
+//			}
+				
 			
 		    CompanyService companySvc = new CompanyService();
 			List<Company> account = companySvc.getOneAccount(compAccount);
@@ -66,10 +74,12 @@ public class CompanyServlet extends HttpServlet {
 //			System.out.println(company);
 			String pass = company==null?"":company.getCompPassword();
 			String compPassword = req.getParameter("password");
-			if(company==null||!compPassword.equals(pass) ) {
-				errorMsgs.add("此帳號不存在或密碼不正確,請重新輸入");
+			if(compPassword == null || (compPassword.trim()).length() == 0) {
+				errorMsgs.add("請輸入會員密碼");
 				System.out.println(errorMsgs);
-			} 
+			}else if(company==null||!compPassword.equals(pass) ) {
+				errorMsgs.add("此密碼不正確,請重新輸入");  
+			}
 		
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
@@ -604,8 +614,6 @@ public class CompanyServlet extends HttpServlet {
 				errorMsgs.add("審核未通過.");
 			}
 
-//Integer compId = Integer.valueOf(req.getParameter("compId").trim());
-
 			Company company = new Company();
 			company.setCompId(compId);
 			company.setHotelInfoId(hotelInfoId);
@@ -657,16 +665,19 @@ public class CompanyServlet extends HttpServlet {
 			}
 
 			String compName = req.getParameter("compName");
-			String compNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+			String compNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)]{2,10}$";
 			if (compName == null || compName.trim().length() == 0) {
 				errorMsgs.add("公司姓名: 請勿空白");
 			} else if (!compName.trim().matches(compNameReg)) { // 以下練習正則(規)表示式(regular-expression)
-				errorMsgs.add("公司姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+				errorMsgs.add("公司姓名: 只能是中、英文字母、數字 , 且長度必需在2到10之間");
 			}
 
 			String compAddress = req.getParameter("compAddress").trim();
+			String compAddressReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)]+$";
 			if (compAddress == null || compAddress.trim().length() == 0) {
 				errorMsgs.add("公司地址請勿空白");
+			} else if (!compAddress.trim().matches(compAddressReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.add("公司地址格式錯誤");
 			}
 
 			String compPhone = null;
@@ -674,11 +685,19 @@ public class CompanyServlet extends HttpServlet {
 				compPhone = String.valueOf(req.getParameter("compPhone").trim());
 			} catch (NumberFormatException e) {
 				errorMsgs.add("公司電話請填數字.");
+			} 
+				
+			String compPhoneReg = "^[(0-9)]{10}$";
+			if (!compPhone.trim().matches(compPhoneReg)) {
+				errorMsgs.add("公司電話格式錯誤.");
 			}
-
+			
 			String principalName = req.getParameter("principalName").trim();
+			String principalNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z)]+$";
 			if (principalName == null || principalName.trim().length() == 0) {
 				errorMsgs.add("負責人姓名請勿空白");
+			}else if (!principalName.trim().matches(principalNameReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.add("負責人姓名: 只能是中文,英文");
 			}
 
 			String principalPhone = null;
@@ -687,20 +706,23 @@ public class CompanyServlet extends HttpServlet {
 			} catch (NumberFormatException e) {
 				errorMsgs.add("負責人電話請填數字.");
 			}
+			
+			String principalPhoneReg = "^[(0-9)]{10}$";
+			if (!principalPhone.trim().matches(principalPhoneReg)) {
+				errorMsgs.add("負責人電話格式錯誤.");
+			}
 
 			String compAccount = req.getParameter("compAccount").trim();
 			if (compAccount == null || compAccount.trim().length() == 0) {
-				errorMsgs.add("帳號請勿空白");
-				
+				errorMsgs.add("帳號請勿空白");	
 			}
-			
-//			CompanyService companySvc1 = new CompanyService();
-//			List<Company> Duplicate = companySvc1.getOneAccount(compAccount);
-//
-//			   if (Duplicate != null) {
-//			    errorMsgs.add("帳號已重複");
-//			   }
 
+			CompanyService companySvc = new CompanyService();
+			Company compAccount1 = companySvc.getAccount(compAccount);
+			if (compAccount1 != null) {
+			    errorMsgs.add("帳號已重複");
+			   }
+	
 			String compPassword = req.getParameter("compPassword").trim();
 			if (compPassword == null || compPassword.trim().length() == 0) {
 				errorMsgs.add("密碼請勿空白");
@@ -754,7 +776,7 @@ public class CompanyServlet extends HttpServlet {
 			}
 
 			/*************************** 2.開始新增資料 ***************************************/
-			CompanyService companySvc = new CompanyService();
+			companySvc = new CompanyService();
 			Company company =  companySvc.addCompany(compType, compName, compAddress, compPhone, principalName,
 			principalPhone, compAccount, compPassword, compMail, compPhoto,hotelInfo);
 			
@@ -785,17 +807,68 @@ public class CompanyServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
 		}
-	
-//		 //發送驗證 mail 
-//		  MailService msv = new MailService();
-//		  String to =  req.getRequestDispatcher(compmail);
-//		  String subject = "廚藝實驗室:驗證碼通知";
-//		  String ch_name = nickname;
-//		  String passRandom = msv.genAuthCode();
-//		  String messageText =  ch_name +" 您好!\n\n["+ passRandom +"]\n\n為您在廚藝實驗室(CookLab)的驗證碼，請於10分鐘內輸入" +"\n" ;
-//		
-//		  MailService mailService = new MailService();
-//		  new Thread(()->mailService.sendMail(to, subject, messageText)).start(); 
+		
+		if ("mail".equals(action)) { // 來自listAllEmp.jsp
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			/*************************** 1.接收請求參數 ***************************************/
+			String mail = req.getParameter("compmail");
+
+			/*************************** 2.開始刪除資料 ***************************************/
+			//發送驗證 mail 
+			  MailService msv = new MailService();
+			  String to =  mail;
+			  String subject = "gogoyu:驗證碼通知";
+			  String passRandom = msv.genAuthCode();
+			  
+			  HttpSession session = req.getSession();
+			  session.setAttribute(to, passRandom);
+			  
+//			  String passRandom = "gogoyu";
+			  String messageText = " 您好!\n\n["+ passRandom +"]\n\n為您在(gogoyu)的驗證碼，請於10分鐘內輸入" +"\n" ;
+			
+			  MailService mailService = new MailService();
+			  new Thread(()->mailService.sendMail(to, subject, messageText)).start(); 
+
+			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
+			String url = "/ken/com_mem_signup.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+			successView.forward(req, res);
+		}
+		
+		System.out.println(action);
+		if ("genAuthCode".equals(action)) { // 來自select_page.jsp的請求
+			List<String> errorMsgs = new LinkedList<String>();
+			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+			String mail = req.getParameter("compmail");
+			String genAuthCode = req.getParameter("genAuthCode");
+			
+			HttpSession session = req.getSession();
+			String authCode = session.getAttribute(mail).toString();
+			
+			System.out.println(genAuthCode);
+			if (genAuthCode == null || (genAuthCode.trim()).length() == 0) {
+				errorMsgs.add("請輸入驗證碼");
+				System.out.println(errorMsgs);
+				/*************************** 2.開始查詢資料 *****************************************/
+				
+				String url = "/ken/com_mem_signup.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+				successView.forward(req, res);
+			}
+			
+			if (!authCode.isEmpty() && authCode.equals(genAuthCode)) {
+				System.out.println("驗證成功");
+				session.removeAttribute(mail);
+				String url = "/ken/com_mem_signupinfo.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+				successView.forward(req, res);
+			}
+		} 
 
 	}
 }

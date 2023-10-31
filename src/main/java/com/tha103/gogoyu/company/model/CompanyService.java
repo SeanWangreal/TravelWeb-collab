@@ -69,11 +69,11 @@ public class CompanyService {
 			return dao.findByPassword(compPassword);
 		}
 
-//		public Company getAccount(String compAccount) {
-//			   Company existingCompany = dao.getAccount(compAccount);
-//			      return existingConsumers; 
-//			         
-//			 }
+		public Company getAccount(String compAccount) {
+			   Company existingCompany = dao.getAccount(compAccount);
+			      return existingCompany; 
+			         
+			 }
 		
 		public Company getOneCompany(Integer compId) {
 			return dao.findByPK(compId);

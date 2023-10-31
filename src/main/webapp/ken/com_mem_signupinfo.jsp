@@ -102,6 +102,14 @@ Company company = (Company) request.getAttribute("Company");
         </aside>
     </nav>
     <FORM id="background"  METHOD="post" ACTION="${pageContext.request.contextPath}/CompanyServlet" enctype="multipart/form-data">
+    <c:if test="${not empty errorMsgs}">
+		<font style="color:red">請修正以下錯誤:</font>
+			<ul>
+			    <c:forEach var="message" items="${errorMsgs}">
+					<li style="color:red">${message}</li>
+				</c:forEach>
+			</ul>
+	</c:if>
 
         <div class="container-fluid" style="background-color: #d9d2c5;">
             <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
@@ -109,58 +117,59 @@ Company company = (Company) request.getAttribute("Company");
                     <div class>
                         
                         <div id="search" class="mem_info">
+                                <br><h3>註冊帳號</h3>
                             <div class="d-flex align-items-center justify-content-between mb-3" >
-                                <h3>註冊帳號</h3>
                             </div>
                             
-                            <div class="input_container">
-                                <label>廠商別：</label>
-                                <select name="compType" class="button_mem_info" style="font-size:20px; padding:9px ;padding-left:163px ;">
-                                	<option value="0" style="font-size:20px; " selected>飯店業者</option>
-                                	<option value="1" style="font-size:20px; ">旅行業者</option>
+                            <div class="form-floating mb-3">
+                                <select name="compType" class="form-control" >
+                                	<option value="0" style="font-size:16px; " selected>飯店業者</option>
+                                	<option value="1" style="font-size:16px; ">旅行業者</option>
                                 </select>
+                                <label style="font-size:16px">廠商別：</label>
                             </div>
-                            <div class="input_container" >
-                                <label>公司名稱：</label>
-                                <input name="compName" class="button_mem_info" value="${company.compName}" style="font-size:20px; padding:5px ;padding-left:51px ;">
+                            <div class="form-floating mb-3">
+                                <input name="compName" class="form-control" value="${company.compName}" >
+                                <label style="font-size:16px">公司名稱：</label>
                             </div>
-                            <div class="input_container">
-                                <label>公司地址：</label>
-                                <input name="compAddress" class="button_mem_info"  value="${company.compAddress}" style="font-size:20px; padding:5px ;padding-left:51px ;">
+                            <div class="form-floating mb-3">
+                                <input name="compAddress" class="form-control"  value="${company.compAddress}">
+                                <label style="font-size:16px">公司地址：</label>
                             </div>
-                            <div class="input_container">
-                                <label>公司電話：</label>
-                                <input name="compPhone" class="button_mem_info"  value="${company.compPhone}" style="font-size:20px; padding:5px ;padding-left:51px ;">
+                            <div class="form-floating mb-3">
+                                <input name="compPhone" class="form-control"  value="${company.compPhone}">
+                                <label style="font-size:16px">公司電話：</label>
                             </div>
-                            <div class="input_container">
-                                <label>負責人：</label>
-                                <input name="principalName" class="button_mem_info"  value="${company.principalName}" style="font-size:20px; padding:5px ;padding-left:51px ;">
+                            <div class="form-floating mb-3">
+                                <input name="principalName" class="form-control"  value="${company.principalName}">
+                                <label style="font-size:16px">負責人：</label>
                             </div>
-                            <div class="input_container">
-                                <label>負責電話：</label>
-                                <input name="principalPhone" class="button_mem_info"  value="${company.principalPhone}" style="font-size:20px; padding:5px ;padding-left:51px ;">
+                            <div class="form-floating mb-3">
+                                <input name="principalPhone" class="form-control"  value="${company.principalPhone}">
+                                <label style="font-size:16px">負責電話：</label>
                             </div>
-                            <div class="input_container">
-                                <label>帳號：</label>
-                                <input name="compAccount" class="button_mem_info"  value="${company.compAccount}" style="font-size:20px; padding:5px ;padding-left:51px ;">
+                            <div class="form-floating mb-3">
+                                <input name="compAccount" class="form-control"  value="${company.compAccount}">
+                                <label style="font-size:16px">帳號：</label>
                             </div>
-                            <div class="input_container">
-                                <label>密碼：</label>
-                                <input name="compPassword" class="button_mem_info"  value="${company.compPassword}" style="font-size:20px; padding:5px ;padding-left:51px ;">
+                            
+                            <div class="form-floating mb-3">
+                                <input name="compPassword" class="form-control"  value="${company.compPassword}">
+                                <label style="font-size:16px">密碼：</label>
                             </div> 
-                            <div class="input_container">
-                                <label>信箱：</label>
-                                <input name="compMail" class="button_mem_info"  value="${company.compMail}" style="font-size:20px; padding:5px ;padding-left:51px ;">
+                            <div class="form-floating mb-3">
+                                <input name="compMail" class="form-control"  value="${company.compMail}">
+                                <label style="font-size:16px">信箱：</label>
                             </div>
-           					<div class="input_container" >
-                                <label style="width:100px;">照片： </label>
-                                <input name="parts" type="file" class="button_mem_info"  value="${company.compPhoto}" style="font-size:20px; padding:5px ;padding-left:100px ;">
+           					<div class="form-floating mb-3">
+                                <input name="parts" type="file" class="form-control"  value="${company.compPhoto}">
+                                <label style="font-size:16px;">照片： </label>
                             </div>
                             
                         </div>
                         
                     </div>
-                    <button type="submit" class="btn btn-primary py-2 w-50 mb-4">註冊!</button>
+                    <button type="submit" class="btn btn-primary py-3 w-100 mb-4">註冊!</button>
                 </div>
             </div>
           

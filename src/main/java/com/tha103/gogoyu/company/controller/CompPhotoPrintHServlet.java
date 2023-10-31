@@ -27,7 +27,7 @@ public class CompPhotoPrintHServlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		res.setContentType("image/gif");
+		res.setContentType("image/png");
 		ServletOutputStream out = res.getOutputStream();
 		byte[] photo = null;
 		String compId = req.getParameter("comp_id");
