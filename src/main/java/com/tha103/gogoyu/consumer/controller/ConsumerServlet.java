@@ -687,8 +687,8 @@ public class ConsumerServlet extends HttpServlet {
 
 			
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-//			req.getSession().setAttribute("cusId", consumer.getCusId());
-			res.sendRedirect(req.getContextPath() + "/eric/signin_realinfo.jsp");
+			RequestDispatcher failureView = req.getRequestDispatcher("/eric/signin_realinfo.jsp");
+			failureView.forward(req, res);
 
 		}
 		if ("Logout".equals(action)) { // 來自select_page.jsp的請求
