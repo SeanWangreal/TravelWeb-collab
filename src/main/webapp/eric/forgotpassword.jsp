@@ -14,15 +14,15 @@ Consumer consumer = (Consumer) request.getAttribute("consumer");
 <html lang="en">
 
 <head>
-<script src="../vendors/jquery/jquery-3.7.1.min.js"
+<script src="${pageContext.request.contextPath}/vendors/jquery/jquery-3.7.1.min.js"
 	crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/b4c50f14e1.js"
 	crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>忘記密碼</title>
-<link href="../dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="../static/eric_css/ericheader.css">
+<link href="${pageContext.request.contextPath}/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/eric_css/ericheader.css">
 <style>
 body {
 	text-align: center;

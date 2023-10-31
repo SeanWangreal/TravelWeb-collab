@@ -24,4 +24,5 @@ public interface ConsumerDAO_interface {
 			String cusAddress, Integer cusSex);
 
 
+
 }
