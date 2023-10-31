@@ -3,10 +3,15 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!-- jsp使用  el語法註冊-->
 <%@ page import="java.util.*"%>
+<%@ page import="java.util.concurrent.TimeUnit"%>
 <%@ page import="com.tha103.gogoyu.room_ord.model.*"%>
 <%@ page import="com.tha103.gogoyu.consumer.model.*"%>
 <%@ page import="com.tha103.gogoyu.planning.model.*"%>
+<%@ page import="java.time.*"%>
+<%@ page import="java.time.format.DateTimeFormatter"%>
 <%@ page import="java.sql.Date"%>
+
+
 <!-- 以下三行預防快取 -->
 <%
 response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
@@ -18,7 +23,10 @@ Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
 Date checkInTime = ROSH.getRoomOrd(roomOrd).getCheckInTime();
 Date checkOutTime = ROSH.getRoomOrd(roomOrd).getCheckOutTime();
 
-pageContext.setAttribute("roomOrdList", ROSH.getRoomOrdList(roomOrd, checkInTime, checkOutTime));
+long diffInMillies = Math.abs(checkOutTime.getTime() - checkInTime.getTime());
+long diffInDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS); //計算天數
+
+pageContext.setAttribute("roomOrdList", ROSH.getRoomOrdList(roomOrd, checkInTime, checkOutTime , diffInDays));
 %>
 <!DOCTYPE html>
 <html lang="en">

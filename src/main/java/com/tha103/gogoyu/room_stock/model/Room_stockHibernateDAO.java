@@ -235,14 +235,9 @@ public class Room_stockHibernateDAO implements Room_stockDAO_interface {
 	}
 
 	public Integer updateRoomStock(Integer roomId, Integer amount, Date checkInTime, Date checkOutTime) {
-		System.out.println(roomId+"sasfdsfdsfds");//1
-		System.out.println(amount);//1
-		System.out.println(checkInTime);//2023-10-17
-		System.out.println(checkOutTime);//2023-10-20
 		Long out = checkOutTime.getTime();
 		out -= ONE_DAY;
 		Date newDate = new Date(out);
-		System.out.println(newDate+"fefefefefefefe");//2023-10-19
 		try {
 			getSession().beginTransaction();
 			List<Room_stock> list = getSession().createQuery(

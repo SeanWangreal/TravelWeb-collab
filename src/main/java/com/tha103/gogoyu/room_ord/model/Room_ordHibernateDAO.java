@@ -234,7 +234,7 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 
 	}
 
-	public Map<Room_ord, List<Object>> getRoomOrdList(Integer roomOrdId ,Date checkInTime ,Date checkOutTime ) {
+	public Map<Room_ord, List<Object>> getRoomOrdList(Integer roomOrdId ,Date checkInTime ,Date checkOutTime , Long diffInDays ) {
 		try {
 			getSession().beginTransaction();
 			Map<Room_ord, List<Object>> map = new LinkedHashMap<Room_ord, List<Object>>();
@@ -269,7 +269,7 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 				info.add(getSession().get(Company.class, Room.getCompId()).getPrincipalName());// String Principalname
 				info.add(getSession().get(Company.class, Room.getCompId()).getPrincipalPhone());// String PrincipalPhone
 //						
-				BigDecimal totalPrice = getSession().get(Room.class, Room.getRoomId()).getPrice()
+				BigDecimal totalPrice = getSession().get(Room.class, Room.getRoomId()).getPrice().multiply(new BigDecimal(diffInDays))
 						.multiply(new BigDecimal(Room.getAmount()));
 				info.add(totalPrice);
 				BigDecimal commission = totalPrice.multiply(new BigDecimal(0.1));

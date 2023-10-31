@@ -196,10 +196,10 @@ if (cusId != null) {
 							<div class="right_side_first_row">
 								<div class="title_set" style="margin-top: 13px; width: 210px">
 									<span class="mark_for_type_hotel">飯</span> <i
-										id="named_of_title">${room1.get(roomVo1).get(0)}</i>
+										id="named_of_title" style = "font-size :20px">${room1.get(roomVo1).get(0)}</i>
 
 								</div>
-								<!-- 					</form> -->
+								
 								<div class="comment_set">
 									<div class="comment_message"
 										style="position: absolute; right: 100px;">
@@ -213,6 +213,7 @@ if (cusId != null) {
 								</div>
 							</div>
 							<span class="book_price" style="font-size: 22px">${room1.get(roomVo1).get(1)}</span>
+							
 							<i class="howmuch_nt">TWD</i>
 							<div class="price_set">
 								<i class="howmuch">${roomVo1.totalPrice.intValue()}</i>
