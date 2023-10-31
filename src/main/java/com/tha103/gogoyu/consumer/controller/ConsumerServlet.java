@@ -143,9 +143,14 @@ public class ConsumerServlet extends HttpServlet {
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			String mail = req.getParameter("cusMail");
+			String mailReg = "\\w[-\\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\\.)+[A-Za-z]{2,14}";
+
 			if (mail == null || (mail.trim()).length() == 0) {
 				errorMsgs.add("請輸入信箱");
+			}else if (!mail.trim().matches(mailReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.add("信箱格式錯誤 範例XXXX@XXX.XXX");
 			}
+			
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req.getRequestDispatcher("/eric/signin_info.jsp");
