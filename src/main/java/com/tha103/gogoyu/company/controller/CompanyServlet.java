@@ -718,12 +718,13 @@ public class CompanyServlet extends HttpServlet {
 			}
 
 			String principalName = req.getParameter("principalName").trim();
-			String principalNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z)]+$";
+//			String principalNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z)]+$";
 			if (principalName == null || principalName.trim().length() == 0) {
 				errorMsgs.add("負責人姓名請勿空白");
-			} else if (!principalName.trim().matches(principalNameReg)) { // 以下練習正則(規)表示式(regular-expression)
-				errorMsgs.add("負責人姓名: 只能是中文,英文");
-			}
+			} 
+//			else if (!principalName.trim().matches(principalNameReg)) { // 以下練習正則(規)表示式(regular-expression)
+//				errorMsgs.add("負責人姓名: 只能是中文,英文");
+//			}
 
 			String principalPhone = null;
 			try {
