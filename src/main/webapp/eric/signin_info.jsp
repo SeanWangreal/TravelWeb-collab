@@ -9,19 +9,20 @@
 <%
 //見com.emp.controller.EmpServlet.java第238行存入req的empVO物件 (此為輸入格式有錯誤時的empVO物件)
 Consumer consumer = (Consumer) request.getAttribute("consumer");
+
 %>
 <html lang="en">
 
 <head>
-<script src="../vendors/jquery/jquery-3.7.1.min.js"
+<script src="${pageContext.request.contextPath}/vendors/jquery/jquery-3.7.1.min.js"
 	crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/b4c50f14e1.js"
 	crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>註冊</title>
-<link href="../dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="../static/eric_css/ericheader.css">
+<link href="${pageContext.request.contextPath}/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/eric_css/ericheader.css">
 <style>
 body {
 	text-align: center;
@@ -84,7 +85,7 @@ div#search {
 					style="color: black; font-size: 30px; width: 30px; background-color: transparent;"></i>
 			</button>
 			<button type="button" class="head_btn">
-				<a class="profile" href="#"> <i class="fa-solid fa-user"
+				<a class="profile" href="${pageContext.request.contextPath}/eric/personal_detail.jsp"> <i class="fa-solid fa-user"
 					style="color: black; font-size: 30px; background-color: transparent;"></i>
 				</a>
 			</button>
@@ -110,7 +111,7 @@ div#search {
 
 	<form METHOD="post" class="form_down"
 		action="${pageContext.request.contextPath}/eric/ConsumerServlet"
-		name="form1" enctype="multipart/form-data">
+		name="form1" enctype="multipart/form-data" id="myForm">
 		<div class="container-fluid" style="background-color: #d9d2c5;">
 			<div class="row h-100 align-items-center justify-content-center"
 				style="min-height: 100vh;">
@@ -118,27 +119,12 @@ div#search {
 					<div class>
 						<div
 							class="d-flex align-items-center justify-content-between mb-3">
-							<h3>註冊帳號</h3>
+							<h3>驗證信箱</h3>
 						</div>
-						<div class="form-floating mb-3">
-							<input type="TEXT" class="form-control" id="floatingInput"
-								name="cusName"
-								value="<%=(consumer == null) ? "" : consumer.getCusName()%>"
-								size="45"> <label>姓名</label>
-						</div>
-						<div class="form-floating mb-3">
-							<input type="TEXT" class="form-control" id="floatingPassword"
-								name="cusAccount"
-								value="<%=(consumer == null) ? "" : consumer.getCusAccount()%>"
-								size="45"> <label>帳號</label>
-						</div>
+						
+						
 
-						<div class="form-floating mb-3">
-							<input type="TEXT" class="form-control" id="floatingPassword"
-								name="cusPassword"
-								value="<%=(consumer == null) ? "" : consumer.getCusPassword()%>"
-								size="45"> <label>密碼</label>
-						</div>
+						
 
 						<div class="form-floating mb-3">
 							<input type="TEXT" class="form-control" id="floatingPassword"
@@ -147,41 +133,28 @@ div#search {
 								size="45"> <label>電子郵箱</label>
 						</div>
 
+						
+
+
+
+
+						
+
+						
+
+
+
+						
+						<button type="submit" name="action" value="mail" id="mailButton"
+							class="btn btn-primary py-3 w-100 mb-4">寄送驗證碼</button>
 						<div class="form-floating mb-3">
 							<input type="TEXT" class="form-control" id="floatingPassword"
-								name="cusPhone"
-								value="<%=(consumer == null) ? "" : consumer.getCusPhone()%>"
-								size="45"> <label>電話號碼</label>
-						</div>
+								name="CAPTCHA"
+								size="45"> <label>驗證碼</label>
+						</div>	
 
-
-
-
-						<div class="form-floating mb-3">
-							<input type="TEXT" class="form-control" id="floatingPassword"
-								name="cusAddress"
-								value="<%=(consumer == null) ? "" : consumer.getCusAddress()%>"
-								size="45"> <label>地址</label>
-						</div>
-
-						<div class="form-floating mb-3">
-							<select type="TEXT" class="form-control" id="floatingPassword"
-								name="cusSex">
-								<option value="0">男性</option>
-								<option value="1">女性</option>
-							</select> <label>性別</label>
-						</div>
-
-
-
-						<div class="form-floating mb-3">
-							<input type="file" class="form-control" id="floatingPassword"
-								name="cusPhoto" size="45"> <label>照片</label>
-						</div>
-
-
-						<button type="submit" name="action" value="add"
-							class="btn btn-primary py-3 w-100 mb-4">註冊!</button>
+						<button type="submit" name="action" value="verify"
+							class="btn btn-primary py-3 w-100 mb-4">送出!</button>
 
 						<%-- 錯誤表列 --%>
 						<c:if test="${not empty errorMsgs}">
@@ -233,6 +206,8 @@ div#search {
 		msg_btn.addEventListener("click", say);
 		info_btn.addEventListener("click", info);
 		shop_btn.addEventListener("click", grab);
+		
+	       
 	</script>
 </body>
 

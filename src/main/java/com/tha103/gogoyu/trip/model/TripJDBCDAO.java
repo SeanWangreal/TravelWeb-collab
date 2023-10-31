@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.tha103.gogoyu.itinerary.model.Itinerary;
+import com.tha103.gogoyu.scene.model.Scene;
 import com.tha103.gogoyu.trip_photo.model.Trip_photo;
 
 import util.Util;
@@ -301,6 +302,30 @@ public class TripJDBCDAO implements TripDAO_interface {
 
 	@Override
 	public Integer updateAmount(Integer amount, Integer tripId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Trip> searchTrip(String site, Date startTime, Date endTime, Integer number) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Trip> getHotTrip() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Object> getTripProdutDetail(Integer tripId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Scene> scenesMaps(Integer tripId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

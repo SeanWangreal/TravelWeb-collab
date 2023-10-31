@@ -211,16 +211,28 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		return null;
 	}
 
-	public List<Room> getHotRoom() {
+	public List<List> getHotRoomDetail() {
 		try {
 			getSession().beginTransaction();
 			@SuppressWarnings("unchecked")
-			NativeQuery<Room> query1 = getSession().createNativeQuery(
+			List<Room> roomList = getSession().createNativeQuery(
 					"SELECT * FROM room WHERE room_id IN (SELECT room_id FROM (SELECT room_id, count(room_id) FROM room_ord GROUP BY room_id ORDER BY 2 DESC LIMIT 3) as xxx);",
-					Room.class);
-			List<Room> list = query1.list();
+					Room.class).list();
+			
+			List<String> compNameList = new ArrayList<String>();
+			for(Room room : roomList) {
+				Integer compId = room.getCompId();
+				Company company = getSession().get(Company.class, compId);
+				String compName = company.getCompName();
+				compNameList.add(compName);
+			}
+			
+			List<List> hotRoomDetailList = new ArrayList();
+			hotRoomDetailList.add(roomList);
+			hotRoomDetailList.add(compNameList);
+			
 			getSession().getTransaction().commit();
-			return list;
+			return hotRoomDetailList;
 		} catch (Exception e) {
 			e.printStackTrace();
 			getSession().getTransaction().rollback();
@@ -235,7 +247,8 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 		Room room = getSession().get(Room.class, roomId);
 		List<Integer> roomPhotoIdList = getSession().createQuery("select roomPhotoId from Room_photo where room_id =:room_id", Integer.class)
 				.setParameter("room_id", roomId).list();
-		Company company = getSession().get(Company.class, roomId);
+		Integer compId = room.getCompId();
+		Company company = getSession().get(Company.class, compId);
 		List<String> roomFacilities = new ArrayList();
 
 			if (room.getTissue() == (byte) 1) {
@@ -310,10 +323,10 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 //		return null;
 //	}
 
-	public Map<Room, String> searchRoom(String comp_address, Date checkIn, Date checkOut, Integer number) {
+	public Map<Room, List<String>> searchRoom(String comp_address, Date checkIn, Date checkOut, Integer number) {
+		Map<Room, List<String>> map = new LinkedHashMap<Room, List<String>>();
 		try {
 			getSession().beginTransaction();
-			Map<Room, String> map = new LinkedHashMap<Room, String>();
 //			@SuppressWarnings("unchecked")
 			Long out = checkOut.getTime();
 			long ONE_DAY = 1 * 24 * 60 * 60 * 1000L;
@@ -322,24 +335,36 @@ public class RoomHibernateDAO implements RoomDAO_interface {
 			NativeQuery<Room> query1 = getSession().createNativeQuery(
 					"SELECT * FROM room WHERE room_id IN "
 					+ "(SELECT r.room_id FROM room r"
-					+ " JOIN room_stock rs ON r.room_id = rs.room_id JOIN company c ON r.comp_id = c.comp_id WHERE (c.comp_address LIKE :comp_address) AND (rs.stock_date BETWEEN :checkIn AND :checkOut) AND (r.room_type <= :number) AND (rs.stock > 0) GROUP BY room_id)", Room.class)
+					+ " JOIN room_stock rs ON r.room_id = rs.room_id JOIN company c ON r.comp_id = c.comp_id WHERE (c.comp_address LIKE :comp_address) AND (rs.stock_date BETWEEN :checkIn AND :checkOut) AND (r.room_type >= :number) AND (rs.stock > 0) AND (r.room_status = 1)GROUP BY room_id) ORDER BY comp_id, room_type, beds", Room.class)
 			.setParameter("comp_address", "%"+comp_address+"%")
 			.setParameter("checkIn", checkIn)
 			.setParameter("checkOut", newDate)
 			.setParameter("number", number);
+			
 			List<Room> list = query1.list();
 			for (Room room : list) {
 				Company company = getSession().get(Company.class, room.getCompId());
 				String compName = company.getCompName();
-				map.put(room, compName);
+				Double avgScore = getSession()
+					      .createQuery("select avg(score) from Room_ord where roomId = :roomId ", Double.class)
+					      .setParameter("roomId", room.getRoomId()).uniqueResult();
+				
+				List<String> sCcN = new ArrayList<String>();
+				if (avgScore != null) {
+				     Double averageScore = Math.round(avgScore * 10.0) / 10.0;
+				     	sCcN.add(averageScore.toString());
+				} else {
+				    sCcN.add("N/A");
+				}
+				sCcN.add(compName);
+				map.put(room, sCcN);
 			}
-			getSession().getTransaction().commit();
 			return map;
-		} catch (Exception e) {
-			e.printStackTrace();
-			getSession().getTransaction().rollback();
-		}
-		return null;
+			}catch (Exception e) {
+				e.printStackTrace();
+				getSession().getTransaction().rollback();
+			}
+		return map;
 	}
 
 	public static void main(String[] args) {

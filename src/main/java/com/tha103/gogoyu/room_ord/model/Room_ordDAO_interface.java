@@ -26,6 +26,8 @@ public interface Room_ordDAO_interface {
 	public  Map<Room_ord,List<String>> getRoomOrdByCompId(Integer compId,Integer beginCount, String ordOrReview);
 	public  Map<Room_ord,List<String>> getRoomOrdByCompIdOrdId(Integer roomOrdId, Integer compId);
 	public Integer updateStatusAndRemark(String remark , Integer tripOrdId ,BigDecimal profit , BigDecimal commission ,BigDecimal totalPrice ,Timestamp ordTime , Integer people);
-	public Map <Room_ord , List <Object>> getRoomOrdList(Integer roomOrdId);
+	public Map <Room_ord , List <Object>> getRoomOrdList(Integer roomOrdIdDate , Date checkInTime ,Date checkOutTime , Long diffInDays );
 	public Integer updateAmount(Integer amount ,Integer roomOrdId);
+	public Integer updateCartNum(Integer planId , Integer roomOrdId);
+	public Integer queryProduct(Integer roomId , Integer cusId , Date checkInTime , Date checkOutTime); 
 }

@@ -1,12 +1,18 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.tha103.gogoyu.consumer.model.*"%>
 
 <%
-Consumer consumer = (Consumer) request.getAttribute("consumer"); //EmpServlet.java(Concroller), ¶s§Jreq™∫empVO™´•Û
+Consumer consumer = (Consumer) request.getAttribute("consumer"); //EmpServlet.java(Concroller), Â≠òÂÖ•reqÁöÑempVOÁâ©‰ª∂
 
 if ((Integer)request.getSession().getAttribute("cusId") == null){
 	response.sendRedirect(request.getContextPath()+"/eric/signin.jsp");
 }
+Integer cusId = (Integer) request.getSession().getAttribute("cusId");
+ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
+consumer = cusSvc.getOneCus(cusId);
+request.setAttribute("consumer", consumer);
+
+
 %>    
 
 <!DOCTYPE html>
@@ -16,24 +22,12 @@ if ((Integer)request.getSession().getAttribute("cusId") == null){
     <script src="https://kit.fontawesome.com/b4c50f14e1.js" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>≠”§H∏Í∞T</title>
-    <link href="../dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>ÂÄã‰∫∫Ë≥áË®ä</title>
+    <link href="${pageContext.request.contextPath}/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
-    <link rel="stylesheet" href="../static/eric_css/ordinf.css">
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/eric_css/ordinf.css">
 
-    </script>
     <style>
-        :root {
-            --ifm-font-family-base: "Øª∂Í";
-        }
-
-        @font-face {
-            font-family: 'Øª∂Í';
-            src: url('/static/font/jf-openhuninn-2.0.ttf');
-            font-display: swap;
-        }
-
         @media (min-height: 500px) and (max-height: 1300px) {
             .shop {
                 height: 60vh;
@@ -57,35 +51,40 @@ if ((Integer)request.getSession().getAttribute("cusId") == null){
         width:200px;
         height:200px;
         }
+        
     </style>
 </head>
 
 <body>
-    <script src="../vendors/jquery/jquery-3.7.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/vendors/jquery/jquery-3.7.1.min.js"></script>
 
     <nav class="st">
         <!-- <a class="word" id="home" href="#">Home</a> -->
-        <div class="head">
+        <a class="logo" id="home" href="${pageContext.request.contextPath}/mhl/home.jsp">GO<i class="fa-solid fa-location-dot" style="color: #ffbf1c;"></i>GOYU</a>
+         <div class="head">
+            <button type="menu" class="head_btn" aria-label="Ë¶èÂäÉË°åÁ®ã" id="shop">
+                <i class="fa-solid fa-suitcase-rolling icon" style="color: black; font-size:30px;
+                            background-color:transparent;"></i>
             </button>
             <button type="menu" class="head_btn" id="msg">
                 <i class="fa-regular fa-message icon" style="color: black; font-size:30px; 
                             background-color:transparent;"></i>
             </button>
             <button type="menu" class="head_btn" id="info">
-                <i class="fa-regular fa-bell icon" style="color: black;font-size:30px; width: 30px;
+                <i class="fa-regular fa-bell  icon" style="color: black;font-size:30px; width: 30px;
                             background-color:transparent;"></i>
             </button>
-            <button type="menu" class="head_btn" id="">
-                <i class="fa-solid fa-store" style="color: #000000;font-size:30px; width: 30px;
-                background-color:transparent;"></i>
-
-            </button>
             <button type="button" class="head_btn">
-                <a class="profile" href="#">
-                    <i class="fa-solid fa-user icon" style="color: black; font-size:30px;
-                                background-color:transparent;"></i>
-                </a>
+                <a class="profile" href="${pageContext.request.contextPath}/eric/personal_detail.jsp">
+
+<img src="${pageContext.request.contextPath}/eric/PictureServlet?cus_id=${consumer.cusId}" style="width:30px;height:30px"> 
+  </a>                                
+              
             </button>
+
+   
+            
+            
         </div>
         <aside class="msg all_side nothing" id="msg_side">
             msg<br>msg<br>msg<br>msg<br>msg<br>msg<br>msg
@@ -106,28 +105,28 @@ if ((Integer)request.getSession().getAttribute("cusId") == null){
         <div id="shell"></div>
         <aside class="left">
             <div class="mem-data">
-                <a class="left_btn">
-                    <i class="fa-solid fa-cart-shopping" style="color: black;"></i> ®Ó©w≥Wπ∫
+                <a class="left_btn"  href="${pageContext.request.contextPath}/chu/shopping(hotel).jsp">
+                    <i class="fa-solid fa-cart-shopping" style="color: black;"></i> Âà∂ÂÆöË¶èÂäÉ
                 </a>
             </div>
             <div class="mem-data">
-                <a class="left_btn" href="personal_detail.html">
-                    <i class="fa-regular fa-user" style="color: black;"></i> ∑|≠˚∏ÍÆ∆
+                <a class="left_btn" href="${pageContext.request.contextPath}/eric/personal_detail.jsp">
+                    <i class="fa-regular fa-user" style="color: black;"></i> ÊúÉÂì°Ë≥áÊñô
                 </a>
             </div>
             <div class="mem-data">
-                <a class="left_btn" href="ordinf.html">
-                    <i class="fa-solid fa-file-invoice" style="color: black;"></i> ≠q≥Ê∏Í∞T
+                <a class="left_btn" href="${pageContext.request.contextPath}/chu/bookedList(hotel).jsp">
+                    <i class="fa-solid fa-file-invoice" style="color: black;"></i> Ë®ÇÂñÆË≥áË®ä
                 </a>
             </div>
             <div class="mem-data">
                 <a class="left_btn" href="">
-                    <i class="fa-solid fa-star" style="color: black;"></i> ß⁄™∫ª`¬√
+                    <i class="fa-solid fa-star" style="color: black;"></i> ÊàëÁöÑËíêËóè
                 </a>
             </div>
             <div class="mem-data">
                 <a class="left_btn" href="hotel_room_review.html">
-                    <i class="fa-regular fa-calendar-days" style="color: black;"></i> ¶Ê®∆æ‰
+                    <i class="fa-regular fa-calendar-days" style="color: black;"></i> Ë°å‰∫ãÊõÜ
                 </a>
             </div>
         </aside>
@@ -136,35 +135,30 @@ if ((Integer)request.getSession().getAttribute("cusId") == null){
         <main class="main-content">
             <div class="main-content-info">
                 <br>
-                <br>
-                <br>
-                <br>
-                <!-- ∑|≠˚±z¶n -->
+               
                 <section class="item" style="width:800px">
-                    <h1 style="border: 0px solid">${consumer.cusName},${cusId}±z¶n!</h1>
+                    <h1 style="border: 0px solid">${consumer.cusName},ÊÇ®Â•Ω!</h1>
                     <br>
-                    <button type="summit" class="logoutbtn" style="float: right;" name="action" value="Logout">´ˆ¶πµn•X</button>
+                    <a href="${pageContext.request.contextPath}/eric/ConsumerServlet?action=Logout" class="logoutbtn">ÊåâÊ≠§ÁôªÂá∫</a>
                     
                 </section>
+	
                 <br>
-                <br>
-                <br>
-                <br>
-                <h5 style="font-weight:bolder">∑|≠˚∏ÍÆ∆</h5>
-                    <span style="float: left">¶b≠”§H∏ÍÆ∆§§ßÛ∑s≥Ã∑s∏Í∞T®√ΩTª{<span>
-                            <div class="memBtn" id="memBtn"style="text-decoration: none; text-align: right; padding-right:120px; font-size:16px; font-family: Øª∂Í">
-                                <a href="${pageContext.request.contextPath}/eric/ConsumerServlet?action=getOne_For_Update">ΩsøË</a>
+                <h5 style="font-weight:bolder">ÊúÉÂì°Ë≥áÊñô</h5>
+                    <span style="float: left">Âú®ÂÄã‰∫∫Ë≥áÊñô‰∏≠Êõ¥Êñ∞ÊúÄÊñ∞Ë≥áË®ä‰∏¶Á¢∫Ë™ç</span>
+                            <div class="memBtn" id="memBtn"style="text-decoration: none; text-align: right; padding-right:120px; font-size:16px; font-family: Á≤âÂúì">
+                                <a href="${pageContext.request.contextPath}/eric/ConsumerServlet?action=getOne_For_Update">Á∑®ËºØ</a>
                             </div>
                             <br>
                             <div class="mem_detal">
-                                <div class="personal_item" style="width:30%; font-weight:bolder; font-family: Øª∂Í; border:none ">
-                                    <span>©m¶W</span><br><br>
-                                    <span>±b∏π</span><br><br>
-                                    <span>´HΩc </span><br><br>
-                                    <span>πq∏‹</span><br><br>
-                                    <span>¶Ìß}</span><br><br>
-                                    <span>© ßO</span><br><br>
-                                    <span>∑”§˘</span><br>
+                                <div class="personal_item" style="width:30%; font-weight:bolder; font-family: Á≤âÂúì; border:none ">
+                                    <span>ÂßìÂêç</span><br><br>
+                                    <span>Â∏≥Ëôü</span><br><br>
+                                    <span>‰ø°ÁÆ± </span><br><br>
+                                    <span>ÈõªË©±</span><br><br>
+                                    <span>‰ΩèÂùÄ</span><br><br>
+                                    <span>ÊÄßÂà•</span><br><br>
+                                    <span>ÁÖßÁâá</span><br>
 
                                 </div>
                                 <div class="personal_item" style="width:70% ; border:none white ; padding-left: 0px">
@@ -187,23 +181,14 @@ if ((Integer)request.getSession().getAttribute("cusId") == null){
 
                                 </div>
                             </div>
-                
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-
+        
             </div>
         </main>
     </div>
 
 
     <!-- <script src="btn4com_review.js"></script> -->
-    <script src="ordinf.js"></script>
+    <script src="${pageContext.request.contextPath}/static/eric_js/ordinf.js"></script>
 
 
 

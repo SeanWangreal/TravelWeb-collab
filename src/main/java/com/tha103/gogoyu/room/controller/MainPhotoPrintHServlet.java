@@ -42,7 +42,7 @@ public class MainPhotoPrintHServlet extends HttpServlet {
 			photo = roomSrc.getMainPhoto(Integer.valueOf(roomId));
 		}
 		out.write(photo);
-
+		out.close();
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

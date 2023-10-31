@@ -1,7 +1,6 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.tha103.gogoyu.room.model.*" %>
 <%@ page import="com.tha103.gogoyu.room.model.*" %>
 <%@ page import="com.tha103.gogoyu.room_photo.model.*" %>
 <%@ page import="com.tha103.gogoyu.company.model.*" %>
@@ -52,7 +51,7 @@
             position: relative;
             left: 360px;
             padding-bottom: 50px;
-            font-family: "Øª∂Í";
+            font-family: "Á≤âÂúì";
             font-size: 16px;
             background-color: white;
             width: calc(100% - 360px - 70px);
@@ -62,13 +61,13 @@
             padding: 10px 40px;
         }
 
-        #carouseltrip {
+        #carouselRoom {
             height: 60vh;
             width: 60%;
         }
 
         #map {
-            font-size: 100px;
+/*             font-size: 100px; */
         }
 
         #content1{
@@ -88,7 +87,7 @@
     <nav class="st">
          <a class="logo" id="home" href="${pageContext.request.contextPath}/mhl/home.jsp">GO<i class="fa-solid fa-location-dot" style="color: #ffbf1c;"></i>GOYU</a>
          <div class="head">
-            <button type="menu" class="head_btn" aria-label="≥Wπ∫¶Êµ{" id="shop">
+            <button type="menu" class="head_btn" aria-label="Ë¶èÂäÉË°åÁ®ã" id="shop">
                 <i class="fa-solid fa-suitcase-rolling icon" style="color: black; font-size:30px;
                             background-color:transparent;"></i>
             </button>
@@ -102,7 +101,7 @@
             </button>
             <button type="button" class="head_btn">
                 <a class="profile" href="${pageContext.request.contextPath}/ken/com_mem_signin.jsp">
-                   <div style="color: black;">∑~™Ã</div>
+                   <div style="color: black;">Ê•≠ËÄÖ</div>
                 </a>
             </button>
             <button type="button" class="head_btn">
@@ -130,79 +129,78 @@
         </aside>
     </nav>    
         <div class="d-flex flex-column mb-4">
-            <!--∑j¥MƒÊ-->
+            <!--ÊêúÂ∞ãÊ¨Ñ-->
             <nav class="navbar navbar-light bg-light">
                 <div class="container-fluid justify-content-center">
                   <form class="d-flex" method="post" action="${pageContext.request.contextPath}/sean/SearchServlet">
-                    <select class="form-select me-2" name="comp_address" aria-label="Default select example">
-                        <option value="•x•_•´">•x•_•´</option>
-                        <option value="∑s•_•´">∑s•_•´</option>
-                        <option value="ÆÁ∂È•´">ÆÁ∂È•´</option>
-                        <option value="•x§§•´">•x§§•´</option>
-                        <option value="•x´n•´">•x´n•´</option>
-                        <option value="∞™∂Ø•´">∞™∂Ø•´</option>
-                        <option value="∑s¶Àø§">∑s¶Àø§</option>
-                        <option value="∑s•_•´">∑s•_•´</option>
-                        <option value="≠]Æﬂø§">≠]Æﬂø§</option>
-                        <option value="π¸§∆ø§">π¸§∆ø§</option>
-                        <option value="´nßÎø§">´nßÎø§</option>
-                        <option value="∂≥™Lø§">∂≥™Lø§</option>
-                        <option value="π≈∏qø§">π≈∏qø§</option>
-                        <option value="´Ã™Fø§">´Ã™Fø§</option>
-                        <option value="©yƒı•´">©yƒı•´</option>
-                        <option value="™·Ω¨•´">™·Ω¨•´</option>
-                        <option value="•x™Fø§">•x™Fø§</option>
-                        <option value="™˜™˘ø§">™˜™˘ø§</option>
-                        <option value="≥s¶øø§">≥s¶øø§</option>
-                        <option value="∞Ú∂©•´">∞Ú∂©•´</option>
-                        <option value="∑s¶À•´">∑s¶À•´</option>
-                        <option value="π≈∏q•´">π≈∏q•´</option>
-                        <option value="ºÍ¥Úø§">ºÍ¥Úø§</option>
+                    <select class="form-select me-2" name="site" aria-label="Default select example">
+                        <option value="Âè∞ÂåóÂ∏Ç" ${searchRoomComp_address == "Âè∞ÂåóÂ∏Ç" ? 'selected' : ""}>Âè∞ÂåóÂ∏Ç</option>
+                        <option value="Êñ∞ÂåóÂ∏Ç" ${searchRoomComp_address == "Êñ∞ÂåóÂ∏Ç" ? 'selected' : ""}>Êñ∞ÂåóÂ∏Ç</option>
+                        <option value="Ê°ÉÂúíÂ∏Ç" ${searchRoomComp_address == "Ê°ÉÂúíÂ∏Ç" ? 'selected' : ""}>Ê°ÉÂúíÂ∏Ç</option>
+                        <option value="Âè∞‰∏≠Â∏Ç" ${searchRoomComp_address == "Âè∞‰∏≠Â∏Ç" ? 'selected' : ""}>Âè∞‰∏≠Â∏Ç</option>
+                        <option value="Âè∞ÂçóÂ∏Ç" ${searchRoomComp_address == "Âè∞ÂçóÂ∏Ç" ? 'selected' : ""}>Âè∞ÂçóÂ∏Ç</option>
+                        <option value="È´òÈõÑÂ∏Ç" ${searchRoomComp_address == "È´òÈõÑÂ∏Ç" ? 'selected' : ""}>È´òÈõÑÂ∏Ç</option>
+                        <option value="Êñ∞Á´πÁ∏£" ${searchRoomComp_address == "Êñ∞Á´πÁ∏£" ? 'selected' : ""}>Êñ∞Á´πÁ∏£</option>
+                        <option value="ËãóÊ†óÁ∏£" ${searchRoomComp_address == "ËãóÊ†óÁ∏£" ? 'selected' : ""}>ËãóÊ†óÁ∏£</option>
+                        <option value="ÂΩ∞ÂåñÁ∏£" ${searchRoomComp_address == "ÂΩ∞ÂåñÁ∏£" ? 'selected' : ""}>ÂΩ∞ÂåñÁ∏£</option>
+                        <option value="ÂçóÊäïÁ∏£" ${searchRoomComp_address == "ÂçóÊäïÁ∏£" ? 'selected' : ""}>ÂçóÊäïÁ∏£</option>
+                        <option value="Èõ≤ÊûóÁ∏£" ${searchRoomComp_address == "Èõ≤ÊûóÁ∏£" ? 'selected' : ""}>Èõ≤ÊûóÁ∏£</option>
+                        <option value="ÂòâÁæ©Á∏£" ${searchRoomComp_address == "ÂòâÁæ©Á∏£" ? 'selected' : ""}>ÂòâÁæ©Á∏£</option>
+                        <option value="Â±èÊù±Á∏£" ${searchRoomComp_address == "Â±èÊù±Á∏£" ? 'selected' : ""}>Â±èÊù±Á∏£</option>
+                        <option value="ÂÆúËò≠Â∏Ç" ${searchRoomComp_address == "ÂÆúËò≠Â∏Ç" ? 'selected' : ""}>ÂÆúËò≠Â∏Ç</option>
+                        <option value="Ëä±ËìÆÂ∏Ç" ${searchRoomComp_address == "Ëä±ËìÆÂ∏Ç" ? 'selected' : ""}>Ëä±ËìÆÂ∏Ç</option>
+                        <option value="Âè∞Êù±Á∏£" ${searchRoomComp_address == "Âè∞Êù±Á∏£" ? 'selected' : ""}>Âè∞Êù±Á∏£</option>
+                        <option value="ÈáëÈñÄÁ∏£" ${searchRoomComp_address == "ÈáëÈñÄÁ∏£" ? 'selected' : ""}>ÈáëÈñÄÁ∏£</option>
+                        <option value="ÈÄ£Ê±üÁ∏£" ${searchRoomComp_address == "ÈÄ£Ê±üÁ∏£" ? 'selected' : ""}>ÈÄ£Ê±üÁ∏£</option>
+                        <option value="Âü∫ÈöÜÂ∏Ç" ${searchRoomComp_address == "Âü∫ÈöÜÂ∏Ç" ? 'selected' : ""}>Âü∫ÈöÜÂ∏Ç</option>
+                        <option value="Êñ∞Á´πÂ∏Ç" ${searchRoomComp_address == "Êñ∞Á´πÂ∏Ç" ? 'selected' : ""}>Êñ∞Á´πÂ∏Ç</option>
+                        <option value="ÂòâÁæ©Â∏Ç" ${searchRoomComp_address == "ÂòâÁæ©Â∏Ç" ? 'selected' : ""}>ÂòâÁæ©Â∏Ç</option>
+                        <option value="ÊæéÊπñÁ∏£" ${searchRoomComp_address == "ÊæéÊπñÁ∏£" ? 'selected' : ""}>ÊæéÊπñÁ∏£</option>
                     </select>
-                    <input class="form-control me-2" name="checkIn" type="text" placeholder="§J¶Ì§È¥¡..." aria-label="Search" onfocus="(this.type='date')"
-                    	onblur="(this.type='text')" value="${searchCheckIn}">
-                    <input class="form-control me-2" name="checkOut" type="text" placeholder="∞h©–§È¥¡..." aria-label="Search" onfocus="(this.type='date')"
-                    	onblur="(this.type='text')" value="${searchCheckOut}">
-                    <input class="form-control me-2" value="${people}" name="number" type="text" placeholder="§Hº∆..." aria-label="Search">
+                    <input class="form-control me-2" name="checkIn" type="text" placeholder="ÂÖ•‰ΩèÊó•Êúü..." aria-label="Search" onfocus="(this.type='date')"
+                    	onblur="(this.type='text')" value="${searchRoomCheckIn}">
+                    <input class="form-control me-2" name="checkOut" type="text" placeholder="ÈÄÄÊàøÊó•Êúü..." aria-label="Search" onfocus="(this.type='date')"
+                    	onblur="(this.type='text')" value="${searchRoomCheckOut}">
+                    <input class="form-control me-2" value="${roomPeople}" name="number" type="text" placeholder="‰∫∫Êï∏..." aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
-                    <input type="hidden" name="action" value="roomSearch">
+                    <input type="hidden" name="action" value="hotel">
                   </form>
                 </div>
             </nav>
-            <!--∂∫©±¶W-->
+            <!--È£ØÂ∫óÂêç-->
             <h2 class="mx-auto"><%=company.getCompName()%></h2>
-            <!--§€øO§˘-->
-            <div id="carouseltrip" class="carousel slide border mx-auto" data-bs-ride="carousel">
+            <!--ÂπªÁáàÁâá-->
+            <div id="carouselRoom" class="carousel slide border mx-auto" data-bs-ride="carousel">
 <!--                 <div class="carousel-indicators"> -->
-<!--                   <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button> -->
-<!--                   <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="1" aria-label="Slide 2"></button> -->
-<!--                   <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="2" aria-label="Slide 3"></button> -->
+<!--                   <button type="button" data-bs-target="#carouselRoom" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button> -->
+<!--                   <button type="button" data-bs-target="#carouselRoom" data-bs-slide-to="1" aria-label="Slide 2"></button> -->
+<!--                   <button type="button" data-bs-target="#carouselRoom" data-bs-slide-to="2" aria-label="Slide 3"></button> -->
 <!--                 </div> -->
                 <div class="carousel-inner h-100">
                   <div class="carousel-item active">
-                    <img src="MainPhotoPrintHServlet?room_id=${room.roomId}" class="d-block w-100 h-100" alt="...">
+                    <img src="MainPhotoPrintHServlet?room_id=<%=room.getRoomId()%>" class="d-block w-100 h-100" alt="...">
                   </div>
                   <c:forEach var="roomPhotoId" items="<%=roomPhotoIdList%>" >
-                  <div class="carousel-item">
-                    <img src="RoomPhotoPrintHServlet?room_id=${roomPhotoId}" class="d-block w-100 h-100" alt="...">
-                  </div>
+	                  <div class="carousel-item">
+	                    <img src="RoomPhotoPrintHServlet?room_photo_id=${roomPhotoId}" class="d-block w-100 h-100" alt="...">
+	                  </div>
                   </c:forEach>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouseltrip" data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselRoom" data-bs-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                   <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouseltrip" data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselRoom" data-bs-slide="next">
                   <span class="carousel-control-next-icon" aria-hidden="true"></span>
                   <span class="visually-hidden">Next</span>
                 </button>
             </div>
-            <!-- ∂∫©±∏Í∞T -->
+            <!-- È£ØÂ∫óË≥áË®ä -->
             <div class="container mt-2 border h-100" id="content1" >
                 <div class="row align-items-center justify-content-center h-100">
                     <div class="col h-100">
                         <div class="item h-100">
-                            <h3 class="mt-2">∂∫©±∏Í∞T</h3>
+                            <h3 class="mt-2">È£ØÂ∫óË≥áË®ä</h3>
                             <div class="col-4 h-100 w-100 mb-2">
                              <c:forEach var="hotelInfo" items="<%=hotelInfoList%>" >
                                 <span class="badge bg-primary">${hotelInfo}</span>
@@ -212,82 +210,148 @@
                     </div>
                 </div>
             </div>
-            <!--¶aπœ ©–´¨≥]≥∆ ¡pµ∏ µ˚ª˘-->
+            <!--Âú∞Âúñ ÊàøÂûãË®≠ÂÇô ËÅØÁµ° Ë©ïÂÉπ-->
             <div class="container border h-100" id="content1">
                 <div class="row justify-content-center align-items-center h-100">
-                    <!--¶aπœ-->
+                    <!--Âú∞Âúñ-->
                     <div class="col-4 h-100 mt-2 mb-2">
                         <div class="container">
-                            <div class="row">
+                            <div class="row ">
                                 <div class="col-6">
-                                    <div class="">¶Ï∏m</div>
-                                    <a href="#">
-                                        <i class="fa-solid fa-map-location-dot h-100" id="map"></i>
-                                    </a>
+                                	<div class="">È£ØÂ∫ó‰ΩçÁΩÆ</div>
+										<!-- Button trigger modal -->
+									<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#siteModal">
+									  <i class="fa-solid fa-map-location-dot h-100" id="map"></i>
+									</button>
+									<!-- Modal -->
+									<div class="modal fade" id="siteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									  <div class="modal-dialog modal-lg">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <h5 class="modal-title" id="exampleModalLabel"><%=company.getCompName()%></h5>
+									        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									      </div>
+									      <div class="modal-body ">
+									      <div class="container">
+									      	<div class="row justify-content-center">
+									      		<iframe
+											      width="750"
+											      height="350"
+											      style="border:0"
+											      loading="lazy"
+											      allowfullscreen
+											      referrerpolicy="no-referrer-when-downgrade"
+											      src="https://www.google.com/maps/embed/v1/place?key=#
+											        &q=<%=company.getCompAddress()%>&zoom=15">
+											    </iframe>
+									      	</div>
+									      </div>
+									      </div>
+									      <div class="modal-footer">
+									      </div>
+									    </div>
+									  </div>
+									</div>
                                 </div>
                                 <div class="col-6">
-                                    <div>™˛™Ò¥∫¬I</div>
-                                    <a href="#">
-                                        <i class="fa-solid fa-map-location-dot h-100" id="map"></i>
-                                    </a>
+	                                <div class="">ÈôÑËøëÊôØÈªû</div>
+											<!-- Button trigger modal -->
+												<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nearbyScene">
+												  <i class="fa-solid fa-map-location-dot h-100" id="map"></i>
+												</button>
+												<!-- Modal -->
+												<div class="modal fade" id="nearbyScene" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+												  <div class="modal-dialog modal-lg">
+												    <div class="modal-content">
+												      <div class="modal-header">
+												        <h5 class="modal-title" id="exampleModalLabel"><%=company.getCompName()%> ÈôÑËøëÊôØÈªû</h5>
+												        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+												      </div>
+												      <div class="modal-body ">
+												      <div class="container">
+												      	<div class="row justify-content-center">
+												      		<iframe
+														      width="600"
+														      height="450"
+														      style="border:0"
+														      loading="lazy"
+														      allowfullscreen
+														      referrerpolicy="no-referrer-when-downgrade"
+														      src="https://www.google.com/maps/embed/v1/search?key=#
+														      &q=<%=company.getCompAddress()%>ÈôÑËøë‰ºëÈñíÊñáËóùÊôØÈªû">
+														    </iframe>
+												      	</div>
+												      </div>
+												      </div>
+												      <div class="modal-footer">
+												      </div>
+												    </div>
+												  </div>
+												</div>
+                                
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- ©–´¨≥]≥∆ -->
+                    <!-- ÊàøÂûãË®≠ÂÇô -->
                     <div class="col-4 h-100 mt-2 mb-2">
                         <c:forEach var="facility" items="<%=roomFacilities%>" >
-                                <span class="badge bg-primary">${facility}</span>
-                             </c:forEach>
+                           <span class="badge bg-primary">${facility}</span>
+                        </c:forEach>
                     </div>
-                    <!-- ¡pµ∏ µ˚ª˘ -->
-                    <div class="col-4 h-100 mt-2 mb-2">
-                        <a href="#">
-                            <button type="button" class="btn btn-primary mb-3">
-                                <i class="fa-solid fa-message"></i>
-                                ¡p√¥∑~™Ã
-                            </button>
-                        </a>
-                        <a href="#">
-                            <button type="button" class="btn btn-primary">
-                                <i class="fa-solid fa-message"></i>
-                                ¨d¨›∞Œ¶Wµ˚ª˘
-                            </button>
-                        </a>
+                    <!-- ËÅØÁµ° Ë©ïÂÉπ -->
+                    <div class="col-4 h-100 mt-2 mb-2 ps-0 pe-0">
+                    	<div class="container ">
+                    		<div class="row align-items-center justify-content-center ">
+	                    		<div class="col ps-0 pe-0  ">
+				                        <a class="" href="#" >
+				                            <button type="button" class="btn btn-primary ">
+				                                <i class="fa-solid fa-message "> ËÅØÁπ´Ê•≠ËÄÖ</i>
+				                            </button>
+				                        </a>
+		                        </div>
+		                        <div class="col ps-0 pe-0 ">
+			                        <a class="" href="${pageContext.request.contextPath}/chu/commentArea(hotel).jsp?roomId=<%=room.getRoomId()%>">
+			                            <button type="button" class="btn btn-primary">
+			                                <i class="fa-solid fa-message"> Êü•ÁúãË©ïÂÉπ</i>
+			                            </button>
+			                        </a>
+		                        </div>
+	                        </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- ©–´¨ƒ›© 1 -->
+            <!-- ÊàøÂûãÂ±¨ÊÄß1 -->
             <div class="container border h-100" id="content1" >
                 <div class="row  align-items-center h-100">
-                    <!--©–´¨¶W∫Ÿ°B©–´¨°B∂}©lÆ…∂°°Bµ≤ßÙÆ…∂°°B™˜√B°BÆw¶s°B¶¨¬√-->
+                    <!--ÊàøÂûãÂêçÁ®±„ÄÅÊàøÂûã„ÄÅÈñãÂßãÊôÇÈñì„ÄÅÁµêÊùüÊôÇÈñì„ÄÅÈáëÈ°ç„ÄÅÂ∫´Â≠ò„ÄÅÊî∂Ëóè-->
                     <div class="col-4 h-100 mt-2 mb-2">
-                    	<h4><%=company.getCompName()%></h4>
-                        <div>©–´¨¶W∫Ÿ°G<%=room.getRoomName()%></div>
-                        <div>©–´¨°G<%=room.getRoomType()%>§H©–</div>
-                        <div>™˜√B°GNTW <%=room.getPrice().intValue()%></div>
-                        <a class="" href="#">
+                        <div>ÊàøÂûãÂêçÁ®±Ôºö<%=room.getRoomName()%></div>
+                        <div>ÊàøÂûãÔºö<%=room.getRoomType()%>‰∫∫Êàø</div>
+                        <div>ÂÉπÊ†ºÔºöNTW <%=room.getPrice().intValue()%></div>
+                        <a class="" href="">
                             <button type="button" class="btn btn-primary">
-                                ¶¨¬√
+                                Êî∂Ëóè
                             </button>
                         </a>
                     </div>
-                    <!--¨d∏ﬂ¨Oß_¶≥Æw¶s-->
+                    <!--Êü•Ë©¢ÊòØÂê¶ÊúâÂ∫´Â≠ò-->
                     <div class="col-4 h-100 mt-2 mb-2">
-                            <div>Æw¶s¨d∏ﬂ°G</div>
-                            <input class="form-control me-2 checkIn" type="text" placeholder="§J¶Ì§È¥¡..." aria-label="Search" onfocus="(this.type='date')"
+                            <div>Â∫´Â≠òÊü•Ë©¢Ôºö</div>
+                            <input class="form-control me-2 stockCheckIn" type="text" placeholder="ÂÖ•‰ΩèÊó•Êúü..." aria-label="Search" onfocus="(this.type='date')"
                                 onblur="(this.type='text')">
-                            <input class="form-control me-2 checkOut" type="text" placeholder="∞h©–§È¥¡..." aria-label="Search" onfocus="(this.type='date')"
+                            <input class="form-control me-2 stockCheckOut" type="text" placeholder="ÈÄÄÊàøÊó•Êúü..." aria-label="Search" onfocus="(this.type='date')"
                                 onblur="(this.type='text')">
-                            <input class="detailPageRoomId" type="hidden" name="detailPageRoomId" value="1">
-                            <div>Æw¶s°G</div>
-                            <button type="button" class="btn btn-primary stockSearch">¨d∏ﬂ</button>
+                            <input class="detailPageRoomId" type="hidden" name="detailPageRoomId" value=<%=room.getRoomId()%>>
+                            <div>Â∫´Â≠òÔºö<span id="stock"></span></div>
+                            <button type="button" class="btn btn-primary" id="stockSearch">Êü•Ë©¢</button>
                     </div>
-                    <!--•[§J¡ ™´®Æ-->
+                    <!--Âä†ÂÖ•Ë≥ºÁâ©Ëªä-->
                     <div class="col-4 h-100 mt-2 mb-2">
                         <form class="" method="post" action="${pageContext.request.contextPath}/shopping_hotelServlet" >
-                            <div>•˝•[§J¡ ™´®Æ°Aµ≤±bÆ…¶AøÔº∆∂q</div>
-                            <div>Ω–øÔæ‹¡ ™´®Æ°G
+                            <div>ÂÖàÂä†ÂÖ•Ë≥ºÁâ©ËªäÔºåÁµêÂ∏≥ÊôÇÂÜçÈÅ∏Êï∏Èáè</div>
+                            <div>Ë´ãÈÅ∏ÊìáË≥ºÁâ©ËªäÔºö
                             </div>
                             <select class="form-select me-2 mb-2" aria-label="Default select example" name="cart_id">
                                 <option value="1">1</option>
@@ -296,14 +360,14 @@
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                             </select>
-                            <input class="form-control me-2" type="text" placeholder="§J¶Ì§È¥¡..." aria-label="Search" onfocus="(this.type='date')"
-                                onblur="(this.type='text')" value="${searchCheckIn}">
-                            <input class="form-control me-2" type="text" placeholder="∞h©–§È¥¡..." aria-label="Search" onfocus="(this.type='date')"
-                                onblur="(this.type='text')" value="${searchCheckOut}">
+                            <input class="form-control me-2" type="text" placeholder="ÂÖ•‰ΩèÊó•Êúü..." aria-label="Search" onfocus="(this.type='date')"
+                                onblur="(this.type='text')" value="${searchRoomCheckIn}" name="checkInTime">
+                            <input class="form-control me-2" type="text" placeholder="ÈÄÄÊàøÊó•Êúü..." aria-label="Search" onfocus="(this.type='date')"
+                                onblur="(this.type='text')" value="${searchRoomCheckOut}" name="checkOutTime">
                             <input type="hidden" name="roomId" value=<%=room.getRoomId()%>>
                             <input type="hidden" name="action" value="room_goShopping">
                             <button type="submit" class="btn btn-primary">
-                                •[§J¡ ™´®Æ
+                                Âä†ÂÖ•Ë≥ºÁâ©Ëªä
                             </button>
                         </form>
                     </div>
@@ -311,10 +375,10 @@
             </div>
             <div class="container border h-100" id="content1" >
                 <div class="row align-items-center h-100">
-                    <!--§∂≤–-->
+                    <!--‰ªãÁ¥π-->
                     <div class="col border h-100">
                         <div class="item h-100 ">
-                            <h3 class="mt-2">§∂≤–</h3>
+                            <h3 class="mt-2">‰ªãÁ¥π</h3>
                             <p class="text-wrap"><%=room.getIntro()%></p>
                         </div> 
                     </div>
@@ -324,32 +388,36 @@
 
     <script src="${pageContext.request.contextPath}/static/mhl_js/btn4com_review.js"></script>
     <script src="${pageContext.request.contextPath}/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="${pageContext.request.contextPath}/vendors/jquery/jquery-3.7.1.min.js"></script>
     <script type="text/javascript">
-    $("#stockSearch").on("click",function(e){
-        var checkIn = $(".checkIn").val();
-        var checkOut = $(".checkOut").val();
-        var number = $(".number").val();
+    $("#stockSearch").on("click",function(){
+        var checkIn = $(".stockCheckIn").val();
+        var checkOut = $(".stockCheckOut").val();
         var detailPageRoomId = $(".detailPageRoomId").val();
-	   	            	console.log(checkIn);
-                        console.log(checkOut);
-                        console.log(number);
-                        console.log(detailPageRoomId);
-	   	                var path = window.location.pathname;
-	   	                var webCtx = path.substring(0, path.indexOf('/', 1));
-	   	                var url = location.origin+webCtx+"/sean/searchServlet"
-	   	            	$.ajax({
-	   	                 url: url,
-	   	                 type: "POST", 
-	   	                 data: {
-	   	                	"action":"searchRoomStock",
-	   	                     "checkIn": checkIn,
-                             "checkOut": checkOut,
-                             "detailPageRoomId": detailPageRoomId
-	   	                 },            
-	   	                 dataType: "json", 
-	   	                 success: function(data) { 
-	   	                	console.log(data);
-                            }})
+        console.log(checkIn);
+        console.log(checkOut);
+        console.log(detailPageRoomId);
+        var path = window.location.pathname;
+        var webCtx = path.substring(0, path.indexOf('/', 1));
+        var url = location.origin+webCtx+"/sean/SearchServlet";
+        $.ajax({
+            url: url,
+            type: "POST", 
+            data: {
+               "action":"searchRoomStock",
+                "stockCheckIn": checkIn,
+             "stockCheckOut": checkOut,
+             "detailPageRoomId": detailPageRoomId
+            },            
+            dataType: "json", 
+            success: function(data) { 
+               console.log(data);
+               $("#stock").text(data.minStock);
+            }
+
+        })
+        
+})
     </script>
 </body>
 

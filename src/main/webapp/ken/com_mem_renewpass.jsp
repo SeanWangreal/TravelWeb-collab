@@ -135,7 +135,6 @@ button.left_btn:hover {
 	<nav class="st">
 		<!-- <a class="word" id="home" href="#">Home</a> -->
 		<div class="head">
-			</button>
 			<button type="menu" class="head_btn" id="msg">
 				<i class="fa-regular fa-message icon"
 					style="color: black; font-size: 30px; background-color: transparent;"></i>
@@ -144,13 +143,14 @@ button.left_btn:hover {
 				<i class="fa-regular fa-bell icon"
 					style="color: black; font-size: 30px; width: 30px; background-color: transparent;"></i>
 			</button>
-			<button type="menu" class="head_btn" id="">
-				<i class="fa-solid fa-store icon"
-					style="color: #000000; font-size: 30px; width: 30px; background-color: transparent;"></i>
-
+			<button type="button" class="head_btn" id="">
+				   <a class="profile "  href="${pageContext.request.contextPath}/sean/hotel_room_all.jsp">
+				    <i class="fa-solid fa-store"
+				     style="color: #000000; font-size: 30px; width: 30px; background-color: transparent;"></i>
+				   </a>
 			</button>
 			<button type="button" class="head_btn">
-				<a class="profile" href="#"> <i class="fa-solid fa-user"
+				<a class="profile" href="${pageContext.request.contextPath}/ken/com_mem.jsp"> <i class="fa-solid fa-user"
 					style="color: black; font-size: 30px; background-color: transparent;"></i>
 				</a>
 			</button>
@@ -178,11 +178,7 @@ button.left_btn:hover {
 					style="color: black;"></i> 會員資料
 				</a>
 			</div>
-			<div class="mem-data">
-				<a class="left_btn"> <i class="fa-solid fa-file-invoice"
-					style="color: black;"></i> 訂單資訊
-				</a>
-			</div>
+			
 		</aside>
 	</nav>
 	<FORM METHOD="post" ACTION="${pageContext.request.contextPath}/CompanyServlet">
@@ -209,7 +205,7 @@ button.left_btn:hover {
 					<br> 
 <%-- 					<a href="${pageContext.request.contextPath}/CompanyServlet?action=getPSForUpdate&compId=<%= company.getCompId()%>">送出修改</a> --%>
 					
-					<input type="submit" value="送出修改">
+					<input type="submit" value="送出修改" >
 				</div>
 			</div>
 		</div>

@@ -137,18 +137,38 @@ public class Room_stockHibernateDAO implements Room_stockDAO_interface {
 			getSession().getTransaction().rollback();
 		}
 	}
-	
-	public Integer searchMinRoomStockByTime(Integer roomId, Date checkIn, Date checkOut){
-		getSession().beginTransaction();
-		Long out = checkOut.getTime();
-		out -= ONE_DAY;
-		Date newDate = new Date(out);
-		Integer minStock = getSession().createNativeQuery("SELECT MIN(stock) FROM room_stock WHERE (stock_date BETWEEN :checkIn AND :checkOut) AND room_id = :roomId;", Integer.class)
-					.setParameter("checkIn", checkIn)
-					.setParameter("checkOut", newDate)
-					.setParameter("roomId", roomId)
-					.uniqueResult();
-		return minStock;
+
+	public Integer searchMinRoomStockByTime(Integer roomId, Date checkIn, Date checkOut) {
+		try {
+			getSession().beginTransaction();
+			Long out = checkOut.getTime();
+			out -= ONE_DAY;
+			Date newDate = new Date(out);
+			Long realDay = (checkOut.getTime() - checkIn.getTime()) / ONE_DAY;
+			System.out.println("realDay:" + realDay);
+
+			Long seachDay = getSession().createQuery(
+					"SELECT count(stock_date) FROM Room_stock WHERE (stock_date BETWEEN :checkIn AND :checkOut) AND room_id = :roomId",
+					Long.class).setParameter("checkIn", checkIn).setParameter("checkOut", newDate)
+					.setParameter("roomId", roomId).uniqueResult();
+			System.out.println("seachDay:" + seachDay);
+
+			Integer minStock = null;
+			if (realDay != seachDay) {
+				minStock = 0;
+			} else {
+				minStock = getSession().createQuery(
+						"SELECT MIN(stock) FROM Room_stock WHERE (stock_date BETWEEN :checkIn AND :checkOut) AND room_id = :roomId",
+						Integer.class).setParameter("checkIn", checkIn).setParameter("checkOut", newDate)
+						.setParameter("roomId", roomId).uniqueResult();
+			}
+			getSession().getTransaction().commit();
+			return minStock;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
 	}
 
 	public static void main(String[] args) {
@@ -173,12 +193,10 @@ public class Room_stockHibernateDAO implements Room_stockDAO_interface {
 			int year = cal.get(Calendar.YEAR);
 			int month = cal.get(Calendar.MONTH) + 1;
 			int day = cal.get(Calendar.DATE);
-			String formatDate = year+"-"+month+"-"+day;
+			String formatDate = year + "-" + month + "-" + day;
 			List<Room_stock> list = getSession()
 					.createQuery("from Room_stock where stockDate >= :today and roomId = :roomId", Room_stock.class)
-					.setParameter("today", Date.valueOf(formatDate))
-					.setParameter("roomId", roomId)
-					.list();
+					.setParameter("today", Date.valueOf(formatDate)).setParameter("roomId", roomId).list();
 			getSession().getTransaction().commit();
 			return list;
 		} catch (Exception e) {
@@ -194,17 +212,17 @@ public class Room_stockHibernateDAO implements Room_stockDAO_interface {
 		try {
 			getSession().beginTransaction();
 			if (oldRoomStock != null) {
-				for (Room_stock roomStock: oldRoomStock) {
+				for (Room_stock roomStock : oldRoomStock) {
 					getSession().update(roomStock);
 				}
 			}
-			if (deleteRoomStock != null ) {
-				for (Room_stock roomStock: deleteRoomStock) {
+			if (deleteRoomStock != null) {
+				for (Room_stock roomStock : deleteRoomStock) {
 					getSession().delete(roomStock);
 				}
 			}
 			if (newRoomStock != null) {
-				for (Room_stock roomStock: newRoomStock) {
+				for (Room_stock roomStock : newRoomStock) {
 					getSession().save(roomStock);
 				}
 			}
@@ -213,9 +231,35 @@ public class Room_stockHibernateDAO implements Room_stockDAO_interface {
 			e.printStackTrace();
 			getSession().getTransaction().rollback();
 		}
-		
+
 	}
 
-
+	public Integer updateRoomStock(Integer roomId, Integer amount, Date checkInTime, Date checkOutTime) {
+		Long out = checkOutTime.getTime();
+		out -= ONE_DAY;
+		Date newDate = new Date(out);
+		try {
+			getSession().beginTransaction();
+			List<Room_stock> list = getSession().createQuery(
+					"from Room_stock where roomId = :roomId and ( stockDate between :checkInTime and :checkOutTime)",
+					Room_stock.class)
+					.setParameter("checkInTime", checkInTime)
+					.setParameter("checkOutTime", newDate)
+					.setParameter("roomId", roomId).list();
+			
+			for (Room_stock roomStock : list) {
+				Integer stock = roomStock.getStock();
+				 stock -= amount ;
+				roomStock.setStock(stock);
+				getSession().update(roomStock);
+			}
+			getSession().getTransaction().commit();
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
 
 }

@@ -54,29 +54,36 @@ if (cusId != null) {
 
 <body>
 	<script
-			src="${pageContext.request.contextPath}/vendors/jquery/jquery-3.7.1.min.js"></script>
-		<script
-			src="${pageContext.request.contextPath}/static/chu_js/shopping.js"></script>
-	
+		src="${pageContext.request.contextPath}/vendors/jquery/jquery-3.7.1.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/static/chu_js/shopping.js"></script>
+
 
 	<nav class="st">
 		<!-- <a class="word" id="home" href="#">Home</a> -->
+		<a class="logo" id="home"
+			href="${pageContext.request.contextPath}/mhl/home.jsp">GO<i
+			class="fa-solid fa-location-dot" style="color: #ffbf1c;"></i>GOYU
+		</a>
 		<div class="head">
+			<button type="menu" class="head_btn" aria-label="規劃行程" id="shop">
+				<a href="${pageContext.request.contextPath}/chu/shopping(hotel).jsp">
+					<i class="fa-solid fa-suitcase-rolling icon"
+					style="color: black; font-size: 30px; background-color: transparent;"></i>
+				</a>
+			</button>
 			<button type="menu" class="head_btn" id="msg">
 				<i class="fa-regular fa-message icon"
 					style="color: black; font-size: 30px; background-color: transparent;"></i>
 			</button>
 			<button type="menu" class="head_btn" id="info">
-				<i class="fa-regular fa-bell icon"
+				<i class="fa-regular fa-bell  icon"
 					style="color: black; font-size: 30px; width: 30px; background-color: transparent;"></i>
 			</button>
-			<button type="menu" class="head_btn" id="">
-				<i class="fa-solid fa-store icon"
-					style="color: #000000; font-size: 30px; width: 30px; background-color: transparent;"></i>
-
-			</button>
 			<button type="button" class="head_btn">
-				<a class="profile" href="#"> <i class="fa-solid fa-user"
+				<a class="profile"
+					href="${pageContext.request.contextPath}/eric/personal_detail.jsp">
+					<i class="fa-solid fa-user"
 					style="color: black; font-size: 30px; background-color: transparent;"></i>
 				</a>
 			</button>
@@ -101,18 +108,22 @@ if (cusId != null) {
 		<aside class="left">
 
 			<div class="mem-data">
-				<a class="left_btn"> <i class="fa-solid fa-cart-shopping"
-					style="color: black;"></i> 制定規劃
+				<a class="left_btn"
+					href="${pageContext.request.contextPath}/chu/shopping(hotel).jsp">
+					<i class="fa-solid fa-cart-shopping" style="color: black;"></i>
+					制定規劃
 				</a>
 			</div>
 			<div class="mem-data">
-				<a class="left_btn"> <i class="fa-regular fa-user"
-					style="color: black;"></i> 會員資料
+				<a class="left_btn"
+					href="${pageContext.request.contextPath}/eric/personal_detail.jsp">
+					<i class="fa-regular fa-user" style="color: black;"></i> 會員資料
 				</a>
 			</div>
 			<div class="mem-data">
-				<a class="left_btn"> <i class="fa-solid fa-file-invoice"
-					style="color: black;"></i> 訂單資訊
+				<a class="left_btn"
+					href="${pageContext.request.contextPath}/chu/bookedList(hotel).jsp">
+					<i class="fa-solid fa-file-invoice" style="color: black;"></i> 訂單資訊
 				</a>
 			</div>
 			<div class="mem-data">
@@ -121,8 +132,10 @@ if (cusId != null) {
 				</a>
 			</div>
 			<div class="mem-data">
-				<a class="left_btn"> <i class="fa-regular fa-calendar-days"
-					style="color: black;"></i> 行事曆
+				<a class="left_btn"
+					href="${pageContext.request.contextPath}/eric/consumercalendar.jsp">
+					<i class="fa-regular fa-calendar-days" style="color: black;"></i>
+					行事曆
 				</a>
 			</div>
 		</aside>
@@ -132,29 +145,25 @@ if (cusId != null) {
 
 	<!-- =======================上面是aside===================== -->
 	<!-- =======================下面是list===================== -->
-				
+
 
 
 
 	<div class="plan_tab">
-						<c:if test="${not empty errorMessage}">
-								<div class="error-message" style = "color :red ; font-size:25px ; top :15%; position : absolute ; left :50%"><i>*${errorMessage}</i></div>
-						</c:if>
+		<c:if test="${not empty errorMessages}">
+			<div class="error-message" style="color: red; font-size: 25px; top: 15%; position: absolute; left: 40%">
+				<c:forEach var="message" items="${errorMessages}">
+					<li style="color:red">${message}</li>
+				</c:forEach>
+			</div>
+		</c:if>
 		<div class="tab_list_block">
-<!-- 			<ul class="tab_list"> -->
-<!-- 				<li><button data-target="plan1" class="tab -on">規劃一</button></li>  -->
-<!-- 				<li><button data-target="plan2" class="tab ">規劃一</button></li>  -->
-<!-- 				<li><button data-target="plan3" class="tab ">規劃一</button></li>  -->
-<!-- 				<li><button data-target="plan4" class="tab ">規劃一</button></li>  -->
-<!-- 				<li><button data-target="plan5" class="tab ">規劃一</button></li>  -->
-		
-		
-<!-- 			</ul> -->
+
 			<ul class="tab_list">
-				<li><a href="#" data-target="plan1" class="tab -on">規劃一</a></li>
-				<li><a href="#" data-target="plan2" class="tab ">規劃二</a></li>
-				<li><a href="#" data-target="plan3" class="tab ">規劃三</a></li>
-				<li><a href="#" data-target="plan4" class="tab ">規劃四</a></li>
+				<li><a href="#" data-target="plan1" class="tab  -on">規劃一</a></li>
+				<li><a href="#" data-target="plan2" class="tab  ">規劃二</a></li>
+				<li><a href="#" data-target="plan3" class="tab  ">規劃三</a></li>
+				<li><a href="#" data-target="plan4" class="tab  ">規劃四</a></li>
 				<li><a href="#" data-target="plan5" class="tab ">規劃五</a></li>
 			</ul>
 		</div>
@@ -187,10 +196,10 @@ if (cusId != null) {
 							<div class="right_side_first_row">
 								<div class="title_set" style="margin-top: 13px; width: 210px">
 									<span class="mark_for_type_hotel">飯</span> <i
-										id="named_of_title">${room1.get(roomVo1).get(0)}</i>
+										id="named_of_title" style = "font-size :20px">${room1.get(roomVo1).get(0)}</i>
 
 								</div>
-								<!-- 					</form> -->
+								
 								<div class="comment_set">
 									<div class="comment_message"
 										style="position: absolute; right: 100px;">
@@ -203,45 +212,43 @@ if (cusId != null) {
 									</div>
 								</div>
 							</div>
-							<span class="book_price" style = "font-size :22px">${room1.get(roomVo1).get(1)}</span> <i class="howmuch_nt">TWD</i>
+							<span class="book_price" style="font-size: 22px">${room1.get(roomVo1).get(1)}</span>
+							
+							<i class="howmuch_nt">TWD</i>
 							<div class="price_set">
 								<i class="howmuch">${roomVo1.totalPrice.intValue()}</i>
 							</div>
 							<div class="pay_btn" style="margin-top: 20px">
 
-							<div style ="display : flex">
-								<button class="b infos">商品資訊</button>
-								
-								
-								<form action="shopping_hotelServlet" method="post">
-								
-								
-									<select size="1" name="ChangeCartId" style ="position : absolute ; left:140px ; top:5px"> 
-									        
-									          <option value="1" >1
-									          <option value="2" >2
-									          <option value="3" >3
-									          <option value="4" >4
-									          <option value="5" >5
-									      
-									       </select>
-										
+								<div style="display: flex">
+									<form
+										action="${pageContext.request.contextPath}/sean/SearchServlet"
+										method="post">
+										<button class="b infos">商品資訊</button>
+										<input type="hidden" name="room_id" value="${roomVo1.roomId}">
+										<input type="hidden" name="action"
+											value="getProductDetailRoom">
+									</form>
 
-							 
-									<button  href="#" class="b pay"  style = "border: 1px solid blcak ; background-color: blue; color:black;">換車</button>
-									 
-									<input type = "hidden"  name ="action" value ="changeHotelCart">
-								</form>
+									<form
+										action="${pageContext.request.contextPath}/shopping_hotelServlet"
+										method="post">
+										<select size="1" name="changeCartId"
+											style="position: absolute; left: 140px; top: 5px">
+
+											<option value="1">1
+											<option value="2">2
+											<option value="3">3
+											<option value="4">4
+											<option value="5">5
+										</select>
+										<button class="b paycart"
+											style="border: 1px solid blcak; background-color: blue; color: black;">換車</button>
+										<input type="hidden" name="action" value="changeHotelCart">
+										<input type="hidden" name="roomOrdId"
+											value="${roomVo1.roomOrdId}">
+									</form>
 								</div>
-								
-								
-								
-								
-								
-								
-								
-								
-
 
 								<form
 									action="${pageContext.request.contextPath}/shopping_hotelServlet"
@@ -249,7 +256,8 @@ if (cusId != null) {
 									<input type="hidden" name="action" value="hotelcheckOut">
 									<input type="hidden" name="roomOrdId"
 										value="${roomVo1.roomOrdId}">
-									<button class="b pay" type="submit" style="width: 170px">前往付款作業</button>
+									<button class="b pay" type="submit" style="width: 170px"
+										onclick="return confirmPayButton()" value="goToPay">前往付款作業</button>
 								</form>
 								<form
 									action="${pageContext.request.contextPath}/shopping_hotelServlet"
@@ -257,7 +265,8 @@ if (cusId != null) {
 									<input type="hidden" name="action" value="removeHotelOrder">
 									<input type="hidden" name="roomOrdId"
 										value="${roomVo1.roomOrdId}">
-									<button class="b remove" type="submit" style="width: 170px">移除此商品</button>
+									<button class="b remove" type="submit" style="width: 170px"
+										onclick="return confirmButton()" value="delete">移除此商品</button>
 								</form>
 
 							</div>
@@ -289,7 +298,7 @@ if (cusId != null) {
 							<div class="right_side_first_row">
 								<div class="title_set" style="margin-top: 13px; width: 210px">
 									<span class="mark_for_type_hotel">旅</span> <i
-										id="named_of_title" >${trip1.get(tripVo1).get(0)} </i>
+										id="named_of_title">${trip1.get(tripVo1).get(0)} </i>
 
 								</div>
 
@@ -309,7 +318,40 @@ if (cusId != null) {
 								<i class="howmuch">${tripVo1.totalPrice.intValue()}</i>
 							</div>
 							<div class="pay_btn" style="margin-top: 20px">
-								<button class="b list">詳細商品資訊</button>
+
+
+
+								<div style="display: flex">
+									<form
+										action="${pageContext.request.contextPath}/sean/SearchServlet"
+										method="post">
+										<button class="b infos">商品資訊</button>
+										<input type="hidden" name="trip_id" value="${tripVo1.tripId}">
+										<input type="hidden" name="action"
+											value="getProductDetailTrip">
+									</form>
+
+
+									<form
+										action="${pageContext.request.contextPath}/shopping_tripServlet"
+										method="post">
+										<select size="1" name="changeCartId"
+											style="position: absolute; left: 140px; top: 5px">
+
+											<option value="1">1
+											<option value="2">2
+											<option value="3">3
+											<option value="4">4
+											<option value="5">5
+										</select>
+										<button href="#" class="b paycart"
+											style="border: 1px solid blcak; background-color: blue; color: black;">換車</button>
+										<input type="hidden" name="action" value="changeTripCart">
+										<input type="hidden" name="tripOrdId"
+											value="${tripVo1.tripOrdId}">
+									</form>
+								</div>
+
 
 
 
@@ -319,7 +361,8 @@ if (cusId != null) {
 									<input type="hidden" name="action" value="TripCheckOut">
 									<input type="hidden" name="TripOrdId"
 										value="${tripVo1.tripOrdId}">
-									<button class="b pay" type="submit" style="width: 170px">前往付款作業</button>
+									<button class="b pay" type="submit" style="width: 170px"
+										onclick="return confirmPayButton()" value="goToPay">前往付款作業</button>
 								</form>
 								<form
 									action="${pageContext.request.contextPath}/shopping_tripServlet"
@@ -327,7 +370,8 @@ if (cusId != null) {
 									<input type="hidden" name="action" value="removeTripOrder">
 									<input type="hidden" name="TripOrdId"
 										value="${tripVo1.tripOrdId}">
-									<button class="b remove" type="submit" style="width: 170px">移除此商品</button>
+									<button class="b remove" type="submit" style="width: 170px"
+										onclick="return confirmButton()" value="delete">移除此商品</button>
 								</form>
 
 							</div>
@@ -379,16 +423,43 @@ if (cusId != null) {
 									</div>
 								</div>
 							</div>
-							<span class="book_price" style = "font-size :25px">${room2.get(roomVo2).get(1)}</span> <i class="howmuch_nt">TWD</i>
+							<span class="book_price" style="font-size: 22px">${room2.get(roomVo2).get(1)}</span>
+							<i class="howmuch_nt">TWD</i>
 							<div class="price_set">
 								<i class="howmuch">${roomVo2.totalPrice.intValue()}</i>
 							</div>
 							<div class="pay_btn" style="margin-top: 20px">
 
+								<div style="display: flex">
+									<form
+										action="${pageContext.request.contextPath}/sean/SearchServlet"
+										method="post">
+										<button class="b infos">商品資訊</button>
+										<input type="hidden" name="room_id" value="${roomVo2.roomId}">
+										<input type="hidden" name="action"
+											value="getProductDetailRoom">
+									</form>
 
-								<button class="b infos">詳細商品資訊</button>
 
+									<form
+										action="${pageContext.request.contextPath}/shopping_hotelServlet"
+										method="post">
+										<select size="1" name="changeCartId"
+											style="position: absolute; left: 140px; top: 5px">
 
+											<option value="1">1
+											<option value="2">2
+											<option value="3">3
+											<option value="4">4
+											<option value="5">5
+										</select>
+										<button href="#" class="b paycart"
+											style="border: 1px solid blcak; background-color: blue; color: black;">換車</button>
+										<input type="hidden" name="action" value="changeHotelCart">
+										<input type="hidden" name="roomOrdId"
+											value="${roomVo2.roomOrdId}">
+									</form>
+								</div>
 
 								<form
 									action="${pageContext.request.contextPath}/shopping_hotelServlet"
@@ -396,7 +467,8 @@ if (cusId != null) {
 									<input type="hidden" name="action" value="hotelcheckOut">
 									<input type="hidden" name="roomOrdId"
 										value="${roomVo2.roomOrdId}">
-									<button class="b pay" type="submit" style="width: 170px">前往付款作業</button>
+									<button class="b pay" type="submit" style="width: 170px"
+										onclick="return confirmPayButton()" value="goToPay">前往付款作業</button>
 								</form>
 								<form
 									action="${pageContext.request.contextPath}/shopping_hotelServlet"
@@ -404,7 +476,8 @@ if (cusId != null) {
 									<input type="hidden" name="action" value="removeHotelOrder">
 									<input type="hidden" name="roomOrdId"
 										value="${roomVo2.roomOrdId}">
-									<button class="b remove" type="submit" style="width: 170px">移除此商品</button>
+									<button class="b remove" type="submit" style="width: 170px"
+										onclick="return confirmButton()" value="delete">移除此商品</button>
 								</form>
 
 							</div>
@@ -449,7 +522,7 @@ if (cusId != null) {
 									</div>
 									<div class="count_star">
 										<a href="#"><i class="fa-solid fa-star"
-											style="width: 85px;">8.7</i> </a>
+											style="width: 85px;">${trip2.get(tripVo2).get(1)}</i> </a>
 									</div>
 								</div>
 							</div>
@@ -458,8 +531,37 @@ if (cusId != null) {
 								<i class="howmuch">${tripVo2.totalPrice.intValue()}</i>
 							</div>
 							<div class="pay_btn" style="margin-top: 20px">
-								<button class="b list">詳細商品資訊</button>
+								<div style="display: flex">
+									<form
+										action="${pageContext.request.contextPath}/sean/SearchServlet"
+										method="post">
+										<button class="b infos">商品資訊</button>
+										<input type="hidden" name="trip_id" value="${tripVo2.tripId}">
+										<input type="hidden" name="action"
+											value="getProductDetailTrip">
+									</form>
 
+
+
+									<form
+										action="${pageContext.request.contextPath}/shopping_tripServlet"
+										method="post">
+										<select size="1" name="changeCartId"
+											style="position: absolute; left: 140px; top: 5px">
+
+											<option value="1">1
+											<option value="2">2
+											<option value="3">3
+											<option value="4">4
+											<option value="5">5
+										</select>
+										<button href="#" class="b paycart"
+											style="border: 1px solid blcak; background-color: blue; color: black;">換車</button>
+										<input type="hidden" name="action" value="changeTripCart">
+										<input type="hidden" name="tripOrdId"
+											value="${tripVo2.tripOrdId}">
+									</form>
+								</div>
 
 
 								<form
@@ -468,7 +570,8 @@ if (cusId != null) {
 									<input type="hidden" name="action" value="TripCheckOut">
 									<input type="hidden" name="TripOrdId"
 										value="${tripVo2.tripOrdId}">
-									<button class="b pay" type="submit" style="width: 170px">前往付款作業</button>
+									<button class="b pay" type="submit" style="width: 170px"
+										onclick="return confirmPayButton()" value="goToPay">前往付款作業</button>
 								</form>
 								<form
 									action="${pageContext.request.contextPath}/shopping_tripServlet"
@@ -476,7 +579,8 @@ if (cusId != null) {
 									<input type="hidden" name="action" value="removeTripOrder">
 									<input type="hidden" name="TripOrdId"
 										value="${tripVo2.tripOrdId}">
-									<button class="b remove" type="submit" style="width: 170px">移除此商品</button>
+									<button class="b remove" type="submit" style="width: 170px"
+										onclick="return confirmButton()" value="delete">移除此商品</button>
 								</form>
 
 							</div>
@@ -527,24 +631,51 @@ if (cusId != null) {
 									</div>
 								</div>
 							</div>
-							<span class="book_price" style = "font-size :25px">${room3.get(roomVo3).get(1)}</span> <i class="howmuch_nt">TWD</i>
+							<span class="book_price" style="font-size: 22px">${room3.get(roomVo3).get(1)}</span>
+							<i class="howmuch_nt">TWD</i>
 							<div class="price_set">
 								<i class="howmuch">${roomVo3.totalPrice.intValue()}</i>
 							</div>
 							<div class="pay_btn" style="margin-top: 20px">
 
+								<div style="display: flex">
+									<form
+										action="${pageContext.request.contextPath}/sean/SearchServlet"
+										method="post">
+										<button class="b infos">商品資訊</button>
+										<input type="hidden" name="room_id" value="${roomVo3.roomId}">
+										<input type="hidden" name="action"
+											value="getProductDetailRoom">
+									</form>
 
-								<button class="b infos">詳細商品資訊</button>
 
+									<form
+										action="${pageContext.request.contextPath}/shopping_hotelServlet"
+										method="post">
+										<select size="1" name="changeCartId"
+											style="position: absolute; left: 140px; top: 5px">
 
-
+											<option value="1">1
+											<option value="2">2
+											<option value="3">3
+											<option value="4">4
+											<option value="5">5
+										</select>
+										<button href="#" class="b paycart"
+											style="border: 1px solid blcak; background-color: blue; color: black;">換車</button>
+										<input type="hidden" name="action" value="changeHotelCart">
+										<input type="hidden" name="roomOrdId"
+											value="${roomVo3.roomOrdId}">
+									</form>
+								</div>
 								<form
 									action="${pageContext.request.contextPath}/shopping_hotelServlet"
 									method="post">
 									<input type="hidden" name="action" value="hotelcheckOut">
 									<input type="hidden" name="roomOrdId"
 										value="${roomVo3.roomOrdId}">
-									<button class="b pay" type="submit" style="width: 170px">前往付款作業</button>
+									<button class="b pay" type="submit" style="width: 170px"
+										onclick="return confirmPayButton()" value="goToPay">前往付款作業</button>
 								</form>
 								<form
 									action="${pageContext.request.contextPath}/shopping_hotelServlet"
@@ -552,7 +683,8 @@ if (cusId != null) {
 									<input type="hidden" name="action" value="removeHotelOrder">
 									<input type="hidden" name="roomOrdId"
 										value="${roomVo3.roomOrdId}">
-									<button class="b remove" type="submit" style="width: 170px">移除此商品</button>
+									<button class="b remove" type="submit" style="width: 170px"
+										onclick="return confirmButton()" value="delete">移除此商品</button>
 								</form>
 
 							</div>
@@ -596,7 +728,7 @@ if (cusId != null) {
 									</div>
 									<div class="count_star">
 										<a href="#"><i class="fa-solid fa-star"
-											style="width: 85px;">8.7</i> </a>
+											style="width: 85px;">${trip3.get(tripVo3).get(1)}</i> </a>
 									</div>
 								</div>
 							</div>
@@ -605,7 +737,37 @@ if (cusId != null) {
 								<i class="howmuch">${tripVo3.totalPrice.intValue()}</i>
 							</div>
 							<div class="pay_btn" style="margin-top: 20px">
-								<button class="b list">詳細商品資訊</button>
+								<div style="display: flex">
+									<form
+										action="${pageContext.request.contextPath}/sean/SearchServlet"
+										method="post">
+										<button class="b infos">商品資訊</button>
+										<input type="hidden" name="trip_id" value="${tripVo3.tripId}">
+										<input type="hidden" name="action"
+											value="getProductDetailTrip">
+									</form>
+
+
+
+									<form
+										action="${pageContext.request.contextPath}/shopping_tripServlet"
+										method="post">
+										<select size="1" name="changeCartId"
+											style="position: absolute; left: 140px; top: 5px">
+
+											<option value="1">1
+											<option value="2">2
+											<option value="3">3
+											<option value="4">4
+											<option value="5">5
+										</select>
+										<button href="#" class="b paycart"
+											style="border: 1px solid blcak; background-color: blue; color: black;">換車</button>
+										<input type="hidden" name="action" value="changeTripCart">
+										<input type="hidden" name="tripOrdId"
+											value="${tripVo3.tripOrdId}">
+									</form>
+								</div>
 
 
 
@@ -615,7 +777,8 @@ if (cusId != null) {
 									<input type="hidden" name="action" value="TripCheckOut">
 									<input type="hidden" name="TripOrdId"
 										value="${tripVo3.tripOrdId}">
-									<button class="b pay" type="submit" style="width: 170px">前往付款作業</button>
+									<button class="b pay" type="submit" style="width: 170px"
+										onclick="return confirmPayButton()" value="goToPay">前往付款作業</button>
 								</form>
 								<form
 									action="${pageContext.request.contextPath}/shopping_tripServlet"
@@ -623,7 +786,8 @@ if (cusId != null) {
 									<input type="hidden" name="action" value="removeTripOrder">
 									<input type="hidden" name="TripOrdId"
 										value="${tripVo3.tripOrdId}">
-									<button class="b remove" type="submit" style="width: 170px">移除此商品</button>
+									<button class="b remove" type="submit" style="width: 170px"
+										onclick="return confirmButton()" value="delete">移除此商品</button>
 								</form>
 
 							</div>
@@ -671,16 +835,43 @@ if (cusId != null) {
 									</div>
 								</div>
 							</div>
-							<span class="book_price" style = "font-size :25px">${room4.get(roomVo4).get(1)}</span> <i class="howmuch_nt">TWD</i>
+							<span class="book_price" style="font-size: 22px">${room4.get(roomVo4).get(1)}</span>
+							<i class="howmuch_nt">TWD</i>
 							<div class="price_set">
 								<i class="howmuch">${roomVo4.totalPrice.intValue()}</i>
 							</div>
 							<div class="pay_btn" style="margin-top: 20px">
 
+								<div style="display: flex">
+									<form
+										action="${pageContext.request.contextPath}/sean/SearchServlet"
+										method="post">
+										<button class="b infos">商品資訊</button>
+										<input type="hidden" name="room_id" value="${roomVo4.roomId}">
+										<input type="hidden" name="action"
+											value="getProductDetailRoom">
+									</form>
 
-								<button class="b infos">詳細商品資訊</button>
 
+									<form
+										action="${pageContext.request.contextPath}/shopping_hotelServlet"
+										method="post">
+										<select size="1" name="changeCartId"
+											style="position: absolute; left: 140px; top: 5px">
 
+											<option value="1">1
+											<option value="2">2
+											<option value="3">3
+											<option value="4">4
+											<option value="5">5
+										</select>
+										<button href="#" class="b paycart"
+											style="border: 1px solid blcak; background-color: blue; color: black;">換車</button>
+										<input type="hidden" name="action" value="changeHotelCart">
+										<input type="hidden" name="roomOrdId"
+											value="${roomVo4.roomOrdId}">
+									</form>
+								</div>
 
 								<form
 									action="${pageContext.request.contextPath}/shopping_hotelServlet"
@@ -688,7 +879,8 @@ if (cusId != null) {
 									<input type="hidden" name="action" value="hotelcheckOut">
 									<input type="hidden" name="roomOrdId"
 										value="${roomVo4.roomOrdId}">
-									<button class="b pay" type="submit" style="width: 170px">前往付款作業</button>
+									<button class="b pay" type="submit" style="width: 170px"
+										onclick="return confirmPayButton()" value="goToPay">前往付款作業</button>
 								</form>
 								<form
 									action="${pageContext.request.contextPath}/shopping_hotelServlet"
@@ -696,7 +888,8 @@ if (cusId != null) {
 									<input type="hidden" name="action" value="removeHotelOrder">
 									<input type="hidden" name="roomOrdId"
 										value="${roomVo4.roomOrdId}">
-									<button class="b remove" type="submit" style="width: 170px">移除此商品</button>
+									<button class="b remove" type="submit" style="width: 170px"
+										onclick="return confirmButton()" value="delete">移除此商品</button>
 								</form>
 
 							</div>
@@ -738,7 +931,7 @@ if (cusId != null) {
 									</div>
 									<div class="count_star">
 										<a href="#"><i class="fa-solid fa-star"
-											style="width: 85px;">8.7</i> </a>
+											style="width: 85px;">${trip4.get(tripVo4).get(1)}</i> </a>
 									</div>
 								</div>
 							</div>
@@ -747,8 +940,37 @@ if (cusId != null) {
 								<i class="howmuch">${tripVo4.totalPrice.intValue()}</i>
 							</div>
 							<div class="pay_btn" style="margin-top: 20px">
-								<button class="b list">詳細商品資訊</button>
+								<div style="display: flex">
+									<form
+										action="${pageContext.request.contextPath}/sean/SearchServlet"
+										method="post">
+										<button class="b infos">商品資訊</button>
+										<input type="hidden" name="trip_id" value="${tripVo4.tripId}">
+										<input type="hidden" name="action"
+											value="getProductDetailTrip">
+									</form>
 
+
+
+									<form
+										action="${pageContext.request.contextPath}/shopping_tripServlet"
+										method="post">
+										<select size="1" name="changeCartId"
+											style="position: absolute; left: 140px; top: 5px">
+
+											<option value="1">1
+											<option value="2">2
+											<option value="3">3
+											<option value="4">4
+											<option value="5">5
+										</select>
+										<button href="#" class="b paycart"
+											style="border: 1px solid blcak; background-color: blue; color: black;">換車</button>
+										<input type="hidden" name="action" value="changeTripCart">
+										<input type="hidden" name="tripOrdId"
+											value="${tripVo4.tripOrdId}">
+									</form>
+								</div>
 
 
 								<form
@@ -757,7 +979,8 @@ if (cusId != null) {
 									<input type="hidden" name="action" value="TripCheckOut">
 									<input type="hidden" name="TripOrdId"
 										value="${tripVo4.tripOrdId}">
-									<button class="b pay" type="submit" style="width: 170px">前往付款作業</button>
+									<button class="b pay" type="submit" style="width: 170px"
+										onclick="return confirmPayButton()" value="goToPay">前往付款作業</button>
 								</form>
 								<form
 									action="${pageContext.request.contextPath}/shopping_tripServlet"
@@ -765,7 +988,8 @@ if (cusId != null) {
 									<input type="hidden" name="action" value="removeTripOrder">
 									<input type="hidden" name="TripOrdId"
 										value="${tripVo4.tripOrdId}">
-									<button class="b remove" type="submit" style="width: 170px">移除此商品</button>
+									<button class="b remove" type="submit" style="width: 170px"
+										onclick="return confirmButton()" value="delete">移除此商品</button>
 								</form>
 
 							</div>
@@ -812,14 +1036,44 @@ if (cusId != null) {
 									</div>
 								</div>
 							</div>
-							<span class="book_price" style = "font-size :25px">${room5.get(roomVo5).get(1)}</span> <i class="howmuch_nt">TWD</i>
+							<span class="book_price" style="font-size: 22px">${room5.get(roomVo5).get(1)}</span>
+							<i class="howmuch_nt">TWD</i>
 							<div class="price_set">
 								<i class="howmuch">${roomVo5.totalPrice.intValue()}</i>
 							</div>
 							<div class="pay_btn" style="margin-top: 20px">
 
 
-								<button class="b infos">詳細商品資訊</button>
+								<div style="display: flex">
+									<form
+										action="${pageContext.request.contextPath}/sean/SearchServlet"
+										method="post">
+										<button class="b infos">商品資訊</button>
+										<input type="hidden" name="room_id" value="${roomVo5.roomId}">
+										<input type="hidden" name="action"
+											value="getProductDetailRoom">
+									</form>
+
+
+									<form
+										action="${pageContext.request.contextPath}/shopping_hotelServlet"
+										method="post">
+										<select size="1" name="changeCartId"
+											style="position: absolute; left: 140px; top: 5px">
+
+											<option value="1">1
+											<option value="2">2
+											<option value="3">3
+											<option value="4">4
+											<option value="5">5
+										</select>
+										<button href="#" class="b paycart"
+											style="border: 1px solid blcak; background-color: blue; color: black;">換車</button>
+										<input type="hidden" name="action" value="changeHotelCart">
+										<input type="hidden" name="roomOrdId"
+											value="${roomVo5.roomOrdId}">
+									</form>
+								</div>
 
 
 
@@ -829,7 +1083,8 @@ if (cusId != null) {
 									<input type="hidden" name="action" value="hotelcheckOut">
 									<input type="hidden" name="roomOrdId"
 										value="${roomVo5.roomOrdId}">
-									<button class="b pay" type="submit" style="width: 170px">前往付款作業</button>
+									<button class="b pay" type="submit" style="width: 170px"
+										onclick="return confirmPayButton()" value="goToPay">前往付款作業</button>
 								</form>
 								<form
 									action="${pageContext.request.contextPath}/shopping_hotelServlet"
@@ -837,7 +1092,8 @@ if (cusId != null) {
 									<input type="hidden" name="action" value="removeHotelOrder">
 									<input type="hidden" name="roomOrdId"
 										value="${roomVo5.roomOrdId}">
-									<button class="b remove" type="submit" style="width: 170px">移除此商品</button>
+									<button class="b remove" type="submit" style="width: 170px"
+										onclick="return confirmButton()" value="delete">移除此商品</button>
 								</form>
 
 							</div>
@@ -878,7 +1134,7 @@ if (cusId != null) {
 									</div>
 									<div class="count_star">
 										<a href="#"><i class="fa-solid fa-star"
-											style="width: 85px;">8.7</i> </a>
+											style="width: 85px;">${trip5.get(tripVo5).get(1)}</i> </a>
 									</div>
 								</div>
 							</div>
@@ -887,7 +1143,37 @@ if (cusId != null) {
 								<i class="howmuch">${tripVo5.totalPrice.intValue()}</i>
 							</div>
 							<div class="pay_btn" style="margin-top: 20px">
-								<button class="b list">詳細商品資訊</button>
+								<div style="display: flex">
+									<form
+										action="${pageContext.request.contextPath}/sean/SearchServlet"
+										method="post">
+										<button class="b infos">商品資訊</button>
+										<input type="hidden" name="trip_id" value="${tripVo5.tripId}">
+										<input type="hidden" name="action"
+											value="getProductDetailTrip">
+									</form>
+
+
+
+									<form
+										action="${pageContext.request.contextPath}/shopping_tripServlet"
+										method="post">
+										<select size="1" name="changeCartId"
+											style="position: absolute; left: 140px; top: 5px">
+
+											<option value="1">1
+											<option value="2">2
+											<option value="3">3
+											<option value="4">4
+											<option value="5">5
+										</select>
+										<button href="#" class="b paycart"
+											style="border: 1px solid blcak; background-color: blue; color: black;">換車</button>
+										<input type="hidden" name="action" value="changeTripCart">
+										<input type="hidden" name="tripOrdId"
+											value="${tripVo5.tripOrdId}">
+									</form>
+								</div>
 
 
 
@@ -897,7 +1183,8 @@ if (cusId != null) {
 									<input type="hidden" name="action" value="TripCheckOut">
 									<input type="hidden" name="TripOrdId"
 										value="${tripVo5.tripOrdId}">
-									<button class="b pay" type="submit" style="width: 170px">前往付款作業</button>
+									<button class="b pay" type="submit" style="width: 170px"
+										onclick="return confirmPayButton()" value="goToPay">前往付款作業</button>
 								</form>
 								<form
 									action="${pageContext.request.contextPath}/shopping_tripServlet"
@@ -905,7 +1192,8 @@ if (cusId != null) {
 									<input type="hidden" name="action" value="removeTripOrder">
 									<input type="hidden" name="TripOrdId"
 										value="${tripVo5.tripOrdId}">
-									<button class="b remove" type="submit" style="width: 170px">移除此商品</button>
+									<button class="b remove" type="submit" style="width: 170px"
+										onclick="return confirmButton()" value="delete">移除此商品</button>
 								</form>
 
 							</div>
@@ -923,8 +1211,27 @@ if (cusId != null) {
 		<!-- =======================main_content===================== -->
 
 
+		<script>
+			//按下刪除後
+			function confirmButton() {
+				var buttonValue = $(".remove").val();
+				if (buttonValue === "delete") {
+					console.log($(".pay").val());
+					const confirmed = confirm("確定要刪除嗎?");
+					return confirmed ? true : false;
+				}
 
-		
+			}
+
+			function confirmPayButton() {
+				var buttonValue = $(".pay").val();
+				if (buttonValue === "goToPay") {
+					let confirmed = confirm("確定要購買嗎");
+					return confirmed ? true : false;
+
+				}
+			}
+		</script>
 </body>
 
 </html>

@@ -1,15 +1,10 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@page import="org.hibernate.internal.build.AllowSysOut"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.tha103.gogoyu.room.model.*"%>
 <%@ page import="com.tha103.gogoyu.company.model.*"%>
-
-<%
-	Map<Room, String> searchRoomResult = (Map<Room, String>)request.getAttribute("searchRoomResult");
-	pageContext.setAttribute("roomMap", searchRoomResult);
-%>
-
-<jsp:useBean id="CompSvc" scope="page" class="com.tha103.gogoyu.company.model.CompanyService" />
+<%@ page import="com.tha103.gogoyu.trip.model.*"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +43,7 @@
             position: relative;
             left: 360px;
             padding-bottom: 50px;
-            font-family: "Øª∂Í";
+            font-family: "Á≤âÂúì";
             font-size: 16px;
             background-color: white;
             width: calc(100% - 360px - 70px);
@@ -68,10 +63,11 @@
 
 <body>
     <script src="${pageContext.request.contextPath}/vendors/jquery/jquery-3.7.1.min.js"></script>
+     <script src="${pageContext.request.contextPath}/dist/js/bootstrap.bundle.min.js"></script>
     <nav class="st">
         <a class="logo" id="home" href="${pageContext.request.contextPath}/mhl/home.jsp">GO<i class="fa-solid fa-location-dot" style="color: #ffbf1c;"></i>GOYU</a>
         <div class="head">
-            <button type="menu" class="head_btn" aria-label="≥Wπ∫¶Êµ{" id="shop">
+            <button type="menu" class="head_btn" aria-label="Ë¶èÂäÉË°åÁ®ã" id="shop">
                 <i class="fa-solid fa-suitcase-rolling icon" style="color: black; font-size:30px;
                             background-color:transparent;"></i>
             </button>
@@ -85,7 +81,7 @@
             </button>
             <button type="button" class="head_btn">
                 <a class="profile" href="${pageContext.request.contextPath}/ken/com_mem_signin.jsp">
-                   <div style="color: black;">∑~™Ã</div>
+                   <div style="color: black;">Ê•≠ËÄÖ</div>
                 </a>
             </button>
             <button type="button" class="head_btn">
@@ -114,103 +110,102 @@
     </nav>
     <div class="container">
         <div class="row">
-            <!--∑j¥MƒÊ-->
+            <!--ÊêúÂ∞ãÊ¨Ñ-->
             <div class="col-12 ">
-                <!--≠∂≈“-->
+                <!--È†ÅÁ±§-->
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="hotel-tab" data-bs-toggle="tab" data-bs-target="#hotel"
-                            type="button" role="tab" aria-controls="hotel" aria-selected="true">hotel</button>
+                        <button class="nav-link ${(searchRoomResult != null) ? 'active' : ''}" id="hotel-tab" data-bs-toggle="tab" data-bs-target="#hotel"
+                            type="button" role="tab" aria-controls="hotel" aria-selected=${searchRoomResult != null ?"true" : "false"} ${searchRoomResult == null ? 'tabindex="-1"' : ""}>hotel</button>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="journey-tab" data-bs-toggle="tab" data-bs-target="#journey"
-                            type="button" role="tab" aria-controls="journey" aria-selected="false">journey</button>
+                    <li class="nav-item " role="presentation">
+                        <button class="nav-link ${(searchTripResult != null) ? 'active' : ''}" id="journey-tab" data-bs-toggle="tab" data-bs-target="#journey"
+                            type="button" role="tab" aria-controls="journey" aria-selected=${searchTripResult != null ? "true" : "false"} ${searchTripResult == null ? 'tabindex="-1"' : ""}>journey</button>
                     </li>
                 </ul>
                 <div class="tab-content " id="myTabContent">
-                    <!--hotel∑j¥M¶C-->
-                    <div class="tab-pane fade show active" id="hotel" role="tabpanel" aria-labelledby="hotel-tab">
+                    <!--hotelÊêúÂ∞ãÂàó-->
+                    <div class="tab-pane fade ${searchRoomResult != null ? 'active show' : ''}" id="hotel" role="tabpanel" aria-labelledby="hotel-tab">
                         <nav class="navbar navbar-light bg-light">
                             <div class="container">
                                 <div class="d-flex flex-wrap">
                                     <form class="d-flex" method="post" action="${pageContext.request.contextPath}/sean/SearchServlet">
-                                        <!-- <input class="form-control me-2" type="text" placeholder="¶a¬I..." aria-label="Search">
+                                        <!-- <input class="form-control me-2" type="text" placeholder="Âú∞Èªû..." aria-label="Search">
                                          -->
-                                        <select class="form-select me-2" name="comp_address" aria-label="Default select example">
-                                            <option value="•x•_•´">•x•_•´</option>
-                                            <option value="∑s•_•´">∑s•_•´</option>
-                                            <option value="ÆÁ∂È•´">ÆÁ∂È•´</option>
-                                            <option value="•x§§•´">•x§§•´</option>
-                                            <option value="•x´n•´">•x´n•´</option>
-                                            <option value="∞™∂Ø•´">∞™∂Ø•´</option>
-                                            <option value="∑s¶Àø§">∑s¶Àø§</option>
-                                            <option value="∑s•_•´">∑s•_•´</option>
-                                            <option value="≠]Æﬂø§">≠]Æﬂø§</option>
-                                            <option value="π¸§∆ø§">π¸§∆ø§</option>
-                                            <option value="´nßÎø§">´nßÎø§</option>
-                                            <option value="∂≥™Lø§">∂≥™Lø§</option>
-                                            <option value="π≈∏qø§">π≈∏qø§</option>
-                                            <option value="´Ã™Fø§">´Ã™Fø§</option>
-                                            <option value="©yƒı•´">©yƒı•´</option>
-                                            <option value="™·Ω¨•´">™·Ω¨•´</option>
-                                            <option value="•x™Fø§">•x™Fø§</option>
-                                            <option value="™˜™˘ø§">™˜™˘ø§</option>
-                                            <option value="≥s¶øø§">≥s¶øø§</option>
-                                            <option value="∞Ú∂©•´">∞Ú∂©•´</option>
-                                            <option value="∑s¶À•´">∑s¶À•´</option>
-                                            <option value="π≈∏q•´">π≈∏q•´</option>
-                                            <option value="ºÍ¥Úø§">ºÍ¥Úø§</option>
+                                        <select class="form-select me-2" name="site" aria-label="Default select example">
+                                            <option value="Âè∞ÂåóÂ∏Ç" ${searchRoomComp_address == "Âè∞ÂåóÂ∏Ç" ? 'selected' : ""}>Âè∞ÂåóÂ∏Ç</option>
+				                            <option value="Êñ∞ÂåóÂ∏Ç" ${searchRoomComp_address == "Êñ∞ÂåóÂ∏Ç" ? 'selected' : ""}>Êñ∞ÂåóÂ∏Ç</option>
+				                            <option value="Ê°ÉÂúíÂ∏Ç" ${searchRoomComp_address == "Ê°ÉÂúíÂ∏Ç" ? 'selected' : ""}>Ê°ÉÂúíÂ∏Ç</option>
+				                            <option value="Âè∞‰∏≠Â∏Ç" ${searchRoomComp_address == "Âè∞‰∏≠Â∏Ç" ? 'selected' : ""}>Âè∞‰∏≠Â∏Ç</option>
+				                            <option value="Âè∞ÂçóÂ∏Ç" ${searchRoomComp_address == "Âè∞ÂçóÂ∏Ç" ? 'selected' : ""}>Âè∞ÂçóÂ∏Ç</option>
+				                            <option value="È´òÈõÑÂ∏Ç" ${searchRoomComp_address == "È´òÈõÑÂ∏Ç" ? 'selected' : ""}>È´òÈõÑÂ∏Ç</option>
+				                            <option value="Êñ∞Á´πÁ∏£" ${searchRoomComp_address == "Êñ∞Á´πÁ∏£" ? 'selected' : ""}>Êñ∞Á´πÁ∏£</option>
+				                            <option value="ËãóÊ†óÁ∏£" ${searchRoomComp_address == "ËãóÊ†óÁ∏£" ? 'selected' : ""}>ËãóÊ†óÁ∏£</option>
+				                            <option value="ÂΩ∞ÂåñÁ∏£" ${searchRoomComp_address == "ÂΩ∞ÂåñÁ∏£" ? 'selected' : ""}>ÂΩ∞ÂåñÁ∏£</option>
+				                            <option value="ÂçóÊäïÁ∏£" ${searchRoomComp_address == "ÂçóÊäïÁ∏£" ? 'selected' : ""}>ÂçóÊäïÁ∏£</option>
+				                            <option value="Èõ≤ÊûóÁ∏£" ${searchRoomComp_address == "Èõ≤ÊûóÁ∏£" ? 'selected' : ""}>Èõ≤ÊûóÁ∏£</option>
+				                            <option value="ÂòâÁæ©Á∏£" ${searchRoomComp_address == "ÂòâÁæ©Á∏£" ? 'selected' : ""}>ÂòâÁæ©Á∏£</option>
+				                            <option value="Â±èÊù±Á∏£" ${searchRoomComp_address == "Â±èÊù±Á∏£" ? 'selected' : ""}>Â±èÊù±Á∏£</option>
+				                            <option value="ÂÆúËò≠Â∏Ç" ${searchRoomComp_address == "ÂÆúËò≠Â∏Ç" ? 'selected' : ""}>ÂÆúËò≠Â∏Ç</option>
+				                            <option value="Ëä±ËìÆÂ∏Ç" ${searchRoomComp_address == "Ëä±ËìÆÂ∏Ç" ? 'selected' : ""}>Ëä±ËìÆÂ∏Ç</option>
+				                            <option value="Âè∞Êù±Á∏£" ${searchRoomComp_address == "Âè∞Êù±Á∏£" ? 'selected' : ""}>Âè∞Êù±Á∏£</option>
+				                            <option value="ÈáëÈñÄÁ∏£" ${searchRoomComp_address == "ÈáëÈñÄÁ∏£" ? 'selected' : ""}>ÈáëÈñÄÁ∏£</option>
+				                            <option value="ÈÄ£Ê±üÁ∏£" ${searchRoomComp_address == "ÈÄ£Ê±üÁ∏£" ? 'selected' : ""}>ÈÄ£Ê±üÁ∏£</option>
+				                            <option value="Âü∫ÈöÜÂ∏Ç" ${searchRoomComp_address == "Âü∫ÈöÜÂ∏Ç" ? 'selected' : ""}>Âü∫ÈöÜÂ∏Ç</option>
+				                            <option value="Êñ∞Á´πÂ∏Ç" ${searchRoomComp_address == "Êñ∞Á´πÂ∏Ç" ? 'selected' : ""}>Êñ∞Á´πÂ∏Ç</option>
+				                            <option value="ÂòâÁæ©Â∏Ç" ${searchRoomComp_address == "ÂòâÁæ©Â∏Ç" ? 'selected' : ""}>ÂòâÁæ©Â∏Ç</option>
+				                            <option value="ÊæéÊπñÁ∏£" ${searchRoomComp_address == "ÊæéÊπñÁ∏£" ? 'selected' : ""}>ÊæéÊπñÁ∏£</option>
                                         </select>
-                                        <input class="form-control me-2" name="checkIn" type="text" placeholder="§J¶Ì§È¥¡..." aria-label="Search" onfocus="(this.type='date')"
-                                        onblur="(this.type='text')" value="${searchCheckIn}">
-                                        <input class="form-control me-2" name="checkOut" type="text" placeholder="∞h©–§È¥¡..." aria-label="Search" onfocus="(this.type='date')"
-                                        onblur="(this.type='text')" value="${searchCheckOut}">
-                                        <input class="form-control me-2" value="${people}" name="number" type="text" placeholder="§Hº∆..." aria-label="Search">
+                                        <input class="form-control me-2" name="checkIn" type="text" placeholder="ÂÖ•‰ΩèÊó•Êúü..." aria-label="Search" onfocus="(this.type='date')"
+                                        onblur="(this.type='text')" value="${searchRoomCheckIn}">
+                                        <input class="form-control me-2" name="checkOut" type="text" placeholder="ÈÄÄÊàøÊó•Êúü..." aria-label="Search" onfocus="(this.type='date')"
+                                        onblur="(this.type='text')" value="${searchRoomCheckOut}">
+                                        <input class="form-control me-2" value="${roomPeople}" name="number" type="text" placeholder="‰∫∫Êï∏..." aria-label="Search">
                                         <button class="btn btn-outline-success" type="submit">Search</button>
-                                        <input type="hidden" name="action" value="roomSearch">
+                                        <input type="hidden" name="action" value="hotel">
                                     </form>
                                 </div>
                             </div>
                         </nav>
-                        <!--∑j¥Mµ≤™G-->
-                        <div class="d-flex flex-column">
-                            <!--hotel∞”´~-->
-                             <c:forEach var="roomVO" items="${roomMap.keySet()}" >
+                        <!--ÊêúÂ∞ãÁµêÊûú-->
+                        <div class="d-flex flex-column mb-4">
+                            <!--hotelÂïÜÂìÅ-->
+                             <c:forEach var="roomVO" items="${searchRoomResult.keySet()}" >
 	                            <div class="container border">
 	                                <div class="row">
-	                                    <!--∞”´~πœ-->
+	                                    <!--ÂïÜÂìÅÂúñ-->
 	                                    <div class="col photoShell border">
 	                                        <img src="MainPhotoPrintHServlet?room_id=${roomVO.roomId}" class="d-block w-100" alt="...">
 	                                    </div>
-	                                    <!--∞”´~¶W ≤”™p-->
+	                                    <!--ÂïÜÂìÅÂêç Á¥∞Ê≥Å-->
 	                                    <div class="col">
-	                                            <h3 class="">${roomMap.get(roomVO)}</h3><br>
+	                                            <h3 class="">${searchRoomResult.get(roomVO).get(1)}</h3><br>
 	                                            <div>${roomVO.roomName}</div>
-	                                            <div>${roomVO.roomType}§H©–</div><br>
-	                                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?action=getProductDetailRoom&room_id=${roomVO.roomId}&searchCheckIn=${searchCheckIn}&searchCheckOut=${searchCheckOut}&number=${people}" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">¨d¨›©–´¨≤”™p</a>
+	                                            <div>${roomVO.roomType}‰∫∫Êàø</div><br>
+	                                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?action=getProductDetailRoom&room_id=${roomVO.roomId}&searchComp_address=${searchRoomComp_address}&searchCheckIn=${searchRoomCheckIn}&searchCheckOut=${searchRoomCheckOut}&number=${roomPeople}" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">Êü•ÁúãÊàøÂûãÁ¥∞Ê≥Å</a>
 	                                    </div>
-	                                    <!--¡pµ∏ µ˚µ• ª˘ÆÊ-->
+	                                    <!--ËÅØÁµ° Ë©ïÁ≠â ÂÉπÊ†º-->
 	                                    <div class="col ">
 	                                        <div class="d-flex flex-column">
 	                                            <div class="comment_set">
-	                                                <!--¡pµ∏-->
+	                                                <!--ËÅØÁµ°-->
 	                                                <div class="comment_message">  
 	                                                    <a href="#">
 	                                                        <i class="fa-solid fa-message"></i>
 	                                                    </a>
 	                                                </div>
-	                                                <!--µ˚µ•-->
+	                                                <!--Ë©ïÁ≠â-->
 	                                                <div  class="count_star">  
 	                                                    <a href="#">
-	                                                        <i class="fa-solid fa-star">8.7</i>
+	                                                        <i class="fa-solid fa-star">${searchRoomResult.get(roomVO).get(0)}</i>
 	                                                    </a>
 	                                                </div>
-	                                                <!--ª˘ÆÊ-->
+	                                                <!--ÂÉπÊ†º-->
 	                                            </div><br>
-	                                            <span class="book_price ms-4">ª˘ÆÊ(•ºßtµ|)</span>
+	                                            <span class="book_price ms-4">ÂÉπÊ†º(Âê´Á®Ö)</span>
 	                                                <i class="ms-4">TWD</i>
 	                                            <div class="ms-4">
-	                                                <i class="howmuch">${roomVO.price}</i>
+	                                                <i class="howmuch">${roomVO.price.intValue()}</i>
 	                                            </div>
 	                                        </div>
 	                                    </div>
@@ -220,92 +215,95 @@
                         </div>
                     </div>
                     
-                    <!-- journey∑j¥M¶C -->
-                    <div class="tab-pane fade" id="journey" role="tabpanel" aria-labelledby="journey-tab">
+                    <!-- journeyÊêúÂ∞ãÂàó -->
+                    <div class="tab-pane fade ${searchTripResult != null ? 'active show' : ''}" id="journey" role="tabpanel" aria-labelledby="journey-tab">
                         <nav class="navbar navbar-light bg-light">
                             <div class="container">
                                 <div class="d-flex flex-wrap">
-                                    <form class="d-flex">
-                                        <select class="form-select me-2" aria-label="Default select example">
-                                            <option selected>¶a¬I...</option>
-                                            <option value="Taipei_City">•x•_•´</option>
-                                            <option value="NewTaipei_City">∑s•_•´</option>
-                                            <option value="Taoyuan_City">ÆÁ∂È•´</option>
-                                            <option value="Taichung_City">•x§§•´</option>
-                                            <option value="Tainan_City">•x´n•´</option>
-                                            <option value="Kaohsiung_City">∞™∂Ø•´</option>
-                                            <option value="Hsinchu_County">∑s¶Àø§</option>
-                                            <option value="Miaoli_County">∑s•_•´</option>
-                                            <option value="Changhua_County">≠]Æﬂø§</option>
-                                            <option value="Nantou_County">π¸§∆ø§</option>
-                                            <option value="Nantou_County">´nßÎø§</option>
-                                            <option value="Yunlin_County">∂≥™Lø§</option>
-                                            <option value="Chiayi_County">π≈∏qø§</option>
-                                            <option value="Pingtung_County">´Ã™Fø§</option>
-                                            <option value="Yilan_City">©yƒı•´</option>
-                                            <option value="Hualien_City">™·Ω¨•´</option>
-                                            <option value="Taitung_County">•x™Fø§</option>
-                                            <option value="Kinmen_County">™˜™˘ø§</option>
-                                            <option value="Lienchiang_County">≥s¶øø§</option>
-                                            <option value="Keelung_City">∞Ú∂©•´</option>
-                                            <option value="Hsinchu_City">∑s¶À•´</option>
-                                            <option value="Chiayi_City">π≈∏q•´</option>
-                                            <option value="Penghu_County">ºÍ¥Úø§</option>
+                                    <form class="d-flex" method="post" action="${pageContext.request.contextPath}/sean/SearchServlet">
+                                        <!-- <input class="form-control me-2" type="text" placeholder="Âú∞Èªû..." aria-label="Search">
+                                         -->
+                                        <select class="form-select me-2" name="site" aria-label="Default select example">
+                                            <option value="Âè∞ÂåóÂ∏Ç" ${searchTripSite == "Âè∞ÂåóÂ∏Ç" ? 'selected' : ""}>Âè∞ÂåóÂ∏Ç</option>
+				                            <option value="Êñ∞ÂåóÂ∏Ç" ${searchTripSite == "Êñ∞ÂåóÂ∏Ç" ? 'selected' : ""}>Êñ∞ÂåóÂ∏Ç</option>
+				                            <option value="Ê°ÉÂúíÂ∏Ç" ${searchTripSite == "Ê°ÉÂúíÂ∏Ç" ? 'selected' : ""}>Ê°ÉÂúíÂ∏Ç</option>
+				                            <option value="Âè∞‰∏≠Â∏Ç" ${searchTripSite == "Âè∞‰∏≠Â∏Ç" ? 'selected' : ""}>Âè∞‰∏≠Â∏Ç</option>
+				                            <option value="Âè∞ÂçóÂ∏Ç" ${searchTripSite == "Âè∞ÂçóÂ∏Ç" ? 'selected' : ""}>Âè∞ÂçóÂ∏Ç</option>
+				                            <option value="È´òÈõÑÂ∏Ç" ${searchTripSite == "È´òÈõÑÂ∏Ç" ? 'selected' : ""}>È´òÈõÑÂ∏Ç</option>
+				                            <option value="Êñ∞Á´πÁ∏£" ${searchTripSite == "Êñ∞Á´πÁ∏£" ? 'selected' : ""}>Êñ∞Á´πÁ∏£</option>
+				                            <option value="ËãóÊ†óÁ∏£" ${searchTripSite == "ËãóÊ†óÁ∏£" ? 'selected' : ""}>ËãóÊ†óÁ∏£</option>
+				                            <option value="ÂΩ∞ÂåñÁ∏£" ${searchTripSite == "ÂΩ∞ÂåñÁ∏£" ? 'selected' : ""}>ÂΩ∞ÂåñÁ∏£</option>
+				                            <option value="ÂçóÊäïÁ∏£" ${searchTripSite == "ÂçóÊäïÁ∏£" ? 'selected' : ""}>ÂçóÊäïÁ∏£</option>
+				                            <option value="Èõ≤ÊûóÁ∏£" ${searchTripSite == "Èõ≤ÊûóÁ∏£" ? 'selected' : ""}>Èõ≤ÊûóÁ∏£</option>
+				                            <option value="ÂòâÁæ©Á∏£" ${searchTripSite == "ÂòâÁæ©Á∏£" ? 'selected' : ""}>ÂòâÁæ©Á∏£</option>
+				                            <option value="Â±èÊù±Á∏£" ${searchTripSite == "Â±èÊù±Á∏£" ? 'selected' : ""}>Â±èÊù±Á∏£</option>
+				                            <option value="ÂÆúËò≠Â∏Ç" ${searchTripSite == "ÂÆúËò≠Â∏Ç" ? 'selected' : ""}>ÂÆúËò≠Â∏Ç</option>
+				                            <option value="Ëä±ËìÆÂ∏Ç" ${searchTripSite == "Ëä±ËìÆÂ∏Ç" ? 'selected' : ""}>Ëä±ËìÆÂ∏Ç</option>
+				                            <option value="Âè∞Êù±Á∏£" ${searchTripSite == "Âè∞Êù±Á∏£" ? 'selected' : ""}>Âè∞Êù±Á∏£</option>
+				                            <option value="ÈáëÈñÄÁ∏£" ${searchTripSite == "ÈáëÈñÄÁ∏£" ? 'selected' : ""}>ÈáëÈñÄÁ∏£</option>
+				                            <option value="ÈÄ£Ê±üÁ∏£" ${searchTripSite == "ÈÄ£Ê±üÁ∏£" ? 'selected' : ""}>ÈÄ£Ê±üÁ∏£</option>
+				                            <option value="Âü∫ÈöÜÂ∏Ç" ${searchTripSite == "Âü∫ÈöÜÂ∏Ç" ? 'selected' : ""}>Âü∫ÈöÜÂ∏Ç</option>
+				                            <option value="Êñ∞Á´πÂ∏Ç" ${searchTripSite == "Êñ∞Á´πÂ∏Ç" ? 'selected' : ""}>Êñ∞Á´πÂ∏Ç</option>
+				                            <option value="ÂòâÁæ©Â∏Ç" ${searchTripSite == "ÂòâÁæ©Â∏Ç" ? 'selected' : ""}>ÂòâÁæ©Â∏Ç</option>
+				                            <option value="ÊæéÊπñÁ∏£" ${searchTripSite == "ÊæéÊπñÁ∏£" ? 'selected' : ""}>ÊæéÊπñÁ∏£</option>
                                         </select>
-                                        <input class="form-control me-2" type="search" placeholder="∂}©l§È¥¡..." aria-label="Search" onfocus="(this.type='date')"
-                                        onblur="(this.type='text')">
-                                        <input class="form-control me-2" type="search" placeholder="µ≤ßÙ§È¥¡..." aria-label="Search" onfocus="(this.type='date')"
-                                        onblur="(this.type='text')">
-                                        <input class="form-control me-2" type="search" placeholder="§Hº∆..." aria-label="Search">
+                                        <input class="form-control me-2" name="checkIn" type="text" placeholder="ÈñãÂßãÊôÇÈñì..." aria-label="Search" onfocus="(this.type='date')"
+                                        onblur="(this.type='text')" value="${searchTripCheckIn}">
+                                        <input class="form-control me-2" name="checkOut" type="text" placeholder="ÁµêÊùüÊôÇÈñì..." aria-label="Search" onfocus="(this.type='date')"
+                                        onblur="(this.type='text')" value="${searchTripCheckOut}">
+                                        <input class="form-control me-2" value="${tripPeople}" name="number" type="text" placeholder="‰∫∫Êï∏..." aria-label="Search">
                                         <button class="btn btn-outline-success" type="submit">Search</button>
+                                        <input type="hidden" name="action" value="trip">
                                     </form>
                                 </div>
                             </div>
                         </nav>
-                        <!--∑j¥Mµ≤™G-->
-                        <div class="d-flex flex-column">
-                            <!--journey∞”´~-->
+                        <!--ÊêúÂ∞ãÁµêÊûú-->
+                        <div class="d-flex flex-column mb-4">
+                            <!--journeyÂïÜÂìÅ-->
+                            <c:forEach var="tripVO" items="${searchTripResult}" >
                             <div class="container border">
                                 <div class="row">
-                                    <!--∞”´~πœ-->
+                                    <!--ÂïÜÂìÅÂúñ-->
                                     <div class="col ">
-                                        <img src="https://picsum.photos/1400/800?random=3" class="d-block w-100" alt="...">
+                                        <img src="MainPhotoTripPrintServlet?tripId=${tripVO.tripId}" class="d-block w-100" alt="...">
                                     </div>
-                                    <!--∞”´~¶W ≤”™p •I¥⁄-->
+                                    <!--ÂïÜÂìÅÂêç Á¥∞Ê≥Å ‰ªòÊ¨æ-->
                                     <div class="col">
-                                        <h3 class="">≥•¨h§G§—§@©]</h3><br>
-                                        <div>∂}©lÆ…∂°</div>
-                                        <div>µ≤ßÙÆ…∂°</div>
-                                        <div>§Hº∆</div>
-                                        <a href="#" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">¨d¨›¶Êµ{≤”™p</a>
+                                        <h3 class="">${tripVO.tripName}</h3><br>
+                                        <div>ÈñãÂßãÊôÇÈñì:${tripVO.startTime}</div>
+                                        <div>ÁµêÊùüÊôÇÈñì:${tripVO.endTime}</div>
+                                        <div>‰∫∫Êï∏:${tripVO.people}</div>
+                                        <a href="${pageContext.request.contextPath}/sean/SearchServlet?tripId=${tripVO.tripId}&site=${tripVO.tripId}&action=getProductDetailTrip&searchCheckIn=${searchTripCheckIn}&searchCheckOut=${searchTripCheckOut}&number=${tripPeople}" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">Êü•ÁúãË°åÁ®ãÁ¥∞Ê≥Å</a>
                                     </div>
-                                    <!--¡pµ∏ µ˚µ• ª˘ÆÊ-->
+                                    <!--ËÅØÁµ° Ë©ïÁ≠â ÂÉπÊ†º-->
                                     <div class="col ">
                                         <div class="d-flex flex-column">
                                             <div class="comment_set">
-                                                <!--¡pµ∏-->
+                                                <!--ËÅØÁµ°-->
                                                 <div class="comment_message">  
                                                     <a href="#">
                                                         <i class="fa-solid fa-message"></i>
                                                     </a>
                                                 </div>
-                                                <!--µ˚µ•-->
+                                                <!--Ë©ïÁ≠â-->
                                                 <div  class="count_star">  
                                                     <a href="#">
                                                         <i class="fa-solid fa-star">8.7</i>
                                                     </a>
                                                 </div>
-                                                <!--ª˘ÆÊ-->
+                                                <!--ÂÉπÊ†º-->
                                             </div><br>
-                                            <span class="book_price ms-4">ª˘ÆÊ(•ºßtµ|)</span>
+                                            <span class="book_price ms-4">ÂÉπÊ†º(Âê´Á®Ö)</span>
                                                 <i class="ms-4">TWD</i>
                                             <div class="ms-4">
-                                                <i class="howmuch">2500</i>
+                                                <i class="howmuch">${tripVO.price.intValue()}</i>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>
@@ -314,7 +312,7 @@
     </div>
     
     <script src="${pageContext.request.contextPath}/static/mhl_js/btn4com_review.js"></script>
-    <script src="${pageContext.request.contextPath}/dist/js/bootstrap.bundle.min.js"></script>
+   
     <script src="${pageContext.request.contextPath}/static/mhl_js/btn4com.js"></script>
     
 </body>

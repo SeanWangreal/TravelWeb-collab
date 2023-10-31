@@ -1,6 +1,21 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
+<%@ page import="com.tha103.gogoyu.trip.model.*" %>
+<%@ page import="com.tha103.gogoyu.itinerary.model.*" %>
+<%@ page import="com.tha103.gogoyu.scene.model.*" %>
+<%@ page import="com.tha103.gogoyu.company.model.*" %>
+
+<%
+	List<Object> list = (List<Object>)request.getAttribute("productDetailTrip");
+	Trip trip = (Trip)list.get(0);
+	List<Integer> tripPhotoIdList = (List<Integer>)list.get(1);
+	List<Itinerary> itineraryList = (List<Itinerary>)list.get(2);
+	List<Scene> sceneList = (List<Scene>)list.get(3);
+	Company company = (Company)list.get(4);
+	List<String> siteList = (List<String>)list.get(5);
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,7 +52,7 @@
             position: relative;
             left: 360px;
             padding-bottom: 50px;
-            font-family: "Øª∂Í";
+            font-family: "Á≤âÂúì";
             font-size: 16px;
             background-color: white;
             width: calc(100% - 360px - 70px);
@@ -73,7 +88,7 @@
     <nav class="st">
          <a class="logo" id="home" href="${pageContext.request.contextPath}/mhl/home.jsp">GO<i class="fa-solid fa-location-dot" style="color: #ffbf1c;"></i>GOYU</a>
         <div class="head">
-            <button type="menu" class="head_btn" aria-label="≥Wπ∫¶Êµ{" id="shop">
+            <button type="menu" class="head_btn" aria-label="Ë¶èÂäÉË°åÁ®ã" id="shop">
                 <i class="fa-solid fa-suitcase-rolling icon" style="color: black; font-size:30px;
                             background-color:transparent;"></i>
             </button>
@@ -87,7 +102,7 @@
             </button>
            <button type="button" class="head_btn">
                 <a class="profile" href="${pageContext.request.contextPath}/ken/com_mem_signin.jsp">
-                   <div style="color: black;">∑~™Ã</div>
+                   <div style="color: black;">Ê•≠ËÄÖ</div>
                 </a>
             </button>
             <button type="button" class="head_btn">
@@ -115,63 +130,62 @@
         </aside>
     </nav>    
         <div class="d-flex flex-column mb-4">
-            <!--∑j¥MƒÊ-->
+            <!--ÊêúÂ∞ãÊ¨Ñ-->
             <nav class="navbar navbar-light bg-light">
                 <div class="container-fluid justify-content-center">
                     <form class="d-flex" method="post" action="${pageContext.request.contextPath}/sean/SearchServlet">
-                    <select class="form-select me-2" aria-label="Default select example">
-                        <option value="Taipei_City">•x•_•´</option>
-                        <option value="NewTaipei_City">∑s•_•´</option>
-                        <option value="Taoyuan_City">ÆÁ∂È•´</option>
-                        <option value="Taichung_City">•x§§•´</option>
-                        <option value="Tainan_City">•x´n•´</option>
-                        <option value="Kaohsiung_City">∞™∂Ø•´</option>
-                        <option value="Hsinchu_County">∑s¶Àø§</option>
-                        <option value="Miaoli_County">∑s•_•´</option>
-                        <option value="Changhua_County">≠]Æﬂø§</option>
-                        <option value="Nantou_County">π¸§∆ø§</option>
-                        <option value="Nantou_County">´nßÎø§</option>
-                        <option value="Yunlin_County">∂≥™Lø§</option>
-                        <option value="Chiayi_County">π≈∏qø§</option>
-                        <option value="Pingtung_County">´Ã™Fø§</option>
-                        <option value="Yilan_City">©yƒı•´</option>
-                        <option value="Hualien_City">™·Ω¨•´</option>
-                        <option value="Taitung_County">•x™Fø§</option>
-                        <option value="Kinmen_County">™˜™˘ø§</option>
-                        <option value="Lienchiang_County">≥s¶øø§</option>
-                        <option value="Keelung_City">∞Ú∂©•´</option>
-                        <option value="Hsinchu_City">∑s¶À•´</option>
-                        <option value="Chiayi_City">π≈∏q•´</option>
-                        <option value="Penghu_County">ºÍ¥Úø§</option>
+                    <select class="form-select me-2" name="site" aria-label="Default select example">
+                        <option value="Âè∞ÂåóÂ∏Ç" ${searchTripSite == "Âè∞ÂåóÂ∏Ç" ? 'selected' : ""}>Âè∞ÂåóÂ∏Ç</option>
+                        <option value="Êñ∞ÂåóÂ∏Ç" ${searchTripSite == "Êñ∞ÂåóÂ∏Ç" ? 'selected' : ""}>Êñ∞ÂåóÂ∏Ç</option>
+                        <option value="Ê°ÉÂúíÂ∏Ç" ${searchTripSite == "Ê°ÉÂúíÂ∏Ç" ? 'selected' : ""}>Ê°ÉÂúíÂ∏Ç</option>
+                        <option value="Âè∞‰∏≠Â∏Ç" ${searchTripSite == "Âè∞‰∏≠Â∏Ç" ? 'selected' : ""}>Âè∞‰∏≠Â∏Ç</option>
+                        <option value="Âè∞ÂçóÂ∏Ç" ${searchTripSite == "Âè∞ÂçóÂ∏Ç" ? 'selected' : ""}>Âè∞ÂçóÂ∏Ç</option>
+                        <option value="È´òÈõÑÂ∏Ç" ${searchTripSite == "È´òÈõÑÂ∏Ç" ? 'selected' : ""}>È´òÈõÑÂ∏Ç</option>
+                        <option value="Êñ∞Á´πÁ∏£" ${searchTripSite == "Êñ∞Á´πÁ∏£" ? 'selected' : ""}>Êñ∞Á´πÁ∏£</option>
+                        <option value="ËãóÊ†óÁ∏£" ${searchTripSite == "ËãóÊ†óÁ∏£" ? 'selected' : ""}>ËãóÊ†óÁ∏£</option>
+                        <option value="ÂΩ∞ÂåñÁ∏£" ${searchTripSite == "ÂΩ∞ÂåñÁ∏£" ? 'selected' : ""}>ÂΩ∞ÂåñÁ∏£</option>
+                        <option value="ÂçóÊäïÁ∏£" ${searchTripSite == "ÂçóÊäïÁ∏£" ? 'selected' : ""}>ÂçóÊäïÁ∏£</option>
+                        <option value="Èõ≤ÊûóÁ∏£" ${searchTripSite == "Èõ≤ÊûóÁ∏£" ? 'selected' : ""}>Èõ≤ÊûóÁ∏£</option>
+                        <option value="ÂòâÁæ©Á∏£" ${searchTripSite == "ÂòâÁæ©Á∏£" ? 'selected' : ""}>ÂòâÁæ©Á∏£</option>
+                        <option value="Â±èÊù±Á∏£" ${searchTripSite == "Â±èÊù±Á∏£" ? 'selected' : ""}>Â±èÊù±Á∏£</option>
+                        <option value="ÂÆúËò≠Â∏Ç" ${searchTripSite == "ÂÆúËò≠Â∏Ç" ? 'selected' : ""}>ÂÆúËò≠Â∏Ç</option>
+                        <option value="Ëä±ËìÆÂ∏Ç" ${searchTripSite == "Ëä±ËìÆÂ∏Ç" ? 'selected' : ""}>Ëä±ËìÆÂ∏Ç</option>
+                        <option value="Âè∞Êù±Á∏£" ${searchTripSite == "Âè∞Êù±Á∏£" ? 'selected' : ""}>Âè∞Êù±Á∏£</option>
+                        <option value="ÈáëÈñÄÁ∏£" ${searchTripSite == "ÈáëÈñÄÁ∏£" ? 'selected' : ""}>ÈáëÈñÄÁ∏£</option>
+                        <option value="ÈÄ£Ê±üÁ∏£" ${searchTripSite == "ÈÄ£Ê±üÁ∏£" ? 'selected' : ""}>ÈÄ£Ê±üÁ∏£</option>
+                        <option value="Âü∫ÈöÜÂ∏Ç" ${searchTripSite == "Âü∫ÈöÜÂ∏Ç" ? 'selected' : ""}>Âü∫ÈöÜÂ∏Ç</option>
+                        <option value="Êñ∞Á´πÂ∏Ç" ${searchTripSite == "Êñ∞Á´πÂ∏Ç" ? 'selected' : ""}>Êñ∞Á´πÂ∏Ç</option>
+                        <option value="ÂòâÁæ©Â∏Ç" ${searchTripSite == "ÂòâÁæ©Â∏Ç" ? 'selected' : ""}>ÂòâÁæ©Â∏Ç</option>
+                        <option value="ÊæéÊπñÁ∏£" ${searchTripSite == "ÊæéÊπñÁ∏£" ? 'selected' : ""}>ÊæéÊπñÁ∏£</option>
                     </select>
-                    <input class="form-control me-2" type="text" placeholder="∂}©l§È¥¡..." aria-label="Search" onfocus="(this.type='date')"
-                    onblur="(this.type='text')">
-                    <input class="form-control me-2" type="text" placeholder="µ≤ßÙ§È¥¡..." aria-label="Search" onfocus="(this.type='date')"
-                    onblur="(this.type='text')">
-                    <input class="form-control me-2" type="text" placeholder="§Hº∆..." aria-label="Search">
+                    <input class="form-control me-2" name="checkIn" type="text" placeholder="ÂÖ•‰ΩèÊó•Êúü..." aria-label="Search" onfocus="(this.type='date')"
+                    	onblur="(this.type='text')" value="${searchTripCheckIn}">
+                    <input class="form-control me-2" name="checkOut" type="text" placeholder="ÈÄÄÊàøÊó•Êúü..." aria-label="Search" onfocus="(this.type='date')"
+                    	onblur="(this.type='text')" value="${searchTripCheckOut}">
+                    <input class="form-control me-2" value="${tripPeople}" name="number" type="text" placeholder="‰∫∫Êï∏..." aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
+                    <input type="hidden" name="action" value="trip">
                   </form>
                 </div>
             </nav>
-            <!--∞”´~¶W-->
-            <h2 class="mx-auto">≥•¨h§G§—§@©]</h2>
-            <!--§€øO§˘-->
+            <!--ÊóÖË°åÁ§æ-->
+            <h2 class="mx-auto"><%=company.getCompName()%></h2>
+            <!--ÂπªÁáàÁâá1 mainPhoto Ë°åÁ®ãÂúñÁâá-->
             <div id="carouseltrip" class="carousel slide border mx-auto" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                  <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                  <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                  <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
+<!--                 <div class="carousel-indicators"> -->
+<!--                   <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button> -->
+<!--                   <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="1" aria-label="Slide 2"></button> -->
+<!--                   <button type="button" data-bs-target="#carouseltrip" data-bs-slide-to="2" aria-label="Slide 3"></button> -->
+<!--                 </div> -->
                 <div class="carousel-inner h-100">
                   <div class="carousel-item active">
-                    <img src="https://picsum.photos/2800/1600?random=1" class="d-block w-100 h-100" alt="...">
+                    <img src="MainPhotoTripPrintServlet?tripId=<%=trip.getTripId()%>" class="d-block w-100 h-100" alt="...">
                   </div>
-                  <div class="carousel-item">
-                    <img src="https://picsum.photos/2800/1600?random=2" class="d-block w-100 h-100" alt="...">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="https://picsum.photos/2800/1600?random=3" class="d-block w-100 h-100" alt="...">
-                  </div>
+                  <c:forEach var="tripPhotoId" items="<%=tripPhotoIdList%>" >
+	                  <div class="carousel-item">
+	                    <img src="TripPhotoPrintServlet?tripPhotoId=${tripPhotoId}" class="d-block w-100 h-100" alt="...">
+	                  </div>
+                  </c:forEach>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouseltrip" data-bs-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -182,84 +196,130 @@
                   <span class="visually-hidden">Next</span>
                 </button>
             </div>
-            <!--¶aπœ ©“¶bø§•´ ¥∫¬I ¡pµ∏ µ˚ª˘-->
-            <div class="container mt-2 border h-100" id="content1">
-                <div class="row justify-content-center align-items-center h-100">
-                    <!--¶aπœ-->
+            <!--ÂπªÁáàÁâá2 ÊôØÈªûÂúñÁâá-->
+<!--             <div id="carouseltripScene" class="carousel slide border mx-auto h-100" data-bs-ride="carousel"> -->
+<!--                 <div class="carousel-indicators"> -->
+<!--                   <button type="button" data-bs-target="#carouseltripScene" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button> -->
+<!--                   <button type="button" data-bs-target="#carouseltripScene" data-bs-slide-to="1" aria-label="Slide 2"></button> -->
+<!--                   <button type="button" data-bs-target="#carouseltripScene" data-bs-slide-to="2" aria-label="Slide 3"></button> -->
+<!--                 </div> -->
+<!--                 <div class="carousel-inner h-100"> -->
+<!--                   <div class="carousel-item active"> -->
+<%--                     <img src="MainPhotoTripPrintServlet?tripId=<%=trip.getTripId()%>" class="d-block w-100 h-100" alt="..."> --%>
+<!--                   </div> -->
+<%--                   <c:forEach var="scene" items="<%=sceneList%>" > --%>
+<!-- 	                  <div class="carousel-item"> -->
+<!-- 	                    <img src="" class="d-block w-100 h-100" alt="..."> -->
+<!-- 	                  </div> -->
+<%--                   </c:forEach> --%>
+<!--                 </div> -->
+<!--                 <button class="carousel-control-prev" type="button" data-bs-target="#carouseltripScene" data-bs-slide="prev"> -->
+<!--                   <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
+<!--                   <span class="visually-hidden">Previous</span> -->
+<!--                 </button> -->
+<!--                 <button class="carousel-control-next" type="button" data-bs-target="#carouseltripScene" data-bs-slide="next"> -->
+<!--                   <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
+<!--                   <span class="visually-hidden">Next</span> -->
+<!--                 </button> -->
+<!--             </div> -->
+            <!--Âú∞Âúñ ÊâÄÂú®Á∏£Â∏Ç ÊôØÈªû ËÅØÁµ° Ë©ïÂÉπ-->
+	            <div class="container mt-2 border h-100" id="content1">
+	                <div class="row justify-content-center align-items-center h-100">
+	                    <!--Âú∞Âúñ-->
+	                    <div class="col-4 h-100 mt-2 mb-2">
+<%-- 	                        <a href="${pageContext.request.contextPath}/sean/SearchServlet?action=scenesMap&tripId=<%=trip.getTripId()%>"> --%>
+	                        <a href="#">
+	                            <i class="fa-solid fa-map-location-dot h-100" id="map"></i>
+	                        </a>
+                    	</div>
+                    <!-- ÊâÄÂú®Á∏£Â∏Ç ÊôØÈªû -->
                     <div class="col-4 h-100 mt-2 mb-2">
-                        <a href="#">
-                            <i class="fa-solid fa-map-location-dot h-100" id="map"></i>
-                        </a>
+	                     <c:forEach var="site" items="<%=siteList%>" >
+	                        <span class="badge bg-secondary">${site}</span>
+                        </c:forEach>
+                        <c:forEach var="scene" items="<%=sceneList%>" >
+                        	<span class="badge bg-primary">${scene.sceneName} </span>
+                        </c:forEach>
                     </div>
-                    <!-- ©“¶bø§•´ ¥∫¬I -->
-                    <div class="col-4 h-100 mt-2 mb-2">
-                        <span class="badge bg-secondary">∑s•_•´</span>
-                        <span class="badge bg-primary">§k§˝¿Y</span>
-                        <span class="badge bg-primary">•P§kæc</span>
-                        <span class="badge bg-primary">™˜§s¶—µÛ</span>
-                        <span class="badge bg-primary">§k§˝¿Y</span>
-                        <span class="badge bg-primary">•P§kæc</span>
-                        <span class="badge bg-primary">™˜§s¶—µÛ</span>
-                        <span class="badge bg-primary">§k§˝¿Y</span>
-                        <span class="badge bg-primary">•P§kæc</span>
-                        <span class="badge bg-primary">™˜§s¶—µÛ</span>
-                    </div>
-                    <!-- ¡pµ∏ µ˚ª˘ -->
-                    <div class="col-4 h-100 mt-2 mb-2">
-                        <a href="#">
-                            <button type="button" class="btn btn-primary mb-3">
-                                <i class="fa-solid fa-message"></i>
-                                ¡p√¥∑~™Ã
-                            </button>
-                        </a>
-                        <a href="#">
-                            <button type="button" class="btn btn-primary">
-                                <i class="fa-solid fa-message"></i>
-                                ¨d¨›∞Œ¶Wµ˚ª˘
-                            </button>
-                        </a>
+                    <!-- ËÅØÁµ° Ë©ïÂÉπ -->
+                   <div class="col-4 h-100 mt-2 mb-2 ps-0 pe-0">
+                    	<div class="container ">
+                    		<div class="row align-items-center justify-content-center ">
+	                    		<div class="col ps-0 pe-0  ">
+				                        <a class="" href="#" >
+				                            <button type="button" class="btn btn-primary ">
+				                                <i class="fa-solid fa-message "> ËÅØÁπ´Ê•≠ËÄÖ</i>
+				                            </button>
+				                        </a>
+		                        </div>
+		                        <div class="col ps-0 pe-0 ">
+			                        <a class="" href="${pageContext.request.contextPath}/chu/commentArea(trip).jsp?tripId=<%=trip.getTripId()%>">
+			                            <button type="button" class="btn btn-primary">
+			                                <i class="fa-solid fa-message"> Êü•ÁúãË©ïÂÉπ</i>
+			                            </button>
+			                        </a>
+		                        </div>
+	                        </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- ¶Êµ{ƒ›© 1 -->
+            <!-- Ë°åÁ®ãÂ±¨ÊÄß1 -->
             <div class="container border h-100" id="content1" >
                 <div class="row  align-items-center h-100">
-                    <!--§Hº∆°B∂}©lÆ…∂°°Bµ≤ßÙÆ…∂°°B™˜√B°BÆw¶s°B¶¨¬√-->
+                    <!--‰∫∫Êï∏„ÄÅÈñãÂßãÊôÇÈñì„ÄÅÁµêÊùüÊôÇÈñì„ÄÅÈáëÈ°ç„ÄÅÂ∫´Â≠ò„ÄÅÊî∂Ëóè-->
                     <div class="col-6 h-100 mt-2 mb-2 ">
-                        <div>§Hº∆°G2</div>
-                        <div>∂}©l§È¥¡°G2023-10-10</div>
-                        <div>µ≤ßÙ§È¥¡°G2023-10-13</div>
-                        <div>™˜√B°GNTW 2000</div>
-                        <div>Æw¶s°G5</div>
+                        <div>Â•óÁ•®‰∫∫Êï∏Ôºö<%=trip.getPeople()%></div>
+                        <div>ÈñãÂßãÊó•ÊúüÔºö<%=trip.getStartTime()%></div>
+                        <div>ÁµêÊùüÊó•ÊúüÔºö<%=trip.getEndTime()%></div>
+                        <div>ÂÉπÊ†ºÔºöNTW <%=trip.getPrice().intValue()%></div>
+                        <div>Â∫´Â≠òÔºö<%=trip.getAmount()%></div>
                         <a class="" href="#">
                             <button type="button" class="btn btn-primary">
-                                ¶¨¬√
+                                Êî∂Ëóè
                             </button>
                         </a>
                     </div>
-                    <!--•[§J¡ ™´®Æ-->
+                    <!--Âä†ÂÖ•Ë≥ºÁâ©Ëªä-->
                     <div class="col-6 h-100">
-                        <form class="" method="" action="" >
-                            <div>•˝•[§J¡ ™´®Æ°Aµ≤±bÆ…¶AøÔº∆∂q</div>
-                            <div>Ω–øÔæ‹¡ ™´®Æ°G
+                        <form class="" method="post" action="${pageContext.request.contextPath}/shopping_tripServlet" >
+                            <div>ÂÖàÂä†ÂÖ•Ë≥ºÁâ©ËªäÔºåÁµêÂ∏≥ÊôÇÂÜçÈÅ∏Êï∏Èáè</div>
+                            <div>Ë´ãÈÅ∏ÊìáË≥ºÁâ©ËªäÔºö
                             </div>
-                            <select class="form-select me-2 mb-2" aria-label="Default select example" name="">
+                            <select class="form-select me-2 mb-2" aria-label="Default select example" name="cart_id">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
                             </select>
-                            <input type="submit" class="btn btn-primary"  value="•[§J¡ ™´®Æ">
+                            <input type="submit" class="btn btn-primary"  value="Âä†ÂÖ•Ë≥ºÁâ©Ëªä">
+                            <input type="hidden" name="tripId" value=<%=trip.getTripId()%>>
+                            <input type="hidden" name="action" value="trip_goShopping">
                         </form>
                     </div>
                 </div>
             </div>
             <div class="container border h-100" id="content1" >
                 <div class="row align-items-center h-100">
-                    <!--¨°∞ §∫Æe-->
+                    <!--Ë°åÁ®ãË°®-->
                     <div class="col border h-100">
                         <div class="item h-100">
-                            <h3 class="mt-2">¨°∞ §∫Æe</h3>
-                            <p class="text-wrap">¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe¨°∞ §∫Æe</p>
+                            <h3 class="mt-2">Ë°åÁ®ãË°®</h3>
+                            <c:forEach var="itinerary" items="<%=itineraryList%>" >
+                            	<p class="text-wrap">${itinerary.sceneName}Ôºö${itinerary.beginTime}</p><br>
+                            </c:forEach>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+            <div class="container border h-100" id="content1" >
+                <div class="row align-items-center h-100">
+                    <!--Ê¥ªÂãïÂÖßÂÆπ-->
+                    <div class="col border h-100">
+                        <div class="item h-100">
+                            <h3 class="mt-2">Ê¥ªÂãïÂÖßÂÆπ</h3>
+                            <p class="text-wrap"><%=trip.getContent()%></p>
                         </div> 
                     </div>
                 </div>

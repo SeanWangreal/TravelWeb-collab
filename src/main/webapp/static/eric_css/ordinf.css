@@ -1,6 +1,6 @@
 @font-face {
     font-family: '粉圓';
-    src: url('../font/jf-openhuninn-2.0.ttf');
+    src: url('/static/font/jf-openhuninn-2.0.ttf');
     font-display: swap;
 }
 :root {
@@ -119,7 +119,19 @@ nav.st {
     width: 265px;
     position: relative;
     top: 105px;
-    left: 60px;
+/*     left: 20px; */
+    display: flex;
+    flex-direction: column;
+    z-index: 3;
+    /* border-radius: 15px; */
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.left2 {
+    width: 265px;
+    position: relative;
+    top: 105px;
+    left: 84px;
     display: flex;
     flex-direction: column;
     z-index: 3;
@@ -163,7 +175,7 @@ button.left_btn:hover {
     padding-bottom: 50px;
     font-family: "粉圓";
     font-size: 16px;
-    background-color: rgb(120, 49, 49);
+    background-color: #F3F3F3;
     width: calc(100% - 360px - 70px);
     color: black;
     min-height: calc(800px - 125px);

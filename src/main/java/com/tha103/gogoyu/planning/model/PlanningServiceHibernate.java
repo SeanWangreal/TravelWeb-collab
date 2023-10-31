@@ -60,6 +60,9 @@ public class PlanningServiceHibernate {
 	}
 
 
-
+	public Integer findCartByPlanning(Integer planId) {
+		
+		return dao. findCartByPlanning(planId);
+	}
 	
 }

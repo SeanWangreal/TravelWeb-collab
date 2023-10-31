@@ -107,6 +107,10 @@ public class Trip_ordServiceHibernate implements Trip_ordService {
 	
 	
 	
+	public Integer queryProduct(Integer cusId , Integer tripId) {
+		return dao.queryProduct(tripId, cusId);
+	}
+	
 	public Map<Trip_ord, List<String>> getTripOrdVo(Integer cartId , Integer cusId){
 		return dao.getTripOrdVo(cartId , cusId);
 	}
@@ -140,6 +144,8 @@ public class Trip_ordServiceHibernate implements Trip_ordService {
 		return dao.getTripOrdByCusId(cusId);
 	}
 	
-	
+	public void updateCartNum(Integer plan_id , Integer tripOrdId) {
+		dao.updateCartNum(plan_id ,tripOrdId);
+	}
 	
 }

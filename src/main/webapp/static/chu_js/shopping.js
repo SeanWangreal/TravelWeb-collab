@@ -60,46 +60,7 @@ $(function () {//domcontentloaded event
     }
 
 
-    // ==================================jq=================================
-
-
-    // 點選"前往付款頁面後"會到"明細表 start"
-//    $("div.pay_btn button.b.pay").on("click", function (e) {
-//        var con = confirm("是否確定要進行交易?");
-//
-//        if (con) {
-//            window.location.href = "http://127.0.0.1:5500/%E6%98%8E%E7%B4%B0%E8%A1%A8(hotel).html";
-//        }
-//
-//    })
-    // 點選"前往付款頁面後"會到"明細表 end"
-
-
-
-    // 移除訂單start
-//    $("button.b.remove").on("click", function (e) {
-//        var rem = confirm("是否確定要移除訂單?");
-//
-//        if (rem) {
-//            if ($("div.plan_tab_1.list").length == 0 ) {
-//                $("#tab_plan1").append('<div class="no-items">暫無商品</div>');
-//                
-//            }
-//        }
-//
-//    })
-    //移除訂單end
-
-
-
-
-    // console.log($("div.plan_tab_1.list").length);
-
-
-
-
-
-
+  
     let tab_title = $("ul.tab_list li a.tab");
     //籤換頁籤start
     tab_title.on("click", function () {

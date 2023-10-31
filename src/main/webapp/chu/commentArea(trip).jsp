@@ -14,8 +14,7 @@ response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
 response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setDateHeader("Expires", 0);
 
-session.setAttribute("tripId", 5);
-Integer tripId =(Integer)session.getAttribute("tripId");
+Integer tripId = Integer.valueOf(request.getParameter("tripId"));
 
 Trip_ordServiceHibernate TOSH = new Trip_ordServiceHibernate();
 TripServiceHibernate TSH = new TripServiceHibernate();
