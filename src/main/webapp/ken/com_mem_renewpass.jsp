@@ -178,11 +178,7 @@ button.left_btn:hover {
 					style="color: black;"></i> 會員資料
 				</a>
 			</div>
-			<div class="mem-data">
-				<a class="left_btn"> <i class="fa-solid fa-file-invoice"
-					style="color: black;"></i> 訂單資訊
-				</a>
-			</div>
+			
 		</aside>
 	</nav>
 	<FORM METHOD="post" ACTION="${pageContext.request.contextPath}/CompanyServlet">
@@ -209,7 +205,7 @@ button.left_btn:hover {
 					<br> 
 <%-- 					<a href="${pageContext.request.contextPath}/CompanyServlet?action=getPSForUpdate&compId=<%= company.getCompId()%>">送出修改</a> --%>
 					
-					<input type="submit" value="送出修改">
+					<input type="submit" value="送出修改" >
 				</div>
 			</div>
 		</div>

@@ -207,7 +207,7 @@ article {
 					itineraryMap = new LinkedHashMap<Trip, Set<Itinerary>>();
 					String compString = (String) request.getSession().getAttribute("compId");
 					if (compString == null ){
-						response.sendRedirect(request.getContextPath() + "/sean/select_page.jsp");
+						response.sendRedirect(request.getContextPath() + "/ken/com_mem_signin.jsp");
 						return;
 					}
 					Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId"));
@@ -421,14 +421,14 @@ article {
 										<c:if test="${trip.mainPhoto != null}">
 											<h2>行程搜尋照片</h2>
 											<div class="drag">
-												<img src="MainPhotoTripPrintServlet?tripId=${trip.tripId}"
+												<img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${trip.tripId}"
 													style="max-width: 100%">
 											</div>
 											<h2>行程詳細照片</h2>
 											<div class="multi-photo">
 												<c:forEach var="pics" items="${map.get(trip)}">
 													<img class="imgs"
-														src="TripPhotoPrintServlet?tripPhotoId=${pics.tripPhotoId}"
+														src="${pageContext.request.contextPath}/sean/TripPhotoPrintServlet?tripPhotoId=${pics.tripPhotoId}"
 														style="width: 23%">
 												</c:forEach>
 											</div>

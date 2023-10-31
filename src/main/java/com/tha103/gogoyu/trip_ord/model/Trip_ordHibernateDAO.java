@@ -176,10 +176,31 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 		}
 		return -1 ;
 	}
-
-	public Integer updateAmountAndPrice(Integer amount ,Integer tripOrdId) {
+	
+	public Integer queryProduct(Integer tripId , Integer cusId) {
+		try {
+			getSession().beginTransaction();
+			Trip_ord query = getSession().createQuery("from Trip_ord where tripId = :tripId and cusId = :cusId and ordStatus = 0" , Trip_ord.class)
+													.setParameter("tripId", tripId)
+													.setParameter("cusId", cusId)
+													.uniqueResult();
+			
+			getSession().getTransaction().commit();
 		
-		System.out.println(amount);
+			return  query == null ? 1 : -1 ;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+			return -2 ;
+		}
+	
+	}
+	
+	
+	
+	public Integer updateAmountAndPrice(Integer amount ,Integer tripOrdId) {
+
 		try {
 			getSession().beginTransaction();
 			Query query = getSession().createQuery("update Trip_ord set amount = :amount  where tripOrdId = :tripOrdId");

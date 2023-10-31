@@ -193,7 +193,7 @@ if (company == null){
 				<br> <label class="">負責人&ensp;<span><%= company.getPrincipalName()%></span></label>
 				<br> <label class="">負責人電話&ensp;<span><%= company.getCompPhone()%></span></label>
 				<br> <label class="">信箱&ensp;<span><%= company.getCompMail()%></span></label>
-				<br> <label class="">廠商別&ensp;<span><%= company.getCompType()%></span></label>
+				<br> <label class="">廠商別&ensp;<span>${company.compType == 0 ? "旅行業" : "飯店業"}</span></label>
 				<br>
 				<a href="" type="button" class="hotel-btn">查看飯店資訊</a>
 				<FORM METHOD="post" ACTION="${pageContext.request.contextPath}/CompanyServlet" >
@@ -208,13 +208,14 @@ if (company == null){
 <%-- 				<input type="hidden" name="compId" value="${company.CompId}"> --%>
 <!-- 				<input type="hidden" name="action" value="getOneUpdate"> -->
 				<div id="change_pass"> 
-					<a href="${pageContext.request.contextPath}/ken/com_mem_renewpass.jsp">修改密碼</a>
+					<a href="${pageContext.request.contextPath}/ken/com_mem_renewpass.jsp" >修改密碼</a>
  				</div> 
 <!-- 			</FORM> -->
 			
 			<div style="display: table-cell;" >
-				<div style="border: 1px solid grey; height: 200px; width: 200px; position: relative; right: 0px; margin-top: 10px;">
-					<img src="" alt="">
+			
+				<div style="border: 0px solid grey; height: 200px; width: 200px; position: relative; right: 0px; margin-top: 10px;">
+					<img width="200" height="200" class="imgs" src="${pageContext.request.contextPath}/CompPhotoPrintHServlet?comp_id=<%= company.getCompId()%>" >
 				</div>
 				<br><br>
 					<form  METHOD="post" ACTION="${pageContext.request.contextPath}/Hotel_infoServlet" >

@@ -23,5 +23,6 @@ public interface Trip_ordDAO_Interface {
 	public Integer updateStatusAndRemark(String remark , Integer tripOrdId  ,BigDecimal profit , BigDecimal commission , BigDecimal totalPrice ,Timestamp ordTime);
 	public Integer updateAmountAndPrice(Integer amount  ,Integer tripOrdId); 
 	public Integer updateCartNum(Integer planId , Integer tripOrdId);
+	public Integer queryProduct(Integer tripId , Integer cusId);
 }
 
