@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -11,7 +11,7 @@
 	crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>µn¤J</title>
+<title>ç™»å…¥</title>
 <link href="../dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="../static/eric_css/ericheader.css">
 <style>
@@ -28,7 +28,7 @@
 			style="color: #ff9500; background-color: transparent;"></i>Journel
 		</a>
 		<div class="head">
-			<button type="menu" class="head_btn" aria-label="³W¹º¦æµ{" id="shop">
+			<button type="menu" class="head_btn" aria-label="è¦åŠƒè¡Œç¨‹" id="shop">
 				<i class="fa-solid fa-suitcase-rolling"
 					style="color: black; font-size: 30px; background-color: transparent;"></i>
 			</button>
@@ -41,7 +41,7 @@
 					style="color: black; font-size: 30px; width: 30px; background-color: transparent;"></i>
 			</button>
 			<button type="button" class="head_btn">
-				<a class="profile" href="#"> <i class="fa-solid fa-user"
+				<a class="profile" href="${pageContext.request.contextPath}/eric/personal_detail.jsp"> <i class="fa-solid fa-user"
 					style="color: black; font-size: 30px; background-color: transparent;"></i>
 				</a>
 			</button>
@@ -72,28 +72,28 @@
 					<div class>
 						<div
 							class="d-flex align-items-center justify-content-between mb-3">
-							<h3>µn¤J±b¸¹</h3>
+							<h3>ç™»å…¥å¸³è™Ÿ</h3>
 						</div>
 						<div class="form-floating mb-3">
 							<input type="text" class="form-control" id="floatingInput"
-								name="cusAccount"> <label for="floatingInput">±b¸¹</label>
+								name="cusAccount"> <label for="floatingInput">å¸³è™Ÿ</label>
 						</div>
 						<div class="form-floating mb-4">
-							<input type="text" class="form-control" id="floatingPassword"
-								name="cusPassword"> <label for="floatingPassword">±K½X</label>
+							<input type="password" class="form-control" id="password"
+								name="cusPassword"> <label for="floatingPassword">å¯†ç¢¼</label>
 						</div>
 						<div
 							class="d-flex align-items-center justify-content-between mb-4">
-							<a href="">Forgot Password</a>
+							<a href="${pageContext.request.contextPath}/eric/forgotpassword.jsp">Forgot Password</a>
 						</div>
 						<button type="submit" class="btn btn-primary py-3 w-100 mb-4"
-							name="action" value="getOne_For_Login">µn¤J</button>
+							name="action" value="getOne_For_Login">ç™»å…¥</button>
 						<p class="text-center mb-0">
-							¨S¦³±b¸¹¶Ü? <a href="signup_info.jsp">ÂI¦¹µù¥U</a>
+							æ²’æœ‰å¸³è™Ÿå—Ž? <a href="${pageContext.request.contextPath}/eric/signin_info.jsp">é»žæ­¤è¨»å†Š</a>
 						</p>
-						<%-- ¿ù»~ªí¦C --%>
+						<%-- éŒ¯èª¤è¡¨åˆ— --%>
 						<c:if test="${not empty errorMsgs}">
-							<font style="color: red">½Ð­×¥¿¥H¤U¿ù»~:</font>
+							<font style="color: red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 							<ul>
 								<c:forEach var="message" items="${errorMsgs}">
 									<li style="color: red">${message}</li>
@@ -112,6 +112,18 @@
 
 
 	<script>
+	
+	function ok(){
+		  let pass = document.getElementById('password');
+		  let word = pass.getAttribute('type');
+		  console.log(word);
+		  if(word == 'password'){
+		    pass.setAttribute('type','text');
+		  }
+		  else{
+		    pass.setAttribute('type','password');
+		  }
+		}
 		var msg_btn = document.getElementById("msg");
 		var msg_side = document.getElementById("msg_side");
 		var info_btn = document.getElementById("info");
