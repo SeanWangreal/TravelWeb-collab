@@ -86,7 +86,7 @@ public class shopping_tripServlet extends HttpServlet {
 						errorMessages.add("<i style = 'font-size :30px'>此商品已無庫存或者日期輸入錯誤!</i>");						
 					}
 					req.setAttribute("errorMessages", errorMessages);
-					returnForPage("/chu/shopping(hotel).jsp", res, req);
+					returnForPage("/sean/SearchServlet.java?action=addTripCarErrorMsg&tripId="+tripId, res, req);
 				}
 			} else { // 導回登入
 				session.setAttribute("location", req.getRequestURI()); // 如果沒登入先記錄現在的位置(網址)

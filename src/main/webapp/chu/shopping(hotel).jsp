@@ -150,13 +150,13 @@ if (cusId != null) {
 
 
 	<div class="plan_tab">
-		<c:if test="${not empty errorMessages}">
-			<div class="error-message" style="color: red; font-size: 25px; top: 15%; position: absolute; left: 40%">
-				<c:forEach var="message" items="${errorMessages}">
-					<li style="color:red">${message}</li>
-				</c:forEach>
-			</div>
-		</c:if>
+<%-- 		<c:if test="${not empty errorMessages}"> --%>
+<!-- 			<div class="error-message" style="color: red; font-size: 25px; top: 15%; position: absolute; left: 40%"> -->
+<%-- 				<c:forEach var="message" items="${errorMessages}"> --%>
+<%-- 					<li style="color:red">${message}</li> --%>
+<%-- 				</c:forEach> --%>
+<!-- 			</div> -->
+<%-- 		</c:if> --%>
 		<div class="tab_list_block">
 
 			<ul class="tab_list">
@@ -326,7 +326,7 @@ if (cusId != null) {
 										action="${pageContext.request.contextPath}/sean/SearchServlet"
 										method="post">
 										<button class="b infos">商品資訊</button>
-										<input type="hidden" name="trip_id" value="${tripVo1.tripId}">
+										<input type="hidden" name="tripId" value="${tripVo1.tripId}">
 										<input type="hidden" name="action"
 											value="getProductDetailTrip">
 									</form>
@@ -536,7 +536,7 @@ if (cusId != null) {
 										action="${pageContext.request.contextPath}/sean/SearchServlet"
 										method="post">
 										<button class="b infos">商品資訊</button>
-										<input type="hidden" name="trip_id" value="${tripVo2.tripId}">
+										<input type="hidden" name="tripId" value="${tripVo2.tripId}">
 										<input type="hidden" name="action"
 											value="getProductDetailTrip">
 									</form>
@@ -742,7 +742,7 @@ if (cusId != null) {
 										action="${pageContext.request.contextPath}/sean/SearchServlet"
 										method="post">
 										<button class="b infos">商品資訊</button>
-										<input type="hidden" name="trip_id" value="${tripVo3.tripId}">
+										<input type="hidden" name="tripId" value="${tripVo3.tripId}">
 										<input type="hidden" name="action"
 											value="getProductDetailTrip">
 									</form>
@@ -945,7 +945,7 @@ if (cusId != null) {
 										action="${pageContext.request.contextPath}/sean/SearchServlet"
 										method="post">
 										<button class="b infos">商品資訊</button>
-										<input type="hidden" name="trip_id" value="${tripVo4.tripId}">
+										<input type="hidden" name="tripId" value="${tripVo4.tripId}">
 										<input type="hidden" name="action"
 											value="getProductDetailTrip">
 									</form>
@@ -1148,7 +1148,7 @@ if (cusId != null) {
 										action="${pageContext.request.contextPath}/sean/SearchServlet"
 										method="post">
 										<button class="b infos">商品資訊</button>
-										<input type="hidden" name="trip_id" value="${tripVo5.tripId}">
+										<input type="hidden" name="tripId" value="${tripVo5.tripId}">
 										<input type="hidden" name="action"
 											value="getProductDetailTrip">
 									</form>
