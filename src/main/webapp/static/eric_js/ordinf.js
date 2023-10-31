@@ -115,31 +115,4 @@ $(".ordinf_btn").each(function() {
 
 //新增會員事件$("ul.list_consumer").on("click", "button.btn_cust_update", function() {
 		//alert("會員更新");
-		let custId=($(this).closest("li").find("span.spn_custId")).attr("data-id");
-		let custName=($(this).closest("li").find("input.inp_custName")).val().trim();
-		let custGender=($(this).closest("li").find("[name=custGender]:checked")).val();
-		let custAccount=($(this).closest("li").find("input.inp_custAccount")).val().trim();
-		let custMail=($(this).closest("li").find("input.inp_custMail")).val().trim();
-		let custPhone=($(this).closest("li").find("input.inp_custPhone")).val().trim();
-		let custAddress=($(this).closest("li").find("input.inp_custAddress")).val().trim();
-var custPoint = "/eric/ConsumerServlet";
-	var host = window.location.host;
-	var path = window.location.pathname;
-	var webCtx = path.substring(0, path.indexOf('/', 1));
-	var custEndPointURL = "http://" + window.location.host + webCtx + custPoint;
-$(document).ready(function() {
-	$("#mailButton").click(function() {
-		$.ajax({
-			type: "POST", // 使用POST方法提交表单数据
-			url: compEndPointURL, // 您的目标URL
-			data: $("#myForm").serialize(), // 使用serialize()方法获取表单数据
-			success: function(response) {
-				console.log();
-				// 这里可以根据需要更新页面内容或执行其他操作
-			},
-			error: function() {
-			
-			}
-		});
-	});
-});
+		

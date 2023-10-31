@@ -7,6 +7,7 @@ import java.math.RoundingMode;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
@@ -40,31 +41,27 @@ public class shopping_hotelServlet extends HttpServlet {
 
 		HttpSession session = req.getSession();
 
-		String Timestart = "2023-10-17"; // 示例日期字符串
-		String Timeend = "2023-10-20"; // 示例日期字符串
-		Date checkInTime = Date.valueOf(Timestart);
-		Date checkOutTime = Date.valueOf(Timeend);
+//		String Timestart = "2023-10-17"; // 示例日期字符串
+//		String Timeend = "2023-10-20"; // 示例日期字符串
+//		Date checkInTime = Date.valueOf(Timestart);
+//		Date checkOutTime = Date.valueOf(Timeend);
 
 		String action = req.getParameter("action");
 
 //=========================購物車(飯店)新增===============================
 		if ("room_goShopping".equals(action)) {
 			Integer cusId = (Integer) session.getAttribute("cusId");
-//			 Date checkInTime = Date.valueOf(req.getParameter("checkInTime"));
-//			 Date checkOutTime = Date.valueOf(req.getParameter("checkOutTime"));
+			 Date checkInTime = Date.valueOf(req.getParameter("checkInTime"));
+			 Date checkOutTime = Date.valueOf(req.getParameter("checkOutTime"));
 			Integer roomId = Integer.valueOf(req.getParameter("roomId"));
 			Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
 			RoomStockServiceHibernate RSSH = new RoomStockServiceHibernate();
 			
 			
-			
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	        LocalDate startDate = LocalDate.parse(Timestart, formatter);
-	        LocalDate endDate = LocalDate.parse(Timeend, formatter);
-	        long days = endDate.toEpochDay() - startDate.toEpochDay() ;  
 	        
-	        
-	        
+	        long times = Math.abs(checkOutTime.getTime() - checkInTime.getTime());
+	        long countDays = TimeUnit.DAYS.convert(times, TimeUnit.MILLISECONDS); 
+	        System.out.println(countDays+"aaaa");
 	        
 	        
 			if (cusId != null) {// 如果session有cus_id資料代表有人登入
@@ -79,7 +76,7 @@ public class shopping_hotelServlet extends HttpServlet {
 					Integer compId = RSH.getRoom(roomId).getCompId();
 					// 跟room_ord 從room拿price
 
-					BigDecimal totalPrice = RSH.getRoom(roomId).getPrice().multiply(new BigDecimal(days)).setScale(0, RoundingMode.HALF_UP);
+					BigDecimal totalPrice = RSH.getRoom(roomId).getPrice().multiply(new BigDecimal(countDays)).setScale(0, RoundingMode.HALF_UP);
 
 					// comm = price *10%
 					BigDecimal commission = totalPrice.multiply(new BigDecimal(0.1)).setScale(0, RoundingMode.HALF_UP);

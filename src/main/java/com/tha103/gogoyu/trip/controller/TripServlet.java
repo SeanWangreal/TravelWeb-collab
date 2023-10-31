@@ -243,6 +243,7 @@ public class TripServlet extends HttpServlet {
 		byte[] detail = new byte[22];
 		String[] allDetail = req.getParameterValues("detail");
 		for (String de : allDetail) {
+			System.out.println(de);
 			switch (de) {
 			case "taipeiCity":
 				detail[0] = (byte) 1;
@@ -283,7 +284,7 @@ public class TripServlet extends HttpServlet {
 			case "pingtungCounty":
 				detail[12] = (byte) 1;
 				break;
-			case " yilanCity":
+			case "yilanCity":
 				detail[13] = (byte) 1;
 				break;
 			case "hualienCity":

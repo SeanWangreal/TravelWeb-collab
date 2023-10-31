@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.tha103.gogoyu.planning.model.Planning;
+
 import util.Util;
 
 public class ConsumerJDBCDAO implements ConsumerDAO_interface {
@@ -250,6 +252,7 @@ public class ConsumerJDBCDAO implements ConsumerDAO_interface {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 	
 

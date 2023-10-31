@@ -20,7 +20,7 @@
 
 <body>
 	<nav class="st">
-		<a class="word" id="home" href="#">Home</a> <a class="word" id="hotel"
+		<a class="word" id="home" href="${pageContext.request.contextPath}/mhl/home.jsp">Home</a> <a class="word" id="hotel"
 			href="#">HOT<i class="fa-solid fa-fire"
 			style="color: #ff9500; background-color: transparent;"></i>Hotel
 		</a> <a class="word" id="journel" href="#">HOT<i
@@ -29,8 +29,9 @@
 		</a>
 		<div class="head">
 			<button type="menu" class="head_btn" aria-label="規劃行程" id="shop">
-				<i class="fa-solid fa-suitcase-rolling"
-					style="color: black; font-size: 30px; background-color: transparent;"></i>
+				<a class="" href="${pageContext.request.contextPath}/chu/shopping(hotel).jsp">
+				<i class="fa-solid fa-suitcase-rolling icon" style="color: black; font-size: 30px; background-color: transparent;"></i>
+				</a>
 			</button>
 			<button type="menu" class="head_btn" id="msg">
 				<i class="fa-regular fa-message"

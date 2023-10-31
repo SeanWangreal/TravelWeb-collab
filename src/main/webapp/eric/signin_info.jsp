@@ -64,7 +64,7 @@ div#search {
 
 <body style="background-color: #d9d2c5;">
 	<nav class="st">
-		<a class="word" id="home" href="#">Home</a> <a class="word" id="hotel"
+		<a class="word" id="home" href="${pageContext.request.contextPath}/mhl/home.jsp">Home</a> <a class="word" id="hotel"
 			href="#">HOT<i class="fa-solid fa-fire"
 			style="color: #ff9500; background-color: transparent;"></i>Hotel
 		</a> <a class="word" id="journel" href="#">HOT<i
@@ -73,8 +73,9 @@ div#search {
 		</a>
 		<div class="head">
 			<button type="menu" class="head_btn" aria-label="規劃行程" id="shop">
-				<i class="fa-solid fa-suitcase-rolling"
-					style="color: black; font-size: 30px; background-color: transparent;"></i>
+				<a class="" href="${pageContext.request.contextPath}/chu/shopping(hotel).jsp">
+				<i class="fa-solid fa-suitcase-rolling icon" style="color: black; font-size: 30px; background-color: transparent;"></i>
+				</a>
 			</button>
 			<button type="menu" class="head_btn" id="msg">
 				<i class="fa-regular fa-message"
@@ -133,18 +134,6 @@ div#search {
 								size="45"> <label>電子郵箱</label>
 						</div>
 
-						
-
-
-
-
-						
-
-						
-
-
-
-						
 						<button type="submit" name="action" value="mail" id="mailButton"
 							class="btn btn-primary py-3 w-100 mb-4">寄送驗證碼</button>
 						<div class="form-floating mb-3">
