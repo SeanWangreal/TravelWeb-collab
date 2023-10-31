@@ -294,6 +294,13 @@
                                 <option value="5">5</option>
                             </select>
                             <input type="submit" class="btn btn-primary"  value="加入購物車">
+                            <c:if test="${not empty errorMessages}">
+							   <div class="error-message" style="color: red; font-size: 25px; top: 15%; position: absolute; left: 40%">
+							    <c:forEach var="message" items="${errorMessages}">
+							     <li style="color:red">${message}</li>
+							    </c:forEach>
+							   </div>
+							  </c:if>
                             <input type="hidden" name="tripId" value=<%=trip.getTripId()%>>
                             <input type="hidden" name="action" value="trip_goShopping">
                         </form>

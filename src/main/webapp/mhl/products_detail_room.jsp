@@ -241,7 +241,7 @@
 											      loading="lazy"
 											      allowfullscreen
 											      referrerpolicy="no-referrer-when-downgrade"
-											      src="https://www.google.com/maps/embed/v1/place?key=#
+											      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAInnBRglvKKBNHyr2OIw4-4ySCv-enRUY
 											        &q=<%=company.getCompAddress()%>&zoom=15">
 											    </iframe>
 									      	</div>
@@ -277,7 +277,7 @@
 														      loading="lazy"
 														      allowfullscreen
 														      referrerpolicy="no-referrer-when-downgrade"
-														      src="https://www.google.com/maps/embed/v1/search?key=#
+														      src="https://www.google.com/maps/embed/v1/search?key=AIzaSyAInnBRglvKKBNHyr2OIw4-4ySCv-enRUY
 														      &q=<%=company.getCompAddress()%>附近休閒文藝景點">
 														    </iframe>
 												      	</div>
@@ -304,7 +304,7 @@
                     	<div class="container ">
                     		<div class="row align-items-center justify-content-center ">
 	                    		<div class="col ps-0 pe-0  ">
-				                        <a class="" href="#" >
+				                        <a class="" href="${pageContext.request.contextPath}/chu/commentArea(hotel).jsp?roomId=<%=room.getRoomId()%>" >
 				                            <button type="button" class="btn btn-primary ">
 				                                <i class="fa-solid fa-message "> 聯繫業者</i>
 				                            </button>
@@ -369,6 +369,13 @@
                             <button type="submit" class="btn btn-primary">
                                 加入購物車
                             </button>
+                            <c:if test="${not empty errorMessages}">
+							   <div class="error-message" style="color: red; font-size: 25px; top: 15%; position: absolute; left: 40%">
+							    <c:forEach var="message" items="${errorMessages}">
+							     <li style="color:red">${message}</li>
+							    </c:forEach>
+							   </div>
+							  </c:if>
                         </form>
                     </div>
                 </div>
