@@ -251,13 +251,10 @@ public class Room_stockHibernateDAO implements Room_stockDAO_interface {
 					.setParameter("checkInTime", checkInTime)
 					.setParameter("checkOutTime", newDate)
 					.setParameter("roomId", roomId).list();
-			System.out.println(newDate+"aaaaaaaaa");//2023-10-19
 			
 			for (Room_stock roomStock : list) {
 				Integer stock = roomStock.getStock();
-				System.out.println(stock+"12321321kdsfkdsl");//2
-				 stock -= amount ;//1
-					System.out.println(stock+"²Ä¤G­Ó");//1
+				 stock -= amount ;
 				roomStock.setStock(stock);
 				getSession().update(roomStock);
 			}
