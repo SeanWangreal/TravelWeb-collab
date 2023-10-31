@@ -330,7 +330,7 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 						.uniqueResult();
 			} else if ("review".equals(ordOrReview)) {
 				NativeQuery<Trip_ord> query = getSession()
-						.createNativeQuery( "select * from trip_ord where comp_id = :compId and ord_status != 0 and score is not null order by ord_time desc  limit :beginCount , 5 ", Trip_ord.class);
+						.createNativeQuery( "select * from trip_ord where comp_id = :compId and ord_status != 0 and score is not null order by comments_time desc  limit :beginCount , 5 ", Trip_ord.class);
 				query.setParameter("compId", compId);
 				query.setParameter("beginCount", beginCount);
 				list = query.list();

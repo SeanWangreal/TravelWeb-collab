@@ -99,7 +99,7 @@ Company company = (Company) request.getAttribute("Company");
 	                        </div>
 	                       
 	                        <div class="form-floating mb-4">
-	                            <input type="text" class="form-control" id="floatingPassword" name="compmail">
+	                            <input type="text" class="form-control" id="floatingPassword" name="compmail" value="${compmail}">
 	                            <label for="floatingPassword">信箱</label>
 	                            <button type="submit" class="btn btn-primary py-0 w-20 mb-4" name="action" value="mail">寄驗證碼</button>
 	                        </div>

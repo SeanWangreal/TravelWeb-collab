@@ -193,8 +193,12 @@ if (company == null){
 				<br> <label class="">負責人&ensp;<span><%= company.getPrincipalName()%></span></label>
 				<br> <label class="">負責人電話&ensp;<span><%= company.getCompPhone()%></span></label>
 				<br> <label class="">信箱&ensp;<span><%= company.getCompMail()%></span></label>
-				<br> <label class="">廠商別&ensp;<span><%= company.getCompType()%></span></label>
+				<br> <label class="">廠商別&ensp;<span>旅行業</span></label>
 				<br>
+				<FORM METHOD="post" ACTION="${pageContext.request.contextPath}/CompanyServlet" >
+					<button type = "submit" class="hotel-btn">登出</button>
+					<input type="hidden" name="action" value="signout">
+				</FORM>
 			</div>
 			<FORM METHOD="post" ACTION="CompanyServlet" >
 <!-- 				<div id="change_pass"> -->
@@ -209,8 +213,8 @@ if (company == null){
 			</FORM>
 			
 			<div style="display: table-cell;" >
-				<div style="border: 1px solid grey; height: 200px; width: 200px; position: relative; right: 0px; margin-top: 10px;">
-					<img src="" alt="">
+				<div style="border: 0px solid grey; height: 200px; width: 200px; position: relative; right: 0px; margin-top: 10px;">
+					<img width="200" height="200" class="imgs" src="${pageContext.request.contextPath}/CompPhotoPrintHServlet?comp_id=<%= company.getCompId()%>" >
 				</div>
 			</div>
 				

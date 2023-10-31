@@ -6,24 +6,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-
 import java.security.SecureRandom;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -37,8 +26,8 @@ import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 import com.tha103.gogoyu.consumer.model.Consumer;
-import com.tha103.gogoyu.consumer.model.MailService;
 import com.tha103.gogoyu.consumer.model.ConsumerServiceHibernate;
+import com.tha103.gogoyu.consumer.model.MailService;
 import com.tha103.gogoyu.planning.model.PlanningServiceHibernate;
 
 @WebServlet("/eric/ConsumerServlet")
