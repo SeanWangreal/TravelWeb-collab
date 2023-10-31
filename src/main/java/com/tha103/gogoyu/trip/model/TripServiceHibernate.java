@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.tha103.gogoyu.itinerary.model.Itinerary;
@@ -158,7 +159,7 @@ public class TripServiceHibernate implements TripService {
 		dao.updateAmount(amount , tripId);
 	}
 	
-	public List<Trip> searchTrip(String site, Date startTime, Date endTime, Integer number){
+	public Map<Trip, String> searchTrip(String site, Date startTime, Date endTime, Integer number){
 		return dao.searchTrip(site, startTime, endTime, number);
 	}
 	

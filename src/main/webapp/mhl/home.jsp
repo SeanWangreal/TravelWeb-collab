@@ -124,16 +124,16 @@
         </div>
         <aside class="msg all_side nothing" id="msg_side">
             <div class="nothing">
-                4則未讀訊息<br>
+                訊息<br>
                 <a class="btn btn-primary" href="#" role="button">查看即時訊息</a>
             </div>
         </aside>
         <aside class="info all_side nothing" id="info_side">
-            3則訂單已完成<br>
+            訂單<br>
             <a class="btn btn-primary" href="#" role="button">查看所有訂單</a>
         </aside>
         <aside class="shop all_side nothing" id="shop_side">
-            3個商品在購物車內<br>
+            購物車<br>
             <a class="btn btn-primary" href="#" role="button">查看購物車</a>
         </aside>
     </nav>

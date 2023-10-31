@@ -261,7 +261,7 @@
                         <!--搜尋結果-->
                         <div class="d-flex flex-column mb-4">
                             <!--journey商品-->
-                            <c:forEach var="tripVO" items="${searchTripResult}" >
+                            <c:forEach var="tripVO" items="${searchTripResult.keySet()}" >
                             <div class="container border">
                                 <div class="row">
                                     <!--商品圖-->
@@ -289,7 +289,7 @@
                                                 <!--評等-->
                                                 <div  class="count_star">  
                                                     <a href="#">
-                                                        <i class="fa-solid fa-star">8.7</i>
+                                                        <i class="fa-solid fa-star">${searchTripResult.get(tripVO)}</i>
                                                     </a>
                                                 </div>
                                                 <!--價格-->

@@ -130,7 +130,7 @@ div#search {
 						<div class="form-floating mb-3">
 							<input type="TEXT" class="form-control" id="floatingPassword"
 								name="cusMail"
-								value="<%=(consumer == null) ? "" : consumer.getCusMail()%>"
+								value="${mail}"
 								size="45"> <label>電子郵箱</label>
 						</div>
 
