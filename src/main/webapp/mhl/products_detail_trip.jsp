@@ -4,6 +4,7 @@
 <%@ page import="com.tha103.gogoyu.trip.model.*" %>
 <%@ page import="com.tha103.gogoyu.itinerary.model.*" %>
 <%@ page import="com.tha103.gogoyu.scene.model.*" %>
+<%@ page import="com.tha103.gogoyu.company.model.*" %>
 
 <%
 	List<Object> list = (List<Object>)request.getAttribute("productDetailTrip");
@@ -11,7 +12,7 @@
 	List<Integer> tripPhotoIdList = (List<Integer>)list.get(1);
 	List<Itinerary> itineraryList = (List<Itinerary>)list.get(2);
 	List<Scene> sceneList = (List<Scene>)list.get(3);
-	String compName = (String)list.get(4);
+	Company company = (Company)list.get(4);
 	List<String> siteList = (List<String>)list.get(5);
 %>
 
@@ -134,28 +135,28 @@
                 <div class="container-fluid justify-content-center">
                     <form class="d-flex" method="post" action="${pageContext.request.contextPath}/sean/SearchServlet">
                     <select class="form-select me-2" name="site" aria-label="Default select example">
-                        <option value="台北市">台北市</option>
-                        <option value="新北市">新北市</option>
-                        <option value="桃園市">桃園市</option>
-                        <option value="台中市">台中市</option>
-                        <option value="台南市">台南市</option>
-                        <option value="高雄市">高雄市</option>
-                        <option value="新竹縣">新竹縣</option>
-                        <option value="苗栗縣">苗栗縣</option>
-                        <option value="彰化縣">彰化縣</option>
-                        <option value="南投縣">南投縣</option>
-                        <option value="雲林縣">雲林縣</option>
-                        <option value="嘉義縣">嘉義縣</option>
-                        <option value="屏東縣">屏東縣</option>
-                        <option value="宜蘭市">宜蘭市</option>
-                        <option value="花蓮市">花蓮市</option>
-                        <option value="台東縣">台東縣</option>
-                        <option value="金門縣">金門縣</option>
-                        <option value="連江縣">連江縣</option>
-                        <option value="基隆市">基隆市</option>
-                        <option value="新竹市">新竹市</option>
-                        <option value="嘉義市">嘉義市</option>
-                        <option value="澎湖縣">澎湖縣</option>
+                        <option value="台北市" ${searchTripSite == "台北市" ? 'selected' : ""}>台北市</option>
+                        <option value="新北市" ${searchTripSite == "新北市" ? 'selected' : ""}>新北市</option>
+                        <option value="桃園市" ${searchTripSite == "桃園市" ? 'selected' : ""}>桃園市</option>
+                        <option value="台中市" ${searchTripSite == "台中市" ? 'selected' : ""}>台中市</option>
+                        <option value="台南市" ${searchTripSite == "台南市" ? 'selected' : ""}>台南市</option>
+                        <option value="高雄市" ${searchTripSite == "高雄市" ? 'selected' : ""}>高雄市</option>
+                        <option value="新竹縣" ${searchTripSite == "新竹縣" ? 'selected' : ""}>新竹縣</option>
+                        <option value="苗栗縣" ${searchTripSite == "苗栗縣" ? 'selected' : ""}>苗栗縣</option>
+                        <option value="彰化縣" ${searchTripSite == "彰化縣" ? 'selected' : ""}>彰化縣</option>
+                        <option value="南投縣" ${searchTripSite == "南投縣" ? 'selected' : ""}>南投縣</option>
+                        <option value="雲林縣" ${searchTripSite == "雲林縣" ? 'selected' : ""}>雲林縣</option>
+                        <option value="嘉義縣" ${searchTripSite == "嘉義縣" ? 'selected' : ""}>嘉義縣</option>
+                        <option value="屏東縣" ${searchTripSite == "屏東縣" ? 'selected' : ""}>屏東縣</option>
+                        <option value="宜蘭市" ${searchTripSite == "宜蘭市" ? 'selected' : ""}>宜蘭市</option>
+                        <option value="花蓮市" ${searchTripSite == "花蓮市" ? 'selected' : ""}>花蓮市</option>
+                        <option value="台東縣" ${searchTripSite == "台東縣" ? 'selected' : ""}>台東縣</option>
+                        <option value="金門縣" ${searchTripSite == "金門縣" ? 'selected' : ""}>金門縣</option>
+                        <option value="連江縣" ${searchTripSite == "連江縣" ? 'selected' : ""}>連江縣</option>
+                        <option value="基隆市" ${searchTripSite == "基隆市" ? 'selected' : ""}>基隆市</option>
+                        <option value="新竹市" ${searchTripSite == "新竹市" ? 'selected' : ""}>新竹市</option>
+                        <option value="嘉義市" ${searchTripSite == "嘉義市" ? 'selected' : ""}>嘉義市</option>
+                        <option value="澎湖縣" ${searchTripSite == "澎湖縣" ? 'selected' : ""}>澎湖縣</option>
                     </select>
                     <input class="form-control me-2" name="checkIn" type="text" placeholder="入住日期..." aria-label="Search" onfocus="(this.type='date')"
                     	onblur="(this.type='text')" value="${searchTripCheckIn}">
@@ -168,7 +169,7 @@
                 </div>
             </nav>
             <!--旅行社-->
-            <h2 class="mx-auto"><%=compName%></h2>
+            <h2 class="mx-auto"><%=company.getCompName()%></h2>
             <!--幻燈片1 mainPhoto 行程圖片-->
             <div id="carouseltrip" class="carousel slide border mx-auto" data-bs-ride="carousel">
 <!--                 <div class="carousel-indicators"> -->
@@ -222,23 +223,15 @@
 <!--                 </button> -->
 <!--             </div> -->
             <!--地圖 所在縣市 景點 聯絡 評價-->
-            <div class="container mt-2 border h-100" id="content1">
-                <div class="row justify-content-center align-items-center h-100">
-                    <!--地圖-->
-                    <div class="col-4 h-100 mt-2 mb-2">
-                    
-                   			<!-- Button trigger modal -->
-							<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-							  Launch static backdrop modal
-							</button>
-							
-							
-                    
-                    
-<!--                         <a href="#"> -->
-<!--                             <i class="fa-solid fa-map-location-dot h-100" id="map"></i> -->
-<!--                         </a> -->
-                    </div>
+	            <div class="container mt-2 border h-100" id="content1">
+	                <div class="row justify-content-center align-items-center h-100">
+	                    <!--地圖-->
+	                    <div class="col-4 h-100 mt-2 mb-2">
+<%-- 	                        <a href="${pageContext.request.contextPath}/sean/SearchServlet?action=scenesMap&tripId=<%=trip.getTripId()%>"> --%>
+	                        <a href="#">
+	                            <i class="fa-solid fa-map-location-dot h-100" id="map"></i>
+	                        </a>
+                    	</div>
                     <!-- 所在縣市 景點 -->
                     <div class="col-4 h-100 mt-2 mb-2">
 	                     <c:forEach var="site" items="<%=siteList%>" >
@@ -249,19 +242,25 @@
                         </c:forEach>
                     </div>
                     <!-- 聯絡 評價 -->
-                    <div class="col-4 h-100 mt-2 mb-2">
-                        <a href="#">
-                            <button type="button" class="btn btn-primary mb-3">
-                                <i class="fa-solid fa-message"></i>
-                                聯繫業者
-                            </button>
-                        </a>
-                        <a href="${pageContext.request.contextPath}/chu/commentArea(trip).jsp?tripId=<%=trip.getTripId()%>">
-                            <button type="button" class="btn btn-primary">
-                                <i class="fa-solid fa-message"></i>
-                                查看評價
-                            </button>
-                        </a>
+                   <div class="col-4 h-100 mt-2 mb-2 ps-0 pe-0">
+                    	<div class="container ">
+                    		<div class="row align-items-center justify-content-center ">
+	                    		<div class="col ps-0 pe-0  ">
+				                        <a class="" href="#" >
+				                            <button type="button" class="btn btn-primary ">
+				                                <i class="fa-solid fa-message "> 聯繫業者</i>
+				                            </button>
+				                        </a>
+		                        </div>
+		                        <div class="col ps-0 pe-0 ">
+			                        <a class="" href="${pageContext.request.contextPath}/chu/commentArea(trip).jsp?tripId=<%=trip.getTripId()%>">
+			                            <button type="button" class="btn btn-primary">
+			                                <i class="fa-solid fa-message"> 查看評價</i>
+			                            </button>
+			                        </a>
+		                        </div>
+	                        </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -307,8 +306,8 @@
                     <div class="col border h-100">
                         <div class="item h-100">
                             <h3 class="mt-2">行程表</h3>
-                            <c:forEach var="scene" items="<%=sceneList%>" >
-                            	<p class="text-wrap">${scene.sceneName}：${scene.openTime}</p><br>
+                            <c:forEach var="itinerary" items="<%=itineraryList%>" >
+                            	<p class="text-wrap">${itinerary.sceneName}：${itinerary.beginTime}</p><br>
                             </c:forEach>
                         </div> 
                     </div>

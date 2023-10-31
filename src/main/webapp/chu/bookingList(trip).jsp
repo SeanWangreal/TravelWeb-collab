@@ -76,6 +76,8 @@ pageContext.setAttribute("tripOrdList",TOSH.getTripOrdList(tripOrd));
 									       <input type="hidden" name="action" value="countAmount">
 									       <input type="hidden" name="tripOrdIdPk" value="${trip.tripOrdId}">								  
 									       <input type="submit" value="送出">
+									       <br>
+									       <span style ="color:red">*假如沒數量可以選擇代表沒庫存囉!</span>
      								</FORM>
                         	</i>
                         </label>
