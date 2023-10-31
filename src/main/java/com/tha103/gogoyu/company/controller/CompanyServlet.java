@@ -439,13 +439,13 @@ public class CompanyServlet extends HttpServlet {
 //			}
 			
 			String principalName = req.getParameter("principalName").trim();
-//			String principalNameReg = "^[(\u4e00-\\u9fa5)(a-zA-Z0-9_)]$";
+			String principalNameReg = "^[(\u4e00-\\u9fa5)(a-zA-Z)]$";
 			if (principalName == null || principalName.trim().length() == 0) {
 				errorMsgs.put("wrongPrincipalName","負責人名稱: 請勿空白");
 			} 
-//			else if (!principalName.trim().matches(principalNameReg)) { // 以下練習正則(規)表示式(regular-expression)
-//				errorMsgs.put("wrongPrincipalName","負責人名稱: 只能是中、英文字母");
-//			}
+			else if (!principalName.trim().matches(principalNameReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.put("wrongPrincipalName","負責人名稱: 只能是中、英文字母");
+			}
 			
 			String principalPhone = req.getParameter("principalPhone").trim();
 //			String principalPhoneReg = "^0[(0-9)]{1,2}-[(0-9)]{8}$";
@@ -672,7 +672,7 @@ public class CompanyServlet extends HttpServlet {
 				errorMsgs.add("公司姓名: 只能是中、英文字母、數字 , 且長度必需在2到10之間");
 			}
 
-			String compAddress = req.getParameter("compAddress").trim();
+			String compAddress = req.getParameter(""+"compAddress").trim();
 			String compAddressReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)]+$";
 			if (compAddress == null || compAddress.trim().length() == 0) {
 				errorMsgs.add("公司地址請勿空白");
@@ -835,38 +835,43 @@ public class CompanyServlet extends HttpServlet {
 			  new Thread(()->mailService.sendMail(to, subject, messageText)).start(); 
 
 			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
+			
+		if (mail == null || (mail.trim()).length() == 0) {
+			 errorMsgs.add("請輸入驗證碼");
+			 System.out.println(errorMsgs);	 
+		}
+			  
 			String url = "/ken/com_mem_signup.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
 		}
 		
-		System.out.println(action);
+			System.out.println(action);
 		if ("genAuthCode".equals(action)) { // 來自select_page.jsp的請求
 			List<String> errorMsgs = new LinkedList<String>();
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			String mail = req.getParameter("compmail");
 			String genAuthCode = req.getParameter("genAuthCode");
-			
 			HttpSession session = req.getSession();
 			String authCode = session.getAttribute(mail).toString();
-			
 			System.out.println(genAuthCode);
-			if (genAuthCode == null || (genAuthCode.trim()).length() == 0) {
-				errorMsgs.add("請輸入驗證碼");
-				System.out.println(errorMsgs);
-				/*************************** 2.開始查詢資料 *****************************************/
-				
-				String url = "/ken/com_mem_signup.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
-				successView.forward(req, res);
-			}
 			
-			if (!authCode.isEmpty() && authCode.equals(genAuthCode)) {
-				System.out.println("驗證成功");
-				session.removeAttribute(mail);
-				String url = "/ken/com_mem_signupinfo.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
-				successView.forward(req, res);
+		if (genAuthCode == null || (genAuthCode.trim()).length() == 0) {
+			errorMsgs.add("請輸入驗證碼");
+			System.out.println(errorMsgs);
+			/*************************** 2.開始查詢資料 *****************************************/
+			
+			String url = "/ken/com_mem_signup.jsp";
+//			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+//			successView.forward(req, res);
+		}
+			
+		if (!authCode.isEmpty() && authCode.equals(genAuthCode)) {
+			System.out.println("驗證成功");
+			session.removeAttribute(mail);
+			String url = "/ken/com_mem_signupinfo.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+			successView.forward(req, res);
 			}
 		} 
 

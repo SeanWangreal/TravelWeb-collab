@@ -80,6 +80,7 @@ Company company = (Company) request.getAttribute("Company");
             <br>shop<br>shop<br>shop<br>shop<br>shop<br>shop
         </aside>
     </nav>
+        <div class="container-fluid" style="background-color: #d9d2c5;">
     <c:if test="${not empty errorMsgs}">
 		<font style="color:red">請修正以下錯誤:</font>
 			<ul>
@@ -88,7 +89,6 @@ Company company = (Company) request.getAttribute("Company");
 				</c:forEach>
 			</ul>
 	</c:if>
-        <div class="container-fluid" style="background-color: #d9d2c5;">
         
             <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
