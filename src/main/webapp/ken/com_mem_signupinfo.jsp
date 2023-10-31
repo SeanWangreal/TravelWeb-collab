@@ -133,30 +133,30 @@ Company company = (Company) request.getAttribute("Company");
                                 <label style="font-size:16px">公司名稱：</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <select name="compType" class="form-control" >
-                                	<option value="" style="font-size:16px; " selected>台北市</option>
-                                	<option value="" style="font-size:16px; ">新北市</option>
-                                	<option value="" style="font-size:16px; ">桃園市</option>
-                                	<option value="" style="font-size:16px; ">台中市</option>
-                                	<option value="" style="font-size:16px; ">台南市</option>
-                                	<option value="" style="font-size:16px; ">高雄市</option>
-                                	<option value="" style="font-size:16px; ">新竹縣</option>
-                                	<option value="" style="font-size:16px; ">苗栗縣</option>
-                                	<option value="" style="font-size:16px; ">彰化縣</option>
-                                	<option value="" style="font-size:16px; ">南投縣</option>
-                                	<option value="" style="font-size:16px; ">雲林縣</option>
-                                	<option value="" style="font-size:16px; ">嘉義縣</option>
-                                	<option value="" style="font-size:16px; ">屏東縣</option>
-                                	<option value="" style="font-size:16px; ">宜蘭市</option>
-                                	<option value="" style="font-size:16px; ">花蓮市</option>
-                                	<option value="" style="font-size:16px; ">台東縣</option>
-                                	<option value="" style="font-size:16px; ">連江縣</option>
-                                	<option value="" style="font-size:16px; ">基隆市</option>
-                                	<option value="" style="font-size:16px; ">新竹市</option>
-                                	<option value="" style="font-size:16px; ">嘉義市</option>
-                                	<option value="" style="font-size:16px; ">澎湖縣</option>
+                                <select name="city" class="form-control" >
+                                	<option value="台北市" style="font-size:16px; " selected>台北市</option>
+                                	<option value="新北市" style="font-size:16px; ">新北市</option>
+                                	<option value="桃園市" style="font-size:16px; ">桃園市</option>
+                                	<option value="台中市" style="font-size:16px; ">台中市</option>
+                                	<option value="台南市" style="font-size:16px; ">台南市</option>
+                                	<option value="高雄市" style="font-size:16px; ">高雄市</option>
+                                	<option value="新竹縣" style="font-size:16px; ">新竹縣</option>
+                                	<option value="苗栗縣" style="font-size:16px; ">苗栗縣</option>
+                                	<option value="彰化縣" style="font-size:16px; ">彰化縣</option>
+                                	<option value="南投縣" style="font-size:16px; ">南投縣</option>
+                                	<option value="雲林縣" style="font-size:16px; ">雲林縣</option>
+                                	<option value="嘉義縣" style="font-size:16px; ">嘉義縣</option>
+                                	<option value="屏東縣" style="font-size:16px; ">屏東縣</option>
+                                	<option value="宜蘭市" style="font-size:16px; ">宜蘭市</option>
+                                	<option value="花蓮市" style="font-size:16px; ">花蓮市</option>
+                                	<option value="台東縣" style="font-size:16px; ">台東縣</option>
+                                	<option value="連江縣" style="font-size:16px; ">連江縣</option>
+                                	<option value="基隆市" style="font-size:16px; ">基隆市</option>
+                                	<option value="新竹市" style="font-size:16px; ">新竹市</option>
+                                	<option value="嘉義市" style="font-size:16px; ">嘉義市</option>
+                                	<option value="澎湖縣" style="font-size:16px; ">澎湖縣</option>
                                 </select>
-                                <input name="compAddress" class="form-control"  value="${company.compAddress}">
+                                <input name="address" class="form-control"  value="">
                                 <label style="font-size:16px">公司地址：</label>
                             </div>
                             <div class="form-floating mb-3">
