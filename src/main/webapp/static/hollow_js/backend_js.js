@@ -90,11 +90,11 @@ $(function() {
 							<tr>
 								<th>業者照片</th>
 								<td>
-									<div class="comp_search_photo style="width: 600px"">
+									<div class="comp_search_photo" style="width: 300px">
 										<img src="${compPhotoPointURL}?compId=${data.compId}"
-													style="max-width: 100%"><br>									
-										<input type="file" name="compPhoto" id="inp_comp_photo">
+													style="max-width: 100%"><br>								
 									</div>
+									<input type="file" name="compPhoto" id="inp_comp_photo"  accept="image/*">
 								</td>
 							</tr>
 							<tr>
@@ -148,6 +148,28 @@ $(function() {
 				<span style="color:red">${(data.noData != null? data.noData:"")}</span>
 			`;
 			$("ul.list_company > li").html(list_html);
+		}
+	}
+	
+	$("ul.list_company").on('change','#inp_comp_photo', function(e) {
+		var pics = e.target.files;
+		change_pic(pics);
+	})
+	
+	function change_pic(pics) {
+		$(".comp_search_photo").html("");
+		if (pics.length != 0) {
+			for (var i = 0; i < pics.length; i++) {
+				if (pics[i].type.split('/')[0] == "image") {
+					let reader = new FileReader();
+					reader.readAsDataURL(pics[i]);
+					$(reader).on('load', function() {
+						var img = `<img src="${reader.result}" alt="" style="width: 100%;height:fit-content">`;
+						$(".comp_search_photo").append(img);
+					})
+				}
+			};
+			pic_file.files = pics;
 		}
 	}
 	
@@ -263,6 +285,7 @@ $(function() {
 	function compUpdateResult(data) {
 		if (data.status == "Success") {
 			alert("業者更新");
+			
 			let list_html = "";
 			list_html += `
 				<li>
@@ -275,11 +298,11 @@ $(function() {
 							<tr>
 								<th>業者照片</th>
 								<td>
-									<div class="comp_search_photo">
+									<div class="comp_search_photo" style="width: 300px">
 										<img src="${compPhotoPointURL}?compId=${data.compId}"
-													style="max-width: 100%"><br>									
-										<input type="file" name="compPhoto" id="inp_comp_photo">
+													style="max-width: 100%"><br>								
 									</div>
+									<input type="file" name="compPhoto" id="inp_comp_photo"  accept="image/*">
 								</td>
 							</tr>
 							<tr>
@@ -323,6 +346,7 @@ $(function() {
 			`;
 
 			$("ul.list_company").html(list_html);
+			
 		} else {
 			let list_html = "";
 			list_html += `
@@ -336,11 +360,11 @@ $(function() {
 							<tr>
 								<th>業者照片</th>
 								<td>
-									<div class="comp_search_photo">
+									<div class="comp_search_photo" style="width: 300px">
 										<img src="${compPhotoPointURL}?compId=${data.compId}"
-													style="max-width: 100%"><br>									
-										<input type="file" name="compPhoto" id="inp_comp_photo">
+													style="max-width: 100%"><br>								
 									</div>
+									<input type="file" name="compPhoto" id="inp_comp_photo"  accept="image/*">
 								</td>
 							</tr>
 							<tr>
