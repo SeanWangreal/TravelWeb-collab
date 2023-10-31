@@ -143,7 +143,7 @@ div#search {
 						<a
 					href="${pageContext.request.contextPath}/eric/signin.jsp" style="padding-right:230px">返回登入</a>
 						<a
-					href="${pageContext.request.contextPath}/eric/sign_info.jsp">註冊</a>
+					href="${pageContext.request.contextPath}/eric/signin_info.jsp">註冊</a>
 						<br>
 						<%-- 錯誤表列 --%>
 						<c:if test="${not empty errorMsgs}">

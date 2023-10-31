@@ -148,7 +148,7 @@ public class ConsumerServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/eric/signin.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/eric/signin_info.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
