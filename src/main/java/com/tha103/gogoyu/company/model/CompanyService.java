@@ -42,8 +42,7 @@ public class CompanyService {
 		public Company updateCompany(Integer compId, Integer hotelInfoId, Integer compType, String compName, String compAddress, String compPhone, String principalName,
 				String principalPhone, String compAccount, String compPassword, String compMail, byte[] compPhoto , Integer checkStatus) {
 
-			Company company = new Company();
-			company.setCompId(compId);
+			Company company = this.getComp(compId);
 			company.setHotelInfoId(hotelInfoId);
 			company.setCompType(compType);
 			company.setCompName(compName);

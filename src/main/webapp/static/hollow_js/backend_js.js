@@ -139,7 +139,7 @@ $(function() {
 				</li>                
 			`;
 
-			$("ul.list_company > li").html(list_html);
+			$("ul.list_company").html(list_html);
 		} else {
 			let list_html = "";
 			list_html += `
@@ -322,7 +322,7 @@ $(function() {
 				</li>                
 			`;
 
-			$("ul.list_company > li").html(list_html);
+			$("ul.list_company").html(list_html);
 		} else {
 			let list_html = "";
 			list_html += `
@@ -403,7 +403,7 @@ $(function() {
 					</div>                    
 				</li>
 			`;
-			$("ul.list_company > li").html(list_html);
+			$("ul.list_company").html(list_html);
 		}
 	}
 
