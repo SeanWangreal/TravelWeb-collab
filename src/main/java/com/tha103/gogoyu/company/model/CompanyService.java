@@ -2,9 +2,11 @@ package com.tha103.gogoyu.company.model;
 import java.util.List;
 
 
+
 import com.tha103.gogoyu.hotel_info.model.Hotel_info;
 import com.tha103.gogoyu.hotel_info.model.Hotel_infoServiceHibernate;
 import com.tha103.gogoyu.room.model.Room;
+import javax.servlet.http.Part;
 
 import util.HibernateUtil;
 
@@ -108,8 +110,8 @@ public class CompanyService {
 //		}
 		
 		public static void main(String[] args) {
-			CompanyService hi = new CompanyService();
-			System.out.println(hi.getAllCompany());
+//			CompanyService hi = new CompanyService();
+//			System.out.println(hi.getAllCompany());
 		}
 		
 		public List<Company> getByCheckStatus(){

@@ -2,10 +2,8 @@ $(function() {
 	$("table.main_btn button").addClass("btn btn-outline-primary btn-lg");
 
 	$("table.main_btn").on("click", "button.main_btn_comp_audit, button.main_btn_client_msg, button.main_btn_comp_search, button.main_btn_cust_search, button.main_btn_add_scene", function() {
-
 		//console.log(this);
 		//let that = this;
-
 		$(this).toggleClass("-pressed");
 	})
 
@@ -37,10 +35,12 @@ $(function() {
 	})
 	
 	var compPoint = "/CompanyServlet";
+	var compPhotoPoint ="/hollow/CompanyPhotoServlet"
 	var host = window.location.host;
 	var path = window.location.pathname;
 	var webCtx = path.substring(0, path.indexOf('/', 1));
 	var compEndPointURL = "http://" + window.location.host + webCtx + compPoint;
+	var compPhotoPointURL = "http://" + window.location.host + webCtx + compPhotoPoint;
 	
 	var custPoint = "/eric/ConsumerServlet";
 	var host = window.location.host;
@@ -71,7 +71,7 @@ $(function() {
 				console.log(xhr);
 			},
 			complete: function(xhr) {      // request 完成之後執行(在 success / error 事件之後執行)
-				// console.log(xhr);
+				console.log(xhr);
 			}
 		});
 	})
@@ -86,6 +86,16 @@ $(function() {
 							<tr>
 								<th>業者ID</th>
 								<td><span class="spn_compId" data-id=${data.compId}>${data.compId}</span></td>
+							</tr>
+							<tr>
+								<th>業者照片</th>
+								<td>
+									<div class="comp_search_photo style="width: 600px"">
+										<img src="${compPhotoPointURL}?compId=${data.compId}"
+													style="max-width: 100%"><br>									
+										<input type="file" name="compPhoto" id="inp_comp_photo">
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<th>公司名稱</th>
@@ -114,6 +124,14 @@ $(function() {
 							<tr>
 								<th>信箱</th>
 								<td><input type="text" class="text inp_compMail" value="${data.compMail}"></td>
+							</tr>
+							<tr>
+								<th>審核狀態</th>
+								<td>
+                                    <input type="radio" name="compChkStatus" class="" value="1" ${(data.compChkStatus)==1?"checked":""}>通過
+                                    <input type="radio" name="compChkStatus" class="" value="0" ${(data.compChkStatus)==0?"checked":""}>待審核
+                                    <input type="radio" name="compChkStatus" class="" value="-1" ${(data.compChkStatus)==-1?"checked":""}>未通過
+                                </td>
 							</tr>
 						</table>
 						<button class="btn_comp_update btn btn-outline-primary btn-lg">更新</button>
@@ -141,7 +159,8 @@ $(function() {
   	});
 	
 	//業者更新
-	$("ul.list_company").on("click", "button.btn_comp_update", function() {
+	$("ul.list_company").on("click", "button.btn_comp_update", function(){
+		//alert("aaa");
 		let compId=($(this).closest("li").find("span.spn_compId")).attr("data-id");
 		let compName=($(this).closest("li").find("input.inp_compName")).val().trim();
 		let compAddress=($(this).closest("li").find("input.inp_compAddress")).val().trim();
@@ -150,36 +169,95 @@ $(function() {
 		let principalPhone=($(this).closest("li").find("input.inp_principalPhone")).val().trim();
 		let compAccount=($(this).closest("li").find("input.inp_compAccount")).val().trim();
 		let compMail=($(this).closest("li").find("input.inp_compMail")).val().trim();
+		let compChkStatus=($(this).closest("li").find("[name=compChkStatus]:checked")).val();
 		
-		$.ajax({
-			url: compEndPointURL,           // 資料請求的網址
-			type: "POST",                  // GET | POST | PUT | DELETE | PATCH
-			data: {
-			"action": "updFromBackend",
-			"compId": compId,
-			"compName":compName,
-			"compAddress":compAddress,
-			"compPhone":compPhone,
-			"principalName":principalName,
-			"principalPhone":principalPhone,
-			"compAccount":compAccount,
-			"compMail":compMail
-			},                // 將物件資料(不用雙引號) 傳送到指定的 url
-			dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
-			beforeSend: function() {       // 在 request 發送之前執行
-			},
-			success: function(data) {      // request 成功取得回應後執行
-				console.log(data);
-				compUpdateResult(data);
-				//$("input.task_name").val("");
-			},
-			error: function(xhr) {         // request 發生錯誤的話執行
-				console.log(xhr);
-			},
-			complete: function(xhr) {      // request 完成之後執行(在 success / error 事件之後執行)
-				// console.log(xhr);
-			}
-		});
+		const file =  inp_comp_photo.files[0];
+		let compPhoto64="";
+		
+		 if (file) {
+		    // Create a new FileReader.
+		    let reader = new FileReader();
+		
+		    // Define a callback function to handle the result.
+		    // onload 代表轉換完成，然後是非同步的
+			reader.onload = function (event) {
+		    // event.target.result contains the Base64 encoded string.
+		    let base64String = event.target.result;
+		    console.log(base64String);
+		    compPhoto64=base64String
+		      
+		    $.ajax({
+				url: compEndPointURL,           // 資料請求的網址
+				type: "POST",                  // GET | POST | PUT | DELETE | PATCH
+				//processData: false, 
+				//contentType : false,
+				data: {
+				"action": "updFromBackend",
+					"compId": compId,
+					"compName":compName,
+					"compAddress":compAddress,
+					"compPhone":compPhone,
+					"principalName":principalName,
+					"principalPhone":principalPhone,
+					"compAccount":compAccount,
+					"compMail":compMail,
+					"compChkStatus":compChkStatus,
+					"compPhoto64":compPhoto64
+					},                // 將物件資料(不用雙引號) 傳送到指定的 url
+					dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
+					beforeSend: function() {       // 在 request 發送之前執行
+					},
+					success: function(data) {      // request 成功取得回應後執行
+						console.log(data);
+						compUpdateResult(data);
+						//$("input.task_name").val("");
+					},
+					error: function(xhr) {         // request 發生錯誤的話執行
+						console.log(xhr);
+					},
+					complete: function(xhr) {      // request 完成之後執行(在 success / error 事件之後執行)
+						console.log(xhr);
+					}
+				});
+		    };
+		    // Read the file as a Data URL, which will be a Base64 encoded string.
+		    reader.readAsDataURL(file);
+		}else{
+			$.ajax({
+				url: compEndPointURL,           // 資料請求的網址
+				type: "POST",                  // GET | POST | PUT | DELETE | PATCH
+				//processData: false, 
+				//contentType : false,
+				data: {
+				"action": "updFromBackend",
+				"compId": compId,
+				"compName":compName,
+				"compAddress":compAddress,
+				"compPhone":compPhone,
+				"principalName":principalName,
+				"principalPhone":principalPhone,
+				"compAccount":compAccount,
+				"compMail":compMail,
+				"compChkStatus":compChkStatus,
+				"compPhoto64":compPhoto64
+				},                // 將物件資料(不用雙引號) 傳送到指定的 url
+				dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
+				beforeSend: function() {       // 在 request 發送之前執行
+				},
+				success: function(data) {      // request 成功取得回應後執行
+					console.log(data);
+					compUpdateResult(data);
+					//$("input.task_name").val("");
+				},
+				error: function(xhr) {         // request 發生錯誤的話執行
+					console.log(xhr);
+				},
+				complete: function(xhr) {      // request 完成之後執行(在 success / error 事件之後執行)
+					console.log(xhr);
+				}
+			});
+		}
+		
 	})
 	
 	function compUpdateResult(data) {
@@ -193,6 +271,16 @@ $(function() {
 							<tr>
 								<th>業者ID</th>
 								<td><span class="spn_compId" data-id=${data.compId}>${data.compId}</span></td>
+							</tr>
+							<tr>
+								<th>業者照片</th>
+								<td>
+									<div class="comp_search_photo">
+										<img src="${compPhotoPointURL}?compId=${data.compId}"
+													style="max-width: 100%"><br>									
+										<input type="file" name="compPhoto" id="inp_comp_photo">
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<th>公司名稱</th>
@@ -222,6 +310,12 @@ $(function() {
 								<th>信箱</th>
 								<td><input type="text" class="text inp_compMail" value="${data.compMail}"></td>
 							</tr>
+								<th>審核狀態</th>
+								<td>
+                                    <input type="radio" name="compChkStatus" class="" value="1" ${(data.compChkStatus)==1?"checked":""}>通過
+                                    <input type="radio" name="compChkStatus" class="" value="0" ${(data.compChkStatus)==0?"checked":""}>待審核
+                                    <input type="radio" name="compChkStatus" class="" value="-1" ${(data.compChkStatus)==-1?"checked":""}>未通過
+                                </td>
 						</table>
 						<button class="btn_comp_update btn btn-outline-primary btn-lg">更新</button>
 					</div>                    
@@ -238,6 +332,16 @@ $(function() {
 							<tr>
 								<th>業者ID</th>
 								<td><span class="spn_compId" data-id=${data.compId}>${data.compId}</span></td>
+							</tr>
+							<tr>
+								<th>業者照片</th>
+								<td>
+									<div class="comp_search_photo">
+										<img src="${compPhotoPointURL}?compId=${data.compId}"
+													style="max-width: 100%"><br>									
+										<input type="file" name="compPhoto" id="inp_comp_photo">
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<th>公司名稱</th>
@@ -288,6 +392,12 @@ $(function() {
 									<input type="text" class="text inp_compMail" value="${data.compMail}">
 								</td>
 							</tr>
+								<th>審核狀態</th>
+								<td>
+                                    <input type="radio" name="compChkStatus" class="" value="1" ${(data.compChkStatus)==1?"checked":""}>通過
+                                    <input type="radio" name="compChkStatus" class="" value="0" ${(data.compChkStatus)==0?"checked":""}>待審核
+                                    <input type="radio" name="compChkStatus" class="" value="-1" ${(data.compChkStatus)==-1?"checked":""}>未通過
+                                </td>
 						</table>
 						<button class="btn_comp_update btn btn-outline-primary btn-lg">更新</button>
 					</div>                    
@@ -322,7 +432,7 @@ $(function() {
 				console.log(xhr);
 			},
 			complete: function(xhr) {      // request 完成之後執行(在 success / error 事件之後執行)
-				// console.log(xhr);
+				console.log(xhr);
 			}
 		});
 	})
@@ -419,7 +529,7 @@ $(function() {
 				console.log(xhr);
 			},
 			complete: function(xhr) {      // request 完成之後執行(在 success / error 事件之後執行)
-				// console.log(xhr);
+				console.log(xhr);
 			}
 		});
 	})
