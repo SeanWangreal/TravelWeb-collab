@@ -104,4 +104,9 @@ public class RoomStockServiceHibernate implements RoomStockService {
 		return dao.searchMinRoomStockByTime(roomId, checkIn, checkOut);
 	}
 
+	
+	
+	public void updateRoomStock(Integer roomId, Integer amount, Date checkInTime, Date checkOutTime) {
+		dao.updateRoomStock(roomId , amount , checkInTime , checkOutTime );
+	}
 }

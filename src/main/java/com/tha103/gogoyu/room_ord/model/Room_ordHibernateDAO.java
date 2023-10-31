@@ -25,22 +25,22 @@ import util.HibernateUtil;
 public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 	private SessionFactory factory;
 
-	// 透過service帶session的建構子使用多型透過interface呼叫的hibernateDAO
+
 	public Room_ordHibernateDAO(SessionFactory factory) {
-		this.factory = factory; // 取得sessionfactory並回傳
+		this.factory = factory; // 
 	}
 
 	private Session getSession() {
-		return factory.getCurrentSession(); // 取得CurrentSession，後續只要呼叫getSession()就可以開始交易
+		return factory.getCurrentSession();
 	}
 
 	@Override
-	public int add(Room_ord roomOrd) { // 此傳入的是"無"pk的(這樣才能透過自增主鍵新增)
+	public int add(Room_ord roomOrd) { 
 		try {
-			getSession().beginTransaction();// 開始交易
-			getSession().save(roomOrd); // 傳入一個roomOrd並且建立在table內
-			getSession().getTransaction().commit();// 交易完成
-			return 1; // 回傳int型別pk去判斷是否有成功，假如不回傳-1就代表成功commit
+			getSession().beginTransaction();
+			getSession().save(roomOrd); 
+			getSession().getTransaction().commit();
+			return 1; 
 		} catch (Exception e) {
 			e.printStackTrace();
 			getSession().getTransaction().rollback();// 發生例外執行交易取消
@@ -188,7 +188,7 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 													.uniqueResult();
 			
 			getSession().getTransaction().commit();
-		
+			System.out.println(query+"1232132131");
 			return  query == null ? 1 : -1 ;
 			
 		}catch (Exception e) {
@@ -234,7 +234,7 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 
 	}
 
-	public Map<Room_ord, List<Object>> getRoomOrdList(Integer roomOrdId ,Date checkInTime ,Date checkOutTime ) {
+	public Map<Room_ord, List<Object>> getRoomOrdList(Integer roomOrdId ,Date checkInTime ,Date checkOutTime , Long diffInDays ) {
 		try {
 			getSession().beginTransaction();
 			Map<Room_ord, List<Object>> map = new LinkedHashMap<Room_ord, List<Object>>();
@@ -269,7 +269,7 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 				info.add(getSession().get(Company.class, Room.getCompId()).getPrincipalName());// String Principalname
 				info.add(getSession().get(Company.class, Room.getCompId()).getPrincipalPhone());// String PrincipalPhone
 //						
-				BigDecimal totalPrice = getSession().get(Room.class, Room.getRoomId()).getPrice()
+				BigDecimal totalPrice = getSession().get(Room.class, Room.getRoomId()).getPrice().multiply(new BigDecimal(diffInDays))
 						.multiply(new BigDecimal(Room.getAmount()));
 				info.add(totalPrice);
 				BigDecimal commission = totalPrice.multiply(new BigDecimal(0.1));
@@ -286,13 +286,12 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 				Room roomId= getSession().get(Room.class, Room.getRoomId());
 				Integer roomstock = getSession()
 						.createQuery("select min(stock) from Room_stock where ( stockDate between :checkInTime and  :checkOutTime ) and roomId = :roomId ", Integer.class)
-						.setParameter("checkInTime",  2023-11-17)
-						.setParameter("checkOutTime", 2023-11-18)
+						.setParameter("checkInTime",  checkInTime)
+						.setParameter("checkOutTime", newDate)
 						.setParameter("roomId", roomId.getRoomId()).uniqueResult();
+				info.add(roomstock);
 				
-				info.add(roomstock == null ? "暫無庫存"  :  roomstock );
-				
-				System.out.println(roomstock);
+			
 				
 
 				map.put(Room, info);
