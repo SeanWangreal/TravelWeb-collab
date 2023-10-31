@@ -10,6 +10,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.tha103.gogoyu.consumer.model.Consumer;
 import com.tha103.gogoyu.hotel_info.model.Hotel_info;
 import com.tha103.gogoyu.itinerary.model.Itinerary;
 import com.tha103.gogoyu.room.model.Room;
@@ -134,6 +135,24 @@ public class CompanyHibernateDAO implements CompanyDAO_interface {
 		}
 		return null;
 	}
+	
+	@Override
+	public Company getAccount(String compAccount) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			Company company = session
+					.createQuery("from Company where comp_account = :compAccount", Company.class)
+					.setParameter("compAccount", compAccount).uniqueResult();
+			session.getTransaction().commit();
+			return company;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		return null;
+	}
+	
 
 	@Override
 	public List<Company> getAll() {

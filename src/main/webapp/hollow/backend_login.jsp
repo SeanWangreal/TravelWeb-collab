@@ -47,6 +47,9 @@
             </button>
         </div>
         <aside class="msg all_side" id="msg_side">
+        	<ul class="ul_friends_list">
+        		<li class="chat_friend" data-id="CS"></li>
+        	</ul>
             msg<br>msg<br>msg<br>msg<br>msg<br>msg<br>msg
             <br>msg<br>msg<br>msg<br>msg<br>msg<br>msg
         </aside>

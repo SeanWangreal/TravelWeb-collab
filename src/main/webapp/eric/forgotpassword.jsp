@@ -20,7 +20,7 @@ Consumer consumer = (Consumer) request.getAttribute("consumer");
 	crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>註冊</title>
+<title>忘記密碼</title>
 <link href="${pageContext.request.contextPath}/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/eric_css/ericheader.css">
 <style>
@@ -111,7 +111,7 @@ div#search {
 
 	<form METHOD="post" class="form_down"
 		action="${pageContext.request.contextPath}/eric/ConsumerServlet"
-		name="form1" enctype="multipart/form-data" id="myForm">
+		name="form1" enctype="multipart/form-data">
 		<div class="container-fluid" style="background-color: #d9d2c5;">
 			<div class="row h-100 align-items-center justify-content-center"
 				style="min-height: 100vh;">
@@ -119,43 +119,30 @@ div#search {
 					<div class>
 						<div
 							class="d-flex align-items-center justify-content-between mb-3">
-							<h3>驗證信箱</h3>
+							<h3>忘記密碼</h3>
 						</div>
 						
-						
-
-						
-
+						<div class="form-floating mb-3">
+							<input type="TEXT" class="form-control" id="floatingPassword"
+								name="cusAccount"
+								value="<%=(consumer == null) ? "" : consumer.getCusAccount()%>"
+								size="45"> <label>帳號</label>
+						</div>
+					
 						<div class="form-floating mb-3">
 							<input type="TEXT" class="form-control" id="floatingPassword"
 								name="cusMail"
 								value="<%=(consumer == null) ? "" : consumer.getCusMail()%>"
 								size="45"> <label>電子郵箱</label>
 						</div>
+						<button type="submit" name="action" value="forgotpassword"
+							class="btn btn-primary py-3 w-100 mb-4">寄送密碼</button>
 
-						
-
-
-
-
-						
-
-						
-
-
-
-						
-						<button type="submit" name="action" value="mail" id="mailButton"
-							class="btn btn-primary py-3 w-100 mb-4">寄送驗證碼</button>
-						<div class="form-floating mb-3">
-							<input type="TEXT" class="form-control" id="floatingPassword"
-								name="CAPTCHA"
-								size="45"> <label>驗證碼</label>
-						</div>	
-
-						<button type="submit" name="action" value="verify"
-							class="btn btn-primary py-3 w-100 mb-4">送出!</button>
-
+						<a
+					href="${pageContext.request.contextPath}/eric/signin.jsp" style="padding-right:230px">返回登入</a>
+						<a
+					href="${pageContext.request.contextPath}/eric/sign_info.jsp">註冊</a>
+						<br>
 						<%-- 錯誤表列 --%>
 						<c:if test="${not empty errorMsgs}">
 							<font style="color: red">請修正以下錯誤:</font>
@@ -206,8 +193,6 @@ div#search {
 		msg_btn.addEventListener("click", say);
 		info_btn.addEventListener("click", info);
 		shop_btn.addEventListener("click", grab);
-		
-	       
 	</script>
 </body>
 

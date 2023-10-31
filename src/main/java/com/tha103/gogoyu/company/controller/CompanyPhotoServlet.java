@@ -1,7 +1,7 @@
 package com.tha103.gogoyu.company.controller;
 
 import java.io.IOException;
-import java.io.BufferedInputStream;
+import java.io.InputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -10,32 +10,42 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.tha103.gogoyu.company.model.Company;
 import com.tha103.gogoyu.company.model.CompanyService;
 
-
-@WebServlet("/CompPhotoPrintHServlet")
-public class CompPhotoPrintHServlet extends HttpServlet {
+@WebServlet("/hollow/CompanyPhotoServlet")
+public class CompanyPhotoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	CompanyService compSrc = null;
+	CompanyService roomSrc = null;
 
 	public void init() throws ServletException {
-		compSrc = new CompanyService();
+		roomSrc = new CompanyService();
 	}
 
 	public void destroy() {
-		compSrc = null;
+		roomSrc = null;
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		res.setContentType("image/png");
+		res.setContentType("image/gif");
 		ServletOutputStream out = res.getOutputStream();
-		byte[] photo = null;
-		String compId = req.getParameter("comp_id");
-		System.out.printf("Company Id %s\n", compId);
+		Company company = null;
+		String compId = req.getParameter("compId");
+		System.out.println(compId);
+		
 		if (compId != null) {
-			photo = compSrc.getCompPhoto(Integer.valueOf(compId));
+			company = roomSrc.getOneCompany(Integer.valueOf(compId));
+			if(company.getCompPhoto() !=null) {
+				out.write(company.getCompPhoto());		
+			}else {
+				//res.sendError(HttpServletResponse.SC_NOT_FOUND);//404 p.134,140
+				InputStream in=getServletContext().getResourceAsStream("/NoData/none2.jpg");
+				byte[] b=new byte[in.available()];
+				in.read(b);
+				out.write(b);
+				in.close();
+			}
 		}
-		out.write(photo);
 
 	}
 

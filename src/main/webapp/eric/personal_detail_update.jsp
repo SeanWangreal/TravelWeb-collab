@@ -1,8 +1,8 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.tha103.gogoyu.consumer.model.*"%>
 
 <%
-Consumer consumer = (Consumer) request.getAttribute("consumer"); //EmpServlet.java(Concroller), ¦s¤JreqªºempVOª«¥ó
+Consumer consumer = (Consumer) request.getAttribute("consumer"); //EmpServlet.java(Concroller), å­˜å…¥reqçš„empVOç‰©ä»¶
 if ((Integer) request.getSession().getAttribute("cusId") == null) {
 	response.sendRedirect(request.getContextPath() + "/eric/signin.jsp");
 }
@@ -15,25 +15,15 @@ if ((Integer) request.getSession().getAttribute("cusId") == null) {
 	crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>­×§ï­Ó¤H¸ê°T</title>
-<link href="../dist/css/bootstrap.min.css" rel="stylesheet">
+<title>ä¿®æ”¹å€‹äººè³‡è¨Š</title>
+<link href="${pageContext.request.contextPath}/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
-<link rel="stylesheet" href="../static/eric_css/ordinf.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/eric_css/ordinf.css">
 <link rel="stylesheet" href="">
 
 </script>
 <style>
-:root {
-	--ifm-font-family-base: "¯»¶ê";
-}
-
-@font-face {
-	font-family: '¯»¶ê';
-	src: url('../font/jf-openhuninn-2.0.ttf');
-	font-display: swap;
-}
-
 @media ( min-height : 500px) and (max-height: 1300px) {
 	.shop {
 		height: 60vh;
@@ -60,36 +50,37 @@ img {
 </head>
 
 <body>
-	<script src="../vendors/jquery/jquery-3.7.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/vendors/jquery/jquery-3.7.1.min.js"></script>
 
 	<nav class="st">
 		<!-- <a class="word" id="home" href="#">Home</a> -->
 		<div class="head">
-			<div class="mem-data">
-                <a class="left_btn"  href="${pageContext.request.contextPath}/chu/shopping(hotel).jsp">
-                    <i class="fa-solid fa-cart-shopping" style="color: black;"></i> ¨î©w³W¹º
-                </a>
-            </div>
-            <div class="mem-data">
-                <a class="left_btn" href="${pageContext.request.contextPath}/eric/personal_detail.jsp">
-                    <i class="fa-regular fa-user" style="color: black;"></i> ·|­û¸ê®Æ
-                </a>
-            </div>
-            <div class="mem-data">
-                <a class="left_btn" href="${pageContext.request.contextPath}/chu/bookedList(hotel).jsp">
-                    <i class="fa-solid fa-file-invoice" style="color: black;"></i> ­q³æ¸ê°T
-                </a>
-            </div>
-            <div class="mem-data">
-                <a class="left_btn" href="">
-                    <i class="fa-solid fa-star" style="color: black;"></i> §Úªº»`ÂÃ
-                </a>
-            </div>
-            <div class="mem-data">
-                <a class="left_btn" href="hotel_room_review.html">
-                    <i class="fa-regular fa-calendar-days" style="color: black;"></i> ¦æ¨Æ¾ä
-                </a>
-            </div>
+			<button type="menu" class="head_btn" aria-label="è¦åŠƒè¡Œç¨‹" id="shop">
+				<i class="fa-solid fa-suitcase-rolling icon"
+					style="color: black; font-size: 30px; background-color: transparent;"></i>
+			</button>
+			<button type="menu" class="head_btn" id="msg">
+				<i class="fa-regular fa-message icon"
+					style="color: black; font-size: 30px; background-color: transparent;"></i>
+			</button>
+			<button type="menu" class="head_btn" id="info">
+				<i class="fa-regular fa-bell  icon"
+					style="color: black; font-size: 30px; width: 30px; background-color: transparent;"></i>
+			</button>
+			<button type="button" class="head_btn">
+				<a class="profile"
+					href="${pageContext.request.contextPath}/eric/personal_detail.jsp">
+
+					<img
+					src="${pageContext.request.contextPath}/eric/PictureServlet?cus_id=${consumer.cusId}"
+					style="width: 30px; height: 30px">
+
+				</a>
+			</button>
+
+
+
+
 		</div>
 		<aside class="msg all_side nothing" id="msg_side">
 			msg<br>msg<br>msg<br>msg<br>msg<br>msg<br>msg
@@ -108,30 +99,30 @@ img {
 			<br>shop<br>shop<br>shop<br>shop<br>shop<br>shop
 		</aside>
 		<div id="shell"></div>
-		<aside class="left">
+		<aside class="left2">
 			<div class="mem-data">
 				<a class="left_btn"> <i class="fa-solid fa-cart-shopping"
-					style="color: black;"></i> ¨î©w³W¹º
+					style="color: black;"></i> åˆ¶å®šè¦åŠƒ
 				</a>
 			</div>
 			<div class="mem-data">
-				<a class="left_btn" href="personal_detail.html"> <i
-					class="fa-regular fa-user" style="color: black;"></i> ·|­û¸ê®Æ
+				<a class="left_btn" href="personal_detail.jsp"> <i
+					class="fa-regular fa-user" style="color: black;"></i> æœƒå“¡è³‡æ–™
 				</a>
 			</div>
 			<div class="mem-data">
 				<a class="left_btn" href="ordinf.html"> <i
-					class="fa-solid fa-file-invoice" style="color: black;"></i> ­q³æ¸ê°T
+					class="fa-solid fa-file-invoice" style="color: black;"></i> è¨‚å–®è³‡è¨Š
 				</a>
 			</div>
 			<div class="mem-data">
 				<a class="left_btn" href=""> <i class="fa-solid fa-star"
-					style="color: black;"></i> §Úªº»`ÂÃ
+					style="color: black;"></i> æˆ‘çš„è’è—
 				</a>
 			</div>
 			<div class="mem-data">
 				<a class="left_btn" href="hotel_room_review.html"> <i
-					class="fa-regular fa-calendar-days" style="color: black;"></i> ¦æ¨Æ¾ä
+					class="fa-regular fa-calendar-days" style="color: black;"></i> è¡Œäº‹æ›†
 				</a>
 			</div>
 		</aside>
@@ -139,49 +130,54 @@ img {
 	<div class="all">
 		<main class="main-content">
 			<div class="main-content-info">
-				<br> <br> <br> <br>
-				<!-- ·|­û±z¦n -->
+
 				<section class="item" style="width: 800px">
-					<h1 style="border: 0px solid">${consumer.cusName},±z¦n!</h1>
 					<br>
-					<a href="${pageContext.request.contextPath}/eric/ConsumerServlet?action=Logout" class="logoutbtn">«ö¦¹µn¥X</a>
+					<h1 style="border: 0px solid">${consumer.cusName},æ‚¨å¥½!</h1>
+					<br> <a
+						href="${pageContext.request.contextPath}/eric/ConsumerServlet?action=Logout"
+						class="logoutbtn">æŒ‰æ­¤ç™»å‡º</a>
 
 				</section>
-				<br> <br> <br> <br>
+				<br>
 				<form METHOD="post"
 					ACTION="<%=request.getContextPath()%>/eric/ConsumerServlet"
-					name="form1" enctype="multipart/form-data">
+					name="form1" enctype="multipart/form-data"
+					style="text-algin: justify">
 
-					<h5 style="font-weight: bolder">·|­û¸ê®Æ</h5>
-					<span style="float: left">¦b­Ó¤H¸ê®Æ¤¤§ó·s³Ì·s¸ê°T¨Ã½T»{<span>
+					<h5 style="font-weight: bolder; text-align: center">æœƒå“¡è³‡æ–™</h5>
+					<span style="float: left">åœ¨å€‹äººè³‡æ–™ä¸­æ›´æ–°æœ€æ–°è³‡è¨Šä¸¦ç¢ºèª</span>
 							<div class="memBtn" id="memBtn"
-								style="text-decoration: none; text-align: right; padding-right: 120px; font-size: 16px; font-family: ¯»¶ê">
+								style="text-decoration: none; text-align: right; padding-right: 120px; font-size: 16px; font-family: ç²‰åœ“">
 
 							</div>
-					
+
 
 							<div class="mem_detal">
 								<div class="personal_item"
-									style="width: 30%; font-weight: bolder; font-family: ¯»¶ê; border: none">
-								
-								
-									<span>«H½c </span><br> <br> <span>¹q¸Ü</span><br> <br>
-									<span>¦í§}</span><br> <br>	<span>±K½X</span><br>
-									 <span>·Ó¤ù</span><br>
-									
+									style="width: 30%; font-weight: bolder; font-family: ç²‰åœ“; border: none;">
+
+
+									<span>ä¿¡ç®± </span><br> <br> <span>é›»è©±</span><br> <br>
+									<span>ä½å€</span><br> <br> <span>å¯†ç¢¼</span><br> <span>ç…§ç‰‡</span><br>
+
 								</div>
 
 								<div class="personal_item"
 									style="width: 70%; border: none white; padding-left: 0px">
 
-									<input class="mem" id="mem" name="cusMail" value="${consumer.cusMail}"></input><br><br>
-									<input class="mem" id="mem" name="cusPhone" value="${consumer.cusPhone}"></input><br><br>
-									<input class="mem" id="mem" name="cusAddress"value="${consumer.cusAddress}"></input><br> <br>
-									<input class="mem" id="mem" name="cusPassword"value="${consumer.cusPassword}"></input><br> <br>
-									<img src="${pageContext.request.contextPath}/eric/PictureServlet?cus_id=${consumer.cusId}">
+									<input class="mem" id="mem" name="cusMail"
+										value="${consumer.cusMail}"></input><br>
+									<br> <input class="mem" id="mem" name="cusPhone"
+										value="${consumer.cusPhone}"></input><br>
+									<br> <input class="mem" id="mem" name="cusAddress"
+										value="${consumer.cusAddress}"></input><br> <br> <input
+										class="mem" id="mem" name="cusPassword"
+										value="${consumer.cusPassword}"></input><br> <br> <img
+										src="${pageContext.request.contextPath}/eric/PictureServlet?cus_id=${consumer.cusId}">
 									<input type="file" name="cusPhoto">
 								</div>
-								<button name="action" value="update">°e¥X</button>
+								<button name="action" value="update">é€å‡º</button>
 
 							</div> <br> <br> <br> <br> <br> <br> <br>
 
@@ -195,7 +191,8 @@ img {
 
 
 	<!-- <script src="btn4com_review.js"></script> -->
-	<script src="ordinf.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/static/eric_js/ordinf.js"></script>
 
 
 

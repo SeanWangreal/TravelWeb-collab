@@ -2,9 +2,11 @@ package com.tha103.gogoyu.company.model;
 import java.util.List;
 
 
+
 import com.tha103.gogoyu.hotel_info.model.Hotel_info;
 import com.tha103.gogoyu.hotel_info.model.Hotel_infoServiceHibernate;
 import com.tha103.gogoyu.room.model.Room;
+import javax.servlet.http.Part;
 
 import util.HibernateUtil;
 
@@ -40,8 +42,7 @@ public class CompanyService {
 		public Company updateCompany(Integer compId, Integer hotelInfoId, Integer compType, String compName, String compAddress, String compPhone, String principalName,
 				String principalPhone, String compAccount, String compPassword, String compMail, byte[] compPhoto , Integer checkStatus) {
 
-			Company company = new Company();
-			company.setCompId(compId);
+			Company company = this.getComp(compId);
 			company.setHotelInfoId(hotelInfoId);
 			company.setCompType(compType);
 			company.setCompName(compName);
@@ -69,11 +70,11 @@ public class CompanyService {
 			return dao.findByPassword(compPassword);
 		}
 
-//		public Company getAccount(String compAccount) {
-//			   Company existingCompany = dao.getAccount(compAccount);
-//			      return existingConsumers; 
-//			         
-//			 }
+		public Company getAccount(String compAccount) {
+			   Company existingCompany = dao.getAccount(compAccount);
+			      return existingCompany; 
+			         
+			 }
 		
 		public Company getOneCompany(Integer compId) {
 			return dao.findByPK(compId);
@@ -108,8 +109,8 @@ public class CompanyService {
 //		}
 		
 		public static void main(String[] args) {
-			CompanyService hi = new CompanyService();
-			System.out.println(hi.getAllCompany());
+//			CompanyService hi = new CompanyService();
+//			System.out.println(hi.getAllCompany());
 		}
 		
 		public List<Company> getByCheckStatus(){
