@@ -319,7 +319,7 @@ $(function() {
 			$("ul.list_company").find("span.wrongAddress").text("");
 			$("ul.list_company").find("span.wrongPhone").text("");
 			$("ul.list_company").find("span.wrongPrincipalName").text("");
-			$("ul.list_company").find("span.wrongprincipalPhone").text("");
+			$("ul.list_company").find("span.wrongPrincipalPhone").text("");
 			$("ul.list_company").find("span.wrongAccount").text("");
 			$("ul.list_company").find("span.wrongMail").text("");
 			
