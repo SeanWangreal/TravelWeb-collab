@@ -24,6 +24,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import org.hibernate.internal.build.AllowSysOut;
+import org.jboss.jandex.Main;
 
 import com.google.gson.Gson;
 import com.tha103.gogoyu.company.model.Company;
@@ -852,7 +853,10 @@ public class CompanyServlet extends HttpServlet {
 			String passRandom = msv.genAuthCode();
 
 			HttpSession session = req.getSession();
-			session.setAttribute(to, passRandom);
+			session.setAttribute("passRandom", passRandom);
+			
+			HttpSession session1 = req.getSession();
+			session1.setAttribute("mail", mail);
 
 //			  String passRandom = "gogoyu";
 			String messageText = " 您好!\n\n[" + passRandom + "]\n\n為您在(gogoyu)的驗證碼，請於10分鐘內輸入" + "\n";
@@ -877,36 +881,46 @@ public class CompanyServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			String mail = req.getParameter("compmail");
-			String genAuthCode = req.getParameter("genAuthCode");
 			HttpSession session = req.getSession();
-			String authCode = null;
+			session.setAttribute("mail", mail);
+			String authCode = (String)req.getSession().getAttribute("passRandom");
+			String genAuthCode = req.getParameter("genAuthCode");
 			
-		if (session.getAttribute(mail) != null) {
-			authCode = (String) session.getAttribute(mail);
+			
+		if (mail == null || (mail.trim()).length() == 0) {
+			errorMsgs.add("請輸入信箱");
 			}
-			System.out.println(genAuthCode);
-			
-		if (genAuthCode == null || authCode == null || (genAuthCode.trim()).length() == 0) {
-			errorMsgs.add("請輸入驗證碼");
-			System.out.println(errorMsgs);
-			
-			/*************************** 2.開始查詢資料 *****************************************/
-			
+		
+		if (!errorMsgs.isEmpty()) {
+			RequestDispatcher failureView = req.getRequestDispatcher("/ken/com_mem_signup.jsp");
 			req.setAttribute("errorMsgs", errorMsgs);
-			req.setAttribute("compmail", mail);
-			System.out.println(mail);
-			String url = "/ken/com_mem_signup.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
-			successView.forward(req, res);
+			System.out.println(errorMsgs);
+			failureView.forward(req, res);
+			return;// 程式中斷
+		}
+		
+		if( genAuthCode == null || (genAuthCode.trim()).length() == 0) {
+			errorMsgs.add("請輸入驗證碼");
+		}else if (!genAuthCode.equals(authCode)) {
+			errorMsgs.add("驗證碼不符");
+			System.out.println(authCode);
+		}
+		
+		if (!errorMsgs.isEmpty()) {
+			RequestDispatcher failureView = req.getRequestDispatcher("/ken/com_mem_signup.jsp");
+			req.setAttribute("errorMsgs", errorMsgs);
+			System.out.println(errorMsgs);
+			failureView.forward(req, res);
+			return;// 程式中斷
+		}
+		
+		String url = "/ken/com_mem_signupinfo.jsp";
+		RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+		successView.forward(req, res);
+		
 			
-			} else if (!authCode.isEmpty() && authCode.equals(genAuthCode)) {	
-			System.out.println("驗證成功");
-			session.removeAttribute(mail);
-			String url = "/ken/com_mem_signupinfo.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
-			successView.forward(req, res);
-			}
-
+		
+	
 		}
 
 	}
