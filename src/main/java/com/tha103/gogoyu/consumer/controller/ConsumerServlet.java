@@ -131,7 +131,7 @@ public class ConsumerServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 jsp
 			successView.forward(req, res);
 		}
-
+		//**************寄驗證信**********//
 		if ("mail".equals(action)) { // 來自select_page.jsp的請求
 //			Map<String, Object> errorMsgs = new HashMap<String, Object>();
 
@@ -152,6 +152,7 @@ public class ConsumerServlet extends HttpServlet {
 				errorMsgs.add("信箱格式錯誤 範例XXXX@XXX.XXX");
 			}
 			session.setAttribute("mail", mail);
+			
 
 			
 			// Send the use back to the form, if there were errors
