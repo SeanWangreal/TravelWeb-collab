@@ -11,9 +11,18 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
-
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -23,6 +32,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import org.jboss.jandex.Main;
+
 import com.google.gson.Gson;
 import com.tha103.gogoyu.consumer.model.Consumer;
 import com.tha103.gogoyu.consumer.model.ConsumerServiceHibernate;
@@ -31,13 +42,58 @@ import com.tha103.gogoyu.planning.model.PlanningServiceHibernate;
 @WebServlet("/eric/ConsumerServlet")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class ConsumerServlet extends HttpServlet {
-
-	public static InputStream getPictureStream(String path) throws IOException {
-		FileInputStream fis = new FileInputStream(path);
-		return fis;
-	}
-
 	
+	public void sendMail(String to, String subject, String messageText) {
+
+		try {
+			// 設定使用SSL連線至 Gmail smtp Server
+			Properties props = new Properties();
+			props.put("mail.smtp.host", "smtp.gmail.com");
+			props.put("mail.smtp.socketFactory.port", "465");
+			props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+			props.put("mail.smtp.auth", "true");
+			props.put("mail.smtp.port", "465");
+
+	        // ●設定 gmail 的帳號 & 密碼 (將藉由你的Gmail來傳送Email)
+	        // ●1) 登入你的Gmail的: 
+	        // ●2) 點選【管理你的 Google 帳戶】
+	        // ●3) 點選左側的【安全性】
+	       
+	        // ●4) 完成【兩步驟驗證】的所有要求如下:
+	        //     ●4-1) (請自行依照步驟要求操作之.....)
+	       
+	        // ●5) 完成【應用程式密碼】的所有要求如下:
+	        //     ●5-1) 下拉式選單【選取應用程式】--> 選取【郵件】
+	        //     ●5-2) 下拉式選單【選取裝置】--> 選取【Windows 電腦】
+	        //     ●5-3) 最後按【產生】密碼
+			final String myGmail = "ixlogic.wu@gmail.com";
+			final String myGmail_password = "ddjomltcnypgcstn";
+			Session session = Session.getInstance(props, new Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(myGmail, myGmail_password);
+				}
+			});
+
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(myGmail));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+
+			// 設定信中的主旨
+			message.setSubject(subject);
+			// 設定信中的內容
+			message.setText(messageText);
+
+			Transport.send(message);
+			System.out.println("傳送成功!");
+		} catch (MessagingException e) {
+			System.out.println("傳送失敗!");
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+
 	public static byte[] getPictureByteArray(String path) throws IOException {
 		FileInputStream fis = new FileInputStream(path);
 		byte[] buffer = new byte[fis.available()];
@@ -55,58 +111,6 @@ public class ConsumerServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
-
-//		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
-//
-//			List<String> errorMsgs = new LinkedList<String>();
-//			// Store this set in the request scope, in case we need to
-//			// send the ErrorPage view.
-//			req.setAttribute("errorMsgs", errorMsgs);
-//
-//			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-//			String str = req.getParameter("cusId");
-//			if (str == null || (str.trim()).length() == 0) {
-//				errorMsgs.add("請輸入會員編號");
-//			}
-//			// Send the use back to the form, if there were errors
-//			if (!errorMsgs.isEmpty()) {
-//				RequestDispatcher failureView = req.getRequestDispatcher("/eric/select_page.jsp");
-//				failureView.forward(req, res);
-//				return;// 程式中斷
-//			}
-//
-//			Integer cusId = null;
-//			try {
-//				cusId = Integer.valueOf(str);
-//			} catch (Exception e) {
-//				errorMsgs.add("員工編號格式不正確");
-//			}
-//			// Send the use back to the form, if there were errors
-//			if (!errorMsgs.isEmpty()) {
-//				RequestDispatcher failureView = req.getRequestDispatcher("/eric/select_page.jsp");
-//				failureView.forward(req, res);
-//				return;// 程式中斷
-//			}
-//
-//			/*************************** 2.開始查詢資料 *****************************************/
-////			ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
-//			Consumer consumer = cusSvc.getOneCus(cusId);
-//			if (consumer == null) {
-//				errorMsgs.add("查無資料");
-//			}
-//			// Send the use back to the form, if there were errors
-//			if (!errorMsgs.isEmpty()) {
-//				RequestDispatcher failureView = req.getRequestDispatcher("/eric/select_page.jsp");
-//				failureView.forward(req, res);
-//				return;// 程式中斷
-//			}
-//
-//			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-//			req.setAttribute("consumer", consumer); // 資料庫取出的empVO物件,存入req
-//			String url = "/eric/listOneCus.jsp";
-//			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
-//			successView.forward(req, res);
-//		}
 
 		if ("getOne_For_Login".equals(action)) { // 來自select_page.jsp的請求
 
@@ -140,7 +144,7 @@ public class ConsumerServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("/eric/signin.jsp");
 				failureView.forward(req, res);
 			}
-			if (consumer != null&&!password.equals(consumer.getCusPassword())) {
+			if (consumer != null && !password.equals(consumer.getCusPassword())) {
 				System.out.println("密碼錯了");
 				errorMsgs.add("密碼錯誤");
 			}
@@ -154,6 +158,33 @@ public class ConsumerServlet extends HttpServlet {
 			req.setAttribute("consumer", consumer); // 資料庫取出的empVO物件,存入req
 			req.getSession().setAttribute("cusId", consumer.getCusId());
 			String url = "/eric/personal_detail.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 jsp
+			successView.forward(req, res);
+		}
+		
+		if ("mail".equals(action)) { // 來自select_page.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+			String mail = req.getParameter("cusMail");
+			if (mail == null || (mail.trim()).length() == 0) {
+				errorMsgs.add("請輸入信箱");
+			}
+			String name = req.getParameter("cusName");
+			
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/eric/signin.jsp");
+				failureView.forward(req, res);
+				return;// 程式中斷
+			}
+			/*************************** 2.開始寄信資料 *****************************************/
+			
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+			String url = "/eric/signin_info.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 jsp
 			successView.forward(req, res);
 		}
@@ -277,12 +308,7 @@ public class ConsumerServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-//			Integer cusId = Integer.valueOf(req.getParameter("cusId").trim());
 			Integer cusId = (Integer) req.getSession().getAttribute("cusId");
-
-
-
-			String accountReg = "^[(a-zA-Z0-9_)]{10,30}$";
 
 			String cusPassword = req.getParameter("cusPassword").trim();
 			String passwordReg = "^[(a-zA-Z0-9_)]{10,30}$";
@@ -294,22 +320,21 @@ public class ConsumerServlet extends HttpServlet {
 			}
 
 			String cusMail = req.getParameter("cusMail").trim();
-//			String mailReg = "^[(a-zA-Z0-9_)]{10,30}$";
-
-//			if (cus_mail == null || cus_mail.trim().length() == 0) {
-//				errorMsgs.add("信箱: 請勿空白");
-//			} else if (!cus_mail.trim().matches(mailReg)) { // 以下練習正則(規)表示式(regular-expression)
-//				errorMsgs.add("格式錯誤");
-//			}
+			String mailReg = "^[(a-zA-Z0-9_)]{10,30}$";
+			if (cusMail == null || cusMail.trim().length() == 0) {
+				errorMsgs.add("信箱: 請勿空白");
+			} else if (!cusMail.trim().matches(mailReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.add("格式錯誤");
+			}
 
 			String cusPhone = req.getParameter("cusPhone").trim();
-//			String phoneReg = "^[(a-zA-Z0-9_)]{10,30}$";
-//
-//			if (cus_phone == null || cus_phone.trim().length() == 0) {
-//				errorMsgs.add("手機: 請勿空白");
-//			} else if (!cus_phone.trim().matches(phoneReg)) { // 以下練習正則(規)表示式(regular-expression)
-//				errorMsgs.add("手機格式錯誤");
-//			}
+			String phoneReg = "^[(a-zA-Z0-9_)]{10,30}$";
+
+			if (cusPhone == null || cusPhone.trim().length() == 0) {
+				errorMsgs.add("手機: 請勿空白");
+			} else if (!cusPhone.trim().matches(phoneReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.add("手機格式錯誤");
+			}
 
 			String cusAddress = req.getParameter("cusAddress").trim();
 			String addressReg = "^[\\u4e00-\\u9fa5\\w\\s()-,]+$";
@@ -319,7 +344,6 @@ public class ConsumerServlet extends HttpServlet {
 			} else if (!cusAddress.trim().matches(addressReg)) { // 以下練習正則(規)表示式(regular-expression)
 				errorMsgs.add("地址格式錯誤");
 			}
-
 
 			Part newPicture = req.getPart("cusPhoto");
 			byte[] cusPhoto = null;
@@ -337,35 +361,13 @@ public class ConsumerServlet extends HttpServlet {
 				byteArros.close();
 			} else {
 				Consumer consumer = new Consumer();
-//			    ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
 				consumer = cusSvc.getOneCus(cusId);
 				cusPhoto = consumer.getCusPhoto();// 抓原本舊圖
 			}
 
-//			Part part = req.getPart("cusPhoto");
-//			String str = String.valueOf(part).trim();
-//			byte[] cusPhoto = null;
-//			if (str == null || str.trim().length() == 0) {
-//				errorMsgs.add("圖片請勿空白");
-//			}else {
-//				BufferedInputStream bis = new BufferedInputStream(part.getInputStream());
-//				cusPhoto = bis.readAllBytes();
-//				System.out.println(cusPhoto +"吃大便");
-//			}
-
-
-			// Send the use back to the form, if there were errors
-//			if (!errorMsgs.isEmpty()) {
-//				req.setAttribute("consumer", consumer); // 含有輸入格式錯誤的empVO物件,也存入req
-//				RequestDispatcher failureView = req.getRequestDispatcher("/eric/personal_detail.jsp");
-//				failureView.forward(req, res);
-//				return; // 程式中斷
-//			}
-
 			Consumer consumer = null;
 			/*************************** 2.開始修改資料 *****************************************/
-			consumer = cusSvc.updateCus(cusId,null,null, cusPassword, cusMail, cusPhone, cusAddress, 
-					null,cusPhoto);
+			consumer = cusSvc.updateCus(cusId, null, null, cusPassword, cusMail, cusPhone, cusAddress, null, cusPhoto);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("consumer", consumer); // 資料庫update成功後,正確的的empVO物件,存入req
@@ -488,20 +490,20 @@ public class ConsumerServlet extends HttpServlet {
 
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 			String cusName = req.getParameter("cusName");
-			String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+			String nameReg = "^[(\u4e00-\u9fa5)]{2,10}$";
 			if (cusName == null || cusName.trim().length() == 0) {
 				errorMsgs.add("姓名: 請勿空白");
 			} else if (!cusName.trim().matches(nameReg)) { // 以下練習正則(規)表示式(regular-expression)
-				errorMsgs.add("姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+				errorMsgs.add("姓名: 只能是中文, 且長度必需在2到10之間");
 			}
 
 			String cusAccount = req.getParameter("cusAccount").trim();
-			String accountReg = "^[(a-zA-Z0-9_)]{10,30}$";
+			String accountReg = "^[(a-zA-Z0-9)]{10,30}$";
 
 			if (cusAccount == null || cusAccount.trim().length() == 0) {
 				errorMsgs.add("帳號: 請勿空白");
 			} else if (!cusAccount.trim().matches(accountReg)) { // 以下練習正則(規)表示式(regular-expression)
-				errorMsgs.add("帳號: 只能是英文字母、數字和_ , 且長度必需在10到30之間");
+				errorMsgs.add("帳號: 只能是英文字母、數字 , 且長度必需在10到30之間");
 			}
 
 			Consumer Duplicate = cusSvc.checkDuplicateAccount(cusAccount);
@@ -511,7 +513,7 @@ public class ConsumerServlet extends HttpServlet {
 			}
 
 			String cusPassword = req.getParameter("cusPassword").trim();
-			String passwordReg = "^[(a-zA-Z0-9_)]{10,30}$";
+			String passwordReg = "^[(a-zA-Z0-9)]{10,30}$";
 
 			if (cusPassword == null || cusPassword.trim().length() == 0) {
 				errorMsgs.add("密碼: 請勿空白");
@@ -520,28 +522,28 @@ public class ConsumerServlet extends HttpServlet {
 			}
 
 			String cusMail = req.getParameter("cusMail").trim();
-//			String mailReg = "^[(a-zA-Z0-9_)]{10,30}$";
-//			if (cus_mail == null || cus_mail.trim().length() == 0) {
-//				errorMsgs.add("信箱: 請勿空白");
-//			} else if (!cus_mail.trim().matches(mailReg)) { // 以下練習正則(規)表示式(regular-expression)
-//				errorMsgs.add("格式錯誤");
-//			}
+			String mailReg = "\\w[-\\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\\.)+[A-Za-z]{2,14}";
+			if (cusMail == null || cusMail.trim().length() == 0) {
+				errorMsgs.add("信箱: 請勿空白");
+			} else if (!cusMail.trim().matches(mailReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.add("信箱: 只能是英文字母、數字和_ , 且長度必需在10到30之間");
+			}
 
 			String cusPhone = req.getParameter("cusPhone").trim();
-//			String phoneReg = "^[(a-zA-Z0-9_)]{10,30}$";
-//			if (cus_phone == null || cus_phone.trim().length() == 0) {
-//				errorMsgs.add("手機: 請勿空白");
-//			} else if (!cus_phone.trim().matches(phoneReg)) { // 以下練習正則(規)表示式(regular-expression)
-//				errorMsgs.add("手機格式錯誤");
-//			}
+			String phoneReg = "^[(0-9)]{10}$";
+			if (cusPhone == null || cusPhone.trim().length() == 0) {
+				errorMsgs.add("手機: 請勿空白");
+			} else if (!cusPhone.trim().matches(phoneReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.add("只能是數字,10碼");
+			}
 
 			String cusAddress = req.getParameter("cusAddress").trim();
-//			String addressReg = "^[\\u4e00-\\u9fa5\\w\\s()-,]+$";
-//			if (cus_address == null || cus_address.trim().length() == 0) {
-//				errorMsgs.add("地址: 請勿空白");
-//			} else if (!cus_address.trim().matches(addressReg)) { // 以下練習正則(規)表示式(regular-expression)
-//				errorMsgs.add("地址格式錯誤");
-//			}
+			String addressReg = "^[\\u4e00-\\u9fa5\\w\\s()-,]+$";
+			if (cusAddress == null || cusAddress.trim().length() == 0) {
+				errorMsgs.add("地址: 請勿空白");
+			} else if (!cusAddress.trim().matches(addressReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.add("地址格式錯誤");
+			}
 			Integer cusSex = null;
 			try {
 				cusSex = Integer.valueOf(req.getParameter("cusSex").trim());
@@ -550,20 +552,21 @@ public class ConsumerServlet extends HttpServlet {
 				cusSex = 0;
 				errorMsgs.add("請填數字.");
 			}
-			
-		    List<Integer> cartIds = new ArrayList<>();
-		    for (int i = 1; i < 6; i++) {			//增加五個cartid
-		        cartIds.add(i);
-		    }
-		    byte[] cusPhoto = null;
+
+			List<Integer> cartIds = new ArrayList<>();
+			for (int i = 1; i < 6; i++) { // 增加五個cartid
+				cartIds.add(i);
+			}
+			byte[] cusPhoto = null;
 
 			Part part = req.getPart("cusPhoto");
-			if (part == null || part.getSize()== 0) {
+			if (part == null || part.getSize() == 0) {
 				try {
-					FileInputStream fis = new FileInputStream(req.getContextPath()+"/eric/img/001.jpg");
+					ServletContext context = getServletContext();
+					String img = context.getRealPath("/eric/img/001.jpg");
+					FileInputStream fis = new FileInputStream(img);
 					BufferedInputStream bis = new BufferedInputStream(fis);
 					cusPhoto = bis.readAllBytes();
-					System.out.println("有嗎");
 				} catch (IOException e) {
 					e.printStackTrace();
 					// 處理錯誤，例如記錄錯誤訊息或其他動作
@@ -578,13 +581,20 @@ public class ConsumerServlet extends HttpServlet {
 			consumer.setCusAddress(cusAddress);
 			consumer.setCusSex(cusSex);
 			consumer.setCusPhoto(cusPhoto);
+
+			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("Consumer", consumer); // 含有輸入格式錯誤的empVO物件,也存入req
+				RequestDispatcher failureView = req.getRequestDispatcher("/eric/signin_info.jsp");
+				failureView.forward(req, res);
+				return;
+			}
 			/*************************** 2.開始新增資料 ***************************************/
 
 			consumer = cusSvc.addCus(cusName, cusAccount, cusPassword, cusMail, cusPhone, cusAddress, cusSex, cusPhoto);
-		    PlanningServiceHibernate planningSvc = new PlanningServiceHibernate();
-		    for (Integer cartId : cartIds) {
-		        planningSvc.add(consumer.getCusId(), cartId); // 把cartid存進去
-		    }
+			PlanningServiceHibernate planningSvc = new PlanningServiceHibernate();
+			for (Integer cartId : cartIds) {
+				planningSvc.add(consumer.getCusId(), cartId); // 把cartid存進去
+			}
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 //			req.getSession().setAttribute("cusId", consumer.getCusId());
 			res.sendRedirect(req.getContextPath() + "/mhl/home.jsp");
@@ -592,15 +602,16 @@ public class ConsumerServlet extends HttpServlet {
 		}
 		if ("Logout".equals(action)) { // 來自select_page.jsp的請求
 			HttpSession session = req.getSession();
-		        // 清除資料
+			// 清除資料
 			if (session != null) {
-			    session.invalidate(); // 使会话无效
-			    String url = "/mhl/home.jsp";
+				session.invalidate(); // 使会话无效
+				String url = "/mhl/home.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
-			}	System.out.print("您已成功登出退出系統!");
-		        System.out.close();
-		    }
+			}
+			System.out.print("您已成功登出退出系統!");
+			System.out.close();
+		}
 
 //		if ("delete".equals(action)) { // 來自listAllEmp.jsp
 //
@@ -620,8 +631,57 @@ public class ConsumerServlet extends HttpServlet {
 //			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 //			successView.forward(req, res);
 //		}
-		
-	
-		
+//		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
+//
+//			List<String> errorMsgs = new LinkedList<String>();
+//			// Store this set in the request scope, in case we need to
+//			// send the ErrorPage view.
+//			req.setAttribute("errorMsgs", errorMsgs);
+//
+//			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+//			String str = req.getParameter("cusId");
+//			if (str == null || (str.trim()).length() == 0) {
+//				errorMsgs.add("請輸入會員編號");
+//			}
+//			// Send the use back to the form, if there were errors
+//			if (!errorMsgs.isEmpty()) {
+//				RequestDispatcher failureView = req.getRequestDispatcher("/eric/select_page.jsp");
+//				failureView.forward(req, res);
+//				return;// 程式中斷
+//			}
+//
+//			Integer cusId = null;
+//			try {
+//				cusId = Integer.valueOf(str);
+//			} catch (Exception e) {
+//				errorMsgs.add("員工編號格式不正確");
+//			}
+//			// Send the use back to the form, if there were errors
+//			if (!errorMsgs.isEmpty()) {
+//				RequestDispatcher failureView = req.getRequestDispatcher("/eric/select_page.jsp");
+//				failureView.forward(req, res);
+//				return;// 程式中斷
+//			}
+//
+//			/*************************** 2.開始查詢資料 *****************************************/
+////			ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
+//			Consumer consumer = cusSvc.getOneCus(cusId);
+//			if (consumer == null) {
+//				errorMsgs.add("查無資料");
+//			}
+//			// Send the use back to the form, if there were errors
+//			if (!errorMsgs.isEmpty()) {
+//				RequestDispatcher failureView = req.getRequestDispatcher("/eric/select_page.jsp");
+//				failureView.forward(req, res);
+//				return;// 程式中斷
+//			}
+//
+//			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+//			req.setAttribute("consumer", consumer); // 資料庫取出的empVO物件,存入req
+//			String url = "/eric/listOneCus.jsp";
+//			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+//			successView.forward(req, res);
+//		}
+
 	}
 }

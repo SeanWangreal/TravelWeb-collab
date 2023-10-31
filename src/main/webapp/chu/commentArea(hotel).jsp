@@ -16,9 +16,8 @@ response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
 response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setDateHeader("Expires", 0);
 
-session.setAttribute("roomId", 1);
-Integer roomId =(Integer)session.getAttribute("roomId");
 
+Integer roomId = Integer.valueOf(request.getParameter("roomId"));
 
 Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
 RoomServiceHibernate RSH = new RoomServiceHibernate();

@@ -2,6 +2,7 @@ package com.tha103.gogoyu.room_ord.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -173,6 +174,37 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 		return null;
 	}
 
+	
+	
+	
+	public Integer queryProduct(Integer roomId , Integer cusId , Date checkInTime , Date checkOutTime) {
+		try {
+			getSession().beginTransaction();
+			Room_ord query = getSession().createQuery("from Room_ord where roomId = :roomId and cusId = :cusId and checkInTime = :checkInTime and checkOutTime = :checkOutTime  and ordStatus = 0" , Room_ord.class)
+													.setParameter("roomId", roomId)
+													.setParameter("cusId", cusId)
+													.setParameter("checkInTime", checkInTime)
+													.setParameter("checkOutTime", checkOutTime)
+													.uniqueResult();
+			
+			getSession().getTransaction().commit();
+		
+			return  query == null ? 1 : -1 ;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+			return -2 ;
+		}
+	
+	}
+	
+	
+	
+	
+	
+	
+	
 	public Map<Room_ord, List<String>> getRoomOrdByCusId(Integer CusId) {
 		try {
 			getSession().beginTransaction();
@@ -202,7 +234,7 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 
 	}
 
-	public Map<Room_ord, List<Object>> getRoomOrdList(Integer roomOrdId) {
+	public Map<Room_ord, List<Object>> getRoomOrdList(Integer roomOrdId ,Date checkInTime ,Date checkOutTime ) {
 		try {
 			getSession().beginTransaction();
 			Map<Room_ord, List<Object>> map = new LinkedHashMap<Room_ord, List<Object>>();
@@ -246,14 +278,21 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 				info.add(profit);
 				
 				
-//				Room room = getSession().get(Room.class, ord.getRoomId());
-//				Integer roomstore = getSession()
-//						.createQuery("select min(stock) from room_stock (where checkInTime = ?? and checkOutTime = :checkOutTime ) and roomId = :roomId ", Integer.class)
-//						.setParameter("roomId", room.getRoomId()).uniqueResult();
+					Long out = checkOutTime.getTime();
+				   long ONE_DAY = 1 * 24 * 60 * 60 * 1000L;
+				   out -= ONE_DAY;
+				   Date newDate = new Date(out);
+				  
+				Room roomId= getSession().get(Room.class, Room.getRoomId());
+				Integer roomstock = getSession()
+						.createQuery("select min(stock) from Room_stock where ( stockDate between :checkInTime and  :checkOutTime ) and roomId = :roomId ", Integer.class)
+						.setParameter("checkInTime",  2023-11-17)
+						.setParameter("checkOutTime", 2023-11-18)
+						.setParameter("roomId", roomId.getRoomId()).uniqueResult();
 				
+				info.add(roomstock == null ? "暫無庫存"  :  roomstock );
 				
-				
-				
+				System.out.println(roomstock);
 				
 
 				map.put(Room, info);

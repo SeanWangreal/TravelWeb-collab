@@ -37,6 +37,8 @@ import com.tha103.gogoyu.room_photo.model.Room_photo;
 import com.tha103.gogoyu.room_stock.model.RoomStockService;
 import com.tha103.gogoyu.room_stock.model.RoomStockServiceHibernate;
 import com.tha103.gogoyu.room_stock.model.Room_stock;
+import com.tha103.gogoyu.trip.model.Trip;
+import com.tha103.gogoyu.trip.model.TripServiceHibernate;
 
 @WebServlet("/sean/SearchServlet")
 public class SearchServlet extends HttpServlet {
@@ -47,6 +49,7 @@ public class SearchServlet extends HttpServlet {
 	RoomStockService roomStockSvc = null;
 	Hotel_infoServiceHibernate hotelInfoSvc = null;
 	CompanyService companySvc = null;
+	TripServiceHibernate tripSvc = null;
 	@Override
 	public void init() throws ServletException {
 		roomSvc = new RoomServiceHibernate();
@@ -54,6 +57,7 @@ public class SearchServlet extends HttpServlet {
 		roomStockSvc = new RoomStockServiceHibernate();
 		hotelInfoSvc = new Hotel_infoServiceHibernate();
 		companySvc = new CompanyService();
+		tripSvc = new TripServiceHibernate();
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -62,24 +66,42 @@ public class SearchServlet extends HttpServlet {
 		String forwardPath = "";
 		String action = req.getParameter("action");
 		switch (action) {
-		case "roomSearch":
+		case "hotel":
 			String comp_address = null;
-			comp_address = req.getParameter("comp_address");
+			comp_address = req.getParameter("site");
 			Date checkIn = null;
-			checkIn = java.sql.Date.valueOf(req.getParameter("checkIn"));
-			Date checkOut = null;
-			checkOut = java.sql.Date.valueOf(req.getParameter("checkOut"));
-			Integer number = null;
 			try {
-				number = Integer.valueOf(req.getParameter("number").trim());
-			}catch(NumberFormatException e){
-				number = 0;
+				checkIn = java.sql.Date.valueOf(req.getParameter("checkIn"));
+			} catch(Exception e){
+				checkIn = null;
 			}
-			System.out.println(checkIn.toString()+checkOut.toString()+number);
+			
+			Date checkOut = null;
+			try {
+				checkOut = java.sql.Date.valueOf(req.getParameter("checkOut"));
+			} catch(Exception e){
+				checkOut = null;
+			}
+			
+			Integer number =null;
+			String str = req.getParameter("number");
+			if(str == null || (str.trim()).length() == 0) {
+				number = null;
+			} else {
+				number = Integer.valueOf(req.getParameter("number").trim());
+			}
+//			try {
+//				number = Integer.valueOf(req.getParameter("number").trim());
+//			} catch(Exception e) {
+//				number = null;
+//			}
+			
+			
+//			System.out.println(checkIn.toString()+checkOut.toString()+number);
 			Map<Room, String> searchRoomResult = roomSvc.searchRoom(comp_address, checkIn, checkOut, number);
-			req.setAttribute("searchCheckIn", checkIn);
-			req.setAttribute("searchCheckOut", checkOut);
-			req.setAttribute("people", number);
+			req.setAttribute("searchRoomCheckIn", checkIn);
+			req.setAttribute("searchRoomCheckOut", checkOut);
+			req.setAttribute("roomPeople", number);
 			req.setAttribute("searchRoomResult", searchRoomResult);
 			forwardPath = "/mhl/search_results.jsp";
 			break;
@@ -112,28 +134,27 @@ public class SearchServlet extends HttpServlet {
 			Integer hotel_info_id = company.getHotelInfoId();
 			List<String> hotelInfoList = hotelInfoSvc.getHotelInfoList(hotel_info_id);
 			list.add(hotelInfoList);
-			req.setAttribute("searchCheckIn", checkIn1);
-			req.setAttribute("searchCheckOut", checkOut1);
-			req.setAttribute("people", number1);
+			
+			req.setAttribute("searchRoomCheckIn", checkIn1);
+			req.setAttribute("searchRoomCheckOut", checkOut1);
+			req.setAttribute("roomPeople", number1);
 			req.setAttribute("productDetailRoom", list);
 			forwardPath = "/mhl/products_detail_room.jsp";
 			break;
 		case "searchRoomStock":
 			Date checkIn2 = null;
 			checkIn2 = java.sql.Date.valueOf(req.getParameter("stockCheckIn"));
-			System.out.println("-------------------------------------------------------------------");
 			System.out.println(checkIn2);
 			
 			Date checkOut2 = null;
 			checkOut2 = java.sql.Date.valueOf(req.getParameter("stockCheckOut"));
-			System.out.println("-------------------------------------------------------------------");
 			System.out.println(checkOut2);
 			
 			Integer detailPageRoomId = Integer.valueOf(req.getParameter("detailPageRoomId"));
-			System.out.println("-------------------------------------------------------------------");
 			System.out.println(detailPageRoomId);
 			
 			Integer minStock = roomStockSvc.searchMinRoomStockByTime(detailPageRoomId, checkIn2, checkOut2);
+			
 			Map<String, Integer> stock = new HashMap<String, Integer>();
 			stock.put("minStock", minStock);
 			Gson gson =new Gson();
@@ -142,28 +163,78 @@ public class SearchServlet extends HttpServlet {
 			out.println(json);
 //			System.out.println(json);
 			out.close();
-			return;
-		case "tripSearch":
-//			String site = null;
-//			site = req.getParameter("site");
-//			Date checkIn3= null;
-//			checkIn3 = java.sql.Date.valueOf(req.getParameter("checkIn"));
-//			Date checkOut3 = null;
-//			checkOut3 = java.sql.Date.valueOf(req.getParameter("checkOut"));
-//			Integer number2 = null;
-//			try {
-//				number2 = Integer.valueOf(req.getParameter("number").trim());
-//			}catch(NumberFormatException e){
-//				number2 = 0;
-//			}
-//			System.out.println(checkIn.toString()+checkOut.toString()+number);
-//			Map<Room, String> searchRoomResult = roomSvc.searchRoom(comp_address, checkIn, checkOut, number);
-//			req.setAttribute("searchCheckIn", checkIn);
-//			req.setAttribute("searchCheckOut", checkOut);
-//			req.setAttribute("people", number);
-//			req.setAttribute("searchRoomResult", searchRoomResult);
-//			forwardPath = "/mhl/search_results.jsp";
-//			return;
+			break;
+		case "trip":
+			String site = null;
+			site = req.getParameter("site");
+			Date checkIn3= null;
+			try {
+				checkIn3 = java.sql.Date.valueOf(req.getParameter("checkIn"));
+			} catch(Exception e){
+				checkIn3 = null;
+			}
+			Date checkOut3 = null;
+			try {
+				checkOut3 = java.sql.Date.valueOf(req.getParameter("checkOut"));
+			} catch(Exception e){
+				checkOut3 = null;
+			}
+			
+			Integer number2 =null;
+			String str1 = req.getParameter("number");
+			if(str1 == null || (str1.trim()).length() == 0) {
+				number2 = null;
+			} else {
+				number2 = Integer.valueOf(req.getParameter("number").trim());
+			}
+			
+//			System.out.println(checkIn3.toString()+checkOut3.toString()+number2);
+			List<Trip> searchTripResult = tripSvc.searchTrip(site, checkIn3, checkOut3, number2);
+			req.setAttribute("searchTripCheckIn", checkIn3);
+			req.setAttribute("searchTripCheckOut", checkOut3);
+			req.setAttribute("tripPeople", number2);
+			req.setAttribute("searchTripResult", searchTripResult);
+			forwardPath = "/mhl/search_results.jsp";
+			break;
+			
+		case "getProductDetailTrip":
+			Integer trip_Id = Integer.valueOf(req.getParameter("tripId"));
+			Date checkIn4 = null;
+			try {
+				checkIn4 = java.sql.Date.valueOf(req.getParameter("searchCheckIn"));
+			} catch(Exception e){
+				checkIn4 = null;
+			}
+			Date checkOut4 = null;
+			try {
+				checkOut4 = java.sql.Date.valueOf(req.getParameter("searchCheckOut"));
+			} catch(Exception e){
+				checkOut4 = null;
+			}
+			Integer number3 = null;
+			if(req.getParameter("number") == null) {
+				number3 = null;
+			} else {
+				number3 = Integer.valueOf(req.getParameter("number").trim());
+			}
+			
+			System.out.println("--------------------------------------");
+			System.out.println(trip_Id);
+			System.out.println(checkIn4);
+			System.out.println(checkOut4);
+			System.out.println(number3);
+			System.out.println("--------------------------------------");
+			
+			List<Object> list1 = tripSvc.getTripProdutDetail(trip_Id);
+			System.out.println("------------------------------------");
+			System.out.println("list1:" + list1);
+			System.out.println("------------------------------------");
+			req.setAttribute("searchTripCheckIn", checkIn4);
+			req.setAttribute("searchTripCheckOut", checkOut4);
+			req.setAttribute("tripPeople", number3);
+			req.setAttribute("productDetailTrip", list1);
+			forwardPath = "/mhl/products_detail_trip.jsp";
+			break;
 		}
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 		dispatcher.forward(req, res);

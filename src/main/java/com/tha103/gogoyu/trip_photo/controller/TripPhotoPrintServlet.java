@@ -35,7 +35,7 @@ public class TripPhotoPrintServlet extends HttpServlet {
 			photo = tripPhotoSvc.getTripPhoto(Integer.valueOf(tripPhotoId));
 		}
 		out.write(photo);
-
+		out.close();
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

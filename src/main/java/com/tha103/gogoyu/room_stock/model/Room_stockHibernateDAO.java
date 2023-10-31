@@ -144,12 +144,28 @@ public class Room_stockHibernateDAO implements Room_stockDAO_interface {
 		Long out = checkOut.getTime();
 		out -= ONE_DAY;
 		Date newDate = new Date(out);
-		Integer minStock = getSession()
-				.createQuery("SELECT MIN(stock) FROM Room_stock WHERE (stock_date BETWEEN :checkIn AND :checkOut) AND room_id = :roomId", Integer.class)
+		Long realDay = (checkOut.getTime() - checkIn.getTime())/ONE_DAY;
+		System.out.println("realDay:"+realDay);
+		
+		Long seachDay = getSession()
+				.createQuery("SELECT count(stock_date) FROM Room_stock WHERE (stock_date BETWEEN :checkIn AND :checkOut) AND room_id = :roomId", Long.class)
 					.setParameter("checkIn", checkIn)
 					.setParameter("checkOut", newDate)
 					.setParameter("roomId", roomId)
 					.uniqueResult();
+		System.out.println("seachDay:"+seachDay);
+		
+		Integer minStock = null;
+		if(realDay != seachDay) {
+			minStock = 0;
+		} else {
+			minStock = getSession()
+					.createQuery("SELECT MIN(stock) FROM Room_stock WHERE (stock_date BETWEEN :checkIn AND :checkOut) AND room_id = :roomId", Integer.class)
+						.setParameter("checkIn", checkIn)
+						.setParameter("checkOut", newDate)
+						.setParameter("roomId", roomId)
+						.uniqueResult();
+		}
 		getSession().getTransaction().commit();
 		return minStock;
 		} catch (Exception e) {
