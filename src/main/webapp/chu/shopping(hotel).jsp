@@ -150,10 +150,11 @@ if (cusId != null) {
 
 
 	<div class="plan_tab">
-		<c:if test="${not empty errorMessage}">
-			<div class="error-message"
-				style="color: red; font-size: 25px; top: 15%; position: absolute; left: 50%">
-				<i>*${errorMessage}</i>
+		<c:if test="${not empty errorMessages}">
+			<div class="error-message" style="color: red; font-size: 25px; top: 15%; position: absolute; left: 40%">
+				<c:forEach var="message" items="${errorMessages}">
+					<li style="color:red">${message}</li>
+				</c:forEach>
 			</div>
 		</c:if>
 		<div class="tab_list_block">
@@ -421,7 +422,7 @@ if (cusId != null) {
 									</div>
 								</div>
 							</div>
-							<span class="book_price" style="font-size: 25px">${room2.get(roomVo2).get(1)}</span>
+							<span class="book_price" style="font-size: 22px">${room2.get(roomVo2).get(1)}</span>
 							<i class="howmuch_nt">TWD</i>
 							<div class="price_set">
 								<i class="howmuch">${roomVo2.totalPrice.intValue()}</i>
@@ -629,7 +630,7 @@ if (cusId != null) {
 									</div>
 								</div>
 							</div>
-							<span class="book_price" style="font-size: 25px">${room3.get(roomVo3).get(1)}</span>
+							<span class="book_price" style="font-size: 22px">${room3.get(roomVo3).get(1)}</span>
 							<i class="howmuch_nt">TWD</i>
 							<div class="price_set">
 								<i class="howmuch">${roomVo3.totalPrice.intValue()}</i>
@@ -833,7 +834,7 @@ if (cusId != null) {
 									</div>
 								</div>
 							</div>
-							<span class="book_price" style="font-size: 25px">${room4.get(roomVo4).get(1)}</span>
+							<span class="book_price" style="font-size: 22px">${room4.get(roomVo4).get(1)}</span>
 							<i class="howmuch_nt">TWD</i>
 							<div class="price_set">
 								<i class="howmuch">${roomVo4.totalPrice.intValue()}</i>
@@ -1034,7 +1035,7 @@ if (cusId != null) {
 									</div>
 								</div>
 							</div>
-							<span class="book_price" style="font-size: 25px">${room5.get(roomVo5).get(1)}</span>
+							<span class="book_price" style="font-size: 22px">${room5.get(roomVo5).get(1)}</span>
 							<i class="howmuch_nt">TWD</i>
 							<div class="price_set">
 								<i class="howmuch">${roomVo5.totalPrice.intValue()}</i>

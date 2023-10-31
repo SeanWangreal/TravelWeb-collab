@@ -188,7 +188,7 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 													.uniqueResult();
 			
 			getSession().getTransaction().commit();
-		
+			System.out.println(query+"1232132131");
 			return  query == null ? 1 : -1 ;
 			
 		}catch (Exception e) {

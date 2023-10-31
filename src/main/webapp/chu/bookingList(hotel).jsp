@@ -93,9 +93,13 @@ h2 {
 								</select> <input type="hidden" name="action" value="countAmount">
 								<input type="hidden" name="roomOrdIdPk"
 									value="${room.roomOrdId}"> <input type="submit"
-									value="送出">
+									value="送出"> 
+									
+									
 							</FORM>
 						</i> </label>
+						 <br>
+						<span style ="color:red ; font-size:15px">*假如沒數量可以選擇代表沒庫存囉!</span>
 					</div>
 					<hr>
 					<div class="order-item" style="margin-left: 10px;">

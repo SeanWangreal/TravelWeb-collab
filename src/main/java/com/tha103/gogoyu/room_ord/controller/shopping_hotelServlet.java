@@ -22,6 +22,7 @@ import com.tha103.gogoyu.trip_ord.model.*;
 import com.tha103.gogoyu.company.model.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import com.tha103.gogoyu.room_stock.model.RoomStockServiceHibernate;
 
 @WebServlet("/shopping_hotelServlet")
 public class shopping_hotelServlet extends HttpServlet {
@@ -37,7 +38,7 @@ public class shopping_hotelServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 
 		String Timestart = "2023-10-17"; // 示例日期字符串
-		String Timeend = "2023-10-23"; // 示例日期字符串
+		String Timeend = "2023-10-20"; // 示例日期字符串
 		Date checkInTime = Date.valueOf(Timestart);
 		Date checkOutTime = Date.valueOf(Timeend);
 
@@ -46,13 +47,16 @@ public class shopping_hotelServlet extends HttpServlet {
 //=========================購物車(飯店)新增===============================
 		if ("room_goShopping".equals(action)) {
 			Integer cusId = (Integer) session.getAttribute("cusId");
-			// Date checkInTime = Date.valueOf(req.getParameter("checkInTime"));
-			// Date checkOutTime = Date.valueOf(req.getParameter("checkOutTime"));
+//			 Date checkInTime = Date.valueOf(req.getParameter("checkInTime"));
+//			 Date checkOutTime = Date.valueOf(req.getParameter("checkOutTime"));
 			Integer roomId = Integer.valueOf(req.getParameter("roomId"));
 			Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
+			RoomStockServiceHibernate RSSH = new RoomStockServiceHibernate();
 			if (cusId != null) {// 如果session有cus_id資料代表有人登入
 				Integer product = ROSH.queryProduct(roomId, cusId, checkInTime, checkOutTime);
-				if (product == 1) {
+				Integer roomStock = RSSH.searchMinRoomStockByTime(roomId, checkInTime, checkOutTime);
+			System.out.println("roomStock:"+roomStock);
+				if (product == 1 &&  roomStock != null  && roomStock !=0  ) {
 					Integer cartId = Integer.valueOf(req.getParameter("cart_id"));
 					RoomServiceHibernate RSH = new RoomServiceHibernate();
 					PlanningServiceHibernate PSH = new PlanningServiceHibernate();// 創造出SERVICE
@@ -80,9 +84,16 @@ public class shopping_hotelServlet extends HttpServlet {
 					res.sendRedirect(req.getContextPath() + url);
 					return;
 				} else {
-					req.setAttribute("errorMessage", "<i style = 'font-size :30px'>購物車已有此商品!</i>");
-					returnForPage("/chu/shopping(hotel).jsp", res, req);
-
+					List<String> errorMessages = new ArrayList<String>();
+					if (product != 1) {
+						errorMessages.add("<i style = 'font-size :25px'>購物車已有此商品!</i>");
+					}
+					if (roomStock == null || roomStock == 0) {
+						errorMessages.add("<i style = 'font-size :25px'>此商品已無庫存或者日期輸入錯誤!</i>");
+					}
+ 					
+ 					req.setAttribute("errorMessages",errorMessages);
+ 					returnForPage("/chu/shopping(hotel).jsp", res, req);
 				}
 			} else { // 導回登入
 				session.setAttribute("location", req.getRequestURI()); // 如果沒登入先記錄現在的位置(網址)
@@ -102,13 +113,11 @@ public class shopping_hotelServlet extends HttpServlet {
 			Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
 			PlanningServiceHibernate PSH = new PlanningServiceHibernate();
 			Integer carts = PSH.findCartByPlanning(ROSH.getRoomOrd(roomOrdId).getPlanId());
-			
+
 			ROSH.delete(roomOrdId);
-			
-			
-			
-			req.setAttribute("carts", carts );
-			returnForPage("/chu/shopping(hotel).jsp" , res ,req);
+
+			req.setAttribute("carts", carts);
+			returnForPage("/chu/shopping(hotel).jsp", res, req);
 			return;
 
 		}
@@ -146,13 +155,19 @@ public class shopping_hotelServlet extends HttpServlet {
 		if ("countAmount".equals(action)) {
 			Integer roomOrdId = Integer.valueOf(req.getParameter("roomOrdIdPk"));// tripOrdId
 
+		
+			if( req.getParameter("roomAmount") != null){
 			Integer amount = Integer.valueOf(req.getParameter("roomAmount"));
 			Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
 			ROSH.updateAmount(amount, roomOrdId);// 更新數量
 			req.setAttribute("roomOrdId", roomOrdId);
 
 			returnForPage("/chu/bookingList(hotel).jsp", res, req);
-
+			}else {
+				String errorMessages = "親愛的客戶您好，目前此商品暫無庫存" ;
+				req.setAttribute("errorMessages",errorMessages);
+					returnForPage("/chu/shopping(hotel).jsp", res, req);
+			}
 		}
 //=========================bookingList更改數量===============================
 
@@ -175,7 +190,26 @@ public class shopping_hotelServlet extends HttpServlet {
 
 			ROSH.updateStatusAndRemark(dto.getRemark(), dto.getRoomOrdId(), dto.getProfit(), dto.getCommission(),
 					dto.getTotalPrice(), dto.getOrdTime(), dto.getPeople());
-
+			
+			
+			//減庫存量
+			Room_ord RO =ROSH.getRoomOrd(dto.getRoomOrdId());
+			
+			// 取得數量
+			
+			
+			System.out.println(RO.getRoomId()+"roomidddddddddd");//1
+			System.out.println(RO.getAmount());//1
+			System.out.println(RO.getCheckInTime());//2023-10-17
+			System.out.println(RO.getCheckOutTime());//2023-10-20
+			//要減一
+			RoomStockServiceHibernate RSSH = new RoomStockServiceHibernate();
+			RSSH.updateRoomStock(RO.getRoomId() , RO.getAmount() , RO.getCheckInTime() , RO.getCheckOutTime());
+			//1.先抓取資料庫的開始時間+結束時間資料
+			//2.找到購買數量
+			//3.select *from room_stock where stock_date between checkInTime and checkOutTime
+			//4.跑foreach去減去數量 然後順便update數值
+			
 			res.sendRedirect(req.getContextPath() + "/chu/payForSuccess.jsp");
 			return;
 		}
