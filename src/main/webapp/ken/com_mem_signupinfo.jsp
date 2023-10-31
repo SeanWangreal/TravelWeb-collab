@@ -181,7 +181,7 @@ Company company = (Company) request.getAttribute("Company");
                                 <label style="font-size:16px">密碼：</label>
                             </div> 
                             <div class="form-floating mb-3">
-                                <input name="compMail" class="form-control"  value="${company.compMail}">
+                                <input name="compMail" class="form-control"  value="${compMail}">
                                 <label style="font-size:16px">信箱：</label>
                             </div>
            					<div class="form-floating mb-3">

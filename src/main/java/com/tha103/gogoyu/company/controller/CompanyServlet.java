@@ -30,6 +30,7 @@ import com.google.gson.Gson;
 import com.tha103.gogoyu.company.model.Company;
 import com.tha103.gogoyu.company.model.CompanyService;
 import com.tha103.gogoyu.company.model.MailService;
+import com.tha103.gogoyu.consumer.model.Consumer;
 import com.tha103.gogoyu.hotel_info.model.Hotel_info;
 import com.tha103.gogoyu.hotel_info.model.Hotel_infoServiceHibernate;
 
@@ -914,6 +915,7 @@ public class CompanyServlet extends HttpServlet {
 			return;// 程式中斷
 		}
 		
+		req.setAttribute("compMail", mail);
 		String url = "/ken/com_mem_signupinfo.jsp";
 		RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 		successView.forward(req, res);
