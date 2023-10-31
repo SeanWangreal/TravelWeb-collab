@@ -456,7 +456,7 @@ public class CompanyServlet extends HttpServlet {
 				String compPhotoStr=compPhoto64.substring(23);
 //			InputStream is=compPhoto64.getInputStream();
 //			byte[] compPhotoByte=is.readAllBytes();
-				System.out.println(compPhotoStr);
+//				System.out.println(compPhotoStr);
 				compPhotoByte=Base64.getDecoder().decode(compPhotoStr);				
 			}else {
 				 compPhotoByte=company.getCompPhoto();
