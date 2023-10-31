@@ -1,8 +1,7 @@
 package com.tha103.gogoyu.company.model;
 import java.util.List;
 
-import com.tha103.gogoyu.adm_meb.model.AdminDAO_interface;
-import com.tha103.gogoyu.hotel_info.model.Hotel_infoServiceHibernate;
+import javax.servlet.http.Part;
 
 import util.HibernateUtil;
 

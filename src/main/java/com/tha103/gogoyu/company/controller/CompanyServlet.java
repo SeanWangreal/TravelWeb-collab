@@ -1,7 +1,9 @@
 package com.tha103.gogoyu.company.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 import com.tha103.gogoyu.company.model.Company;
@@ -341,6 +344,7 @@ public class CompanyServlet extends HttpServlet {
 			Map<String, Object> errorMsgs=new HashMap<String, Object>();
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			Integer compId = Integer.valueOf(req.getParameter("compId").trim());
+			System.out.println(compId);
 			
 			String compName = req.getParameter("compName");
 //			String compNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
@@ -350,6 +354,7 @@ public class CompanyServlet extends HttpServlet {
 //			else if (!compName.trim().matches(compNameReg)) { // 以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.put("wrongName","公司名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 //			}
+			System.out.println(compName);
 			
 			String compAddress = req.getParameter("compAddress").trim();
 //			String compAddressReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)]$";
@@ -359,6 +364,7 @@ public class CompanyServlet extends HttpServlet {
 //			else if (!compAddress.trim().matches(compAddressReg)) { // 以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.put("wrongAddress","公司地址: 只能是中、英文字母、數字");
 //			}
+			System.out.println(compAddress);
 			
 			String compPhone = req.getParameter("compPhone").trim();
 //			String compPhoneReg = "^0[(0-9)]{1,2}-[(0-9)]{8}$";
@@ -368,6 +374,7 @@ public class CompanyServlet extends HttpServlet {
 //			else if (!compPhone.trim().matches(compPhoneReg)) { // 以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.put("wrongPhone","公司電話: 格式錯誤");
 //			}
+			System.out.println(compPhone);
 			
 			String principalName = req.getParameter("principalName").trim();
 //			String principalNameReg = "^[(\u4e00-\\u9fa5)(a-zA-Z0-9_)]$";
@@ -377,6 +384,7 @@ public class CompanyServlet extends HttpServlet {
 //			else if (!principalName.trim().matches(principalNameReg)) { // 以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.put("wrongPrincipalName","負責人名稱: 只能是中、英文字母");
 //			}
+			System.out.println(principalName);
 			
 			String principalPhone = req.getParameter("principalPhone").trim();
 //			String principalPhoneReg = "^0[(0-9)]{1,2}-[(0-9)]{8}$";
@@ -386,6 +394,7 @@ public class CompanyServlet extends HttpServlet {
 //			else if (!principalPhone.trim().matches(principalPhoneReg)) { // 以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.put("wrongPrincipalPhone","負責人電話: 格式錯誤");
 //			}
+			System.out.println(principalPhone);
 			
 			String compAccount = req.getParameter("compAccount");
 //			String compAccountReg = "^[(a-zA-Z0-9_)]{2,10}$";
@@ -395,6 +404,7 @@ public class CompanyServlet extends HttpServlet {
 //			else if (!compAccount.trim().matches(compAccountReg)) { // 以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.put("wrongAccount","公司帳號: 只能是英文字母、數字和_ , 且長度必需在2到10之間");
 //			}
+			System.out.println(compAccount);
 			
 			String compMail = req.getParameter("compMail");
 //			String compMailReg = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";//網路上查的Email正規表達式
@@ -404,6 +414,7 @@ public class CompanyServlet extends HttpServlet {
 //			else if (!compMail.trim().matches(compMailReg)) { // 以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.put("wrongMail","公司信箱: 格式錯誤");
 //			}
+			System.out.println(compMail);
 			
 			Integer compChkStatus = Integer.valueOf(req.getParameter("compChkStatus"));
 			
@@ -419,6 +430,7 @@ public class CompanyServlet extends HttpServlet {
 				errorMsgs.put("compAccount", compAccount);
 				errorMsgs.put("compMail", compMail);
 				errorMsgs.put("compChkStatus", compChkStatus);
+//				errorMsgs.put("compPhoto64", compPhoto64);
 				errorMsgs.put("status", "Failed");
 				
 				Gson gson =new Gson();
@@ -435,13 +447,27 @@ public class CompanyServlet extends HttpServlet {
 			CompanyService companySvc = new CompanyService();
 			Company company = companySvc.getOneCompany(compId);
 			
+			
+			String compPhoto64=req.getParameter("compPhoto64");
+			
+			byte[] compPhotoByte=null;
+			
+			if(!compPhoto64.equals("")) {
+				String compPhotoStr=compPhoto64.substring(23);
+//			InputStream is=compPhoto64.getInputStream();
+//			byte[] compPhotoByte=is.readAllBytes();
+				System.out.println(compPhotoStr);
+				compPhotoByte=Base64.getDecoder().decode(compPhotoStr);				
+			}else {
+				 compPhotoByte=company.getCompPhoto();
+			}
+			
 			Integer hotelInfoId=company.getHotelInfoId();
 			Integer compType=company.getCompType();
 			String compPassword=company.getCompPassword();
-			byte[] compPhoto=company.getCompPhoto();
 			
 			company = companySvc.updateCompany(compId, hotelInfoId, compType, compName, compAddress, compPhone, principalName,
-					principalPhone, compAccount, compPassword, compMail, compPhoto, compChkStatus);
+					principalPhone, compAccount, compPassword, compMail, compPhotoByte, compChkStatus);			
 			
 			Map<String, Object> cmpMap=new HashMap<String, Object>();
 			cmpMap.put("compId", company.getCompId());
@@ -453,6 +479,7 @@ public class CompanyServlet extends HttpServlet {
 			cmpMap.put("compAccount", company.getCompAccount());
 			cmpMap.put("compMail", company.getCompMail());
 			cmpMap.put("compChkStatus", company.getCheckStatus());
+//			cmpMap.put("compPhoto64", compPhoto64);
 			cmpMap.put("status", "Success");
 			
 			Gson gson =new Gson();
