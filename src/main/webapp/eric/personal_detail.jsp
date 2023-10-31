@@ -7,9 +7,11 @@ Consumer consumer = (Consumer) request.getAttribute("consumer"); //EmpServlet.ja
 if ((Integer)request.getSession().getAttribute("cusId") == null){
 	response.sendRedirect(request.getContextPath()+"/eric/signin.jsp");
 }
-Integer cusId = Integer.parseInt((String) request.getSession().getAttribute("cusId"));
+Integer cusId = (Integer) request.getSession().getAttribute("cusId");
 ConsumerServiceHibernate cusSvc = new ConsumerServiceHibernate();
 consumer = cusSvc.getOneCus(cusId);
+request.setAttribute("consumer", consumer);
+
 
 %>    
 
@@ -161,9 +163,9 @@ consumer = cusSvc.getOneCus(cusId);
 
                                 </div>
                                 <div class="personal_item" style="width:70% ; border:none white ; padding-left: 0px">
-                                    <input class="mem" id="mem" value="" readonly>${consumer.cusName}</input><br><br>
+                                    <input class="mem" id="mem" value="${consumer.cusName}" readonly></input><br><br>
 
-                                    <input class="mem" id="mem" value="" readonly></input><br><br>
+                                    <input class="mem" id="mem" value="${consumer.cusAccount}" readonly></input><br><br>
 
                                     <input class="mem" id="mem" value="${consumer.cusMail}" readonly></input><br><br>
 
