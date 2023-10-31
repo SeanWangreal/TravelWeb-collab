@@ -5,13 +5,14 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.*;
 
 import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import com.tha103.gogoyu.trip_ord.model.Trip_ord;
+
 import com.tha103.gogoyu.consumer.model.Consumer;
 import com.tha103.gogoyu.planning.model.*;
 import com.tha103.gogoyu.room_ord.model.*;
@@ -20,6 +21,11 @@ import com.tha103.gogoyu.trip.model.*;
 import com.tha103.gogoyu.trip_ord.model.*;
 import com.tha103.gogoyu.company.model.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import com.tha103.gogoyu.room_stock.model.RoomStockServiceHibernate;
 
 @WebServlet("/shopping_hotelServlet")
 public class shopping_hotelServlet extends HttpServlet {
@@ -33,165 +39,208 @@ public class shopping_hotelServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8"); // 接收請求參數的編碼設定
 
 		HttpSession session = req.getSession();
-//		session.setAttribute("cart_id", 5);
-		session.setAttribute("trip_id", 1);
-		session.setAttribute("cus_id", 1);
-		session.setAttribute("room_id", 1);
 
-	
-//		Integer cart_Id = (Integer) session.getAttribute("cart_id"); // 抓車號
-		Integer cusId = (Integer) session.getAttribute("cus_id"); // 抓會員id
-		
-		//roomId最後要放回去房間新增裡的if!!
-		Integer roomId = (Integer) session.getAttribute("room_id"); // 抓房間id  最後會用getparameter(name value)
-	
-		//roomAmount最後要放回去房間新增裡的if!!
-		Integer roomAmount= 1;//Integer.valueOf(req.getParameter("amount")); //抓數量amount(name value)
-		
-		String Timestart= "2023-10-21"; // 示例日期字符串
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String Timestart = "2023-10-17"; // 示例日期字符串
+		String Timeend = "2023-10-20"; // 示例日期字符串
 		Date checkInTime = Date.valueOf(Timestart);
-		
-		
-		String Timeend= "2023-10-22"; // 示例日期字符串
-		Date checkOutTime =Date.valueOf(Timeend);
-		
-		
-		
-		String action = req.getParameter("action");
-		
-		
-		
-		
-		
-//=========================購物車(飯店)新增===============================
-		if ("room_goShopping".equals(action)) { 
-			
-			if (cusId != null) {// 如果session有cus_id資料代表有人登入
-				Integer cartId = Integer.valueOf(req.getParameter("cart_id")); //透過js給值抓購物車號(name value)
-//				System.out.println(cartId +"哈哈");
-				RoomServiceHibernate RSH = new RoomServiceHibernate();
-				Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
-				PlanningServiceHibernate PSH = new PlanningServiceHibernate();// 創造出SERVICE
-				
-				Integer plan_id = PSH.getPlanId(cartId, cusId); //得到1.他是誰   2.是哪台車 
-				System.out.println(plan_id);
-				Integer compId =  RSH.getRoom(roomId).getCompId();
-				
-			//跟room_ord 從room拿price
-				
-				BigDecimal totalPrice = RSH.getRoom(roomId).getPrice().setScale(0, RoundingMode.HALF_UP);
-			
-				//comm = price *10%
-				BigDecimal commission =  totalPrice.multiply(new BigDecimal(0.1)).setScale(0, RoundingMode.HALF_UP);
-			//profit = price - comm
-				BigDecimal profit = totalPrice.subtract(commission);
-			//people = 數量 (明翰提供) * room_type
-				Integer RoomType = RSH.getRoom(roomId).getRoomType();
-				Integer people = roomAmount * RoomType;
-				
-			// check in  out 時間由明翰搜尋的結果得知
-				
-				Integer newRoomOrder = ROSH.addFromShopping(compId ,plan_id,roomId,cusId,roomAmount,totalPrice,commission, profit , people ,checkInTime, checkOutTime,1);
-				
-				
-				String url = "/chu/shopping(hotel).jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
-				successView.forward(req, res);	
+		Date checkOutTime = Date.valueOf(Timeend);
 
+		String action = req.getParameter("action");
+
+//=========================購物車(飯店)新增===============================
+		if ("room_goShopping".equals(action)) {
+			Integer cusId = (Integer) session.getAttribute("cusId");
+//			 Date checkInTime = Date.valueOf(req.getParameter("checkInTime"));
+//			 Date checkOutTime = Date.valueOf(req.getParameter("checkOutTime"));
+			Integer roomId = Integer.valueOf(req.getParameter("roomId"));
+			Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
+			RoomStockServiceHibernate RSSH = new RoomStockServiceHibernate();
+			
+			
+			
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	        LocalDate startDate = LocalDate.parse(Timestart, formatter);
+	        LocalDate endDate = LocalDate.parse(Timeend, formatter);
+	        long days = endDate.toEpochDay() - startDate.toEpochDay() ;  
+	        
+	        
+	        
+	        
+	        
+			if (cusId != null) {// 如果session有cus_id資料代表有人登入
+				Integer product = ROSH.queryProduct(roomId, cusId, checkInTime, checkOutTime);
+				Integer roomStock = RSSH.searchMinRoomStockByTime(roomId, checkInTime, checkOutTime);
+				
+				if (product == 1 && roomStock != null && roomStock != 0) {
+					Integer cartId = Integer.valueOf(req.getParameter("cart_id"));
+					RoomServiceHibernate RSH = new RoomServiceHibernate();
+					PlanningServiceHibernate PSH = new PlanningServiceHibernate();// 創造出SERVICE
+					Integer plan_id = PSH.getPlanId(cartId, cusId); // 得到1.他是誰 2.是哪台車
+					Integer compId = RSH.getRoom(roomId).getCompId();
+					// 跟room_ord 從room拿price
+
+					BigDecimal totalPrice = RSH.getRoom(roomId).getPrice().multiply(new BigDecimal(days)).setScale(0, RoundingMode.HALF_UP);
+
+					// comm = price *10%
+					BigDecimal commission = totalPrice.multiply(new BigDecimal(0.1)).setScale(0, RoundingMode.HALF_UP);
+					// profit = price - comm
+					BigDecimal profit = totalPrice.subtract(commission);
+					// people = 數量 (明翰提供) * room_type
+					Integer RoomType = RSH.getRoom(roomId).getRoomType();
+					Integer roomAmount = 1; // 固定給他1(預設，後續可以到結帳前面去更改數量)
+					Integer people = roomAmount * RoomType;
+
+					// check in out 時間由明翰搜尋的結果得知
+
+					Integer newRoomOrder = ROSH.addFromShopping(compId, plan_id, roomId, cusId, roomAmount, totalPrice,
+							commission, profit, people, checkInTime, checkOutTime, 0);
+
+					String url = "/chu/shopping(hotel).jsp";
+					res.sendRedirect(req.getContextPath() + url);
+					return;
+				} else {
+					List<String> errorMessages = new ArrayList<String>();
+					if (product != 1) {
+						errorMessages.add("<i style = 'font-size :25px'>購物車已有此商品!</i>");
+					}
+					if (roomStock == null || roomStock == 0) {
+						errorMessages.add("<i style = 'font-size :25px'>此商品已無庫存或者日期輸入錯誤!</i>");
+					}
+
+					req.setAttribute("errorMessages", errorMessages);
+					returnForPage("/chu/shopping(hotel).jsp", res, req);
+				}
 			} else { // 導回登入
 				session.setAttribute("location", req.getRequestURI()); // 如果沒登入先記錄現在的位置(網址)
-				res.sendRedirect(req.getContextPath() + "/chu/bookingList(trip).jsp");// 然後導回登入頁面(等到有login.jsp再改路徑)
+				res.sendRedirect(req.getContextPath() + "/eric/signin.jsp");// 然後導回登入頁面(等到有login.jsp再改路徑)
+				return;
 			}
 
 		}
-		
+
 //=========================購物車(飯店)新增===============================
-		
-		
+
 //=========================購物車(飯店)刪除===============================
-		
-		if("removeHotelOrder".equals(action)) { 
-			
-			Integer roomOrdId =Integer.valueOf(req.getParameter("roomOrdId"));
+
+		if ("removeHotelOrder".equals(action)) {
+
+			Integer roomOrdId = Integer.valueOf(req.getParameter("roomOrdId"));
 			Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
+			PlanningServiceHibernate PSH = new PlanningServiceHibernate();
+			Integer carts = PSH.findCartByPlanning(ROSH.getRoomOrd(roomOrdId).getPlanId());
+
 			ROSH.delete(roomOrdId);
-	
-			
-			String url = "/chu/shopping(hotel).jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
-			successView.forward(req, res);	
+
+			req.setAttribute("carts", carts);
+			returnForPage("/chu/shopping(hotel).jsp", res, req);
+			return;
 
 		}
 //=========================購物車(飯店)刪除===============================
-	
-		
-	
-		
-//=========================購物車(飯店)結帳===============================
-		if("hotelcheckOut".equals(action)) { 
-			Integer roomOrderId  = Integer.valueOf(req.getParameter("roomOrdId"));
+
+//=========================購物車(飯店)更改車號===============================
+
+		if ("changeHotelCart".equals(action)) {
+
+			Integer changeCartId = Integer.valueOf(req.getParameter("changeCartId"));
+			Integer roomOrdId = Integer.valueOf(req.getParameter("roomOrdId"));
+			Integer cusId = (Integer) session.getAttribute("cusId");
+			PlanningServiceHibernate PSH = new PlanningServiceHibernate();// 創造出SERVICE
+			Integer planId = PSH.getPlanId(changeCartId, cusId); // 得到1.他是誰 2.是哪台車
+			Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
+			ROSH.updateCartNum(planId, roomOrdId);
+
+			res.sendRedirect(req.getContextPath() + "/chu/shopping(hotel).jsp");
+			return;
+
+		}
+
+//=========================購物車(飯店)更改車號===============================			
+
+//=========================訂單頁面取消===============================
+
+		if ("CancelTransaction".equals(action)) {
+			res.sendRedirect(req.getContextPath() + "/chu/shopping(hotel).jsp");
+			return;
+		}
+//=========================訂單頁面取消===============================
+
+//=========================bookingList更改數量===============================
+
+		if ("countAmount".equals(action)) {
+			Integer roomOrdId = Integer.valueOf(req.getParameter("roomOrdIdPk"));// tripOrdId
+
+			if (req.getParameter("roomAmount") != null) {
+				Integer amount = Integer.valueOf(req.getParameter("roomAmount"));
+				Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
+				ROSH.updateAmount(amount, roomOrdId);// 更新數量
+				req.setAttribute("roomOrdId", roomOrdId);
+
+				returnForPage("/chu/bookingList(hotel).jsp", res, req);
+			} else {
+				String errorMessages = "親愛的客戶您好，目前此商品暫無庫存";
+				req.setAttribute("errorMessages", errorMessages);
+				returnForPage("/chu/shopping(hotel).jsp", res, req);
+			}
+		}
+//=========================bookingList更改數量===============================
+
+//=========================訂單頁面結帳===============================
+
+		if ("ConnectToECPAY".equals(action)) {
 			Room_ordServiceHibernate ROSH = new Room_ordServiceHibernate();
 			RoomServiceHibernate RSH = new RoomServiceHibernate();
-			CompanyService CSH = new CompanyService();
+			RoomStockServiceHibernate RSSH = new RoomStockServiceHibernate();
+				ConnectToECPAYDTO dto = new ConnectToECPAYDTO();
+				dto.setRoomOrdId(Integer.valueOf(req.getParameter("roomOrdId")));
+				dto.setProfit(new BigDecimal(req.getParameter("profit")));
+				dto.setCommission(new BigDecimal(req.getParameter("commission")));
+				dto.setTotalPrice(new BigDecimal(req.getParameter("totalPrice")));
+				dto.setRemark(req.getParameter("remark"));
+				dto.setOrdTime(Timestamp.valueOf(LocalDateTime.now()));
+				Integer roomAmount = ROSH.getRoomOrd(dto.getRoomOrdId()).getAmount();
+				Integer roomType = RSH.getOneRoom(ROSH.getRoomOrd(dto.getRoomOrdId()).getRoomId()).getRoomType();
+				dto.setPeople(roomAmount * roomType);
+				Room_ord RO = ROSH.getRoomOrd(dto.getRoomOrdId());
+				Integer roomStock = RSSH.searchMinRoomStockByTime( RO.getRoomId(), RO.getCheckInTime(), RO.getCheckOutTime());
+				if( roomStock != 0) {
+						// 交易後更新內容
+						ROSH.updateStatusAndRemark(dto.getRemark(), dto.getRoomOrdId(), dto.getProfit(), dto.getCommission(),
+								dto.getTotalPrice(), dto.getOrdTime(), dto.getPeople());
 			
-			Room_ord RoomOrd =ROSH.getRoomOrd(roomOrderId);//取得該訂單pk的物件
-			
-			Date checkIn =RoomOrd.getCheckInTime();
-			Date checkOut =RoomOrd.getCheckOutTime();
-			Integer RoomId = RoomOrd.getRoomId();
-			Integer compId = RSH.getOneRoom(RoomId).getCompId();
-			
-			String compName=CSH.getComp(compId).getCompName();//抓房名
-			String principalName=CSH.getComp(compId).getPrincipalName();//抓聯絡人
-			String principalPhone=CSH.getComp(compId).getPrincipalPhone();//抓聯絡人電話
-			Integer profit = RoomOrd.getProfit().setScale(3, RoundingMode.HALF_UP).intValue();
-			Integer commission = RoomOrd.getCommission().setScale(3, RoundingMode.HALF_UP).intValue();
-			Integer totalPrice= RoomOrd.getTotalPrice().setScale(3, RoundingMode.HALF_UP).intValue();
-			String roomName = RSH.getRoom(RoomId).getRoomName();
-			Integer roomTypeId=RSH.getRoom(RoomId).getRoomType();
-			String roomType  = null ;//抓房型
-			switch (roomTypeId) {
-			case 1 :
-				roomType = "單人房";
-			break;
-			case 2 :
-				roomType = "雙人房";
-			break;
-			case 3 :
-				roomType = "三人房";
-			break;
-			case 4 :
-				roomType = "四人房";
-			break;
+						// 更新庫存
+						
+						RSSH.updateRoomStock(RO.getRoomId(), RO.getAmount(), RO.getCheckInTime(), RO.getCheckOutTime());
+						res.sendRedirect(req.getContextPath() + "/chu/payForSuccess.jsp");
+						return;
+			}else {
+				String errorMessages = "親愛的客戶您好，目前此商品暫無庫存";
+				req.setAttribute("errorMessages", errorMessages);
+				returnForPage("/chu/shopping(hotel).jsp", res, req);
+				return;
 			}
-			
-			
-			Room_ordList ROL = new Room_ordList();
-			ROL.setRoomName(roomName);
-			ROL.setRoomOrdId(RoomOrd.getRoomOrdId());
-			ROL.setCusId(RoomOrd.getCusId());
-			ROL.setCompName(compName);
-			ROL.setRoomType(roomType);
-			ROL.setAmount(RoomOrd.getAmount());
-			ROL.setPrincipalName(principalName);
-			ROL.setPrincipalPhone(principalPhone);
-			ROL.setStartTime(checkIn); 
-			ROL.setEndTime(checkOut);
-			ROL.setProfit(profit);
-			ROL.setCommission(commission);
-			ROL.setTotalPrice(totalPrice);
-			
-			
-			req.setAttribute( "RoomOrd" , ROL);
-			String url = "/chu/bookingList(hotel).jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
-			successView.forward(req, res);	
-			
-		}		
-//=========================購物車(飯店)結帳===============================
-		
+		}
 
-	
+//=========================訂單頁面結帳===============================
+
+//=========================購物車(飯店)結帳===============================
+		if ("hotelcheckOut".equals(action)) {
+			Integer roomOrderId = Integer.valueOf(req.getParameter("roomOrdId"));
+
+			req.setAttribute("roomOrdId", roomOrderId);
+			returnForPage("/chu/bookingList(hotel).jsp", res, req);
+
+		}
+//=========================購物車(飯店)結帳===============================
+
 	}
+
+	public static void returnForPage(String newUrl, HttpServletResponse res, HttpServletRequest req)
+			throws ServletException, IOException {
+		String url = newUrl;
+		RequestDispatcher successView = req.getRequestDispatcher(url);
+		successView.forward(req, res);
+		return;
+	}
+
 }

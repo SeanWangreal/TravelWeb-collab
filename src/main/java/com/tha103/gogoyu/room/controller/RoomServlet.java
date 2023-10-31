@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
@@ -39,6 +40,7 @@ public class RoomServlet extends HttpServlet {
 	RoomService roomSvc = null;
 	RoomPhotoService roomPhotoSvc = null;
 	RoomStockService roomStockSvc = null;
+
 	@Override
 	public void init() throws ServletException {
 		roomSvc = new RoomServiceHibernate();
@@ -51,46 +53,17 @@ public class RoomServlet extends HttpServlet {
 		res.setContentType("text/html; charset=UTF-8");
 		Room room = null;
 		String roomId = req.getParameter("roomId");
-		String compId = req.getParameter("compId");
 		HttpSession session = req.getSession();
-		System.out.println((String)session.getAttribute("compId"));
+		String compId = (String) session.getAttribute("compId");
+		if (compId == null) {
+			res.sendRedirect(req.getContextPath() + "/ken/com_mem_signin.jsp");
+			return;
+		}
 		String forwardPath = "";
 		String action = req.getParameter("action");
-		if (action == null) {
-			action = "";
-		} else {
-			action = action.strip();
-			String correctAction = "";
-			if (action.contains(" ")) {
-				for (int i = 0; i < action.length(); i++) {
-					if (action.charAt(i) != (char) ' ') {
-						correctAction += action.charAt(i);
-					}
-				}
-				action = correctAction;
-			}
-			System.out.println(action);
-		}
 		switch (action) {
 		case "add":
 			forwardPath = "/sean/hotel_room_add.jsp";
-			break;
-		case "getOne_For_Display":
-			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-			if (roomId == null || (roomId.trim()).length() == 0) {
-				errorMsgs.add("請輸入房間編號");
-			}
-			// Send the use back to the form, if there were errors
-			if (!errorMsgs.isEmpty()) {
-				forwardPath = "/sean/select_page.jsp";
-				RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
-				dispatcher.forward(req, res);
-			} else {
-				room = roomSvc.getOneRoom(Integer.parseInt(roomId));
-				req.setAttribute("room", room);
-				forwardPath = "/sean/hotel_room.jsp";
-			}
 			break;
 		case "getAllRoom":
 			session.setAttribute("compId", compId);
@@ -122,7 +95,7 @@ public class RoomServlet extends HttpServlet {
 			String intro = req.getParameter("intro");
 			byte[] detail = getAllDetail(req, res);
 			byte[] pic = null;
-			List<byte[]> allPhoto = new ArrayList<byte[]>();
+			LinkedList<byte[]> allPhoto = new LinkedList<byte[]>();
 			Collection<Part> parts = req.getParts();
 			for (Part part : parts) {
 				if (part.getContentType() != null && part.getSize() != 0) {
@@ -133,44 +106,15 @@ public class RoomServlet extends HttpServlet {
 			}
 			Integer roomid = null;
 			compId = (String) session.getAttribute("compId");
-			if ((roomId != null) && (!roomId.trim().isBlank())) {
-				roomid = Integer.parseInt(roomId);
-				room = roomSvc.getOneRoom(roomid);
-				room.setCompId(Integer.parseInt(compId));
-				room.setRoomType(roomType);
-				room.setRoomName(roomName);
-				room.setBeds(beds);
-				room.setPrice(price);
-				room.setIntro(intro);
-				room.setTissue((byte) detail[0]);
-				room.setShower( (byte) detail[1]);
-				room.setBathroom( (byte) detail[2]);
-				room.setDryer( (byte) detail[3]);
-				room.setTub( (byte) detail[4]);
-				room.setFreetoiletries( (byte) detail[5]);
-				room.setFlushseat( (byte) detail[6]);
-				room.setSlippers( (byte) detail[7]);
-				room.setBathrobe( (byte) detail[8]);
-				room.setSpatub((byte) detail[9]);
-				room.setElectricKettle((byte) detail[10]);
-				room.setMainPhoto(allPhoto.get(0));
-				roomSvc.updateRoom(room);
-				for (int i = 1; i < allPhoto.size();i++) {
-					roomPhotoSvc.addRoomPhoto(roomid,  allPhoto.get(i));
-				}
-			} else {
-				Integer roomStatus = 0;
-				Integer newRoomId = roomSvc.addRoom(Integer.parseInt(compId), roomType, roomName, beds, price, intro, roomStatus,
-						(byte) detail[0], (byte) detail[1], (byte) detail[2], (byte) detail[3], (byte) detail[4],
-						(byte) detail[5], (byte) detail[6], (byte) detail[7], (byte) detail[8], (byte) detail[9],
-						(byte) detail[10], allPhoto.get(0));
-				for (int i = 1; i < allPhoto.size();i++) {
-					roomPhotoSvc.addRoomPhoto(newRoomId,  allPhoto.get(i));
-				}
-				java.util.Date timeU = new java.util.Date();
-				Date timeS = new Date(timeU.getTime());
-				roomStockSvc.addFirstTime(newRoomId, timeS, Integer.parseInt(defualtNum));
-			}
+			Integer roomStatus = 0;
+			Integer newRoomId = roomSvc.addRoom(Integer.parseInt(compId), roomType, roomName, beds, price, intro,
+					roomStatus, (byte) detail[0], (byte) detail[1], (byte) detail[2], (byte) detail[3],
+					(byte) detail[4], (byte) detail[5], (byte) detail[6], (byte) detail[7], (byte) detail[8],
+					(byte) detail[9], (byte) detail[10], allPhoto.pop(), allPhoto);
+			java.util.Date timeU = new java.util.Date();
+			Date timeS = new Date(timeU.getTime());
+			roomStockSvc.addFirstTime(newRoomId, timeS, Integer.parseInt(defualtNum));
+
 			res.sendRedirect(req.getContextPath() + "/sean/hotel_room_all.jsp");
 			return;
 		case "updateRoom":
@@ -203,14 +147,14 @@ public class RoomServlet extends HttpServlet {
 				room.setPrice(price);
 				room.setIntro(intro);
 				room.setTissue((byte) detail[0]);
-				room.setShower( (byte) detail[1]);
-				room.setBathroom( (byte) detail[2]);
-				room.setDryer( (byte) detail[3]);
-				room.setTub( (byte) detail[4]);
-				room.setFreetoiletries( (byte) detail[5]);
-				room.setFlushseat( (byte) detail[6]);
-				room.setSlippers( (byte) detail[7]);
-				room.setBathrobe( (byte) detail[8]);
+				room.setShower((byte) detail[1]);
+				room.setBathroom((byte) detail[2]);
+				room.setDryer((byte) detail[3]);
+				room.setTub((byte) detail[4]);
+				room.setFreetoiletries((byte) detail[5]);
+				room.setFlushseat((byte) detail[6]);
+				room.setSlippers((byte) detail[7]);
+				room.setBathrobe((byte) detail[8]);
 				room.setSpatub((byte) detail[9]);
 				room.setElectricKettle((byte) detail[10]);
 				roomSvc.updateRoom(room);
@@ -222,14 +166,14 @@ public class RoomServlet extends HttpServlet {
 				room.setPrice(price);
 				room.setIntro(intro);
 				room.setTissue((byte) detail[0]);
-				room.setShower( (byte) detail[1]);
-				room.setBathroom( (byte) detail[2]);
-				room.setDryer( (byte) detail[3]);
-				room.setTub( (byte) detail[4]);
-				room.setFreetoiletries( (byte) detail[5]);
-				room.setFlushseat( (byte) detail[6]);
-				room.setSlippers( (byte) detail[7]);
-				room.setBathrobe( (byte) detail[8]);
+				room.setShower((byte) detail[1]);
+				room.setBathroom((byte) detail[2]);
+				room.setDryer((byte) detail[3]);
+				room.setTub((byte) detail[4]);
+				room.setFreetoiletries((byte) detail[5]);
+				room.setFlushseat((byte) detail[6]);
+				room.setSlippers((byte) detail[7]);
+				room.setBathrobe((byte) detail[8]);
 				room.setSpatub((byte) detail[9]);
 				room.setElectricKettle((byte) detail[10]);
 				room.setMainPhoto(allPhotoUpdate.get(0));
@@ -237,13 +181,13 @@ public class RoomServlet extends HttpServlet {
 			}
 			if (allPhotoUpdate.get(1) != null) {
 				roomSvc.deleteAllPhoto(roomid);
-				for (int i = 1; i < allPhotoUpdate.size();i++) {
+				for (int i = 1; i < allPhotoUpdate.size(); i++) {
 					roomPhotoSvc.addRoomPhoto(roomid, allPhotoUpdate.get(i));
-				}				
+				}
 			}
 			forwardPath = "/sean/hotel_room_all.jsp";
 			break;
-		case "delete2":
+		case "delete":
 			compId = (String) session.getAttribute("compId");
 			roomList = roomSvc.getRoomByCompId(Integer.parseInt(compId));
 			req.setAttribute("roomList", roomList);
@@ -275,6 +219,11 @@ public class RoomServlet extends HttpServlet {
 				forwardPath = "/sean/hotel_room_all.jsp";
 			}
 			break;
+		case "getProductDetailRoom":
+			Integer room_Id = Integer.valueOf(req.getParameter("room_id"));
+			List<Object> list = roomSvc.getRoomProdutDetail(room_Id);
+			req.setAttribute("productDetailRoom", list);
+			forwardPath = "/mhl/products_detail_room.jsp";
 		}
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 		dispatcher.forward(req, res);

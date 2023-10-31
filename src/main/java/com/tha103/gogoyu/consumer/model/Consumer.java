@@ -18,7 +18,7 @@ import com.tha103.gogoyu.trip_ord.model.Trip_ord;
 
 
 @Entity
-@Table(name = "Consumer")
+@Table(name = "consumer")
 public class Consumer implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -165,9 +165,9 @@ datalist {
 
 			</button>
 			<button type="button" class="head_btn">
-				<a class="profile"
-					href="${pageContext.request.contextPath}/sean/select_page.jsp">
-					<i class="fa-solid fa-user"
+					<a class="profile"
+					href="${pageContext.request.contextPath}/ken/tripcom_mem.jsp">
+					<i class="fa-solid fa-user icon"
 					style="color: black; font-size: 30px; background-color: transparent;"></i>
 				</a>
 			</button>
@@ -466,7 +466,7 @@ datalist {
 						<input type="file" class="in" id="pic_file" name="mainPhoto"
 							accept="image/*">
 						<div class="drag">
-							<img src="MainPhotoTripPrintServlet?tripId=${trip.tripId}"
+							<img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${trip.tripId}"
 								style="max-width: 100%">
 						</div>
 					</c:if>
@@ -478,7 +478,7 @@ datalist {
 						<div class="multi-photo">
 							<c:forEach var="pic" items="${tripPhoto}">
 								<img class="imgs"
-									src="TripPhotoPrintServlet?tripPhotoId=${pic.tripPhotoId}"
+									src="${pageContext.request.contextPath}/sean/TripPhotoPrintServlet?tripPhotoId=${pic.tripPhotoId}"
 									style="width: 23%">
 							</c:forEach>
 						</div>

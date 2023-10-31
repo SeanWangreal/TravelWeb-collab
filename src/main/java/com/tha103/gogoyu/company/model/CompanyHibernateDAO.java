@@ -10,7 +10,10 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.tha103.gogoyu.consumer.model.Consumer;
+import com.tha103.gogoyu.hotel_info.model.Hotel_info;
 import com.tha103.gogoyu.itinerary.model.Itinerary;
+import com.tha103.gogoyu.room.model.Room;
 import com.tha103.gogoyu.trip_ord.model.Trip_ord;
 import com.tha103.gogoyu.trip_ord.model.Trip_ordDAO_Interface;
 import com.tha103.gogoyu.trip_ord.model.Trip_ordHibernateDAO;
@@ -30,13 +33,18 @@ public class CompanyHibernateDAO implements CompanyDAO_interface {
 	}
 	
 	@Override
-	public int add(Company Company) {
+	public int add(Company company,Hotel_info hotelInfo) {
 		
 		try {
 			getSession().beginTransaction();
-			Integer id = (Integer) getSession().save(Company);
+			if (company.getCompType() == 0) {
+				Integer id1 = (Integer) getSession().save(hotelInfo);
+				hotelInfo = getSession().get(Hotel_info.class,id1);
+				company.setHotelInfo(hotelInfo);
+			}
+			Integer id2 = (Integer) getSession().save(company);
 			getSession().getTransaction().commit();
-			return id;
+			return id2;
 		} catch (Exception e) {
 			e.printStackTrace();
 			getSession().getTransaction().rollback();
@@ -76,6 +84,42 @@ public class CompanyHibernateDAO implements CompanyDAO_interface {
 		}
 		return -1;
 	}
+	 
+	@Override
+	public List<Company> findByAccount(String compAccount) {
+		
+		try {
+			getSession().beginTransaction();
+			List<Company> list = getSession()
+					.createQuery("from Company where comp_account = :compAccount", Company.class)
+					.setParameter("compAccount", compAccount).list();
+			getSession().getTransaction().commit();
+			
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+	
+	@Override
+	public List<Company> findByPassword(String compPassword) {
+		
+		try {
+			getSession().beginTransaction();
+			List<Company> list = getSession()
+					.createQuery("from Company where comp_password = :compPassword", Company.class)
+					.setParameter("compPassword", compPassword).list();
+			getSession().getTransaction().commit();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+	
 
 	@Override
 	public Company findByPK(Integer compId) {
@@ -91,6 +135,24 @@ public class CompanyHibernateDAO implements CompanyDAO_interface {
 		}
 		return null;
 	}
+	
+	@Override
+	public Company getAccount(String compAccount) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			Company company = session
+					.createQuery("from Company where comp_account = :compAccount", Company.class)
+					.setParameter("compAccount", compAccount).uniqueResult();
+			session.getTransaction().commit();
+			return company;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		return null;
+	}
+	
 
 	@Override
 	public List<Company> getAll() {
@@ -106,12 +168,31 @@ public class CompanyHibernateDAO implements CompanyDAO_interface {
 		}
 		return null;
 	}
-//	public static void main(String[] args) {
-//		SessionFactory factory = HibernateUtil.getSessionFactory();
-//		CompanyHibernateDAO dao= new CompanyHibernateDAO(factory);
-//		List<Company> list=dao.getAll();
-//		System.out.print(list.get(0));
-//	}
+	
+	@Override
+	public byte[] getCompPhoto(Integer compId) {
+		try {
+			getSession().beginTransaction();
+			byte[] compPhoto = getSession()
+					.createQuery("select compPhoto from Company where comp_id = :comp_id", byte[].class)
+					.setParameter("comp_id", compId).uniqueResult();
+			getSession().getTransaction().commit();
+			return compPhoto;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+	
+	
+	
+	public static void main(String[] args) {
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		CompanyHibernateDAO dao= new CompanyHibernateDAO(factory);
+		List<Company> list=dao.getAll();
+		System.out.print(list.get(0));
+	}
 
 	@Override
 	public List<Company> getByCheckStatus() {

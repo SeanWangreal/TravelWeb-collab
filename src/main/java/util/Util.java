@@ -11,7 +11,7 @@ public class Util {
 	public static final String USER = "root";
 	public static final String PASSWORD = "12345678";
 	//for picture
-	public static final String getBinary = "SELECT photo from trip_photo where trip_photo_id = ?";
+//	public static final String getBinary = "SELECT photo from trip_photo where trip_photo_id = ?";
 	
 	public static void closeResources(Connection con, PreparedStatement pstmt, ResultSet rs) {
 		if (con!=null) {

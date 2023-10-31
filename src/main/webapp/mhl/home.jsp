@@ -1,14 +1,23 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.tha103.gogoyu.room.model.*"%>
+<%@ page import="com.tha103.gogoyu.trip.model.*"%>
 <%
 	RoomServiceHibernate roomSvc = new RoomServiceHibernate();
-	List<Room> list = roomSvc.getHotRoom();
-	
-// 	TripServiceHibernate tripSvc = new TripServiceHibernate();
-// 	List<Trip> list = roomSvc.getHotTrip();
+	List<List> roomDetail = roomSvc.getHotRoomDetail();
+	List<Room> roomList = roomDetail.get(0);
 
+	for (Room room:roomList){
+		System.out.println(room.getRoomId());
+	}
+	List<String> compNameList = roomDetail.get(1);
+	request.setAttribute("roomList", roomList);
+	request.setAttribute("compNameList", compNameList);
+
+	TripServiceHibernate tripSvc = new TripServiceHibernate();
+	List<Trip> tripList = tripSvc.getHotTrip();
+	request.setAttribute("tripList", tripList);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,13 +92,13 @@
 
 <body>
     <nav class="st">
-        <a class="logo" id="home" href="#">GO<i class="fa-solid fa-location-dot" style="color: #ffbf1c;"></i>GOYU</a>
+        <a class="logo" id="home" href="${pageContext.request.contextPath}/mhl/home.jsp">GO<i class="fa-solid fa-location-dot" style="color: #ffbf1c;"></i>GOYU</a>
         <a class="word" id="hotel" href="#">HOT<i class="fa-solid fa-fire"
                 style="color: #ff9500; background-color:transparent;"></i>Hotel</a>
         <a class="word" id="journel" href="#">HOT<i class="fa-solid fa-fire"
                 style="color: #ff9500; background-color:transparent;"></i>Journel</a>
         <div class="head">
-            <button type="menu" class="head_btn" aria-label="�W����{" id="shop">
+            <button type="menu" class="head_btn" aria-label="規劃行程" id="shop">
                 <i class="fa-solid fa-suitcase-rolling icon" style="color: black; font-size:30px;
                             background-color:transparent;"></i>
             </button>
@@ -102,7 +111,12 @@
                             background-color:transparent;"></i>
             </button>
             <button type="button" class="head_btn">
-                <a class="profile" href="#">
+                <a class="profile" href="${pageContext.request.contextPath}/ken/com_mem_signin.jsp">
+                   <div style="color: black;">業者</div>
+                </a>
+            </button>
+            <button type="button" class="head_btn">
+                <a class="profile" href="${pageContext.request.contextPath}/eric/personal_detail.jsp">
                     <i class="fa-solid fa-user" style="color: black; font-size:30px;
                                 background-color:transparent;"></i>
                 </a>
@@ -110,47 +124,71 @@
         </div>
         <aside class="msg all_side nothing" id="msg_side">
             <div class="nothing">
-                4�h��Ū�T��<br>
-                <a class="btn btn-primary" href="#" role="button">�d�ݧY�ɰT��</a>
+                4則未讀訊息<br>
+                <a class="btn btn-primary" href="#" role="button">查看即時訊息</a>
             </div>
         </aside>
         <aside class="info all_side nothing" id="info_side">
-            3�h�q��w����<br>
-            <a class="btn btn-primary" href="#" role="button">�d�ݩҦ��q��</a>
+            3則訂單已完成<br>
+            <a class="btn btn-primary" href="#" role="button">查看所有訂單</a>
         </aside>
         <aside class="shop all_side nothing" id="shop_side">
-            3�Ӱӫ~�b�ʪ�����<br>
-            <a class="btn btn-primary" href="#" role="button">�d���ʪ���</a>
+            3個商品在購物車內<br>
+            <a class="btn btn-primary" href="#" role="button">查看購物車</a>
         </aside>
     </nav>
 
-    <form id="background" action="./serching.html">
-        <img src="4621.png" alt="">
+    <form id="background" method="post" action="${pageContext.request.contextPath}/sean/SearchServlet">
+    	<input type="hidden" value="hotel" name="action" id="type">
+        <img src="${pageContext.request.contextPath}/mhl/4621.png" alt="">
         <div id="search">
             <div id="btn_block">
                 <button type="button" class="choose_btn -on" id="Hotel">Hotel</button>
-                <input type="hidden" value="hotel" name="type" id="type">
+<!--                 <input type="hidden" value="hotel" name="type" id="type"> -->
                 <button type="button" class="choose_btn" id="Trip">Trip</button>
             </div>
             <div id="outer">
                 <hr id="kk">
                 <div id="inside_form">
                     <div style="flex-basis: 20%;">
-                        <input class="in" id="where" type="search" placeholder="Destination...">
+                        <select class="form-select me-2 in" name="site" aria-label="Default select example">
+                            <option value="台北市">台北市</option>
+                            <option value="新北市">新北市</option>
+                            <option value="桃園市">桃園市</option>
+                            <option value="台中市">台中市</option>
+                            <option value="台南市">台南市</option>
+                            <option value="高雄市">高雄市</option>
+                            <option value="新竹縣">新竹縣</option>
+                            <option value="苗栗縣">苗栗縣</option>
+                            <option value="彰化縣">彰化縣</option>
+                            <option value="南投縣">南投縣</option>
+                            <option value="雲林縣">雲林縣</option>
+                            <option value="嘉義縣">嘉義縣</option>
+                            <option value="屏東縣">屏東縣</option>
+                            <option value="宜蘭市">宜蘭市</option>
+                            <option value="花蓮市">花蓮市</option>
+                            <option value="台東縣">台東縣</option>
+                            <option value="金門縣">金門縣</option>
+                            <option value="連江縣">連江縣</option>
+                            <option value="基隆市">基隆市</option>
+                            <option value="新竹市">新竹市</option>
+                            <option value="嘉義市">嘉義市</option>
+                            <option value="澎湖縣">澎湖縣</option>
+                        </select>
                     </div>
                     <div style="flex-basis: 20%;">
 
-                        <input class="in" id="date" type="text" placeholder="Check in..." onfocus="(this.type='date')"
+                        <input class="in" name="checkIn" id="date" type="text" placeholder="Check in..." onfocus="(this.type='date')"
                             onblur="(this.type='text')">
                     </div>
                     <div style="flex-basis: 20%;">
 
-                        <input class="in" id="date" type="text" placeholder="Check out..." onfocus="(this.type='date')"
+                        <input class="in" name="checkOut" id="date" type="text" placeholder="Check out..." onfocus="(this.type='date')"
                             onblur="(this.type='text')">
                     </div>
                     <div style="flex-basis: 20%;">
 
-                        <input class="in" id="people" type="search" placeholder="people...">
+                        <input class="in" name="number" id="people" type="search" placeholder="people...">
                     </div>
 
                     <button id="s" type="submit" style="flex-basis: 100px;">
@@ -165,7 +203,7 @@
         <main class="container ">
             <div class="row justify-content-center align-items-center ">
                 <div class="col-12 col-md-8 h-10">
-                    <h6 class="text-center">Hot Hotel</h6>
+                    <h2 class="text-center">Hot Hotel</h2>
                 </div>
                 <div class="col-12 col-md-8 h-40 mb-4">
                     <div id="carouselTrip" class="carousel slide ">
@@ -178,27 +216,33 @@
                                 aria-label="Slide 3"></button>
                         </div>
                         <div class="carousel-inner ">
+                        <c:forEach var="room" items="${roomList}">
+                        	<c:if test="${roomList.indexOf(room) == 0}">
                             <div class="carousel-item active  ">
-                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=((Room)list.get(0)).getRoomId() %>" class="d-block w-100"   alt="...">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5 class="bg-light text-dark mb-0"><%=(list.get(0)).getRoomName() %></h5>
-                                    <p class="bg-light text-dark">TWD <%=(list.get(0)).getPrice().intValue() %></p>
-                                </div>
+	                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?room_id=${room.roomId}&action=getProductDetailRoom" class="d-block w-100"   alt="...">
+	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${room.roomId}" class="d-block w-100"   alt="...">
+	                                <div class="carousel-caption d-none d-md-block">
+	                                    <h5 class="bg-light text-dark mb-0">${compNameList.get(roomList.indexOf(room))}</h5>
+	                                    <p class="bg-light text-dark mb-0">${room.roomName}</p>
+	                                    <p class="bg-light text-dark">${room.roomType}人房 TWD ${room.price.intValue()}</p>
+	                                </div>
+	                            </a>
                             </div>
-                            <div class="carousel-item ">
-                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=((Room)list.get(1)).getRoomId() %>" class="d-block w-100"  alt="...">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5 class="bg-light text-dark mb-0"><%=(list.get(1)).getRoomName() %></h5>
-                                    <p class="bg-light text-dark">TWD <%=(list.get(1)).getPrice().intValue() %></p>
-                                </div>
-                            </div>
-                            <div class="carousel-item  ">
-                                <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=((Room)list.get(2)).getRoomId() %>" class="d-block w-100"  alt="...">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5 class="bg-light text-dark mb-0"><%=(list.get(2)).getRoomName() %></h5>
-                                    <p class="bg-light text-dark">TWD <%=(list.get(2)).getPrice().intValue() %></p>
-                                </div>
-                            </div>
+                        	</c:if>
+                        	<c:if test="${roomList.indexOf(room) != 0}">
+									<div class="carousel-item">
+										<a href="${pageContext.request.contextPath}/sean/SearchServlet?room_id=${room.roomId}&action=getProductDetailRoom" class="d-block w-100" alt="...">
+											<img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${room.roomId}" class="d-block w-100" alt="...">
+											<div class="carousel-caption d-none d-md-block">
+												<h5 class="bg-light text-dark mb-0">${compNameList.get(roomList.indexOf(room))}</h5>
+												<p class="bg-light text-dark mb-0">${room.roomName}</p>
+												<p class="bg-light text-dark">${room.roomType}人房TWD
+													${room.price.intValue()}</p>
+											</div>
+										</a>
+									</div>
+								</c:if>
+                        </c:forEach>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselTrip"
                             data-bs-slide="prev">
@@ -213,7 +257,7 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-8 h-10">
-                    <h6 class="text-center">Hot Journey</h6>
+                    <h2 class="text-center">Hot Journey</h2>
                 </div>
                 <div class="col-12 col-md-8 h-40 mb-6">
                     <div id="carouselJourney" class="carousel slide ">
@@ -226,27 +270,30 @@
                                 aria-label="Slide 3"></button>
                         </div>
                         <div class="carousel-inner ">
-                            <div class="carousel-item active ">
-                                <img src="https://picsum.photos/2800/1600?random=1" class="d-block w-100" alt="...">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5 class="bg-light text-dark mb-0">���h�G�Ѥ@�]</h5>
-                                    <p class="bg-light text-dark">�C�HTWD 1,000�_</p>
-                                </div>
+                        <c:forEach var="trip" items="${tripList}">
+                        	<c:if test="${tripList.indexOf(trip) == 0}">
+                        		<div class="carousel-item active ">
+	                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?tripId=${trip.tripId}&action=getProductDetailTrip" class="d-block w-100"   alt="...">
+	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${trip.tripId}" class="d-block w-100" alt="...">
+	                                <div class="carousel-caption d-none d-md-block">
+	                                    <h5 class="bg-light text-dark mb-0">${trip.tripName}</h5>
+	                                    <p class="bg-light text-dark">${trip.people}人套票 TWD ${trip.price.intValue()}</p>
+	                                </div>
+                                </a>
                             </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/1400/800?random=2" class="d-block w-100" alt="...">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5 class="bg-light text-dark mb-0">���h�G�Ѥ@�]</h5>
-                                    <p class="bg-light text-dark">�C�HTWD 1,000�_</p>
-                                </div>
+                        	</c:if>
+                        	<c:if test="${tripList.indexOf(trip) != 0}">
+                        	<div class="carousel-item">
+	                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?tripId=${trip.tripId}&action=getProductDetailTrip" class="d-block w-100"   alt="...">
+	                                <img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${trip.tripId}" class="d-block w-100" alt="...">
+	                                <div class="carousel-caption d-none d-md-block">
+	                                    <h5 class="bg-light text-dark mb-0">${trip.tripName}</h5>
+	                                    <p class="bg-light text-dark">${trip.people}人套票 TWD ${trip.price.intValue()}</p>
+	                                </div>
+                                </a>
                             </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/1400/800?random=3" class="d-block w-100" alt="...">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5 class="bg-light text-dark mb-0">���h�G�Ѥ@�]</h5>
-                                    <p class="bg-light text-dark">�C�HTWD 1,000�_</p>
-                                </div>
-                            </div>
+                            </c:if>
+                        </c:forEach>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselJourney"
                             data-bs-slide="prev">

@@ -12,8 +12,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TravelMaker</title>
-<link href="../dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="../static/sean_css/comp_ord.css">
+<link href="${pageContext.request.contextPath}/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/sean_css/comp_ord.css">
 </script>
 <style>
 @media ( min-height : 500px) and (max-height: 1300px) {
@@ -56,8 +56,11 @@
 							</a>
 			</button>
 			<button type="menu" class="head_btn" id="">
-				<i class="fa-solid fa-user icon"
+					<a class="profile"
+					href="${pageContext.request.contextPath}/ken/tripcom_mem.jsp">
+					<i class="fa-solid fa-user icon"
 					style="color: black; font-size: 30px; background-color: transparent;"></i>
+				</a>
 			</button>
 		</div>
 		<aside class="msg all_side nothing" id="msg_side">
@@ -125,7 +128,7 @@
 			</div>
 		</main>
 	</div>
-	<script src="../static/sean_js/btn4com.js"></script>
+	<script src="${pageContext.request.contextPath}/static/sean_js/btn4com.js"></script>
 	<script type="text/javascript">
     $(document).ready(function() {
 	var path = window.location.pathname;
@@ -142,7 +145,10 @@
         },
         dataType : "json", // 預期會接收到回傳資料的格式： json | xml | html
         success : function(data) { // request 成功取得回應後執行
-            var	totalOrd = data[1][2];
+        	var	totalOrd = 0;
+        	if (data.length != 0){
+        		totalOrd = data[1][2];
+        	}
             var html =``;
             for (var i = 0; i < data.length;i+=2){
                 console.log(data[i]);
@@ -311,52 +317,57 @@
    	                	$("#allOrd").html("");
    	                	console.log(data);
    	                	var word = "";
-   	                    if (data[0].ordStatus == 1){
-   	                        word = "已成立";
-   	                    } else{
-   	                        word = "已取消";
-   	                    }
-   	                   var html =`<div class="ord">
-			                           <div class="ord-head">
-			                           <label for="">訂單編號:</label><span>`+data[0].tripOrdId+`</span>
-			                           <label for="">訂單狀態:</label><span>`+word+`</span>
-			                       </div>
-			                       <div class="all-info">
-			                           <div>   
-			                               <div style="display:flex">
-			                               <label for="" class="l_long ord-label">套票<br>
-			                               <span class="long">`+data[1][0]+`</span>
-			                               </label> 
-			                               <label for=""
-			                                   class="l_long ord-label">張數<br>
-			                               <span class="long">`+data[0].amount+`</span>
-			                               </label> 
-			                               <label for=""
-			                                   class="l_long ord-label">總金額<br>
-			                               <span class="long">`+data[0].totalPrice+`</span></label> 
-			                               
-			                               </div>
-			                               <label for=""
-			                                   class="l_long ord-label">顧客名稱<br>
-			                               <span class="long">`+data[1][1]+`</span>
-			                               </label> 
-			                               <label for=""
-			                                   class="l_long ord-label">開始日期<br>
-			                               <span class="long">`+data[0].startTime+`</span>
-			                               </label> 
-			                               <label for=""
-			                                   class="l_long ord-label">結束日期<br>
-			                               <span class="long">`+data[0].endTime+`</span>
-			                               </label>
-			                           </div>
-			                           <div class="remark-block">
-			                               <label for="" class="remark">備註:</label>
-			                               <p class="remark-info">`+data[0].remark+`
-			                               </p>
-			                           </div>
-			                       </div>
-			                   </div>`
-   	                       $("#allOrd").html(html);
+   	                	if (data.length != 0){
+	   	                    if (data[0].ordStatus == 1){
+	   	                        word = "已成立";
+	   	                    } else{
+	   	                        word = "已取消";
+	   	                    }
+	   	                   var html =`<div class="ord">
+				                           <div class="ord-head">
+				                           <label for="">訂單編號:</label><span>`+data[0].tripOrdId+`</span>
+				                           <label for="">訂單狀態:</label><span>`+word+`</span>
+				                       </div>
+				                       <div class="all-info">
+				                           <div>   
+				                               <div style="display:flex">
+				                               <label for="" class="l_long ord-label">套票<br>
+				                               <span class="long">`+data[1][0]+`</span>
+				                               </label> 
+				                               <label for=""
+				                                   class="l_long ord-label">張數<br>
+				                               <span class="long">`+data[0].amount+`</span>
+				                               </label> 
+				                               <label for=""
+				                                   class="l_long ord-label">總金額<br>
+				                               <span class="long">`+data[0].totalPrice+`</span></label> 
+				                               
+				                               </div>
+				                               <label for=""
+				                                   class="l_long ord-label">顧客名稱<br>
+				                               <span class="long">`+data[1][1]+`</span>
+				                               </label> 
+				                               <label for=""
+				                                   class="l_long ord-label">開始日期<br>
+				                               <span class="long">`+data[0].startTime+`</span>
+				                               </label> 
+				                               <label for=""
+				                                   class="l_long ord-label">結束日期<br>
+				                               <span class="long">`+data[0].endTime+`</span>
+				                               </label>
+				                           </div>
+				                           <div class="remark-block">
+				                               <label for="" class="remark">備註:</label>
+				                               <p class="remark-info">`+data[0].remark+`
+				                               </p>
+				                           </div>
+				                       </div>
+				                   </div>`
+	   	                       $("#allOrd").html(html);
+   	                		
+   	                	} else {
+   	                	 $("#allOrd").text("查無資料");
+   	                	}
    	                 }
    	             });
    	            	

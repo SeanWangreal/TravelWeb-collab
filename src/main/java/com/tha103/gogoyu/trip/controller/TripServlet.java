@@ -35,7 +35,8 @@ import com.tha103.gogoyu.trip_photo.model.Trip_photoService;
 import com.tha103.gogoyu.trip_photo.model.Trip_photoServiceHibernate;
 
 @WebServlet("/sean/TripServlet")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 *100, maxFileSize = 5 * 1024 * 1024, maxRequestSize =10 * 5 * 1024 * 1024)
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 100, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 10 * 5 * 1024
+		* 1024)
 public class TripServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -55,46 +56,17 @@ public class TripServlet extends HttpServlet {
 		res.setContentType("text/html; charset=UTF-8");
 		Trip trip = null;
 		String tripId = req.getParameter("tripId");
-		String compId = req.getParameter("compId");
 		HttpSession session = req.getSession();
-		System.out.println((String) session.getAttribute("compId"));
+		String compId = (String) session.getAttribute("compId");
+		if (compId == null) {
+			res.sendRedirect(req.getContextPath() + "/sean/ken/com_mem_signin.jsp");
+			return;
+		}
 		String forwardPath = "";
 		String action = req.getParameter("action");
-		if (action == null) {
-			action = "";
-		} else {
-			action = action.strip();
-			String correctAction = "";
-			if (action.contains(" ")) {
-				for (int i = 0; i < action.length(); i++) {
-					if (action.charAt(i) != (char) ' ') {
-						correctAction += action.charAt(i);
-					}
-				}
-				action = correctAction;
-			}
-			System.out.println(action);
-		}
 		switch (action) {
 		case "add":
 			forwardPath = "/sean/trip_ticket_add.jsp";
-			break;
-		case "getOne_For_Display":
-			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-			if (tripId == null || (tripId.trim()).length() == 0) {
-				errorMsgs.add("請輸入房間編號");
-			}
-			// Send the use back to the form, if there were errors
-			if (!errorMsgs.isEmpty()) {
-				forwardPath = "/sean/select_page.jsp";
-				RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
-				dispatcher.forward(req, res);
-			} else {
-				trip = tripSvc.getOneTrip(Integer.parseInt(tripId));
-				req.setAttribute("trip", trip);
-				forwardPath = "/sean/trip_ticket_all.jsp";
-			}
 			break;
 		case "getAllTrip":
 			session.setAttribute("compId", compId);
@@ -105,9 +77,6 @@ public class TripServlet extends HttpServlet {
 			Set<Itinerary> itinerary = null;
 			for (Trip li : tripList) {
 				itinerary = tripSvc.getItineraryByTripId(li.getTripId());
-				for (Itinerary it: itinerary) {
-					System.out.println(it.getBeginTime());
-				}
 				tripPhoto = tripSvc.getAllPhoto(li.getTripId());
 				map.put(li, tripPhoto);
 				itineraryMap.put(li, itinerary);
@@ -140,7 +109,7 @@ public class TripServlet extends HttpServlet {
 			String[] sceneNameUnion = req.getParameterValues("sceneName");
 			byte[] detail = getAllDetail(req, res);
 			byte[] pic = null;
-			List<byte[]> allPhoto = new ArrayList<byte[]>();
+			LinkedList<byte[]> allPhoto = new LinkedList<byte[]>();
 			Collection<Part> parts = req.getParts();
 			for (Part part : parts) {
 				if (part.getContentType() != null && part.getSize() != 0) {
@@ -151,43 +120,23 @@ public class TripServlet extends HttpServlet {
 			}
 			Integer tripid = null;
 			compId = (String) session.getAttribute("compId");
-			if ((tripId != null) && (!tripId.trim().isBlank())) {
-				tripid = Integer.parseInt(tripId);
-				trip = tripSvc.getOneTrip(tripid);
-				tripSvc.updateTrip(trip.getTripId(), Integer.parseInt(compId), tripName, amount, price, people,
-						startTime, endTime, content, trip.getState(), (byte) detail[0], (byte) detail[1],
-						(byte) detail[2], (byte) detail[3], (byte) detail[4], (byte) detail[5], (byte) detail[6],
-						(byte) detail[7], (byte) detail[8], (byte) detail[9], (byte) detail[10], (byte) detail[11],
-						(byte) detail[12], (byte) detail[13], (byte) detail[14], (byte) detail[15], (byte) detail[16],
-						(byte) detail[17], (byte) detail[18], (byte) detail[19], (byte) detail[20], (byte) detail[21],
-						allPhoto.get(0));
-				for (int i = 1; i < allPhoto.size(); i++) {
-					tripPhotoSvc.addTripPhoto(trip.getTripId(), allPhoto.get(i));
-				}
-				for (int i = 0; i < sceneIdUnion.length; i++) {
-					String newbeginTime = beginTimeUnion[i].replace('T', ' ');
-					newbeginTime += ":00";
-					itinerarySvc.add(trip.getTripId(), Integer.parseInt(sceneIdUnion[i]), sceneNameUnion[i],
-							Timestamp.valueOf(newbeginTime));
-				}
-			} else {
-				Integer tripStatus = 0;
-				Trip newTrip = tripSvc.addTrip(Integer.parseInt(compId), tripName, amount, price, people, startTime,
-						endTime, content, tripStatus, (byte) detail[0], (byte) detail[1], (byte) detail[2],
-						(byte) detail[3], (byte) detail[4], (byte) detail[5], (byte) detail[6], (byte) detail[7],
-						(byte) detail[8], (byte) detail[9], (byte) detail[10], (byte) detail[11], (byte) detail[12],
-						(byte) detail[13], (byte) detail[14], (byte) detail[15], (byte) detail[16], (byte) detail[17],
-						(byte) detail[18], (byte) detail[19], (byte) detail[20], (byte) detail[21], allPhoto.get(0));
-				for (int i = 1; i < allPhoto.size(); i++) {
-					tripPhotoSvc.addTripPhoto(newTrip.getTripId(), allPhoto.get(i));
-				}
-				for (int i = 0; i < sceneIdUnion.length; i++) {
-					String newbeginTime = beginTimeUnion[i].replace('T', ' ');
-					newbeginTime += ":00";
-					itinerarySvc.add(newTrip.getTripId(), Integer.parseInt(sceneIdUnion[i]), sceneNameUnion[i],
-							Timestamp.valueOf(newbeginTime));
-				}
+			Integer tripStatus = 0;
+			List<Itinerary> itineraryList2 = new ArrayList<Itinerary>();
+			for (int i = 0; i < sceneIdUnion.length; i++) {
+				String newbeginTime = beginTimeUnion[i].replace('T', ' ');
+				newbeginTime += ":00";
+				Itinerary it = new Itinerary();
+				it.setBeginTime(Timestamp.valueOf(newbeginTime));
+				it.setSceneId(Integer.parseInt(sceneIdUnion[i]));
+				it.setSceneName(sceneNameUnion[i]);
+				itineraryList2.add(it);
 			}
+			tripSvc.addTrip(Integer.parseInt(compId), tripName, amount, price, people, startTime, endTime, content,
+					tripStatus, (byte) detail[0], (byte) detail[1], (byte) detail[2], (byte) detail[3],
+					(byte) detail[4], (byte) detail[5], (byte) detail[6], (byte) detail[7], (byte) detail[8],
+					(byte) detail[9], (byte) detail[10], (byte) detail[11], (byte) detail[12], (byte) detail[13],
+					(byte) detail[14], (byte) detail[15], (byte) detail[16], (byte) detail[17], (byte) detail[18],
+					(byte) detail[19], (byte) detail[20], (byte) detail[21], allPhoto.pop(), allPhoto, itineraryList2);
 			res.sendRedirect(req.getContextPath() + "/sean/trip_ticket_all.jsp");
 			return;
 		case "updateTrip":
@@ -246,7 +195,7 @@ public class TripServlet extends HttpServlet {
 				beginTimeList.add(Timestamp.valueOf(newbeginTime));
 			}
 			itinerarySvc.deleteAllByTripIdAndAdd(tripid, sceneIdList, sceneNameList, beginTimeList);
-			
+
 			res.sendRedirect(req.getContextPath() + "/sean/trip_ticket_all.jsp");
 			return;
 		case "delete":

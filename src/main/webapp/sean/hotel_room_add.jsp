@@ -145,7 +145,7 @@ button.left_btn:hover {
 			</a>
 			</button>
 			<button type="button" class="head_btn">
-				<a class="profile" href="#"> <i class="fa-solid fa-user"
+				<a class="profile" href="${pageContext.request.contextPath}/ken/com_mem.jsp"> <i class="fa-solid fa-user"
 					style="color: black; font-size: 30px; background-color: transparent;"></i>
 				</a>
 			</button>
@@ -339,7 +339,7 @@ button.left_btn:hover {
 						<input type="file" class="in" id="pic_file" name="mainPhoto"
 							accept="image/*">
 						<div class="drag">
-							<img src="MainPhotoPrintHServlet?room_id=${room.roomId}"
+							<img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${room.roomId}"
 								style="max-width: 100%">
 						</div>
 					</c:if>
@@ -351,7 +351,7 @@ button.left_btn:hover {
 						<div class="multi-photo">
 							<c:forEach var="pic" items="${roomPhoto}">
 								<img class="imgs"
-									src="RoomPhotoPrintHServlet?room_photo_id=${pic.roomPhotoId}"
+									src="${pageContext.request.contextPath}/sean/RoomPhotoPrintHServlet?room_photo_id=${pic.roomPhotoId}"
 									style="width: 23%">
 							</c:forEach>
 						</div>

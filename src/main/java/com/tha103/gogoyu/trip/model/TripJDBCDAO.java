@@ -7,10 +7,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 import com.tha103.gogoyu.itinerary.model.Itinerary;
+import com.tha103.gogoyu.scene.model.Scene;
 import com.tha103.gogoyu.trip_photo.model.Trip_photo;
 
 import util.Util;
@@ -41,7 +43,7 @@ public class TripJDBCDAO implements TripDAO_interface {
 			+ "	chiayi_city = ? ,penghu_county = ? ,main_photo = ? where trip_id = ? ";
 
 	@Override
-	public int add(Trip trip) {
+	public int add(Trip trip,LinkedList<byte[]> allPhoto,List<Itinerary> itineraryList) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -267,162 +269,21 @@ public class TripJDBCDAO implements TripDAO_interface {
 		return list;
 	}
 
-	public static void main(String[] args) {
-		TripJDBCDAO dao = new TripJDBCDAO();
-		java.util.Date date = new java.util.Date();
-		Date time_s = new Date(date.getTime());
-		// 新增
-//		Trip tripVO1 = new Trip();
-//		tripVO1.setCompId(2);
-//		tripVO1.setTripName("1");
-//		tripVO1.setAmount(1);
-//		tripVO1.setPrice(new BigDecimal(1));
-//		tripVO1.setPeople(1);
-//		tripVO1.setStartTime(time_s);
-//		tripVO1.setEndTime(time_s);
-//		tripVO1.setContent("1");
-//		tripVO1.setState(1);
-//		tripVO1.setTaipeiCity((byte) 1);
-//		tripVO1.setNewtaipeiCity((byte) 1);
-//		tripVO1.setTaoyuanCity((byte) 1);
-//		tripVO1.setTaichungCity((byte) 1);
-//		tripVO1.setTainanCity((byte) 1);
-//		tripVO1.setKaohsiungCity((byte) 1);
-//		tripVO1.setHsinchuCounty((byte) 1);
-//		tripVO1.setMiaoliCounty((byte) 1);
-//		tripVO1.setChanghuaCounty((byte) 1);
-//		tripVO1.setNantouCounty((byte) 1);
-//		tripVO1.setYunlinCounty((byte) 1);
-//		tripVO1.setChiayiCounty((byte) 1);
-//		tripVO1.setPingtungCounty((byte) 1);
-//		tripVO1.setYilanCity((byte) 1);
-//		tripVO1.setHualienCity((byte) 1);
-//		tripVO1.setTaitungCounty((byte) 1);
-//		tripVO1.setKinmenCounty((byte) 1);
-//		tripVO1.setLienchiangCounty((byte) 1);
-//		tripVO1.setKeelungCity((byte) 1);
-//		tripVO1.setHsinchuCity((byte) 1);
-//		tripVO1.setChiayiCity((byte) 1);
-//		tripVO1.setPenghuCounty((byte) 1);
-//		dao.insert(tripVO1);
-		// 修改
-//		Trip tripVO2 = new Trip();
-//		tripVO2.setTripId(1);
-//		tripVO2.setCompId(2);
-//		tripVO2.setTripName("1");
-//		tripVO2.setAmount(1);
-//		tripVO2.setPrice(new BigDecimal(1));
-//		tripVO2.setPeople(1);
-//		tripVO2.setStartTime(java.sql.Date.valueOf("2005-01-01 10:10:49"));
-//		tripVO2.setEndTime(java.sql.Date.valueOf("2005-01-01 10:10:49"));
-//		tripVO2.setContent("1");
-//		tripVO2.setState(1);
-//		tripVO2.setTaipeiCity((byte) 1);
-//		tripVO2.setNewtaipeiCity((byte) 1);
-//		tripVO2.setTaoyuanCity((byte) 1);
-//		tripVO2.setTaichungCity((byte) 1);
-//		tripVO2.setTainanCity((byte) 1);
-//		tripVO2.setKaohsiungCity((byte) 1);
-//		tripVO2.setHsinchuCounty((byte) 1);
-//		tripVO2.setMiaoliCounty((byte) 1);
-//		tripVO2.setChanghuaCounty((byte) 1);
-//		tripVO2.setNantouCounty((byte) 1);
-//		tripVO2.setYunlinCounty((byte) 1);
-//		tripVO2.setChiayiCounty((byte) 1);
-//		tripVO2.setPingtungCounty((byte) 1);
-//		tripVO2.setYilanCity((byte) 1);
-//		tripVO2.setHualienCity((byte) 1);
-//		tripVO2.setTaitungCounty((byte) 1);
-//		tripVO2.setKinmenCounty((byte) 1);
-//		tripVO2.setLienchiangCounty((byte) 1);
-//		tripVO2.setKeelungCity((byte) 1);
-//		tripVO2.setHsinchuCity((byte) 1);
-//		tripVO2.setChiayiCity((byte) 1);
-//		tripVO2.setPenghuCounty((byte) 1);
-//
-//		dao.update(tripVO2);
-
-		// 刪除
-//		dao.delete(1);
-
-		// 查詢
-//		Trip tripVO3 = dao.findByPrimaryKey(1);
-//		System.out.print(tripVO3.getTripId() + ",");
-//		System.out.print(tripVO3.getCompId() + ",");
-//		System.out.print(tripVO3.getTripName() + ",");
-//		System.out.print(tripVO3.getAmount() + ",");
-//		System.out.print(tripVO3.getPrice() + ",");
-//		System.out.print(tripVO3.getPeople() + ",");
-//		System.out.println(tripVO3.getStartTime());
-//		System.out.print(tripVO3.getEndTime() + ",");
-//		System.out.print(tripVO3.getContent() + ",");
-//		System.out.print(tripVO3.getState() + ",");
-//		System.out.print(tripVO3.getTaipeiCity() + ",");
-//		System.out.print(tripVO3.getTaipeiCity() + ",");
-//		System.out.print(tripVO3.getTaoyuanCity() + ",");
-//		System.out.println(tripVO3.getTaichungCity());
-//		System.out.print(tripVO3.getTainanCity() + ",");
-//		System.out.print(tripVO3.getKaohsiungCity() + ",");
-//		System.out.print(tripVO3.getHsinchuCounty() + ",");
-//		System.out.print(tripVO3.getMiaoliCounty() + ",");
-//		System.out.print(tripVO3.getChanghuaCounty() + ",");
-//		System.out.print(tripVO3.getNantouCounty() + ",");
-//		System.out.println(tripVO3.getYunlinCounty());
-//		System.out.println(tripVO3.getChiayiCounty());
-//		System.out.print(tripVO3.getPingtungCounty() + ",");
-//		System.out.print(tripVO3.getYilanCity() + ",");
-//		System.out.print(tripVO3.getHualienCity() + ",");
-//		System.out.print(tripVO3.getTaitungCounty() + ",");
-//		System.out.print(tripVO3.getKinmenCounty() + ",");
-//		System.out.print(tripVO3.getLienchiangCounty() + ",");
-//		System.out.println(tripVO3.getKeelungCity()+",");
-//		System.out.print(tripVO3.getHsinchuCity() + ",");
-//		System.out.print(tripVO3.getChiayiCity() + ",");
-//		System.out.println(tripVO3.getPenghuCounty());
-//		
-//		System.out.println("---------------------");
-
-		// 查詢
-//		List<Trip> list = dao.getAll();
-//		for (Trip aTrip : list) {
-//			System.out.print(aTrip.getTripId() + ",");
-//			System.out.print(aTrip.getCompId() + ",");
-//			System.out.print(aTrip.getTripName() + ",");
-//			System.out.print(aTrip.getAmount() + ",");
-//			System.out.print(aTrip.getPrice() + ",");
-//			System.out.print(aTrip.getPeople() + ",");
-//			System.out.println(aTrip.getStartTime());
-//			System.out.print(aTrip.getEndTime() + ",");
-//			System.out.print(aTrip.getContent() + ",");
-//			System.out.print(aTrip.getState() + ",");
-//			System.out.print(aTrip.getTaipeiCity() + ",");
-//			System.out.print(aTrip.getTaipeiCity() + ",");
-//			System.out.print(aTrip.getTaoyuanCity() + ",");
-//			System.out.println(aTrip.getTaichungCity());
-//			System.out.print(aTrip.getTainanCity() + ",");
-//			System.out.print(aTrip.getKaohsiungCity() + ",");
-//			System.out.print(aTrip.getHsinchuCounty() + ",");
-//			System.out.print(aTrip.getMiaoliCounty() + ",");
-//			System.out.print(aTrip.getChanghuaCounty() + ",");
-//			System.out.print(aTrip.getNantouCounty() + ",");
-//			System.out.println(aTrip.getYunlinCounty());
-//			System.out.println(aTrip.getChiayiCounty());
-//			System.out.print(aTrip.getPingtungCounty() + ",");
-//			System.out.print(aTrip.getYilanCity() + ",");
-//			System.out.print(aTrip.getHualienCity() + ",");
-//			System.out.print(aTrip.getTaitungCounty() + ",");
-//			System.out.print(aTrip.getKinmenCounty() + ",");
-//			System.out.print(aTrip.getLienchiangCounty() + ",");
-//			System.out.println(aTrip.getKeelungCity() + ",");
-//			System.out.print(aTrip.getHsinchuCity() + ",");
-//			System.out.print(aTrip.getChiayiCity() + ",");
-//			System.out.println(aTrip.getPenghuCounty());
-//		}
-	}
-
 
 	@Override
 	public List<Trip> findTripByCompId(Integer compId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<Trip_photo> getAllPhotoByTripId(Integer tripId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<Itinerary> getItineraryByTripId(Integer tripId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -440,13 +301,31 @@ public class TripJDBCDAO implements TripDAO_interface {
 	}
 
 	@Override
-	public Set<Trip_photo> getAllPhotoByTripId(Integer tripId) {
+	public Integer updateAmount(Integer amount, Integer tripId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Set<Itinerary> getItineraryByTripId(Integer tripId) {
+	public List<Trip> searchTrip(String site, Date startTime, Date endTime, Integer number) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Trip> getHotTrip() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Object> getTripProdutDetail(Integer tripId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Scene> scenesMaps(Integer tripId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
