@@ -16,6 +16,7 @@ public interface CompanyDAO_interface {
 	public List<Company> findByPassword(String compPassword);
 
 	Company findByPK(Integer comp_id);
+	
 
 	List<Company> getAll();
 	
@@ -30,4 +31,6 @@ public interface CompanyDAO_interface {
 	Company updFromBackend(Integer comp_id, String comp_name, String comp_address,
 			String comp_phone, String principal_name, String principal_phone, 
 			String comp_account, String comp_mail);
+
+	Company getAccount(String compAccount);
 }
