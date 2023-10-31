@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.tha103.gogoyu.itinerary.model.Itinerary;
+import com.tha103.gogoyu.scene.model.Scene;
 import com.tha103.gogoyu.trip_photo.model.Trip_photo;
 
 import util.HibernateUtil;
@@ -171,6 +172,10 @@ public class TripServiceHibernate implements TripService {
 	
 	public static void main (String[] args ) {
 
+	}
+	@Override
+	public List<Scene> scenesMaps(Integer tripId) {
+		return dao.scenesMaps(tripId);
 	}
 	
 }

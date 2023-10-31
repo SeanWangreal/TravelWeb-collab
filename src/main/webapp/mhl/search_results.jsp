@@ -6,18 +6,6 @@
 <%@ page import="com.tha103.gogoyu.company.model.*"%>
 <%@ page import="com.tha103.gogoyu.trip.model.*"%>
 
-<%
-	Map<Room, String> searchRoomResult = (Map<Room, String>)request.getAttribute("searchRoomResult");
-	pageContext.setAttribute("roomMap", searchRoomResult);
-	
-	List<Trip> searchTripResult = (List<Trip>)request.getAttribute("searchTripResult");
-	
-	System.out.println(searchRoomResult);
-	System.out.println(searchTripResult);
-%>
-
-<jsp:useBean id="CompSvc" scope="page" class="com.tha103.gogoyu.company.model.CompanyService" />
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -127,17 +115,17 @@
                 <!--頁籤-->
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link ${(searchRoomResult != null) ? active : ''}" id="hotel-tab" data-bs-toggle="tab" data-bs-target="#hotel"
+                        <button class="nav-link ${(searchRoomResult != null) ? 'active' : ''}" id="hotel-tab" data-bs-toggle="tab" data-bs-target="#hotel"
                             type="button" role="tab" aria-controls="hotel" aria-selected=${searchRoomResult != null ?"true" : "false"} ${searchRoomResult == null ? 'tabindex="-1"' : ""}>hotel</button>
                     </li>
                     <li class="nav-item " role="presentation">
-                        <button class="nav-link ${(searchTripResult != null) ? "active" : ''}" id="journey-tab" data-bs-toggle="tab" data-bs-target="#journey"
+                        <button class="nav-link ${(searchTripResult != null) ? 'active' : ''}" id="journey-tab" data-bs-toggle="tab" data-bs-target="#journey"
                             type="button" role="tab" aria-controls="journey" aria-selected=${searchTripResult != null ? "true" : "false"} ${searchTripResult == null ? 'tabindex="-1"' : ""}>journey</button>
                     </li>
                 </ul>
                 <div class="tab-content " id="myTabContent">
                     <!--hotel搜尋列-->
-                    <div class="tab-pane fade ${searchRoomResult != null ? 'show active' : ''}" id="hotel" role="tabpanel" aria-labelledby="hotel-tab">
+                    <div class="tab-pane fade ${searchRoomResult != null ? 'active show' : ''}" id="hotel" role="tabpanel" aria-labelledby="hotel-tab">
                         <nav class="navbar navbar-light bg-light">
                             <div class="container">
                                 <div class="d-flex flex-wrap">
@@ -145,28 +133,28 @@
                                         <!-- <input class="form-control me-2" type="text" placeholder="地點..." aria-label="Search">
                                          -->
                                         <select class="form-select me-2" name="site" aria-label="Default select example">
-                                            <option value="台北市">台北市</option>
-				                            <option value="新北市">新北市</option>
-				                            <option value="桃園市">桃園市</option>
-				                            <option value="台中市">台中市</option>
-				                            <option value="台南市">台南市</option>
-				                            <option value="高雄市">高雄市</option>
-				                            <option value="新竹縣">新竹縣</option>
-				                            <option value="苗栗縣">苗栗縣</option>
-				                            <option value="彰化縣">彰化縣</option>
-				                            <option value="南投縣">南投縣</option>
-				                            <option value="雲林縣">雲林縣</option>
-				                            <option value="嘉義縣">嘉義縣</option>
-				                            <option value="屏東縣">屏東縣</option>
-				                            <option value="宜蘭市">宜蘭市</option>
-				                            <option value="花蓮市">花蓮市</option>
-				                            <option value="台東縣">台東縣</option>
-				                            <option value="金門縣">金門縣</option>
-				                            <option value="連江縣">連江縣</option>
-				                            <option value="基隆市">基隆市</option>
-				                            <option value="新竹市">新竹市</option>
-				                            <option value="嘉義市">嘉義市</option>
-				                            <option value="澎湖縣">澎湖縣</option>
+                                            <option value="台北市" ${searchRoomComp_address == "台北市" ? 'selected' : ""}>台北市</option>
+				                            <option value="新北市" ${searchRoomComp_address == "新北市" ? 'selected' : ""}>新北市</option>
+				                            <option value="桃園市" ${searchRoomComp_address == "桃園市" ? 'selected' : ""}>桃園市</option>
+				                            <option value="台中市" ${searchRoomComp_address == "台中市" ? 'selected' : ""}>台中市</option>
+				                            <option value="台南市" ${searchRoomComp_address == "台南市" ? 'selected' : ""}>台南市</option>
+				                            <option value="高雄市" ${searchRoomComp_address == "高雄市" ? 'selected' : ""}>高雄市</option>
+				                            <option value="新竹縣" ${searchRoomComp_address == "新竹縣" ? 'selected' : ""}>新竹縣</option>
+				                            <option value="苗栗縣" ${searchRoomComp_address == "苗栗縣" ? 'selected' : ""}>苗栗縣</option>
+				                            <option value="彰化縣" ${searchRoomComp_address == "彰化縣" ? 'selected' : ""}>彰化縣</option>
+				                            <option value="南投縣" ${searchRoomComp_address == "南投縣" ? 'selected' : ""}>南投縣</option>
+				                            <option value="雲林縣" ${searchRoomComp_address == "雲林縣" ? 'selected' : ""}>雲林縣</option>
+				                            <option value="嘉義縣" ${searchRoomComp_address == "嘉義縣" ? 'selected' : ""}>嘉義縣</option>
+				                            <option value="屏東縣" ${searchRoomComp_address == "屏東縣" ? 'selected' : ""}>屏東縣</option>
+				                            <option value="宜蘭市" ${searchRoomComp_address == "宜蘭市" ? 'selected' : ""}>宜蘭市</option>
+				                            <option value="花蓮市" ${searchRoomComp_address == "花蓮市" ? 'selected' : ""}>花蓮市</option>
+				                            <option value="台東縣" ${searchRoomComp_address == "台東縣" ? 'selected' : ""}>台東縣</option>
+				                            <option value="金門縣" ${searchRoomComp_address == "金門縣" ? 'selected' : ""}>金門縣</option>
+				                            <option value="連江縣" ${searchRoomComp_address == "連江縣" ? 'selected' : ""}>連江縣</option>
+				                            <option value="基隆市" ${searchRoomComp_address == "基隆市" ? 'selected' : ""}>基隆市</option>
+				                            <option value="新竹市" ${searchRoomComp_address == "新竹市" ? 'selected' : ""}>新竹市</option>
+				                            <option value="嘉義市" ${searchRoomComp_address == "嘉義市" ? 'selected' : ""}>嘉義市</option>
+				                            <option value="澎湖縣" ${searchRoomComp_address == "澎湖縣" ? 'selected' : ""}>澎湖縣</option>
                                         </select>
                                         <input class="form-control me-2" name="checkIn" type="text" placeholder="入住日期..." aria-label="Search" onfocus="(this.type='date')"
                                         onblur="(this.type='text')" value="${searchRoomCheckIn}">
@@ -182,7 +170,7 @@
                         <!--搜尋結果-->
                         <div class="d-flex flex-column mb-4">
                             <!--hotel商品-->
-                             <c:forEach var="roomVO" items="${roomMap.keySet()}" >
+                             <c:forEach var="roomVO" items="${searchRoomResult.keySet()}" >
 	                            <div class="container border">
 	                                <div class="row">
 	                                    <!--商品圖-->
@@ -191,10 +179,10 @@
 	                                    </div>
 	                                    <!--商品名 細況-->
 	                                    <div class="col">
-	                                            <h3 class="">${roomMap.get(roomVO)}</h3><br>
+	                                            <h3 class="">${searchRoomResult.get(roomVO).get(1)}</h3><br>
 	                                            <div>${roomVO.roomName}</div>
 	                                            <div>${roomVO.roomType}人房</div><br>
-	                                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?action=getProductDetailRoom&room_id=${roomVO.roomId}&searchCheckIn=${searchRoomCheckIn}&searchCheckOut=${searchRoomCheckOut}&number=${roomPeople}" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">查看房型細況</a>
+	                                            <a href="${pageContext.request.contextPath}/sean/SearchServlet?action=getProductDetailRoom&room_id=${roomVO.roomId}&searchComp_address=${searchRoomComp_address}&searchCheckIn=${searchRoomCheckIn}&searchCheckOut=${searchRoomCheckOut}&number=${roomPeople}" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">查看房型細況</a>
 	                                    </div>
 	                                    <!--聯絡 評等 價格-->
 	                                    <div class="col ">
@@ -209,12 +197,12 @@
 	                                                <!--評等-->
 	                                                <div  class="count_star">  
 	                                                    <a href="#">
-	                                                        <i class="fa-solid fa-star">8.7</i>
+	                                                        <i class="fa-solid fa-star">${searchRoomResult.get(roomVO).get(0)}</i>
 	                                                    </a>
 	                                                </div>
 	                                                <!--價格-->
 	                                            </div><br>
-	                                            <span class="book_price ms-4">價格(未含稅)</span>
+	                                            <span class="book_price ms-4">價格(含稅)</span>
 	                                                <i class="ms-4">TWD</i>
 	                                            <div class="ms-4">
 	                                                <i class="howmuch">${roomVO.price.intValue()}</i>
@@ -228,7 +216,7 @@
                     </div>
                     
                     <!-- journey搜尋列 -->
-                    <div class="tab-pane fade ${searchTripResult != null ? 'show active' : ''}" id="journey" role="tabpanel" aria-labelledby="journey-tab">
+                    <div class="tab-pane fade ${searchTripResult != null ? 'active show' : ''}" id="journey" role="tabpanel" aria-labelledby="journey-tab">
                         <nav class="navbar navbar-light bg-light">
                             <div class="container">
                                 <div class="d-flex flex-wrap">
@@ -236,28 +224,28 @@
                                         <!-- <input class="form-control me-2" type="text" placeholder="地點..." aria-label="Search">
                                          -->
                                         <select class="form-select me-2" name="site" aria-label="Default select example">
-                                            <option value="台北市">台北市</option>
-				                            <option value="新北市">新北市</option>
-				                            <option value="桃園市">桃園市</option>
-				                            <option value="台中市">台中市</option>
-				                            <option value="台南市">台南市</option>
-				                            <option value="高雄市">高雄市</option>
-				                            <option value="新竹縣">新竹縣</option>
-				                            <option value="苗栗縣">苗栗縣</option>
-				                            <option value="彰化縣">彰化縣</option>
-				                            <option value="南投縣">南投縣</option>
-				                            <option value="雲林縣">雲林縣</option>
-				                            <option value="嘉義縣">嘉義縣</option>
-				                            <option value="屏東縣">屏東縣</option>
-				                            <option value="宜蘭市">宜蘭市</option>
-				                            <option value="花蓮市">花蓮市</option>
-				                            <option value="台東縣">台東縣</option>
-				                            <option value="金門縣">金門縣</option>
-				                            <option value="連江縣">連江縣</option>
-				                            <option value="基隆市">基隆市</option>
-				                            <option value="新竹市">新竹市</option>
-				                            <option value="嘉義市">嘉義市</option>
-				                            <option value="澎湖縣">澎湖縣</option>
+                                            <option value="台北市" ${searchTripSite == "台北市" ? 'selected' : ""}>台北市</option>
+				                            <option value="新北市" ${searchTripSite == "新北市" ? 'selected' : ""}>新北市</option>
+				                            <option value="桃園市" ${searchTripSite == "桃園市" ? 'selected' : ""}>桃園市</option>
+				                            <option value="台中市" ${searchTripSite == "台中市" ? 'selected' : ""}>台中市</option>
+				                            <option value="台南市" ${searchTripSite == "台南市" ? 'selected' : ""}>台南市</option>
+				                            <option value="高雄市" ${searchTripSite == "高雄市" ? 'selected' : ""}>高雄市</option>
+				                            <option value="新竹縣" ${searchTripSite == "新竹縣" ? 'selected' : ""}>新竹縣</option>
+				                            <option value="苗栗縣" ${searchTripSite == "苗栗縣" ? 'selected' : ""}>苗栗縣</option>
+				                            <option value="彰化縣" ${searchTripSite == "彰化縣" ? 'selected' : ""}>彰化縣</option>
+				                            <option value="南投縣" ${searchTripSite == "南投縣" ? 'selected' : ""}>南投縣</option>
+				                            <option value="雲林縣" ${searchTripSite == "雲林縣" ? 'selected' : ""}>雲林縣</option>
+				                            <option value="嘉義縣" ${searchTripSite == "嘉義縣" ? 'selected' : ""}>嘉義縣</option>
+				                            <option value="屏東縣" ${searchTripSite == "屏東縣" ? 'selected' : ""}>屏東縣</option>
+				                            <option value="宜蘭市" ${searchTripSite == "宜蘭市" ? 'selected' : ""}>宜蘭市</option>
+				                            <option value="花蓮市" ${searchTripSite == "花蓮市" ? 'selected' : ""}>花蓮市</option>
+				                            <option value="台東縣" ${searchTripSite == "台東縣" ? 'selected' : ""}>台東縣</option>
+				                            <option value="金門縣" ${searchTripSite == "金門縣" ? 'selected' : ""}>金門縣</option>
+				                            <option value="連江縣" ${searchTripSite == "連江縣" ? 'selected' : ""}>連江縣</option>
+				                            <option value="基隆市" ${searchTripSite == "基隆市" ? 'selected' : ""}>基隆市</option>
+				                            <option value="新竹市" ${searchTripSite == "新竹市" ? 'selected' : ""}>新竹市</option>
+				                            <option value="嘉義市" ${searchTripSite == "嘉義市" ? 'selected' : ""}>嘉義市</option>
+				                            <option value="澎湖縣" ${searchTripSite == "澎湖縣" ? 'selected' : ""}>澎湖縣</option>
                                         </select>
                                         <input class="form-control me-2" name="checkIn" type="text" placeholder="開始時間..." aria-label="Search" onfocus="(this.type='date')"
                                         onblur="(this.type='text')" value="${searchTripCheckIn}">
@@ -273,7 +261,7 @@
                         <!--搜尋結果-->
                         <div class="d-flex flex-column mb-4">
                             <!--journey商品-->
-                            <c:forEach var="tripVO" items="<%=searchTripResult%>" >
+                            <c:forEach var="tripVO" items="${searchTripResult}" >
                             <div class="container border">
                                 <div class="row">
                                     <!--商品圖-->
@@ -286,7 +274,7 @@
                                         <div>開始時間:${tripVO.startTime}</div>
                                         <div>結束時間:${tripVO.endTime}</div>
                                         <div>人數:${tripVO.people}</div>
-                                        <a href="${pageContext.request.contextPath}/sean/SearchServlet?tripId=${tripVO.tripId}&action=getProductDetailTrip&searchCheckIn=${searchTripCheckIn}&searchCheckOut=${searchTripCheckOut}&number=${tripPeople}" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">查看行程細況</a>
+                                        <a href="${pageContext.request.contextPath}/sean/SearchServlet?tripId=${tripVO.tripId}&site=${tripVO.tripId}&action=getProductDetailTrip&searchCheckIn=${searchTripCheckIn}&searchCheckOut=${searchTripCheckOut}&number=${tripPeople}" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">查看行程細況</a>
                                     </div>
                                     <!--聯絡 評等 價格-->
                                     <div class="col ">
@@ -306,7 +294,7 @@
                                                 </div>
                                                 <!--價格-->
                                             </div><br>
-                                            <span class="book_price ms-4">價格(未含稅)</span>
+                                            <span class="book_price ms-4">價格(含稅)</span>
                                                 <i class="ms-4">TWD</i>
                                             <div class="ms-4">
                                                 <i class="howmuch">${tripVO.price.intValue()}</i>

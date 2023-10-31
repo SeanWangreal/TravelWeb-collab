@@ -11,4 +11,5 @@ public interface PlanningDAO_interface {
 				Planning findByPK(Integer planId);
 				List<Planning> getAll();
 				Integer findByPlanId(Integer cart_id , Integer cus_id);
+				public Integer findCartByPlanning(Integer planId);
 }

@@ -130,6 +130,29 @@ public class PlanningHibernateDAO implements PlanningDAO_interface {
 		
 	
 	}
+	
+	
+	
+public Integer findCartByPlanning(Integer planId) {
+		
+		
+		try {
+				getSession().beginTransaction();
+				Integer query = getSession().createQuery("select cartId from Planning where planId = :planId" ,Integer.class)
+									  .setParameter("planId", planId)
+									  .uniqueResult();
+				getSession().getTransaction().commit();
+				return query;
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+	
+	
+	
 //		PlanningHibernateDAO dao = new PlanningHibernateDAO();
 //		Date date = new Date();
 //		Timestamp time_s = new Timestamp(date.getTime());

@@ -104,7 +104,7 @@ public class RoomServiceHibernate implements RoomService {
 //		return dao.searchRoom(comp_address, checkIn, checkOut, number);
 //	}
 
-	public Map<Room, String> searchRoom(String comp_address, Date checkIn, Date checkOut, Integer number) {
+	public Map<Room, List<String>> searchRoom(String comp_address, Date checkIn, Date checkOut, Integer number) {
 		return dao.searchRoom(comp_address, checkIn, checkOut, number);
 	}
 

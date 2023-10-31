@@ -84,6 +84,33 @@ public class MailService {
 		mailService.sendMail(to, subject, messageText);
 	}
 	
+	public String genAuthCode() {
+		  
+		  String verificationCode="";
+		  int ret;
+		  for(int i = 0;i<8;i++)
+		  {
+		   ret=(int) (Math.random() * 3);
+		   switch(ret)
+		   {
+		    //數字 Unicode:48~57
+		    case 0:
+		     ret=((int) (Math.random() * 10))+ 48;
+		     break;
+		    //大寫英文 Unicode:65~90
+		    case 1:
+		     ret=((int) (Math.random() * 26))+ 65;
+		     break;
+		    //小寫英文 Unicode:97~122
+		    case 2:
+		     ret=((int) (Math.random() * 26))+ 97;
+		     break;
+		   }
+		   verificationCode += (char)ret;
+		  }
+		  return verificationCode;
+		 }
+	
 	
 
 }

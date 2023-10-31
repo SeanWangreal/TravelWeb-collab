@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.tha103.gogoyu.itinerary.model.Itinerary;
+import com.tha103.gogoyu.scene.model.Scene;
 import com.tha103.gogoyu.trip_photo.model.Trip_photo;
 
 public interface TripDAO_interface {
@@ -23,4 +24,5 @@ public interface TripDAO_interface {
 	List<Trip> searchTrip(String site, Date startTime, Date endTime, Integer number);
 	List<Trip> getHotTrip();
 	List<Object> getTripProdutDetail(Integer tripId);
+	List<Scene> scenesMaps(Integer tripId);
 }

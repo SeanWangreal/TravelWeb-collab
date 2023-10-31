@@ -315,7 +315,10 @@
 		   	                	} else {
 		      	                	 $("#allOrd").text("查無資料");
 		      	                	}
-		   	                 }
+		   	                 },
+			   	              error: function(xhr){         // request 發生錯誤的話執行
+			   	               console.log(xhr);
+			   	             }
 		   	             });
 		   	            	
 		   	            } else {

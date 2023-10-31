@@ -225,6 +225,7 @@ public class TripHibernateDAO implements TripDAO_interface{
 	}
 	
 	public List<Trip> searchTrip(String site, Date startTime, Date endTime, Integer number) {
+		List<Trip> list = new ArrayList<Trip>();
 		try {
 			String SQL = null;
 			getSession().beginTransaction();
@@ -253,7 +254,8 @@ public class TripHibernateDAO implements TripDAO_interface{
 			case "嘉義市":SQL ="Chiayi_City";break;
 			case "澎湖縣":SQL ="Penghu_County";break;
 			}
-			List<Trip> list = getSession().createQuery("from Trip where " 
+			
+			list = getSession().createQuery("from Trip where " 
 			+ SQL 
 			+ " = 1 AND start_time >= :startTime AND end_time <= :endTime AND people >= :number AND amount > 0 AND state = 1", Trip.class)
 					.setParameter("startTime", startTime)
@@ -266,7 +268,7 @@ public class TripHibernateDAO implements TripDAO_interface{
 			e.printStackTrace();
 			getSession().getTransaction().rollback();
 		}
-		return null;
+		return list;
 	}
 	
 	public List<Trip> getHotTrip() {
@@ -304,7 +306,6 @@ public class TripHibernateDAO implements TripDAO_interface{
 			}
 			Integer compId = trip.getCompId();
 			Company company = getSession().get(Company.class, compId);
-			String compName = company.getCompName();
 			
 			List<String> site = new ArrayList<String>();
 			if(trip.getTaipeiCity() == (byte)1) {
@@ -379,13 +380,34 @@ public class TripHibernateDAO implements TripDAO_interface{
 			list.add(tripPhotoIdList);
 			list.add(itineraryList);
 			list.add(sceneList);
-			list.add(compName);
+			list.add(company);
 			list.add(site);
 			
 			getSession().getTransaction().commit();
 			
 			return list;
 		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
+	
+	public List<Scene> scenesMaps(Integer tripId){
+		List<Scene> sceneList = new ArrayList<Scene>();
+		try {
+			getSession().beginTransaction();
+			List<Itinerary> itineraryList = getSession().createQuery("from Itinerary where trip_id =:trip_id", Itinerary.class)
+					.setParameter("trip_id", tripId).list();
+			
+			for(Itinerary itinerary : itineraryList) {
+				Integer SceneId = itinerary.getSceneId();
+				Scene scene = getSession().get(Scene.class, SceneId);
+				sceneList.add(scene);
+			}
+			getSession().getTransaction().commit();
+			return sceneList;
+		} catch(Exception e) {
 			e.printStackTrace();
 			getSession().getTransaction().rollback();
 		}
