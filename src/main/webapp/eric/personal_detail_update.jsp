@@ -16,10 +16,10 @@ if ((Integer) request.getSession().getAttribute("cusId") == null) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>修改個人資訊</title>
-<link href="../dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
-<link rel="stylesheet" href="../static/eric_css/ordinf.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/eric_css/ordinf.css">
 <link rel="stylesheet" href="">
 
 </script>
@@ -50,7 +50,7 @@ img {
 </head>
 
 <body>
-	<script src="../vendors/jquery/jquery-3.7.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/vendors/jquery/jquery-3.7.1.min.js"></script>
 
 	<nav class="st">
 		<!-- <a class="word" id="home" href="#">Home</a> -->
