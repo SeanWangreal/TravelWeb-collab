@@ -42,6 +42,10 @@
     <br>
     <header>GoGoYu後台
     	<h3>${admin.admName} 你好</h3>
+    	<form method="post" action="${pageContext.request.contextPath}/hollow/AdmServlet">
+    		<input type="hidden" name="action"	value="logout">
+    		<button type="submit" class="btn btn-outline-dark">登出</button>
+    	</form>
         <table class="main_btn">
             <tr>
                 <td>

@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.tha103.gogoyu.adm_meb.model.*;
 import com.tha103.gogoyu.company.model.Company;
@@ -319,6 +320,19 @@ req.setAttribute("admVO", admVO); // 含有輸入格式錯誤的empVO物件,也�
 				String url = "/hollow/listAllAdm.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// �R�����\��,���^�e�X�R�����ӷ�����
 				successView.forward(req, res);
+		}
+		
+		if ("logout".equals(action)) { // 來自select_page.jsp的請求
+			HttpSession session = req.getSession();
+			// 清除資料
+			if (session != null) {
+				session.invalidate(); // 使session無效
+				String url = "/hollow/backend_login.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+				successView.forward(req, res);
+			}
+			System.out.print("您已成功登出退出系統!");
+			System.out.close();
 		}
 	}
 }
