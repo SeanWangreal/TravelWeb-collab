@@ -429,7 +429,7 @@ datalist {
 						<hr>
 						<h2>行程說明</h2>
 						<textarea name="content" cols="30" rows="10"
-							placeholder="請輸入行程簡介最少100字" style="width: 100%;"
+							placeholder="請輸入行程簡介最少50字" style="width: 100%;"
 							required="required">${trip.content}</textarea>
 					</div>
 					<br>

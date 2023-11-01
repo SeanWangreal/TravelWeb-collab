@@ -303,7 +303,7 @@ button.left_btn:hover {
 						<hr>
 						<h2>客房介紹</h2>
 						<textarea name="intro" id="" cols="30" rows="10"
-							placeholder="請輸入客房簡介最少100字" style="width: 100%;"
+							placeholder="請輸入客房簡介最少50字" style="width: 100%;"
 							required="required">${room.intro}</textarea>
 					</div>
 					<br>
