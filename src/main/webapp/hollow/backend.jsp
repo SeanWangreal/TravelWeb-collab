@@ -3,12 +3,28 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.tha103.gogoyu.company.model.*"%>
+<%@ page import="com.tha103.gogoyu.adm_meb.model.*"%>
 
 <%
     CompanyService cmpSvc = new CompanyService();
     List<Company> list = cmpSvc.getByCheckStatus();
     pageContext.setAttribute("list",list);
 %>
+
+<%-- <% --%>
+<!--  	Adm_meb admin = (Adm_meb) request.getAttribute("admin"); //Servlet.java(Concroller), 存入req的Company物件 -->
+<!--  	if (admin == null){ -->
+<!--  		String compString = (String) request.getSession().getAttribute("compId"); -->
+<!--  		if (compString == null ){ -->
+<!--  			response.sendRedirect(request.getContextPath() + "/ken/com_mem_signin.jsp"); -->
+<!--  			return; -->
+<!--  		} -->
+<!--  		Integer compId = Integer.parseInt((String) request.getSession().getAttribute("compId")); -->
+<!--  		CompanyService companySvc = new CompanyService(); -->
+<!--  		admin = companySvc.getOneCompany(compId); -->
+<!--  		request.setAttribute("company", admin); -->
+<!--  	} -->
+<%-- %> --%>
 
 <!DOCTYPE html>
 <html lang="en">

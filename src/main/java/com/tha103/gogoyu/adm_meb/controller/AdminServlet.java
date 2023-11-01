@@ -52,6 +52,7 @@ public class AdminServlet extends HttpServlet{
 			
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("admAccount", admAccount);
 				RequestDispatcher failureView = req.getRequestDispatcher("/hollow/backend_login.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
@@ -77,6 +78,7 @@ public class AdminServlet extends HttpServlet{
 				errorMsgs.add("帳號不存在");
 			}
 			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("admAccount", admAccount);
 				RequestDispatcher failureView = req.getRequestDispatcher("/hollow/backend_login.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
@@ -87,6 +89,8 @@ public class AdminServlet extends HttpServlet{
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("admAccount", admAccount);
+				req.setAttribute("admPassword", admPassword);
 				RequestDispatcher failureView = req.getRequestDispatcher("/hollow/backend_login.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
