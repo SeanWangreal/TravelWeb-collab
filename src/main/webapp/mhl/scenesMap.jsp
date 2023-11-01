@@ -18,6 +18,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -294,6 +296,7 @@
     </script>
     <script>
       const CONFIGURATION = {
+    		  ${}
 		  "locations": [
 	          {"title":"緯育TibaMe附設台北職訓中心","coords":{"lat":24.99866405451301,"lng":121.54351726134874}},
 	          {"title":"STARBUCKS 星巴克 (南京復興門市)","coords":{"lat":23.70265803295887, "lng":120.4294770901039}}

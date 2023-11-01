@@ -196,6 +196,7 @@ p{
 }
 .zoom{
     white-space: wrap;
+    word-break: break-all;
 }
 .read-block{
     display: flex;

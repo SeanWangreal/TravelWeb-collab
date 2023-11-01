@@ -132,13 +132,14 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 					info.add(getSession().get(Trip.class, Trip.getTripId()).getEndTime());
 					
 					
+					
 					BigDecimal totalPrice =getSession().get(Trip.class, Trip.getTripId()).getPrice().multiply(new BigDecimal(Trip.getAmount()));
 					info.add(totalPrice);
 					BigDecimal commission =totalPrice.multiply(new BigDecimal(0.1));
 					info.add(commission);
 					BigDecimal profit =totalPrice.subtract(commission);
 					info.add(profit);
-					
+					info.add(getSession().get(Trip.class, Trip.getTripId()).getPrice());
 
 					
 					map.put(Trip,info);
@@ -330,7 +331,7 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 						.uniqueResult();
 			} else if ("review".equals(ordOrReview)) {
 				NativeQuery<Trip_ord> query = getSession()
-						.createNativeQuery( "select * from trip_ord where comp_id = :compId and ord_status != 0 and score is not null order by ord_time desc  limit :beginCount , 5 ", Trip_ord.class);
+						.createNativeQuery( "select * from trip_ord where comp_id = :compId and ord_status != 0 and score is not null order by comments_time desc  limit :beginCount , 5 ", Trip_ord.class);
 				query.setParameter("compId", compId);
 				query.setParameter("beginCount", beginCount);
 				list = query.list();

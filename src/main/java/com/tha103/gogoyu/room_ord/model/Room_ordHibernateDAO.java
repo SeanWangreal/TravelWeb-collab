@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.persistence.Query;
 
@@ -291,6 +292,11 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 						.setParameter("roomId", roomId.getRoomId()).uniqueResult();
 				info.add(roomstock);
 				
+				
+				long times = Math.abs(checkOutTime.getTime() - checkInTime.getTime());
+		        long countDays = TimeUnit.DAYS.convert(times, TimeUnit.MILLISECONDS); 
+				info.add(getSession().get(Room.class, Room.getRoomId()).getPrice().multiply(new BigDecimal(countDays)));
+				
 			
 				
 
@@ -398,7 +404,7 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 						.setParameter("compId", compId).uniqueResult();
 			} else if ("review".equals(ordOrReview)) {
 				NativeQuery<Room_ord> query = getSession().createNativeQuery(
-						"select * from room_ord where comp_id = :compId and ord_status != 0 and score is not null order by ord_time desc  limit :beginCount , 5 ",
+						"select * from room_ord where comp_id = :compId and ord_status != 0 and score is not null order by comments_time desc  limit :beginCount , 5 ",
 						Room_ord.class);
 				query.setParameter("compId", compId);
 				query.setParameter("beginCount", beginCount);

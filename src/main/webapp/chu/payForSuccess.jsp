@@ -60,7 +60,8 @@ response.setDateHeader("Expires", 0);
     </style>    
 </head>
 <body>
-    <div class="success-container">
+	<img src="${pageContext.request.contextPath}/chu/123.jpg">
+    <div class="success-container" style="position :absolute">
         <h1>付款成功</h1>
         <p>感謝您的訂單，您的付款已成功處理。</p>
         <a href="${pageContext.request.contextPath}/chu/bookedList(hotel).jsp">返回訂單明細</a>

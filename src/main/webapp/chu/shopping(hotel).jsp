@@ -326,7 +326,7 @@ if (cusId != null) {
 										action="${pageContext.request.contextPath}/sean/SearchServlet"
 										method="post">
 										<button class="b infos">商品資訊</button>
-										<input type="hidden" name="trip_id" value="${tripVo1.tripId}">
+										<input type="hidden" name="tripId" value="${tripVo1.tripId}">
 										<input type="hidden" name="action"
 											value="getProductDetailTrip">
 									</form>
@@ -536,7 +536,7 @@ if (cusId != null) {
 										action="${pageContext.request.contextPath}/sean/SearchServlet"
 										method="post">
 										<button class="b infos">商品資訊</button>
-										<input type="hidden" name="trip_id" value="${tripVo2.tripId}">
+										<input type="hidden" name="tripId" value="${tripVo2.tripId}">
 										<input type="hidden" name="action"
 											value="getProductDetailTrip">
 									</form>
@@ -742,7 +742,7 @@ if (cusId != null) {
 										action="${pageContext.request.contextPath}/sean/SearchServlet"
 										method="post">
 										<button class="b infos">商品資訊</button>
-										<input type="hidden" name="trip_id" value="${tripVo3.tripId}">
+										<input type="hidden" name="tripId" value="${tripVo3.tripId}">
 										<input type="hidden" name="action"
 											value="getProductDetailTrip">
 									</form>
@@ -945,7 +945,7 @@ if (cusId != null) {
 										action="${pageContext.request.contextPath}/sean/SearchServlet"
 										method="post">
 										<button class="b infos">商品資訊</button>
-										<input type="hidden" name="trip_id" value="${tripVo4.tripId}">
+										<input type="hidden" name="tripId" value="${tripVo4.tripId}">
 										<input type="hidden" name="action"
 											value="getProductDetailTrip">
 									</form>
@@ -1148,7 +1148,7 @@ if (cusId != null) {
 										action="${pageContext.request.contextPath}/sean/SearchServlet"
 										method="post">
 										<button class="b infos">商品資訊</button>
-										<input type="hidden" name="trip_id" value="${tripVo5.tripId}">
+										<input type="hidden" name="tripId" value="${tripVo5.tripId}">
 										<input type="hidden" name="action"
 											value="getProductDetailTrip">
 									</form>

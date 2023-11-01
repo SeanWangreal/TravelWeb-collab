@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
@@ -101,6 +102,7 @@ public class SearchServlet extends HttpServlet {
 			req.setAttribute("roomPeople", number);
 			req.setAttribute("searchRoomResult", searchRoomResult);
 			forwardPath = "/mhl/search_results.jsp";
+			
 			break;
 		case "getProductDetailRoom":
 			String comp_address1 = req.getParameter("searchComp_address");
@@ -183,7 +185,7 @@ public class SearchServlet extends HttpServlet {
 			}
 			
 //			System.out.println(checkIn3.toString()+checkOut3.toString()+number2);
-			List<Trip> searchTripResult = tripSvc.searchTrip(site, checkIn3, checkOut3, number2);
+			Map<Trip, String> searchTripResult = tripSvc.searchTrip(site, checkIn3, checkOut3, number2);
 			req.setAttribute("searchTripSite", site);
 			req.setAttribute("searchTripCheckIn", checkIn3);
 			req.setAttribute("searchTripCheckOut", checkOut3);
@@ -225,18 +227,19 @@ public class SearchServlet extends HttpServlet {
 			forwardPath = "/mhl/products_detail_trip.jsp";
 			break;
 			
-		case "scenesMap":
-		Integer tripId =null;
-			try {
-				tripId = Integer.valueOf(req.getParameter("tripId"));
-			} catch(Exception e) {
-				tripId = null;
-			}
+//		case "scenesMap":
+//			Integer tripId =null;
+//			try {
+//				tripId = Integer.valueOf(req.getParameter("tripId"));
+//			} catch(Exception e) {
+//				tripId = null;
+//			}
+//			
+//			List<Scene> scenesMap = tripSvc.scenesMaps(tripId);
+//			req.setAttribute("scenesMap", scenesMap);
+//			forwardPath = "/mhl/scenesMap.jsp";
+//			break;
 			
-			List<Scene> scenesMap = tripSvc.scenesMaps(tripId);
-			req.setAttribute("scenesMap", scenesMap);
-			forwardPath = "/mhl/scenesMap.jsp";
-			break;
 		}
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 		dispatcher.forward(req, res);

@@ -40,8 +40,9 @@ public class MainPhotoPrintHServlet extends HttpServlet {
 		System.out.println(roomId);
 		if (roomId != null) {
 			photo = roomSrc.getMainPhoto(Integer.valueOf(roomId));
+			System.out.println(photo);
+			out.write(photo);
 		}
-		out.write(photo);
 		out.close();
 	}
 

@@ -87,10 +87,14 @@
     <nav class="st">
          <a class="logo" id="home" href="${pageContext.request.contextPath}/mhl/home.jsp">GO<i class="fa-solid fa-location-dot" style="color: #ffbf1c;"></i>GOYU</a>
          <div class="head">
+         
             <button type="menu" class="head_btn" aria-label="規劃行程" id="shop">
+            <a class="left_btn" href="${pageContext.request.contextPath}/chu/shopping(hotel).jsp">
                 <i class="fa-solid fa-suitcase-rolling icon" style="color: black; font-size:30px;
                             background-color:transparent;"></i>
+            </a>
             </button>
+         
             <button type="menu" class="head_btn" id="msg">
                 <i class="fa-regular fa-message icon" style="color: black; font-size:30px; 
                             background-color:transparent;"></i>
@@ -111,22 +115,7 @@
                 </a>
             </button>
         </div>
-        <aside class="msg all_side nothing" id="msg_side">
-            msg<br>msg<br>msg<br>msg<br>msg<br>msg<br>msg
-            <br>msg<br>msg<br>msg<br>msg<br>msg<br>msg
-        </aside>
-        <aside class="info all_side nothing" id="info_side">
-            info<br>info<br>info<br>info<br>info<br>info
-            <br>info<br>info<br>info<br>info<br>info
-        </aside>
-        <aside class="shop all_side nothing" id="shop_side">
-            shop<br>shop<br>shop<br>shop<br>shop<br>shop
-            <br>shop<br>shop<br>shop<br>shop<br>shop<br>shop
-            <br>shop<br>shop<br>shop<br>shop<br>shop<br>shop
-            <br>shop<br>shop<br>shop<br>shop<br>shop<br>shop
-            <br>shop<br>shop<br>shop<br>shop<br>shop<br>shop
-            <br>shop<br>shop<br>shop<br>shop<br>shop<br>shop
-        </aside>
+        
     </nav>    
         <div class="d-flex flex-column mb-4">
             <!--搜尋欄-->
@@ -178,11 +167,11 @@
 <!--                 </div> -->
                 <div class="carousel-inner h-100">
                   <div class="carousel-item active">
-                    <img src="MainPhotoPrintHServlet?room_id=<%=room.getRoomId()%>" class="d-block w-100 h-100" alt="...">
+                    <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=<%=room.getRoomId()%>" class="d-block w-100 h-100" alt="...">
                   </div>
                   <c:forEach var="roomPhotoId" items="<%=roomPhotoIdList%>" >
 	                  <div class="carousel-item">
-	                    <img src="RoomPhotoPrintHServlet?room_photo_id=${roomPhotoId}" class="d-block w-100 h-100" alt="...">
+	                    <img src="${pageContext.request.contextPath}/sean/RoomPhotoPrintHServlet?room_photo_id=${roomPhotoId}" class="d-block w-100 h-100" alt="...">
 	                  </div>
                   </c:forEach>
                 </div>
@@ -241,7 +230,7 @@
 											      loading="lazy"
 											      allowfullscreen
 											      referrerpolicy="no-referrer-when-downgrade"
-											      src="https://www.google.com/maps/embed/v1/place?key=#
+											      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAInnBRglvKKBNHyr2OIw4-4ySCv-enRUY
 											        &q=<%=company.getCompAddress()%>&zoom=15">
 											    </iframe>
 									      	</div>
@@ -277,7 +266,7 @@
 														      loading="lazy"
 														      allowfullscreen
 														      referrerpolicy="no-referrer-when-downgrade"
-														      src="https://www.google.com/maps/embed/v1/search?key=#
+														      src="https://www.google.com/maps/embed/v1/search?key=AIzaSyAInnBRglvKKBNHyr2OIw4-4ySCv-enRUY
 														      &q=<%=company.getCompAddress()%>附近休閒文藝景點">
 														    </iframe>
 												      	</div>
@@ -304,7 +293,7 @@
                     	<div class="container ">
                     		<div class="row align-items-center justify-content-center ">
 	                    		<div class="col ps-0 pe-0  ">
-				                        <a class="" href="#" >
+				                        <a class="" href="${pageContext.request.contextPath}/chu/commentArea(hotel).jsp?roomId=<%=room.getRoomId()%>" >
 				                            <button type="button" class="btn btn-primary ">
 				                                <i class="fa-solid fa-message "> 聯繫業者</i>
 				                            </button>
@@ -329,7 +318,7 @@
                     <div class="col-4 h-100 mt-2 mb-2">
                         <div>房型名稱：<%=room.getRoomName()%></div>
                         <div>房型：<%=room.getRoomType()%>人房</div>
-                        <div>價格：NTW <%=room.getPrice().intValue()%></div>
+                        <div>價格：TWD <%=room.getPrice().intValue()%></div>
                         <a class="" href="">
                             <button type="button" class="btn btn-primary">
                                 收藏

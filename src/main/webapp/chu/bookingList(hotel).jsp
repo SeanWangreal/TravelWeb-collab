@@ -89,7 +89,7 @@ h2 {
 					<hr>
 					<div class="order-item">
 						<label for="amount" style="margin-left: 10px">房數: <i
-							style="color: blue; margin-left: 20px">${room.amount}</i></label> <i
+							style="color: blue; margin-left: 20px"></i></label> <i
 							style="position: absolute; left: 20%;">
 							<FORM METHOD="post"
 								ACTION="${pageContext.request.contextPath}/shopping_hotelServlet">
@@ -140,18 +140,24 @@ h2 {
 
 
 			<div class="order-item" style="width: 100%;">
-				<!--                     <div class="order_item_price"> -->
-				<!--                         <label class="price">價格:</label> -->
-				<%--                         <label class="right_label2"><i>${roomOrdList.get(room).get(5).intValue()}元</i></label>   --%>
-				<!--                     </div> -->
-				<!--                     <hr> -->
-				<!--                     <div class="order_item_price"> -->
-				<!--                         <label class="commission">稅額(10%):</label> -->
-				<%--                         <label class="right_label2"><i>${roomOrdList.get(room).get(6).intValue()}元</i></label>   --%>
-				<!--                     </div> -->
-				<!--                     <hr> -->
-				<br> <br> <br> <br> <br> <br> <br>
-				<br>
+			 <div class="order_item_price">
+                   		 <br>
+                   		 <br>
+						<br>
+						<br>
+                        <label class="commission" style = "font-size:20px ; margin-left:20px">單價:</label>
+                          <label class="right_label2"><i>${roomOrdList.get(room).get(9).intValue()}元</i></label>  
+                    </div>
+					<div class="order_item_price">
+							<br>
+							<br>
+							<br>
+							<br>
+		                    <label class="commission" style = "font-size:20px ; margin-left:20px">數量:</label>
+		                    <label class="right_label2"><i>${room.amount}</i></label>  
+            		</div>
+            		<hr>
+				<br> <br> <br> 
 				<div class="order_item_price">
 					<label class="totalPrice" style="font-size: 40px">總價格:</label> <label
 						class="right_label2" style="font-size: 40px"><i>${roomOrdList.get(room).get(5).intValue()}元</i></label>
@@ -159,7 +165,7 @@ h2 {
 
 			</div>
 
-
+	
 
 			<form
 				action="${pageContext.request.contextPath}/shopping_hotelServlet"

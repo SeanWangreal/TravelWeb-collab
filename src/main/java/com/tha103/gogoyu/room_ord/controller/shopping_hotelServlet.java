@@ -41,10 +41,6 @@ public class shopping_hotelServlet extends HttpServlet {
 
 		HttpSession session = req.getSession();
 
-//		String Timestart = "2023-10-17"; // 示例日期字符串
-//		String Timeend = "2023-10-20"; // 示例日期字符串
-//		Date checkInTime = Date.valueOf(Timestart);
-//		Date checkOutTime = Date.valueOf(Timeend);
 
 		String action = req.getParameter("action");
 
@@ -61,13 +57,12 @@ public class shopping_hotelServlet extends HttpServlet {
 	        
 	        long times = Math.abs(checkOutTime.getTime() - checkInTime.getTime());
 	        long countDays = TimeUnit.DAYS.convert(times, TimeUnit.MILLISECONDS); 
-	        System.out.println(countDays+"aaaa");
 	        
 	        
 			if (cusId != null) {// 如果session有cus_id資料代表有人登入
 				Integer product = ROSH.queryProduct(roomId, cusId, checkInTime, checkOutTime);
 				Integer roomStock = RSSH.searchMinRoomStockByTime(roomId, checkInTime, checkOutTime);
-				
+				System.out.println(product+"111"+roomStock); //-1  4
 				if (product == 1 && roomStock != null && roomStock != 0) {
 					Integer cartId = Integer.valueOf(req.getParameter("cart_id"));
 					RoomServiceHibernate RSH = new RoomServiceHibernate();
@@ -106,7 +101,9 @@ public class shopping_hotelServlet extends HttpServlet {
 
 					req.setAttribute("errorMessages", errorMessages);
 					returnForPage("/chu/shopping(hotel).jsp", res, req);
-				}
+//					returnForPage("/sean/SearchServlet?action=getProductDetailRoom&room_id="+roomId, res, req);
+
+				}      
 			} else { // 導回登入
 				session.setAttribute("location", req.getRequestURI()); // 如果沒登入先記錄現在的位置(網址)
 				res.sendRedirect(req.getContextPath() + "/eric/signin.jsp");// 然後導回登入頁面(等到有login.jsp再改路徑)

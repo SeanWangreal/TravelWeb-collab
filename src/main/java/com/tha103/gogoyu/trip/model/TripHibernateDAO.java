@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import javax.persistence.Query;
 
@@ -224,8 +225,8 @@ public class TripHibernateDAO implements TripDAO_interface{
 		return -1 ;
 	}
 	
-	public List<Trip> searchTrip(String site, Date startTime, Date endTime, Integer number) {
-		List<Trip> list = new ArrayList<Trip>();
+	public Map<Trip, String> searchTrip(String site, Date startTime, Date endTime, Integer number) {
+		Map<Trip, String> map = new LinkedHashMap<Trip, String>();
 		try {
 			String SQL = null;
 			getSession().beginTransaction();
@@ -254,21 +255,34 @@ public class TripHibernateDAO implements TripDAO_interface{
 			case "嘉義市":SQL ="Chiayi_City";break;
 			case "澎湖縣":SQL ="Penghu_County";break;
 			}
-			
-			list = getSession().createQuery("from Trip where " 
+			List<Trip> tripList = new ArrayList<Trip>();
+			tripList = getSession().createQuery("from Trip where " 
 			+ SQL 
 			+ " = 1 AND start_time >= :startTime AND end_time <= :endTime AND people >= :number AND amount > 0 AND state = 1", Trip.class)
 					.setParameter("startTime", startTime)
 					.setParameter("endTime", endTime)
 					.setParameter("number", number)
 					.list();
-					getSession().getTransaction().commit();
-					return list;
+			
+			for(Trip trip : tripList) {
+				Double avgScore = getSession()
+					      .createQuery("select avg(score) from Trip_ord where tripId = :tripId ", Double.class)
+					      .setParameter("tripId", trip.getTripId()).uniqueResult();
+				 if (avgScore != null) {
+				     Double averageScore = Math.round(avgScore * 10.0) / 10.0;
+				     map.put(trip, averageScore.toString());
+				    } else {
+				     map.put(trip, "N/A");
+				    }
+			}
+			
+			getSession().getTransaction().commit();
+			return map;
 		} catch (Exception e) {
 			e.printStackTrace();
 			getSession().getTransaction().rollback();
 		}
-		return list;
+		return map;
 	}
 	
 	public List<Trip> getHotTrip() {

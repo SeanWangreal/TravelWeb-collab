@@ -15,9 +15,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TravelMaker</title>
      <link href="${pageContext.request.contextPath}/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/mhl_css/comp_product_review.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/mhl_css//comp_mem_l.css">
-    </script>
+<%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/mhl_css/comp_product_review.css"> --%>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/mhl_css/comp_mem_l.css">
     <style>
         @media (min-height: 500px) and (max-height: 1300px) {
             .shop {
@@ -68,8 +67,10 @@
         <a class="logo" id="home" href="${pageContext.request.contextPath}/mhl/home.jsp">GO<i class="fa-solid fa-location-dot" style="color: #ffbf1c;"></i>GOYU</a>
         <div class="head">
             <button type="menu" class="head_btn" aria-label="規劃行程" id="shop">
+            <a class="left_btn" href="${pageContext.request.contextPath}/chu/shopping(hotel).jsp">
                 <i class="fa-solid fa-suitcase-rolling icon" style="color: black; font-size:30px;
                             background-color:transparent;"></i>
+            </a>
             </button>
             <button type="menu" class="head_btn" id="msg">
                 <i class="fa-regular fa-message icon" style="color: black; font-size:30px; 
@@ -175,7 +176,7 @@
 	                                <div class="row">
 	                                    <!--商品圖-->
 	                                    <div class="col photoShell border">
-	                                        <img src="MainPhotoPrintHServlet?room_id=${roomVO.roomId}" class="d-block w-100" alt="...">
+	                                        <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${roomVO.roomId}" class="d-block w-100" alt="...">
 	                                    </div>
 	                                    <!--商品名 細況-->
 	                                    <div class="col">
@@ -261,12 +262,12 @@
                         <!--搜尋結果-->
                         <div class="d-flex flex-column mb-4">
                             <!--journey商品-->
-                            <c:forEach var="tripVO" items="${searchTripResult}" >
+                            <c:forEach var="tripVO" items="${searchTripResult.keySet()}" >
                             <div class="container border">
                                 <div class="row">
                                     <!--商品圖-->
                                     <div class="col ">
-                                        <img src="MainPhotoTripPrintServlet?tripId=${tripVO.tripId}" class="d-block w-100" alt="...">
+                                        <img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${tripVO.tripId}" class="d-block w-100" alt="...">
                                     </div>
                                     <!--商品名 細況 付款-->
                                     <div class="col">
@@ -289,7 +290,7 @@
                                                 <!--評等-->
                                                 <div  class="count_star">  
                                                     <a href="#">
-                                                        <i class="fa-solid fa-star">8.7</i>
+                                                        <i class="fa-solid fa-star">${searchTripResult.get(tripVO)}</i>
                                                     </a>
                                                 </div>
                                                 <!--價格-->
