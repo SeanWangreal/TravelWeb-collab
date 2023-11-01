@@ -28,7 +28,7 @@ response.setDateHeader("Expires", 0);
 	padding: 5px;
 	width: 265px;
 	position: absolute;
-	top: 225px;
+	top: 270px;
 	left: 60px;
 	background-color: white;
 	z-index: 1;
@@ -170,6 +170,11 @@ div.all-date>* {
 				<a href="${pageContext.request.contextPath}/sean/hotel_room_all.jsp"
 					class="left_btn" style="color: #FCC416"> <i
 					class="fa-solid fa-hotel" style="color: #000000;"></i> 我的房間
+				</a>
+			</div>
+			<div class="mem-data">
+				<a href="${pageContext.request.contextPath}/sean/hotel_com_ord.jsp" class="left_btn" style="color: #000000"> <i
+					class="fa-solid fa-file-invoice" style="color: black;"></i> 訂單資訊
 				</a>
 			</div>
 			<div class="mem-data">
