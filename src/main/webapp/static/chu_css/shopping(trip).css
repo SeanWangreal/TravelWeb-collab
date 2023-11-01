@@ -1,11 +1,12 @@
+@charset "UTF-8";
 @font-face {
-    font-family: '蝎���';
+    font-family: '粉圓';
     src: url('../font/jf-openhuninn-2.0.ttf'); 
     font-display: swap;
 }
 
 :root {
-    --ifm-font-family-base: "蝎���";
+    --ifm-font-family-base: "粉圓";
 }
 a.logo{
     font-size: 30px;
@@ -149,7 +150,7 @@ div>a.left_btn {
     width: 100%;
     padding-top: 10px;
     padding-bottom: 10px;
-    /* font-family: "蝎���"; */
+    /* font-family: "粉圓"; */
     font-weight: bold;
     color: black;
     background-color: white;
@@ -179,7 +180,7 @@ a.left_btn:hover {
 
 
 /* .main-content-info {
-    font-family: "蝎���";
+    font-family: "粉圓";
     font-size: 16px;
     width: 350px;
     margin-left: 20px;
@@ -242,13 +243,9 @@ a.pass-btn {
 
 
 
-
-
-
-
 /* =======================main_content===================== */
 
-/* * 閬�����蝐� */
+
 div.plan_tab div.tab_list_block {
     width: fit-content;
     padding-left: 10%;
@@ -257,31 +254,28 @@ div.plan_tab div.tab_list_block {
     left: 22%;
     font-size: 30px;
     z-index: 2;
-    font-family: "蝎���";
+    font-family: "粉圓";
 
 }
 
-/* ��蝐文��銵� */
+
 div.plan_tab div.tab_list_block ul.tab_list {
     list-style: none;
-    /*�餅��list��閮剝�暺�*/
     display: inline-block;
-    /*霈���蝐斗偌撟單����*/
     margin: 0;
     padding: 0;
-    font-family: "蝎���";
+    font-family: "粉圓";
 }
 
 div.plan_tab div.tab_list_block ul.tab_list>li {
     display: inline-block;
-    /*瘞游像����*/
+
 }
 
 div.plan_tab div.tab_list_block ul.tab_list>li>a {
     text-decoration: none;
-    /*��閮苔璅�蝐斤��摨�蝺��踵��*/
     display: inline-block;
-    /*瘞游像����*/
+
     border-top: 3px solid #ccc;
     border-right: 3px solid #ccc;
     border-left: 3px solid #ccc;
@@ -291,7 +285,6 @@ div.plan_tab div.tab_list_block ul.tab_list>li>a {
     color: #ccc;
 }
 
-/* �軻璅�蝐方孛�澆��怠�箏��函�賜� */
 
 div.plan_tab div.tab_list_block ul.tab_list>li>a.-on {
     border-top: 3px solid black;
@@ -302,7 +295,6 @@ div.plan_tab div.tab_list_block ul.tab_list>li>a.-on {
     background-color: white;
 }
 
-/* ��蝐文�批捆��憛� */
 div.plan_tab div.tab_contents {
     border: 3px solid black;
 
@@ -315,17 +307,14 @@ div.plan_tab div.tab_contents {
     z-index: 1;
 }
 
-/* �芷�����銝�憿舐內 */
 div.plan_tab div.tab_contents div.tab {
     padding: 10px;
     display: none;
 }
 
-
-/* 暺���璅�蝐文�閫貊�潮＊蝷� */
 div.plan_tab div.tab_contents div.tab.-on {
     display: block;
-    /*��閮剝＊蝷�*/
+
 }
 
 
@@ -362,8 +351,6 @@ div.tab_contents div div.plan_tab_1 div.plan_tab_1_right {
 
 
 /* ==========================pay_button(right)========================== */
-
-/* ������憟�隞�*/
 div.tab_contents div div.plan_tab_1 div.plan_tab_1_right div.pay_btn {
     position: absolute;
     bottom: 5px;
@@ -372,15 +359,14 @@ div.tab_contents div div.plan_tab_1 div.plan_tab_1_right div.pay_btn {
     width: 26%;
     margin-top: -50px;
     margin-left: 5px;
-    font-family: "蝎���";
+    font-family: "粉圓";
 }
 
-/* 蝘駁��&隞�甈曄��div���� */
+
 div.pay_or_remove {
     display: flex;
 }
 
-/* pay�����交���� */
 div.tab_contents div div.plan_tab_1 div.plan_tab_1_right div.pay_btn button.b {
     border-radius: 10px;
     margin: 3px;
@@ -388,25 +374,10 @@ div.tab_contents div div.plan_tab_1 div.plan_tab_1_right div.pay_btn button.b {
     color: white;
 }
 
-/* 皛�曌�蝘駁���餅��憿��� */
 div.tab_contents div div.plan_tab_1 div.plan_tab_1_right div.pay_btn button.b:hover {
     color: #FCC416;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* �桀�鉅iv */
 .price_set {
     position: absolute;
     right: 110px;
@@ -415,8 +386,6 @@ div.tab_contents div div.plan_tab_1 div.plan_tab_1_right div.pay_btn button.b:ho
     max-width: 86.54px;
 }
 
-
-/* �桀�鉤nt */
 .howmuch_nt {
     position: absolute;
     font-size: 30px;
@@ -425,22 +394,18 @@ div.tab_contents div div.plan_tab_1 div.plan_tab_1_right div.pay_btn button.b:ho
     z-index: 1;
 }
 
-
-/* �桀�� */
 .howmuch {
-    font-family: "蝎���";
+    font-family: "粉圓";
     font-size: 22px;
     position: relative;
     left: 100%;
     top: 50px;
 }
 
-
-/* "�寞��"摮�璅� */
 .book_price {
     /* text-decoration: underline; */
 
-    font-family: "蝎���";
+    font-family: "粉圓";
     font-size: 30px;
     position: absolute;
     right: 7%;
@@ -448,23 +413,11 @@ div.tab_contents div div.plan_tab_1 div.plan_tab_1_right div.pay_btn button.b:ho
     z-index: 0;
 }
 
-
-
-
-/* 閰�隢�+璅�憿�����隞嗅� */
 .right_side_first_row {
     display: flex;
     margin: 0px;
 }
 
-
-
-
-
-
-
-
-/* 閰�隢���隞嗅� */
 .comment_set {
     position: absolute;
     right: 30px;
@@ -473,7 +426,6 @@ div.tab_contents div div.plan_tab_1 div.plan_tab_1_right div.pay_btn button.b:ho
 
 }
 
-/* 閰�隢������� */
 .count_star {
     margin-left: 20px;
     margin-top: 15px;
@@ -487,38 +439,32 @@ div.tab_contents div div.plan_tab_1 div.plan_tab_1_right div.pay_btn button.b:ho
     border-radius: 5px;
 }
 
-/* 閰�隢�閮��� */
 .comment_message {
     font-size: 50px;
 }
 
-
-
-/* 璅�憿���隞嗅� */
 div.title_set {
     position: relative;
     margin-left: 0px;
 }
 
-
-/* 憌臬�or銵�蝔�mark */
 .mark_for_type_hotel {
     border: 2px solid black;
     border-radius: 2px;
-    font-family: "蝎���";
+    font-family: "粉圓";
     background-color: lightblue;
 }
 
 .mark_for_type_trip {
     border: 2px solid black;
     border-radius: 2px;
-    font-family: "蝎���";
+    font-family: "粉圓";
     background-color: lightgreen;
 }
 
-/* 憌臬�or銵�蝔�璅�憿� */
+
 #named_of_title {
-    font-family: "蝎���";
+    font-family: "粉圓";
     margin-left: 2px;
 
 }
@@ -536,8 +482,6 @@ img {
     border: 1px solid black;
 }
 
-
-/*��撠�甈���css */
 div.plan_tab div.selectColumn{
     background-color:wheat;
     border-radius: 30%;
@@ -549,7 +493,7 @@ div.plan_tab div.selectColumn{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    font-family: "蝎���";
+    font-family: "粉圓";
 
 }
 
@@ -562,7 +506,7 @@ div.plan_tab div.selectColumn{
 
         #change_pass {
             margin-top: 15px;
-            font-family: "蝎���";
+            font-family: "粉圓";
             font-size: 16px;
             margin-left: 1%;
             margin-right: 3%;

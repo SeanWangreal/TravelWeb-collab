@@ -15,9 +15,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TravelMaker</title>
      <link href="${pageContext.request.contextPath}/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/mhl_css/comp_product_review.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/mhl_css//comp_mem_l.css">
-    </script>
+<%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/mhl_css/comp_product_review.css"> --%>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/mhl_css/comp_mem_l.css">
     <style>
         @media (min-height: 500px) and (max-height: 1300px) {
             .shop {
@@ -177,7 +176,7 @@
 	                                <div class="row">
 	                                    <!--商品圖-->
 	                                    <div class="col photoShell border">
-	                                        <img src="MainPhotoPrintHServlet?room_id=${roomVO.roomId}" class="d-block w-100" alt="...">
+	                                        <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${roomVO.roomId}" class="d-block w-100" alt="...">
 	                                    </div>
 	                                    <!--商品名 細況-->
 	                                    <div class="col">
@@ -268,7 +267,7 @@
                                 <div class="row">
                                     <!--商品圖-->
                                     <div class="col ">
-                                        <img src="MainPhotoTripPrintServlet?tripId=${tripVO.tripId}" class="d-block w-100" alt="...">
+                                        <img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${tripVO.tripId}" class="d-block w-100" alt="...">
                                     </div>
                                     <!--商品名 細況 付款-->
                                     <div class="col">

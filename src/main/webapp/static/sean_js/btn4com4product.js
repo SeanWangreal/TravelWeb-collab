@@ -33,6 +33,17 @@ function add(e) {
 		next_step = false;
 		alert(`請輸入${product_type}名稱`);
 	}
+	console.log($("#name").val().length);
+	if ($("#name").val().length > 15) {
+		next_step = false;
+		alert(`${product_type}名稱長度不得大於15個字`);
+	}
+	if($("#startTime")!=null){
+		if($("#startTime").val()>$("#endTime").val()){
+			next_step = false;
+			alert(`開始時間不得晚於結束時間`);
+		}
+	}
 	if ($("#bed-num").val() === "" || $("#bed-num").val() <= 0) {
 		next_step = false;
 		if (product_type === "客房") {

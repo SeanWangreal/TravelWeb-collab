@@ -190,7 +190,7 @@ $(function() {
 					})
 				}
 			};
-			pic_file.files = pics;
+//			pic_file.files = pics;
 		}
 	}
 	

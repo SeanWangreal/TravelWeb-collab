@@ -166,11 +166,11 @@
 <!--                 </div> -->
                 <div class="carousel-inner h-100">
                   <div class="carousel-item active">
-                    <img src="MainPhotoTripPrintServlet?tripId=<%=trip.getTripId()%>" class="d-block w-100 h-100" alt="...">
+                    <img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=<%=trip.getTripId()%>" class="d-block w-100 h-100" alt="...">
                   </div>
                   <c:forEach var="tripPhotoId" items="<%=tripPhotoIdList%>" >
 	                  <div class="carousel-item">
-	                    <img src="TripPhotoPrintServlet?tripPhotoId=${tripPhotoId}" class="d-block w-100 h-100" alt="...">
+	                    <img src="${pageContext.request.contextPath}/sean/TripPhotoPrintServlet?tripPhotoId=${tripPhotoId}" class="d-block w-100 h-100" alt="...">
 	                  </div>
                   </c:forEach>
                 </div>
