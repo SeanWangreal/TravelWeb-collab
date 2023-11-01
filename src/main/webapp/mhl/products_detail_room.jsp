@@ -87,10 +87,14 @@
     <nav class="st">
          <a class="logo" id="home" href="${pageContext.request.contextPath}/mhl/home.jsp">GO<i class="fa-solid fa-location-dot" style="color: #ffbf1c;"></i>GOYU</a>
          <div class="head">
+         
             <button type="menu" class="head_btn" aria-label="規劃行程" id="shop">
+            <a class="left_btn" href="${pageContext.request.contextPath}/chu/shopping(hotel).jsp">
                 <i class="fa-solid fa-suitcase-rolling icon" style="color: black; font-size:30px;
                             background-color:transparent;"></i>
+            </a>
             </button>
+         
             <button type="menu" class="head_btn" id="msg">
                 <i class="fa-regular fa-message icon" style="color: black; font-size:30px; 
                             background-color:transparent;"></i>
@@ -111,22 +115,7 @@
                 </a>
             </button>
         </div>
-        <aside class="msg all_side nothing" id="msg_side">
-            msg<br>msg<br>msg<br>msg<br>msg<br>msg<br>msg
-            <br>msg<br>msg<br>msg<br>msg<br>msg<br>msg
-        </aside>
-        <aside class="info all_side nothing" id="info_side">
-            info<br>info<br>info<br>info<br>info<br>info
-            <br>info<br>info<br>info<br>info<br>info
-        </aside>
-        <aside class="shop all_side nothing" id="shop_side">
-            shop<br>shop<br>shop<br>shop<br>shop<br>shop
-            <br>shop<br>shop<br>shop<br>shop<br>shop<br>shop
-            <br>shop<br>shop<br>shop<br>shop<br>shop<br>shop
-            <br>shop<br>shop<br>shop<br>shop<br>shop<br>shop
-            <br>shop<br>shop<br>shop<br>shop<br>shop<br>shop
-            <br>shop<br>shop<br>shop<br>shop<br>shop<br>shop
-        </aside>
+        
     </nav>    
         <div class="d-flex flex-column mb-4">
             <!--搜尋欄-->
@@ -329,7 +318,7 @@
                     <div class="col-4 h-100 mt-2 mb-2">
                         <div>房型名稱：<%=room.getRoomName()%></div>
                         <div>房型：<%=room.getRoomType()%>人房</div>
-                        <div>價格：NTW <%=room.getPrice().intValue()%></div>
+                        <div>價格：TWD <%=room.getPrice().intValue()%></div>
                         <a class="" href="">
                             <button type="button" class="btn btn-primary">
                                 收藏
@@ -369,13 +358,6 @@
                             <button type="submit" class="btn btn-primary">
                                 加入購物車
                             </button>
-                            <c:if test="${not empty errorMessages}">
-							   <div class="error-message" style="color: red; font-size: 25px; top: 15%; position: absolute; left: 40%">
-							    <c:forEach var="message" items="${errorMessages}">
-							     <li style="color:red">${message}</li>
-							    </c:forEach>
-							   </div>
-							  </c:if>
                         </form>
                     </div>
                 </div>

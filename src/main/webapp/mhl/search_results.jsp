@@ -68,8 +68,10 @@
         <a class="logo" id="home" href="${pageContext.request.contextPath}/mhl/home.jsp">GO<i class="fa-solid fa-location-dot" style="color: #ffbf1c;"></i>GOYU</a>
         <div class="head">
             <button type="menu" class="head_btn" aria-label="規劃行程" id="shop">
+            <a class="left_btn" href="${pageContext.request.contextPath}/chu/shopping(hotel).jsp">
                 <i class="fa-solid fa-suitcase-rolling icon" style="color: black; font-size:30px;
                             background-color:transparent;"></i>
+            </a>
             </button>
             <button type="menu" class="head_btn" id="msg">
                 <i class="fa-regular fa-message icon" style="color: black; font-size:30px; 
