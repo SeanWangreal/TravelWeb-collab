@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.persistence.Query;
 
@@ -290,6 +291,11 @@ public class Room_ordHibernateDAO implements Room_ordDAO_interface {
 						.setParameter("checkOutTime", newDate)
 						.setParameter("roomId", roomId.getRoomId()).uniqueResult();
 				info.add(roomstock);
+				
+				
+				long times = Math.abs(checkOutTime.getTime() - checkInTime.getTime());
+		        long countDays = TimeUnit.DAYS.convert(times, TimeUnit.MILLISECONDS); 
+				info.add(getSession().get(Room.class, Room.getRoomId()).getPrice().multiply(new BigDecimal(countDays)));
 				
 			
 				

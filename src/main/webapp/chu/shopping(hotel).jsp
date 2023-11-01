@@ -150,13 +150,13 @@ if (cusId != null) {
 
 
 	<div class="plan_tab">
-<%-- 		<c:if test="${not empty errorMessages}"> --%>
-<!-- 			<div class="error-message" style="color: red; font-size: 25px; top: 15%; position: absolute; left: 40%"> -->
-<%-- 				<c:forEach var="message" items="${errorMessages}"> --%>
-<%-- 					<li style="color:red">${message}</li> --%>
-<%-- 				</c:forEach> --%>
-<!-- 			</div> -->
-<%-- 		</c:if> --%>
+		<c:if test="${not empty errorMessages}">
+			<div class="error-message" style="color: red; font-size: 25px; top: 15%; position: absolute; left: 40%">
+				<c:forEach var="message" items="${errorMessages}">
+					<li style="color:red">${message}</li>
+				</c:forEach>
+			</div>
+		</c:if>
 		<div class="tab_list_block">
 
 			<ul class="tab_list">

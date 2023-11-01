@@ -65,7 +65,7 @@ pageContext.setAttribute("tripOrdList",TOSH.getTripOrdList(tripOrd));
                     </div>
                     <hr>
                     <div class="order-item">
-                        <label for="amount" >數量: <i style="color: blue;margin-left:30px">${trip.amount}</i></label>
+                        <label for="amount" >數量: <i style="color: blue;margin-left:30px"></i></label>
                         	<i style="color: blue;margin-left:30px">
                         			<FORM METHOD="post" ACTION="${pageContext.request.contextPath}/shopping_tripServlet" >
       										<select size="1" name="tripAmount">
@@ -114,21 +114,27 @@ pageContext.setAttribute("tripOrdList",TOSH.getTripOrdList(tripOrd));
         		
             
                 <div class="order-item" style="width: 100%;">
-<!--                     <div class="order_item_price"> -->
-<!--                         <label class="price">價格:</label> -->
-<%--     					 <label class="right_label2"><i>${tripOrdList.get(trip).get(8).intValue()}元</i></label>   --%>
-<!--                     </div> -->
-<!--                     <hr> -->
-<!--                     <div class="order_item_price"> -->
-<!--                         <label class="commission">稅額(10%):</label> -->
-<%--                           <label class="right_label2"><i>${tripOrdList.get(trip).get(9).intValue()}元</i></label>   --%>
-<!--                     </div> -->
-<!--                     <hr> -->
-<br>
-					<br>
-					<br>
-					<br>
-					<br>
+                
+                    <div class="order_item_price">
+                   		 <br>
+                   		 <br>
+						<br>
+						<br>
+                        <label class="commission" style = "font-size:20px ; margin-left:20px">單價:</label>
+                          <label class="right_label2"><i>${tripOrdList.get(trip).get(11).intValue()}元</i></label>  
+                    </div>
+                    
+                    
+                    <div class="order_item_price">
+                   		 <br>
+                   		 <br>
+						<br>
+						<br>
+                        <label class="commission" style = "font-size:20px ; margin-left:20px">數量:</label>
+                          <label class="right_label2"><i>${trip.amount}</i></label>  
+                    </div>
+                    
+                 	<hr>
 					<br>
 					<br>
                     <div class="order_item_price">

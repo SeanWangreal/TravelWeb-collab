@@ -132,13 +132,14 @@ public class Trip_ordHibernateDAO implements Trip_ordDAO_Interface {
 					info.add(getSession().get(Trip.class, Trip.getTripId()).getEndTime());
 					
 					
+					
 					BigDecimal totalPrice =getSession().get(Trip.class, Trip.getTripId()).getPrice().multiply(new BigDecimal(Trip.getAmount()));
 					info.add(totalPrice);
 					BigDecimal commission =totalPrice.multiply(new BigDecimal(0.1));
 					info.add(commission);
 					BigDecimal profit =totalPrice.subtract(commission);
 					info.add(profit);
-					
+					info.add(getSession().get(Trip.class, Trip.getTripId()).getPrice());
 
 					
 					map.put(Trip,info);
