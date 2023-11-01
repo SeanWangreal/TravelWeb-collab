@@ -82,40 +82,42 @@ public class ConsumerServlet extends HttpServlet {
 			if (account == null || (account.trim()).length() == 0) {
 				errorMsgs.add("請輸入帳號");
 			}
+			Consumer consumer= new Consumer();
+			consumer.setCusAccount(account);
+			
 			String password = req.getParameter("cusPassword");
 			if (password != null && password == null || (password.trim()).length() == 0) {
 				errorMsgs.add("請輸入密碼");
-			}
-			// Send the use back to the form, if there were errors
+			}			
 			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("consumer", consumer);
 				RequestDispatcher failureView = req.getRequestDispatcher("/eric/signin.jsp");
 				failureView.forward(req, res);
-				return;// 程式中斷
+				return;
 			}
 			/*************************** 2.開始查詢資料 *****************************************/
-			Consumer consumer = cusSvc.checkDuplicateAccount(account);
-			if (consumer == null) {
-				System.out.println("沒帳號");
+			Consumer consumeraccount = cusSvc.checkDuplicateAccount(account);
+			if (consumeraccount == null) {
 				errorMsgs.add("查無帳號");
 			}
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("errorMsgs", errorMsgs);
 				RequestDispatcher failureView = req.getRequestDispatcher("/eric/signin.jsp");
 				failureView.forward(req, res);
+				return;
 			}
-			if (consumer != null && !password.equals(consumer.getCusPassword())) {
-				System.out.println("密碼錯了");
+			if (consumeraccount != null && !password.equals(consumeraccount.getCusPassword())) {
 				errorMsgs.add("密碼錯誤");
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("errorMsgs", errorMsgs);
+				req.setAttribute("consumer", consumer);
 				RequestDispatcher failureView = req.getRequestDispatcher("/eric/signin.jsp");
 				failureView.forward(req, res);
+				return;
 			}
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("consumer", consumer); // 資料庫取出的empVO物件,存入req
-			req.getSession().setAttribute("cusId", consumer.getCusId());
+			req.getSession().setAttribute("cusId", consumeraccount.getCusId());
 			String url = "/eric/personal_detail.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 jsp
 			successView.forward(req, res);
@@ -131,21 +133,24 @@ public class ConsumerServlet extends HttpServlet {
 
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-			String mail = req.getParameter("cusMail");
+			String cusMail = req.getParameter("cusMail");
 			String mailReg = "\\w[-\\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\\.)+[A-Za-z]{2,14}";
 			HttpSession session = req.getSession();
 
-			if (mail == null || (mail.trim()).length() == 0) {
+			if (cusMail == null || (cusMail.trim()).length() == 0) {
 				errorMsgs.add("請輸入信箱");
-			}else if (!mail.trim().matches(mailReg)) { // 以下練習正則(規)表示式(regular-expression)
+			}else if (!cusMail.trim().matches(mailReg)) { // 以下練習正則(規)表示式(regular-expression)
 				errorMsgs.add("信箱格式錯誤 範例XXXX@XXX.XXX");
 			}
-			session.setAttribute("mail", mail);
+
+			Consumer consumer = new Consumer();
 			
+			consumer.setCusMail(cusMail);			
 
 			
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("consumer", consumer);
 				RequestDispatcher failureView = req.getRequestDispatcher("/eric/signin_info.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
@@ -153,7 +158,7 @@ public class ConsumerServlet extends HttpServlet {
 			/*************************** 2.開始寄信資料 *****************************************/
 
 			MailService sentMail = new MailService();
-			String to = mail;
+			String to = cusMail;
 			String subject = "歡迎註冊GOGOYU會員";
 
 			String passRandom = generateVerificationCode();
@@ -166,6 +171,8 @@ public class ConsumerServlet extends HttpServlet {
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			String url = "/eric/signin_info.jsp";
+			req.setAttribute("consumer", consumer);
+
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 jsp
 			successView.forward(req, res);
 		}
@@ -380,6 +387,15 @@ public class ConsumerServlet extends HttpServlet {
 			} else if (!cusAddress.trim().matches(addressReg)) { // 以下練習正則(規)表示式(regular-expression)
 				errorMsgs.add("地址格式錯誤");
 			}
+			
+			Integer cusSex = null;
+			try {
+				cusSex = Integer.valueOf(req.getParameter("cusSex"));
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+				
+			}
+			   
 
 			Part newPicture = req.getPart("cusPhoto");
 			byte[] cusPhoto = null;
@@ -411,8 +427,8 @@ public class ConsumerServlet extends HttpServlet {
 				return;
 			}
 			/*************************** 2.開始修改資料 *****************************************/
-			consumer = cusSvc.updateCus(cusId, null, null, cusPassword, cusMail, cusPhone, cusAddress, null, cusPhoto);
-
+			consumer = cusSvc.updateCus(cusId, null, null, cusPassword, cusMail, cusPhone, cusAddress, cusSex, cusPhoto);
+			System.out.println(cusSex);
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("consumer", consumer); // 資料庫update成功後,正確的的empVO物件,存入req
 			String url = "/eric/personal_detail.jsp";
@@ -642,7 +658,7 @@ public class ConsumerServlet extends HttpServlet {
 			consumer.setCusSex(cusSex);
 			consumer.setCusPhoto(cusPhoto);
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("Consumer", consumer); // 含有輸入格式錯誤的empVO物件,也存入req
+				req.setAttribute("consumer", consumer); // 含有輸入格式錯誤的empVO物件,也存入req
 				RequestDispatcher failureView = req.getRequestDispatcher("/eric/signin_realinfo.jsp");
 				failureView.forward(req, res);
 				return;
@@ -655,9 +671,9 @@ public class ConsumerServlet extends HttpServlet {
 				planningSvc.add(consumer.getCusId(), cartId); // 把cartid存進去
 			}
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-//			req.getSession().setAttribute("cusId", consumer.getCusId());
-			res.sendRedirect(req.getContextPath() + "/mhl/home.jsp");
-			return;
+			String url ="/eric/signin.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+			successView.forward(req, res);	
 		}
 		if ("verify".equals(action)) { // 
 
@@ -691,7 +707,7 @@ public class ConsumerServlet extends HttpServlet {
 			consumer.setCusMail(cusMail);
 
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("Consumer", consumer); // 含有輸入格式錯誤的empVO物件,也存入req
+				req.setAttribute("consumer", consumer); // 含有輸入格式錯誤的empVO物件,也存入req
 				RequestDispatcher failureView = req.getRequestDispatcher("/eric/signin_info.jsp");
 				failureView.forward(req, res);
 				return;
