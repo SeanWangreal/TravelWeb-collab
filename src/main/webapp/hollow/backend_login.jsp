@@ -83,11 +83,11 @@
 							</ul>
 						</c:if>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" name="admAccount">
+                            <input type="text" class="form-control" id="floatingInput" name="admAccount" value="${admAccount}">
                             <label for="floatingInput">帳號</label>
                         </div>
                         <div class="form-floating mb-4">
-                            <input type="password" class="form-control" id="floatingPassword" name="admPassword">
+                            <input type="password" class="form-control" id="floatingPassword" name="admPassword" value="${admPassword}">
                             <label for="floatingPassword">密碼</label>
                         </div>
                         <input type="hidden" name="action" value="backendLogin">
