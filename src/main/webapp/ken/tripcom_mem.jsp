@@ -214,7 +214,7 @@ if (company == null){
 			
 			<div style="display: table-cell;" >
 				<div style="border: 0px solid grey; height: 200px; width: 200px; position: relative; right: 0px; margin-top: 10px;">
-					<img width="200" height="200" class="imgs" src="${pageContext.request.contextPath}/CompPhotoPrintHServlet?comp_id=<%= company.getCompId()%>" >
+					<img width="200" height="200" class="imgs" src="${pageContext.request.contextPath}/CompPhotoPrintHServlet?comp_id=${compId}">
 				</div>
 			</div>
 				

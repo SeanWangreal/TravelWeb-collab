@@ -80,7 +80,7 @@ Company company = (Company) request.getAttribute("Company");
             <br>shop<br>shop<br>shop<br>shop<br>shop<br>shop
         </aside>
     </nav>
-        <div class="container-fluid" style="background-color: #d9d2c5;">
+        <div class="container-fluid" style="background-color: transparent;">
     <c:if test="${not empty errorMsgs}">
 		<font style="color:red">請修正以下錯誤:</font>
 			<ul>
@@ -101,14 +101,14 @@ Company company = (Company) request.getAttribute("Company");
 	                        <div class="form-floating mb-4">
 	                            <input type="text" class="form-control" id="floatingPassword" name="compmail" value="${mail}">
 	                            <label for="floatingPassword">信箱</label>
-	                            <button type="submit" class="btn btn-primary py-0 w-20 mb-4" name="action" value="mail">寄驗證碼</button>
+	                            <button type="submit" class="btn btn-primary py-0 w-20 mb-3" name="action" value="mail">寄驗證碼</button>
 	                        </div>
 	
-	                        <div class="form-floating mb-5">
-	                            <input type="text" class="form-control" id="floatingPassword" name="genAuthCode">
+	                        <div class="form-floating mb-4">
+	                            <input type="text" class="form-control" id="floatingPassword" name="genAuthCode" value="${genAuthCode}">
 	                            <label for="floatingPassword">驗證碼</label>
 	                        </div>
-	                        <button type="submit" class="btn btn-primary py-3 w-100 mb-4" name="action" value="genAuthCode">下一步</button>
+	                        <button type="submit" class="btn btn-primary py-3 w-100 mb-3" name="action" value="genAuthCode">下一步</button>
 					    </form>			
                     </div>
                 </div>
