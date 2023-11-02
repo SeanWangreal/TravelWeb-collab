@@ -295,7 +295,7 @@
                         <div class="item h-100">
                             <h3 class="mt-2">行程表</h3>
                             <c:forEach var="itinerary" items="<%=itineraryList%>" >
-                            	<p class="text-wrap">${itinerary.sceneName}：${itinerary.beginTime}</p><br>
+                            	<p class="text-wrap">${itinerary.sceneName}：${itinerary.beginTime}</p>
                             </c:forEach>
                         </div> 
                     </div>

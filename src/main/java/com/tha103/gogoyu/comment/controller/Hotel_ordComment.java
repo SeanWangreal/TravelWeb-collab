@@ -26,7 +26,7 @@ public class Hotel_ordComment extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-		req.setCharacterEncoding("UTF-8"); // ±µ¦¬½Ğ¨D°Ñ¼Æªº½s½X³]©w
+		req.setCharacterEncoding("UTF-8"); 
 	
 		
 		
@@ -34,10 +34,9 @@ public class Hotel_ordComment extends HttpServlet {
 		
 		
 		if ("goToComment".equals(action)) {
-			Integer roomOrdId = Integer.valueOf(req.getParameter("roomOrdId")); // ¥Ñ«eºİjsp 147¨ú±o
-			Integer roomId = Integer.valueOf(req.getParameter("roomId"));// ¥Ñ«eºİjsp 148¨ú±o
+			Integer roomOrdId = Integer.valueOf(req.getParameter("roomOrdId")); 
+			Integer roomId = Integer.valueOf(req.getParameter("roomId"));
 
-			// ±N¨â­Ó­È¶Ç¾É¨ìAfterBookingComment.jsp,¥Ñ 145. 146 set
 			req.setAttribute("roomOrdId", roomOrdId);
 			req.setAttribute("roomId", roomId);
 			String url = "/chu/AfterBookingComment(hotel).jsp";
@@ -59,8 +58,8 @@ public class Hotel_ordComment extends HttpServlet {
 		
 		
 		
-		if (leaveAMessageButton.equals("true")) { // «ö¤Uµoªíµû½×«á
-			Integer roomOrdId = Integer.valueOf(req.getParameter("roomOrdId"));  //¥Ñ«eºİjsp 147¨ú±o
+		if (leaveAMessageButton.equals("true")) { 
+			Integer roomOrdId = Integer.valueOf(req.getParameter("roomOrdId"));  
 			Room_ordServiceHibernate ROSH1 = new Room_ordServiceHibernate();
 			Room_ord roomOrdObj = ROSH1.getBycusID(roomOrdId);
 			if (roomOrdObj.getComments() == null) {
@@ -73,14 +72,14 @@ public class Hotel_ordComment extends HttpServlet {
 				Integer updateOrd = ROSH2.updateCommentAndScore(roomOrdId, score, comment, commentsTime);
 
 				
-				req.setAttribute("errorMessage", "µû½×§¹¦¨!");
+				req.setAttribute("errorMessage", "è©•è«–å®Œæˆ!");
 				String url = "/chu/bookedList(hotel).jsp";
 				RequestDispatcher dispatcher = req.getRequestDispatcher(url);
 				dispatcher.forward(req, res);
 
 			} else {
 				req.setAttribute("roomOrdId", roomOrdId); 
-				req.setAttribute("errorMessage", "¿Ë·Rªº·|­û±z¦n¡A±z¤w¸gµû½×¹LÅo~");
+				req.setAttribute("errorMessage", "è¦ªæ„›çš„æœƒå“¡æ‚¨å¥½ï¼Œæ‚¨å·²ç¶“è©•è«–éå›‰~");
 				String url = "/chu/AfterBookingComment(hotel).jsp";
 				RequestDispatcher dispatcher = req.getRequestDispatcher(url);
 				dispatcher.forward(req, res);
