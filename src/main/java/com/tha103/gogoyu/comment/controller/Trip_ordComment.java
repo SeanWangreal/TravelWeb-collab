@@ -24,15 +24,14 @@ public class Trip_ordComment extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-		req.setCharacterEncoding("UTF-8"); // ±µ¦¬½Ğ¨D°Ñ¼Æªº½s½X³]©w
+		req.setCharacterEncoding("UTF-8"); 
 		HttpSession session = req.getSession();
 		String action = req.getParameter("action");
 
 		if ("goToComment".equals(action)) {
-			Integer tripOrdId = Integer.valueOf(req.getParameter("tripOrdId")); // ¥Ñ«eºİjsp 147¨ú±o
-			Integer tripId = Integer.valueOf(req.getParameter("tripId"));// ¥Ñ«eºİjsp 148¨ú±o
+			Integer tripOrdId = Integer.valueOf(req.getParameter("tripOrdId"));
+			Integer tripId = Integer.valueOf(req.getParameter("tripId"));
 
-			// ±N¨â­Ó­È¶Ç¾É¨ìAfterBookingComment.jsp,¥Ñ 145. 146 set
 			req.setAttribute("tripOrdId", tripOrdId);
 			req.setAttribute("tripId", tripId);
 			String url = "/chu/AfterBookingComment(trip).jsp";
@@ -56,11 +55,9 @@ public class Trip_ordComment extends HttpServlet {
 		
 		
 		
-		
-		// ¥ÑAfterBookingComment.jsp 145.146¦æ±µªº­È
 		String leaveAMessageButton = req.getParameter("submitButtonClicked");
 
-		if (leaveAMessageButton.equals("true")) { // «ö¤Uµoªíµû½×«á
+		if (leaveAMessageButton.equals("true")) { 
 
 			    Trip_ordServiceHibernate TOSH1 = new Trip_ordServiceHibernate();
 			
@@ -74,14 +71,14 @@ public class Trip_ordComment extends HttpServlet {
 					Trip_ordServiceHibernate TOSH2 = new Trip_ordServiceHibernate();
 					Integer updateOrd = TOSH2.updateCommentAndScore(tripOrdId, score, comment, commentsTime);
 
-					req.setAttribute("errorMessage", "µû½×§¹¦¨!");
+					req.setAttribute("errorMessage", "è©•è«–å®Œæˆ!");
 					String url = "/chu/bookedList(hotel).jsp";
 					RequestDispatcher dispatcher = req.getRequestDispatcher(url);
 					dispatcher.forward(req, res);
 				}
 				 else {
 				req.setAttribute("tripOrdId", tripOrdId); 
-				req.setAttribute("errorMessage", "¿Ë·Rªº·|­û±z¦n¡A±z¤w¸gµû½×¹LÅo");
+				req.setAttribute("errorMessage", "è¦ªæ„›çš„æœƒå“¡æ‚¨å¥½ï¼Œæ‚¨å·²ç¶“è©•è«–éå›‰~");
 				String url = "/chu/AfterBookingComment(hotel).jsp";
 				RequestDispatcher dispatcher = req.getRequestDispatcher(url);
 				dispatcher.forward(req, res);
