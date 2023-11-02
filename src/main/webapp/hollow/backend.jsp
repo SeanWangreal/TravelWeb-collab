@@ -41,10 +41,12 @@
 <body onload="connect();" onunload="disconnect();">
     <br>
     <header>GoGoYu後台
-    	<h3>${admin.admName} 你好</h3>
     	<form method="post" action="${pageContext.request.contextPath}/hollow/AdmServlet">
-    		<input type="hidden" name="action"	value="logout">
-    		<button type="submit" class="btn btn-outline-dark">登出</button>
+    		<div style="margin:auto;display:flex;justify-content: center;">
+	    		<h3>${admin.admName} 你好</h3>
+	    		<input type="hidden" name="action" value="logout">
+	    		<button type="submit" style="margin-left:10px" class="btn btn-outline-dark">登出</button>
+    		</div>
     	</form>
         <table class="main_btn">
             <tr>
@@ -63,26 +65,12 @@
                     <button type="button" class="main_btn_cust_search" data-bs-toggle="button" autocomplete="off">會員查詢</button>
                 </td>
             </tr>
-            <tr>
-            <!-- 
-                <td>
-                    <button type="button" class="main_btn_add_scene" data-bs-toggle="button" autocomplete="off">景點新增</button>
-                </td>
-             -->
-            </tr>
         </table>
     </header>
     
     <article class="art_comp_audit">
         <!-- <button type="button" class="btn_empty">清空</button> -->
         <h1 class="title1">業者審核</h1>
-        
-        <!-- 
-        <div class="task_add_block">
-            <input type="text" class="task_name" placeholder="輸入待辦事項…">
-            <button type="button" class="task_add">查詢</button>
-        </div>
-        -->
         <div class="task_list_parent">
             <ul class="list">
             	<c:forEach var="cmpVO" items="${list}">
