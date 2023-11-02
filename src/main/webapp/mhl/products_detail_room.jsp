@@ -230,7 +230,7 @@
 											      loading="lazy"
 											      allowfullscreen
 											      referrerpolicy="no-referrer-when-downgrade"
-											      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAInnBRglvKKBNHyr2OIw4-4ySCv-enRUY
+											      src="https://www.google.com/maps/embed/v1/place?key=#
 											        &q=<%=company.getCompAddress()%>&zoom=15">
 											    </iframe>
 									      	</div>
@@ -266,7 +266,7 @@
 														      loading="lazy"
 														      allowfullscreen
 														      referrerpolicy="no-referrer-when-downgrade"
-														      src="https://www.google.com/maps/embed/v1/search?key=AIzaSyAInnBRglvKKBNHyr2OIw4-4ySCv-enRUY
+														      src="https://www.google.com/maps/embed/v1/search?key=#
 														      &q=<%=company.getCompAddress()%>附近休閒文藝景點">
 														    </iframe>
 												      	</div>
