@@ -214,10 +214,18 @@ if (company == null){
 			
 			<div style="display: table-cell;" >
 			
+			<FORM METHOD="post" ACTION="${pageContext.request.contextPath}/CompanyServlet" enctype="multipart/form-data">
 				<div style="border: 0px solid grey; height: 200px; width: 200px; position: relative; right: 0px; margin-top: 10px;">
-					<img width="200" height="200" class="imgs" src="${pageContext.request.contextPath}/CompPhotoPrintHServlet?comp_id=<%= company.getCompId()%>" >
+					<img width="200" height="200" class="imgs" src="${pageContext.request.contextPath}/CompPhotoPrintHServlet?comp_id=${compId}">
 				</div>
-				<br><br>
+			
+				<div style="display:flex; padding-top: 25px;">
+					<input style="border:none" type="file" name="part" value="${compPhoto}}">
+					<br>
+					<button type="submit" class="hotel-btn" name="action" value="getPhotoUpdate">修改圖片</button>
+				</div>
+			</FORM>
+				<br>
 					<form  METHOD="post" ACTION="${pageContext.request.contextPath}/Hotel_infoServlet" >
 						<div style=" display: flex; ">
 						<div style="display: table-cell; margin-right: 80px;">
@@ -297,7 +305,7 @@ if (company == null){
 						
 						<input type="hidden" name="hotelInfoId" value=<%= company.getHotelInfoId()%>>
 						<input type="hidden" name="action" value="updFromComp">
-						<br><br><button type="submit" class="hotel-btn">修改飯店資訊</button>
+						<br><button type="submit" class="hotel-btn">修改飯店資訊</button>
 					</form>
 			</div>
 		</main>

@@ -30,7 +30,7 @@ Company company = (Company) request.getAttribute("Company");
 
         .background {
             position: absolute;
-            background-color: #d9d2c5;
+            background-color: white;
         }
 
         .input_container {
@@ -43,7 +43,7 @@ Company company = (Company) request.getAttribute("Company");
         div#search {
             position: relative;
             /* padding: 20px 20px; */
-            background-color: #d9d2c5;
+            background-color: transparent;
             border-radius: 10px;
             width: 30vw;
             top: 100%;
@@ -57,7 +57,7 @@ Company company = (Company) request.getAttribute("Company");
     </style>
 </head>
 
-<body style="background-color: #d9d2c5;">
+<body style="background-color: transparent;">
     <nav class="st">
         <a class="word" id="home" href="#">Home</a>
         <a class="word" id="hotel" href="#">HOT<i class="fa-solid fa-fire"
@@ -111,7 +111,7 @@ Company company = (Company) request.getAttribute("Company");
 			</ul>
 	</c:if>
 
-        <div class="container-fluid" style="background-color: #d9d2c5;">
+        <div class="container-fluid" style="background-color: transparent;">
             <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
                     <div class>
@@ -122,18 +122,18 @@ Company company = (Company) request.getAttribute("Company");
                             </div>
                             
                             <div class="form-floating mb-3">
-                                <select name="compType" class="form-control" >
+                                <select name="compType" class="form-control" value="${compType}">
                                 	<option value="0" style="font-size:16px; " selected>飯店業者</option>
                                 	<option value="1" style="font-size:16px; ">旅行業者</option>
                                 </select>
                                 <label style="font-size:16px">廠商別：</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input name="compName" class="form-control" value="${company.compName}" >
+                                <input name="compName" class="form-control" value="${compName}" >
                                 <label style="font-size:16px">公司名稱：</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <select name="city" class="form-control" >
+                                <select name="city" class="form-control"  value="${city}" >
                                 	<option value="台北市" style="font-size:16px; " selected>台北市</option>
                                 	<option value="新北市" style="font-size:16px; ">新北市</option>
                                 	<option value="桃園市" style="font-size:16px; ">桃園市</option>
@@ -156,28 +156,28 @@ Company company = (Company) request.getAttribute("Company");
                                 	<option value="嘉義市" style="font-size:16px; ">嘉義市</option>
                                 	<option value="澎湖縣" style="font-size:16px; ">澎湖縣</option>
                                 </select>
-                                <input name="address" class="form-control"  value="">
+                                <input name="address" class="form-control"  value="${address}">
                                 <label style="font-size:16px">公司地址：</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input name="compPhone" class="form-control"  value="${company.compPhone}">
+                                <input name="compPhone" class="form-control"  value="${compPhone}">
                                 <label style="font-size:16px">公司電話：</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input name="principalName" class="form-control"  value="${company.principalName}">
+                                <input name="principalName" class="form-control"  value="${principalName}">
                                 <label style="font-size:16px">負責人：</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input name="principalPhone" class="form-control"  value="${company.principalPhone}">
+                                <input name="principalPhone" class="form-control"  value="${principalPhone}">
                                 <label style="font-size:16px">負責電話：</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input name="compAccount" class="form-control"  value="${company.compAccount}">
+                                <input name="compAccount" class="form-control"  value="${compAccount}">
                                 <label style="font-size:16px">帳號：</label>
                             </div>
                             
                             <div class="form-floating mb-3">
-                                <input name="compPassword" class="form-control"  value="${company.compPassword}">
+                                <input name="compPassword" class="form-control"  value="${compPassword}">
                                 <label style="font-size:16px">密碼：</label>
                             </div> 
                             <div class="form-floating mb-3">
@@ -185,7 +185,7 @@ Company company = (Company) request.getAttribute("Company");
                                 <label style="font-size:16px">信箱：</label>
                             </div>
            					<div class="form-floating mb-3">
-                                <input name="parts" type="file" class="form-control"  value="${company.compPhoto}">
+                                <input name="parts" type="file" class="form-control"  value="${compPhoto}">
                                 <label style="font-size:16px;">照片： </label>
                             </div>
                             
