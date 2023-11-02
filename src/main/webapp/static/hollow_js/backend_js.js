@@ -101,7 +101,7 @@ $(function() {
 								<th>公司名稱</th>
 								<td>
 									<span class="wrongName" style="color:red"></span>
-									<span class="spn_compId" data-id=${data.compName}>${data.compName}</span>
+									<input type="text" class="text inp_compName" value="${data.compName}">
 								</td>
 							</tr>
 							<tr>
@@ -136,7 +136,7 @@ $(function() {
 								<th>帳號</th>
 								<td>
 									<span class="wrongAccount" style="color:red"></span>
-									<span class="spn_compId" data-id=${data.compAccount}>${data.compAccount}</span>
+									<input type="text" class="text inp_compAccount" value="${data.compAccount}">
 								</td>
 							</tr>
 							<tr>
