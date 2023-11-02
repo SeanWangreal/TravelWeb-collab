@@ -105,12 +105,6 @@ public class SearchServlet extends HttpServlet {
 			
 			break;
 		case "getProductDetailRoom":
-			Object errorMessages = null;
-			if(req.getAttribute("errorMessages") == null) {
-				errorMessages = null;
-			} else {
-				errorMessages = req.getAttribute("errorMessages");
-			}
 			String comp_address1 = req.getParameter("searchComp_address");
 			Integer room_Id = Integer.valueOf(req.getParameter("room_id"));
 			Date checkIn1 = null;
@@ -140,7 +134,6 @@ public class SearchServlet extends HttpServlet {
 			List<String> hotelInfoList = hotelInfoSvc.getHotelInfoList(hotel_info_id);
 			list.add(hotelInfoList);
 			
-			req.setAttribute("errorMessages", errorMessages);
 			req.setAttribute("searchRoomComp_address", comp_address1);
 			req.setAttribute("searchRoomCheckIn", checkIn1);
 			req.setAttribute("searchRoomCheckOut", checkOut1);
@@ -203,12 +196,6 @@ public class SearchServlet extends HttpServlet {
 			break;
 			
 		case "getProductDetailTrip":
-			Object errorMessages1 = null;
-			if(req.getAttribute("errorMessages") == null) {
-				errorMessages1 = null;
-			} else {
-				errorMessages1 = req.getAttribute("errorMessages");
-			}
 			Integer trip_Id = Integer.valueOf(req.getParameter("tripId"));
 			String site1 = req.getParameter("site");
 			Date checkIn4 = null;
@@ -232,7 +219,6 @@ public class SearchServlet extends HttpServlet {
 			
 			List<Object> list1 = tripSvc.getTripProdutDetail(trip_Id);
 			
-			req.setAttribute("errorMessages", errorMessages1);
 			req.setAttribute("searchTripSite", site1);
 			req.setAttribute("searchTripCheckIn", checkIn4);
 			req.setAttribute("searchTripCheckOut", checkOut4);
@@ -241,18 +227,18 @@ public class SearchServlet extends HttpServlet {
 			forwardPath = "/mhl/products_detail_trip.jsp";
 			break;
 			
-		case "scenesMap":
-		Integer tripId =null;
-			try {
-				tripId = Integer.valueOf(req.getParameter("tripId"));
-			} catch(Exception e) {
-				tripId = null;
-			}
-			
-			List<Scene> scenesMap = tripSvc.scenesMaps(tripId);
-			req.setAttribute("scenesMap", scenesMap);
-			forwardPath = "/mhl/scenesMap.jsp";
-			break;
+//		case "scenesMap":
+//			Integer tripId =null;
+//			try {
+//				tripId = Integer.valueOf(req.getParameter("tripId"));
+//			} catch(Exception e) {
+//				tripId = null;
+//			}
+//			
+//			List<Scene> scenesMap = tripSvc.scenesMaps(tripId);
+//			req.setAttribute("scenesMap", scenesMap);
+//			forwardPath = "/mhl/scenesMap.jsp";
+//			break;
 			
 		}
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);

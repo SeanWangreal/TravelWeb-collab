@@ -99,8 +99,10 @@
                 style="color: #ff9500; background-color:transparent;"></i>Journel</a>
         <div class="head">
             <button type="menu" class="head_btn" aria-label="規劃行程" id="shop">
+            <a class="left_btn" href="${pageContext.request.contextPath}/chu/shopping(hotel).jsp">
                 <i class="fa-solid fa-suitcase-rolling icon" style="color: black; font-size:30px;
                             background-color:transparent;"></i>
+            </a>
             </button>
             <button type="menu" class="head_btn" id="msg">
                 <i class="fa-regular fa-message icon" style="color: black; font-size:30px; 
@@ -122,20 +124,7 @@
                 </a>
             </button>
         </div>
-        <aside class="msg all_side nothing" id="msg_side">
-            <div class="nothing">
-                訊息<br>
-                <a class="btn btn-primary" href="#" role="button">查看即時訊息</a>
-            </div>
-        </aside>
-        <aside class="info all_side nothing" id="info_side">
-            訂單<br>
-            <a class="btn btn-primary" href="#" role="button">查看所有訂單</a>
-        </aside>
-        <aside class="shop all_side nothing" id="shop_side">
-            購物車<br>
-            <a class="btn btn-primary" href="#" role="button">查看購物車</a>
-        </aside>
+        
     </nav>
 
     <form id="background" method="post" action="${pageContext.request.contextPath}/sean/SearchServlet">

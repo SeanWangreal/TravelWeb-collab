@@ -254,13 +254,12 @@ datalist {
 						</div>
 						<div style="flex-basis: 15%; flex-grow: 1;">
 							<label for="">開始日期 <input type="date" style="width: 100%"
-								name="startTime" value="${trip.startTime}" required="required">
+								name="startTime" value="${trip.startTime}" required="required" id="startTime">
 							</label>
 						</div>
 						<div style="flex-basis: 15%; flex-grow: 1;">
 							<label for="">結束日期 <input type="date"
-								style="width: 100%;" name="endTime" value="${trip.endTime}"
-								required="required">
+								style="width: 100%;" name="endTime" value="${trip.endTime}"  id="endTime" required="required">
 							</label>
 						</div>
 					</div>
