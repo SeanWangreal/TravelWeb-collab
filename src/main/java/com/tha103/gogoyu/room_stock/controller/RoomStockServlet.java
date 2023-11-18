@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -43,54 +44,59 @@ public class RoomStockServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		String roomId = req.getParameter("roomId");
 		String forwardPath = "";
-		switch (action) {
-		case "change":
-			List<Room_stock> list = roomStockSvc.getStockByTodayByRoomId(Integer.parseInt(roomId));
-			req.setAttribute("list", list);
-			req.setAttribute("roomId", roomId);
-			forwardPath = "/sean/hotel_room_stock.jsp";
-			break;
-		case "changeStock":
-			String[] oldId = req.getParameterValues("oldStock");
-			String[] oldStock = req.getParameterValues("stockNum");
-			String[] deleteId = req.getParameterValues("deleteStock");
-			String[] newStock = req.getParameterValues("newStock");
-			String[] newStockDate = req.getParameterValues("newStockDate");
-			Map<Integer, Integer> oldMap = null;
-			List<Integer> deleteIdList = null;
-			Map<Date, Integer> newStockMap = null;
-			if (oldId != null) {
-				oldMap = new LinkedHashMap<Integer, Integer>();
-				for (int i = 0; i < oldId.length; i++) {
-					oldMap.put(Integer.parseInt(oldId[i]), Integer.parseInt(oldStock[i]));
+		HttpSession session = req.getSession();
+		String compId = (String) session.getAttribute("compId");
+		if (compId != null) {
+			switch (action) {
+			case "change":
+				List<Room_stock> list = roomStockSvc.getStockByTodayByRoomId(Integer.parseInt(roomId));
+				req.setAttribute("list", list);
+				req.setAttribute("roomId", roomId);
+				forwardPath = "/sean/hotel_room_stock.jsp";
+				break;
+			case "changeStock":
+				String[] oldId = req.getParameterValues("oldStock");
+				String[] oldStock = req.getParameterValues("stockNum");
+				String[] deleteId = req.getParameterValues("deleteStock");
+				String[] newStock = req.getParameterValues("newStock");
+				String[] newStockDate = req.getParameterValues("newStockDate");
+				Map<Integer, Integer> oldMap = null;
+				List<Integer> deleteIdList = null;
+				Map<Date, Integer> newStockMap = null;
+				if (oldId != null) {
+					oldMap = new LinkedHashMap<Integer, Integer>();
+					for (int i = 0; i < oldId.length; i++) {
+						oldMap.put(Integer.parseInt(oldId[i]), Integer.parseInt(oldStock[i]));
+					}
 				}
-			}
-			if (deleteId != null) {
-				deleteIdList = new ArrayList<Integer>();
-				for (int i = 0; i < deleteId.length; i++) {
-					deleteIdList.add(Integer.parseInt(deleteId[i]));
+				if (deleteId != null) {
+					deleteIdList = new ArrayList<Integer>();
+					for (int i = 0; i < deleteId.length; i++) {
+						deleteIdList.add(Integer.parseInt(deleteId[i]));
+					}
 				}
-			}
-			if (newStock != null) {
-				newStockMap = new LinkedHashMap<Date, Integer>();
-				for (int i = 0; i < newStock.length; i++) {
-					newStockMap.put(Date.valueOf(newStockDate[i]), Integer.parseInt(newStock[i]));
+				if (newStock != null) {
+					newStockMap = new LinkedHashMap<Date, Integer>();
+					for (int i = 0; i < newStock.length; i++) {
+						newStockMap.put(Date.valueOf(newStockDate[i]), Integer.parseInt(newStock[i]));
+					}
 				}
+				roomStockSvc.updateAllRoomStock(Integer.parseInt(roomId), oldMap, deleteIdList, newStockMap);
+				forwardPath = "/sean/hotel_room_all.jsp";
+				break;
+			case "showStocks":
+				PrintWriter out  = res.getWriter();
+				List<Room_stock> stocks = roomStockSvc.getStockByTodayByRoomId(Integer.parseInt(roomId));
+				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+				String str = gson.toJson(stocks);
+				out.write(str);
+				out.close();
+				return;
 			}
-			roomStockSvc.updateAllRoomStock(Integer.parseInt(roomId), oldMap, deleteIdList, newStockMap);
-			forwardPath = "/sean/hotel_room_all.jsp";
-			break;
-		case "showStocks":
-			PrintWriter out  = res.getWriter();
-			List<Room_stock> stocks = roomStockSvc.getStockByTodayByRoomId(Integer.parseInt(roomId));
-			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-			String str = gson.toJson(stocks);
-			out.write(str);
-			out.close();
-			return;
+			RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
+			dispatcher.forward(req, res);
+			
 		}
-		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
-		dispatcher.forward(req, res);
 	}
 
 }
