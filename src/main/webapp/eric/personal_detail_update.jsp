@@ -187,7 +187,8 @@ img {
 									<span>信箱</span><br> <br> 
 									<span>電話</span><br> <br>
 									<span>住址</span><br> <br> 
-									<span>密碼</span><br> 
+									<span>密碼</span><br> <br>
+									<span>性別</span><br><br>
 									<span>照片</span><br>
 
 								</div>
@@ -198,7 +199,9 @@ img {
 									<input class="mem" id="mem" name="cusMail" value="${consumer.cusMail}"></input><br><br>
 									<input class="mem" id="mem" name="cusPhone" value="${consumer.cusPhone}"></input><br><br>
 									<input class="mem" id="mem" name="cusAddress" value="${consumer.cusAddress}"></input><br> <br>
-									<input class="mem" id="mem" name="cusPassword" value="${consumer.cusPassword}"></input><br> <br>
+									<input class="mem" id="mem" name="cusPassword" value="${consumer.cusPassword}"></input><br> <br>						
+									<input  type="radio" id="mem1" name="cusSex" value="0">男性
+									<input  type="radio" id="mem1" name="cusSex" value="1">女性<br> <br>
 									<img src="${pageContext.request.contextPath}/eric/PictureServlet?cus_id=${consumer.cusId}">
 									<input type="file" name="cusPhoto">
 								</div>
@@ -216,6 +219,20 @@ img {
 		</main>
 	</div>
 	<script src="${pageContext.request.contextPath}/static/eric_js/ordinf.js"></script>
+	<script>
+ 		 const radioButtons = document.getElementsByName("cusSex");
+
+ 			 // 將 value 轉換為數值並存儲在變數中
+  			let selectedValue = null;
+
+  			for (let i = 0; i < radioButtons.length; i++) {
+    			if (radioButtons[i].checked) {
+      			selectedValue = parseInt(radioButtons[i].value, 10); // 使用parseInt轉換為數值
+      			break;
+   			 	}
+  			}
+
+	</script>
 
 
 

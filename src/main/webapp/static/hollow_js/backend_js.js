@@ -306,14 +306,6 @@ $(function() {
 	function compUpdateResult(data) {
 		if (data.status == "Success") {
 			alert("業者更新");
-			
-//			$("ul.list_company").find("span.wrongName").html("");
-//			$("ul.list_company").find("span.wrongAddress").html("");
-//			$("ul.list_company").find("span.wrongPhone").html("");
-//			$("ul.list_company").find("span.wrongPrincipalName").html("");
-//			$("ul.list_company").find("span.wrongprincipalPhone").html("");
-//			$("ul.list_company").find("span.wrongAccount").html("");
-//			$("ul.list_company").find("span.wrongMail").html("");
 
 			$("ul.list_company").find("span.wrongName").text("");
 			$("ul.list_company").find("span.wrongAddress").text("");
@@ -323,68 +315,6 @@ $(function() {
 			$("ul.list_company").find("span.wrongAccount").text("");
 			$("ul.list_company").find("span.wrongMail").text("");
 			
-			/*
-			let list_html = "";
-			list_html += `
-				<li>
-					<div class="">
-						<table class="table table-striped">
-							<tr>
-								<th>業者ID</th>
-								<td><span class="spn_compId" data-id=${data.compId}>${data.compId}</span></td>
-							</tr>
-							<tr>
-								<th>業者照片</th>
-								<td>
-									<div class="comp_search_photo" style="width: 300px">
-										<img src="${compPhotoPointURL}?compId=${data.compId}"
-													style="max-width: 100%"><br>								
-									</div>
-									<input type="file" name="compPhoto" id="inp_comp_photo"  accept="image/*">
-								</td>
-							</tr>
-							<tr>
-								<th>公司名稱</th>
-								<td><input type="text" class="text inp_compName" value="${data.compName}"></td>
-							</tr>
-							<tr>
-								<th>公司地址</th>
-								<td><input type="text" class="text inp_compAddress" value="${data.compAddress}"></td>
-							</tr>
-							<tr>
-								<th>公司電話</th>
-								<td><input type="text" class="text inp_compPhone" value="${data.compPhone}"></td>
-							</tr>
-							<tr>
-								<th>負責人</th>
-								<td><input type="text" class="text inp_principalName" value="${data.principalName}"></td>
-							</tr>
-							<tr>
-								<th>負責人電話</th>
-								<td><input type="text" class="text inp_principalPhone" value="${data.principalPhone}"></td>
-							</tr>
-							<tr>
-								<th>帳號</th>
-								<td><input type="text" class="text inp_compAccount" value="${data.compAccount}"></td>
-							</tr>
-							<tr>
-								<th>信箱</th>
-								<td><input type="text" class="text inp_compMail" value="${data.compMail}"></td>
-							</tr>
-								<th>審核狀態</th>
-								<td>
-                                    <input type="radio" name="compChkStatus" class="" value="1" ${(data.compChkStatus)==1?"checked":""}>通過
-                                    <input type="radio" name="compChkStatus" class="" value="0" ${(data.compChkStatus)==0?"checked":""}>待審核
-                                    <input type="radio" name="compChkStatus" class="" value="-1" ${(data.compChkStatus)==-1?"checked":""}>未通過
-                                </td>
-						</table>
-						<button class="btn_comp_update btn btn-outline-primary btn-lg">更新</button>
-					</div>                    
-				</li>                
-			`;
-
-			$("ul.list_company").html(list_html);
-			*/
 		} else {
 			
 			let list_html = "";

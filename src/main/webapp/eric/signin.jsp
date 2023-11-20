@@ -1,6 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.tha103.gogoyu.consumer.model.*"%>
+<%@ page import="java.util.*"%>
+<%@ page import="java.math.*"%>
 
+
+<%
+//見com.emp.controller.EmpServlet.java第238行存入req的empVO物件 (此為輸入格式有錯誤時的empVO物件)
+Consumer consumer = (Consumer) request.getAttribute("consumer");
+
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -77,7 +86,7 @@
 						</div>
 						<div class="form-floating mb-3">
 							<input type="text" class="form-control" id="floatingInput"
-								name="cusAccount"> <label for="floatingInput">帳號</label>
+								name="cusAccount" value="<%=(consumer == null) ? "" : consumer.getCusAccount()%>"> <label for="floatingInput">帳號</label>
 						</div>
 						<div class="form-floating mb-4">
 							<input type="password" class="form-control" id="password"

@@ -52,9 +52,9 @@ public class CompanyServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
-
-			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			String compAccount = req.getParameter("account");
+			
+			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			System.out.println(compAccount);
 			if (compAccount == null || (compAccount.trim()).length() == 0) {
 				errorMsgs.add("請輸入會員帳號");
@@ -86,6 +86,8 @@ public class CompanyServlet extends HttpServlet {
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req.getRequestDispatcher("/ken/com_mem_signin.jsp");
 				req.setAttribute("errorMsgs", errorMsgs);
+				req.setAttribute("account", compAccount);
+				req.setAttribute("password", compPassword);
 				System.out.println(errorMsgs);
 				failureView.forward(req, res);
 				return;// 程式中斷
@@ -387,6 +389,68 @@ public class CompanyServlet extends HttpServlet {
 					principalName, principalPhone, compAccount, compPassword, compMail, compPhoto, checkStatus);
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+			req.setAttribute("company", company);
+			Hotel_infoServiceHibernate hotelInfoSvc = new Hotel_infoServiceHibernate();
+			Hotel_info hotelInfo = hotelInfoSvc.getOneHotel_info(company.getHotelInfoId());
+			req.setAttribute("hotelinfo",hotelInfo);
+			String url = "/ken/com_mem.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
+			successView.forward(req, res);
+		}
+		
+		if ("getPhotoUpdate".equals(action)) { // 來自listAllEmp.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			/*************************** 1.接收請求參數 ****************************************/
+			Integer compId = Integer.parseInt((String) req.getSession().getAttribute("compId"));
+
+			Part part = req.getPart("part");
+			byte[] compPhoto = null;
+			
+			if (part.getContentType() != null && part.getSize() != 0) {
+				InputStream is = part.getInputStream();
+				compPhoto = is.readAllBytes();
+			}
+			
+//			if (part == null || part.getSize() == 0) {
+//				errorMsgs.add("密碼請勿空白");
+//			}
+
+			CompanyService companySvc = new CompanyService();
+			Company company = companySvc.getOneCompany(compId);
+
+			Integer hotelInfoId = company.getHotelInfoId();
+			Integer compType = company.getCompType();
+			String compName = company.getCompName();
+			String compAddress = company.getCompAddress();
+			String compPassword = company.getCompPassword();
+			String compPhone = company.getCompPhone();
+			String principalName = company.getPrincipalName();
+			String principalPhone = company.getPrincipalPhone();
+			String compAccount = company.getCompAccount();
+			String compMail = company.getCompMail();
+			Integer checkStatus = company.getCheckStatus();
+
+			/*************************** 2.開始修改資料 *****************************************/
+
+			company = companySvc.updateCompany(compId, hotelInfoId, compType, compName, compAddress, compPhone,
+					principalName, principalPhone, compAccount, compPassword, compMail, compPhoto, checkStatus);
+			
+//			CompanyService companySvc = new CompanyService();
+//			Company company = companySvc.updateCompany(compId);
+
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+			req.setAttribute("compId", compId);
+			req.setAttribute("company", company);
+			
+			Hotel_infoServiceHibernate hotelInfoSvc = new Hotel_infoServiceHibernate();
+			Hotel_info hotelInfo = hotelInfoSvc.getOneHotel_info(company.getHotelInfoId());
+			req.setAttribute("hotelinfo",hotelInfo);
+			
 			String url = "/ken/com_mem.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 			successView.forward(req, res);
@@ -763,8 +827,9 @@ public class CompanyServlet extends HttpServlet {
 			}
 
 			byte[] compPhoto = null;
-			Collection<Part> parts = req.getParts();
-			for (Part part : parts) {
+			Part part = req.getPart("parts");
+			
+			
 				if (part.getContentType() != null && part.getSize() != 0) {
 					InputStream is = part.getInputStream();
 					compPhoto = is.readAllBytes();
@@ -776,7 +841,7 @@ public class CompanyServlet extends HttpServlet {
 					compPhoto = bis.readAllBytes();
 				}
 
-			}
+			
 //		    -------------------------------------hotelinfo----------------------------------
 			Hotel_info hotelInfo = null;
 			if (compType == 0) {
@@ -799,6 +864,17 @@ public class CompanyServlet extends HttpServlet {
 			System.out.println(errorMsgs);
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("compType", compType);
+				req.setAttribute("compName", compName);
+				req.setAttribute("city", city);
+				req.setAttribute("address", address);
+				req.setAttribute("compPhone", compPhone);
+				req.setAttribute("principalName", principalName);
+				req.setAttribute("principalPhone", principalPhone);
+				req.setAttribute("compAccount", compAccount);
+				req.setAttribute("compPassword", compPassword);
+				req.setAttribute("compMail", compMail);
+				req.setAttribute("compPhoto", compPhoto);
 				RequestDispatcher failureView = req.getRequestDispatcher("/ken/com_mem_signupinfo.jsp");
 				failureView.forward(req, res);
 				return;
@@ -809,9 +885,9 @@ public class CompanyServlet extends HttpServlet {
 			Company company = companySvc.addCompany(compType, compName, compAddress, compPhone, principalName,
 					principalPhone, compAccount, compPassword, compMail, compPhoto, hotelInfo);
 
-			String url = "/ken/com_mem_signin.jsp";
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
+			String url = "/ken/com_mem_signin.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 		}
@@ -871,7 +947,8 @@ public class CompanyServlet extends HttpServlet {
 				errorMsgs.add("請輸入驗證碼");
 				System.out.println(errorMsgs);
 			}
-
+			
+			
 			String url = "/ken/com_mem_signup.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
@@ -909,11 +986,13 @@ public class CompanyServlet extends HttpServlet {
 		
 		if (!errorMsgs.isEmpty()) {
 			RequestDispatcher failureView = req.getRequestDispatcher("/ken/com_mem_signup.jsp");
+			req.setAttribute("genAuthCode", genAuthCode);
 			req.setAttribute("errorMsgs", errorMsgs);
 			System.out.println(errorMsgs);
 			failureView.forward(req, res);
 			return;// 程式中斷
 		}
+		
 		
 		req.setAttribute("compMail", mail);
 		String url = "/ken/com_mem_signupinfo.jsp";

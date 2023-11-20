@@ -176,7 +176,7 @@
 	                                <div class="row">
 	                                    <!--商品圖-->
 	                                    <div class="col photoShell border">
-	                                        <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${roomVO.roomId}" class="d-block w-100" alt="...">
+	                                        <img src="${pageContext.request.contextPath}/sean/MainPhotoPrintHServlet?room_id=${roomVO.roomId}" class="d-block w-100">
 	                                    </div>
 	                                    <!--商品名 細況-->
 	                                    <div class="col">
@@ -267,7 +267,7 @@
                                 <div class="row">
                                     <!--商品圖-->
                                     <div class="col ">
-                                        <img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${tripVO.tripId}" class="d-block w-100" alt="...">
+                                        <img src="${pageContext.request.contextPath}/sean/MainPhotoTripPrintServlet?tripId=${tripVO.tripId}" class="d-block w-100">
                                     </div>
                                     <!--商品名 細況 付款-->
                                     <div class="col">
@@ -312,7 +312,7 @@
         </div>
     </div>
     
-    <script src="${pageContext.request.contextPath}/static/mhl_js/btn4com_review.js"></script>
+<%--     <script src="${pageContext.request.contextPath}/static/mhl_js/btn4com_review.js"></script> --%>
    
     <script src="${pageContext.request.contextPath}/static/mhl_js/btn4com.js"></script>
     

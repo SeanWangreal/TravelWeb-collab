@@ -27,11 +27,11 @@ public class CompPhotoPrintHServlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		res.setContentType("image/png");
+		res.setContentType("image/jpg");
 		ServletOutputStream out = res.getOutputStream();
 		byte[] photo = null;
 		String compId = req.getParameter("comp_id");
-		System.out.printf("Company Id %s\n", compId);
+		System.out.print("Company"+ compId+"aaaa");
 		if (compId != null) {
 			photo = compSrc.getCompPhoto(Integer.valueOf(compId));
 		}

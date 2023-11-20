@@ -343,6 +343,6 @@
       </div>
       <div id="gmp-map"></div>
     </div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAInnBRglvKKBNHyr2OIw4-4ySCv-enRUY&callback=initMap&libraries=places&solution_channel=GMP_QB_locatorplus_v7_c" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=#&callback=initMap&libraries=places&solution_channel=GMP_QB_locatorplus_v7_c" async defer></script>
   </body>
 </html>
