@@ -26,23 +26,6 @@ response.setDateHeader("Expires", 0);
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/static/sean_css/comp_product.css">
 <style>
-@media ( min-height : 500px) and (max-height: 1300px) {
-	.shop {
-		height: 60vh;
-	}
-	.info {
-		height: 60vh;
-	}
-}
-
-@media ( min-height : 0px) and (max-height: 500px) {
-	.shop {
-		height: 60vh;
-	}
-	.info {
-		height: 60vh;
-	}
-}
 
 .calendar-head {
 	display: flex;
@@ -490,11 +473,12 @@ input {
 			</div>
 		</main>
 	</div>
-
-	<script
-		src="${pageContext.request.contextPath}/static/sean_js/btn4com.js"></script>
+	<!-- 	與套票可共用的code -->
+	<script src="${pageContext.request.contextPath}/static/sean_js/btn4com.js"></script>
+	
 	<script>
 		$(".detail").on("click", function () {
+			// 按"詳細資訊"
 	        let room = $(this).closest("section.one-product");
 	        $("body").css("overflow", "hidden");
 	        let alert_bg = $(room).find(".alert_bg").eq(0);
@@ -509,6 +493,7 @@ input {
 	        })
 	    })
 		$(".renewStatus").on("click", function () {
+			//按"上下架"按鈕
 	        let room = $(this).closest("section.one-product");
 	        $("body").css("overflow", "hidden");
 	        let alert_bg = $(room).find(".alert_bg").eq(1);
@@ -529,6 +514,7 @@ input {
 	    })
         var delete_btn = document.querySelectorAll(".delete");
         $(".delete").on("click", function () {
+        	// 按"刪除"按鈕
             let room = $(this).closest("section.one-product");
             let alert_bg = $(room).find(".alert_bg").last();
             let al = $(room).find(".alert").last();
@@ -554,6 +540,7 @@ input {
         })
         
         $(".change").on("click",function(){
+        	//按"調整"按鈕
         	let room = $(this).closest(".one-product");
         	if(room.find("span").hasClass("product-status-off")){
         		$(this).closest("form").find(".go").click();        		
@@ -562,6 +549,7 @@ input {
         	}
         })
         $(".stocks").on("click",function(){
+        	//按"調整庫存"按鈕
         	let room = $(this).closest(".one-product");
         	if(room.find("span").hasClass("product-status-off")){
         		$(this).closest("form").find(".go").click();        		
@@ -571,6 +559,7 @@ input {
         })
     </script>
 	<script>
+		//行事曆js
         var month_leap = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         var month_normal = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         var month_name = ["January", "Febrary", "March", "April", "May", "June", "July", "Auguest", "September", "October", "November", "December"];
@@ -596,9 +585,11 @@ input {
                 }
             }
             function refreshDate(roomId,  targetObj) {
+            	//開啟行事曆及切換月份
            	 	var path = window.location.pathname;
         	 	var webCtx = path.substring(0, path.indexOf('/', 1));
         	 	var url = location.origin+webCtx+"/sean/RoomStockServlet"
+        	 	//取得該房型的庫存
             	$.ajax({
             		  url: url,
             		  type: "POST",                  // GET | POST | PUT | DELETE | PATCH
@@ -629,6 +620,7 @@ input {
 		            	   } else{
 		            		   var thisDay = my_year+'-'+(month)+'-'+i;		            		   
 		            	   }
+		            	   // 將每天都給予data-date的屬性，值符合yyyy-mm-dd的格式
 		                   if ((i < my_day && my_year == my_date.getFullYear() && my_month == my_date.getMonth()) || my_year < my_date.getFullYear() || (my_year == my_date.getFullYear() && my_month < my_date.getMonth())) {
 		                       myclass = 'lightgrey'; //日期在今天之前
 		                       str += `<li class=` + myclass + ` data-date=`+thisDay+`>` +i+ `<p></p></li>`;
@@ -651,6 +643,7 @@ input {
 		               for (let key in data){
 		            	   for (let i = 0; i<p_num; i++){
 		            	  		 if (data[key].stockDate ==  targetObj.find("p").eq(i).attr("data-date")){
+		            	  			// 將庫存日期等於行事曆的日期，並將庫存量放到裡面去
 		            	  			targetObj.find("p").eq(i).text(data[key].stock+"間");
 		            	  		 }
 		            	   }
@@ -659,6 +652,7 @@ input {
          		});
             }
             $(prev).on('click', function (e) {
+            	// 切換上一個月
                 e.preventDefault();
                 var roomId = $(this).attr("data-value");
                 var targetObj = $(this).closest(".one-product");
@@ -670,6 +664,7 @@ input {
                 refreshDate(roomId, targetObj);
             })
             $(next).on('click', function (e) {
+            	// 切換下一個月
                 e.preventDefault();
                 var roomId = $(this).attr("data-value");
                 var targetObj = $(this).closest(".one-product");
@@ -681,6 +676,7 @@ input {
                 refreshDate(roomId, targetObj);
             })
             $(".stock").on('click', function () {
+            	// 按查看庫存開啟行事曆
             	var roomId = $(this).attr("data-value");
             	var targetObj = $(this).closest(".one-product");
             	var all = $(".one-product").length;
@@ -688,6 +684,7 @@ input {
                 refreshDate(roomId, targetObj);
             })
             $("h1").on("click", function () {
+            	// 按月份，切換回當月
             	var roomId = $(this).attr("data-value");
                 my_month = my_date.getMonth();
                 my_day = my_date.getDate();
