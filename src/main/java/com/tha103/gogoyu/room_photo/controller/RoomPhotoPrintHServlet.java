@@ -26,6 +26,7 @@ public class RoomPhotoPrintHServlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		
 		res.setContentType("image/gif");
 		ServletOutputStream out = res.getOutputStream();
 		byte[] photo = null;
