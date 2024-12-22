@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+<!-- 		<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property> -->
+<!-- 		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/tha103_g2_db?serverTimezone=Asia/Taipei</property> -->
+<!-- 		<property name="hibernate.connection.username">root</property> -->
+<!-- 		<property name="hibernate.connection.password">12345678</property> -->
+		<property name="connection.datasource">java:comp/env/jdbc/g2db</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.format_sql">true</property>
+		<property name="hibernate.hbm2ddl.auto">validate</property>
+		<property name="hibernate.current_session_context_class">thread</property>
+		<mapping class="com.tha103.gogoyu.adm_meb.model.Adm_meb" />
+		<mapping class="com.tha103.gogoyu.company.model.Company" />
+		<mapping class="com.tha103.gogoyu.consumer.model.Consumer" />
+		<mapping class="com.tha103.gogoyu.hotel_info.model.Hotel_info" />
+		<mapping class="com.tha103.gogoyu.itinerary.model.Itinerary" />
+		<mapping class="com.tha103.gogoyu.notify.model.Notify" />
+		<mapping class="com.tha103.gogoyu.planning.model.Planning" />
+		<mapping
+			class="com.tha103.gogoyu.room_collect.model.Room_collect" />
+		<mapping class="com.tha103.gogoyu.room_ord.model.Room_ord" />
+		<mapping class="com.tha103.gogoyu.room_photo.model.Room_photo" />
+		<mapping class="com.tha103.gogoyu.room_stock.model.Room_stock" />
+		<mapping
+			class="com.tha103.gogoyu.room_thumbup.model.Room_thumbup" />
+		<mapping class="com.tha103.gogoyu.room.model.Room" />
+		<mapping class="com.tha103.gogoyu.scene.model.Scene" />
+		<mapping
+			class="com.tha103.gogoyu.trip_collect.model.Trip_collect" />
+		<mapping class="com.tha103.gogoyu.trip_ord.model.Trip_ord" />
+		<mapping class="com.tha103.gogoyu.trip_photo.model.Trip_photo" />
+		<mapping
+			class="com.tha103.gogoyu.trip_thumbup.model.Trip_thumbup" />
+		<mapping class="com.tha103.gogoyu.trip.model.Trip" />
+	</session-factory>
+</hibernate-configuration>
